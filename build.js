@@ -9,7 +9,11 @@ const filesToCopy = [
     'drawings.json',
     'creation_dates.json',
     'sitemap.xml',
-    'robots.txt'
+    'robots.txt',
+    'favicon.ico',
+    'favicon-16x16.png',
+    'favicon-32x32.png',
+    'favicon-64x64.png'
 ];
 
 const publicDir = path.join(__dirname, 'public');
