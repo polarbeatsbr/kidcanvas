@@ -5,6 +5,7 @@
 
 // --- BASE DE DADOS DAS CATEGORIAS (12 ITENS) ---
 const CATEGORIES_DATA = {
+    'novidades': { name: 'Novidades', emoji: '✨', desc: 'Desenhos fresquinhos adicionados nos últimos 30 dias para você pintar primeiro!' },
     'animais-selvagens': { name: 'Animais Selvagens', emoji: '🦁', desc: 'Leões, pandas, girafas e outros bichos incríveis da floresta e da savana!' },
     'animais-do-mar': { name: 'Animais do Mar', emoji: '🦈', desc: 'Peixes coloridos, baleias, golfinhos e tubarões divertidos do oceano!' },
     'animais-domesticos': { name: 'Animais Domésticos', emoji: '🐱', desc: 'Gatinhos, cachorrinhos, coelhos e outros amiguinhos que temos em casa!' },
@@ -324,7 +325,9 @@ function renderCategoriaDetalheView(categorySlug) {
     document.getElementById('category-detail-title').textContent = catInfo.name;
     document.getElementById('category-detail-desc').textContent = catInfo.desc;
     
-    const filteredDrawings = allDrawings.filter(d => d.category === categorySlug);
+    const filteredDrawings = categorySlug === 'novidades'
+        ? allDrawings.filter(d => d.isNew)
+        : allDrawings.filter(d => d.category === categorySlug);
     const countEl = document.getElementById('category-drawings-count');
     countEl.textContent = `${filteredDrawings.length} desenhos disponíveis`;
     
@@ -1189,8 +1192,8 @@ function createDrawingCard(dw, position = null) {
     // Badge do tier com suporte a tag Novo
     let badgeHtml = '<span class="badge-free">Grátis</span>';
     
-    // Desenhos com índice maior (lançamentos recentes) recebem badge de Novo!
-    if (dw.index >= 9 && dw.index <= 12) {
+    // Desenhos marcados como isNew recebem badge de Novo!
+    if (dw.isNew) {
         badgeHtml = '<span class="badge-free" style="background-color: var(--color-yellow); border-color: var(--color-dark);"><i class="fa-solid fa-star"></i> Novo!</span>';
     }
     

@@ -156,6 +156,23 @@ function saveRatings(ratings) {
     }
 }
 
+const CREATION_DATES_FILE = path.join(__dirname, '..', 'creation_dates.json');
+
+// Carregar datas de criação do arquivo
+function loadCreationDates() {
+    const fs = require('fs');
+    if (!fs.existsSync(CREATION_DATES_FILE)) {
+        return {};
+    }
+    try {
+        const data = fs.readFileSync(CREATION_DATES_FILE, 'utf8');
+        return JSON.parse(data);
+    } catch (e) {
+        console.error('Erro ao ler creation_dates.json:', e);
+        return {};
+    }
+}
+
 // Rota para listar os desenhos processados na pasta 'pintai-biblioteca' divididos por categoria e tier
 app.get('/api/drawings', (req, res) => {
     const fs = require('fs');
@@ -166,6 +183,7 @@ app.get('/api/drawings', (req, res) => {
 
     try {
         const ratings = loadRatings();
+        const creationDates = loadCreationDates();
         const drawings = [];
         
         // Listar as pastas de categorias na biblioteca
@@ -210,6 +228,20 @@ app.get('/api/drawings', (req, res) => {
                         const ratingData = ratings[ratingKey] || { totalStars: 0, votes: 0 };
                         const averageRating = ratingData.votes > 0 ? (ratingData.totalStars / ratingData.votes) : 0;
                         
+                        // Calcular se o desenho é "Novo" (criado a no máximo 30 dias)
+                        const relativePath = `${categoryFolder}/${file}`.toLowerCase();
+                        const creationDateStr = creationDates[relativePath];
+                        let isNew = false;
+                        if (creationDateStr) {
+                            const creationDate = new Date(creationDateStr);
+                            const currentDate = new Date();
+                            const diffTime = currentDate - creationDate;
+                            const diffDays = diffTime / (1000 * 60 * 60 * 24);
+                            if (diffDays >= 0 && diffDays <= 30) {
+                                isNew = true;
+                            }
+                        }
+                        
                         drawings.push({
                             index: idxNum,
                             filename: file,
@@ -220,7 +252,8 @@ app.get('/api/drawings', (req, res) => {
                             slug: ptSlug,
                             tier: 'free',
                             rating: averageRating,
-                            votes: ratingData.votes
+                            votes: ratingData.votes,
+                            isNew: isNew
                         });
                     }
                 });
