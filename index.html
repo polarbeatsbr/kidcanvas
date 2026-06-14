@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XMCX6RS3NN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XMCX6RS3NN');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KidCanvas — Desenhos para Colorir e Imprimir Grátis 🎨</title>
+    <meta name="description" content="Milhares de desenhos para colorir e imprimir grátis. Animais, dinossauros, borboletas, unicórnios e muito mais! Novos desenhos toda semana.">
+    
+    <!-- Google Fonts: Fredoka (Arredondada/Divertida) e Quicksand -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap">
+    
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Customizado -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="/" class="logo" id="header-logo">
+                <span class="logo-icon">🎨</span>
+                <span class="logo-text">kidcanvas<span class="logo-dot">.com.br</span></span>
+            </a>
+            
+            <!-- Barra de busca global no cabeçalho (visível em todas as páginas) -->
+            <div class="header-search-box">
+                <i class="fa-solid fa-magnifying-glass header-search-icon"></i>
+                <input type="text" id="global-search-input" placeholder="Buscar desenho..." autocomplete="off">
+                <div class="search-suggestions-dropdown" id="global-suggestions-dropdown" style="display: none;"></div>
+            </div>
+            
+            <nav id="navbar">
+                <ul>
+                    <li><a href="/categoria/animais-selvagens" class="nav-link"><i class="fa-solid fa-paw"></i> Animais</a></li>
+                    <li><a href="/categoria/dinossauros" class="nav-link"><i class="fa-solid fa-dragon"></i> Dinossauros</a></li>
+                    <li><a href="/categoria/fantasia" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Fantasia</a></li>
+                    <li><a href="/categoria/natureza" class="nav-link"><i class="fa-solid fa-leaf"></i> Natureza</a></li>
+                    <li><a href="/categoria/veiculos" class="nav-link"><i class="fa-solid fa-car"></i> Veículos</a></li>
+                    <li><a href="/top50" class="nav-link"><i class="fa-solid fa-trophy"></i> Top 50</a></li>
+                    <li><a href="/categorias" class="nav-link"><i class="fa-solid fa-shapes"></i> Todos os temas</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- NOTIFICAÇÃO DO SISTEMA -->
+    <div id="toast-notification" class="toast"></div>
+
+    <!-- MAIN APP WRAPPER (SPA Views) -->
+    <main id="app-wrapper">
+
+        <!-- ==============================================
+             1. HOME VIEW
+             ============================================== -->
+        <section id="view-home" class="page-view">
+            <!-- HERO SECTION COM MASCOTES -->
+            <div class="hero-bg">
+                <div class="container hero-container">
+                    <div class="hero-mascots">
+                        <img src="/hero_mascots.jpg" alt="Vovó Sônia e Pedrinho colorindo juntinhos" class="hero-image">
+                    </div>
+                    
+                    <div class="hero-text">
+                        <h1 class="hero-title">A Vovó Sônia separou desenhos <span class="text-highlight">lindos</span> para o seu filho colorir! 🎨</h1>
+                        <p class="hero-desc">
+                            São centenas de desenhos grátis, prontos para imprimir em casa. Todo amor, nenhum custo!
+                        </p>
+                        <a href="#home-drawings-grid" class="btn btn-secondary btn-hero"><i class="fa-solid fa-print"></i> Quero desenhos grátis!</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- BARRA DE BUSCA COM DESTAQUE DA HOME -->
+            <div class="search-section">
+                <div class="container">
+                    <div class="search-box-card">
+                        <div class="counter-bubble">
+                            <span class="bubble-icon">✨</span>
+                            <span class="bubble-text">100% Grátis — sem cadastro, sem pegadinha!</span>
+                        </div>
+                        <div style="font-size: 0.95rem; font-weight: 700; color: var(--color-orange); margin-top: -4px; margin-bottom: 4px; text-align: left;">
+                            <i class="fa-solid fa-star"></i> A Vovó Sônia e o Pedrinho adicionam 50 desenhos novos toda semana!
+                        </div>
+                        <div class="search-form">
+                            <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
+                            <input type="text" id="search-input-home" placeholder="Buscar desenho... ex: leão, dinossauro, borboleta, golfinho, unicórnio" autocomplete="off">
+                            <button id="btn-search-home" class="btn btn-secondary">Buscar</button>
+                            <!-- Dropdown de auto-sugestões na home -->
+                            <div class="search-suggestions-dropdown" id="home-suggestions-dropdown" style="display: none;"></div>
+                        </div>
+                        <div class="search-quick-tags">
+                            <span>Sugestões rápidas:</span>
+                            <button class="quick-tag-btn" data-search="unicórnio">🦄 unicórnio</button>
+                            <button class="quick-tag-btn" data-search="dinossauro">🦖 dinossauro</button>
+                            <button class="quick-tag-btn" data-search="borboleta">🦋 borboleta</button>
+                            <button class="quick-tag-btn" data-search="leão">🦁 leão</button>
+                            <button class="quick-tag-btn" data-search="golfinho">🐬 golfinho</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORIAS EM GRADE (12 CATEGORIAS) -->
+            <section class="categories-section">
+                <div class="container">
+                    <div class="section-title-wrapper">
+                        <h2 class="section-title">Temas para colorir 🎒</h2>
+                        <p class="section-subtitle">100 desenhos por categoria disponíveis agora —<br>acervo com mais de 10.000 desenhos sendo liberados aos poucos!</p>
+                    </div>
+                    
+                    <div class="categories-grid" id="home-categories-grid">
+                        <!-- Gerado dinamicamente via JS -->
+                    </div>
+                    
+                    <!-- Aviso discreto abaixo da grade de categorias -->
+                    <div class="categories-notice" style="text-align: center; margin-top: 20px; font-size: 0.95rem; color: var(--color-dark-light); font-weight: 500;">
+                        ✨ Mais de 10.000 desenhos no nosso acervo — novidades toda semana!
+                    </div>
+                </div>
+            </section>
+
+            <!-- GRADE DE DESENHOS POPULARES -->
+            <section class="drawings-section">
+                <div class="container">
+                    <div class="section-title-wrapper">
+                        <h2 class="section-title">Mais baixados hoje ⭐</h2>
+                        <p class="section-subtitle">Os desenhos queridinhos das crianças, 100% livres para imprimir:</p>
+                    </div>
+                    
+                    <div class="drawings-grid" id="home-drawings-grid">
+                        <!-- Carregado via JS dinamicamente com slots do AdSense -->
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- ==============================================
+             2. CATEGORIAS VIEW
+             ============================================== -->
+        <section id="view-categorias" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Categorias</span>
+                </div>
+                
+                <div class="section-title-wrapper align-left">
+                    <h1 class="page-title">Categorias de Desenhos 🎒</h1>
+                    <p class="section-subtitle">Explore nossos temas e encontre os desenhos favoritos para colorir:</p>
+                </div>
+                
+                <div class="categories-grid" id="categories-page-grid">
+                    <!-- Preenchido via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             2C. TOP 50 VIEW
+             ============================================== -->
+        <section id="view-top50" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Top 50</span>
+                </div>
+                
+                <div class="section-title-wrapper align-left">
+                    <h1 class="page-title">Top 50 Desenhos Mais Amados 🏆</h1>
+                    <p class="section-subtitle">Escolhidos pelas crianças e selecionados pela Vovó Sônia!</p>
+                </div>
+                
+                <div class="drawings-grid" id="top50-drawings-grid">
+                    <!-- Preenchido via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             2B. CATEGORIA DETALHADA VIEW
+             ============================================== -->
+        <section id="view-categoria-detalhe" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <a href="/categorias">Categorias</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current" id="category-detail-title-crumb">Categoria</span>
+                </div>
+                
+                <div class="category-header-banner">
+                    <div class="category-header-info">
+                        <span class="category-header-icon" id="category-detail-icon">🦁</span>
+                        <h1 class="page-title" id="category-detail-title">Nome da Categoria</h1>
+                        <p class="category-header-desc" id="category-detail-desc">Veja todos os desenhos prontos para você salvar e imprimir gratuitamente!</p>
+                    </div>
+                </div>
+                
+                <div class="drawings-filter-bar">
+                    <span class="drawings-count" id="category-drawings-count">0 desenhos encontrados</span>
+                    <div class="search-form-inline">
+                        <input type="text" id="category-drawings-search" placeholder="Filtrar nesta lista...">
+                    </div>
+                </div>
+                
+                <div class="drawings-grid" id="category-drawings-grid">
+                    <!-- Preenchido via JS com slots de anúncios AdSense -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             3. PÁGINA INDIVIDUAL DE DESENHO
+             ============================================== -->
+        <section id="view-desenho-individual" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs" id="drawing-breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <a href="/categorias">Categorias</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <a href="#" id="drawing-crumb-category">Categoria</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current" id="drawing-crumb-name">Desenho</span>
+                </div>
+                
+                <div class="drawing-detail-layout">
+                    <!-- Preview Grande -->
+                    <div class="drawing-preview-column">
+                        <div class="drawing-sheet-frame">
+                            <div class="drawing-sheet-border"></div>
+                            
+                            <div class="drawing-sheet-image-wrapper">
+                                <img src="" alt="Desenho para Colorir" id="drawing-detail-img">
+                            </div>
+                            
+                            <!-- Frases Vazadas para Colorir (Unificadas e 100% Livres) -->
+                            <div class="drawing-sheet-phrase-container" id="drawing-sheet-phrase-box">
+                                <svg class="hollow-text-svg" viewBox="0 0 500 60" id="hollow-text-canvas">
+                                    <!-- Texto de contorno gerado dinamicamente -->
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <!-- ESTRELINHAS DE AVALIAÇÃO -->
+                        <div class="rating-container">
+                            <p class="rating-title">Gostou desse desenho?</p>
+                            <div class="rating-stars" id="drawing-rating-stars">
+                                <i class="fa-regular fa-star star-btn" data-value="1"></i>
+                                <i class="fa-regular fa-star star-btn" data-value="2"></i>
+                                <i class="fa-regular fa-star star-btn" data-value="3"></i>
+                                <i class="fa-regular fa-star star-btn" data-value="4"></i>
+                                <i class="fa-regular fa-star star-btn" data-value="5"></i>
+                            </div>
+                            <p class="rating-subtext">Ajude a Vovó Sônia a escolher os melhores desenhos para você!</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Lado Direito: Ações e Info -->
+                    <div class="drawing-info-column">
+                        <span class="badge badge-free">100% Grátis</span>
+                        <h1 class="drawing-detail-name" id="drawing-detail-name">Nome do Desenho</h1>
+                        
+                        <!-- Balão de Fala do Personagem (Exibição na Tela) -->
+                        <div class="character-speech-container" id="character-speech-box">
+                            <div class="speech-bubble">
+                                <p id="character-speech-text" class="speech-bubble-text"></p>
+                                <div class="speech-bubble-tail"></div>
+                                <div class="speech-bubble-tail-inner"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="drawing-meta-info">
+                            <p><i class="fa-solid fa-circle-info text-primary"></i> <strong>Instruções:</strong> Clique no botão abaixo para salvar o arquivo de imagem PNG em alta resolução. Você pode imprimir diretamente em qualquer folha A4 e começar a colorir com giz ou lápis!</p>
+                        </div>
+                        
+                        <div class="drawing-actions">
+                            <button id="btn-download-drawing" class="btn btn-primary btn-large btn-full-width">
+                                <i class="fa-solid fa-print"></i> Baixar e Imprimir Grátis
+                            </button>
+                        </div>
+                        
+                        <!-- Opções Pedagógicas de Frases (Totalmente Grátis) -->
+                        <div class="premium-phrase-preview-card" style="border-color: var(--color-green);">
+                            <h4 class="card-mini-title" style="color: var(--color-green);"><i class="fa-solid fa-wand-magic-sparkles"></i> Letras Vazadas Educativas</h4>
+                            <p class="card-desc">Personalize a legenda abaixo do desenho com o nome do tema em letras vazadas para ajudar a criança na escrita e coordenação motora!</p>
+                            
+                            <div class="phrase-mode-selection">
+                                <label class="phrase-radio-option">
+                                    <input type="radio" name="phrase-lang-mode" value="pt" checked>
+                                    <span>Português 🇧🇷 (ex: "Oi, eu sou o...")</span>
+                                </label>
+                                <label class="phrase-radio-option" style="display: none;">
+                                    <input type="radio" name="phrase-lang-mode" value="en">
+                                    <span>Bilíngue 🇧🇷 / 🇺🇸 (Português + Inglês)</span>
+                                </label>
+                                <label class="phrase-radio-option">
+                                    <input type="radio" name="phrase-lang-mode" value="none">
+                                    <span>Sem legenda (Desenho Limpo)</span>
+                                </label>
+                            </div>
+                            
+                            <div class="phrase-tip" style="margin-top: 14px; font-size: 0.85rem; color: var(--color-dark-light); display: flex; align-items: center; gap: 6px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 10px;">
+                                <i class="fa-solid fa-lightbulb" style="color: var(--color-yellow); font-size: 1rem;"></i>
+                                <span><strong>Dica:</strong> aperte F5 e receba uma nova frase!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Anúncio AdSense Horizontal -->
+                <div class="simulated-ad-horizontal" style="margin: 40px auto 20px auto;">
+                    <div class="ad-label">ANÚNCIO GOOGLE ADSENSE</div>
+                    <p class="ad-text">Papel Sulfite A4 e Lápis de Cor Faber-Castell em oferta na nossa loja parceira! (Anúncio)</p>
+                </div>
+                
+                <!-- RELACIONADOS -->
+                <div class="related-drawings-section">
+                    <h3 class="related-title">Mais desenhos parecidos para imprimir grátis 🎨</h3>
+                    <div class="drawings-grid" id="related-drawings-grid">
+                        <!-- Carregado via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER / RODAPÉ -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <p class="footer-copy">© 2026 kidcanvas.com.br — Todos os desenhos são gratuitos para uso pessoal e pedagógico.</p>
+            <p class="footer-love"><i class="fa-solid fa-heart text-red"></i> Feito com carinho pela Vovó Sônia e o Pedrinho.</p>
+        </div>
+    </footer>
+
+    <!-- NAV BAR INFERIOR MOBILE (Navegação Simplificada estilo App) -->
+    <div class="mobile-bottom-nav">
+        <a href="/" class="mobile-nav-item active" id="mobile-nav-home">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="/categorias" class="mobile-nav-item" id="mobile-nav-categorias">
+            <i class="fa-solid fa-shapes"></i>
+            <span>Temas</span>
+        </a>
+        <a href="#" class="mobile-nav-item" id="mobile-nav-search-trigger">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Buscar</span>
+        </a>
+    </div>
+
+    <!-- Script JS Customizado -->
+    <script src="/app.js"></script>
+</body>
+</html>

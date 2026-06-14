@@ -1,0 +1,23 @@
+node_modules/
+.env
+__pycache__/
+_logs/
+*.log
+*.mp4
+C:\\Users\\foneo\\.gemini\\antigravity\\brain/
+
+# Helper and test scripts containing secret keys
+*.py
+*.js
+!app.js
+!server.js
+
+# JSON files
+*.json
+!package.json
+!package-lock.json
+!ratings.json
+
+# Markdown files in root (guia_geracao.md, generation_report.md etc.)
+*.md
+!README.md

@@ -1,0 +1,345 @@
+=======================================================
+  PINTAI — PLANO COMPLETO DE DESENVOLVIMENTO
+  Documento para revisão — Junho 2026
+=======================================================
+
+-----------------------------------------------------------
+1. CONCEITO DO PRODUTO
+-----------------------------------------------------------
+Site de desenhos para colorir com IA, focado em crianças.
+
+Nome: PintAI
+- Duplo sentido: "Pinta aí!" + "AI" (inteligência artificial)
+- Tagline: ainda a definir (ex: "Colore, aprende e se diverte!")
+
+Domínios:
+- pintai.com.br → plano Free (marca d'água com URL arco-íris)
+- pintai.com    → planos pagos (marca d'água premium discreta)
+
+-----------------------------------------------------------
+2. IDENTIDADE VISUAL E PERSONAGENS
+-----------------------------------------------------------
+
+LOGO:
+- "Pint" em cor escura + "AI" em degradê arco-íris
+- 4 versões criadas (arquivo pintai-logo-final.html)
+
+MASCOTES (universo 100% original, sem copyright):
+1. Pedrinho        — menino, mascote principal (baseado no Pedro)
+2. Vovó Sônia      — avó elegante, personagem secundária
+3. Garoto Estrela  — super-herói infantil
+4. Leonardo        — Leão Rei
+5. Hugo            — Hippo Forte
+6. Tuca            — Tartaruga
+7. Edu             — Elefante Sábio
+8. Dino Amigo      — dinossauro fofo
+
+PROMPT BASE DO PEDRINHO (NanoBanana):
+"Cute cartoon boy mascot, full body, brown hair brown eyes,
+fair skin, happy smile, white t-shirt with colorful paint
+splashes, blue jeans, red sneakers, holding rainbow paintbrush,
+flat vector illustration style, vibrant colors, clean thick
+outlines, white background, no text, full body head to toe
+visible, Disney/Pixar cartoon style"
+
+POSES PENDENTES DO PEDRINHO:
+- Pulando de alegria
+- Pintando em canvas
+- Acenando oi
+- Surpreso com desenho
+- Dormindo
+
+-----------------------------------------------------------
+3. PADRÃO VISUAL DOS DESENHOS
+-----------------------------------------------------------
+
+- Preto e branco, linhas grossas, fundo branco
+- Borda decorativa de fora a fora (estrelas, corações, flores)
+- Título bilíngue em letras VAZADAS (hollow) para colorir
+- Marca d'água arco-íris fora da borda (free: pintai.com.br)
+- NanoBanana gera o animal → script aplica moldura automaticamente
+
+PROMPT PADRÃO VALIDADO (NanoBanana):
+"Coloring book page for children, black and white only,
+thick clean outlines, no shading, no gray, no color fill,
+pure white background, [ANIMAL/TEMA], cartoon style,
+child-friendly, simple shapes, printable quality, bold lines,
+ages 3 to 8, complete decorative border all around fully closed
+corners with stars, hearts and flowers, title at bottom INSIDE
+the border with hollow outlined letters only, white fill inside
+letters: '[TÍTULO PT] / [TÍTULO EN]', at the very bottom outside
+the border, small rainbow colored text: 'www.pintai.com.br'
+each letter different color red orange yellow green blue purple,
+small but readable, centered"
+
+-----------------------------------------------------------
+4. TECNOLOGIA UTILIZADA
+-----------------------------------------------------------
+
+GERAÇÃO DE IMAGENS:
+- NanoBanana Pro Ultra (conta: foneoliver@gmail.com)
+- 25.000 créditos Flow/mês (renova todo mês)
+- IMAGENS = 0 créditos! (só vídeos custam ~2 créditos)
+- API: https://www.nananobanana.com/api/v1/generate
+
+AUTOMAÇÃO:
+- Antigravity Ultra → conecta Claude → lista de prompts
+  → NanoBanana → organiza pastas automaticamente
+
+HOSPEDAGEM E DEPLOY:
+- GitHub (controle de versão)
+- Vercel (hospedagem gratuita)
+- Replit (backend: login, cotas, assinaturas)
+
+EMAIL MARKETING:
+- Brevo (gratuito até 300 emails/dia)
+
+PAGAMENTOS:
+- Hotmart (recomendado para início — simples, BR)
+- Stripe (alternativa para internacional)
+
+-----------------------------------------------------------
+5. PLANOS E PREÇOS
+-----------------------------------------------------------
+
+PLANO FREE — R$ 0
+- Biblioteca 10.000+ desenhos estáticos
+- Apenas PT-BR
+- Sem cadastro necessário
+- Marca d'água: pintai.com.br (arco-íris)
+- Monetização: Google AdSense
+
+PLANO BÁSICO — R$ 9,90/mês
+- 50 gerações IA/mês
+- 2 livrinhos PDF (10 páginas cada)
+- PT + EN
+- Marca d'água: pintai.com.br
+
+PLANO FAMÍLIA — R$ 19,90/mês
+- 150 gerações IA/mês
+- 5 livrinhos PDF (20 páginas)
+- PT + EN + ES
+- Marca d'água: pintai.com (premium)
+
+PLANO PRO — R$ 39,90/mês
+- 400 gerações IA/mês
+- 15 livrinhos PDF (30 páginas)
+- 2 vídeos/mês
+- PT + EN + ES
+- Marca d'água: pintai.com
+
+PLANO ESCOLA — R$ 89,90/mês
+- 1.000 gerações IA/mês
+- 30 livrinhos PDF (40 páginas)
+- 4 vídeos/mês
+- PT + EN + ES
+- Marca d'água: pintai.com
+- Funcionalidades para turma/professora
+
+MARGEM: ~100% (custo de geração = R$ 0, hospedagem = R$ 0)
+
+-----------------------------------------------------------
+6. FUNCIONALIDADES POR FASE
+-----------------------------------------------------------
+
+FUNCIONALIDADES BASE (todos os pagos):
+- Geração IA sob demanda
+- Título bilíngue automático
+- Frases educativas + curiosidades sobre o animal
+- Frases de interação (ex: "Me pinte de dourado! / Paint me golden!")
+- Livrinhos PDF com nome da criança
+- Múltiplos perfis de crianças (por conta)
+- Álbum histórico dos desenhos
+- Certificado de artista (gamificação)
+- Email 3x/semana com Pedrinho
+- Temas sazonais (Natal, Páscoa, etc.)
+
+FUNCIONALIDADES AVANÇADAS (Pro+):
+- Impressão em lote
+- Vídeos animados
+
+FUNCIONALIDADES ESCOLA:
+- Gestão de turma
+- Painel da professora
+
+-----------------------------------------------------------
+7. ROADMAP POR VERSÃO
+-----------------------------------------------------------
+
+V1 — LANÇAMENTO
+□ Biblioteca 10.000+ desenhos estáticos
+□ Geração IA (NanoBanana)
+□ Suporte PT + EN + ES
+□ Livrinhos PDF personalizados
+□ 5 planos de assinatura
+□ Dois domínios (free x premium)
+□ Google AdSense no plano free
+
+V2 — MÊS 3
+□ Nome da criança na cena do desenho
+□ Colorir online (canvas interativo)
+□ Email semanal com Pedrinho
+□ Álbum histórico
+□ Certificado de artista
+□ Vídeos animados
+
+V3 — MÊS 6
+□ "Eu no Desenho" — foto vira personagem
+□ HQ de 3 quadrinhos
+□ Desenho em família (colaborativo)
+□ Capa de caderno personalizada
+□ Moldura de foto personalizada
+
+V4 — MÊS 12
+□ App mobile (iOS + Android)
+□ Expansão América Latina
+□ Pelúcias do Pedrinho (produto físico)
+□ Livros físicos impressos
+
+-----------------------------------------------------------
+8. ANÁLISE DE CONCORRENTES
+-----------------------------------------------------------
+
+123colorir.com.br
+- WordPress antigo, só AdSense, sem IA, sem livrinhos
+
+USZon.com
+- 10.847 desenhos originais, gratuito 100%
+- Sem receita sustentável (estava fora do ar durante análise)
+
+desenhopracolorir.com.br
+- Similar ao 123colorir
+
+DIFERENCIAL ÚNICO DO PINTAI:
+✓ Único com IA gerativa no Brasil
+✓ Bilíngue (PT + EN + ES)
+✓ Livrinhos PDF personalizados
+✓ Perfil da criança
+✓ Gamificação (certificado, álbum)
+
+-----------------------------------------------------------
+9. ESTRATÉGIA DE MARKETING
+-----------------------------------------------------------
+
+MÊS 1 — ORGÂNICO:
+- Instagram: @pintai
+- TikTok: @pintai
+- Grupos de mães no Facebook e WhatsApp
+- Vídeo viral: mãe digita pedido → Pedrinho gera → filho colorindo
+
+MÊS 2 — PAGO:
+- R$ 500 em Ads para validar
+- Escalar conforme ROI
+
+MARKETING PASSIVO:
+- Cada impressão distribuída tem "pintai.com.br" em arco-íris
+- Crianças levam para escola → outras famílias veem
+
+PÚBLICO-ALVO:
+- 30 milhões+ de mães brasileiras
+- Precisamos de apenas 0,003% para R$ 90.000/mês
+
+-----------------------------------------------------------
+10. VÍDEO ANIMADO — PEDRINHO
+-----------------------------------------------------------
+
+Roteiro do vídeo intro do site:
+1. Pedrinho aparece: "Oi! Eu sou o Pedrinho!"
+2. Vovó Sônia aparece: "Eu sou a Vovó Sônia!"
+3. Juntos: "Vamos colorir juntos?"
+
+Link atual (YouTube Shorts): https://youtube.com/shorts/hdJazzfrO0w
+
+PENDENTE:
+- Gerar poses do Pedrinho no NanoBanana
+- Criar versão animada completa (MP4/GIF)
+
+-----------------------------------------------------------
+11. SITE — ESTRUTURA ATUAL (pintai-final.html)
+-----------------------------------------------------------
+
+SEÇÕES:
+- Header com logo, botão Entrar e Assinar
+- Hero com vídeo do Pedrinho (pendente — bloqueado no Claude)
+- Galeria de desenhos
+- Planos e preços
+- Depoimentos
+- Footer
+
+PENDENTE NO SITE:
+□ Substituir imagem do Pedrinho pelo vídeo no hero
+□ Criar ícone/favicon para usar na navbar e aba do browser
+□ Trocar números WhatsApp reais em todo o site
+□ Revisão geral do conteúdo
+
+-----------------------------------------------------------
+12. PENDÊNCIAS TÉCNICAS IMEDIATAS
+-----------------------------------------------------------
+
+DOMÍNIOS (URGENTE — registrar antes de alguém tomar):
+□ pintai.com → namecheap.com (verificar disponibilidade)
+□ pintai.com.br → registro.br (R$ 40/ano)
+
+SCRIPTS:
+□ Script Python: aplica moldura + título + URL em lote
+  (processa 100 imagens em ~2 minutos)
+□ Script de geração em lote via Antigravity → NanoBanana
+
+BACKEND (Replit):
+□ Sistema de login e cadastro
+□ Sistema de cotas por plano
+□ Integração com Hotmart ou Stripe
+
+EMAIL (Brevo):
+□ Configurar domínio de envio
+□ Criar sequência de boas-vindas
+□ Criar email semanal "carta do Pedrinho"
+
+ZOHO MAIL (Polar Beats — pendências anteriores):
+□ Configurar auto-reply (texto já pronto)
+□ Criar assinatura de email
+
+-----------------------------------------------------------
+13. PRÓXIMOS PASSOS IMEDIATOS
+-----------------------------------------------------------
+
+HOJE/AMANHÃ:
+1. Registrar domínios pintai.com e pintai.com.br
+2. Criar ícone/favicon do Pedrinho
+3. Substituir imagem pelo vídeo no hero do site
+
+ESTA SEMANA:
+4. Gerar poses do Pedrinho no NanoBanana
+5. Criar script Python da moldura automática
+6. Subir site no Vercel + GitHub
+
+PRÓXIMAS 2 SEMANAS:
+7. Gerar lote inicial de 500 desenhos (via Antigravity)
+8. Configurar Replit (login + cotas)
+9. Configurar Brevo (email marketing)
+10. Integrar Hotmart (pagamentos)
+
+-----------------------------------------------------------
+14. RESUMO FINANCEIRO
+-----------------------------------------------------------
+
+CUSTOS MENSAIS:
+- Geração de imagens: R$ 0 (NanoBanana Ultra)
+- Hospedagem Vercel: R$ 0
+- Brevo email (até 300/dia): R$ 0
+- Domínio pintai.com.br: ~R$ 3,30/mês (R$ 40/ano)
+- Total operacional: praticamente R$ 0
+
+PROJEÇÃO DE RECEITA (meta inicial):
+- 100 assinantes Básico (R$9,90) = R$ 990/mês
+- 50 assinantes Família (R$19,90) = R$ 995/mês
+- 20 assinantes Pro (R$39,90) = R$ 798/mês
+- TOTAL INICIAL: ~R$ 2.783/mês com só 170 clientes
+
+META 6 MESES:
+- 1.000 assinantes = ~R$ 15.000-20.000/mês (margem ~95%)
+
+=======================================================
+  FIM DO DOCUMENTO — PintAI Roadmap v1.0
+  Gerado em: Junho 2026
+=======================================================
