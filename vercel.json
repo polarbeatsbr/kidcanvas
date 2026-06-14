@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/server.js": {
-      "includeFiles": "pintai-biblioteca/**"
+      "includeFiles": "{index.html,pintai-biblioteca/**}"
     }
   },
   "rewrites": [
