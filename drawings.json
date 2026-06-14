@@ -1496,6 +1496,28 @@
     "isNew": true
   },
   {
+    "index": 124,
+    "filename": "124-hamster-tomando-sol__hamster.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/124-hamster-tomando-sol__hamster.png",
+    "category": "animais-domesticos",
+    "pt": "Hamster tomando sol",
+    "en": "Hamster",
+    "slug": "hamster-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 127,
+    "filename": "127-porquinho-da-india-tomando-sol__guinea_pig.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/127-porquinho-da-india-tomando-sol__guinea_pig.png",
+    "category": "animais-domesticos",
+    "pt": "Porquinho da india tomando sol",
+    "en": "Guinea pig",
+    "slug": "porquinho-da-india-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 13,
     "filename": "13-periquito-brincando-com-novelo__parakeet.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/13-periquito-brincando-com-novelo__parakeet.png",
@@ -1507,6 +1529,28 @@
     "isNew": false
   },
   {
+    "index": 130,
+    "filename": "130-tartaruga-tomando-sol__turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/130-tartaruga-tomando-sol__turtle.png",
+    "category": "animais-domesticos",
+    "pt": "Tartaruga tomando sol",
+    "en": "Turtle",
+    "slug": "tartaruga-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 139,
+    "filename": "139-hamster-correndo-na-grama__hamster.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/139-hamster-correndo-na-grama__hamster.png",
+    "category": "animais-domesticos",
+    "pt": "Hamster correndo na grama",
+    "en": "Hamster",
+    "slug": "hamster-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 14,
     "filename": "14-gatinho-brincando-com-novelo__kitten.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/14-gatinho-brincando-com-novelo__kitten.png",
@@ -1516,6 +1560,28 @@
     "slug": "gatinho-brincando-com-novelo",
     "tier": "free",
     "isNew": false
+  },
+  {
+    "index": 142,
+    "filename": "142-porquinho-da-india-correndo-na-grama__guinea_pig.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/142-porquinho-da-india-correndo-na-grama__guinea_pig.png",
+    "category": "animais-domesticos",
+    "pt": "Porquinho da india correndo na grama",
+    "en": "Guinea pig",
+    "slug": "porquinho-da-india-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 145,
+    "filename": "145-tartaruga-correndo-na-grama__turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/145-tartaruga-correndo-na-grama__turtle.png",
+    "category": "animais-domesticos",
+    "pt": "Tartaruga correndo na grama",
+    "en": "Turtle",
+    "slug": "tartaruga-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
   },
   {
     "index": 15,

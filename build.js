@@ -7,7 +7,9 @@ const filesToCopy = [
     'hero_mascots.jpg',
     'index.html',
     'drawings.json',
-    'creation_dates.json'
+    'creation_dates.json',
+    'sitemap.xml',
+    'robots.txt'
 ];
 
 const publicDir = path.join(__dirname, 'public');

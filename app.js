@@ -5,29 +5,29 @@
 
 // --- BASE DE DADOS DAS CATEGORIAS (12 ITENS) ---
 const CATEGORIES_DATA = {
-    'novidades': { name: 'Novidades', emoji: '✨', desc: 'Desenhos fresquinhos adicionados nos últimos 30 dias para você pintar primeiro!' },
-    'animais-selvagens': { name: 'Animais Selvagens', emoji: '🦁', desc: 'Leões, pandas, girafas e outros bichos incríveis da floresta e da savana!' },
-    'animais-do-mar': { name: 'Animais do Mar', emoji: '🦈', desc: 'Peixes coloridos, baleias, golfinhos e tubarões divertidos do oceano!' },
-    'animais-domesticos': { name: 'Animais Domésticos', emoji: '🐱', desc: 'Gatinhos, cachorrinhos, coelhos e outros amiguinhos que temos em casa!' },
-    'dinossauros': { name: 'Dinossauros', emoji: '🦖', desc: 'T-rex, Tricerátops, Velociraptores e outros gigantes pré-históricos!' },
-    'contos-de-fada': { name: 'Contos de Fada', emoji: '👑', desc: 'Castelos mágicos, princesas, fadas e dragões encantados!' },
-    'espaco': { name: 'Espaço Sideral', emoji: '🚀', desc: 'Foguetes, astronautas, planetas e alienígenas amigáveis!' },
-    'natureza': { name: 'Natureza e Flores', emoji: '🌻', desc: 'Flores sorridentes, borboletas, lagos e a beleza das florestas!' },
-    'veiculos': { name: 'Veículos e Carros', emoji: '🚗', desc: 'Carros velozes, aviões, trens e caminhões de bombeiro!' },
-    'comidas-e-doces': { name: 'Comidas e Doces', emoji: '🍩', desc: 'Sorvetes gostosos, bolos de aniversário e frutas felizes!' },
-    'cotidiano': { name: 'Cotidiano', emoji: '🧸', desc: 'Brinquedos, parquinhos, atividades e diversão do dia a dia!' },
-    'fantasia': { name: 'Fantasia', emoji: '🦄', desc: 'Unicórnios mágicos, sereias cantando e monstros fofos!' },
-    'profissoes': { name: 'Profissões', emoji: '👩‍🚒', desc: 'Bombeiros, médicos, professores e todas as profissões legais!' },
-    'unicornios': { name: 'Unicórnios', emoji: '🦄', desc: 'Unicórnios mágicos, asas brilhantes e arco-íris encantados!' },
-    'festa-junina': { name: 'Festa Junina', emoji: '🤠', desc: 'Fogueira, pipoca, bandeirinhas e toda a alegria das festas caipiras!' },
-    'datas-comemorativas': { name: 'Datas Comemorativas', emoji: '🎄', desc: 'Desenhos para o Natal, Páscoa, Dia das Crianças e momentos especiais!' },
-    'alfabeto-e-numeros': { name: 'Alfabeto e Números', emoji: '🔤', desc: 'Letras de A-Z e números de 0-9 grandes e vazados para pintar e aprender!' },
-    'futebol': { name: 'Futebol', emoji: '⚽', desc: 'Bolas de futebol, traves, jogadores animados e a emoção do gol!' },
-    'princesas': { name: 'Princesas', emoji: '👸', desc: 'Princesas fofas, vestidos bonitos e tiaras brilhantes em reinos mágicos!' },
-    'super-herois': { name: 'Super-Heróis', emoji: '🦸', desc: 'Super-heróis e super-heroínas corajosos em aventuras incríveis!' },
-    'frutas-e-legumes': { name: 'Frutas e Legumes', emoji: '🍎', desc: 'Frutinhas felizes, vegetais saudáveis e comidinhas divertidas!' },
-    'flores': { name: 'Flores', emoji: '🌸', desc: 'Flores lindas, jardins floridos, girassóis e rosas para colorir!' },
-    'paper-doll': { name: 'Bonecas de Papel', emoji: '✂️', desc: 'Bonecas de papel com roupas e acessórios divertidos para colorir e recortar!' }
+    'novidades': { name: 'Novidades', emoji: '✨', desc: 'Confira os novos desenhos para colorir e imprimir grátis no KidCanvas! Desenhos fresquinhos adicionados nos últimos 30 dias para pintar e se divertir.' },
+    'animais-selvagens': { name: 'Animais Selvagens', emoji: '🦁', desc: 'Desenhos de Animais Selvagens para colorir e imprimir grátis! Encontre leões, pandas, girafas e outros bichos incríveis da floresta e da savana.' },
+    'animais-do-mar': { name: 'Animais do Mar', emoji: '🦈', desc: 'Desenhos de Animais do Mar para colorir e imprimir grátis! Baixe imagens de peixes coloridos, baleias, golfinhos e tubarões divertidos do oceano.' },
+    'animais-domesticos': { name: 'Animais Domésticos', emoji: '🐱', desc: 'Desenhos de Animais Domésticos para colorir e imprimir grátis! Baixe fotos de gatinhos, cachorrinhos, coelhos e outros amiguinhos para pintar.' },
+    'dinossauros': { name: 'Dinossauros', emoji: '🦖', desc: 'Desenhos de Dinossauros para colorir e imprimir grátis! Divirta-se pintando o T-Rex, Tricerátops, Velociraptores e outros gigantes pré-históricos.' },
+    'contos-de-fada': { name: 'Contos de Fada', emoji: '👑', desc: 'Desenhos de Contos de Fada para colorir e imprimir grátis! Pinte castelos mágicos, princesas lindas, fadas e dragões encantados com as crianças.' },
+    'espaco': { name: 'Espaço Sideral', emoji: '🚀', desc: 'Desenhos do Espaço Sideral para colorir e imprimir grátis! Viaje pintando foguetes, astronautas, planetas distantes e alienígenas amigáveis.' },
+    'natureza': { name: 'Natureza e Flores', emoji: '🌻', desc: 'Desenhos de Natureza e Flores para colorir e imprimir grátis! Baixe imagens de flores sorridentes, borboletas lindas, lagos e florestas encantadoras.' },
+    'veiculos': { name: 'Veículos e Carros', emoji: '🚗', desc: 'Desenhos de Veículos e Carros para colorir e imprimir grátis! Pinte carros velozes, aviões no céu, trens nos trilhos e caminhões de bombeiro.' },
+    'comidas-e-doces': { name: 'Comidas e Doces', emoji: '🍩', desc: 'Desenhos de Comidas e Doces para colorir e imprimir grátis! Baixe desenhos de sorvetes gostosos, bolos de aniversário e frutas felizes para pintar.' },
+    'cotidiano': { name: 'Cotidiano', emoji: '🧸', desc: 'Desenhos do Cotidiano para colorir e imprimir grátis! Pinte brinquedos, parquinhos infantis, atividades divertidas e momentos do dia a dia das crianças.' },
+    'fantasia': { name: 'Fantasia', emoji: '🦄', desc: 'Desenhos de Fantasia para colorir e imprimir grátis! Entre no mundo da imaginação com unicórnios mágicos, sereias cantoras e monstros fofos.' },
+    'profissoes': { name: 'Profissões', emoji: '👩‍🚒', desc: 'Desenhos de Profissões para colorir e imprimir grátis! Inspire-se colorindo bombeiros corajosos, médicos atenciosos, professores e muito mais.' },
+    'unicornios': { name: 'Unicórnios', emoji: '🦄', desc: 'Desenhos de Unicórnios para colorir e imprimir grátis! Lindas imagens de unicórnios mágicos com asas brilhantes, nuvens fofas e arco-íris encantados.' },
+    'festa-junina': { name: 'Festa Junina', emoji: '🤠', desc: 'Desenhos de Festa Junina para colorir e imprimir grátis! Celebre pintando fogueiras, pipoca, bandeirinhas coloridas e toda a alegria das festas caipiras.' },
+    'datas-comemorativas': { name: 'Datas Comemorativas', emoji: '🎄', desc: 'Desenhos de Datas Comemorativas para colorir e imprimir grátis! Encontre ilustrações especiais para o Natal, Páscoa, Dia das Crianças e datas festivas.' },
+    'alfabeto-e-numeros': { name: 'Alfabeto e Números', emoji: '🔤', desc: 'Desenhos do Alfabeto e Números para colorir e imprimir grátis! Letras de A a Z e números de 0 a 9 grandes e vazados para pintar, brincar e aprender.' },
+    'futebol': { name: 'Futebol', emoji: '⚽', desc: 'Desenhos de Futebol para colorir e imprimir grátis! Baixe imagens de bolas de futebol, traves, jogadores animados e viva a emoção do esporte.' },
+    'princesas': { name: 'Princesas', emoji: '👸', desc: 'Desenhos de Princesas para colorir e imprimir grátis! Imagens de princesas fofas com vestidos bonitos e tiaras brilhantes em reinos mágicos.' },
+    'super-herois': { name: 'Super-Heróis', emoji: '🦸', desc: 'Desenhos de Super-Heróis para colorir e imprimir grátis! Baixe ilustrações de super-heróis e super-heroínas corajosos em aventuras incríveis.' },
+    'frutas-e-legumes': { name: 'Frutas e Legumes', emoji: '🍎', desc: 'Desenhos de Frutas e Legumes para colorir e imprimir grátis! Desenhos de frutinhas felizes, vegetais saudáveis e comidinhas divertidas para pintar.' },
+    'flores': { name: 'Flores', emoji: '🌸', desc: 'Desenhos de Flores para colorir e imprimir grátis! Baixe imagens de flores lindas, jardins floridos, girassóis e rosas encantadoras para pintar.' },
+    'paper-doll': { name: 'Bonecas de Papel', emoji: '✂️', desc: 'Desenhos de Bonecas de Papel para colorir e imprimir grátis! Pinte e recorte bonecas de papel fofas com roupas estilosas e acessórios divertidos.' }
 };
 
 const POPULAR_SUGGESTIONS = ['unicórnio', 'dinossauro', 'borboleta', 'leão', 'golfinho'];
@@ -947,7 +947,7 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
     
     // SEO
     document.title = `Desenho de ${drawing.pt} para Colorir e Imprimir — KidCanvas`;
-    setMetaDescription(`Baixe em alta resolução o desenho de ${drawing.pt} (${drawing.en}) para imprimir e colorir com as crianças. 100% gratuito e sem cadastro.`);
+    setMetaDescription(`Desenho de ${drawing.pt} para colorir e imprimir grátis! Baixe em alta resolução a ilustração de ${drawing.pt} (${drawing.en}) para pintar e colorir em casa.`);
     
     const view = document.getElementById('view-desenho-individual');
     view.style.display = 'block';
