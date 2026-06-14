@@ -261,12 +261,17 @@ app.post('/api/rate', (req, res) => {
 
 app.get('/api/debug-files', (req, res) => {
     const fs = require('fs');
+    const path = require('path');
     try {
-        const files = fs.readdirSync(__dirname);
+        const parentDir = path.join(__dirname, '..');
+        const parentFiles = fs.readdirSync(parentDir);
+        const apiFiles = fs.readdirSync(__dirname);
         res.json({
             success: true,
             dirname: __dirname,
-            files: files
+            apiFiles: apiFiles,
+            parentDir: parentDir,
+            parentFiles: parentFiles
         });
     } catch (e) {
         res.status(500).json({ success: false, error: e.message });
