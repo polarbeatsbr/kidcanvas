@@ -5,7 +5,8 @@
   "main": "api/server.js",
   "scripts": {
     "start": "node api/server.js",
-    "dev": "nodemon api/server.js"
+    "dev": "nodemon api/server.js",
+    "build": "mkdir -p public && cp style.css app.js hero_mascots.jpg index.html public/ && cp -r pintai-biblioteca public/"
   },
   "keywords": [
     "pintai",

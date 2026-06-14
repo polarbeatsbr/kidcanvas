@@ -10,7 +10,7 @@
       "destination": "/api/server.js"
     },
     {
-      "source": "/((?!.*\\.).*)",
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]
