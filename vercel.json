@@ -10,7 +10,19 @@
       "destination": "/api/server.js"
     },
     {
-      "source": "/((?!api/)(.+))",
+      "source": "/categorias",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/top50",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/categoria/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:category/:drawing",
       "destination": "/index.html"
     }
   ]
