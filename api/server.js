@@ -12,8 +12,9 @@ app.use(cors());
 // Middleware para processar JSON
 app.use(express.json());
 
-// Servir os arquivos estáticos do frontend da raiz do projeto
+// Servir os arquivos estáticos do frontend da raiz do projeto e da pasta public
 app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Rota de Proxy da API para contornar problemas de CORS no navegador
 app.post('/api/generate', async (req, res) => {
@@ -204,7 +205,7 @@ app.get('/api/drawings', (req, res) => {
         }
     }
 
-    const bibliotecaDir = path.join(__dirname, '..', 'pintai-biblioteca');
+    const bibliotecaDir = path.join(__dirname, '..', 'public', 'pintai-biblioteca');
     if (!fs.existsSync(bibliotecaDir)) {
         return res.json({ success: true, drawings: [] });
     }
