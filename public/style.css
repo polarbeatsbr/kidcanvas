@@ -836,6 +836,26 @@ button, input, select, textarea {
     letter-spacing: 0.5px;
 }
 
+/* Marca d'água discreta para impressão */
+.drawing-sheet-watermark-print {
+    display: none;
+    text-align: center;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #8c766b; /* marrom discreto */
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+/* Organização vertical dos botões de ação */
+.drawing-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
 /* Coluna de Info */
 .drawing-info-column {
     display: flex;
@@ -1521,7 +1541,7 @@ button, input, select, textarea {
         padding: 0 !important;
     }
     
-    header, footer, .drawing-crumb-navigation, .drawing-info-column, .simulated-ad-horizontal, .related-drawings-section, .mobile-bottom-nav, .rating-container, .desenhe-o-bem-section {
+    header, footer, .breadcrumbs, .drawing-crumb-navigation, .drawing-info-column, .simulated-ad-horizontal, .related-drawings-section, .mobile-bottom-nav, .rating-container, .desenhe-o-bem-section {
         display: none !important;
     }
     
@@ -1554,6 +1574,25 @@ button, input, select, textarea {
     @page {
         size: A4 portrait;
         margin: 10mm 15mm;
+    }
+
+    /* Regras especiais para impressão sem borda decorativa */
+    body.print-no-border .drawing-sheet-border {
+        display: none !important;
+    }
+    
+    body.print-no-border .drawing-sheet-phrase-container {
+        display: none !important;
+    }
+    
+    body.print-no-border .drawing-sheet-watermark-print {
+        display: block !important;
+    }
+    
+    body.print-no-border .drawing-sheet-image-wrapper {
+        flex-grow: 1 !important;
+        aspect-ratio: auto !important;
+        height: 0 !important;
     }
 }
 
