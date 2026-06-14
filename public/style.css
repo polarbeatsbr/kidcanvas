@@ -1341,6 +1341,45 @@ button, input, select, textarea {
     border-top: 10px solid #FAF2E8;
 }
 
+/* Card de Curiosidade Lúdica */
+.drawing-curiosity-card {
+    background-color: #FEF9E7; /* Amarelo muito claro e acolhedor */
+    border: 2px solid var(--color-yellow);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    box-shadow: 0 4px 0px rgba(243, 156, 18, 0.12);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.drawing-curiosity-card .curiosity-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.drawing-curiosity-card .curiosity-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.drawing-curiosity-card .curiosity-title {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.drawing-curiosity-card .curiosity-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-dark-light);
+    line-height: 1.4;
+}
+
 /* --- SEÇÃO DESENHE O BEM --- */
 .desenhe-o-bem-section {
     padding: 60px 0;

@@ -972,6 +972,15 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
         screenPhraseText.textContent = currentDrawingPhrase.replace(/\n/g, ' ');
     }
     
+    // Configurar Card de Curiosidade Lúdica
+    const curiosityBox = document.getElementById('drawing-curiosity-box');
+    const curiosityText = document.getElementById('drawing-curiosity-text');
+    if (curiosityBox && curiosityText) {
+        const curiosity = getCuriosityForDrawing(drawing);
+        curiosityText.textContent = curiosity;
+        curiosityBox.style.display = 'flex';
+    }
+    
     // Configurar Frases Vazadas Educativas (100% Unificado e Grátis)
     const phraseBox = document.getElementById('drawing-sheet-phrase-box');
     phraseBox.style.display = 'flex';
@@ -1408,4 +1417,161 @@ function renderTop50View() {
         const card = createDrawingCard(dw, position);
         grid.appendChild(card);
     });
+}
+
+// Pool de curiosidades curtas e divertidas para as crianças
+function getCuriosityForDrawing(drawing) {
+    const title = drawing.pt.toLowerCase();
+    const cat = drawing.category;
+    
+    // 1. Verificar por palavras-chave específicas no título do desenho
+    if (title.includes('leão') || title.includes('leoa')) {
+        return "O leão é conhecido como o rei da selva e vive em grandes grupos familiares chamados bandos.";
+    }
+    if (title.includes('elefante')) {
+        return "Os elefantes são os maiores animais terrestres do mundo e usam a tromba para respirar, beber água e pegar coisas!";
+    }
+    if (title.includes('girafa')) {
+        return "As girafas têm pescoços gigantes e línguas azul-escuras muito longas, perfeitas para alcançar as folhas mais altas das árvores.";
+    }
+    if (title.includes('tigre')) {
+        return "Nenhum tigre tem as listras iguais às de outro! Elas funcionam como a nossa impressão digital.";
+    }
+    if (title.includes('panda')) {
+        return "Os pandas passam quase o dia todo comendo bambu! Eles podem comer até 12 quilos de bambu por dia.";
+    }
+    if (title.includes('urso')) {
+        return "Os ursos têm um olfato incrível, muito melhor do que o de um cachorrinho.";
+    }
+    if (title.includes('macaco')) {
+        return "Os macacos são super espertos e usam ferramentas, como pedras e galhos, para abrir alimentos!";
+    }
+    if (title.includes('zebra')) {
+        return "As listras pretas e brancas da zebra servem como um 'repelente natural' contra insetos e ajudam a refrescar o corpo.";
+    }
+    if (title.includes('jacaré') || title.includes('crocodilo')) {
+        return "Os crocodilos podem viver mais de 70 anos e são parentes bem antigos dos dinossauros!";
+    }
+    if (title.includes('tartaruga')) {
+        return "As tartarugas marinhas podem prender a respiração por várias horas enquanto nadam no mar.";
+    }
+    if (title.includes('sapo')) {
+        return "Os sapos não bebem água pela boca, eles absorvem a água diretamente através da pele!";
+    }
+    if (title.includes('pinguim')) {
+        return "Os pinguins não voam no ar, mas são nadadores incríveis e usam suas asas como nadadeiras debaixo d'água!";
+    }
+    if (title.includes('golfinho')) {
+        return "Os golfinhos são muito inteligentes e amigáveis, e cada um tem um assobio único para chamar o seu nome!";
+    }
+    if (title.includes('baleia')) {
+        return "A baleia-azul é o maior animal que já viveu em toda a história do planeta Terra!";
+    }
+    if (title.includes('tubarão')) {
+        return "Os tubarões têm vários conjuntos de dentes e, se perderem um dente, outro cresce rapidinho no lugar!";
+    }
+    if (title.includes('polvo')) {
+        return "Os polvos têm três corações e o sangue deles é azul!";
+    }
+    if (title.includes('cavalo-marinho') || title.includes('cavalo marinho')) {
+        return "Os cavalos-marinhos nadam de pé e são os papais que carregam os ovinhos na barriga até os bebês nascerem.";
+    }
+    if (title.includes('papagaio') || title.includes('arara') || title.includes('tucano')) {
+        return "Os papagaios são famosos por conseguir imitar sons e vozes humanas muito bem!";
+    }
+    if (title.includes('coruja')) {
+        return "As corujas conseguem girar a cabeça quase inteira (até 270 graus) para olhar ao redor!";
+    }
+    if (title.includes('flamingo')) {
+        return "Os flamingos nascem cinzas e ficam rosa por causa da comida que adoram comer, como pequenos camarões!";
+    }
+    if (title.includes('gato') || title.includes('gatinho')) {
+        return "Os gatos passam cerca de metade do dia se limpando com lambidas! Isso ajuda a manter a higiene e a temperatura.";
+    }
+    if (title.includes('cachorro') || title.includes('cão') || title.includes('filhote')) {
+        return "O olfato dos cães é tão poderoso que eles conseguem farejar coisas que nós nem imaginamos!";
+    }
+    if (title.includes('coelho')) {
+        return "Os coelhos têm uma audição excelente e conseguem girar suas orelhas para ouvir sons de todas as direções.";
+    }
+    if (title.includes('cavalo')) {
+        return "Os cavalos conseguem dormir em pé graças a uma trava especial que têm nas articulações das pernas!";
+    }
+    if (title.includes('borboleta')) {
+        return "As borboletas usam sensores nas patinhas traseiras para sentir o sabor das flores e plantas.";
+    }
+    if (title.includes('abelha')) {
+        return "As abelhas visitam milhares de flores por dia para produzir o mel doce que nós adoramos comer!";
+    }
+    if (title.includes('caracol')) {
+        return "Os caracóis carregam sua casinha nas costas e andam bem devagar, deixando um rastro de brilho para não se perderem.";
+    }
+    if (title.includes('dinossauro') || title.includes('t-rex') || title.includes('tricerátops')) {
+        return "Os dinossauros governaram a Terra por mais de 160 milhões de anos antes de desaparecerem.";
+    }
+    if (title.includes('foguete') || title.includes('astronauta') || title.includes('planeta') || title.includes('espaço')) {
+        return "No espaço sideral não existe som! É um silêncio absoluto porque não há ar para transportar as ondas sonoras.";
+    }
+    if (title.includes('sol')) {
+        return "O Sol é uma estrela gigante! Ele é tão grande que caberiam mais de 1 milhão de planetas Terra dentro dele.";
+    }
+    if (title.includes('lua')) {
+        return "A Lua não tem luz própria, ela apenas brilha porque reflete a luz do Sol igual a um espelho gigante.";
+    }
+    if (title.includes('bombeiro') || title.includes('médico') || title.includes('professor') || title.includes('policial')) {
+        return "As profissões ajudam a cuidar do nosso planeta e fazem com que as cidades funcionem com segurança e amor!";
+    }
+    if (title.includes('futebol') || title.includes('bola')) {
+        return "O futebol é o esporte mais popular do planeta e é jogado por milhões de crianças em todos os países!";
+    }
+    if (title.includes('carro') || title.includes('avião') || title.includes('trem') || title.includes('trator')) {
+        return "O primeiro carro motorizado foi inventado há mais de 130 anos pelo engenheiro Karl Benz.";
+    }
+    if (title.includes('sorvete') || title.includes('bolo') || title.includes('doce') || title.includes('chocolate')) {
+        return "O primeiro sorvete surgiu na China antiga há mais de 3.000 anos, feito com neve, arroz e leite!";
+    }
+    if (title.includes('maçã') || title.includes('banana') || title.includes('laranja') || title.includes('uva') || title.includes('morango')) {
+        return "As frutas são cheias de vitaminas e água, ajudando a dar muita energia para você brincar e colorir o dia todo!";
+    }
+    if (title.includes('flor') || title.includes('rosa') || title.includes('girassol')) {
+        return "Os girassóis giram suas pétalas para acompanhar o caminho do Sol no céu durante o dia!";
+    }
+    if (title.includes('castelo') || title.includes('princesa') || title.includes('rei') || title.includes('rainha')) {
+        return "Muitos castelos reais antigos tinham fossos cheios de água ao redor para proteção e pontes que subiam e desciam.";
+    }
+    if (title.includes('unicórnio') || title.includes('sereia') || title.includes('fada') || title.includes('dragão')) {
+        return "Essas criaturas mágicas vivem nas histórias e na nossa imaginação, nos enchendo de sonhos e fantasia!";
+    }
+
+    // 2. Fallbacks baseados na categoria temática do desenho
+    if (cat === 'animais-selvagens' || cat === 'animais-do-mar' || cat === 'animais-domesticos') {
+        return "Os animais têm habilidades incríveis! Alguns correm super rápido, outros voam alto e outros nadam no fundo do oceano.";
+    }
+    if (cat === 'dinossauros') {
+        return "Os dinossauros viveram na Terra muito antes dos seres humanos e havia dinossauros gigantes e outros bem pequenininhos!";
+    }
+    if (cat === 'espaco') {
+        return "O universo é infinito e cheio de mistérios, com bilhões de estrelas, planetas e galáxias brilhantes!";
+    }
+    if (cat === 'natureza' || cat === 'flores') {
+        return "A natureza nos dá o ar que respiramos, a água limpa e flores coloridas. Cuidar das plantas é cuidar da nossa vida!";
+    }
+    if (cat === 'veiculos') {
+        return "Os veículos nos ajudam a viajar para longe por terra, água ou ar, conectando pessoas do mundo todo!";
+    }
+    if (cat === 'comidas-e-doces' || cat === 'frutas-e-legumes') {
+        return "Comer alimentos coloridos e variados nos deixa fortes, saudáveis e com superpoderes para aprender e crescer!";
+    }
+    if (cat === 'fantasia' || cat === 'unicornios' || cat === 'princesas' || cat === 'contos-de-fada') {
+        return "Colorir desenhos de fantasia ajuda a abrir as asas da criatividade e a viajar para reinos cheios de magia!";
+    }
+    if (cat === 'alfabeto-e-numeros') {
+        return "As letras e os números são como chaves mágicas que abrem as portas para a leitura, escrita e grandes descobertas!";
+    }
+    if (cat === 'profissoes') {
+        return "Cada profissão tem ferramentas especiais e ajuda a tornar o nosso dia a dia mais seguro, saudável e divertido!";
+    }
+
+    // Fallback geral de desenho / pintura
+    return "Colorir é uma atividade maravilhosa! Ajuda a relaxar, desenvolve a coordenação motora e deixa o cérebro super ativo.";
 }
