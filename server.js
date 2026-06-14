@@ -259,6 +259,20 @@ app.post('/api/rate', (req, res) => {
     });
 });
 
+app.get('/api/debug-files', (req, res) => {
+    const fs = require('fs');
+    try {
+        const files = fs.readdirSync(__dirname);
+        res.json({
+            success: true,
+            dirname: __dirname,
+            files: files
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
 // Rota catch-all para servir index.html e dar suporte ao roteamento SPA (histórico pushState)
 app.get('*', (req, res) => {
     // Ignorar chamadas de API ou arquivos estáticos com extensão que caíram aqui por erro
