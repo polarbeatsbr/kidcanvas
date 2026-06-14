@@ -3,22 +3,19 @@
   "builds": [
     {
       "src": "server.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "style.css",
+          "app.js",
+          "hero_mascots.jpg",
+          "index.html",
+          "pintai-biblioteca/**"
+        ]
+      }
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "server.js"
-    },
-    {
-      "src": "/(style.css|app.js|hero_mascots.jpg|favicon.ico)",
-      "dest": "/$1"
-    },
-    {
-      "src": "/pintai-biblioteca/(.*)",
-      "dest": "/pintai-biblioteca/$1"
-    },
     {
       "src": "/(.*)",
       "dest": "server.js"
