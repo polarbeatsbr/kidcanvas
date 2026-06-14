@@ -861,6 +861,18 @@ button, input, select, textarea {
 .drawing-sheet-frame.no-border .drawing-sheet-image-wrapper {
     flex-grow: 1;
     aspect-ratio: auto;
+    position: relative;
+    overflow: hidden;
+}
+.drawing-sheet-frame.no-border .drawing-sheet-image-wrapper img {
+    position: absolute;
+    width: 116% !important;
+    height: 116% !important;
+    max-width: none !important;
+    max-height: none !important;
+    top: -8% !important;
+    left: -8% !important;
+    object-fit: contain;
 }
 
 /* Organização vertical dos botões de ação */
@@ -1608,6 +1620,19 @@ button, input, select, textarea {
         flex-grow: 1 !important;
         aspect-ratio: auto !important;
         height: 0 !important;
+        position: relative !important;
+        overflow: hidden !important;
+    }
+
+    body.print-no-border .drawing-sheet-image-wrapper img {
+        position: absolute !important;
+        width: 116% !important;
+        height: 116% !important;
+        max-width: none !important;
+        max-height: none !important;
+        top: -8% !important;
+        left: -8% !important;
+        object-fit: contain !important;
     }
 
     /* Forçar exibição da borda quando solicitado explicitamente */
@@ -1627,6 +1652,19 @@ button, input, select, textarea {
         flex-grow: 0 !important;
         aspect-ratio: 1.1 !important;
         height: auto !important;
+        position: static !important;
+        overflow: visible !important;
+    }
+
+    body.print-with-border .drawing-sheet-image-wrapper img {
+        position: static !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        top: auto !important;
+        left: auto !important;
+        object-fit: contain !important;
     }
 }
 
