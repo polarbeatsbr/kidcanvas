@@ -104,9 +104,10 @@ function initGlobalEventListeners() {
         });
     }
 
-    // Remover a classe de impressão sem borda após concluir ou cancelar a janela de impressão
+    // Remover as classes de controle de impressão após concluir ou cancelar a janela de impressão
     window.addEventListener('afterprint', () => {
         document.body.classList.remove('print-no-border');
+        document.body.classList.remove('print-with-border');
     });
 }
 
@@ -982,10 +983,13 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
     phraseBox.style.display = 'flex';
     renderHollowPhraseText(currentDrawingPhrase, 'pt');
     
+    const sheetFrame = document.querySelector('.drawing-sheet-frame');
+    if (sheetFrame) sheetFrame.classList.remove('no-border');
+    
     // Inicializar avaliação por estrelas
     initRatingSystem(categorySlug, drawingSlug);
     
-    // Escutar mudança de legenda
+    // Escutar mudança de legenda e moldura (borda)
     const radios = document.getElementsByName('phrase-lang-mode');
     radios.forEach(radio => {
         // Resetar para PT ativo
@@ -994,13 +998,19 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
         radio.onchange = () => {
             const mode = radio.value;
             if (mode === 'pt') {
+                if (sheetFrame) sheetFrame.classList.remove('no-border');
                 phraseBox.style.display = 'flex';
                 renderHollowPhraseText(currentDrawingPhrase, 'pt');
             } else if (mode === 'en') {
+                if (sheetFrame) sheetFrame.classList.remove('no-border');
                 phraseBox.style.display = 'flex';
                 renderHollowPhraseText(`${currentDrawingPhrase} / DRAWING`, 'en');
-            } else {
-                phraseBox.style.display = 'none'; // Sem legenda
+            } else if (mode === 'none') {
+                if (sheetFrame) sheetFrame.classList.remove('no-border');
+                phraseBox.style.display = 'none';
+            } else if (mode === 'noborder') {
+                if (sheetFrame) sheetFrame.classList.add('no-border');
+                phraseBox.style.display = 'none';
             }
         };
     });
@@ -1013,7 +1023,9 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
         const newBtnBorder = btnPrintBorder.cloneNode(true);
         btnPrintBorder.parentNode.replaceChild(newBtnBorder, btnPrintBorder);
         newBtnBorder.addEventListener('click', () => {
+            document.body.classList.add('print-with-border');
             window.print();
+            document.body.classList.remove('print-with-border');
         });
     }
     

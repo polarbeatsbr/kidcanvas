@@ -848,6 +848,21 @@ button, input, select, textarea {
     margin-top: 10px;
 }
 
+/* Regras de visualização sem borda na tela (preview) */
+.drawing-sheet-frame.no-border .drawing-sheet-border {
+    display: none;
+}
+.drawing-sheet-frame.no-border .drawing-sheet-phrase-container {
+    display: none;
+}
+.drawing-sheet-frame.no-border .drawing-sheet-watermark-print {
+    display: block;
+}
+.drawing-sheet-frame.no-border .drawing-sheet-image-wrapper {
+    flex-grow: 1;
+    aspect-ratio: auto;
+}
+
 /* Organização vertical dos botões de ação */
 .drawing-actions {
     display: flex;
@@ -1593,6 +1608,25 @@ button, input, select, textarea {
         flex-grow: 1 !important;
         aspect-ratio: auto !important;
         height: 0 !important;
+    }
+
+    /* Forçar exibição da borda quando solicitado explicitamente */
+    body.print-with-border .drawing-sheet-border {
+        display: block !important;
+    }
+    
+    body.print-with-border .drawing-sheet-phrase-container {
+        display: flex !important;
+    }
+    
+    body.print-with-border .drawing-sheet-watermark-print {
+        display: none !important;
+    }
+    
+    body.print-with-border .drawing-sheet-image-wrapper {
+        flex-grow: 0 !important;
+        aspect-ratio: 1.1 !important;
+        height: auto !important;
     }
 }
 
