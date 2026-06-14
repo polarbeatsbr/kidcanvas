@@ -259,6 +259,30 @@ app.post('/api/rate', (req, res) => {
     });
 });
 
+app.get('/api/debug-index', (req, res) => {
+    const fs = require('fs');
+    const indexPath = path.join(__dirname, '..', 'index.html');
+    const exists = fs.existsSync(indexPath);
+    let stats = null;
+    let error = null;
+    let contentSnippet = null;
+    if (exists) {
+        try {
+            stats = fs.statSync(indexPath);
+            contentSnippet = fs.readFileSync(indexPath, 'utf8').slice(0, 100);
+        } catch (e) {
+            error = e.message;
+        }
+    }
+    res.json({
+        exists,
+        indexPath,
+        stats,
+        contentSnippet,
+        error
+    });
+});
+
 app.get('/api/debug-files', (req, res) => {
     const fs = require('fs');
     const path = require('path');
