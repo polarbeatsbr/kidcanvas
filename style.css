@@ -232,6 +232,16 @@ button, input, select, textarea {
     transform: translateY(-2px);
 }
 
+.nav-link-new {
+    color: var(--color-orange) !important;
+    font-weight: 600;
+}
+
+.nav-link-new:hover {
+    background-color: #fdf5e6 !important;
+    color: var(--color-yellow) !important;
+}
+
 /* --- BOTÕES --- */
 .btn {
     display: inline-flex;

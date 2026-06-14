@@ -202,7 +202,9 @@ function renderHomeView() {
         homeCatGrid.innerHTML = '';
         Object.keys(CATEGORIES_DATA).forEach(slug => {
             const catInfo = CATEGORIES_DATA[slug];
-            const drawingCount = allDrawings.filter(d => d.category === slug).length;
+            const drawingCount = slug === 'novidades'
+                ? allDrawings.filter(d => d.isNew).length
+                : allDrawings.filter(d => d.category === slug).length;
             
             const card = document.createElement('a');
             card.href = `/categoria/${slug}`;
@@ -290,7 +292,9 @@ function renderCategoriasView() {
         pageGrid.innerHTML = '';
         Object.keys(CATEGORIES_DATA).forEach(slug => {
             const catInfo = CATEGORIES_DATA[slug];
-            const drawingCount = allDrawings.filter(d => d.category === slug).length;
+            const drawingCount = slug === 'novidades'
+                ? allDrawings.filter(d => d.isNew).length
+                : allDrawings.filter(d => d.category === slug).length;
             
             const card = document.createElement('a');
             card.href = `/categoria/${slug}`;
