@@ -836,53 +836,6 @@ button, input, select, textarea {
     letter-spacing: 0.5px;
 }
 
-/* Marca d'água discreta para impressão */
-.drawing-sheet-watermark-print {
-    display: none;
-    text-align: center;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #8c766b; /* marrom discreto */
-    letter-spacing: 1px;
-    margin-top: 10px;
-}
-
-/* Regras de visualização sem borda na tela (preview) */
-.drawing-sheet-frame.no-border .drawing-sheet-border {
-    display: none;
-}
-.drawing-sheet-frame.no-border .drawing-sheet-phrase-container {
-    display: none;
-}
-.drawing-sheet-frame.no-border .drawing-sheet-watermark-print {
-    display: block;
-}
-.drawing-sheet-frame.no-border .drawing-sheet-image-wrapper {
-    flex-grow: 1;
-    aspect-ratio: auto;
-    position: relative;
-    overflow: hidden;
-}
-.drawing-sheet-frame.no-border .drawing-sheet-image-wrapper img {
-    position: absolute;
-    width: 116% !important;
-    height: 116% !important;
-    max-width: none !important;
-    max-height: none !important;
-    top: -8% !important;
-    left: -8% !important;
-    object-fit: contain;
-}
-
-/* Organização vertical dos botões de ação */
-.drawing-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-}
-
 /* Coluna de Info */
 .drawing-info-column {
     display: flex;
@@ -1568,7 +1521,7 @@ button, input, select, textarea {
         padding: 0 !important;
     }
     
-    header, footer, .breadcrumbs, .drawing-crumb-navigation, .drawing-info-column, .simulated-ad-horizontal, .related-drawings-section, .mobile-bottom-nav, .rating-container, .desenhe-o-bem-section {
+    header, footer, .drawing-crumb-navigation, .drawing-info-column, .simulated-ad-horizontal, .related-drawings-section, .mobile-bottom-nav, .rating-container, .desenhe-o-bem-section {
         display: none !important;
     }
     
@@ -1601,70 +1554,6 @@ button, input, select, textarea {
     @page {
         size: A4 portrait;
         margin: 10mm 15mm;
-    }
-
-    /* Regras especiais para impressão sem borda decorativa */
-    body.print-no-border .drawing-sheet-border {
-        display: none !important;
-    }
-    
-    body.print-no-border .drawing-sheet-phrase-container {
-        display: none !important;
-    }
-    
-    body.print-no-border .drawing-sheet-watermark-print {
-        display: block !important;
-    }
-    
-    body.print-no-border .drawing-sheet-image-wrapper {
-        flex-grow: 1 !important;
-        aspect-ratio: auto !important;
-        height: 0 !important;
-        position: relative !important;
-        overflow: hidden !important;
-    }
-
-    body.print-no-border .drawing-sheet-image-wrapper img {
-        position: absolute !important;
-        width: 116% !important;
-        height: 116% !important;
-        max-width: none !important;
-        max-height: none !important;
-        top: -8% !important;
-        left: -8% !important;
-        object-fit: contain !important;
-    }
-
-    /* Forçar exibição da borda quando solicitado explicitamente */
-    body.print-with-border .drawing-sheet-border {
-        display: block !important;
-    }
-    
-    body.print-with-border .drawing-sheet-phrase-container {
-        display: flex !important;
-    }
-    
-    body.print-with-border .drawing-sheet-watermark-print {
-        display: none !important;
-    }
-    
-    body.print-with-border .drawing-sheet-image-wrapper {
-        flex-grow: 0 !important;
-        aspect-ratio: 1.1 !important;
-        height: auto !important;
-        position: static !important;
-        overflow: visible !important;
-    }
-
-    body.print-with-border .drawing-sheet-image-wrapper img {
-        position: static !important;
-        width: 100% !important;
-        height: 100% !important;
-        max-width: 100% !important;
-        max-height: 100% !important;
-        top: auto !important;
-        left: auto !important;
-        object-fit: contain !important;
     }
 }
 

@@ -103,12 +103,6 @@ function initGlobalEventListeners() {
             }
         });
     }
-
-    // Remover as classes de controle de impressão após concluir ou cancelar a janela de impressão
-    window.addEventListener('afterprint', () => {
-        document.body.classList.remove('print-no-border');
-        document.body.classList.remove('print-with-border');
-    });
 }
 
 function navigate(path, pushState = true) {
@@ -983,13 +977,10 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
     phraseBox.style.display = 'flex';
     renderHollowPhraseText(currentDrawingPhrase, 'pt');
     
-    const sheetFrame = document.querySelector('.drawing-sheet-frame');
-    if (sheetFrame) sheetFrame.classList.remove('no-border');
-    
     // Inicializar avaliação por estrelas
     initRatingSystem(categorySlug, drawingSlug);
     
-    // Escutar mudança de legenda e moldura (borda)
+    // Escutar mudança de legenda
     const radios = document.getElementsByName('phrase-lang-mode');
     radios.forEach(radio => {
         // Resetar para PT ativo
@@ -998,46 +989,25 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
         radio.onchange = () => {
             const mode = radio.value;
             if (mode === 'pt') {
-                if (sheetFrame) sheetFrame.classList.remove('no-border');
                 phraseBox.style.display = 'flex';
                 renderHollowPhraseText(currentDrawingPhrase, 'pt');
             } else if (mode === 'en') {
-                if (sheetFrame) sheetFrame.classList.remove('no-border');
                 phraseBox.style.display = 'flex';
                 renderHollowPhraseText(`${currentDrawingPhrase} / DRAWING`, 'en');
-            } else if (mode === 'none') {
-                if (sheetFrame) sheetFrame.classList.remove('no-border');
-                phraseBox.style.display = 'none';
-            } else if (mode === 'noborder') {
-                if (sheetFrame) sheetFrame.classList.add('no-border');
-                phraseBox.style.display = 'none';
+            } else {
+                phraseBox.style.display = 'none'; // Sem legenda
             }
         };
     });
     
-    // Configurar botões de impressão com e sem borda
-    const btnPrintBorder = document.getElementById('btn-print-border');
-    const btnPrintNoBorder = document.getElementById('btn-print-noborder');
+    // Configurar botão de download direto (sem cadastro)
+    const btnDownload = document.getElementById('btn-download-drawing');
+    const newBtn = btnDownload.cloneNode(true);
+    btnDownload.parentNode.replaceChild(newBtn, btnDownload);
     
-    if (btnPrintBorder) {
-        const newBtnBorder = btnPrintBorder.cloneNode(true);
-        btnPrintBorder.parentNode.replaceChild(newBtnBorder, btnPrintBorder);
-        newBtnBorder.addEventListener('click', () => {
-            document.body.classList.add('print-with-border');
-            window.print();
-            document.body.classList.remove('print-with-border');
-        });
-    }
-    
-    if (btnPrintNoBorder) {
-        const newBtnNoBorder = btnPrintNoBorder.cloneNode(true);
-        btnPrintNoBorder.parentNode.replaceChild(newBtnNoBorder, btnPrintNoBorder);
-        newBtnNoBorder.addEventListener('click', () => {
-            document.body.classList.add('print-no-border');
-            window.print();
-            document.body.classList.remove('print-no-border');
-        });
-    }
+    newBtn.addEventListener('click', () => {
+        triggerDrawingDownload(drawing);
+    });
     
     // Renderizar desenhos relacionados (mesma categoria, limitados a 4)
     const relatedGrid = document.getElementById('related-drawings-grid');
