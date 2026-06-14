@@ -128,6 +128,8 @@ function navigate(path, pushState = true) {
         renderCategoriasView();
     } else if (cleanPath === '/top50') {
         renderTop50View();
+    } else if (cleanPath === '/politica-de-privacidade') {
+        renderPoliticaPrivacidadeView();
     } else if (cleanPath.startsWith('/categoria/')) {
         const categorySlug = cleanPath.replace('/categoria/', '');
         renderCategoriaDetalheView(categorySlug);
@@ -173,6 +175,17 @@ function navigate(path, pushState = true) {
 }
 
 // --- RENDERIZADORES DE VIEW ---
+
+// 0. POLÍTICA DE PRIVACIDADE VIEW
+function renderPoliticaPrivacidadeView() {
+    document.title = "Política de Privacidade — KidCanvas 🔒";
+    setMetaDescription("Política de Privacidade do site KidCanvas. Entenda como respeitamos a privacidade de nossos usuários, famílias e crianças.");
+    
+    const view = document.getElementById('view-politica-de-privacidade');
+    if (view) {
+        view.style.display = 'block';
+    }
+}
 
 // 1. HOME VIEW
 function renderHomeView() {
