@@ -17,7 +17,8 @@ C:\\Users\\foneo\\.gemini\\antigravity\\brain/
 !package.json
 !package-lock.json
 !ratings.json
+!vercel.json
 
-# Markdown files in root (guia_geracao.md, generation_report.md etc.)
+# Markdown files in root
 *.md
 !README.md

@@ -275,3 +275,5 @@ app.listen(PORT, () => {
     console.log(`👉 Acesse localmente em: http://localhost:${PORT}`);
     console.log('==================================================\n');
 });
+
+module.exports = app;
