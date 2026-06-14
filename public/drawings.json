@@ -1221,6 +1221,105 @@
     "isNew": false
   },
   {
+    "index": 101,
+    "filename": "101-canario-brincando-com-bola__canary.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/101-canario-brincando-com-bola__canary.png",
+    "category": "animais-domesticos",
+    "pt": "Canario brincando com bola",
+    "en": "Canary",
+    "slug": "canario-brincando-com-bola",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 102,
+    "filename": "102-chinchila-brincando-com-bola__chinchilla.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/102-chinchila-brincando-com-bola__chinchilla.png",
+    "category": "animais-domesticos",
+    "pt": "Chinchila brincando com bola",
+    "en": "Chinchilla",
+    "slug": "chinchila-brincando-com-bola",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 103,
+    "filename": "103-periquito-brincando-com-bola__parakeet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/103-periquito-brincando-com-bola__parakeet.png",
+    "category": "animais-domesticos",
+    "pt": "Periquito brincando com bola",
+    "en": "Parakeet",
+    "slug": "periquito-brincando-com-bola",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 104,
+    "filename": "104-gatinho-brincando-com-bola__kitten.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/104-gatinho-brincando-com-bola__kitten.png",
+    "category": "animais-domesticos",
+    "pt": "Gatinho brincando com bola",
+    "en": "Kitten",
+    "slug": "gatinho-brincando-com-bola",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 105,
+    "filename": "105-cachorrinho-brincando-com-bola__puppy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/105-cachorrinho-brincando-com-bola__puppy.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorrinho brincando com bola",
+    "en": "Puppy",
+    "slug": "cachorrinho-brincando-com-bola",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 106,
+    "filename": "106-gato-espiando-na-caixa__cat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/106-gato-espiando-na-caixa__cat.png",
+    "category": "animais-domesticos",
+    "pt": "Gato espiando na caixa",
+    "en": "Cat",
+    "slug": "gato-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 107,
+    "filename": "107-cachorro-espiando-na-caixa__dog.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/107-cachorro-espiando-na-caixa__dog.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro espiando na caixa",
+    "en": "Dog",
+    "slug": "cachorro-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 108,
+    "filename": "108-coelho-espiando-na-caixa__rabbit.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/108-coelho-espiando-na-caixa__rabbit.png",
+    "category": "animais-domesticos",
+    "pt": "Coelho espiando na caixa",
+    "en": "Rabbit",
+    "slug": "coelho-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 109,
+    "filename": "109-hamster-espiando-na-caixa__hamster.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/109-hamster-espiando-na-caixa__hamster.png",
+    "category": "animais-domesticos",
+    "pt": "Hamster espiando na caixa",
+    "en": "Hamster",
+    "slug": "hamster-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 11,
     "filename": "11-canario-brincando-com-novelo__canary.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/11-canario-brincando-com-novelo__canary.png",
@@ -1230,6 +1329,116 @@
     "slug": "canario-brincando-com-novelo",
     "tier": "free",
     "isNew": false
+  },
+  {
+    "index": 110,
+    "filename": "110-papagaio-espiando-na-caixa__parrot.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/110-papagaio-espiando-na-caixa__parrot.png",
+    "category": "animais-domesticos",
+    "pt": "Papagaio espiando na caixa",
+    "en": "Parrot",
+    "slug": "papagaio-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 111,
+    "filename": "111-peixe-dourado-espiando-na-caixa__goldfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/111-peixe-dourado-espiando-na-caixa__goldfish.png",
+    "category": "animais-domesticos",
+    "pt": "Peixe dourado espiando na caixa",
+    "en": "Goldfish",
+    "slug": "peixe-dourado-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 112,
+    "filename": "112-porquinho-da-india-espiando-na-caixa__guinea_pig.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/112-porquinho-da-india-espiando-na-caixa__guinea_pig.png",
+    "category": "animais-domesticos",
+    "pt": "Porquinho da india espiando na caixa",
+    "en": "Guinea pig",
+    "slug": "porquinho-da-india-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 113,
+    "filename": "113-calopsita-espiando-na-caixa__cockatiel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/113-calopsita-espiando-na-caixa__cockatiel.png",
+    "category": "animais-domesticos",
+    "pt": "Calopsita espiando na caixa",
+    "en": "Cockatiel",
+    "slug": "calopsita-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 114,
+    "filename": "114-furao-espiando-na-caixa__ferret.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/114-furao-espiando-na-caixa__ferret.png",
+    "category": "animais-domesticos",
+    "pt": "Furao espiando na caixa",
+    "en": "Ferret",
+    "slug": "furao-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 115,
+    "filename": "115-tartaruga-espiando-na-caixa__turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/115-tartaruga-espiando-na-caixa__turtle.png",
+    "category": "animais-domesticos",
+    "pt": "Tartaruga espiando na caixa",
+    "en": "Turtle",
+    "slug": "tartaruga-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 116,
+    "filename": "116-canario-espiando-na-caixa__canary.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/116-canario-espiando-na-caixa__canary.png",
+    "category": "animais-domesticos",
+    "pt": "Canario espiando na caixa",
+    "en": "Canary",
+    "slug": "canario-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 117,
+    "filename": "117-chinchila-espiando-na-caixa__chinchilla.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/117-chinchila-espiando-na-caixa__chinchilla.png",
+    "category": "animais-domesticos",
+    "pt": "Chinchila espiando na caixa",
+    "en": "Chinchilla",
+    "slug": "chinchila-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 118,
+    "filename": "118-periquito-espiando-na-caixa__parakeet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/118-periquito-espiando-na-caixa__parakeet.png",
+    "category": "animais-domesticos",
+    "pt": "Periquito espiando na caixa",
+    "en": "Parakeet",
+    "slug": "periquito-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 119,
+    "filename": "119-gatinho-espiando-na-caixa__kitten.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/119-gatinho-espiando-na-caixa__kitten.png",
+    "category": "animais-domesticos",
+    "pt": "Gatinho espiando na caixa",
+    "en": "Kitten",
+    "slug": "gatinho-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
   },
   {
     "index": 12,
@@ -1243,6 +1452,72 @@
     "isNew": false
   },
   {
+    "index": 120,
+    "filename": "120-cachorrinho-espiando-na-caixa__puppy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/120-cachorrinho-espiando-na-caixa__puppy.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorrinho espiando na caixa",
+    "en": "Puppy",
+    "slug": "cachorrinho-espiando-na-caixa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 121,
+    "filename": "121-gato-tomando-sol__cat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/121-gato-tomando-sol__cat.png",
+    "category": "animais-domesticos",
+    "pt": "Gato tomando sol",
+    "en": "Cat",
+    "slug": "gato-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 122,
+    "filename": "122-cachorro-tomando-sol__dog.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/122-cachorro-tomando-sol__dog.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro tomando sol",
+    "en": "Dog",
+    "slug": "cachorro-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 123,
+    "filename": "123-coelho-tomando-sol__rabbit.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/123-coelho-tomando-sol__rabbit.png",
+    "category": "animais-domesticos",
+    "pt": "Coelho tomando sol",
+    "en": "Rabbit",
+    "slug": "coelho-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 124,
+    "filename": "124-hamster-tomando-sol__hamster.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/124-hamster-tomando-sol__hamster.png",
+    "category": "animais-domesticos",
+    "pt": "Hamster tomando sol",
+    "en": "Hamster",
+    "slug": "hamster-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 127,
+    "filename": "127-porquinho-da-india-tomando-sol__guinea_pig.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/127-porquinho-da-india-tomando-sol__guinea_pig.png",
+    "category": "animais-domesticos",
+    "pt": "Porquinho da india tomando sol",
+    "en": "Guinea pig",
+    "slug": "porquinho-da-india-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 13,
     "filename": "13-periquito-brincando-com-novelo__parakeet.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/13-periquito-brincando-com-novelo__parakeet.png",
@@ -1254,6 +1529,28 @@
     "isNew": false
   },
   {
+    "index": 130,
+    "filename": "130-tartaruga-tomando-sol__turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/130-tartaruga-tomando-sol__turtle.png",
+    "category": "animais-domesticos",
+    "pt": "Tartaruga tomando sol",
+    "en": "Turtle",
+    "slug": "tartaruga-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 139,
+    "filename": "139-hamster-correndo-na-grama__hamster.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/139-hamster-correndo-na-grama__hamster.png",
+    "category": "animais-domesticos",
+    "pt": "Hamster correndo na grama",
+    "en": "Hamster",
+    "slug": "hamster-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 14,
     "filename": "14-gatinho-brincando-com-novelo__kitten.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/14-gatinho-brincando-com-novelo__kitten.png",
@@ -1263,6 +1560,28 @@
     "slug": "gatinho-brincando-com-novelo",
     "tier": "free",
     "isNew": false
+  },
+  {
+    "index": 142,
+    "filename": "142-porquinho-da-india-correndo-na-grama__guinea_pig.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/142-porquinho-da-india-correndo-na-grama__guinea_pig.png",
+    "category": "animais-domesticos",
+    "pt": "Porquinho da india correndo na grama",
+    "en": "Guinea pig",
+    "slug": "porquinho-da-india-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 145,
+    "filename": "145-tartaruga-correndo-na-grama__turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/145-tartaruga-correndo-na-grama__turtle.png",
+    "category": "animais-domesticos",
+    "pt": "Tartaruga correndo na grama",
+    "en": "Turtle",
+    "slug": "tartaruga-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
   },
   {
     "index": 15,
@@ -2321,6 +2640,105 @@
     "isNew": false
   },
   {
+    "index": 101,
+    "filename": "101-agua-viva-flutuando__jellyfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/101-agua-viva-flutuando__jellyfish.png",
+    "category": "animais-selvagens",
+    "pt": "Agua viva flutuando",
+    "en": "Jellyfish",
+    "slug": "agua-viva-flutuando",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 102,
+    "filename": "102-golfinho-saltando-da-agua__dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/102-golfinho-saltando-da-agua__dolphin.png",
+    "category": "animais-selvagens",
+    "pt": "Golfinho saltando da agua",
+    "en": "Dolphin",
+    "slug": "golfinho-saltando-da-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 103,
+    "filename": "103-baleia-esguichando-agua__whale.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/103-baleia-esguichando-agua__whale.png",
+    "category": "animais-selvagens",
+    "pt": "Baleia esguichando agua",
+    "en": "Whale",
+    "slug": "baleia-esguichando-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 104,
+    "filename": "104-baiacu-inflado__pufferfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/104-baiacu-inflado__pufferfish.png",
+    "category": "animais-selvagens",
+    "pt": "Baiacu inflado",
+    "en": "Pufferfish",
+    "slug": "baiacu-inflado",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 105,
+    "filename": "105-flamingo-em-uma-perna__flamingo.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/105-flamingo-em-uma-perna__flamingo.png",
+    "category": "animais-selvagens",
+    "pt": "Flamingo em uma perna",
+    "en": "Flamingo",
+    "slug": "flamingo-em-uma-perna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 106,
+    "filename": "106-pavao-exibindo-cauda__peacock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/106-pavao-exibindo-cauda__peacock.png",
+    "category": "animais-selvagens",
+    "pt": "Pavao exibindo cauda",
+    "en": "Peacock",
+    "slug": "pavao-exibindo-cauda",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 107,
+    "filename": "107-avestruz-correndo-na-savana__ostrich.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/107-avestruz-correndo-na-savana__ostrich.png",
+    "category": "animais-selvagens",
+    "pt": "Avestruz correndo na savana",
+    "en": "Ostrich",
+    "slug": "avestruz-correndo-na-savana",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 108,
+    "filename": "108-aguia-voando-alto__eagle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/108-aguia-voando-alto__eagle.png",
+    "category": "animais-selvagens",
+    "pt": "Aguia voando alto",
+    "en": "Eagle",
+    "slug": "aguia-voando-alto",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 109,
+    "filename": "109-iguana-tomando-sol__iguana.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/109-iguana-tomando-sol__iguana.png",
+    "category": "animais-selvagens",
+    "pt": "Iguana tomando sol",
+    "en": "Iguana",
+    "slug": "iguana-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 11,
     "filename": "11-bebe-rinoceronte-amigavel__baby_rhino.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/11-bebe-rinoceronte-amigavel__baby_rhino.png",
@@ -2330,6 +2748,116 @@
     "slug": "bebe-rinoceronte-amigavel",
     "tier": "free",
     "isNew": false
+  },
+  {
+    "index": 110,
+    "filename": "110-lagartixa-escalando-parede__gecko.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/110-lagartixa-escalando-parede__gecko.png",
+    "category": "animais-selvagens",
+    "pt": "Lagartixa escalando parede",
+    "en": "Gecko",
+    "slug": "lagartixa-escalando-parede",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 111,
+    "filename": "111-axolote-sorridente__axolotl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/111-axolote-sorridente__axolotl.png",
+    "category": "animais-selvagens",
+    "pt": "Axolote sorridente",
+    "en": "Axolotl",
+    "slug": "axolote-sorridente",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 112,
+    "filename": "112-borboleta-sobre-flores__butterfly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/112-borboleta-sobre-flores__butterfly.png",
+    "category": "animais-selvagens",
+    "pt": "Borboleta sobre flores",
+    "en": "Butterfly",
+    "slug": "borboleta-sobre-flores",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 113,
+    "filename": "113-joaninha-em-folha__ladybug.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/113-joaninha-em-folha__ladybug.png",
+    "category": "animais-selvagens",
+    "pt": "Joaninha em folha",
+    "en": "Ladybug",
+    "slug": "joaninha-em-folha",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 114,
+    "filename": "114-abelha-coletando-nectar__bee.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/114-abelha-coletando-nectar__bee.png",
+    "category": "animais-selvagens",
+    "pt": "Abelha coletando nectar",
+    "en": "Bee",
+    "slug": "abelha-coletando-nectar",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 115,
+    "filename": "115-orca-saltitante__orca.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/115-orca-saltitante__orca.png",
+    "category": "animais-selvagens",
+    "pt": "Orca saltitante",
+    "en": "Orca",
+    "slug": "orca-saltitante",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 116,
+    "filename": "116-condor-sobrevoando-montanhas__condor.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/116-condor-sobrevoando-montanhas__condor.png",
+    "category": "animais-selvagens",
+    "pt": "Condor sobrevoando montanhas",
+    "en": "Condor",
+    "slug": "condor-sobrevoando-montanhas",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 117,
+    "filename": "117-vicunha-pastando-na-montanha__vicunha.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/117-vicunha-pastando-na-montanha__vicunha.png",
+    "category": "animais-selvagens",
+    "pt": "Vicunha pastando na montanha",
+    "en": "Vicunha",
+    "slug": "vicunha-pastando-na-montanha",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 118,
+    "filename": "118-quati-escalando-arvore__coati.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/118-quati-escalando-arvore__coati.png",
+    "category": "animais-selvagens",
+    "pt": "Quati escalando arvore",
+    "en": "Coati",
+    "slug": "quati-escalando-arvore",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 119,
+    "filename": "119-marmota-observadora__marmot.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/119-marmota-observadora__marmot.png",
+    "category": "animais-selvagens",
+    "pt": "Marmota observadora",
+    "en": "Marmot",
+    "slug": "marmota-observadora",
+    "tier": "free",
+    "isNew": true
   },
   {
     "index": 12,
@@ -2343,6 +2871,116 @@
     "isNew": false
   },
   {
+    "index": 120,
+    "filename": "120-pika-colhendo-feno__pika.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/120-pika-colhendo-feno__pika.png",
+    "category": "animais-selvagens",
+    "pt": "Pika colhendo feno",
+    "en": "Pika",
+    "slug": "pika-colhendo-feno",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 121,
+    "filename": "121-caracal-com-orelhas-pontudas__caracal.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/121-caracal-com-orelhas-pontudas__caracal.png",
+    "category": "animais-selvagens",
+    "pt": "Caracal com orelhas pontudas",
+    "en": "Caracal",
+    "slug": "caracal-com-orelhas-pontudas",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 122,
+    "filename": "122-linces-espreitando-mato__bobcat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/122-linces-espreitando-mato__bobcat.png",
+    "category": "animais-selvagens",
+    "pt": "Linces espreitando mato",
+    "en": "Bobcat",
+    "slug": "linces-espreitando-mato",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 123,
+    "filename": "123-kookaburra-em-galho__kookaburra.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/123-kookaburra-em-galho__kookaburra.png",
+    "category": "animais-selvagens",
+    "pt": "Kookaburra em galho",
+    "en": "Kookaburra",
+    "slug": "kookaburra-em-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 124,
+    "filename": "124-gazela-saltando-na-savana__gazelle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/124-gazela-saltando-na-savana__gazelle.png",
+    "category": "animais-selvagens",
+    "pt": "Gazela saltando na savana",
+    "en": "Gazelle",
+    "slug": "gazela-saltando-na-savana",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 125,
+    "filename": "125-zebra-bebe-explorando-a-savana__baby_zebra.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/125-zebra-bebe-explorando-a-savana__baby_zebra.png",
+    "category": "animais-selvagens",
+    "pt": "Zebra bebe explorando a savana",
+    "en": "Baby zebra",
+    "slug": "zebra-bebe-explorando-a-savana",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 126,
+    "filename": "126-macaco-narigudo-curioso__proboscis_monkey.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/126-macaco-narigudo-curioso__proboscis_monkey.png",
+    "category": "animais-selvagens",
+    "pt": "Macaco narigudo curioso",
+    "en": "Proboscis monkey",
+    "slug": "macaco-narigudo-curioso",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 127,
+    "filename": "127-leopardo-no-galho__leopard.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/127-leopardo-no-galho__leopard.png",
+    "category": "animais-selvagens",
+    "pt": "Leopardo no galho",
+    "en": "Leopard",
+    "slug": "leopardo-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 128,
+    "filename": "128-pantera-no-galho__panther.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/128-pantera-no-galho__panther.png",
+    "category": "animais-selvagens",
+    "pt": "Pantera no galho",
+    "en": "Panther",
+    "slug": "pantera-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 129,
+    "filename": "129-tucano-selvagem-no-galho__toucan.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/129-tucano-selvagem-no-galho__toucan.png",
+    "category": "animais-selvagens",
+    "pt": "Tucano selvagem no galho",
+    "en": "Toucan",
+    "slug": "tucano-selvagem-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 13,
     "filename": "13-urso-polar-bebe-no-gelo__baby_polar_bear.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/13-urso-polar-bebe-no-gelo__baby_polar_bear.png",
@@ -2352,6 +2990,116 @@
     "slug": "urso-polar-bebe-no-gelo",
     "tier": "free",
     "isNew": false
+  },
+  {
+    "index": 130,
+    "filename": "130-arara-no-galho__macaw.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/130-arara-no-galho__macaw.png",
+    "category": "animais-selvagens",
+    "pt": "Arara no galho",
+    "en": "Macaw",
+    "slug": "arara-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 131,
+    "filename": "131-pavao-no-galho__peacock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/131-pavao-no-galho__peacock.png",
+    "category": "animais-selvagens",
+    "pt": "Pavao no galho",
+    "en": "Peacock",
+    "slug": "pavao-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 132,
+    "filename": "132-suricato-no-galho__meerkat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/132-suricato-no-galho__meerkat.png",
+    "category": "animais-selvagens",
+    "pt": "Suricato no galho",
+    "en": "Meerkat",
+    "slug": "suricato-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 133,
+    "filename": "133-lemure-no-galho__lemur.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/133-lemure-no-galho__lemur.png",
+    "category": "animais-selvagens",
+    "pt": "Lemure no galho",
+    "en": "Lemur",
+    "slug": "lemure-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 134,
+    "filename": "134-avestruz-no-galho__ostrich.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/134-avestruz-no-galho__ostrich.png",
+    "category": "animais-selvagens",
+    "pt": "Avestruz no galho",
+    "en": "Ostrich",
+    "slug": "avestruz-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 135,
+    "filename": "135-flamingo-selvagem-no-galho__flamingo.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/135-flamingo-selvagem-no-galho__flamingo.png",
+    "category": "animais-selvagens",
+    "pt": "Flamingo selvagem no galho",
+    "en": "Flamingo",
+    "slug": "flamingo-selvagem-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 136,
+    "filename": "136-chimpanze-no-galho__chimpanzee.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/136-chimpanze-no-galho__chimpanzee.png",
+    "category": "animais-selvagens",
+    "pt": "Chimpanze no galho",
+    "en": "Chimpanzee",
+    "slug": "chimpanze-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 137,
+    "filename": "137-gorila-no-galho__gorilla.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/137-gorila-no-galho__gorilla.png",
+    "category": "animais-selvagens",
+    "pt": "Gorila no galho",
+    "en": "Gorilla",
+    "slug": "gorila-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 138,
+    "filename": "138-hiena-no-galho__hyena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/138-hiena-no-galho__hyena.png",
+    "category": "animais-selvagens",
+    "pt": "Hiena no galho",
+    "en": "Hyena",
+    "slug": "hiena-no-galho",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 139,
+    "filename": "139-tamandua-no-galho__anteater.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/139-tamandua-no-galho__anteater.png",
+    "category": "animais-selvagens",
+    "pt": "Tamandua no galho",
+    "en": "Anteater",
+    "slug": "tamandua-no-galho",
+    "tier": "free",
+    "isNew": true
   },
   {
     "index": 14,
@@ -2365,6 +3113,116 @@
     "isNew": false
   },
   {
+    "index": 140,
+    "filename": "140-leopardo-na-grama__leopard.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/140-leopardo-na-grama__leopard.png",
+    "category": "animais-selvagens",
+    "pt": "Leopardo na grama",
+    "en": "Leopard",
+    "slug": "leopardo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 141,
+    "filename": "141-pantera-na-grama__panther.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/141-pantera-na-grama__panther.png",
+    "category": "animais-selvagens",
+    "pt": "Pantera na grama",
+    "en": "Panther",
+    "slug": "pantera-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 142,
+    "filename": "142-tucano-selvagem-na-grama__toucan.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/142-tucano-selvagem-na-grama__toucan.png",
+    "category": "animais-selvagens",
+    "pt": "Tucano selvagem na grama",
+    "en": "Toucan",
+    "slug": "tucano-selvagem-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 143,
+    "filename": "143-arara-na-grama__macaw.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/143-arara-na-grama__macaw.png",
+    "category": "animais-selvagens",
+    "pt": "Arara na grama",
+    "en": "Macaw",
+    "slug": "arara-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 144,
+    "filename": "144-pavao-na-grama__peacock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/144-pavao-na-grama__peacock.png",
+    "category": "animais-selvagens",
+    "pt": "Pavao na grama",
+    "en": "Peacock",
+    "slug": "pavao-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 145,
+    "filename": "145-suricato-na-grama__meerkat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/145-suricato-na-grama__meerkat.png",
+    "category": "animais-selvagens",
+    "pt": "Suricato na grama",
+    "en": "Meerkat",
+    "slug": "suricato-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 146,
+    "filename": "146-lemure-na-grama__lemur.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/146-lemure-na-grama__lemur.png",
+    "category": "animais-selvagens",
+    "pt": "Lemure na grama",
+    "en": "Lemur",
+    "slug": "lemure-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 147,
+    "filename": "147-avestruz-na-grama__ostrich.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/147-avestruz-na-grama__ostrich.png",
+    "category": "animais-selvagens",
+    "pt": "Avestruz na grama",
+    "en": "Ostrich",
+    "slug": "avestruz-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 148,
+    "filename": "148-flamingo-selvagem-na-grama__flamingo.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/148-flamingo-selvagem-na-grama__flamingo.png",
+    "category": "animais-selvagens",
+    "pt": "Flamingo selvagem na grama",
+    "en": "Flamingo",
+    "slug": "flamingo-selvagem-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 149,
+    "filename": "149-chimpanze-na-grama__chimpanzee.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/149-chimpanze-na-grama__chimpanzee.png",
+    "category": "animais-selvagens",
+    "pt": "Chimpanze na grama",
+    "en": "Chimpanzee",
+    "slug": "chimpanze-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 15,
     "filename": "15-lobo-bebe-uivando__baby_wolf.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/15-lobo-bebe-uivando__baby_wolf.png",
@@ -2376,6 +3234,116 @@
     "isNew": false
   },
   {
+    "index": 150,
+    "filename": "150-gorila-na-grama__gorilla.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/150-gorila-na-grama__gorilla.png",
+    "category": "animais-selvagens",
+    "pt": "Gorila na grama",
+    "en": "Gorilla",
+    "slug": "gorila-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 151,
+    "filename": "151-hiena-na-grama__hyena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/151-hiena-na-grama__hyena.png",
+    "category": "animais-selvagens",
+    "pt": "Hiena na grama",
+    "en": "Hyena",
+    "slug": "hiena-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 152,
+    "filename": "152-tamandua-na-grama__anteater.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/152-tamandua-na-grama__anteater.png",
+    "category": "animais-selvagens",
+    "pt": "Tamandua na grama",
+    "en": "Anteater",
+    "slug": "tamandua-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 153,
+    "filename": "153-leopardo-correndo__leopard.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/153-leopardo-correndo__leopard.png",
+    "category": "animais-selvagens",
+    "pt": "Leopardo correndo",
+    "en": "Leopard",
+    "slug": "leopardo-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 154,
+    "filename": "154-pantera-correndo__panther.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/154-pantera-correndo__panther.png",
+    "category": "animais-selvagens",
+    "pt": "Pantera correndo",
+    "en": "Panther",
+    "slug": "pantera-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 155,
+    "filename": "155-tucano-selvagem-correndo__toucan.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/155-tucano-selvagem-correndo__toucan.png",
+    "category": "animais-selvagens",
+    "pt": "Tucano selvagem correndo",
+    "en": "Toucan",
+    "slug": "tucano-selvagem-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 156,
+    "filename": "156-arara-correndo__macaw.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/156-arara-correndo__macaw.png",
+    "category": "animais-selvagens",
+    "pt": "Arara correndo",
+    "en": "Macaw",
+    "slug": "arara-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 157,
+    "filename": "157-pavao-correndo__peacock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/157-pavao-correndo__peacock.png",
+    "category": "animais-selvagens",
+    "pt": "Pavao correndo",
+    "en": "Peacock",
+    "slug": "pavao-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 158,
+    "filename": "158-suricato-correndo__meerkat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/158-suricato-correndo__meerkat.png",
+    "category": "animais-selvagens",
+    "pt": "Suricato correndo",
+    "en": "Meerkat",
+    "slug": "suricato-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 159,
+    "filename": "159-lemure-correndo__lemur.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/159-lemure-correndo__lemur.png",
+    "category": "animais-selvagens",
+    "pt": "Lemure correndo",
+    "en": "Lemur",
+    "slug": "lemure-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 16,
     "filename": "16-crocodilo-bebe-sorrindo__baby_crocodile.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/16-crocodilo-bebe-sorrindo__baby_crocodile.png",
@@ -2385,6 +3353,94 @@
     "slug": "crocodilo-bebe-sorrindo",
     "tier": "free",
     "isNew": false
+  },
+  {
+    "index": 160,
+    "filename": "160-avestruz-correndo__ostrich.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/160-avestruz-correndo__ostrich.png",
+    "category": "animais-selvagens",
+    "pt": "Avestruz correndo",
+    "en": "Ostrich",
+    "slug": "avestruz-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 161,
+    "filename": "161-flamingo-selvagem-correndo__flamingo.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/161-flamingo-selvagem-correndo__flamingo.png",
+    "category": "animais-selvagens",
+    "pt": "Flamingo selvagem correndo",
+    "en": "Flamingo",
+    "slug": "flamingo-selvagem-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 162,
+    "filename": "162-chimpanze-correndo__chimpanzee.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/162-chimpanze-correndo__chimpanzee.png",
+    "category": "animais-selvagens",
+    "pt": "Chimpanze correndo",
+    "en": "Chimpanzee",
+    "slug": "chimpanze-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 163,
+    "filename": "163-gorila-correndo__gorilla.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/163-gorila-correndo__gorilla.png",
+    "category": "animais-selvagens",
+    "pt": "Gorila correndo",
+    "en": "Gorilla",
+    "slug": "gorila-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 164,
+    "filename": "164-hiena-correndo__hyena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/164-hiena-correndo__hyena.png",
+    "category": "animais-selvagens",
+    "pt": "Hiena correndo",
+    "en": "Hyena",
+    "slug": "hiena-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 165,
+    "filename": "165-tamandua-correndo__anteater.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/165-tamandua-correndo__anteater.png",
+    "category": "animais-selvagens",
+    "pt": "Tamandua correndo",
+    "en": "Anteater",
+    "slug": "tamandua-correndo",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 166,
+    "filename": "166-leopardo-brincando__leopard.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/166-leopardo-brincando__leopard.png",
+    "category": "animais-selvagens",
+    "pt": "Leopardo brincando",
+    "en": "Leopard",
+    "slug": "leopardo-brincando",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 167,
+    "filename": "167-pantera-brincando__panther.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-selvagens/167-pantera-brincando__panther.png",
+    "category": "animais-selvagens",
+    "pt": "Pantera brincando",
+    "en": "Panther",
+    "slug": "pantera-brincando",
+    "tier": "free",
+    "isNew": true
   },
   {
     "index": 17,
