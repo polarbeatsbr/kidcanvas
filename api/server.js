@@ -259,49 +259,6 @@ app.post('/api/rate', (req, res) => {
     });
 });
 
-app.get('/api/debug-index', (req, res) => {
-    const fs = require('fs');
-    const indexPath = path.join(__dirname, '..', 'index.html');
-    const exists = fs.existsSync(indexPath);
-    let stats = null;
-    let error = null;
-    let contentSnippet = null;
-    if (exists) {
-        try {
-            stats = fs.statSync(indexPath);
-            contentSnippet = fs.readFileSync(indexPath, 'utf8').slice(0, 100);
-        } catch (e) {
-            error = e.message;
-        }
-    }
-    res.json({
-        exists,
-        indexPath,
-        stats,
-        contentSnippet,
-        error
-    });
-});
-
-app.get('/api/debug-files', (req, res) => {
-    const fs = require('fs');
-    const path = require('path');
-    try {
-        const parentDir = path.join(__dirname, '..');
-        const parentFiles = fs.readdirSync(parentDir);
-        const apiFiles = fs.readdirSync(__dirname);
-        res.json({
-            success: true,
-            dirname: __dirname,
-            apiFiles: apiFiles,
-            parentDir: parentDir,
-            parentFiles: parentFiles
-        });
-    } catch (e) {
-        res.status(500).json({ success: false, error: e.message });
-    }
-});
-
 // Rota catch-all para servir index.html e dar suporte ao roteamento SPA (histórico pushState)
 app.get('*', (req, res) => {
     // Ignorar chamadas de API ou arquivos estáticos com extensão que caíram aqui por erro
