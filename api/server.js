@@ -173,9 +173,37 @@ function loadCreationDates() {
     }
 }
 
+const DRAWINGS_JSON_FILE = path.join(__dirname, '..', 'drawings.json');
+
 // Rota para listar os desenhos processados na pasta 'pintai-biblioteca' divididos por categoria e tier
 app.get('/api/drawings', (req, res) => {
     const fs = require('fs');
+
+    // Se drawings.json existir, use-o para evitar limite de tamanho da função serverless
+    if (fs.existsSync(DRAWINGS_JSON_FILE)) {
+        try {
+            const data = fs.readFileSync(DRAWINGS_JSON_FILE, 'utf8');
+            const drawingsList = JSON.parse(data);
+            const ratings = loadRatings();
+            
+            // Mesclar as notas de estrelas atuais
+            const drawings = drawingsList.map(d => {
+                const ratingKey = `${d.category}/${d.slug}`;
+                const ratingData = ratings[ratingKey] || { totalStars: 0, votes: 0 };
+                const averageRating = ratingData.votes > 0 ? (ratingData.totalStars / ratingData.votes) : 0;
+                return {
+                    ...d,
+                    rating: averageRating,
+                    votes: ratingData.votes
+                };
+            });
+            
+            return res.json({ success: true, drawings });
+        } catch (e) {
+            console.error('Erro ao ler drawings.json, usando fallback de varredura:', e);
+        }
+    }
+
     const bibliotecaDir = path.join(__dirname, '..', 'pintai-biblioteca');
     if (!fs.existsSync(bibliotecaDir)) {
         return res.json({ success: true, drawings: [] });
