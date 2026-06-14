@@ -1341,6 +1341,176 @@ button, input, select, textarea {
     border-top: 10px solid #FAF2E8;
 }
 
+/* --- SEÇÃO DESENHE O BEM --- */
+.desenhe-o-bem-section {
+    padding: 60px 0;
+    background-color: #FAF2E8; /* Creme acolhedor */
+    border-top: var(--border-thick);
+}
+
+.desenhe-o-bem-card {
+    background-color: var(--color-white);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-cartoon);
+    padding: 40px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.desenhe-o-bem-tag {
+    display: inline-block;
+    background-color: var(--color-purple-light);
+    color: var(--color-purple);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 6px 16px;
+    border-radius: 50px;
+    border: var(--border-thin);
+    margin-bottom: 16px;
+}
+
+.desenhe-o-bem-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    margin-bottom: 12px;
+}
+
+.desenhe-o-bem-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-dark-light);
+    margin-bottom: 30px;
+}
+
+.desenhe-o-bem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.desenhe-o-bem-stat-card {
+    background-color: var(--color-bg); /* Bege/creme quente */
+    border: var(--border-medium);
+    border-radius: var(--radius-md);
+    padding: 24px 16px;
+    transition: var(--transition-bounce);
+}
+
+.desenhe-o-bem-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-cartoon);
+}
+
+.stat-icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-orange);
+    margin-bottom: 6px;
+}
+
+.stat-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-dark-light);
+    line-height: 1.3;
+}
+
+.desenhe-o-bem-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.desenhe-o-bem-stories-link {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-purple);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+}
+
+.desenhe-o-bem-stories-link:hover {
+    color: var(--color-orange);
+    text-decoration: underline;
+}
+
+.desenhe-o-bem-transparency {
+    background-color: #FFF9F3; /* Creme com toque laranja claro */
+    border: 2px dashed var(--color-orange);
+    border-radius: var(--radius-sm);
+    padding: 16px 24px;
+    font-size: 0.95rem;
+    color: var(--color-dark-light);
+    max-width: 650px;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+}
+
+.desenhe-o-bem-transparency i {
+    font-size: 1.4rem;
+    color: var(--color-orange);
+    flex-shrink: 0;
+}
+
+.btn-orange {
+    background-color: var(--color-orange);
+    color: var(--color-white);
+}
+
+.btn-orange:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-cartoon-hover);
+    background-color: #d35400; /* Laranja escuro */
+}
+
+.btn-orange:active {
+    transform: translateY(2px);
+    box-shadow: var(--shadow-cartoon-active);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .desenhe-o-bem-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .desenhe-o-bem-card {
+        padding: 24px 16px;
+    }
+    
+    .desenhe-o-bem-title {
+        font-size: 1.8rem;
+    }
+    
+    .desenhe-o-bem-subtitle {
+        font-size: 1.05rem;
+    }
+    
+    .desenhe-o-bem-transparency {
+        flex-direction: column;
+        text-align: center;
+        padding: 12px 16px;
+    }
+}
+
 /* --- ESTILOS DE IMPRESSÃO A4 (PORTRAIT) --- */
 @media print {
     /* Ocultar cabeçalhos, rodapés, menus, botões e barras laterais */
@@ -1351,7 +1521,7 @@ button, input, select, textarea {
         padding: 0 !important;
     }
     
-    header, footer, .drawing-crumb-navigation, .drawing-info-column, .simulated-ad-horizontal, .related-drawings-section, .mobile-bottom-nav, .rating-container {
+    header, footer, .drawing-crumb-navigation, .drawing-info-column, .simulated-ad-horizontal, .related-drawings-section, .mobile-bottom-nav, .rating-container, .desenhe-o-bem-section {
         display: none !important;
     }
     

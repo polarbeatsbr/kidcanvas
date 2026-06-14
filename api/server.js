@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Servir os arquivos estáticos do frontend da raiz do projeto
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, '..')));
 
 // Rota de Proxy da API para contornar problemas de CORS no navegador
 app.post('/api/generate', async (req, res) => {
@@ -129,7 +129,7 @@ app.post('/api/generate', async (req, res) => {
     }
 });
 
-const RATINGS_FILE = path.join(__dirname, 'ratings.json');
+const RATINGS_FILE = path.join(__dirname, '..', 'ratings.json');
 
 // Carregar avaliações do arquivo
 function loadRatings() {
@@ -159,7 +159,7 @@ function saveRatings(ratings) {
 // Rota para listar os desenhos processados na pasta 'pintai-biblioteca' divididos por categoria e tier
 app.get('/api/drawings', (req, res) => {
     const fs = require('fs');
-    const bibliotecaDir = path.join(__dirname, 'pintai-biblioteca');
+    const bibliotecaDir = path.join(__dirname, '..', 'pintai-biblioteca');
     if (!fs.existsSync(bibliotecaDir)) {
         return res.json({ success: true, drawings: [] });
     }
@@ -279,7 +279,7 @@ app.get('*', (req, res) => {
     if (req.path.startsWith('/api') || req.path.includes('.')) {
         return res.status(404).send('Recurso não encontrado');
     }
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
 // Inicializar o servidor
