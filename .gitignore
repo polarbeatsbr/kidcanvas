@@ -1,5 +1,5 @@
 node_modules/
-pintai-biblioteca/
+/pintai-biblioteca/
 .env
 __pycache__/
 _logs/
