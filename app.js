@@ -526,7 +526,7 @@ function initGlobalEventListeners() {
             // Alternar dropdowns ao clicar
             if (targetLink.classList.contains('dropdown-toggle')) {
                 e.preventDefault();
-                e.stopPropagation();
+                e.stopImmediatePropagation();
                 const dropdownMenu = targetLink.nextElementSibling;
                 
                 // Fecha outros dropdowns abertos
@@ -565,7 +565,8 @@ function initGlobalEventListeners() {
     });
     
     // Fechar dropdowns ao clicar fora
-    document.addEventListener('click', () => {
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.dropdown-toggle')) return;
         document.querySelectorAll('#navbar ul.dropdown-menu').forEach(menu => {
             menu.classList.remove('show');
         });

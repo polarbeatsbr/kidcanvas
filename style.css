@@ -2497,12 +2497,12 @@ button, input, select, textarea {
     width: calc(100% + 1.3px);
     position: relative;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scaleY(-1);
     height: 40px;
 }
 
 .drip-fill {
-    fill: #fffdf5; /* Cor de fundo da área do criador (creator-dashboard-panel) */
+    fill: #ffffff; /* Tinta branca escorrendo */
 }
 
 /* Seção de Desenhos em Destaque */
@@ -2546,7 +2546,7 @@ button, input, select, textarea {
     height: 240px;
     border-radius: var(--radius-sm);
     overflow: hidden;
-    background-color: #fafbfc;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
