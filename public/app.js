@@ -346,8 +346,19 @@ function initGlobalEventListeners() {
         if (targetLink) {
             const href = targetLink.getAttribute('href');
             
-            // Evitar comportamento padrão para links vazios ou toggles
-            if (href === '#' || targetLink.classList.contains('dropdown-toggle')) {
+            // Alternar dropdown "Mais" ao clicar
+            if (targetLink.classList.contains('dropdown-toggle')) {
+                e.preventDefault();
+                e.stopPropagation();
+                const dropdownMenu = targetLink.nextElementSibling;
+                if (dropdownMenu) {
+                    dropdownMenu.classList.toggle('show');
+                }
+                return;
+            }
+            
+            // Evitar comportamento padrão para links vazios
+            if (href === '#') {
                 e.preventDefault();
             }
             
@@ -366,6 +377,14 @@ function initGlobalEventListeners() {
                 e.preventDefault();
                 navigate(href);
             }
+        }
+    });
+    
+    // Fechar dropdown "Mais" ao clicar fora
+    document.addEventListener('click', () => {
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        if (dropdownMenu) {
+            dropdownMenu.classList.remove('show');
         }
     });
     

@@ -91,10 +91,16 @@ button, input, select, textarea {
     padding: 12px 0;
 }
 
+.main-header .container {
+    max-width: 1250px;
+}
+
 .header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: nowrap; /* Impede quebra de linha */
+    width: 100%;
 }
 
 .logo {
@@ -128,8 +134,8 @@ button, input, select, textarea {
 /* Barra de Busca no Cabeçalho */
 .header-search-box {
     position: relative;
-    flex: 0 0 220px;
-    margin: 0 15px;
+    flex: 0 1 180px; /* Permite encolher se necessário */
+    margin: 0 10px;
 }
 
 .header-search-icon {
@@ -210,19 +216,20 @@ button, input, select, textarea {
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 10px; /* Reduzido de 16px */
+    flex-wrap: nowrap;
 }
 
 .nav-link {
     font-family: var(--font-heading);
     font-weight: 500;
     color: var(--color-dark);
-    font-size: 0.95rem;
-    padding: 8px 12px;
+    font-size: 0.9rem; /* Reduzido de 0.95rem */
+    padding: 6px 10px; /* Reduzido de 8px 12px */
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px; /* Reduzido de 6px */
     transition: var(--transition-bounce);
 }
 
@@ -240,6 +247,24 @@ button, input, select, textarea {
 .nav-link-new:hover {
     background-color: #fdf5e6 !important;
     color: var(--color-yellow) !important;
+}
+
+.nav-link-special {
+    color: var(--color-white) !important;
+    font-weight: 700;
+    background-color: var(--color-purple);
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    box-shadow: var(--shadow-cartoon-active);
+    flex-shrink: 0;
+}
+
+.nav-link-special:hover {
+    background-color: var(--color-orange) !important;
+    color: var(--color-white) !important;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-cartoon-hover);
 }
 
 /* --- BOTÕES --- */
@@ -1807,21 +1832,22 @@ button, input, select, textarea {
 .dropdown-menu {
     display: none;
     position: absolute;
-    top: 100%;
-    left: 0;
+    top: calc(100% + 8px); /* Posicionado abaixo do item do menu com espaço */
+    left: 50%;
+    transform: translateX(-50%); /* Centralizado */
     background-color: var(--color-white);
     border: var(--border-thin);
     border-radius: var(--radius-sm);
     padding: 8px 0;
     min-width: 180px;
     box-shadow: var(--shadow-cartoon);
-    z-index: 1001;
+    z-index: 2005; /* Acima do conteúdo da página */
     list-style: none;
-    margin: 8px 0 0 0;
+    margin: 0;
 }
 
-/* Mostra o dropdown no hover */
-.nav-dropdown:hover .dropdown-menu {
+/* Mostra o dropdown ao clicar */
+.dropdown-menu.show {
     display: block;
 }
 
