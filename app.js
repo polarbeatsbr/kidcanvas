@@ -1844,14 +1844,14 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
                 if (!hasEn) return;
                 phraseBox.style.display = 'flex';
                 const ptText = drawing.pt.toUpperCase();
-                const enText = drawing.en.toUpperCase();
+                const enText = (drawing.en || drawing.pt).toUpperCase();
                 renderHollowPhraseText(`${ptText} / ${enText}`, 'en');
             } else if (mode === 'es') {
                 if (!hasEs) return;
                 phraseBox.style.display = 'flex';
                 const ptText = drawing.pt.toUpperCase();
-                const enText = drawing.en.toUpperCase();
-                const esText = getSpanishWord(drawing.en).toUpperCase();
+                const enText = (drawing.en || drawing.pt).toUpperCase();
+                const esText = (drawing.es || getSpanishWord(drawing.en) || drawing.pt).toUpperCase();
                 renderHollowPhraseText(`${ptText} / ${enText} / ${esText}`, 'es');
             } else {
                 phraseBox.style.display = 'none'; // Sem legenda
