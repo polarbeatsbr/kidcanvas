@@ -3904,19 +3904,23 @@ function renderMinhasCriacoesView() {
             `;
         } else {
             drawings.forEach(dw => {
+                const imageUrl = dw.url.startsWith('/saved_images/') 
+                    ? `https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev${dw.url}` 
+                    : dw.url;
+                
                 const card = document.createElement('div');
                 card.className = 'drawing-card';
                 card.innerHTML = `
                     <div class="card-img-wrapper">
-                        <img src="${dw.url}" alt="${dw.prompt}" loading="lazy">
+                        <img src="${imageUrl}" alt="${dw.prompt}" loading="lazy">
                     </div>
                     <div class="card-bottom-info">
                         <span class="drawing-card-category">${dw.styleType === 'color' ? 'Colorido 🌈' : 'Preto e Branco 🖍️'}</span>
                         <h4 class="drawing-card-title" style="font-size: 0.85rem; line-height: 1.2; max-height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${dw.prompt}</h4>
                     </div>
                     <div class="card-bottom" style="display: flex; gap: 8px;">
-                        <button class="btn btn-secondary btn-sm" onclick="downloadSavedImage('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; padding: 6px 10px; font-size: 0.85rem;"><i class="fa-solid fa-download"></i> Salvar</button>
-                        <button class="btn btn-primary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; padding: 6px 10px; font-size: 0.85rem; background-color: var(--color-purple);"><i class="fa-solid fa-print"></i> Imprimir</button>
+                        <button class="btn btn-secondary btn-sm" onclick="downloadSavedImage('${imageUrl}', '${dw.prompt}')" style="flex: 1; justify-content: center; padding: 6px 10px; font-size: 0.85rem;"><i class="fa-solid fa-download"></i> Salvar</button>
+                        <button class="btn btn-primary btn-sm" onclick="printSavedImage('${imageUrl}')" style="flex: 1; justify-content: center; padding: 6px 10px; font-size: 0.85rem; background-color: var(--color-purple);"><i class="fa-solid fa-print"></i> Imprimir</button>
                     </div>
                 `;
                 drawingsGrid.appendChild(card);
