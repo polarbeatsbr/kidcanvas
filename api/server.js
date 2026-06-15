@@ -5,7 +5,7 @@ const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
 const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, hashPassword, uploadImage } = require('./r2db');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const stripe = process.env.STRIPE_SECRET_KEY ? require('stripe')(process.env.STRIPE_SECRET_KEY) : null;
 
 
 const app = express();
@@ -18,6 +18,11 @@ app.use(cors());
 app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     let event;
+
+    if (!stripe) {
+        console.error('Webhook Error: Stripe SDK is not initialized (STRIPE_SECRET_KEY is missing).');
+        return res.status(500).send('Stripe SDK not initialized');
+    }
 
     try {
         const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -84,6 +89,10 @@ app.post('/api/stripe/create-checkout-session', async (req, res) => {
     try {
         const token = req.headers['x-session-token'];
         const { planName } = req.body;
+
+        if (!stripe) {
+            return res.status(500).json({ success: false, message: 'Stripe não está configurado no servidor. STRIPE_SECRET_KEY ausente.' });
+        }
 
         if (!token) {
             return res.status(401).json({ success: false, message: 'Não autorizado. Token de sessão ausente.' });
