@@ -5,6 +5,8 @@ const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
 const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, hashPassword, uploadImage } = require('./r2db');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,8 +14,135 @@ const PORT = process.env.PORT || 3000;
 // Habilitar CORS para desenvolvimento local se necessário
 app.use(cors());
 
+// Rota Stripe Webhook (deve vir antes do express.json() geral)
+app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    let event;
+
+    try {
+        const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+        if (endpointSecret && sig) {
+            event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+        } else {
+            // Fallback local se não tiver a chave de assinatura de webhook configurada
+            const payload = req.body.toString('utf-8');
+            event = JSON.parse(payload);
+        }
+    } catch (err) {
+        console.error('Webhook signature verification failed:', err.message);
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    // Tratar o evento checkout.session.completed
+    if (event.type === 'checkout.session.completed') {
+        const session = event.data.object;
+        
+        const userId = session.client_reference_id || (session.metadata && session.metadata.userId);
+        const planName = session.metadata ? session.metadata.planName : null;
+        
+        if (!userId || !planName) {
+            console.error('Webhook: Dados incompletos na sessão de Checkout', { userId, planName });
+            return res.status(400).json({ success: false, message: 'Dados incompletos na sessão.' });
+        }
+
+        try {
+            const users = await loadUsers();
+            const user = users.find(u => u.id === userId || u.email === userId);
+            
+            if (!user) {
+                console.error(`Webhook: Usuário não encontrado para ID: ${userId}`);
+                return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+            }
+
+            // Definir os créditos baseados no plano
+            let credits = 20; // Família por padrão
+            if (planName === 'Professor') {
+                credits = 100;
+            } else if (planName === 'Colégio') {
+                credits = 400;
+            }
+
+            user.plan = planName;
+            user.paginasRestantes = credits;
+
+            await saveUsers(users);
+            console.log(`[SUCCESS] Plano ${planName} ativado para o usuário ${user.email}. Créditos: ${credits}`);
+        } catch (dbErr) {
+            console.error('Webhook: Erro ao salvar dados do usuário:', dbErr);
+            return res.status(500).json({ success: false, message: 'Erro interno ao salvar dados.' });
+        }
+    }
+
+    return res.json({ received: true });
+});
+
 // Middleware para processar JSON
 app.use(express.json());
+
+// Endpoint para criar sessão de Checkout do Stripe
+app.post('/api/stripe/create-checkout-session', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { planName } = req.body;
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado. Token de sessão ausente.' });
+        }
+        if (!planName) {
+            return res.status(400).json({ success: false, message: 'Nome do plano é obrigatório.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada. Faça login novamente.' });
+        }
+
+        // Mapear plano para Price ID
+        let priceId = '';
+        if (planName === 'Família') {
+            priceId = process.env.STRIPE_PRICE_FAMILIA || 'price_1TihHMBRjUzKEXHuJAxy50Md';
+        } else if (planName === 'Professor') {
+            priceId = process.env.STRIPE_PRICE_PROFESSOR || 'price_1TihHNBRjUzKEXHurahkfPYs';
+        } else if (planName === 'Colégio') {
+            priceId = process.env.STRIPE_PRICE_COLEGIO || 'price_1TihHNBRjUzKEXHuX8SbYRge';
+        } else {
+            return res.status(400).json({ success: false, message: 'Plano inválido.' });
+        }
+
+        if (!priceId) {
+            return res.status(500).json({ success: false, message: `Price ID não configurado para o plano ${planName}.` });
+        }
+
+        const origin = req.headers.origin || `${req.protocol}://${req.get('host')}`;
+
+        console.log(`[Stripe Checkout] Criando sessão para o plano ${planName} e usuário ${user.email}`);
+        
+        const session = await stripe.checkout.sessions.create({
+            mode: 'subscription',
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price: priceId,
+                    quantity: 1,
+                },
+            ],
+            client_reference_id: user.id,
+            metadata: {
+                userId: user.id,
+                planName: planName
+            },
+            success_url: `${origin}/planos?checkout=success`,
+            cancel_url: `${origin}/planos?checkout=cancel`,
+        });
+
+        return res.json({ success: true, url: session.url });
+    } catch (error) {
+        console.error('[Stripe Checkout Error]:', error);
+        return res.status(500).json({ success: false, message: 'Erro ao criar sessão de checkout no Stripe.', error: error.message });
+    }
+});
+
 
 // Servir os arquivos estáticos do frontend da raiz do projeto e da pasta public
 app.use(express.static(path.join(__dirname, '..')));

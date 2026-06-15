@@ -2276,6 +2276,12 @@ button, input, select, textarea {
     opacity: 0.9;
 }
 
+.spotify-plan-card.active-plan {
+    border-color: #25d366;
+    border-width: 4px;
+    background-color: #f6fff9;
+}
+
 .plan-card-header {
     text-align: center;
     border-bottom: 2px dashed #f5e6d3;

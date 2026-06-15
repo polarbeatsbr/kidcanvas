@@ -692,26 +692,47 @@
                         </div>
                     </div>
                     
-                    <!-- Card 3: Para Escolas e Professores (Waitlist) -->
-                    <div class="spotify-plan-card waitlist-card" id="plan-card-schools-waitlist">
-                        <div class="waitlist-content">
-                            <h3 class="plan-title" style="display: flex; align-items: center; gap: 10px;">
-                                Para Escolas e Professores 🏫
-                            </h3>
-                            <p style="font-size: 1rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 0;">
-                                Estamos preparando planos especiais para educadores com painel multi-usuários e recursos pedagógicos. Deixe seu e-mail e seja avisado quando lançar!
-                            </p>
+                    <!-- Card 3: Professor -->
+                    <div class="spotify-plan-card" id="plan-card-professor">
+                        <div class="plan-card-header">
+                            <span class="plan-badge-professor" style="background-color: #e3f2fd; color: #0d47a1; font-size: 0.78rem; padding: 3px 8px; border-radius: var(--radius-sm); font-weight: bold;">Recomendado</span>
+                            <h3 class="plan-title">Professor</h3>
+                            <div class="plan-price">R$ 39,90<span class="price-cent">/mês</span></div>
+                            <span class="plan-frequency">Assinatura mensal</span>
                         </div>
-                        <div class="waitlist-form-wrapper">
-                            <form id="waitlistForm" onsubmit="handleWaitlistSubmit(event)">
-                                <div style="display: flex; flex-direction: column; gap: 6px;">
-                                    <label for="waitlistEmail" style="font-weight: 600; color: var(--color-dark); font-size: 0.9rem;">E-mail do educador:</label>
-                                    <input type="email" id="waitlistEmail" placeholder="exemplo@escola.com.br" required style="padding: 10px 14px; border: var(--border-medium); border-radius: var(--radius-sm); font-family: inherit; font-size: 0.95rem; width: 100%; box-sizing: border-box;">
-                                </div>
-                                <button type="submit" class="btn btn-primary" style="justify-content: center; padding: 10px 15px; font-size: 1rem; width: 100%; background-color: var(--color-purple); margin-top: 8px;">
-                                    <i class="fa-solid fa-bell"></i> Quero ser avisado
-                                </button>
-                            </form>
+                        <div class="plan-card-body">
+                            <ul class="plan-features-list">
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>15.000 imagens</strong> para colorir</li>
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>100 páginas</strong> de livros inclusas</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Idiomas PT-BR e EN nos livros/desenhos</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Painel do Educador (Em breve)</li>
+                                <li><i class="fa-solid fa-check text-green"></i> PDF em alta qualidade para impressão</li>
+                            </ul>
+                        </div>
+                        <div class="plan-card-footer">
+                            <button class="btn btn-primary btn-full-width" id="btn-plan-professor" onclick="handlePlanUpgrade('Professor', 100)">Assinar</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 4: Colégio -->
+                    <div class="spotify-plan-card" id="plan-card-colegio">
+                        <div class="plan-card-header">
+                            <span class="plan-badge-colegio" style="background-color: #f3e5f5; color: #4a148c; font-size: 0.78rem; padding: 3px 8px; border-radius: var(--radius-sm); font-weight: bold;">Escolas</span>
+                            <h3 class="plan-title">Colégio</h3>
+                            <div class="plan-price">R$ 119,90<span class="price-cent">/mês</span></div>
+                            <span class="plan-frequency">Assinatura mensal</span>
+                        </div>
+                        <div class="plan-card-body">
+                            <ul class="plan-features-list">
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>Imagens Ilimitadas</strong> para colorir</li>
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>400 páginas</strong> de livros inclusas</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Idiomas PT-BR, EN e ES nos livros/desenhos</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Multi-usuários e Painel Admin</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Suporte prioritário via WhatsApp</li>
+                            </ul>
+                        </div>
+                        <div class="plan-card-footer">
+                            <button class="btn btn-primary btn-full-width" id="btn-plan-colegio" onclick="handlePlanUpgrade('Colégio', 400)">Assinar</button>
                         </div>
                     </div>
                 </div>

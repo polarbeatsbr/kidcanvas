@@ -526,6 +526,18 @@ window.addEventListener('DOMContentLoaded', async () => {
         window.history.replaceState({}, document.title, cleanUrl);
     }
 
+    // Intercept Stripe checkout parameters
+    const checkoutStatus = urlParams.get('checkout');
+    if (checkoutStatus === 'success') {
+        showToast('Parabéns! Sua assinatura foi processada com sucesso. Seu plano será ativado em instantes! 🎉', 'success');
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+    } else if (checkoutStatus === 'cancel') {
+        showToast('O checkout foi cancelado. Você pode tentar novamente a qualquer momento.', 'info');
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+    }
+
     await syncUserProfile();
     checkGsiLoaded();
     await loadDrawings();
@@ -861,24 +873,39 @@ function renderPlanosView() {
         if (card) card.classList.remove('active-plan');
     });
     
+    const plansInfo = [
+        { name: 'Grátis', btn: btnGratis, card: cardGratis, credits: 4 },
+        { name: 'Família', btn: btnFamilia, card: cardFamilia, credits: 20 },
+        { name: 'Professor', btn: btnProfessor, card: cardProfessor, credits: 100 },
+        { name: 'Colégio', btn: btnColegio, card: cardColegio, credits: 400 }
+    ];
+
     if (currentUser) {
-        const plan = currentUser.plan;
+        const currentPlan = currentUser.plan || 'Grátis';
         
-        if (plan === 'Grátis') {
-            if (btnGratis) { btnGratis.textContent = 'Seu plano atual 🎨'; btnGratis.disabled = true; }
-            if (btnFamilia) { btnFamilia.textContent = 'Assinar Agora'; btnFamilia.disabled = false; btnFamilia.onclick = () => handlePlanUpgrade('Família', 20); }
-            if (cardGratis) cardGratis.classList.add('active-plan');
-        } else if (plan === 'Família') {
-            if (btnGratis) { btnGratis.textContent = 'Mudar para Grátis'; btnGratis.disabled = false; btnGratis.onclick = () => handlePlanUpgrade('Grátis', 4); }
-            if (btnFamilia) { btnFamilia.textContent = 'Seu plano atual 🎨'; btnFamilia.disabled = true; }
-            if (cardFamilia) cardFamilia.classList.add('active-plan');
-        } else if (plan === 'Professor') {
-            if (btnProfessor) { btnProfessor.textContent = 'Seu plano atual 🎨'; btnProfessor.disabled = true; }
-            if (cardProfessor) cardProfessor.classList.add('active-plan');
-        } else if (plan === 'Colégio') {
-            if (btnColegio) { btnColegio.textContent = 'Seu plano atual 🎨'; btnColegio.disabled = true; }
-            if (cardColegio) cardColegio.classList.add('active-plan');
-        }
+        plansInfo.forEach(p => {
+            if (p.card && p.name === currentPlan) {
+                p.card.classList.add('active-plan');
+            }
+            
+            if (p.btn) {
+                if (p.name === currentPlan) {
+                    p.btn.textContent = 'Seu plano atual 🎨';
+                    p.btn.disabled = true;
+                    p.btn.onclick = null;
+                } else {
+                    if (p.name === 'Grátis') {
+                        p.btn.textContent = 'Grátis';
+                        p.btn.disabled = true;
+                        p.btn.onclick = null;
+                    } else {
+                        p.btn.textContent = 'Assinar';
+                        p.btn.disabled = false;
+                        p.btn.onclick = () => handlePlanUpgrade(p.name, p.credits);
+                    }
+                }
+            }
+        });
     } else {
         // Visitante deslogado
         if (btnGratis) {
@@ -889,11 +916,18 @@ function renderPlanosView() {
                 switchAuthTab('register');
             };
         }
-        if (btnFamilia) {
-            btnFamilia.textContent = 'Assinar Agora';
-            btnFamilia.disabled = false;
-            btnFamilia.onclick = () => handlePlanUpgrade('Família', 20);
-        }
+        
+        [
+            { name: 'Família', btn: btnFamilia, credits: 20 },
+            { name: 'Professor', btn: btnProfessor, credits: 100 },
+            { name: 'Colégio', btn: btnColegio, credits: 400 }
+        ].forEach(p => {
+            if (p.btn) {
+                p.btn.textContent = 'Assinar';
+                p.btn.disabled = false;
+                p.btn.onclick = () => handlePlanUpgrade(p.name, p.credits);
+            }
+        });
     }
 }
 
@@ -907,29 +941,23 @@ async function handlePlanUpgrade(planName, pageAmount) {
     }
     
     try {
-        showToast(`Processando atualização para plano ${planName}... 💳`, 'info');
-        const res = await fetch('/api/user/upgrade', {
+        showToast(`Redirecionando para o Stripe Checkout... 💳`, 'info');
+        const res = await fetch('/api/stripe/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-Session-Token': sessionToken
             },
-            body: JSON.stringify({ planName, pageAmount })
+            body: JSON.stringify({ planName })
         });
         const data = await res.json();
-        if (res.ok && data.success) {
-            currentUser = data.user;
-            updateHeaderAuthDisplay();
-            showToast(`Plano atualizado para ${planName}! Saldo de ${pageAmount} páginas ativado. 🚀`, 'success');
-            renderPlanosView();
-            
-            // Recarregar os desenhos para aplicar novos filtros
-            await loadDrawings();
-            
+        if (res.ok && data.success && data.url) {
             // Se estiver logando e redirecionando, limpa
             localStorage.removeItem("kidcanvas_pending_upgrade");
+            // Redirecionar para o Stripe Checkout
+            window.location.href = data.url;
         } else {
-            showToast(`Erro ao atualizar plano: ${data.message}`, 'error');
+            showToast(`Erro ao abrir checkout: ${data.message || 'Erro desconhecido'}`, 'error');
             if (res.status === 401 || (data.message && (data.message.includes('Sessão inválida') || data.message.includes('Sessão expirada') || data.message.includes('Faça login novamente')))) {
                 setTimeout(() => {
                     handleHeaderLogout();
@@ -938,7 +966,7 @@ async function handlePlanUpgrade(planName, pageAmount) {
         }
     } catch(err) {
         console.error(err);
-        showToast("Erro de conexão ao processar upgrade de plano.", 'error');
+        showToast("Erro de conexão ao processar checkout.", 'error');
     }
 }
 
