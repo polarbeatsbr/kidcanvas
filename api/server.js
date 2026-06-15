@@ -23,7 +23,7 @@ app.post('/api/generate', async (req, res) => {
     try {
         // 1. Obter a chave de API
         // Prioriza a chave enviada pelo cabeçalho do cliente (Authorization Bearer)
-        // Se não houver, busca no .env (para modo SaaS autopilot com chaves próprias do servidor)
+        // Se não houver, busca no .env (dando preferência para o Hugging Face Token)
         const authHeader = req.headers['authorization'];
         let apiKey = '';
 
@@ -31,29 +31,47 @@ app.post('/api/generate', async (req, res) => {
             apiKey = authHeader.split(' ')[1];
         }
 
-        if (!apiKey || apiKey.trim() === 'null' || apiKey.trim() === 'undefined') {
-            apiKey = process.env.NANOBANANA_API_KEY || '';
+        let isHF = false;
+        let finalKey = apiKey;
+
+        if (!finalKey || finalKey.trim() === 'null' || finalKey.trim() === 'undefined') {
+            const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || '';
+            const geminiToken = process.env.NANOBANANA_API_KEY || '';
+
+            if (hfToken) {
+                finalKey = hfToken;
+                isHF = true;
+            } else if (geminiToken.startsWith('hf_')) {
+                finalKey = geminiToken;
+                isHF = true;
+            } else {
+                finalKey = geminiToken;
+                isHF = false;
+            }
+        } else {
+            isHF = finalKey.startsWith('hf_');
         }
 
-        if (!apiKey) {
+        if (!finalKey) {
             return res.status(401).json({
                 success: false,
-                message: 'Chave de API não configurada. Configure a API Key no painel ⚙️ do site ou no servidor (.env).'
+                message: 'Chave de API não configurada no site ou no servidor (.env).'
             });
         }
 
-        // 2. Encaminhar a requisição para a API correspondente
-        const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
-        const isHFKey = apiKey.startsWith('hf_');
+        let success = false;
+        let base64Image = '';
+        let lastError = null;
 
-        if (isHFKey) {
-            console.log(`[Proxy] Gerando imagem com Hugging Face (FLUX.1-schnell)...`);
+        // TENTATIVA 1: HUGGING FACE (se houver chave HF disponível)
+        if (isHF) {
+            console.log(`[Proxy] Tentando gerar imagem com Hugging Face (FLUX.1-schnell)...`);
             try {
                 const hfUrl = 'https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell';
-                const response = await fetch(hfUrl, {
+                const hfResponse = await fetch(hfUrl, {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${apiKey}`,
+                        'Authorization': `Bearer ${finalKey}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
@@ -61,113 +79,104 @@ app.post('/api/generate', async (req, res) => {
                     })
                 });
 
-                if (response.ok) {
-                    const buffer = await response.arrayBuffer();
-                    const base64Image = Buffer.from(buffer).toString('base64');
+                if (hfResponse.ok) {
+                    const buffer = await hfResponse.arrayBuffer();
+                    base64Image = Buffer.from(buffer).toString('base64');
+                    success = true;
                     console.log(`[Proxy] Sucesso com Hugging Face FLUX.1-schnell.`);
-                    return res.json({
-                        success: true,
-                        data: {
-                            outputImageUrls: [
-                                `data:image/png;base64,${base64Image}`
-                            ]
-                        }
-                    });
                 } else {
-                    const errText = await response.text().catch(() => '');
-                    console.error(`[Proxy Error] Hugging Face falhou com status ${response.status}:`, errText);
-                    return res.status(response.status).json({
-                        success: false,
-                        message: `Hugging Face API retornou erro ${response.status}: ${errText}`
-                    });
+                    const errText = await hfResponse.text().catch(() => '');
+                    console.warn(`[Proxy Warning] Hugging Face falhou com status ${hfResponse.status}:`, errText);
+                    lastError = `Hugging Face (Status ${hfResponse.status}): ${errText}`;
                 }
             } catch (e) {
-                console.error(`[Proxy Error] Erro no Hugging Face:`, e.message);
-                return res.status(500).json({
-                    success: false,
-                    message: `Erro ao gerar imagem no Hugging Face: ${e.message}`
-                });
+                console.warn(`[Proxy Warning] Erro de rede/outros no Hugging Face:`, e.message);
+                lastError = `Hugging Face error: ${e.message}`;
             }
-        } else if (isGoogleKey) {
-            console.log(`[Proxy] Gerando imagem real PNG com Gemini...`);
-            const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
-            let success = false;
-            let lastError = null;
+        }
 
-            for (const model of models) {
+        // TENTATIVA 2: FALLBACK GEMINI (se HF falhou ou se não tínhamos chave HF)
+        if (!success) {
+            console.log(`[Proxy] Iniciando fallback para Gemini...`);
+            let geminiKey = finalKey;
+            if (isHF) {
+                geminiKey = process.env.NANOBANANA_API_KEY || '';
+            }
+
+            const isGoogleKey = geminiKey.startsWith('AIza') || geminiKey.startsWith('AQ.');
+
+            if (isGoogleKey) {
+                const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
+                for (const model of models) {
+                    try {
+                        console.log(`[Proxy] Tentando modelo Gemini: ${model}...`);
+                        const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
+                        const response = await fetch(googleUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                contents: [
+                                    {
+                                        parts: [
+                                            {
+                                                text: req.body.prompt
+                                            }
+                                        ]
+                                    }
+                                ],
+                                generationConfig: {
+                                    responseModalities: ["IMAGE"]
+                                }
+                            })
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            const candidate = data.candidates?.[0];
+                            const part = candidate?.content?.parts?.[0];
+                            if (part?.inlineData?.data) {
+                                base64Image = part.inlineData.data;
+                                success = true;
+                                console.log(`[Proxy] Sucesso com o modelo Gemini ${model}.`);
+                                break;
+                            }
+                        } else {
+                            const errText = await response.text().catch(() => '');
+                            console.warn(`[Proxy Warning] Gemini ${model} falhou com status ${response.status}:`, errText);
+                            lastError = `Gemini ${model} (Status ${response.status}): ${errText}`;
+                        }
+                    } catch (e) {
+                        console.warn(`[Proxy Warning] Erro no modelo Gemini ${model}:`, e.message);
+                        lastError = `Gemini ${model} error: ${e.message}`;
+                    }
+                }
+            } else {
+                console.log(`[Proxy] Tentando API do NanoBanana...`);
                 try {
-                    console.log(`[Proxy] Tentando modelo: ${model}...`);
-                    const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-                    const response = await fetch(googleUrl, {
+                    const response = await fetch('https://www.nananobanana.com/api/v1/generate', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${geminiKey}`
                         },
-                        body: JSON.stringify({
-                            contents: [
-                                {
-                                    parts: [
-                                        {
-                                            text: req.body.prompt
-                                        }
-                                    ]
-                                }
-                            ],
-                            generationConfig: {
-                                responseModalities: ["IMAGE"]
-                            }
-                        })
+                        body: JSON.stringify(req.body)
                     });
 
                     if (response.ok) {
-                        const data = await response.json();
-                        const candidate = data.candidates?.[0];
-                        const part = candidate?.content?.parts?.[0];
-                        if (part?.inlineData?.data) {
-                            const bytesBase64 = part.inlineData.data;
-                            success = true;
-                            console.log(`[Proxy] Sucesso com o modelo ${model}.`);
-                            return res.json({
-                                success: true,
-                                data: {
-                                    outputImageUrls: [
-                                        `data:image/png;base64,${bytesBase64}`
-                                    ]
-                                }
-                            });
-                        }
+                        const responseData = await response.json();
+                        return res.status(response.status).json(responseData);
                     } else {
                         const errText = await response.text().catch(() => '');
-                        console.error(`[Proxy Error] Modelo ${model} falhou com status ${response.status}:`, errText);
-                        lastError = `Status ${response.status}: ${errText}`;
+                        console.warn(`[Proxy Warning] NanoBanana falhou com status ${response.status}:`, errText);
+                        lastError = `NanoBanana (Status ${response.status}): ${errText}`;
                     }
                 } catch (e) {
-                    console.error(`[Proxy Error] Erro no modelo ${model}:`, e.message);
-                    lastError = e.message;
+                    console.warn(`[Proxy Warning] Erro no NanoBanana:`, e.message);
+                    lastError = `NanoBanana error: ${e.message}`;
                 }
             }
-
-            if (!success) {
-                return res.status(500).json({
-                    success: false,
-                    message: `Erro ao gerar a imagem no Google AI Studio. Último erro: ${lastError}`
-                });
-            }
-
-        } else {
-            // Chamada original para o NanoBanana
-            console.log(`[Proxy] Utilizando API do NanoBanana...`);
-            const response = await fetch('https://www.nananobanana.com/api/v1/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
-                },
-                body: JSON.stringify(req.body)
-            });
-
-            const responseData = await response.json();
-            return res.status(response.status).json(responseData);
         }
 
     } catch (error) {
@@ -1187,16 +1196,35 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             });
         }
 
-        // 2. Obter a chave de API do Gemini/Imagen
+        // 2. Obter a chave de API do Gemini/Imagen/Hugging Face
         const authHeader = req.headers['authorization'];
         let apiKey = '';
         if (authHeader && authHeader.startsWith('Bearer ')) {
             apiKey = authHeader.split(' ')[1];
         }
-        if (!apiKey || apiKey.trim() === 'null' || apiKey.trim() === 'undefined') {
-            apiKey = process.env.NANOBANANA_API_KEY || '';
+
+        let isHF = false;
+        let finalKey = apiKey;
+
+        if (!finalKey || finalKey.trim() === 'null' || finalKey.trim() === 'undefined') {
+            const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || '';
+            const geminiToken = process.env.NANOBANANA_API_KEY || '';
+
+            if (hfToken) {
+                finalKey = hfToken;
+                isHF = true;
+            } else if (geminiToken.startsWith('hf_')) {
+                finalKey = geminiToken;
+                isHF = true;
+            } else {
+                finalKey = geminiToken;
+                isHF = false;
+            }
+        } else {
+            isHF = finalKey.startsWith('hf_');
         }
-        if (!apiKey) {
+
+        if (!finalKey) {
             return res.status(401).json({
                 success: false,
                 message: 'Chave de API não configurada.'
@@ -1214,19 +1242,19 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             finalPrompt = `Digital 2D coloring book page for kids, flat vector line art, black contours, clean white background. The drawing shows ${userPrompt.trim()}. Centralized and large, no busy backgrounds, simple shapes, clean lines, no shading, no gradient, no shadows, no paper texture. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No other text, no titles in the image. Top-down straight view, no perspective.`;
         }
 
-        const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
-        const isHFKey = apiKey.startsWith('hf_');
-
         let bytesBase64 = '';
+        let success = false;
+        let lastError = null;
 
-        if (isHFKey) {
-            console.log(`[Custom Drawing] Gerando imagem com Hugging Face (FLUX.1-schnell)...`);
+        // TENTATIVA 1: HUGGING FACE (se houver chave HF)
+        if (isHF) {
+            console.log(`[Custom Drawing] Tentando gerar imagem com Hugging Face (FLUX.1-schnell)...`);
             try {
                 const hfUrl = 'https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell';
                 const response = await fetch(hfUrl, {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${apiKey}`,
+                        'Authorization': `Bearer ${finalKey}`,
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
@@ -1237,119 +1265,111 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                 if (response.ok) {
                     const buffer = await response.arrayBuffer();
                     bytesBase64 = Buffer.from(buffer).toString('base64');
+                    success = true;
+                    console.log(`[Custom Drawing] Sucesso com Hugging Face FLUX.1-schnell.`);
                 } else {
                     const errText = await response.text().catch(() => '');
-                    console.error(`[Custom Drawing Error] Hugging Face falhou com status ${response.status}:`, errText);
-                    return res.status(response.status).json({
-                        success: false,
-                        message: `Hugging Face API retornou erro ${response.status}: ${errText}`
-                    });
+                    console.warn(`[Custom Drawing Warning] Hugging Face falhou com status ${response.status}:`, errText);
+                    lastError = `Hugging Face (Status ${response.status}): ${errText}`;
                 }
             } catch (e) {
-                console.error(`[Custom Drawing Error] Erro no Hugging Face:`, e.message);
-                return res.status(500).json({
-                    success: false,
-                    message: `Erro ao gerar imagem no Hugging Face: ${e.message}`
-                });
+                console.warn(`[Custom Drawing Warning] Erro no Hugging Face:`, e.message);
+                lastError = `Hugging Face error: ${e.message}`;
             }
-        } else if (isGoogleKey) {
-            console.log(`[Custom Drawing] Gerando imagem real PNG com Gemini...`);
-            const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
-            let success = false;
-            let lastError = null;
+        }
 
-            for (const model of models) {
+        // TENTATIVA 2: FALLBACK GEMINI
+        if (!success) {
+            console.log(`[Custom Drawing] Iniciando fallback para Gemini...`);
+            let geminiKey = finalKey;
+            if (isHF) {
+                geminiKey = process.env.NANOBANANA_API_KEY || '';
+            }
+
+            const isGoogleKey = geminiKey.startsWith('AIza') || geminiKey.startsWith('AQ.');
+
+            if (isGoogleKey) {
+                const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
+                for (const model of models) {
+                    try {
+                        console.log(`[Custom Drawing] Tentando modelo Gemini: ${model}...`);
+                        const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
+                        const response = await fetch(googleUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                contents: [
+                                    {
+                                        parts: [
+                                            {
+                                                text: finalPrompt
+                                            }
+                                        ]
+                                    }
+                                ],
+                                generationConfig: {
+                                    responseModalities: ["IMAGE"]
+                                }
+                            })
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            const candidate = data.candidates?.[0];
+                            const part = candidate?.content?.parts?.[0];
+                            if (part?.inlineData?.data) {
+                                bytesBase64 = part.inlineData.data;
+                                success = true;
+                                console.log(`[Custom Drawing] Sucesso com o modelo Gemini ${model}.`);
+                                break;
+                            }
+                        } else {
+                            const errText = await response.text().catch(() => '');
+                            console.warn(`[Custom Drawing Warning] Gemini ${model} falhou com status ${response.status}:`, errText);
+                            lastError = `Gemini ${model} (Status ${response.status}): ${errText}`;
+                        }
+                    } catch (e) {
+                        console.warn(`[Custom Drawing Warning] Erro no modelo Gemini ${model}:`, e.message);
+                        lastError = `Gemini ${model} error: ${e.message}`;
+                    }
+                }
+            } else {
+                console.log(`[Custom Drawing] Tentando API do NanoBanana...`);
                 try {
-                    console.log(`[Custom Drawing] Tentando modelo: ${model}...`);
-                    const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-                    const response = await fetch(googleUrl, {
+                    const response = await fetch('https://www.nananobanana.com/api/v1/generate', {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${geminiKey}`
                         },
                         body: JSON.stringify({
-                            contents: [
-                                {
-                                    parts: [
-                                        {
-                                            text: finalPrompt
-                                        }
-                                    ]
-                                }
-                            ],
-                            generationConfig: {
-                                responseModalities: ["IMAGE"]
-                            }
+                            prompt: finalPrompt,
+                            rendering_speed: "TURBO",
+                            num_images: 1
                         })
                     });
 
                     if (response.ok) {
                         const data = await response.json();
-                        const candidate = data.candidates?.[0];
-                        const part = candidate?.content?.parts?.[0];
-                        if (part?.inlineData?.data) {
-                            bytesBase64 = part.inlineData.data;
+                        const url = data.data?.outputImageUrls?.[0] || data.outputImageUrls?.[0] || data.data?.[0]?.url;
+                        if (url) {
+                            const imgRes = await fetch(url);
+                            const arrayBuffer = await imgRes.arrayBuffer();
+                            bytesBase64 = Buffer.from(arrayBuffer).toString('base64');
                             success = true;
-                            console.log(`[Custom Drawing] Sucesso com o modelo ${model}.`);
-                            break;
+                            console.log(`[Custom Drawing] Sucesso com a API do NanoBanana.`);
                         }
                     } else {
-                        const errText = await response.text().catch(() => '');
-                        console.error(`[Custom Drawing Error] Modelo ${model} falhou com status ${response.status}:`, errText);
-                        lastError = `Status ${response.status}: ${errText}`;
+                        const rawText = await response.text().catch(() => '');
+                        console.warn(`[Custom Drawing Warning] NanoBanana falhou com status ${response.status}:`, rawText);
+                        lastError = `NanoBanana (Status ${response.status}): ${rawText}`;
                     }
                 } catch (e) {
-                    console.error(`[Custom Drawing Error] Erro no modelo ${model}:`, e.message);
-                    lastError = e.message;
+                    console.warn(`[Custom Drawing Warning] Erro no NanoBanana:`, e.message);
+                    lastError = `NanoBanana error: ${e.message}`;
                 }
-            }
-
-            if (!success) {
-                return res.status(500).json({
-                    success: false,
-                    message: `Erro ao gerar a imagem no Google AI Studio. Último erro: ${lastError}`
-                });
-            }
-        } else {
-            // Fallback NanoBanana
-            const response = await fetch('https://www.nananobanana.com/api/v1/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${apiKey}`
-                },
-                body: JSON.stringify({
-                    prompt: finalPrompt,
-                    rendering_speed: "TURBO",
-                    num_images: 1
-                })
-            });
-
-            if (!response.ok) {
-                const rawText = await response.text().catch(() => '');
-                console.error('[NanoBanana Custom Error]:', response.status, rawText);
-                return res.status(500).json({
-                    success: false,
-                    message: 'Erro na API NanoBanana ao desenhar.'
-                });
-            }
-
-            const data = await response.json();
-            const url = data.data?.outputImageUrls?.[0] || data.outputImageUrls?.[0] || data.data?.[0]?.url;
-            if (!url) {
-                return res.status(500).json({
-                    success: false,
-                    message: 'A API não retornou nenhuma imagem.'
-                });
-            }
-            // Converter imagem em Base64 para retornar uniformemente
-            try {
-                const imgRes = await fetch(url);
-                const arrayBuffer = await imgRes.arrayBuffer();
-                bytesBase64 = Buffer.from(arrayBuffer).toString('base64');
-            } catch (e) {
-                console.error('[Convert Image Error]:', e.message);
-                bytesBase64 = url; // Fallback URL se falhar a conversão
             }
         }
 
