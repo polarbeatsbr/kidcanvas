@@ -18,44 +18,58 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
+// Rate Limit Helper for anti-bot
+const ipRequestCounts = {}; // { ip: [timestamp1, timestamp2, ...] }
+
+function isRateLimited(ip, isPaidUser) {
+    if (isPaidUser) return false;
+
+    const now = Date.now();
+    const oneHourAgo = now - 60 * 60 * 1000;
+
+    if (!ipRequestCounts[ip]) {
+        ipRequestCounts[ip] = [];
+    }
+
+    // Filter out requests older than 1 hour
+    ipRequestCounts[ip] = ipRequestCounts[ip].filter(ts => ts > oneHourAgo);
+
+    if (ipRequestCounts[ip].length >= 30) {
+        return true;
+    }
+
+    ipRequestCounts[ip].push(now);
+    return false;
+}
+
 // Rota de Proxy da API para contornar problemas de CORS no navegador
 app.post('/api/generate', async (req, res) => {
     try {
-        // 1. Obter a chave de API
-        // Prioriza a chave enviada pelo cabeçalho do cliente (Authorization Bearer)
-        // Se não houver, busca no .env (dando preferência para o Hugging Face Token)
-        const authHeader = req.headers['authorization'];
-        let apiKey = '';
-
-        if (authHeader && authHeader.startsWith('Bearer ')) {
-            apiKey = authHeader.split(' ')[1];
-        }
-
-        let isHF = false;
-        let finalKey = apiKey;
-
-        if (!finalKey || finalKey.trim() === 'null' || finalKey.trim() === 'undefined') {
-            const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || '';
-            const geminiToken = process.env.NANOBANANA_API_KEY || '';
-
-            if (hfToken) {
-                finalKey = hfToken;
-                isHF = true;
-            } else if (geminiToken.startsWith('hf_')) {
-                finalKey = geminiToken;
-                isHF = true;
-            } else {
-                finalKey = geminiToken;
-                isHF = false;
-            }
-        } else {
-            isHF = finalKey.startsWith('hf_');
-        }
-
-        if (!finalKey) {
+        // 1. Validar token de sessão
+        const token = req.headers['x-session-token'];
+        if (!token) {
             return res.status(401).json({
                 success: false,
-                message: 'Chave de API não configurada no site ou no servidor (.env).'
+                message: 'Por favor, faça login ou cadastre-se para gerar imagens.'
+            });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Sessão inválida ou expirada. Faça login novamente.'
+            });
+        }
+
+        // 2. Rate Limit Check (anti-bot)
+        const isPaidUser = user.plan && user.plan !== 'Grátis';
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
+        if (isRateLimited(ip, isPaidUser)) {
+            return res.status(429).json({
+                success: false,
+                message: 'Limite de requisições excedido. Máximo de 30 gerações por hora.'
             });
         }
 
@@ -63,48 +77,50 @@ app.post('/api/generate', async (req, res) => {
         let base64Image = '';
         let lastError = null;
 
-        // TENTATIVA 1: HUGGING FACE (se houver chave HF disponível)
-        if (isHF) {
-            console.log(`[Proxy] Tentando gerar imagem com Hugging Face (FLUX.1-schnell)...`);
-            try {
-                const hfUrl = 'https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell';
-                const hfResponse = await fetch(hfUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${finalKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        inputs: req.body.prompt
-                    })
-                });
+        console.log(`[Proxy] Tentando gerar imagem com Ideogram V4 Turbo...`);
+        try {
+            const ideogramKey = process.env.IDEOGRAM_API_KEY || "RK-CWKSVJ9Jet7vJwHOMmfsYVNHBmGA8jKujDMtQcI5snVW3ThAW_H_Zf_jYjU8be7mYXSOFdO7xLvkBgI7rcQ";
+            const response = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
+                method: 'POST',
+                headers: {
+                    'Api-Key': ideogramKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text_prompt: req.body.prompt,
+                    resolution: "2048x2048",
+                    rendering_speed: "TURBO",
+                    num_images: 1
+                })
+            });
 
-                console.log(`[Proxy] Hugging Face status:`, hfResponse.status);
-                const headersObj = {};
-                hfResponse.headers.forEach((value, key) => {
-                    headersObj[key] = value;
-                });
-                console.log(`[Proxy] Hugging Face headers:`, JSON.stringify(headersObj));
-
-                const buffer = await hfResponse.arrayBuffer();
-                const bufferSlice = Buffer.from(buffer).slice(0, 100);
-                console.log(`[Proxy] Hugging Face primeiros 100 bytes (hex):`, bufferSlice.toString('hex'));
-                console.log(`[Proxy] Hugging Face primeiros 100 bytes (texto):`, bufferSlice.toString('utf8').replace(/[\x00-\x1F\x7F-\x9F]/g, '.'));
-
-                const contentType = hfResponse.headers.get('content-type') || '';
-                if (hfResponse.ok && !contentType.includes('application/json')) {
-                    base64Image = Buffer.from(buffer).toString('base64');
-                    success = true;
-                    console.log(`[Proxy] Sucesso com Hugging Face FLUX.1-schnell.`);
+            console.log(`[Proxy] Ideogram status:`, response.status);
+            if (response.ok) {
+                const data = await response.json();
+                const url = data.data?.[0]?.url;
+                if (url) {
+                    console.log(`[Proxy] Ideogram gerou URL: ${url}. Baixando bytes...`);
+                    const imgRes = await fetch(url);
+                    if (imgRes.ok) {
+                        const buffer = await imgRes.arrayBuffer();
+                        base64Image = Buffer.from(buffer).toString('base64');
+                        success = true;
+                        console.log(`[Proxy] Sucesso ao baixar e converter imagem do Ideogram.`);
+                    } else {
+                        const errText = await imgRes.text().catch(() => '');
+                        lastError = `Erro ao baixar imagem da URL do Ideogram: ${errText}`;
+                    }
                 } else {
-                    const errText = Buffer.from(buffer).toString('utf8');
-                    console.warn(`[Proxy Warning] Hugging Face falhou com status ${hfResponse.status}:`, errText);
-                    lastError = `Hugging Face (Status ${hfResponse.status}): ${errText}`;
+                    lastError = `Ideogram não retornou URL de imagem. Resposta: ${JSON.stringify(data)}`;
                 }
-            } catch (e) {
-                console.warn(`[Proxy Warning] Erro de rede/outros no Hugging Face:`, e.message);
-                lastError = `Hugging Face error: ${e.message}`;
+            } else {
+                const errText = await response.text().catch(() => '');
+                console.warn(`[Proxy Warning] Ideogram falhou com status ${response.status}:`, errText);
+                lastError = `Ideogram (Status ${response.status}): ${errText}`;
             }
+        } catch (e) {
+            console.warn(`[Proxy Warning] Erro no Ideogram:`, e.message);
+            lastError = `Ideogram error: ${e.message}`;
         }
 
         if (success && base64Image) {
@@ -138,6 +154,34 @@ app.post('/api/generate-story', async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: 'Nome da criança e tema são obrigatórios.'
+            });
+        }
+
+        // 1. Validar token de sessão do usuário no R2DB
+        const token = req.headers['x-session-token'];
+        if (!token) {
+            return res.status(401).json({
+                success: false,
+                message: 'Por favor, faça login ou cadastre-se para criar histórias.'
+            });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Sessão inválida ou expirada. Faça login novamente.'
+            });
+        }
+
+        // 2. Rate Limit Check (anti-bot)
+        const isPaidUser = user.plan && user.plan !== 'Grátis';
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
+        if (isRateLimited(ip, isPaidUser)) {
+            return res.status(429).json({
+                success: false,
+                message: 'Limite de requisições excedido. Máximo de 30 gerações por hora.'
             });
         }
 
@@ -290,6 +334,16 @@ app.post('/api/generate-full-story', async (req, res) => {
             return res.status(401).json({
                 success: false,
                 message: 'Sessão inválida ou expirada. Faça login novamente.'
+            });
+        }
+
+        // Rate Limit Check (anti-bot)
+        const isPaidUser = user.plan && user.plan !== 'Grátis';
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
+        if (isRateLimited(ip, isPaidUser)) {
+            return res.status(429).json({
+                success: false,
+                message: 'Limite de requisições excedido. Máximo de 30 gerações por hora.'
             });
         }
 
@@ -1130,45 +1184,20 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             });
         }
 
+        // Rate Limit Check (anti-bot)
+        const isPaidUser = user.plan && user.plan !== 'Grátis';
+        const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
+        if (isRateLimited(ip, isPaidUser)) {
+            return res.status(429).json({
+                success: false,
+                message: 'Limite de requisições excedido. Máximo de 30 gerações por hora.'
+            });
+        }
+
         if (user.paginasRestantes < 1) {
             return res.status(400).json({
                 success: false,
                 message: 'Saldo insuficiente! Você possui 0 créditos.'
-            });
-        }
-
-        // 2. Obter a chave de API do Gemini/Imagen/Hugging Face
-        const authHeader = req.headers['authorization'];
-        let apiKey = '';
-        if (authHeader && authHeader.startsWith('Bearer ')) {
-            apiKey = authHeader.split(' ')[1];
-        }
-
-        let isHF = false;
-        let finalKey = apiKey;
-
-        if (!finalKey || finalKey.trim() === 'null' || finalKey.trim() === 'undefined') {
-            const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || '';
-            const geminiToken = process.env.NANOBANANA_API_KEY || '';
-
-            if (hfToken) {
-                finalKey = hfToken;
-                isHF = true;
-            } else if (geminiToken.startsWith('hf_')) {
-                finalKey = geminiToken;
-                isHF = true;
-            } else {
-                finalKey = geminiToken;
-                isHF = false;
-            }
-        } else {
-            isHF = finalKey.startsWith('hf_');
-        }
-
-        if (!finalKey) {
-            return res.status(401).json({
-                success: false,
-                message: 'Chave de API não configurada.'
             });
         }
 
@@ -1180,56 +1209,57 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         if (style === 'color') {
             finalPrompt = `Vibrant 2D children's book illustration cartoon style, detailed and colorful. The drawing shows ${userPrompt.trim()}. Centralized and large, clear objects, friendly characters, simple backgrounds suitable for kids, rich colors, soft lighting. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No text in the image.`;
         } else {
-            finalPrompt = `Digital 2D coloring book page for kids, flat vector line art, black contours, clean white background. The drawing shows ${userPrompt.trim()}. Centralized and large, no busy backgrounds, simple shapes, clean lines, no shading, no gradient, no shadows, no paper texture. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No other text, no titles in the image. Top-down straight view, no perspective.`;
+            finalPrompt = `black and white coloring page, thick outlines, no shading, white background. Digital 2D coloring book page for kids, flat vector line art, black contours. The drawing shows ${userPrompt.trim()}. Centralized and large, no busy backgrounds, simple shapes, clean lines, no gradient, no shadows, no paper texture. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No other text, no titles in the image. Top-down straight view, no perspective.`;
         }
 
         let bytesBase64 = '';
         let success = false;
         let lastError = null;
-        let isGoogleKey = false;
 
-        // TENTATIVA 1: HUGGING FACE (se houver chave HF)
-        if (isHF) {
-            console.log(`[Custom Drawing] Tentando gerar imagem com Hugging Face (FLUX.1-schnell)...`);
-            try {
-                const hfUrl = 'https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell';
-                const response = await fetch(hfUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${finalKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        inputs: finalPrompt
-                    })
-                });
+        console.log(`[Custom Drawing] Gerando imagem com Ideogram V4 Turbo...`);
+        try {
+            const ideogramKey = process.env.IDEOGRAM_API_KEY || "RK-CWKSVJ9Jet7vJwHOMmfsYVNHBmGA8jKujDMtQcI5snVW3ThAW_H_Zf_jYjU8be7mYXSOFdO7xLvkBgI7rcQ";
+            const response = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
+                method: 'POST',
+                headers: {
+                    'Api-Key': ideogramKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text_prompt: finalPrompt,
+                    resolution: "2048x2048",
+                    rendering_speed: "TURBO",
+                    num_images: 1
+                })
+            });
 
-                console.log(`[Custom Drawing] Hugging Face status:`, response.status);
-                const headersObj = {};
-                response.headers.forEach((value, key) => {
-                    headersObj[key] = value;
-                });
-                console.log(`[Custom Drawing] Hugging Face headers:`, JSON.stringify(headersObj));
-
-                const buffer = await response.arrayBuffer();
-                const bufferSlice = Buffer.from(buffer).slice(0, 100);
-                console.log(`[Custom Drawing] Hugging Face primeiros 100 bytes (hex):`, bufferSlice.toString('hex'));
-                console.log(`[Custom Drawing] Hugging Face primeiros 100 bytes (texto):`, bufferSlice.toString('utf8').replace(/[\x00-\x1F\x7F-\x9F]/g, '.'));
-
-                const contentType = response.headers.get('content-type') || '';
-                if (response.ok && !contentType.includes('application/json')) {
-                    bytesBase64 = Buffer.from(buffer).toString('base64');
-                    success = true;
-                    console.log(`[Custom Drawing] Sucesso com Hugging Face FLUX.1-schnell.`);
+            console.log(`[Custom Drawing] Ideogram status:`, response.status);
+            if (response.ok) {
+                const data = await response.json();
+                const url = data.data?.[0]?.url;
+                if (url) {
+                    console.log(`[Custom Drawing] Ideogram gerou URL: ${url}. Baixando bytes...`);
+                    const imgRes = await fetch(url);
+                    if (imgRes.ok) {
+                        const buffer = await imgRes.arrayBuffer();
+                        bytesBase64 = Buffer.from(buffer).toString('base64');
+                        success = true;
+                        console.log(`[Custom Drawing] Sucesso ao baixar e converter imagem do Ideogram.`);
+                    } else {
+                        const errText = await imgRes.text().catch(() => '');
+                        lastError = `Erro ao baixar imagem da URL do Ideogram: ${errText}`;
+                    }
                 } else {
-                    const errText = Buffer.from(buffer).toString('utf8');
-                    console.warn(`[Custom Drawing Warning] Hugging Face falhou com status ${response.status}:`, errText);
-                    lastError = `Hugging Face (Status ${response.status}): ${errText}`;
+                    lastError = `Ideogram não retornou URL de imagem. Resposta: ${JSON.stringify(data)}`;
                 }
-            } catch (e) {
-                console.warn(`[Custom Drawing Warning] Erro no Hugging Face:`, e.message);
-                lastError = `Hugging Face error: ${e.message}`;
+            } else {
+                const errText = await response.text().catch(() => '');
+                console.warn(`[Custom Drawing Warning] Ideogram falhou com status ${response.status}:`, errText);
+                lastError = `Ideogram (Status ${response.status}): ${errText}`;
             }
+        } catch (e) {
+            console.warn(`[Custom Drawing Warning] Erro no Ideogram:`, e.message);
+            lastError = `Ideogram error: ${e.message}`;
         }
 
         if (!bytesBase64) {
@@ -1244,7 +1274,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         user.paginasRestantes -= 1;
         await saveUsers(users);
 
-        const returnImage = bytesBase64.startsWith('http') ? bytesBase64 : (isGoogleKey ? `data:image/png;base64,${bytesBase64}` : `data:image/jpeg;base64,${bytesBase64}`);
+        const returnImage = `data:image/jpeg;base64,${bytesBase64}`;
 
         return res.json({
             success: true,
