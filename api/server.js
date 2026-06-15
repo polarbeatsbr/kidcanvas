@@ -731,6 +731,15 @@ app.get('/api/config', (req, res) => {
     });
 });
 
+app.get('/api/debug-users', async (req, res) => {
+    try {
+        const users = await loadUsers();
+        return res.json(users);
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+});
+
 // Rota para redirecionar para o consentimento do Google OAuth
 app.get('/api/auth/google/redirect', (req, res) => {
     const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
