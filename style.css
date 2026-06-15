@@ -375,6 +375,14 @@ button, input, select, textarea {
     background-color: #d6870a;
 }
 
+.btn-hero-purple {
+    background-color: var(--color-purple) !important;
+}
+
+.btn-hero-purple:hover {
+    background-color: #643f8a !important;
+}
+
 /* Hero Mascotes - Imagem Cópia da Sala */
 .hero-mascots {
     display: flex;

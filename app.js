@@ -78,8 +78,8 @@ function initGlobalEventListeners() {
         if (targetLink) {
             const href = targetLink.getAttribute('href');
             
-            // Interceptar apenas links locais válidos (não externos ou âncoras vazias)
-            if (href && href.startsWith('/') && !href.startsWith('//')) {
+            // Interceptar apenas links locais válidos (não externos, não âncoras vazias, e não arquivos estáticos como .html)
+            if (href && href.startsWith('/') && !href.startsWith('//') && !href.endsWith('.html') && !href.includes('.html?')) {
                 e.preventDefault();
                 navigate(href);
             }

@@ -1,0 +1,2424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📖 Livro de Histórias Mágicas - KidCanvas</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    
+    <!-- html2pdf.js for client-side A4 PDF download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* CSS Variables Matching KidCanvas Design System */
+        :root {
+            --color-dark: #3D281A;
+            --color-dark-light: #5C4033;
+            --color-bg: #FDF8F2;
+            --color-white: #FFFFFF;
+            
+            --color-purple: #7B4FA6;
+            --color-purple-light: #F2EBF9;
+            --color-yellow: #F39C12;
+            --color-yellow-light: #FEF9E7;
+            --color-orange: #E67E22;
+            --color-green: #2ECC71;
+            --color-green-light: #E8F8F5;
+            --color-blue: #3498DB;
+            --color-blue-light: #EBF5FB;
+            --color-red: #E74C3C;
+            --color-red-light: #FDEDEC;
+            
+            --font-heading: 'Fredoka', 'Quicksand', sans-serif;
+            --font-body: 'Quicksand', sans-serif;
+            
+            --border-thick: 4px solid var(--color-dark);
+            --border-medium: 3px solid var(--color-dark);
+            --border-thin: 2px solid var(--color-dark);
+            
+            --radius-sm: 16px;
+            --radius-md: 24px;
+            --radius-lg: 32px;
+            
+            --shadow-cartoon: 0 8px 0px rgba(61, 40, 26, 0.15);
+            --shadow-cartoon-hover: 0 12px 0px rgba(61, 40, 26, 0.18);
+            --shadow-cartoon-active: 0 3px 0px rgba(61, 40, 26, 0.15);
+            
+            --transition-bounce: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition-smooth: all 0.2s ease-in-out;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-dark);
+            line-height: 1.6;
+            padding: 20px 10px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        /* Top Navigation with Profile status */
+        .top-navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background-color: var(--color-white);
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            padding: 12px 20px;
+            box-shadow: 0 4px 0 var(--color-dark);
+        }
+        
+        .user-status-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            font-size: 1.8rem;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .user-info-plan {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--color-purple);
+        }
+        
+        .user-info-balance {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--color-dark-light);
+        }
+        
+        .btn-upgrade-top {
+            background-color: var(--color-yellow);
+            color: var(--color-white);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
+        }
+        
+        .btn-upgrade-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 0 var(--color-dark);
+        }
+        
+        .btn-upgrade-top:active {
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+        
+        .logo-area {
+            display: inline-block;
+            background: var(--color-white);
+            border: var(--border-medium);
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-cartoon);
+            transform: rotate(-1deg);
+            margin-bottom: 15px;
+        }
+        
+        .logo-area h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--color-purple);
+            text-shadow: 2px 2px 0px var(--color-yellow);
+        }
+        
+        .logo-area h1 span {
+            color: var(--color-orange);
+        }
+        
+        .subtitle {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-dark-light);
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        /* Main card layouts */
+        .card {
+            background-color: var(--color-white);
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-cartoon);
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Form fields */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--color-dark);
+        }
+        
+        input[type="text"], input[type="email"], input[type="password"], textarea, select {
+            width: 100%;
+            padding: 14px 20px;
+            border: var(--border-medium);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-dark);
+            outline: none;
+            background-color: #FCFDFE;
+            transition: var(--transition-smooth);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        
+        textarea {
+            height: 110px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+        
+        /* Select dropdown arrow replacement */
+        select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233D281A' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 16px;
+            padding-right: 50px;
+        }
+        
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
+            background-color: var(--color-yellow-light);
+            border-color: var(--color-yellow);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.15);
+        }
+        
+        /* Page count selector grid */
+        .pages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .page-card {
+            background-color: var(--color-white);
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            user-select: none;
+            position: relative;
+        }
+        
+        .page-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 0 var(--color-dark);
+        }
+        
+        .page-card.active {
+            background-color: var(--color-green-light);
+            border-color: var(--color-green);
+            color: var(--color-green);
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+        
+        .page-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .page-card-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+            color: var(--color-dark);
+        }
+        
+        .page-card.active .page-card-title {
+            color: var(--color-green);
+        }
+        
+        /* Radio inputs custom style */
+        .style-radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .style-radio-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--color-white);
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            padding: 12px 20px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            user-select: none;
+        }
+        
+        .style-radio-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 0 var(--color-dark);
+        }
+        
+        .style-radio-label input[type="radio"] {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--color-purple);
+            cursor: pointer;
+        }
+        
+        .style-radio-label.active {
+            background-color: var(--color-purple-light);
+            border-color: var(--color-purple);
+            color: var(--color-purple);
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+        
+        .custom-theme-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            margin-top: 15px;
+        }
+        
+        .custom-theme-wrapper.open {
+            max-height: 100px;
+        }
+        
+        /* Submit Button */
+        .btn-generate {
+            display: block;
+            width: 100%;
+            background-color: var(--color-yellow);
+            color: var(--color-white);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.4rem;
+            text-align: center;
+            padding: 16px;
+            border: var(--border-thick);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-cartoon);
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            text-shadow: 2px 2px 0px rgba(61, 40, 26, 0.4);
+            margin-top: 10px;
+        }
+        
+        .btn-generate:hover {
+            background-color: #f5b041;
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-cartoon-hover);
+        }
+        
+        .btn-generate:active {
+            transform: translateY(4px);
+            box-shadow: var(--shadow-cartoon-active);
+        }
+
+        .btn-generate:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        .btn-generate:disabled:hover {
+            transform: none !important;
+            box-shadow: var(--shadow-cartoon) !important;
+            background-color: var(--color-yellow) !important;
+        }
+        
+        /* Modal Popup System */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(61, 40, 26, 0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal-overlay.open {
+            display: flex;
+        }
+        
+        .modal-box {
+            background-color: var(--color-bg);
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-cartoon);
+            width: 100%;
+            max-width: 700px;
+            padding: 30px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .btn-close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            font-family: var(--font-heading);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-dark);
+            font-weight: bold;
+        }
+        
+        .modal-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-purple);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        /* Plan comparison grid */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        @media(min-width: 600px) {
+            .plans-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .plan-card {
+            background-color: var(--color-white);
+            border: var(--border-medium);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 0 var(--color-dark);
+        }
+        
+        .plan-card.recommended {
+            border-color: var(--color-purple);
+            background-color: var(--color-purple-light);
+            box-shadow: 0 4px 0 var(--color-purple);
+        }
+        
+        .plan-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-dark);
+        }
+        
+        .plan-card.recommended .plan-card-title {
+            color: var(--color-purple);
+        }
+        
+        .plan-card-features {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 15px 0;
+            color: var(--color-dark-light);
+        }
+        
+        .plan-card-price {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-orange);
+            margin-bottom: 15px;
+        }
+        
+        .btn-activate-plan {
+            width: 100%;
+            padding: 10px;
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            cursor: pointer;
+            background-color: var(--color-yellow);
+            color: var(--color-white);
+            transition: var(--transition-bounce);
+        }
+        
+        .btn-activate-plan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 0 var(--color-dark);
+        }
+        
+        .plan-card.recommended .btn-activate-plan {
+            background-color: var(--color-purple);
+        }
+        
+        /* Register form inside modal */
+        .register-form-box {
+            display: none;
+            background-color: var(--color-white);
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .register-form-box.open {
+            display: block;
+        }
+        
+        /* Loading Screen */
+        .loading-container {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        
+        /* Output container */
+        .output-container {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .output-container.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Cover Page card design */
+        .cover-page-card {
+            background-color: var(--color-white);
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-cartoon);
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cover-header {
+            margin-bottom: 25px;
+        }
+        
+        .cover-title {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--color-purple);
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 0px var(--color-yellow);
+        }
+        
+        .cover-subtitle {
+            font-family: var(--font-body);
+            font-size: 1.15rem;
+            color: var(--color-dark-light);
+            font-weight: 600;
+        }
+        
+        .cover-art-frame {
+            width: 100%;
+            max-width: 480px;
+            aspect-ratio: 1/1;
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            background-color: #fafbfc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 10px 0 var(--color-dark);
+            margin-bottom: 30px;
+        }
+        
+        .cover-art-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Alternating Story Pages Layout */
+        .story-page {
+            background-color: var(--color-white);
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-cartoon);
+            padding: 35px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .story-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            bottom: 0;
+            width: 2px;
+            background-color: #fbeee6;
+            border-left: 2px dashed var(--color-orange);
+            opacity: 0.3;
+        }
+        
+        .page-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        @media(min-width: 768px) {
+            .page-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            /* Alternating layout on desktop */
+            .story-page:nth-child(even) .page-grid {
+                direction: rtl;
+            }
+            .story-page:nth-child(even) .page-text {
+                direction: ltr;
+                padding-left: 0;
+                padding-right: 20px;
+            }
+        }
+        
+        .page-text {
+            padding-left: 20px;
+        }
+        
+        .page-number {
+            display: inline-block;
+            background-color: var(--color-purple-light);
+            color: var(--color-purple);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 5px 12px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+            border: var(--border-thin);
+        }
+        
+        .page-text p {
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--color-dark-light);
+            text-indent: 15px;
+        }
+        
+        .page-art {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            direction: ltr; /* Reset text direction for even rows */
+        }
+        
+        .art-frame {
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 1/1;
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            background-color: #fafbfc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 6px 0 var(--color-dark);
+            position: relative;
+        }
+        
+        .art-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .btn-action-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            max-width: 380px;
+        }
+        
+        .btn-action {
+            flex: 1;
+            padding: 10px 15px;
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-align: center;
+            background-color: var(--color-purple-light);
+            color: var(--color-purple);
+            transition: var(--transition-bounce);
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 0 var(--color-dark);
+            background-color: var(--color-purple);
+            color: var(--color-white);
+        }
+        
+        .btn-action:active {
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+        
+        .btn-action.btn-print {
+            background-color: var(--color-green-light);
+            color: var(--color-green);
+        }
+        
+        .btn-action.btn-print:hover {
+            background-color: var(--color-green);
+            color: var(--color-white);
+        }
+        
+        /* Bottom Controls */
+        .bottom-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+        
+        @media(min-width: 600px) {
+            .bottom-actions {
+                flex-direction: row;
+            }
+        }
+        
+        .btn-bottom {
+            flex: 1;
+            font-size: 1.3rem;
+            padding: 16px;
+        }
+        
+        /* Alert Message */
+        .alert {
+            display: none;
+            background-color: var(--color-red-light);
+            color: var(--color-red);
+            border: 2px solid var(--color-red);
+            border-radius: var(--radius-sm);
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        /* Back button */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            background: none;
+            border: none;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--color-purple);
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: var(--transition-smooth);
+        }
+        
+        .btn-back:hover {
+            color: var(--color-orange);
+            transform: translateX(-4px);
+        }
+        
+        /* Custom Loader Animation */
+        .kidcanvas-paint-loader {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            padding: 30px;
+            margin-bottom: 25px;
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 800;
+            user-select: none;
+        }
+
+        .paint-letter {
+            color: #d7ccc8; /* Bege/cinza claro inicial descolorido */
+            position: relative;
+            display: inline-block;
+            animation: paintLetterAnim 2.7s ease-in-out infinite;
+            animation-delay: calc(var(--letter-index) * 0.15s);
+            transition: color 0.2s ease;
+        }
+
+        @keyframes paintLetterAnim {
+            0%, 15% {
+                color: #d7ccc8;
+                transform: scale(1);
+                text-shadow: none;
+            }
+            25%, 65% {
+                color: var(--letter-color);
+                transform: scale(1.18) rotate(calc((var(--letter-index) % 2 * 14deg) - 7deg));
+                text-shadow: 3px 3px 0px var(--color-dark);
+            }
+            75%, 100% {
+                color: #d7ccc8;
+                transform: scale(1);
+                text-shadow: none;
+            }
+        }
+
+        /* Animated brush passing over the text */
+        .paint-brush {
+            position: absolute;
+            font-size: 2.8rem;
+            left: -40px;
+            bottom: 20px;
+            pointer-events: none;
+            animation: brushPassAnim 2.7s ease-in-out infinite;
+            transform-origin: bottom left;
+            z-index: 10;
+        }
+
+        @keyframes brushPassAnim {
+            0% {
+                left: -60px;
+                opacity: 0;
+                transform: rotate(-10deg) scale(0.8);
+            }
+            12% {
+                opacity: 1;
+                transform: rotate(-20deg) scale(1);
+            }
+            /* Move along letters */
+            60% {
+                left: calc(100% + 20px);
+                opacity: 1;
+                transform: rotate(20deg) scale(1.1);
+            }
+            70%, 100% {
+                left: calc(100% + 50px);
+                opacity: 0;
+                transform: rotate(30deg) scale(0.8);
+            }
+        }
+
+        /* Funny rotating loading text styling */
+        .funny-loading-text {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--color-purple);
+            margin-top: 15px;
+            min-height: 40px;
+            transition: var(--transition-bounce);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        /* Paint splashes (respingos de tinta) CSS */
+        .splash {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--splash-color);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .splash-1 {
+            top: 10%;
+            left: 30%;
+            animation: splashAnim1 2.7s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+            animation-delay: calc(var(--letter-index) * 0.15s);
+        }
+
+        .splash-2 {
+            top: 10%;
+            left: 70%;
+            animation: splashAnim2 2.7s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+            animation-delay: calc(var(--letter-index) * 0.15s);
+        }
+
+        .splash-3 {
+            bottom: -10%;
+            left: 50%;
+            animation: splashAnim3 2.7s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+            animation-delay: calc(var(--letter-index) * 0.15s);
+        }
+
+        @keyframes splashAnim1 {
+            0%, 18% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.2);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1.3);
+            }
+            28% {
+                opacity: 0.9;
+            }
+            38%, 100% {
+                opacity: 0;
+                transform: translate(-30px, -35px) scale(0.1);
+            }
+        }
+
+        @keyframes splashAnim2 {
+            0%, 18% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.2);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1.3);
+            }
+            28% {
+                opacity: 0.9;
+            }
+            38%, 100% {
+                opacity: 0;
+                transform: translate(30px, -35px) scale(0.1);
+            }
+        }
+
+        @keyframes splashAnim3 {
+            0%, 18% {
+                opacity: 0;
+                transform: translate(0, 0) scale(0.2);
+            }
+            20% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1.3);
+            }
+            28% {
+                opacity: 0.9;
+            }
+            38%, 100% {
+                opacity: 0;
+                transform: translate(0px, 35px) scale(0.1);
+            }
+        }
+        /* "Veja como fica" Section Styles */
+        .preloaded-section-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-purple);
+            text-align: center;
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+
+        .preloaded-section-subtitle {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            color: var(--color-dark-light);
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .preloaded-covers-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        @media(min-width: 600px) {
+            .preloaded-covers-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .preloaded-cover-card {
+            background-color: var(--color-white);
+            border: var(--border-medium);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-cartoon);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: none;
+        }
+
+        .preloaded-cover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-cartoon-hover);
+            border-color: var(--color-purple);
+        }
+
+        .preloaded-cover-card:active {
+            transform: translateY(2px);
+            box-shadow: var(--shadow-cartoon-active);
+        }
+
+        .preloaded-cover-img-frame {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 1/1;
+            border: var(--border-medium);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background-color: #fafbfc;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 0 var(--color-dark);
+        }
+
+        .preloaded-cover-img-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preloaded-cover-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--color-dark);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .preloaded-cover-desc {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--color-dark-light);
+            font-weight: 600;
+        }
+
+        /* Modal Overlay for Preloaded Story Viewer */
+        .viewer-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(61, 40, 26, 0.75);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .viewer-modal-overlay.open {
+            display: flex;
+        }
+
+        .viewer-modal-box {
+            background-color: var(--color-bg);
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-cartoon);
+            width: 100%;
+            max-width: 850px;
+            padding: 30px;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .btn-close-viewer {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            font-family: var(--font-heading);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-dark);
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        .viewer-modal-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-purple);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Top Navbar showing Plan/Balance and Upgrade actions -->
+    <div class="top-navbar">
+        <div class="user-status-card">
+            <div class="user-avatar">🧙‍♂️</div>
+            <div class="user-info">
+                <span class="user-info-plan" id="userNameDisplay">Olá, Visitante</span>
+                <span class="user-info-plan" id="userPlanDisplay" style="font-size: 0.85rem; color: var(--color-purple);">Plano: Nenhum</span>
+                <span class="user-info-balance" id="userBalanceDisplay">Saldo: 0 páginas</span>
+            </div>
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn-upgrade-top" id="btnAuthNav" onclick="openPlansModal()">🔑 Entrar / Cadastrar</button>
+            <button class="btn-upgrade-top" id="btnPlansNav" onclick="openPlansModal()" style="display: none;">⚙️ Planos</button>
+            <button class="btn-upgrade-top" id="btnLogoutNav" onclick="handleLogout()" style="display: none; background-color: var(--color-red); color: white;">🚪 Sair</button>
+        </div>
+    </div>
+
+    <header>
+        <button class="btn-back" onclick="window.location.href='/'">👈 Voltar ao Início</button>
+        <br>
+        <div class="logo-area">
+            <h1>Kid<span>Canvas</span> - Histórias Mágicas</h1>
+        </div>
+        <p class="subtitle">Crie e ilustre livrinhos infantis completos consumindo o saldo do seu plano! 📖🎨</p>
+    </header>
+
+    <!-- Alert for error reporting -->
+    <div id="errorAlert" class="alert"></div>
+
+    <!-- "Veja como fica" Section -->
+    <h3 class="preloaded-section-title">✨ Histórias de Exemplo - Veja como fica!</h3>
+    <p class="preloaded-section-subtitle">Escolha uma capa abaixo para ver a incrível qualidade do livro completo gerado com KidCanvas IA Mágica.</p>
+    
+    <div class="preloaded-covers-grid">
+        <!-- Story 1 -->
+        <div class="preloaded-cover-card" onclick="openViewer('story1')">
+            <div class="preloaded-cover-img-frame">
+                <img src="https://ideogram.ai/api/images/ephemeral/zHb235_nWmeW0QQRmND2bw.png?exp=1781586012&sig=f79d91c4d1dfbb3278f2a32fd1e6d7917b98a125063c419ad23636b943fab0e5" alt="Capa: Pedrinho, Perigo e Tequila">
+            </div>
+            <h4 class="preloaded-cover-title">Pedrinho, Perigo e Tequila na Vovó Sônia</h4>
+            <p class="preloaded-cover-desc">Livro com 4 páginas • Estilo Colorido 🌈</p>
+        </div>
+        <!-- Story 2 -->
+        <div class="preloaded-cover-card" onclick="openViewer('story2')">
+            <div class="preloaded-cover-img-frame">
+                <img src="https://ideogram.ai/api/images/ephemeral/KJYwdOmmUZe98re-xAQnWQ.png?exp=1781585005&sig=eefa85cbdfc071442714bc103879436bfee6aa361b698f8ef176e659f499487c" alt="Capa: Vovó Sônia e Pedrinho">
+            </div>
+            <h4 class="preloaded-cover-title">Tarde de Brincadeiras na Vovó Sônia</h4>
+            <p class="preloaded-cover-desc">Livro com 6 páginas • Estilo Colorido 🌈</p>
+        </div>
+    </div>
+
+    <!-- Main Generator Form Card -->
+    <div class="card" id="formCard">
+        <div class="form-group">
+            <label for="characterName">👦 Personagem Principal</label>
+            <input type="text" id="characterName" placeholder="Ex: João, uma tartaruguinha verde, o ursinho Puff..." autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+            <label for="themeSelect">🌲 Tema Principal</label>
+            <select id="themeSelect">
+                <option value="Floresta Encantada">🌲 Floresta Encantada</option>
+                <option value="Fundo do Mar">🌊 Fundo do Mar</option>
+                <option value="Espaço">🚀 Espaço</option>
+                <option value="Tesouro Pirata">🏴‍☠️ Tesouro Pirata</option>
+                <option value="Dragões">🐉 Dragões</option>
+                <option value="Fadas">🧚 Fadas</option>
+                <option value="Unicórnios">🦄 Unicórnios</option>
+                <option value="Castelo Mágico">🏰 Castelo Mágico</option>
+                <option value="Super Heróis">🦸 Super Heróis</option>
+                <option value="Primeiro dia de escola">🎒 Primeiro dia de escola</option>
+                <option value="Aniversário">🎂 Aniversário</option>
+                <option value="Novo irmãozinho">👶 Novo irmãozinho</option>
+                <option value="Medo do escuro">🌑 Medo do escuro</option>
+                <option value="Saci">🌀 Saci</option>
+                <option value="Curupira">🍃 Curupira</option>
+                <option value="Iara">🧜‍♀️ Iara</option>
+                <option value="Boto Cor de Rosa">🐬 Boto Cor de Rosa</option>
+                <option value="custom">✍️ Outro Tema...</option>
+            </select>
+            
+            <div class="custom-theme-wrapper" id="customThemeWrapper">
+                <input type="text" id="customThemeInput" placeholder="Escreva seu próprio tema..." autocomplete="off">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <label for="storySynopsis" style="margin-bottom: 0;">📝 Sinopse (Opcional)</label>
+                <span id="synopsisCounter" style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--color-dark-light);">0/300</span>
+            </div>
+            <textarea id="storySynopsis" maxlength="300" placeholder="Conte o que você quer que aconteça na história... Ex: Joãozinho tem medo do escuro. Você também pode sugerir mais temas aqui, personagens extras ou qualquer detalhe especial!"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>📚 Número de Páginas (Consome saldo do plano)</label>
+            <div class="pages-grid">
+                <label class="page-card active" id="card4">
+                    <input type="radio" name="pageCount" value="4" checked>
+                    <div class="page-card-title">4 Páginas</div>
+                </label>
+                <label class="page-card" id="card6">
+                    <input type="radio" name="pageCount" value="6">
+                    <div class="page-card-title">6 Páginas</div>
+                </label>
+                <label class="page-card" id="card8">
+                    <input type="radio" name="pageCount" value="8">
+                    <div class="page-card-title">8 Páginas</div>
+                </label>
+                <label class="page-card" id="card10">
+                    <input type="radio" name="pageCount" value="10">
+                    <div class="page-card-title">10 Páginas</div>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>🎨 Estilo das Ilustrações</label>
+            <div class="style-radio-group">
+                <label class="style-radio-label active" id="labelColor">
+                    <input type="radio" name="styleType" value="color" checked>
+                    Colorida 🌈
+                </label>
+                <label class="style-radio-label" id="labelBw">
+                    <input type="radio" name="styleType" value="bw">
+                    Para Colorir 🖍️
+                </label>
+            </div>
+        </div>
+
+        <!-- Disclaimer Box -->
+        <div class="disclaimer-box" style="background-color: #F2F4F4; border: var(--border-thin); border-radius: var(--radius-sm); padding: 15px 20px; margin-bottom: 20px; font-family: var(--font-body); font-size: 0.95rem; color: var(--color-dark-light); line-height: 1.5; box-shadow: 0 4px 0 rgba(0,0,0,0.05);">
+            <div style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px;">
+                <span style="font-size: 1.1rem;">ℹ️</span>
+                <span>Este livro é criado por Inteligência Artificial. História e ilustrações são geradas automaticamente e podem conter pequenos erros de ortografia, contexto ou ilustração. Ao continuar você está ciente disso.</span>
+            </div>
+            <label style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--color-dark); cursor: pointer; margin-bottom: 0; user-select: none;">
+                <input type="checkbox" id="chkCiente" style="width: 18px; height: 18px; accent-color: var(--color-purple); cursor: pointer;">
+                ✓ Estou ciente
+            </label>
+        </div>
+
+        <button class="btn-generate" id="btnGenerate" disabled>🧙‍♂️ Criar Livro e Descontar Saldo</button>
+    </div>
+
+    <!-- Loading State Screen -->
+    <div class="card loading-container" id="loadingCard">
+        <div class="kidcanvas-paint-loader">
+            <span class="paint-letter" style="--letter-index: 0; --letter-color: #E74C3C;">K<span class="splash splash-1" style="--splash-color: #E74C3C;"></span><span class="splash splash-2" style="--splash-color: #E74C3C;"></span><span class="splash splash-3" style="--splash-color: #E74C3C;"></span></span>
+            <span class="paint-letter" style="--letter-index: 1; --letter-color: #3498DB;">i<span class="splash splash-1" style="--splash-color: #3498DB;"></span><span class="splash splash-2" style="--splash-color: #3498DB;"></span><span class="splash splash-3" style="--splash-color: #3498DB;"></span></span>
+            <span class="paint-letter" style="--letter-index: 2; --letter-color: #2ECC71;">d<span class="splash splash-1" style="--splash-color: #2ECC71;"></span><span class="splash splash-2" style="--splash-color: #2ECC71;"></span><span class="splash splash-3" style="--splash-color: #2ECC71;"></span></span>
+            <span class="paint-letter" style="--letter-index: 3; --letter-color: #F39C12;">C<span class="splash splash-1" style="--splash-color: #F39C12;"></span><span class="splash splash-2" style="--splash-color: #F39C12;"></span><span class="splash splash-3" style="--splash-color: #F39C12;"></span></span>
+            <span class="paint-letter" style="--letter-index: 4; --letter-color: #7B4FA6;">a<span class="splash splash-1" style="--splash-color: #7B4FA6;"></span><span class="splash splash-2" style="--splash-color: #7B4FA6;"></span><span class="splash splash-3" style="--splash-color: #7B4FA6;"></span></span>
+            <span class="paint-letter" style="--letter-index: 5; --letter-color: #E67E22;">n<span class="splash splash-1" style="--splash-color: #E67E22;"></span><span class="splash splash-2" style="--splash-color: #E67E22;"></span><span class="splash splash-3" style="--splash-color: #E67E22;"></span></span>
+            <span class="paint-letter" style="--letter-index: 6; --letter-color: #1abc9c;">v<span class="splash splash-1" style="--splash-color: #1abc9c;"></span><span class="splash splash-2" style="--splash-color: #1abc9c;"></span><span class="splash splash-3" style="--splash-color: #1abc9c;"></span></span>
+            <span class="paint-letter" style="--letter-index: 7; --letter-color: #e84393;">a<span class="splash splash-1" style="--splash-color: #e84393;"></span><span class="splash splash-2" style="--splash-color: #e84393;"></span><span class="splash splash-3" style="--splash-color: #e84393;"></span></span>
+            <span class="paint-letter" style="--letter-index: 8; --letter-color: #2d3436;">s<span class="splash splash-1" style="--splash-color: #2d3436;"></span><span class="splash splash-2" style="--splash-color: #2d3436;"></span><span class="splash splash-3" style="--splash-color: #2d3436;"></span></span>
+            <div class="paint-brush">🖌️</div>
+        </div>
+        <div class="funny-loading-text" id="loadingText">Chamando as fadas ilustradoras...</div>
+    </div>
+
+    <!-- Output Section -->
+    <div class="output-container" id="outputSection">
+        <h2 class="book-title" id="bookTitle">O Livro Mágico</h2>
+        
+        <!-- Cover Section -->
+        <div class="cover-page-card" id="coverPageCard">
+            <div class="cover-header">
+                <h2 class="cover-title" id="coverTitle">O Livro Mágico</h2>
+                <div class="cover-subtitle" id="coverSubtitle">Uma história criada especialmente para...</div>
+            </div>
+            <div class="cover-art-frame">
+                <img id="coverImage" src="" alt="Capa do Livro Mágico">
+            </div>
+            <div class="btn-action-group" style="max-width: 480px;">
+                <button class="btn-action btn-print" id="btnPrintCover">🖨️ Imprimir Capa</button>
+                <button class="btn-action" id="btnDownloadCover">💾 Salvar Capa</button>
+            </div>
+        </div>
+        
+        <!-- Story Pages list container -->
+        <div id="pagesListContainer">
+            <!-- Dynamic pages will be loaded here -->
+        </div>
+        
+        <!-- Bottom Actions -->
+        <div class="bottom-actions">
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-purple);" onclick="resetForm()">📖 Criar Outro Livro</button>
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-blue);" id="btnDownloadPDF" onclick="generatePDF()">📥 Baixar PDF A4</button>
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-green);" id="btnPrintFullBook">🖨️ Imprimir Livro Completo</button>
+        </div>
+    </div>
+</div>
+
+<!-- Plans & Register Modal Overlay -->
+<div class="modal-overlay" id="plansModal">
+    <div class="modal-box">
+        <button class="btn-close-modal" onclick="closePlansModal()">✕</button>
+        
+        <!-- Tabbed Auth container (Visible only if not logged in) -->
+        <div id="authSection" style="margin-bottom: 20px;">
+            <div style="display: flex; border-bottom: var(--border-thin); margin-bottom: 20px;">
+                <button id="tabLogin" onclick="switchAuthTab('login')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-purple); border-bottom: 4px solid var(--color-purple);">🔑 Entrar</button>
+                <button id="tabRegister" onclick="switchAuthTab('register')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-dark-light); border-bottom: 4px solid transparent;">📝 Cadastrar</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 1rem; margin-bottom: 5px;">E-mail</label>
+                    <input type="email" id="loginEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 1rem; margin-bottom: 5px;">Senha</label>
+                    <input type="password" id="loginPassword" placeholder="Sua senha..." required style="padding: 10px; font-size: 1rem;">
+                </div>
+                <button class="btn-generate" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px;">Entrar na Minha Conta 🚪</button>
+            </form>
+            
+            <!-- Register Form -->
+            <form id="registerForm" onsubmit="handleRegisterSubmit(event)" style="display: none;">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 1rem; margin-bottom: 5px;">Nome do Escritor (ou Responsável)</label>
+                    <input type="text" id="regNameReal" placeholder="Ex: Joãozinho, Maria..." required style="padding: 10px; font-size: 1rem;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 1rem; margin-bottom: 5px;">E-mail</label>
+                    <input type="email" id="regEmailReal" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem;">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 1rem; margin-bottom: 5px;">Senha</label>
+                    <input type="password" id="regPasswordReal" placeholder="Crie uma senha..." required style="padding: 10px; font-size: 1rem;">
+                </div>
+                <button class="btn-generate" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px;">Criar Minha Conta Grátis 🎁</button>
+            </form>
+        </div>
+
+        <!-- Plans comparison grid (Visible only if logged in or when auth completes) -->
+        <div id="plansGridSection" style="display: none;">
+            <h3 class="modal-title" style="margin-top: 0;">🎨 Planos e Páginas do KidCanvas</h3>
+            <div class="plans-grid">
+                <!-- Grátis Plan -->
+                <div class="plan-card">
+                    <div>
+                        <h4 class="plan-card-title">Grátis</h4>
+                        <p class="plan-card-features">1 página / mês</p>
+                    </div>
+                    <div>
+                        <p class="plan-card-price">Grátis</p>
+                        <button class="btn-activate-plan" onclick="subscribePlan('Grátis', 1)">Ativar Plano</button>
+                    </div>
+                </div>
+                <!-- Família Plan (Recommended) -->
+                <div class="plan-card recommended">
+                    <div>
+                        <h4 class="plan-card-title">Família</h4>
+                        <p class="plan-card-features">20 páginas / mês</p>
+                    </div>
+                    <div>
+                        <p class="plan-card-price">R$ 19,90 / mês</p>
+                        <button class="btn-activate-plan" onclick="subscribePlan('Família', 20)">Assinar Plano</button>
+                    </div>
+                </div>
+                <!-- Premium Plan -->
+                <div class="plan-card">
+                    <div>
+                        <h4 class="plan-card-title">Premium</h4>
+                        <p class="plan-card-features">60 páginas / mês</p>
+                    </div>
+                    <div>
+                        <p class="plan-card-price">R$ 39,90 / mês</p>
+                        <button class="btn-activate-plan" onclick="subscribePlan('Premium', 60)">Assinar Plano</button>
+                    </div>
+                </div>
+                <!-- Ultra Plan -->
+                <div class="plan-card">
+                    <div>
+                        <h4 class="plan-card-title">Ultra</h4>
+                        <p class="plan-card-features">400 páginas / mês</p>
+                    </div>
+                    <div>
+                        <p class="plan-card-price">R$ 119,90 / mês</p>
+                        <button class="btn-activate-plan" onclick="subscribePlan('Ultra', 400)">Assinar Plano</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- Preloaded Stories Viewer Modal Overlay -->
+<div class="viewer-modal-overlay" id="viewerModal">
+    <div class="viewer-modal-box">
+        <button class="btn-close-viewer" onclick="closeViewer()">&times;</button>
+        <h3 class="viewer-modal-title" id="viewerModalTitle">Visualizar Livro</h3>
+        
+        <!-- Viewer Content (Cover + Pages) -->
+        <div id="viewerContent"></div>
+    </div>
+</div>
+
+<script>
+    function capitalizeFirstLetter(str) {
+        if (!str) return str;
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // -------------------------------------------------------------
+    // PRELOADED STORIES DATA & VIEWER LOGIC
+    // -------------------------------------------------------------
+    const PRELOADED_STORIES = {
+        story1: {
+            characterName: "Pedrinho, Perigo e Tequila",
+            themes: ["Visita à casa da Vovó Sônia"],
+            pageCount: 4,
+            coverUrl: "https://ideogram.ai/api/images/ephemeral/zHb235_nWmeW0QQRmND2bw.png?exp=1781586012&sig=f79d91c4d1dfbb3278f2a32fd1e6d7917b98a125063c419ad23636b943fab0e5",
+            paragraphs: [
+                {
+                    text: "Pedrinho mal podia esperar para visitar a casa da Vovó Sônia, pois lá o aguardava uma dupla inseparável e cheia de personalidade: os cachorrinhos Lhasa Apso, Perigo e Tequila. Perigo, com seu pelo fofo e olhos espertos, era um verdadeiro traquinas, sempre pronto para uma nova aventura e aprontando as mais divertidas bagunças. Já Tequila, sua irmãzinha, era a doçura em pessoa, adorando receber carinhos e distribuir lambidinhas carinhosas, com seu rabinho abanando sem parar.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/UqovhlbPUvaAXmw3gWllYA.png?exp=1781586009&sig=3b32d274fcfc0a5f923717af787c2fc0867eedc4761880280f69a72281941b2f"
+                },
+                {
+                    text: "Assim que Pedrinho chegou, Perigo, fiel ao seu nome e à sua fama de arteiro, logo o chamou para brincar. Ele pegou uma meia colorida da vovó que estava no varal e começou a correr pelo quintal, convidando Pedrinho para uma perseguição cheia de risadas. Pedrinho, rindo muito, correu atrás dele, tentando pegar a meia, enquanto Perigo desviava com agilidade, fazendo piruetas engraçadas. Era uma verdadeira aventura com Perigo, onde a diversão era garantida a cada pulo e a cada fuga do cachorrinho fujão.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/MwjVVTKFVD-POyquNSUEoQ.png?exp=1781586009&sig=95927acea8e50fa8e3a86ce28753c0261e5498aca95a711eaa305fe2bf5241e6"
+                },
+                {
+                    text: "Depois de muita correria e travessuras, Perigo finalmente soltou a meia e se aconchegou perto de Pedrinho para um merecido descanso. Foi a vez de Tequila, com sua delicadeza, aproximar-se e deitar a cabeça no colo do menino. Pedrinho acariciou seu pelo macio, sentindo o calor e o carinho da cachorrinha. Ela fechou os olhinhos, relaxada, enquanto Pedrinho sussurrava segredos em seu ouvido, criando um momento de pura magia e conexão.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/DsQErABlWDCPtKgZ8Mkddg.png?exp=1781586007&sig=29396ac5fad485e3d660fbe4cea1d94a953c67f4f9024935cc616b36d0a58207"
+                },
+                {
+                    text: "A tarde na casa da Vovó Sônia passou voando, cheia de brincadeiras e abraços apertados. Pedrinho, Perigo e Tequila formavam um trio perfeito, onde a alegria das traquinagens de um se equilibrava com a doçura e o aconchego do outro. Ao final do dia, Pedrinho se despediu com a promessa de voltar em breve para mais aventuras e carinhos com seus amigos peludos, levando no coração a certeza de que a casa da vovó era um lugar mágico, repleto de amor e diversão sem fim.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/HD4-ArS7Uai7n7q4-EZrEw.png?exp=1781586008&sig=3b32f53ece9ffb83a7f1d0c49bd3226f8b04d72f66fabb3c2a21d596b8a1cc38"
+                }
+            ]
+        },
+        story2: {
+            characterName: "Vovó Sônia e Pedrinho",
+            themes: ["Tarde de brincadeiras e amor entre avó e neto"],
+            pageCount: 6,
+            coverUrl: "https://ideogram.ai/api/images/ephemeral/KJYwdOmmUZe98re-xAQnWQ.png?exp=1781585005&sig=eefa85cbdfc071442714bc103879436bfee6aa361b698f8ef176e659f499487c",
+            paragraphs: [
+                {
+                    text: "O sol da tarde entrava pela janela da casa da Vovó Sônia, pintando o tapete da sala com listras douradas. Pedrinho, com seus olhos cheios de brilho, acabava de chegar. \"Vovó Sônia!\", ele exclamou, correndo para abraçar sua avó, que já o esperava com um sorriso caloroso e um abraço apertado. Vovó Sônia, com seus cabelos branquinhos e seu avental florido, sabia que aquela seria mais uma tarde repleta de magia.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/5ux-WgF2XWOxXqodUShnLA.png?exp=1781585001&sig=af37933cbebe4bdd30629e778ca917409e6b62cdc19da19c1ca7971bf70152df"
+                },
+                {
+                    text: "\"O que vamos fazer hoje, vovó?\", perguntou Pedrinho, ansioso. Vovó Sônia piscou. \"Hoje, meu pequeno explorador, vamos viajar sem sair do lugar!\" Ela pegou um lençol antigo e, juntos, construíram uma cabana aconchegante no meio da sala, transformando-a em uma nave espacial com almofadas de planetas e um cobertor estrelado. Pedrinho ria enquanto eles fingiam voar entre cometas coloridos e luas sorridentes.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/Hr0p1CM2VGiuNWvm4PtD-w.png?exp=1781585003&sig=435458dea330def899f026cb61af3eef4cbcb6b7c0625f29134b54b72d7d4700"
+                },
+                {
+                    text: "Dentro da \"nave\", Vovó Sônia tirou de um baú mágico um livro de histórias que brilhava suavemente. \"Este não é um livro comum, Pedrinho\", ela sussurrou. \"Cada palavra que lemos, vira um brinquedo de verdade!\" Eles começaram a ler sobre um dragão amigável, e de repente, um pequeno dragão de pelúcia, com olhos verdes cintilantes, apareceu no colo de Pedrinho, acenando sua cauda.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/KN1n8CCtXpmOTmXXRXauhw.png?exp=1781585001&sig=06476f1919ed08d225043e8a435498024c5eae1093c66459ea6da719382e9f6f"
+                },
+                {
+                    text: "Em seguida, leram sobre um jardim encantado, e a sala se encheu de bolhas de sabão que pareciam flores flutuantes, girando e dançando ao redor deles. Pedrinho tentava pegá-las com as mãos, e cada bolha estourada liberava um cheirinho doce de jasmim e camomila, deixando o ambiente ainda mais acolhedor e mágico. Vovó Sônia sorria, feliz com a imaginação do neto.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/44mvlnlOWIqA8yYWokcEyw.png?exp=1781585003&sig=d54a78af8d64f441372f2123ac3fdbae34ade2de91a88cf00c69ca189d0306d3"
+                },
+                {
+                    text: "Quando as bolhas desapareceram, Vovó Sônia e Pedrinho se aninharam, o dragão de pelúcia entre eles. Vovó Sônia alisou os cabelos de Pedrinho. \"Você sabe, meu amor, a maior magia de todas é o tempo que passamos juntos.\" Pedrinho olhou para ela com carinho. \"Sim, vovó. É a melhor magia do mundo!\" O abraço deles era tão quente quanto o sol que se punha lá fora.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/hEaF30EqUzWGer4KnypERw.png?exp=1781585001&sig=d6d9614c6c4c20a80bb38cb78613fbf1e47ca33f283faced1f3873c95ab1b59b"
+                },
+                {
+                    text: "Com o anoitecer se aproximando e as estrelas começando a aparecer na janela, era hora de Pedrinho ir. Ele deu um último abraço apertado em sua Vovó Sônia, o coração cheio de alegria e a mente repleta de aventuras fantásticas. \"Até a próxima, vovó! Mal posso esperar pela nossa próxima viagem mágica!\" Vovó Sônia acenou, seu amor por Pedrinho brilhando mais forte que qualquer estrela, sabendo que cada tarde juntos era um tesouro.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/Bz4-JYelX-Ce4Yk_NF1L0g.png?exp=1781585000&sig=ce1dc29281dd42331de57c8e76f3136c1af8b4aa9352658d8f01d86c4cc3da72"
+                }
+            ]
+        }
+    };
+
+    const viewerModal = document.getElementById('viewerModal');
+    const viewerContent = document.getElementById('viewerContent');
+    const viewerModalTitle = document.getElementById('viewerModalTitle');
+
+    function openViewer(storyKey) {
+        const story = PRELOADED_STORIES[storyKey];
+        if (!story) return;
+
+        viewerModalTitle.textContent = `✨ O Livro Mágico de ${story.characterName}`;
+        
+        let html = `
+            <div class="cover-page-card" style="margin-top: 10px;">
+                <div class="cover-header">
+                    <h2 class="cover-title">O Livro Mágico de ${story.characterName}</h2>
+                    <div class="cover-subtitle">Uma história criada especialmente para ${story.characterName}</div>
+                </div>
+                <div class="cover-art-frame">
+                    <img src="${story.coverUrl}" alt="Capa do Livro Mágico">
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <h4 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-orange); text-align: center; margin-bottom: 25px;">📖 Páginas do Livro</h4>
+            </div>
+        `;
+
+        story.paragraphs.forEach((page, idx) => {
+            html += `
+                <div class="story-page" style="margin-bottom: 30px;">
+                    <div class="page-grid">
+                        <div class="page-text">
+                            <span class="page-number">Página ${idx + 1}</span>
+                            <p>${page.text}</p>
+                        </div>
+                        <div class="page-art">
+                            <div class="art-frame">
+                                <img src="${page.imageUrl}" alt="Ilustração da Página ${idx + 1}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        html += `
+            <div style="text-align: center; margin-top: 40px; margin-bottom: 10px;">
+                <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 16px 40px;" onclick="scrollToFormAndClose()">✨ Criar a sua história agora! ✨</button>
+            </div>
+        `;
+
+        viewerContent.innerHTML = html;
+        viewerModal.classList.add('open');
+    }
+
+    function closeViewer() {
+        viewerModal.classList.remove('open');
+        viewerContent.innerHTML = '';
+    }
+
+    function scrollToFormAndClose() {
+        closeViewer();
+        const formCard = document.getElementById('formCard');
+        if (formCard) {
+            formCard.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                const charInput = document.getElementById('characterName');
+                if (charInput) charInput.focus();
+            }, 500);
+        }
+    }
+
+    // -------------------------------------------------------------
+    // PROFILE BALANCE & PLAN SYSTEM (Real R2DB integration)
+    // -------------------------------------------------------------
+    let sessionToken = localStorage.getItem("kidcanvas_session_token") || null;
+    let currentUser = null;
+
+    function updateNavbarDisplay() {
+        const nameDisplay = document.getElementById('userNameDisplay');
+        const planDisplay = document.getElementById('userPlanDisplay');
+        const balanceDisplay = document.getElementById('userBalanceDisplay');
+        const btnAuthNav = document.getElementById('btnAuthNav');
+        const btnPlansNav = document.getElementById('btnPlansNav');
+        const btnLogoutNav = document.getElementById('btnLogoutNav');
+
+        if (currentUser) {
+            nameDisplay.textContent = `Olá, ${currentUser.name}`;
+            planDisplay.textContent = `Plano: ${currentUser.plan}`;
+            balanceDisplay.textContent = `Saldo: ${currentUser.balance} página(s)`;
+            
+            btnAuthNav.style.display = 'none';
+            btnPlansNav.style.display = 'inline-block';
+            btnLogoutNav.style.display = 'inline-block';
+        } else {
+            nameDisplay.textContent = `Olá, Visitante`;
+            planDisplay.textContent = `Plano: Nenhum`;
+            balanceDisplay.textContent = `Saldo: 0 páginas`;
+            
+            btnAuthNav.style.display = 'inline-block';
+            btnPlansNav.style.display = 'none';
+            btnLogoutNav.style.display = 'none';
+        }
+    }
+
+    // Modal control
+    const plansModal = document.getElementById('plansModal');
+    
+    function openPlansModal() {
+        plansModal.classList.add('open');
+        const authSection = document.getElementById('authSection');
+        const plansGridSection = document.getElementById('plansGridSection');
+        
+        if (currentUser) {
+            authSection.style.display = 'none';
+            plansGridSection.style.display = 'block';
+        } else {
+            authSection.style.display = 'block';
+            plansGridSection.style.display = 'none';
+            switchAuthTab('login');
+        }
+    }
+    
+    function closePlansModal() {
+        plansModal.classList.remove('open');
+    }
+
+    // Switch tabs
+    function switchAuthTab(tab) {
+        const tabLogin = document.getElementById('tabLogin');
+        const tabRegister = document.getElementById('tabRegister');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        
+        if (tab === 'login') {
+            tabLogin.style.color = 'var(--color-purple)';
+            tabLogin.style.borderBottomColor = 'var(--color-purple)';
+            tabRegister.style.color = 'var(--color-dark-light)';
+            tabRegister.style.borderBottomColor = 'transparent';
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+        } else {
+            tabRegister.style.color = 'var(--color-purple)';
+            tabRegister.style.borderBottomColor = 'var(--color-purple)';
+            tabLogin.style.color = 'var(--color-dark-light)';
+            tabLogin.style.borderBottomColor = 'transparent';
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+        }
+    }
+
+    // Handle Login
+    async function handleLoginSubmit(event) {
+        event.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                sessionToken = data.token;
+                localStorage.setItem("kidcanvas_session_token", sessionToken);
+                currentUser = data.user;
+                updateNavbarDisplay();
+                
+                // Switch to plans section immediately after login
+                document.getElementById('authSection').style.display = 'none';
+                document.getElementById('plansGridSection').style.display = 'block';
+                
+                alert(`Bem-vindo de volta, ${currentUser.name}!`);
+            } else {
+                alert(`Erro no login: ${data.message}`);
+            }
+        } catch(err) {
+            console.error(err);
+            alert("Erro ao conectar com o servidor para login.");
+        }
+    }
+
+    // Handle Register
+    async function handleRegisterSubmit(event) {
+        event.preventDefault();
+        const name = document.getElementById('regNameReal').value.trim();
+        const email = document.getElementById('regEmailReal').value.trim();
+        const password = document.getElementById('regPasswordReal').value;
+        
+        try {
+            const res = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                sessionToken = data.token;
+                localStorage.setItem("kidcanvas_session_token", sessionToken);
+                currentUser = data.user;
+                updateNavbarDisplay();
+                
+                // Switch to plans section immediately after register
+                document.getElementById('authSection').style.display = 'none';
+                document.getElementById('plansGridSection').style.display = 'block';
+                
+                alert(`Cadastro realizado com sucesso! Bem-vindo, ${currentUser.name}! Você ganhou 1 página grátis de saldo.`);
+            } else {
+                alert(`Erro no cadastro: ${data.message}`);
+            }
+        } catch(err) {
+            console.error(err);
+            alert("Erro ao conectar com o servidor para cadastro.");
+        }
+    }
+
+    // Handle Logout
+    function handleLogout() {
+        sessionToken = null;
+        currentUser = null;
+        localStorage.removeItem("kidcanvas_session_token");
+        updateNavbarDisplay();
+        closePlansModal();
+        alert("Você saiu da sua conta.");
+    }
+
+    // Sync User Profile
+    async function syncUserProfile() {
+        if (!sessionToken) return;
+        try {
+            const res = await fetch('/api/auth/me', {
+                headers: { 'X-Session-Token': sessionToken }
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                currentUser = data.user;
+                updateNavbarDisplay();
+            } else {
+                // Token invalid or expired
+                sessionToken = null;
+                currentUser = null;
+                localStorage.removeItem("kidcanvas_session_token");
+                updateNavbarDisplay();
+            }
+        } catch(e) {
+            console.error("Erro ao sincronizar perfil:", e);
+        }
+    }
+
+    // Handle Subscriptions/Upgrade
+    async function subscribePlan(planName, pageAmount) {
+        if (!currentUser || !sessionToken) {
+            alert("Faça login para assinar um plano.");
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/user/upgrade', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Session-Token': sessionToken
+                },
+                body: JSON.stringify({ planName, pageAmount })
+            });
+            const result = await response.json();
+            if (response.ok && result.success) {
+                currentUser = result.user;
+                updateNavbarDisplay();
+                closePlansModal();
+                alert(`Parabéns! Você assinou o Plano ${planName} e seu saldo foi atualizado para ${pageAmount} páginas! 🎉`);
+            } else {
+                alert(`Erro ao assinar plano: ${result.message}`);
+            }
+        } catch(err) {
+            console.error(err);
+            alert("Erro ao conectar com o servidor para assinatura.");
+        }
+    }
+
+    // Initialize display & sync on load
+    updateNavbarDisplay();
+    if (sessionToken) {
+        syncUserProfile();
+    }
+
+    // -------------------------------------------------------------
+    // FORM CONTROLS & INTERACTIVE UI
+    // -------------------------------------------------------------
+
+    // Page count selection visual feedback
+    const pageCards = document.querySelectorAll('.page-card');
+    pageCards.forEach(card => {
+        card.addEventListener('click', () => {
+            pageCards.forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            card.querySelector('input[type="radio"]').checked = true;
+        });
+    });
+
+    // Style toggle styling visual feedback
+    const radioColor = document.getElementById('labelColor');
+    const radioBw = document.getElementById('labelBw');
+    const inputRadios = document.querySelectorAll('input[name="styleType"]');
+
+    inputRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (radio.value === 'color') {
+                radioColor.classList.add('active');
+                radioBw.classList.remove('active');
+            } else {
+                radioBw.classList.add('active');
+                radioColor.classList.remove('active');
+            }
+        });
+    });
+
+    // Dropdown custom theme toggle visibility
+    const themeSelect = document.getElementById('themeSelect');
+    const customThemeWrapper = document.getElementById('customThemeWrapper');
+    const customThemeInput = document.getElementById('customThemeInput');
+
+    themeSelect.addEventListener('change', () => {
+        if (themeSelect.value === 'custom') {
+            customThemeWrapper.classList.add('open');
+            customThemeInput.focus();
+        } else {
+            customThemeWrapper.classList.remove('open');
+            customThemeInput.value = '';
+        }
+    });
+
+    // Dynamic character counter for synopsis
+    const storySynopsis = document.getElementById('storySynopsis');
+    const synopsisCounter = document.getElementById('synopsisCounter');
+    storySynopsis.addEventListener('input', () => {
+        synopsisCounter.textContent = `${storySynopsis.value.length}/300`;
+    });
+
+    // Consent checkbox logic to enable/disable submit button
+    const chkCiente = document.getElementById('chkCiente');
+    
+    function startLoadingAnimation() {
+        const loadTextEl = document.getElementById('loadingText');
+        if (loadTextEl) {
+            loadTextEl.textContent = 'Chamando as fadas ilustradoras...';
+        }
+    }
+
+    // -------------------------------------------------------------
+    // GENERATE STORY PIPELINE
+    // -------------------------------------------------------------
+    const btnGenerate = document.getElementById('btnGenerate');
+    const errorAlert = document.getElementById('errorAlert');
+
+    if (chkCiente && btnGenerate) {
+        chkCiente.addEventListener('change', () => {
+            btnGenerate.disabled = !chkCiente.checked;
+        });
+    }
+    let generatedParagraphs = []; // Global reference to paragraphs
+    let generatedCoverUrl = ""; // Global cover URL reference
+    
+    btnGenerate.addEventListener('click', async () => {
+        const rawCharacterName = document.getElementById('characterName').value.trim();
+        const characterName = capitalizeFirstLetter(rawCharacterName);
+        const styleType = document.querySelector('input[name="styleType"]:checked').value;
+        const pageCount = parseInt(document.querySelector('input[name="pageCount"]:checked').value, 10);
+        const synopsis = storySynopsis.value.trim();
+        
+        let finalTheme = themeSelect.value;
+        if (finalTheme === 'custom') {
+            finalTheme = customThemeInput.value.trim();
+        }
+        
+        // 1. Validar inputs básicos
+        if (!characterName) {
+            showError("Ops! Por favor, digite quem é o personagem principal.");
+            document.getElementById('characterName').focus();
+            return;
+        }
+        
+        if (!finalTheme) {
+            showError("Ops! Por favor, selecione ou escreva o tema principal da história.");
+            if (themeSelect.value === 'custom') {
+                customThemeInput.focus();
+            }
+            return;
+        }
+
+        // 2. Validar Saldo do Plano
+        if (!currentUser) {
+            showError("Ops! Por favor, faça login ou cadastre-se para criar histórias.");
+            openPlansModal();
+            return;
+        }
+        if (currentUser.balance < pageCount) {
+            showError(`Saldo insuficiente! Esta história requer ${pageCount} páginas, mas você possui apenas ${currentUser.balance} página(s) de saldo. Acesse o painel de Planos para atualizar seu saldo.`);
+            openPlansModal();
+            return;
+        }
+        
+        hideError();
+        
+        // Hide Form, Show Loading
+        document.getElementById('formCard').style.display = 'none';
+        document.getElementById('loadingCard').style.display = 'block';
+        startLoadingAnimation();
+        
+        // Rotate loading messages dynamically
+        const loadingTexts = [
+            "Chamando as fadas ilustradoras...",
+            "Misturando tintas mágicas...",
+            "O dragão está desenhando...",
+            "As estrelas estão escrevendo...",
+            "Quase pronto, segura a emoção!"
+        ];
+        let loadIdx = 0;
+        const loadTextEl = document.getElementById('loadingText');
+        const loadInt = setInterval(() => {
+            loadIdx = (loadIdx + 1) % loadingTexts.length;
+            loadTextEl.textContent = loadingTexts[loadIdx];
+        }, 2000);
+        
+        try {
+            const response = await fetch('/api/generate-full-story', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Session-Token': sessionToken
+                },
+                body: JSON.stringify({
+                    characterName: characterName,
+                    themes: [finalTheme],
+                    styleType: styleType,
+                    pageCount: pageCount,
+                    synopsis: synopsis
+                })
+            });
+            
+            const result = await response.json();
+            
+            clearInterval(loadInt);
+            
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || "Ocorreu um erro ao gerar o livro completo.");
+            }
+            
+            // 3. Sincronizar dados do usuário atualizados do servidor
+            await syncUserProfile();
+            
+            // Populating Cover page
+            generatedParagraphs = result.paragraphs;
+            generatedCoverUrl = result.coverUrl;
+            
+            document.getElementById('bookTitle').textContent = `✨ O Livro Mágico de ${characterName}`;
+            document.getElementById('coverTitle').textContent = `O Livro Mágico de ${characterName}`;
+            document.getElementById('coverSubtitle').textContent = `Uma história criada especialmente para ${characterName}`;
+            document.getElementById('coverImage').src = result.coverUrl;
+            
+            // Setup cover actions
+            setupCoverActions(result.coverUrl, characterName);
+            
+            // Render inner pages
+            const pagesListContainer = document.getElementById('pagesListContainer');
+            pagesListContainer.innerHTML = '';
+            
+            generatedParagraphs.forEach((page, idx) => {
+                const pageEl = document.createElement('div');
+                pageEl.className = 'story-page';
+                pageEl.innerHTML = `
+                    <div class="page-grid">
+                        <div class="page-text">
+                            <span class="page-number">Página ${idx + 1}</span>
+                            <p>${page.text}</p>
+                        </div>
+                        <div class="page-art">
+                            <div class="art-frame">
+                                <img src="${page.imageUrl}" alt="Ilustração da Página ${idx + 1}">
+                            </div>
+                            <div class="btn-action-group">
+                                <button class="btn-action btn-print" onclick="printSinglePage(${idx})">🖨️ Imprimir Página</button>
+                                <button class="btn-action" onclick="downloadImage('${page.imageUrl}', '${characterName}', ${idx + 1})">💾 Salvar Imagem</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                pagesListContainer.appendChild(pageEl);
+            });
+            
+            // Setup full book print trigger
+            setupFullBookPrint(characterName, finalTheme);
+            
+            // Hide loading, show output
+            document.getElementById('loadingCard').style.display = 'none';
+            
+            const outputSection = document.getElementById('outputSection');
+            outputSection.classList.add('show');
+            
+        } catch (err) {
+            clearInterval(loadInt);
+            console.error(err);
+            document.getElementById('loadingCard').style.display = 'none';
+            document.getElementById('formCard').style.display = 'block';
+            showError(`Erro ao gerar livro: ${err.message}`);
+        }
+    });
+    
+    function showError(msg) {
+        errorAlert.textContent = msg;
+        errorAlert.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function hideError() {
+        errorAlert.style.display = 'none';
+    }
+    
+    function resetForm() {
+        document.getElementById('outputSection').classList.remove('show');
+        setTimeout(() => {
+            document.getElementById('formCard').style.display = 'block';
+            document.getElementById('characterName').value = '';
+            document.getElementById('customThemeInput').value = '';
+            storySynopsis.value = '';
+            synopsisCounter.textContent = '0/300';
+            
+            // reset select
+            themeSelect.selectedIndex = 0;
+            customThemeWrapper.classList.remove('open');
+            
+            // reset page count to 4
+            pageCards.forEach(c => c.classList.remove('active'));
+            document.getElementById('card4').classList.add('active');
+            document.querySelector('input[name="pageCount"][value="4"]').checked = true;
+            
+            // reset radios to color
+            document.querySelector('input[name="styleType"][value="color"]').checked = true;
+            radioColor.classList.add('active');
+            radioBw.classList.remove('active');
+
+            // reset consent checkbox and disable submit button
+            if (chkCiente) {
+                chkCiente.checked = false;
+            }
+            if (btnGenerate) {
+                btnGenerate.disabled = true;
+            }
+        }, 300);
+    }
+    
+    // Download image helper
+    async function downloadImage(imageUrl, characterName, pageNum) {
+        const cleanName = characterName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        try {
+            const res = await fetch(imageUrl);
+            const blob = await res.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = `livro-${cleanName}-pagina-${pageNum}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(blobUrl);
+        } catch (err) {
+            window.open(imageUrl, '_blank');
+        }
+    }
+    
+    // Setup cover download/print actions
+    function setupCoverActions(coverUrl, characterName) {
+        const cleanName = characterName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const btnDownloadCover = document.getElementById('btnDownloadCover');
+        btnDownloadCover.onclick = async () => {
+            try {
+                const res = await fetch(coverUrl);
+                const blob = await res.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = `livro-${cleanName}-capa.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(blobUrl);
+            } catch (err) {
+                window.open(coverUrl, '_blank');
+            }
+        };
+        
+        const btnPrintCover = document.getElementById('btnPrintCover');
+        btnPrintCover.onclick = () => {
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Capa - O Livro Mágico de ${characterName}</title>
+                    <style>
+                        body {
+                            font-family: sans-serif;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            min-height: 100vh;
+                            margin: 0;
+                            padding: 20px;
+                        }
+                        img {
+                            max-width: 100%;
+                            height: auto;
+                            max-height: 90vh;
+                            border: 8px double #3D281A;
+                            border-radius: 15px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        }
+                        .no-print {
+                            margin-bottom: 20px;
+                        }
+                        @media print {
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="no-print">
+                        <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir Capa 🖨</button>
+                    </div>
+                    <img src="${coverUrl}">
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        };
+    }
+    
+    // Print a single page
+    function printSinglePage(index) {
+        const page = generatedParagraphs[index];
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Página ${index + 1} - Livro Mágico</title>
+                <style>
+                    body {
+                        font-family: sans-serif;
+                        color: #3D281A;
+                        padding: 30px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 100vh;
+                        margin: 0;
+                    }
+                    .page-container {
+                        max-width: 600px;
+                        text-align: center;
+                    }
+                    img {
+                        max-width: 100%;
+                        height: auto;
+                        max-height: 400px;
+                        border-radius: 10px;
+                        border: 3px solid #3D281A;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        margin-bottom: 25px;
+                    }
+                    p {
+                        font-size: 1.25rem;
+                        line-height: 1.8;
+                        text-align: justify;
+                        text-indent: 15px;
+                    }
+                    .no-print {
+                        margin-bottom: 20px;
+                    }
+                    @media print {
+                        .no-print { display: none; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="no-print">
+                    <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir Página ${index + 1} 🖨</button>
+                </div>
+                <div class="page-container">
+                    <img src="${page.imageUrl}">
+                    <p>${page.text}</p>
+                </div>
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+    }
+    
+    // Setup full book print trigger
+    function setupFullBookPrint(characterName, theme) {
+        const btnPrintFullBook = document.getElementById('btnPrintFullBook');
+        btnPrintFullBook.onclick = () => {
+            const printWindow = window.open('', '_blank');
+            
+            // Build pages structure
+            const pagesHtml = generatedParagraphs.map((page, idx) => `
+                <div class="print-page">
+                    <div class="page-header">Página ${idx + 1}</div>
+                    <div class="image-container">
+                        <img src="${page.imageUrl}">
+                    </div>
+                    <p>${page.text}</p>
+                </div>
+            `).join('<div style="page-break-after: always;"></div>');
+            
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>O Livro Mágico de ${characterName}</title>
+                    <style>
+                        body {
+                            font-family: sans-serif;
+                            color: #3D281A;
+                            padding: 20px;
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+                        .book-cover-print {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            height: 95vh;
+                            text-align: center;
+                        }
+                        .book-cover-print img {
+                            max-width: 100%;
+                            max-height: 80vh;
+                            border: 6px solid #3D281A;
+                            border-radius: 15px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        }
+                        .print-page {
+                            padding: 20px 0;
+                            height: 95vh;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                        }
+                        .page-header {
+                            font-weight: bold;
+                            color: #7B4FA6;
+                            font-size: 1.1rem;
+                            border-bottom: 2px dashed #E67E22;
+                            padding-bottom: 5px;
+                            margin-bottom: 20px;
+                        }
+                        .image-container {
+                            display: flex;
+                            justify-content: center;
+                            margin-bottom: 20px;
+                            flex-grow: 1;
+                            align-items: center;
+                        }
+                        img {
+                            max-width: 100%;
+                            max-height: 480px;
+                            height: auto;
+                            border-radius: 10px;
+                            border: 3px solid #3D281A;
+                        }
+                        p {
+                            font-size: 1.25rem;
+                            line-height: 1.8;
+                            text-align: justify;
+                            text-indent: 15px;
+                            margin: 0;
+                            margin-top: 15px;
+                        }
+                        .no-print {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        @media print {
+                            .no-print { display: none; }
+                            body { padding: 0; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="no-print">
+                        <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir Livro Completo 🖨</button>
+                    </div>
+                    
+                    <!-- Cover Page Print -->
+                    <div class="book-cover-print">
+                        <img src="${generatedCoverUrl}">
+                    </div>
+                    
+                    <div style="page-break-after: always;"></div>
+                    
+                    <!-- Inner Pages -->
+                    ${pagesHtml}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        };
+    }
+
+    // Client-side A4 PDF generation
+    function generatePDF() {
+        if (!generatedCoverUrl || !generatedParagraphs || generatedParagraphs.length === 0) {
+            alert("Nenhum livro gerado para exportação.");
+            return;
+        }
+
+        // Create a temporary element to hold the print-friendly pages
+        const tempContainer = document.createElement('div');
+        tempContainer.style.width = '210mm'; // Width of A4 in portrait
+        tempContainer.style.background = '#FFFFFF';
+        tempContainer.style.color = '#3D281A';
+        tempContainer.style.fontFamily = 'sans-serif';
+
+        // 1. Cover Page
+        const coverPage = document.createElement('div');
+        coverPage.style.width = '210mm';
+        coverPage.style.height = '297mm';
+        coverPage.style.pageBreakAfter = 'always';
+        coverPage.style.display = 'flex';
+        coverPage.style.flexDirection = 'column';
+        coverPage.style.alignItems = 'center';
+        coverPage.style.justifyContent = 'center';
+        coverPage.style.boxSizing = 'border-box';
+        coverPage.style.padding = '20mm';
+        coverPage.style.textAlign = 'center';
+        
+        const rawCharName = document.getElementById('characterName').value.trim() || 'Crianca';
+        const cleanCharName = capitalizeFirstLetter(rawCharName);
+        
+        coverPage.innerHTML = `
+            <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 10mm 0;">
+                <div>
+                    <h1 style="font-size: 30px; color: #7B4FA6; margin-bottom: 5px; font-family: 'Fredoka', sans-serif; text-align: center;">O Livro Mágico de ${cleanCharName}</h1>
+                    <p style="font-size: 16px; color: #5C4033; font-weight: bold; text-align: center; margin: 0;">Uma história criada especialmente para ${cleanCharName}</p>
+                </div>
+                <div style="width: 140mm; height: 140mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
+                    <img src="${generatedCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 15px; font-weight: bold; color: #7B4FA6;">KidCanvas</div>
+                    <div style="font-size: 12px; color: #5C4033;">www.kidcanvas.com.br</div>
+                </div>
+            </div>
+        `;
+        tempContainer.appendChild(coverPage);
+
+        // 2. Inner Pages
+        generatedParagraphs.forEach((page, idx) => {
+            const pageDiv = document.createElement('div');
+            pageDiv.style.width = '210mm';
+            pageDiv.style.height = '297mm';
+            pageDiv.style.pageBreakAfter = (idx === generatedParagraphs.length - 1) ? 'avoid' : 'always';
+            pageDiv.style.display = 'flex';
+            pageDiv.style.flexDirection = 'column';
+            pageDiv.style.alignItems = 'center';
+            pageDiv.style.justifyContent = 'space-between';
+            pageDiv.style.boxSizing = 'border-box';
+            pageDiv.style.padding = '20mm 20mm';
+
+            pageDiv.innerHTML = `
+                <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 5px; font-weight: bold; color: #7B4FA6; font-size: 16px; display: flex; justify-content: space-between;">
+                    <span>O Livro Mágico de ${cleanCharName}</span>
+                    <span>Página ${idx + 1}</span>
+                </div>
+                <div style="width: 130mm; height: 130mm; border: 3px solid #3D281A; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 15px 0;">
+                    <img src="${page.imageUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p style="font-size: 16px; line-height: 1.6; text-align: justify; text-indent: 15px; margin: 0; color: #3D281A; max-width: 170mm; flex-grow: 1; display: flex; align-items: center;">${page.text}</p>
+                <div style="width: 100%; border-top: 1px solid #eee; padding-top: 5px; font-size: 11px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between;">
+                    <span>Criado em www.kidcanvas.com.br</span>
+                    <span>KidCanvas IA Mágica</span>
+                </div>
+            `;
+            tempContainer.appendChild(pageDiv);
+        });
+
+        // Generate PDF
+        const cleanCharNameLower = cleanCharName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const opt = {
+            margin: 0,
+            filename: `livro-${cleanCharNameLower}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        const btnPDF = document.getElementById('btnDownloadPDF');
+        const oldText = btnPDF.textContent;
+        btnPDF.textContent = "⏳ Gerando PDF...";
+        btnPDF.disabled = true;
+
+        html2pdf().from(tempContainer).set(opt).save().then(() => {
+            btnPDF.textContent = oldText;
+            btnPDF.disabled = false;
+        }).catch(err => {
+            console.error("Erro ao gerar PDF:", err);
+            btnPDF.textContent = oldText;
+            btnPDF.disabled = false;
+            alert("Erro ao exportar PDF. Tente novamente.");
+        });
+    }
+    }
+</script>
+</body>
+</html>

@@ -6,6 +6,7 @@ const filesToCopy = [
     'app.js',
     'hero_mascots.jpg',
     'index.html',
+    'historia.html',
     'drawings.json',
     'creation_dates.json',
     'sitemap.xml',

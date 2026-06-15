@@ -10,6 +10,14 @@
       "destination": "/api/server.js"
     },
     {
+      "source": "/historias-magicas",
+      "destination": "/historia.html"
+    },
+    {
+      "source": "/historia",
+      "destination": "/historia.html"
+    },
+    {
       "source": "/",
       "destination": "/index.html"
     },
