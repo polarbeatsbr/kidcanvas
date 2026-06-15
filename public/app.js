@@ -3911,8 +3911,8 @@ function renderMinhasCriacoesView() {
                 const card = document.createElement('div');
                 card.className = 'drawing-card';
                 card.innerHTML = `
-                    <div class="card-img-wrapper">
-                        <img src="${imageUrl}" alt="${dw.prompt}" loading="lazy">
+                    <div class="card-img-wrapper" onclick="openImageLightbox('${imageUrl}', '${dw.prompt}')" style="cursor: pointer; transition: transform 0.2s ease;" onmouseenter="this.querySelector('img').style.transform='scale(1.05)'" onmouseleave="this.querySelector('img').style.transform='scale(1)'">
+                        <img src="${imageUrl}" alt="${dw.prompt}" loading="lazy" style="transition: transform 0.2s ease; transform-origin: center;">
                     </div>
                     <div class="card-bottom-info">
                         <span class="drawing-card-category">${dw.styleType === 'color' ? 'Colorido 🌈' : 'Preto e Branco 🖍️'}</span>
@@ -4065,8 +4065,152 @@ function shareSavedDrawingOnWhatsApp(imageUrl, promptText) {
     window.open(url, '_blank');
 }
 
+function openImageLightbox(imageUrl, altText) {
+    // Check if lightbox already exists, if so remove it
+    let lightbox = document.getElementById('drawing-lightbox');
+    if (lightbox) {
+        lightbox.remove();
+    }
+
+    // Create lightbox element
+    lightbox = document.createElement('div');
+    lightbox.id = 'drawing-lightbox';
+    
+    // Style the lightbox overlay
+    Object.assign(lightbox.style, {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: '99999',
+        opacity: '0',
+        transition: 'opacity 0.25s ease',
+        cursor: 'zoom-out',
+        backdropFilter: 'blur(5px)',
+        webkitBackdropFilter: 'blur(5px)'
+    });
+
+    // Create container for image and close button
+    const container = document.createElement('div');
+    Object.assign(container.style, {
+        position: 'relative',
+        maxWidth: '90%',
+        maxHeight: '90%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'default'
+    });
+
+    // Create image element
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = altText || 'Desenho ampliado';
+    Object.assign(img.style, {
+        maxWidth: '100%',
+        maxHeight: '85vh',
+        borderRadius: '16px',
+        border: '4px solid #ffffff',
+        backgroundColor: '#ffffff',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+        objectFit: 'contain',
+        transform: 'scale(0.95)',
+        transition: 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)'
+    });
+
+    // Create close button (X)
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '&#x2715;'; // Unicode character ✕ (multiplication sign)
+    Object.assign(closeBtn.style, {
+        position: 'absolute',
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        backgroundColor: '#e74c3c',
+        border: '3px solid #ffffff',
+        color: '#ffffff',
+        fontSize: '18px',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+        zIndex: '100000',
+        transition: 'background-color 0.2s, transform 0.2s'
+    });
+
+    // Responsive position for close button (top-right of screen on mobile to prevent overflow)
+    const applyResponsiveStyles = () => {
+        if (window.innerWidth < 768) {
+            closeBtn.style.position = 'fixed';
+            closeBtn.style.top = '16px';
+            closeBtn.style.right = '16px';
+        } else {
+            closeBtn.style.position = 'absolute';
+            closeBtn.style.top = '-15px';
+            closeBtn.style.right = '-15px';
+        }
+    };
+    applyResponsiveStyles();
+    
+    // Listen to resize to keep button responsive
+    window.addEventListener('resize', applyResponsiveStyles);
+    
+    // Add hover effect to close button
+    closeBtn.onmouseenter = () => closeBtn.style.transform = 'scale(1.1)';
+    closeBtn.onmouseleave = () => closeBtn.style.transform = 'scale(1)';
+
+    // Assemble lightbox
+    container.appendChild(img);
+    container.appendChild(closeBtn);
+    lightbox.appendChild(container);
+    document.body.appendChild(lightbox);
+
+    // Fade in
+    setTimeout(() => {
+        lightbox.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+    }, 10);
+
+    // Close function
+    const closeLightbox = () => {
+        lightbox.style.opacity = '0';
+        img.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            lightbox.remove();
+            window.removeEventListener('resize', applyResponsiveStyles);
+        }, 250);
+        document.removeEventListener('keydown', handleEsc);
+    };
+
+    // Close on click background
+    lightbox.onclick = (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    };
+
+    // Close on click close button
+    closeBtn.onclick = closeLightbox;
+
+    // Close on Esc keypress
+    const handleEsc = (e) => {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        }
+    };
+    document.addEventListener('keydown', handleEsc);
+}
+
 window.downloadSavedDrawingPDF = downloadSavedDrawingPDF;
 window.shareSavedDrawingOnWhatsApp = shareSavedDrawingOnWhatsApp;
+window.openImageLightbox = openImageLightbox;
 
 function openSavedStoryViewer(storyIdx) {
     if (!currentUser || !currentUser.myStories || !currentUser.myStories[storyIdx]) return;
