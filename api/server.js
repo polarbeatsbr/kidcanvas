@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const crypto = require('crypto');
-const { loadUsers, saveUsers, hashPassword } = require('./r2db');
+const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, hashPassword } = require('./r2db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -1281,6 +1281,29 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             message: 'Erro interno ao processar a geração do desenho pelo servidor.',
             error: error.message
         });
+    }
+});
+
+// Endpoint para lista de espera de Escolas/Professores
+app.post('/api/waitlist', async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email || !email.trim()) {
+            return res.status(400).json({ success: false, message: 'E-mail é obrigatório.' });
+        }
+        
+        const waitlist = await loadWaitlist();
+        const cleanEmail = email.trim().toLowerCase();
+        
+        if (!waitlist.includes(cleanEmail)) {
+            waitlist.push(cleanEmail);
+            await saveWaitlist(waitlist);
+        }
+        
+        return res.json({ success: true, message: 'E-mail cadastrado com sucesso! Te avisaremos assim que os planos forem liberados! 🏫' });
+    } catch (err) {
+        console.error('[Waitlist Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno ao salvar e-mail na lista de espera.' });
     }
 });
 

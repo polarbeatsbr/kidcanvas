@@ -110,6 +110,69 @@ async function saveUsers(users) {
     return false;
 }
 
+// Caminho do waitlist local
+const LOCAL_WAITLIST_FILE = path.join(__dirname, '..', 'waitlist.json');
+
+async function loadWaitlist() {
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Lendo waitlist.json do Cloudflare R2...`);
+            const command = new GetObjectCommand({
+                Bucket: bucketName,
+                Key: 'waitlist.json',
+            });
+            const response = await s3Client.send(command);
+            const dataStr = await streamToString(response.Body);
+            try {
+                fs.writeFileSync(LOCAL_WAITLIST_FILE, dataStr, 'utf8');
+            } catch(e) {}
+            return JSON.parse(dataStr);
+        } catch (err) {
+            if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || err.message.includes('NoSuchKey')) {
+                console.log('[R2DB] Arquivo waitlist.json não existe no bucket R2. Retornando vazio.');
+                return [];
+            }
+            console.error('[R2DB] Erro ao carregar waitlist do R2 (usando fallback local):', err.message);
+        }
+    }
+    if (fs.existsSync(LOCAL_WAITLIST_FILE)) {
+        try {
+            const dataStr = fs.readFileSync(LOCAL_WAITLIST_FILE, 'utf8');
+            return JSON.parse(dataStr);
+        } catch (e) {
+            console.error('[R2DB] Erro ao ler waitlist.json local:', e.message);
+        }
+    }
+    return [];
+}
+
+async function saveWaitlist(emails) {
+    const dataStr = JSON.stringify(emails, null, 2);
+    try {
+        fs.writeFileSync(LOCAL_WAITLIST_FILE, dataStr, 'utf8');
+        console.log('[R2DB] Backup local de waitlist.json gravado com sucesso.');
+    } catch (e) {
+        console.error('[R2DB] Falha ao gravar cópia local de waitlist:', e.message);
+    }
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Enviando waitlist.json atualizado para o Cloudflare R2...`);
+            const command = new PutObjectCommand({
+                Bucket: bucketName,
+                Key: 'waitlist.json',
+                Body: dataStr,
+                ContentType: 'application/json',
+            });
+            await s3Client.send(command);
+            console.log('[R2DB] Banco de dados waitlist.json persistido no R2.');
+            return true;
+        } catch (err) {
+            console.error('[R2DB] Falha crítica ao persistir waitlist no R2:', err.message);
+        }
+    }
+    return false;
+}
+
 // Hashing de senha SHA-256
 function hashPassword(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
@@ -118,5 +181,7 @@ function hashPassword(password) {
 module.exports = {
     loadUsers,
     saveUsers,
+    loadWaitlist,
+    saveWaitlist,
     hashPassword
 };

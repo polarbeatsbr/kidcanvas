@@ -143,8 +143,11 @@ function updateHeaderAuthDisplay() {
     const userPlanBadge = document.getElementById('user-plan-badge');
     const userCreditsBadge = document.getElementById('user-credits-badge');
     const creatorPanel = document.getElementById('creator-dashboard-panel');
+    const creatorLoggedIn = document.getElementById('creator-dashboard-logged-in');
+    const creatorLoggedOut = document.getElementById('creator-dashboard-logged-out');
     const creatorName = document.getElementById('creator-dashboard-name');
     const creatorCredits = document.getElementById('creator-dashboard-credits');
+    const generatorLoginGate = document.getElementById('gerar-desenho-login-gate');
 
     if (!userWidget) return;
 
@@ -181,6 +184,8 @@ function updateHeaderAuthDisplay() {
 
         if (creatorPanel) {
             creatorPanel.style.display = 'block';
+            if (creatorLoggedIn) creatorLoggedIn.style.display = 'block';
+            if (creatorLoggedOut) creatorLoggedOut.style.display = 'none';
             if (creatorName) creatorName.textContent = currentUser.name.split(' ')[0];
             if (creatorCredits) {
                 if (currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com') {
@@ -190,13 +195,23 @@ function updateHeaderAuthDisplay() {
                 }
             }
         }
+        
+        if (generatorLoginGate) {
+            generatorLoginGate.style.display = 'none';
+        }
     } else {
         if (googleBtn) googleBtn.style.display = 'none';
         if (btnEntrar) btnEntrar.style.display = 'inline-flex';
         userWidget.style.display = 'none';
 
         if (creatorPanel) {
-            creatorPanel.style.display = 'none';
+            creatorPanel.style.display = 'block';
+            if (creatorLoggedIn) creatorLoggedIn.style.display = 'none';
+            if (creatorLoggedOut) creatorLoggedOut.style.display = 'block';
+        }
+        
+        if (generatorLoginGate) {
+            generatorLoginGate.style.display = 'block';
         }
     }
 }
@@ -717,18 +732,18 @@ function renderPlanosView() {
         const plan = currentUser.plan;
         
         if (plan === 'Grátis') {
-            if (btnGratis) { btnGratis.textContent = 'Plano Atual'; btnGratis.disabled = true; }
+            if (btnGratis) { btnGratis.textContent = 'Seu plano atual 🎨'; btnGratis.disabled = true; }
             if (btnFamilia) { btnFamilia.textContent = 'Assinar Agora'; btnFamilia.disabled = false; btnFamilia.onclick = () => handlePlanUpgrade('Família', 20); }
             if (cardGratis) cardGratis.classList.add('active-plan');
         } else if (plan === 'Família') {
             if (btnGratis) { btnGratis.textContent = 'Mudar para Grátis'; btnGratis.disabled = false; btnGratis.onclick = () => handlePlanUpgrade('Grátis', 4); }
-            if (btnFamilia) { btnFamilia.textContent = 'Plano Ativo'; btnFamilia.disabled = true; }
+            if (btnFamilia) { btnFamilia.textContent = 'Seu plano atual 🎨'; btnFamilia.disabled = true; }
             if (cardFamilia) cardFamilia.classList.add('active-plan');
         } else if (plan === 'Professor') {
-            if (btnProfessor) { btnProfessor.textContent = 'Plano Ativo'; btnProfessor.disabled = true; }
+            if (btnProfessor) { btnProfessor.textContent = 'Seu plano atual 🎨'; btnProfessor.disabled = true; }
             if (cardProfessor) cardProfessor.classList.add('active-plan');
         } else if (plan === 'Colégio' || plan === 'Ultra') {
-            if (btnColegio) { btnColegio.textContent = 'Plano Ativo'; btnColegio.disabled = true; }
+            if (btnColegio) { btnColegio.textContent = 'Seu plano atual 🎨'; btnColegio.disabled = true; }
             if (cardColegio) cardColegio.classList.add('active-plan');
         }
     } else {
@@ -2317,11 +2332,16 @@ function renderGerarDesenhoView() {
     const loader = document.getElementById('custom-drawing-loader');
     const img = document.getElementById('custom-drawing-img');
     const actions = document.getElementById('custom-drawing-actions');
+    const loginGate = document.getElementById('gerar-desenho-login-gate');
     
     if (placeholder) placeholder.style.display = 'block';
     if (loader) loader.style.display = 'none';
     if (img) img.style.display = 'none';
     if (actions) actions.style.display = 'none';
+    
+    if (loginGate) {
+        loginGate.style.display = currentUser ? 'none' : 'block';
+    }
 }
 
 function openCreditsModal(message) {
@@ -2372,7 +2392,7 @@ async function handleCustomDrawingSubmit(event) {
     
     const hasUnlimited = currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com';
     if (!hasUnlimited && currentUser.paginasRestantes < 1) {
-        openCreditsModal('Seus créditos acabaram! Faça upgrade de plano para continuar criando desenhos mágicos.');
+        openCreditsModal('Seus créditos mágicos acabaram! Faça upgrade de plano para continuar criando desenhos mágicos.');
         return;
     }
     
@@ -2488,3 +2508,31 @@ function setupCustomDrawingActionListeners(imageUrl) {
         };
     }
 }
+
+async function handleWaitlistSubmit(event) {
+    event.preventDefault();
+    const emailInput = document.getElementById('waitlistEmail');
+    if (!emailInput) return;
+    const email = emailInput.value.trim();
+    if (!email) return;
+    
+    try {
+        const response = await fetch('/api/waitlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await response.json();
+        if (response.ok && data.success) {
+            showToast(data.message || 'Cadastrado com sucesso!', 'success');
+            emailInput.value = '';
+        } else {
+            showToast(data.message || 'Erro ao cadastrar na lista de espera.', 'error');
+        }
+    } catch(err) {
+        console.error('[Waitlist Submit Error]:', err);
+        showToast('Erro ao conectar com o servidor.', 'error');
+    }
+}
+
+window.handleWaitlistSubmit = handleWaitlistSubmit;

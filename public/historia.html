@@ -1527,7 +1527,7 @@
     <div class="modal-box" style="text-align: center; max-width: 400px; padding: 30px; border: var(--border-medium); border-radius: var(--radius-sm); box-shadow: var(--shadow-cartoon);">
         <button class="btn-close-modal" onclick="closeCreditsModal()">✕</button>
         <div style="font-size: 4rem; margin-bottom: 15px;">😢</div>
-        <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-dark); margin-bottom: 10px;">Seus créditos acabaram!</h3>
+        <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-dark); margin-bottom: 10px;">Seus créditos mágicos acabaram!</h3>
         <p id="creditsModalMessage" style="font-size: 1rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 25px;">
             Faça upgrade de plano para adicionar saldo e continuar criando histórias mágicas.
         </p>
@@ -2274,7 +2274,7 @@
         }
         const hasUnlimited = currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com';
         if (!hasUnlimited && currentUser.paginasRestantes < pageCount) {
-            openCreditsModal('Seus créditos acabaram! Faça upgrade de plano para adicionar saldo.');
+            openCreditsModal('Seus créditos mágicos acabaram! Faça upgrade de plano para adicionar saldo.');
             return;
         }
         

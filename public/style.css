@@ -492,25 +492,96 @@ button, input, select, textarea {
     color: var(--color-dark-light);
 }
 
-.btn-hero {
-    align-self: flex-start;
-    padding: 16px 36px;
-    font-size: 1.3rem;
+.btn-hero-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding: 18px 42px;
     border-radius: var(--radius-md);
-    background-color: var(--color-yellow);
+    background-color: var(--color-purple);
+    color: var(--color-white);
+    border: var(--border-medium);
+    box-shadow: var(--shadow-cartoon);
+    transition: var(--transition-bounce);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-cartoon-hover);
+    background-color: #643f8a;
     color: var(--color-white);
 }
 
-.btn-hero:hover {
-    background-color: #d6870a;
+.btn-hero-primary:active {
+    transform: translateY(2px);
+    box-shadow: var(--shadow-cartoon-active);
 }
 
-.btn-hero-purple {
-    background-color: var(--color-purple) !important;
+.btn-hero-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    padding: 14px 30px;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    color: var(--color-purple);
+    border: 3px solid var(--color-purple);
+    transition: var(--transition-bounce);
+    cursor: pointer;
+    text-decoration: none;
 }
 
-.btn-hero-purple:hover {
-    background-color: #643f8a !important;
+.btn-hero-secondary:hover {
+    transform: translateY(-2px);
+    background-color: rgba(138, 93, 192, 0.08);
+    color: var(--color-purple);
+}
+
+.btn-hero-secondary:active {
+    transform: translateY(1px);
+}
+
+/* Waitlist Card Style */
+#plan-card-schools-waitlist {
+    grid-column: span 2;
+    background-color: #fdfaf2;
+    border: var(--border-medium);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--shadow-cartoon);
+    width: 100%;
+    box-sizing: border-box;
+    transition: var(--transition-bounce);
+}
+
+#plan-card-schools-waitlist:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-cartoon-hover);
+}
+
+#plan-card-schools-waitlist .waitlist-content {
+    flex: 1.2;
+}
+
+#plan-card-schools-waitlist .waitlist-form-wrapper {
+    flex: 0.8;
+    max-width: 380px;
+    width: 100%;
 }
 
 /* Hero Mascotes - Imagem Cópia da Sala */
@@ -2333,6 +2404,15 @@ button, input, select, textarea {
     .spotify-plan-card.highlighted:hover {
         transform: translateY(-4px);
     }
+    #plan-card-schools-waitlist {
+        grid-column: span 2 !important;
+        flex-direction: column !important;
+        padding: 25px !important;
+        gap: 20px !important;
+    }
+    #plan-card-schools-waitlist .waitlist-form-wrapper {
+        max-width: 100% !important;
+    }
 }
 
 @media (max-width: 600px) {
@@ -2340,6 +2420,15 @@ button, input, select, textarea {
         grid-template-columns: 1fr;
         gap: 30px;
         padding: 0 10px;
+    }
+    #plan-card-schools-waitlist {
+        grid-column: span 1 !important;
+        flex-direction: column !important;
+        padding: 20px !important;
+        gap: 15px !important;
+    }
+    #plan-card-schools-waitlist .waitlist-form-wrapper {
+        max-width: 100% !important;
     }
 }
 /* --- ANIMATED BRUSH LOADER FOR CUSTOM GENERATOR --- */
