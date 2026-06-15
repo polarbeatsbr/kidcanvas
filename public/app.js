@@ -3884,10 +3884,14 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         const cleanCharName = capitalizeFirstLetter(characterName || 'Crianca');
         
         const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'fixed';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '-9999px';
         tempContainer.style.width = '210mm';
         tempContainer.style.background = '#FFFFFF';
         tempContainer.style.color = '#3D281A';
         tempContainer.style.fontFamily = 'sans-serif';
+        document.body.appendChild(tempContainer);
 
         // 1. Cover Page
         const coverPage = document.createElement('div');
@@ -3967,12 +3971,14 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         }
 
         html2pdf().from(tempContainer).set(opt).save().then(() => {
+            document.body.removeChild(tempContainer);
             if (btnPDF) {
                 btnPDF.textContent = oldText;
                 btnPDF.disabled = false;
             }
             showToast('PDF pronto para impressão! ⬇️', 'success');
         }).catch(err => {
+            document.body.removeChild(tempContainer);
             console.error("Erro ao gerar PDF:", err);
             if (btnPDF) {
                 btnPDF.textContent = oldText;
@@ -3984,6 +3990,9 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
 
     function downloadCustomDrawingPDF(imageUrl, promptText) {
         const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'fixed';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '-9999px';
         tempContainer.style.width = '210mm';
         tempContainer.style.height = '297mm';
         tempContainer.style.background = '#FFFFFF';
@@ -3995,6 +4004,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         tempContainer.style.justifyContent = 'space-between';
         tempContainer.style.boxSizing = 'border-box';
         tempContainer.style.padding = '20mm 20mm';
+        document.body.appendChild(tempContainer);
 
         tempContainer.innerHTML = `
             <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
@@ -4029,12 +4039,14 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         }
 
         html2pdf().from(tempContainer).set(opt).save().then(() => {
+            document.body.removeChild(tempContainer);
             if (btnPDF) {
                 btnPDF.textContent = oldText;
                 btnPDF.disabled = false;
             }
             showToast('PDF pronto para impressão! ⬇️', 'success');
         }).catch(err => {
+            document.body.removeChild(tempContainer);
             console.error("Erro ao gerar PDF:", err);
             if (btnPDF) {
                 btnPDF.textContent = oldText;
@@ -4262,6 +4274,9 @@ function printSavedImage(url) {
 
 function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
     const tempContainer = document.createElement('div');
+    tempContainer.style.position = 'fixed';
+    tempContainer.style.left = '-9999px';
+    tempContainer.style.top = '-9999px';
     tempContainer.style.width = '210mm';
     tempContainer.style.height = '297mm';
     tempContainer.style.background = '#FFFFFF';
@@ -4273,6 +4288,7 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
     tempContainer.style.justifyContent = 'space-between';
     tempContainer.style.boxSizing = 'border-box';
     tempContainer.style.padding = '20mm 20mm';
+    document.body.appendChild(tempContainer);
 
     tempContainer.innerHTML = `
         <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
@@ -4306,12 +4322,14 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
     }
 
     html2pdf().from(tempContainer).set(opt).save().then(() => {
+        document.body.removeChild(tempContainer);
         if (btnEl) {
             btnEl.innerHTML = oldText;
             btnEl.disabled = false;
         }
         showToast('PDF pronto para impressão! ⬇️', 'success');
     }).catch(err => {
+        document.body.removeChild(tempContainer);
         console.error("Erro ao gerar PDF:", err);
         if (btnEl) {
             btnEl.innerHTML = oldText;
