@@ -107,90 +107,6 @@ app.post('/api/generate', async (req, res) => {
             }
         }
 
-        // TENTATIVA 2: FALLBACK GEMINI (se HF falhou ou se não tínhamos chave HF)
-        if (!success) {
-            console.log(`[Proxy] Iniciando fallback para Gemini...`);
-            let geminiKey = finalKey;
-            if (isHF) {
-                geminiKey = process.env.NANOBANANA_API_KEY || '';
-            }
-
-            const isGoogleKey = geminiKey.startsWith('AIza') || geminiKey.startsWith('AQ.');
-
-            if (isGoogleKey) {
-                const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
-                for (const model of models) {
-                    try {
-                        console.log(`[Proxy] Tentando modelo Gemini: ${model}...`);
-                        const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
-                        const response = await fetch(googleUrl, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                contents: [
-                                    {
-                                        parts: [
-                                            {
-                                                text: req.body.prompt
-                                            }
-                                        ]
-                                    }
-                                ],
-                                generationConfig: {
-                                    responseModalities: ["IMAGE"]
-                                }
-                            })
-                        });
-
-                        if (response.ok) {
-                            const data = await response.json();
-                            const candidate = data.candidates?.[0];
-                            const part = candidate?.content?.parts?.[0];
-                            if (part?.inlineData?.data) {
-                                base64Image = part.inlineData.data;
-                                success = true;
-                                console.log(`[Proxy] Sucesso com o modelo Gemini ${model}.`);
-                                break;
-                            }
-                        } else {
-                            const errText = await response.text().catch(() => '');
-                            console.warn(`[Proxy Warning] Gemini ${model} falhou com status ${response.status}:`, errText);
-                            lastError = `Gemini ${model} (Status ${response.status}): ${errText}`;
-                        }
-                    } catch (e) {
-                        console.warn(`[Proxy Warning] Erro no modelo Gemini ${model}:`, e.message);
-                        lastError = `Gemini ${model} error: ${e.message}`;
-                    }
-                }
-            } else {
-                console.log(`[Proxy] Tentando API do NanoBanana...`);
-                try {
-                    const response = await fetch('https://www.nananobanana.com/api/v1/generate', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${geminiKey}`
-                        },
-                        body: JSON.stringify(req.body)
-                    });
-
-                    if (response.ok) {
-                        const responseData = await response.json();
-                        return res.status(response.status).json(responseData);
-                    } else {
-                        const errText = await response.text().catch(() => '');
-                        console.warn(`[Proxy Warning] NanoBanana falhou com status ${response.status}:`, errText);
-                        lastError = `NanoBanana (Status ${response.status}): ${errText}`;
-                    }
-                } catch (e) {
-                    console.warn(`[Proxy Warning] Erro no NanoBanana:`, e.message);
-                    lastError = `NanoBanana error: ${e.message}`;
-                }
-            }
-        }
-
         if (success && base64Image) {
             return res.json({
                 success: true,
@@ -200,7 +116,7 @@ app.post('/api/generate', async (req, res) => {
 
         return res.status(500).json({
             success: false,
-            message: `A API não retornou dados válidos da imagem. Detalhes: ${lastError}`,
+            message: 'Serviço temporariamente indisponível, tente novamente em alguns minutos.',
             error: lastError
         });
 
@@ -1316,105 +1232,10 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             }
         }
 
-        // TENTATIVA 2: FALLBACK GEMINI
-        if (!success) {
-            console.log(`[Custom Drawing] Iniciando fallback para Gemini...`);
-            let geminiKey = finalKey;
-            if (isHF) {
-                geminiKey = process.env.NANOBANANA_API_KEY || '';
-            }
-
-            isGoogleKey = geminiKey.startsWith('AIza') || geminiKey.startsWith('AQ.');
-
-            if (isGoogleKey) {
-                const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
-                for (const model of models) {
-                    try {
-                        console.log(`[Custom Drawing] Tentando modelo Gemini: ${model}...`);
-                        const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
-                        const response = await fetch(googleUrl, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                contents: [
-                                    {
-                                        parts: [
-                                            {
-                                                text: finalPrompt
-                                            }
-                                        ]
-                                    }
-                                ],
-                                generationConfig: {
-                                    responseModalities: ["IMAGE"]
-                                }
-                            })
-                        });
-
-                        if (response.ok) {
-                            const data = await response.json();
-                            const candidate = data.candidates?.[0];
-                            const part = candidate?.content?.parts?.[0];
-                            if (part?.inlineData?.data) {
-                                bytesBase64 = part.inlineData.data;
-                                success = true;
-                                console.log(`[Custom Drawing] Sucesso com o modelo Gemini ${model}.`);
-                                break;
-                            }
-                        } else {
-                            const errText = await response.text().catch(() => '');
-                            console.warn(`[Custom Drawing Warning] Gemini ${model} falhou com status ${response.status}:`, errText);
-                            lastError = `Gemini ${model} (Status ${response.status}): ${errText}`;
-                        }
-                    } catch (e) {
-                        console.warn(`[Custom Drawing Warning] Erro no modelo Gemini ${model}:`, e.message);
-                        lastError = `Gemini ${model} error: ${e.message}`;
-                    }
-                }
-            } else {
-                console.log(`[Custom Drawing] Tentando API do NanoBanana...`);
-                try {
-                    const response = await fetch('https://www.nananobanana.com/api/v1/generate', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${geminiKey}`
-                        },
-                        body: JSON.stringify({
-                            prompt: finalPrompt,
-                            rendering_speed: "TURBO",
-                            num_images: 1
-                        })
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        const url = data.data?.outputImageUrls?.[0] || data.outputImageUrls?.[0] || data.data?.[0]?.url;
-                        if (url) {
-                            const imgRes = await fetch(url);
-                            const arrayBuffer = await imgRes.arrayBuffer();
-                            bytesBase64 = Buffer.from(arrayBuffer).toString('base64');
-                            success = true;
-                            console.log(`[Custom Drawing] Sucesso com a API do NanoBanana.`);
-                        }
-                    } else {
-                        const rawText = await response.text().catch(() => '');
-                        console.warn(`[Custom Drawing Warning] NanoBanana falhou com status ${response.status}:`, rawText);
-                        lastError = `NanoBanana (Status ${response.status}): ${rawText}`;
-                    }
-                } catch (e) {
-                    console.warn(`[Custom Drawing Warning] Erro no NanoBanana:`, e.message);
-                    lastError = `NanoBanana error: ${e.message}`;
-                }
-            }
-        }
-
         if (!bytesBase64) {
             return res.status(500).json({
                 success: false,
-                message: `A API não retornou dados válidos da imagem. Detalhes: ${lastError}`,
+                message: 'Serviço temporariamente indisponível, tente novamente em alguns minutos.',
                 error: lastError
             });
         }
