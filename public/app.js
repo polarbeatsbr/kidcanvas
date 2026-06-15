@@ -2473,6 +2473,10 @@ async function handleCustomDrawingSubmit(event) {
     const userPrompt = promptInput.value.trim();
     if (!userPrompt) return;
     
+    // Obter o estilo escolhido (bw ou color)
+    const checkedRadio = document.querySelector('input[name="customDrawingStyle"]:checked');
+    const styleType = checkedRadio ? checkedRadio.value : 'bw';
+    
     if (!currentUser) {
         showToast('Cadastre-se grátis para criar desenhos mágicos! 🎨', 'info');
         openAuthModal();
@@ -2504,7 +2508,7 @@ async function handleCustomDrawingSubmit(event) {
                 'Content-Type': 'application/json',
                 'X-Session-Token': sessionToken
             },
-            body: JSON.stringify({ userPrompt })
+            body: JSON.stringify({ userPrompt, styleType })
         });
         
         const data = await response.json();
@@ -3023,6 +3027,25 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             }
         });
     });
+
+    // Custom drawing style toggle styling visual feedback
+    const customDrawingRadioColor = document.getElementById('customDrawingLabelColor');
+    const customDrawingRadioBw = document.getElementById('customDrawingLabelBw');
+    const customDrawingInputRadios = document.querySelectorAll('input[name="customDrawingStyle"]');
+
+    if (customDrawingInputRadios.length > 0) {
+        customDrawingInputRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === 'color') {
+                    if (customDrawingRadioColor) customDrawingRadioColor.classList.add('active');
+                    if (customDrawingRadioBw) customDrawingRadioBw.classList.remove('active');
+                } else {
+                    if (customDrawingRadioBw) customDrawingRadioBw.classList.add('active');
+                    if (customDrawingRadioColor) customDrawingRadioColor.classList.remove('active');
+                }
+            });
+        });
+    }
 
     // Dropdown custom theme toggle visibility
     const themeSelect = document.getElementById('themeSelect');

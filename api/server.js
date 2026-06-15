@@ -47,7 +47,7 @@ app.post('/api/generate', async (req, res) => {
 
         if (isGoogleKey) {
             console.log(`[Proxy] Gerando imagem real PNG com Gemini...`);
-            const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
+            const models = ['gemini-3.1-flash-image'];
             let success = false;
             let lastError = null;
 
@@ -1111,7 +1111,7 @@ app.post('/api/user/upgrade', async (req, res) => {
 // Endpoint para gerar desenho para colorir personalizado (consome 1 crédito)
 app.post('/api/generate-custom-drawing', async (req, res) => {
     try {
-        const { userPrompt } = req.body;
+        const { userPrompt, styleType } = req.body;
         if (!userPrompt || !userPrompt.trim()) {
             return res.status(400).json({
                 success: false,
@@ -1160,10 +1160,16 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             });
         }
 
-        console.log(`[Custom Drawing] Gerando desenho para "${user.email}" com prompt: "${userPrompt}"...`);
+        console.log(`[Custom Drawing] Gerando desenho para "${user.email}" com prompt: "${userPrompt}" (Estilo: ${styleType || 'bw'})...`);
 
-        // Construir prompt para desenho de colorir
-        const finalPrompt = `Digital 2D coloring book page for kids, flat vector line art, black contours, clean white background. The drawing shows ${userPrompt.trim()}. Centralized and large, no busy backgrounds, simple shapes, clean lines, no shading, no gradient, no shadows, no paper texture. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No other text, no titles in the image. Top-down straight view, no perspective.`;
+        // Construir prompt baseado no estilo escolhido (bw ou color)
+        const style = styleType || 'bw';
+        let finalPrompt = '';
+        if (style === 'color') {
+            finalPrompt = `Vibrant 2D children's book illustration cartoon style, detailed and colorful. The drawing shows ${userPrompt.trim()}. Centralized and large, clear objects, friendly characters, simple backgrounds suitable for kids, rich colors, soft lighting. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No text in the image.`;
+        } else {
+            finalPrompt = `Digital 2D coloring book page for kids, flat vector line art, black contours, clean white background. The drawing shows ${userPrompt.trim()}. Centralized and large, no busy backgrounds, simple shapes, clean lines, no shading, no gradient, no shadows, no paper texture. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No other text, no titles in the image. Top-down straight view, no perspective.`;
+        }
 
         const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
 
@@ -1171,7 +1177,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
 
         if (isGoogleKey) {
             console.log(`[Custom Drawing] Gerando imagem real PNG com Gemini...`);
-            const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
+            const models = ['gemini-3.1-flash-image'];
             let success = false;
             let lastError = null;
 
