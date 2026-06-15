@@ -1123,11 +1123,7 @@ button, input, select, textarea {
         font-size: 0.85rem;
         padding: 5px 8px;
     }
-    #navbar .nav-link i.fa-paw,
-    #navbar .nav-link i.fa-dragon,
-    #navbar .nav-link i.fa-wand-magic-sparkles,
-    #navbar .nav-link i.fa-leaf,
-    #navbar .nav-link i.fa-car {
+    #navbar .nav-link i:not(.fa-book-open) {
         display: none;
     }
     .logo-dot {
