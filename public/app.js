@@ -1895,48 +1895,57 @@ function renderHollowPhraseText(text, mode) {
     if (!canvas) return;
     
     let cleanText = text.toUpperCase();
-    const lines = cleanText.split('\n');
     
-    // Limpar o canvas
-    canvas.innerHTML = '';
+    // Divide por quebras de linha ou pelo caractere separador " / " para exibir cada idioma em uma linha
+    let lines = cleanText.split('\n');
+    if (lines.length === 1 && cleanText.includes(' / ')) {
+        lines = cleanText.split(' / ').map(l => l.trim());
+    }
+    
+    // Limpar linhas vazias
+    lines = lines.filter(l => l.length > 0);
     
     // Alterar o viewBox e o max-height dinamicamente dependendo da quantidade de linhas
-    if (lines.length > 1) {
-        canvas.setAttribute('viewBox', '0 0 500 80');
-        canvas.style.maxHeight = '80px';
+    if (lines.length === 1) {
+        canvas.setAttribute('viewBox', '0 0 500 50');
+        canvas.style.maxHeight = '50px';
+    } else if (lines.length === 2) {
+        canvas.setAttribute('viewBox', '0 0 500 85');
+        canvas.style.maxHeight = '85px';
     } else {
-        canvas.setAttribute('viewBox', '0 0 500 60');
-        canvas.style.maxHeight = '60px';
+        canvas.setAttribute('viewBox', '0 0 500 120');
+        canvas.style.maxHeight = '120px';
     }
     
-    if (lines.length === 1) {
-        // Redimensionamento dinâmico super seguro baseado na largura do contêiner (500px)
-        let fontSize = Math.min(34, Math.floor(500 / cleanText.length));
-        if (fontSize < 10) fontSize = 10; // Garantir tamanho mínimo legível
+    canvas.innerHTML = '';
+    
+    // Calcular tamanho de fonte ideal baseado no maior texto da linha
+    const maxLen = Math.max(...lines.map(l => l.length));
+    let fontSize = Math.min(34, Math.floor(500 / maxLen));
+    
+    // Ajustar tamanho máximo de fonte baseado na quantidade de linhas para não cortar verticalmente
+    if (lines.length === 2) fontSize = Math.min(26, fontSize);
+    if (lines.length === 3) fontSize = Math.min(21, fontSize);
+    if (fontSize < 10) fontSize = 10; // Garantir tamanho mínimo legível
+    
+    // O stroke-width (grossura do contorno) agora escala dinamicamente com o tamanho da fonte!
+    // Isso garante que se a letra for pequena, o contorno não "coma" o espaço interno dela, mantendo-a sempre vazada.
+    const strokeWidth = Math.max(0.7, (fontSize * 0.085).toFixed(2));
+    
+    lines.forEach((line, idx) => {
+        let y = 35;
+        if (lines.length === 2) {
+            y = idx === 0 ? 30 : 66;
+        } else if (lines.length === 3) {
+            y = idx === 0 ? 28 : (idx === 1 ? 62 : 96);
+        }
         
-        canvas.innerHTML = `
-            <text x="250" y="40" font-family="'Fredoka', sans-serif" font-size="${fontSize}" font-weight="900" fill="none" stroke="#2d1854" stroke-width="1.8" text-anchor="middle" letter-spacing="1">
-                ${cleanText}
+        canvas.innerHTML += `
+            <text x="250" y="${y}" font-family="'Fredoka', sans-serif" font-size="${fontSize}" font-weight="900" fill="none" stroke="#2d1854" stroke-width="${strokeWidth}" text-anchor="middle" letter-spacing="1">
+                ${line}
             </text>
         `;
-    } else {
-        // Renderizar 2 linhas
-        const line1 = lines[0];
-        const line2 = lines[1];
-        
-        const maxLen = Math.max(line1.length, line2.length);
-        let fontSize = Math.min(28, Math.floor(500 / maxLen));
-        if (fontSize < 10) fontSize = 10;
-        
-        canvas.innerHTML = `
-            <text x="250" y="32" font-family="'Fredoka', sans-serif" font-size="${fontSize}" font-weight="900" fill="none" stroke="#2d1854" stroke-width="1.6" text-anchor="middle" letter-spacing="1">
-                ${line1}
-            </text>
-            <text x="250" y="68" font-family="'Fredoka', sans-serif" font-size="${fontSize}" font-weight="900" fill="none" stroke="#2d1854" stroke-width="1.6" text-anchor="middle" letter-spacing="1">
-                ${line2}
-            </text>
-        `;
-    }
+    });
 }
 
 // --- CONTROLE DAS AUTO-SUGESTÕES (AUTOCOMPLETE) ---
