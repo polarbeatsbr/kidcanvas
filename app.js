@@ -552,7 +552,7 @@ function initGlobalEventListeners() {
             
             
             // Interceptar apenas links locais válidos (não externos, não âncoras vazias, não arquivos estáticos como .html, e não as rotas de histórias mágicas)
-            if (href && href.startsWith('/') && !href.startsWith('//') && !href.endsWith('.html') && !href.includes('.html?') && href !== '/historias-magicas' && href !== '/historia') {
+            if (href && href.startsWith('/') && !href.startsWith('//') && !href.endsWith('.html') && !href.includes('.html?')) {
                 e.preventDefault();
                 if (navbar) {
                     navbar.classList.remove('open');
@@ -681,6 +681,8 @@ function navigate(path, pushState = true) {
         renderPlanosView();
     } else if (cleanPath === '/gerar-desenho') {
         renderGerarDesenhoView();
+    } else if (cleanPath === '/historias-magicas' || cleanPath === '/historia') {
+        renderHistoriasMagicasView();
     } else if (cleanPath === '/politica-de-privacidade') {
         renderPoliticaPrivacidadeView();
     } else if (cleanPath.startsWith('/categoria/')) {
@@ -2404,6 +2406,27 @@ function renderGerarDesenhoView() {
     }
 }
 
+function renderHistoriasMagicasView() {
+    document.querySelectorAll('.page-view').forEach(view => {
+        view.style.display = 'none';
+    });
+    const viewHistorias = document.getElementById('view-historias-magicas');
+    if (viewHistorias) {
+        viewHistorias.style.display = 'block';
+    }
+    
+    document.title = "Criador de Histórias Mágicas — KidCanvas 🧙‍♂️";
+    setMetaDescription("Crie e ilustre livrinhos infantis completos consumindo o saldo do seu plano no KidCanvas!");
+    
+    if (typeof resetForm === 'function') {
+        resetForm();
+    }
+    
+    if (typeof updatePlanRestrictions === 'function') {
+        updatePlanRestrictions();
+    }
+}
+
 function openCreditsModal(message) {
     const modal = document.getElementById('creditsModal');
     const msgEl = document.getElementById('creditsModalMessage');
@@ -2595,3 +2618,981 @@ async function handleWaitlistSubmit(event) {
 }
 
 window.handleWaitlistSubmit = handleWaitlistSubmit;
+
+
+/* === HISTORIAS MAGICAS CUSTOM LOGIC === */
+
+    function capitalizeFirstLetter(str) {
+        if (!str) return str;
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    // -------------------------------------------------------------
+    // PRELOADED STORIES DATA & VIEWER LOGIC
+    // -------------------------------------------------------------
+    const PRELOADED_STORIES = {
+        story1: {
+            characterName: "Pedrinho, Perigo e Tequila",
+            themes: ["Visita à casa da Vovó Sônia"],
+            pageCount: 4,
+            coverUrl: "https://ideogram.ai/api/images/ephemeral/zHb235_nWmeW0QQRmND2bw.png?exp=1781586012&sig=f79d91c4d1dfbb3278f2a32fd1e6d7917b98a125063c419ad23636b943fab0e5",
+            paragraphs: [
+                {
+                    text: "Pedrinho mal podia esperar para visitar a casa da Vovó Sônia, pois lá o aguardava uma dupla inseparável e cheia de personalidade: os cachorrinhos Lhasa Apso, Perigo e Tequila. Perigo, com seu pelo fofo e olhos espertos, era um verdadeiro traquinas, sempre pronto para uma nova aventura e aprontando as mais divertidas bagunças. Já Tequila, sua irmãzinha, era a doçura em pessoa, adorando receber carinhos e distribuir lambidinhas carinhosas, com seu rabinho abanando sem parar.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/UqovhlbPUvaAXmw3gWllYA.png?exp=1781586009&sig=3b32d274fcfc0a5f923717af787c2fc0867eedc4761880280f69a72281941b2f"
+                },
+                {
+                    text: "Assim que Pedrinho chegou, Perigo, fiel ao seu nome e à sua fama de arteiro, logo o chamou para brincar. Ele pegou uma meia colorida da vovó que estava no varal e começou a correr pelo quintal, convidando Pedrinho para uma perseguição cheia de risadas. Pedrinho, rindo muito, correu atrás dele, tentando pegar a meia, enquanto Perigo desviava com agilidade, fazendo piruetas engraçadas. Era uma verdadeira aventura com Perigo, onde a diversão era garantida a cada pulo e a cada fuga do cachorrinho fujão.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/MwjVVTKFVD-POyquNSUEoQ.png?exp=1781586009&sig=95927acea8e50fa8e3a86ce28753c0261e5498aca95a711eaa305fe2bf5241e6"
+                },
+                {
+                    text: "Depois de muita correria e travessuras, Perigo finalmente soltou a meia e se aconchegou perto de Pedrinho para um merecido descanso. Foi a vez de Tequila, com sua delicadeza, aproximar-se e deitar a cabeça no colo do menino. Pedrinho acariciou seu pelo macio, sentindo o calor e o carinho da cachorrinha. Ela fechou os olhinhos, relaxada, enquanto Pedrinho sussurrava segredos em seu ouvido, criando um momento de pura magia e conexão.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/DsQErABlWDCPtKgZ8Mkddg.png?exp=1781586007&sig=29396ac5fad485e3d660fbe4cea1d94a953c67f4f9024935cc616b36d0a58207"
+                },
+                {
+                    text: "A tarde na casa da Vovó Sônia passou voando, cheia de brincadeiras e abraços apertados. Pedrinho, Perigo e Tequila formavam um trio perfeito, onde a alegria das traquinagens de um se equilibrava com a doçura e o aconchego do outro. Ao final do dia, Pedrinho se despediu com a promessa de voltar em breve para mais aventuras e carinhos com seus amigos peludos, levando no coração a certeza de que a casa da vovó era um lugar mágico, repleto de amor e diversão sem fim.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/HD4-ArS7Uai7n7q4-EZrEw.png?exp=1781586008&sig=3b32f53ece9ffb83a7f1d0c49bd3226f8b04d72f66fabb3c2a21d596b8a1cc38"
+                }
+            ]
+        },
+        story2: {
+            characterName: "Vovó Sônia e Pedrinho",
+            themes: ["Tarde de brincadeiras e amor entre avó e neto"],
+            pageCount: 6,
+            coverUrl: "https://ideogram.ai/api/images/ephemeral/KJYwdOmmUZe98re-xAQnWQ.png?exp=1781585005&sig=eefa85cbdfc071442714bc103879436bfee6aa361b698f8ef176e659f499487c",
+            paragraphs: [
+                {
+                    text: "O sol da tarde entrava pela janela da casa da Vovó Sônia, pintando o tapete da sala com listras douradas. Pedrinho, com seus olhos cheios de brilho, acabava de chegar. \"Vovó Sônia!\", ele exclamou, correndo para abraçar sua avó, que já o esperava com um sorriso caloroso e um abraço apertado. Vovó Sônia, com seus cabelos branquinhos e seu avental florido, sabia que aquela seria mais uma tarde repleta de magia.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/5ux-WgF2XWOxXqodUShnLA.png?exp=1781585001&sig=af37933cbebe4bdd30629e778ca917409e6b62cdc19da19c1ca7971bf70152df"
+                },
+                {
+                    text: "\"O que vamos fazer hoje, vovó?\", perguntou Pedrinho, ansioso. Vovó Sônia piscou. \"Hoje, meu pequeno explorador, vamos viajar sem sair do lugar!\" Ela pegou um lençol antigo e, juntos, construíram uma cabana aconchegante no meio da sala, transformando-a em uma nave espacial com almofadas de planetas e um cobertor estrelado. Pedrinho ria enquanto eles fingiam voar entre cometas coloridos e luas sorridentes.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/Hr0p1CM2VGiuNWvm4PtD-w.png?exp=1781585003&sig=435458dea330def899f026cb61af3eef4cbcb6b7c0625f29134b54b72d7d4700"
+                },
+                {
+                    text: "Dentro da \"nave\", Vovó Sônia tirou de um baú mágico um livro de histórias que brilhava suavemente. \"Este não é um livro comum, Pedrinho\", ela sussurrou. \"Cada palavra que lemos, vira um brinquedo de verdade!\" Eles começaram a ler sobre um dragão amigável, e de repente, um pequeno dragão de pelúcia, com olhos verdes cintilantes, apareceu no colo de Pedrinho, acenando sua cauda.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/KN1n8CCtXpmOTmXXRXauhw.png?exp=1781585001&sig=06476f1919ed08d225043e8a435498024c5eae1093c66459ea6da719382e9f6f"
+                },
+                {
+                    text: "Em seguida, leram sobre um jardim encantado, e a sala se encheu de bolhas de sabão que pareciam flores flutuantes, girando e dançando ao redor deles. Pedrinho tentava pegá-las com as mãos, e cada bolha estourada liberava um cheirinho doce de jasmim e camomila, deixando o ambiente ainda mais acolhedor e mágico. Vovó Sônia sorria, feliz com a imaginação do neto.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/44mvlnlOWIqA8yYWokcEyw.png?exp=1781585003&sig=d54a78af8d64f441372f2123ac3fdbae34ade2de91a88cf00c69ca189d0306d3"
+                },
+                {
+                    text: "Quando as bolhas desapareceram, Vovó Sônia e Pedrinho se aninharam, o dragão de pelúcia entre eles. Vovó Sônia alisou os cabelos de Pedrinho. \"Você sabe, meu amor, a maior magia de todas é o tempo que passamos juntos.\" Pedrinho olhou para ela com carinho. \"Sim, vovó. É a melhor magia do mundo!\" O abraço deles era tão quente quanto o sol que se punha lá fora.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/hEaF30EqUzWGer4KnypERw.png?exp=1781585001&sig=d6d9614c6c4c20a80bb38cb78613fbf1e47ca33f283faced1f3873c95ab1b59b"
+                },
+                {
+                    text: "Com o anoitecer se aproximando e as estrelas começando a aparecer na janela, era hora de Pedrinho ir. Ele deu um último abraço apertado em sua Vovó Sônia, o coração cheio de alegria e a mente repleta de aventuras fantásticas. \"Até a próxima, vovó! Mal posso esperar pela nossa próxima viagem mágica!\" Vovó Sônia acenou, seu amor por Pedrinho brilhando mais forte que qualquer estrela, sabendo que cada tarde juntos era um tesouro.",
+                    imageUrl: "https://ideogram.ai/api/images/ephemeral/Bz4-JYelX-Ce4Yk_NF1L0g.png?exp=1781585000&sig=ce1dc29281dd42331de57c8e76f3136c1af8b4aa9352658d8f01d86c4cc3da72"
+                }
+            ]
+        }
+    };
+
+    const viewerModal = document.getElementById('viewerModal');
+    const viewerContent = document.getElementById('viewerContent');
+    const viewerModalTitle = document.getElementById('viewerModalTitle');
+
+    function openViewer(storyKey) {
+        const story = PRELOADED_STORIES[storyKey];
+        if (!story) return;
+
+        viewerModalTitle.textContent = `✨ O Livro Mágico de ${story.characterName}`;
+        
+        let html = `
+            <div class="cover-page-card" style="margin-top: 10px;">
+                <div class="cover-header">
+                    <h2 class="cover-title">O Livro Mágico de ${story.characterName}</h2>
+                    <div class="cover-subtitle">Uma história criada especialmente para ${story.characterName}</div>
+                </div>
+                <div class="cover-art-frame">
+                    <img src="${story.coverUrl}" alt="Capa do Livro Mágico">
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; margin-bottom: 20px;">
+                <h4 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-orange); text-align: center; margin-bottom: 25px;">📖 Páginas do Livro</h4>
+            </div>
+        `;
+
+        story.paragraphs.forEach((page, idx) => {
+            html += `
+                <div class="story-page" style="margin-bottom: 30px;">
+                    <div class="page-grid">
+                        <div class="page-text">
+                            <span class="page-number">Página ${idx + 1}</span>
+                            <p>${page.text}</p>
+                        </div>
+                        <div class="page-art">
+                            <div class="art-frame">
+                                <img src="${page.imageUrl}" alt="Ilustração da Página ${idx + 1}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        html += `
+            <div style="text-align: center; margin-top: 40px; margin-bottom: 10px;">
+                <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 16px 40px;" onclick="scrollToFormAndClose()">✨ Criar a sua história agora! ✨</button>
+            </div>
+        `;
+
+        viewerContent.innerHTML = html;
+        viewerModal.classList.add('open');
+    }
+
+    function closeViewer() {
+        viewerModal.classList.remove('open');
+        viewerContent.innerHTML = '';
+    }
+
+    function scrollToFormAndClose() {
+        closeViewer();
+        const formCard = document.getElementById('formCard');
+        if (formCard) {
+            formCard.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                const charInput = document.getElementById('characterName');
+                if (charInput) charInput.focus();
+            }, 500);
+        }
+    }
+
+    // -------------------------------------------------------------
+    // PROFILE BALANCE & PLAN SYSTEM (Real R2DB integration)
+    // -------------------------------------------------------------
+
+
+
+
+    function updatePlanRestrictions() {
+        const plan = currentUser ? currentUser.plan : 'Grátis';
+        
+        // --- 1. Restrição de Páginas do Livro ---
+        const card2 = document.getElementById('card2');
+        const card4 = document.getElementById('card4');
+        const card6 = document.getElementById('card6');
+        const card8 = document.getElementById('card8');
+        const card10 = document.getElementById('card10');
+        
+        const radio2 = document.querySelector('input[name="pageCount"][value="2"]');
+        const radio4 = document.querySelector('input[name="pageCount"][value="4"]');
+        const radio6 = document.querySelector('input[name="pageCount"][value="6"]');
+        const radio8 = document.querySelector('input[name="pageCount"][value="8"]');
+        const radio10 = document.querySelector('input[name="pageCount"][value="10"]');
+        
+        // Resetar bloqueios
+        [card2, card4, card6, card8, card10].forEach(card => {
+            if (card) {
+                card.classList.remove('locked-option');
+                card.style.opacity = '1';
+                card.style.pointerEvents = 'auto';
+                const existingLock = card.querySelector('.lock-badge-mini');
+                if (existingLock) existingLock.remove();
+            }
+        });
+        
+        const lockCard = (card, radio, requiredPlan) => {
+            if (card) {
+                card.classList.add('locked-option');
+                card.style.opacity = '0.6';
+                const title = card.querySelector('.page-card-title');
+                if (title && !card.querySelector('.lock-badge-mini')) {
+                    title.innerHTML += ` <span class="lock-badge-mini" style="font-size:0.8rem;color:var(--color-orange);"><i class="fa-solid fa-lock"></i> ${requiredPlan}</span>`;
+                }
+            }
+        };
+        
+        if (plan === 'Grátis') {
+            lockCard(card6, radio6, 'Família');
+            lockCard(card8, radio8, 'Professor');
+            lockCard(card10, radio10, 'Colégio');
+        } else if (plan === 'Família') {
+            lockCard(card8, radio8, 'Professor');
+            lockCard(card10, radio10, 'Colégio');
+        } else if (plan === 'Professor') {
+            lockCard(card10, radio10, 'Colégio');
+        }
+        
+        // Escutar cliques para interceptar opções bloqueadas
+        [card2, card4, card6, card8, card10].forEach(card => {
+            if (card) {
+                card.onclick = (e) => {
+                    if (card.classList.contains('locked-option')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        radio4.checked = true;
+                        document.querySelectorAll('.page-card').forEach(c => c.classList.remove('active'));
+                        card4.classList.add('active');
+                        updateGenerateButtonText();
+                        
+                        const requiredPlan = card === card6 ? 'Família' : (card === card8 ? 'Professor' : 'Colégio');
+                        alert(`Esta quantidade de páginas requer o plano ${requiredPlan}! Acesse os Planos para fazer upgrade.`);
+                        return false;
+                    }
+                };
+            }
+        });
+        
+        // --- 2. Restrição de Idiomas do Livro ---
+        const langCardPt = document.getElementById('langCardPt');
+        const langCardEn = document.getElementById('langCardEn');
+        const langCardEs = document.getElementById('langCardEs');
+        
+        const radioPt = document.querySelector('input[name="bookLang"][value="pt"]');
+        const radioEn = document.querySelector('input[name="bookLang"][value="en"]');
+        const radioEs = document.querySelector('input[name="bookLang"][value="es"]');
+        
+        const lockEnIcon = document.getElementById('book-lang-lock-en');
+        const lockEsIcon = document.getElementById('book-lang-lock-es');
+        
+        const hasEn = ['Professor', 'Colégio'].includes(plan);
+        const hasEs = ['Colégio'].includes(plan);
+        
+        if (lockEnIcon) lockEnIcon.style.display = hasEn ? 'none' : 'inline-block';
+        if (lockEsIcon) lockEsIcon.style.display = hasEs ? 'none' : 'inline-block';
+        
+        [langCardEn, langCardEs].forEach(card => {
+            if (card) {
+                card.onclick = (e) => {
+                    const isEn = card === langCardEn;
+                    if (isEn && !hasEn) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        radioPt.checked = true;
+                        document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
+                        langCardPt.classList.add('active');
+                        alert("A criação de livros em Inglês está disponível a partir do plano Professor!");
+                        return false;
+                    }
+                    if (!isEn && !hasEs) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        radioPt.checked = true;
+                        document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
+                        langCardPt.classList.add('active');
+                        alert("A criação de livros em Espanhol está disponível no plano Colégio!");
+                        return false;
+                    }
+                };
+            }
+        });
+        
+        // Estilo de cliques simples para os novos lang-cards
+        document.querySelectorAll('.lang-card').forEach(card => {
+            card.addEventListener('click', () => {
+                if (!card.classList.contains('locked-option')) {
+                    document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                }
+            });
+        });
+    }
+
+    // Modal control
+    const plansModal = document.getElementById('plansModal');
+    
+    
+
+    
+    
+    
+    window.closeCreditsModal = closeCreditsModal;
+    window.handleVerPlanosClick = handleVerPlanosClick;
+
+    // Switch tabs
+
+    // Handle Login
+
+    // Handle Register
+
+    // Handle Logout
+
+    // Sync User Profile
+
+    // Google Sign-In para o Modal de Histórias Mágicas
+
+
+    // Handle Subscriptions/Upgrade
+
+    // Initialize display & sync on load
+    const urlParams = new URLSearchParams(window.location.search);
+    const googleToken = urlParams.get('google_token');
+    const isNewUserQuery = urlParams.get('is_new_user');
+    
+    if (googleToken) {
+        localStorage.setItem("kidcanvas_session_token", googleToken);
+        sessionToken = googleToken;
+        
+        let newUrl = window.location.pathname;
+        if (isNewUserQuery === 'true') {
+            newUrl += '?is_new_user=true';
+        }
+        window.history.replaceState({}, document.title, newUrl);
+    }
+    
+    if (isNewUserQuery === 'true' || urlParams.get('is_new_user') === 'true') {
+        showWelcomeModal();
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+    }
+
+    if (sessionToken) {
+        syncUserProfile();
+    }
+    
+
+    function updateGenerateButtonText() {
+        const checkedRadio = document.querySelector('input[name="pageCount"]:checked');
+        const pageCount = checkedRadio ? checkedRadio.value : '4';
+        const btnGenerate = document.getElementById('btnGenerate');
+        if (btnGenerate) {
+            btnGenerate.textContent = `🧙‍♂️ Criar Livro (${pageCount} c.)`;
+        }
+    }
+    updateGenerateButtonText();
+
+    // -------------------------------------------------------------
+    // FORM CONTROLS & INTERACTIVE UI
+    // -------------------------------------------------------------
+
+    // Page count selection visual feedback
+    const pageCards = document.querySelectorAll('.page-card');
+    pageCards.forEach(card => {
+        card.addEventListener('click', () => {
+            pageCards.forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            card.querySelector('input[type="radio"]').checked = true;
+            updateGenerateButtonText();
+        });
+    });
+
+    // Style toggle styling visual feedback
+    const radioColor = document.getElementById('labelColor');
+    const radioBw = document.getElementById('labelBw');
+    const inputRadios = document.querySelectorAll('input[name="styleType"]');
+
+    inputRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (radio.value === 'color') {
+                radioColor.classList.add('active');
+                radioBw.classList.remove('active');
+            } else {
+                radioBw.classList.add('active');
+                radioColor.classList.remove('active');
+            }
+        });
+    });
+
+    // Dropdown custom theme toggle visibility
+    const themeSelect = document.getElementById('themeSelect');
+    const customThemeWrapper = document.getElementById('customThemeWrapper');
+    const customThemeInput = document.getElementById('customThemeInput');
+
+    themeSelect.addEventListener('change', () => {
+        if (themeSelect.value === 'custom') {
+            customThemeWrapper.classList.add('open');
+            customThemeInput.focus();
+        } else {
+            customThemeWrapper.classList.remove('open');
+            customThemeInput.value = '';
+        }
+    });
+
+    // Dynamic character counter for synopsis
+    const storySynopsis = document.getElementById('storySynopsis');
+    const synopsisCounter = document.getElementById('synopsisCounter');
+    storySynopsis.addEventListener('input', () => {
+        synopsisCounter.textContent = `${storySynopsis.value.length}/300`;
+    });
+
+    // Consent checkbox logic to enable/disable submit button
+    const chkCiente = document.getElementById('chkCiente');
+    
+    function startLoadingAnimation() {
+        const loadTextEl = document.getElementById('loadingText');
+        if (loadTextEl) {
+            loadTextEl.textContent = 'Chamando as fadas ilustradoras...';
+        }
+    }
+
+    // -------------------------------------------------------------
+    // GENERATE STORY PIPELINE
+    // -------------------------------------------------------------
+    const btnGenerate = document.getElementById('btnGenerate');
+    const errorAlert = document.getElementById('errorAlert');
+
+    if (chkCiente && btnGenerate) {
+        chkCiente.addEventListener('change', () => {
+            btnGenerate.disabled = !chkCiente.checked;
+        });
+    }
+    let generatedParagraphs = []; // Global reference to paragraphs
+    let generatedCoverUrl = ""; // Global cover URL reference
+    
+    btnGenerate.addEventListener('click', async () => {
+        const rawCharacterName = document.getElementById('characterName').value.trim();
+        const characterName = capitalizeFirstLetter(rawCharacterName);
+        const styleType = document.querySelector('input[name="styleType"]:checked').value;
+        const pageCount = parseInt(document.querySelector('input[name="pageCount"]:checked').value, 10);
+        const bookLang = document.querySelector('input[name="bookLang"]:checked').value;
+        const synopsis = storySynopsis.value.trim();
+        
+        let finalTheme = themeSelect.value;
+        if (finalTheme === 'custom') {
+            finalTheme = customThemeInput.value.trim();
+        }
+        
+        // 1. Validar inputs básicos
+        if (!characterName) {
+            showError("Ops! Por favor, digite quem é o personagem principal.");
+            document.getElementById('characterName').focus();
+            return;
+        }
+        
+        if (!finalTheme) {
+            showError("Ops! Por favor, selecione ou escreva o tema principal da história.");
+            if (themeSelect.value === 'custom') {
+                customThemeInput.focus();
+            }
+            return;
+        }
+
+        // 2. Validar Saldo do Plano
+        if (!currentUser) {
+            showError("Cadastre-se grátis para criar!");
+            openAuthModal();
+            switchAuthTab('register');
+            return;
+        }
+        if (currentUser.paginasRestantes < pageCount) {
+            openCreditsModal('Seus créditos mágicos acabaram! Faça upgrade de plano para adicionar saldo.');
+            return;
+        }
+        
+        hideError();
+        
+        // Hide Form, Show Loading
+        document.getElementById('formCard').style.display = 'none';
+        document.getElementById('loadingCard').style.display = 'block';
+        startLoadingAnimation();
+        
+        // Rotate loading messages dynamically
+        const loadingTexts = [
+            "Chamando as fadas ilustradoras...",
+            "Misturando tintas mágicas...",
+            "O dragão está desenhando...",
+            "As estrelas estão escrevendo...",
+            "Quase pronto, segura a emoção!"
+        ];
+        let loadIdx = 0;
+        const loadTextEl = document.getElementById('loadingText');
+        const loadInt = setInterval(() => {
+            loadIdx = (loadIdx + 1) % loadingTexts.length;
+            loadTextEl.textContent = loadingTexts[loadIdx];
+        }, 2000);
+        
+        try {
+            const response = await fetch('/api/generate-full-story', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Session-Token': sessionToken
+                },
+                body: JSON.stringify({
+                    characterName: characterName,
+                    themes: [finalTheme],
+                    styleType: styleType,
+                    pageCount: pageCount,
+                    synopsis: synopsis,
+                    bookLang: bookLang
+                })
+            });
+            
+            const result = await response.json();
+            
+            clearInterval(loadInt);
+            
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || "Ocorreu um erro ao gerar o livro completo.");
+            }
+            
+            // 3. Sincronizar dados do usuário atualizados do servidor
+            await syncUserProfile();
+            
+            // Populating Cover page
+            generatedParagraphs = result.paragraphs;
+            generatedCoverUrl = result.coverUrl;
+            
+            document.getElementById('bookTitle').textContent = `✨ O Livro Mágico de ${characterName}`;
+            document.getElementById('coverTitle').textContent = `O Livro Mágico de ${characterName}`;
+            document.getElementById('coverSubtitle').textContent = `Uma história criada especialmente para ${characterName}`;
+            document.getElementById('coverImage').src = result.coverUrl;
+            
+            // Setup cover actions
+            setupCoverActions(result.coverUrl, characterName);
+            
+            // Render inner pages
+            const pagesListContainer = document.getElementById('pagesListContainer');
+            pagesListContainer.innerHTML = '';
+            
+            generatedParagraphs.forEach((page, idx) => {
+                const pageEl = document.createElement('div');
+                pageEl.className = 'story-page';
+                pageEl.innerHTML = `
+                    <div class="page-grid">
+                        <div class="page-text">
+                            <span class="page-number">Página ${idx + 1}</span>
+                            <p>${page.text}</p>
+                        </div>
+                        <div class="page-art">
+                            <div class="art-frame">
+                                <img src="${page.imageUrl}" alt="Ilustração da Página ${idx + 1}">
+                            </div>
+                            <div class="btn-action-group">
+                                <button class="btn-action btn-print" onclick="printSinglePage(${idx})">🖨️ Imprimir Página</button>
+                                <button class="btn-action" onclick="downloadImage('${page.imageUrl}', '${characterName}', ${idx + 1})">💾 Salvar Imagem</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                pagesListContainer.appendChild(pageEl);
+            });
+            
+            // Setup full book print trigger
+            setupFullBookPrint(characterName, finalTheme);
+            
+            // Hide loading, show output
+            document.getElementById('loadingCard').style.display = 'none';
+            
+            const outputSection = document.getElementById('outputSection');
+            outputSection.classList.add('show');
+            
+        } catch (err) {
+            clearInterval(loadInt);
+            console.error(err);
+            document.getElementById('loadingCard').style.display = 'none';
+            document.getElementById('formCard').style.display = 'block';
+            showError(`Erro ao gerar livro: ${err.message}`);
+        }
+    });
+    
+    function showError(msg) {
+        errorAlert.textContent = msg;
+        errorAlert.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function hideError() {
+        errorAlert.style.display = 'none';
+    }
+    
+    function resetForm() {
+        document.getElementById('outputSection').classList.remove('show');
+        setTimeout(() => {
+            document.getElementById('formCard').style.display = 'block';
+            document.getElementById('characterName').value = '';
+            document.getElementById('customThemeInput').value = '';
+            storySynopsis.value = '';
+            synopsisCounter.textContent = '0/300';
+            
+            // reset select
+            themeSelect.selectedIndex = 0;
+            customThemeWrapper.classList.remove('open');
+            
+            // reset page count to 4
+            pageCards.forEach(c => c.classList.remove('active'));
+            document.getElementById('card4').classList.add('active');
+            document.querySelector('input[name="pageCount"][value="4"]').checked = true;
+            updateGenerateButtonText();
+            
+            // reset radios to color
+            document.querySelector('input[name="styleType"][value="color"]').checked = true;
+            radioColor.classList.add('active');
+            radioBw.classList.remove('active');
+
+            // reset consent checkbox and disable submit button
+            if (chkCiente) {
+                chkCiente.checked = false;
+            }
+            if (btnGenerate) {
+                btnGenerate.disabled = true;
+            }
+        }, 300);
+    }
+    
+    // Download image helper
+    async function downloadImage(imageUrl, characterName, pageNum) {
+        const cleanName = characterName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        try {
+            const res = await fetch(imageUrl);
+            const blob = await res.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = `livro-${cleanName}-pagina-${pageNum}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(blobUrl);
+        } catch (err) {
+            window.open(imageUrl, '_blank');
+        }
+    }
+    
+    // Setup cover download/print actions
+    function setupCoverActions(coverUrl, characterName) {
+        const cleanName = characterName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const btnDownloadCover = document.getElementById('btnDownloadCover');
+        btnDownloadCover.onclick = async () => {
+            try {
+                const res = await fetch(coverUrl);
+                const blob = await res.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = `livro-${cleanName}-capa.png`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(blobUrl);
+            } catch (err) {
+                window.open(coverUrl, '_blank');
+            }
+        };
+        
+        const btnPrintCover = document.getElementById('btnPrintCover');
+        btnPrintCover.onclick = () => {
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Capa - O Livro Mágico de ${characterName}</title>
+                    <style>
+                        body {
+                            font-family: sans-serif;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            min-height: 100vh;
+                            margin: 0;
+                            padding: 20px;
+                        }
+                        img {
+                            max-width: 100%;
+                            height: auto;
+                            max-height: 90vh;
+                            border: 8px double #3D281A;
+                            border-radius: 15px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        }
+                        .no-print {
+                            margin-bottom: 20px;
+                        }
+                        @media print {
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="no-print">
+                        <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir Capa 🖨</button>
+                    </div>
+                    <img src="${coverUrl}">
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        };
+    }
+    
+    // Print a single page
+    function printSinglePage(index) {
+        const page = generatedParagraphs[index];
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Página ${index + 1} - Livro Mágico</title>
+                <style>
+                    body {
+                        font-family: sans-serif;
+                        color: #3D281A;
+                        padding: 30px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 100vh;
+                        margin: 0;
+                    }
+                    .page-container {
+                        max-width: 600px;
+                        text-align: center;
+                    }
+                    img {
+                        max-width: 100%;
+                        height: auto;
+                        max-height: 400px;
+                        border-radius: 10px;
+                        border: 3px solid #3D281A;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        margin-bottom: 25px;
+                    }
+                    p {
+                        font-size: 1.25rem;
+                        line-height: 1.8;
+                        text-align: justify;
+                        text-indent: 15px;
+                    }
+                    .no-print {
+                        margin-bottom: 20px;
+                    }
+                    @media print {
+                        .no-print { display: none; }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="no-print">
+                    <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir Página ${index + 1} 🖨</button>
+                </div>
+                <div class="page-container">
+                    <img src="${page.imageUrl}">
+                    <p>${page.text}</p>
+                </div>
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+    }
+    
+    // Setup full book print trigger
+    function setupFullBookPrint(characterName, theme) {
+        const btnPrintFullBook = document.getElementById('btnPrintFullBook');
+        btnPrintFullBook.onclick = () => {
+            const printWindow = window.open('', '_blank');
+            
+            // Build pages structure
+            const pagesHtml = generatedParagraphs.map((page, idx) => `
+                <div class="print-page">
+                    <div class="page-header">Página ${idx + 1}</div>
+                    <div class="image-container">
+                        <img src="${page.imageUrl}">
+                    </div>
+                    <p>${page.text}</p>
+                </div>
+            `).join('<div style="page-break-after: always;"></div>');
+            
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>O Livro Mágico de ${characterName}</title>
+                    <style>
+                        body {
+                            font-family: sans-serif;
+                            color: #3D281A;
+                            padding: 20px;
+                            max-width: 800px;
+                            margin: 0 auto;
+                        }
+                        .book-cover-print {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            height: 95vh;
+                            text-align: center;
+                        }
+                        .book-cover-print img {
+                            max-width: 100%;
+                            max-height: 80vh;
+                            border: 6px solid #3D281A;
+                            border-radius: 15px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        }
+                        .print-page {
+                            padding: 20px 0;
+                            height: 95vh;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                        }
+                        .page-header {
+                            font-weight: bold;
+                            color: #7B4FA6;
+                            font-size: 1.1rem;
+                            border-bottom: 2px dashed #E67E22;
+                            padding-bottom: 5px;
+                            margin-bottom: 20px;
+                        }
+                        .image-container {
+                            display: flex;
+                            justify-content: center;
+                            margin-bottom: 20px;
+                            flex-grow: 1;
+                            align-items: center;
+                        }
+                        img {
+                            max-width: 100%;
+                            max-height: 480px;
+                            height: auto;
+                            border-radius: 10px;
+                            border: 3px solid #3D281A;
+                        }
+                        p {
+                            font-size: 1.25rem;
+                            line-height: 1.8;
+                            text-align: justify;
+                            text-indent: 15px;
+                            margin: 0;
+                            margin-top: 15px;
+                        }
+                        .no-print {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        @media print {
+                            .no-print { display: none; }
+                            body { padding: 0; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="no-print">
+                        <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir Livro Completo 🖨</button>
+                    </div>
+                    
+                    <!-- Cover Page Print -->
+                    <div class="book-cover-print">
+                        <img src="${generatedCoverUrl}">
+                    </div>
+                    
+                    <div style="page-break-after: always;"></div>
+                    
+                    <!-- Inner Pages -->
+                    ${pagesHtml}
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        };
+    }
+
+    // Client-side A4 PDF generation
+    function generatePDF() {
+        if (!generatedCoverUrl || !generatedParagraphs || generatedParagraphs.length === 0) {
+            alert("Nenhum livro gerado para exportação.");
+            return;
+        }
+
+        // Create a temporary element to hold the print-friendly pages
+        const tempContainer = document.createElement('div');
+        tempContainer.style.width = '210mm'; // Width of A4 in portrait
+        tempContainer.style.background = '#FFFFFF';
+        tempContainer.style.color = '#3D281A';
+        tempContainer.style.fontFamily = 'sans-serif';
+
+        // 1. Cover Page
+        const coverPage = document.createElement('div');
+        coverPage.style.width = '210mm';
+        coverPage.style.height = '297mm';
+        coverPage.style.pageBreakAfter = 'always';
+        coverPage.style.display = 'flex';
+        coverPage.style.flexDirection = 'column';
+        coverPage.style.alignItems = 'center';
+        coverPage.style.justifyContent = 'center';
+        coverPage.style.boxSizing = 'border-box';
+        coverPage.style.padding = '20mm';
+        coverPage.style.textAlign = 'center';
+        
+        const rawCharName = document.getElementById('characterName').value.trim() || 'Crianca';
+        const cleanCharName = capitalizeFirstLetter(rawCharName);
+        
+        coverPage.innerHTML = `
+            <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 10mm 0;">
+                <div>
+                    <h1 style="font-size: 30px; color: #7B4FA6; margin-bottom: 5px; font-family: 'Fredoka', sans-serif; text-align: center;">O Livro Mágico de ${cleanCharName}</h1>
+                    <p style="font-size: 16px; color: #5C4033; font-weight: bold; text-align: center; margin: 0;">Uma história criada especialmente para ${cleanCharName}</p>
+                </div>
+                <div style="width: 140mm; height: 140mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
+                    <img src="${generatedCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 15px; font-weight: bold; color: #7B4FA6;">KidCanvas</div>
+                    <div style="font-size: 12px; color: #5C4033;">www.kidcanvas.com.br</div>
+                </div>
+            </div>
+        `;
+        tempContainer.appendChild(coverPage);
+
+        // 2. Inner Pages
+        generatedParagraphs.forEach((page, idx) => {
+            const pageDiv = document.createElement('div');
+            pageDiv.style.width = '210mm';
+            pageDiv.style.height = '297mm';
+            pageDiv.style.pageBreakAfter = (idx === generatedParagraphs.length - 1) ? 'avoid' : 'always';
+            pageDiv.style.display = 'flex';
+            pageDiv.style.flexDirection = 'column';
+            pageDiv.style.alignItems = 'center';
+            pageDiv.style.justifyContent = 'space-between';
+            pageDiv.style.boxSizing = 'border-box';
+            pageDiv.style.padding = '20mm 20mm';
+
+            pageDiv.innerHTML = `
+                <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 5px; font-weight: bold; color: #7B4FA6; font-size: 16px; display: flex; justify-content: space-between;">
+                    <span>O Livro Mágico de ${cleanCharName}</span>
+                    <span>Página ${idx + 1}</span>
+                </div>
+                <div style="width: 130mm; height: 130mm; border: 3px solid #3D281A; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 15px 0;">
+                    <img src="${page.imageUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p style="font-size: 16px; line-height: 1.6; text-align: justify; text-indent: 15px; margin: 0; color: #3D281A; max-width: 170mm; flex-grow: 1; display: flex; align-items: center;">${page.text}</p>
+                <div style="width: 100%; border-top: 1px solid #eee; padding-top: 5px; font-size: 11px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between;">
+                    <span>Criado em www.kidcanvas.com.br</span>
+                    <span>KidCanvas IA Mágica</span>
+                </div>
+            `;
+            tempContainer.appendChild(pageDiv);
+        });
+
+        // Generate PDF
+        const cleanCharNameLower = cleanCharName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const opt = {
+            margin: 0,
+            filename: `livro-${cleanCharNameLower}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        const btnPDF = document.getElementById('btnDownloadPDF');
+        const oldText = btnPDF.textContent;
+        btnPDF.textContent = "⏳ Gerando PDF...";
+        btnPDF.disabled = true;
+
+        html2pdf().from(tempContainer).set(opt).save().then(() => {
+            btnPDF.textContent = oldText;
+            btnPDF.disabled = false;
+        }).catch(err => {
+            console.error("Erro ao gerar PDF:", err);
+            btnPDF.textContent = oldText;
+            btnPDF.disabled = false;
+            alert("Erro ao exportar PDF. Tente novamente.");
+        });
+    }
+
+
+// === HISTORIAS MAGICAS WINDOW BINDINGS ===
+window.openViewer = openViewer;
+window.closeViewer = closeViewer;
+window.scrollToFormAndClose = scrollToFormAndClose;
+window.printSinglePage = printSinglePage;
+window.downloadImage = downloadImage;
+window.generatePDF = generatePDF;
+window.resetForm = resetForm;

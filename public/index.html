@@ -30,6 +30,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png">
 
+    <!-- HTML2PDF Library for Book Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <!-- CSS Customizado -->
     <link rel="stylesheet" href="/style.css">
     
@@ -805,23 +808,230 @@
                     <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                         <div class="example-card" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 15px; width: 250px; box-shadow: var(--shadow-cartoon); text-align: left;">
                             <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 12px; aspect-ratio: 1/1; background: #fdfdfd; display: flex; align-items: center; justify-content: center;">
-                                <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/domesticos/01-gatinho-fofo.png" alt="Exemplo 1" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/01-gato-brincando-com-novelo__cat.png" alt="Exemplo 1" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <span style="font-size: 0.85rem; color: var(--color-orange); font-weight: 700; text-transform: uppercase;">Exemplo</span>
                             <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin-top: 2px; margin-bottom: 4px;">Gatinho Fofo</h4>
-                            <p style="font-size: 0.85rem; color: var(--color-dark-light); line-height: 1.3;">"Um gatinho dormindo sob uma coberta macia com um novelo de lã."</p>
+                            <p style="font-size: 0.85rem; color: var(--color-dark-light); line-height: 1.3;">"Um gatinho brincando feliz com um novelo de lã."</p>
                         </div>
                         
                         <div class="example-card" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 15px; width: 250px; box-shadow: var(--shadow-cartoon); text-align: left;">
                             <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 12px; aspect-ratio: 1/1; background: #fdfdfd; display: flex; align-items: center; justify-content: center;">
-                                <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/01-t-rex-feliz.png" alt="Exemplo 2" style="width: 100%; height: 100%; object-fit: contain;">
+                                <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/01-t-rex-correndo-feliz__t-rex.png" alt="Exemplo 2" style="width: 100%; height: 100%; object-fit: contain;">
                             </div>
                             <span style="font-size: 0.85rem; color: var(--color-orange); font-weight: 700; text-transform: uppercase;">Exemplo</span>
                             <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin-top: 2px; margin-bottom: 4px;">T-Rex Feliz</h4>
-                            <p style="font-size: 0.85rem; color: var(--color-dark-light); line-height: 1.3;">"Um dinossauro rex dando um sorriso feliz e acenando no vale."</p>
+                            <p style="font-size: 0.85rem; color: var(--color-dark-light); line-height: 1.3;">"Um dinossauro rex correndo e sorrindo feliz no vale."</p>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+    
+        <!-- SEÇÃO HISTÓRIAS MÁGICAS (SPA VIEW) -->
+        <section id="view-historias-magicas" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Crie seu Livro</span>
+                </div>
+                
+                <div class="magic-book-header" style="text-align: center; margin-top: 20px;">
+                    <h1 class="page-title" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-dark); margin-bottom: 10px;">KidCanvas - Histórias Mágicas 👦🌲</h1>
+                    <p class="section-subtitle" style="font-size: 1.15rem; color: var(--color-dark-light); font-weight: 500; margin-bottom: 30px;">Crie e ilustre livrinhos infantis completos consumindo o saldo do seu plano! 📖🎨</p>
+                </div>
+                
+                <!-- Alert for error reporting -->
+    <div id="errorAlert" class="alert"></div>
+
+    <!-- "Veja como fica" Section -->
+    <h3 class="preloaded-section-title">✨ Histórias de Exemplo - Veja como fica!</h3>
+    <p class="preloaded-section-subtitle">Escolha uma capa abaixo para ver a incrível qualidade do livro completo gerado com KidCanvas IA Mágica.</p>
+    
+    <div class="preloaded-covers-grid">
+        <!-- Story 1 -->
+        <div class="preloaded-cover-card" onclick="openViewer('story1')">
+            <div class="preloaded-cover-img-frame">
+                <img src="https://ideogram.ai/api/images/ephemeral/zHb235_nWmeW0QQRmND2bw.png?exp=1781586012&sig=f79d91c4d1dfbb3278f2a32fd1e6d7917b98a125063c419ad23636b943fab0e5" alt="Capa: Pedrinho, Perigo e Tequila">
+            </div>
+            <h4 class="preloaded-cover-title">Pedrinho, Perigo e Tequila na Vovó Sônia</h4>
+            <p class="preloaded-cover-desc">Livro com 4 páginas • Estilo Colorido 🌈</p>
+        </div>
+        <!-- Story 2 -->
+        <div class="preloaded-cover-card" onclick="openViewer('story2')">
+            <div class="preloaded-cover-img-frame">
+                <img src="https://ideogram.ai/api/images/ephemeral/KJYwdOmmUZe98re-xAQnWQ.png?exp=1781585005&sig=eefa85cbdfc071442714bc103879436bfee6aa361b698f8ef176e659f499487c" alt="Capa: Vovó Sônia e Pedrinho">
+            </div>
+            <h4 class="preloaded-cover-title">Tarde de Brincadeiras na Vovó Sônia</h4>
+            <p class="preloaded-cover-desc">Livro com 6 páginas • Estilo Colorido 🌈</p>
+        </div>
+    </div>
+
+    <!-- Main Generator Form Card -->
+    <div class="card" id="formCard">
+        <div class="form-group">
+            <label for="characterName">👦 Personagem Principal</label>
+            <input type="text" id="characterName" placeholder="Ex: João, uma tartaruguinha verde, o ursinho Puff..." autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+            <label for="themeSelect">🌲 Tema Principal</label>
+            <select id="themeSelect">
+                <option value="Floresta Encantada">🌲 Floresta Encantada</option>
+                <option value="Fundo do Mar">🌊 Fundo do Mar</option>
+                <option value="Espaço">🚀 Espaço</option>
+                <option value="Tesouro Pirata">🏴‍☠️ Tesouro Pirata</option>
+                <option value="Dragões">🐉 Dragões</option>
+                <option value="Fadas">🧚 Fadas</option>
+                <option value="Unicórnios">🦄 Unicórnios</option>
+                <option value="Castelo Mágico">🏰 Castelo Mágico</option>
+                <option value="Super Heróis">🦸 Super Heróis</option>
+                <option value="Primeiro dia de escola">🎒 Primeiro dia de escola</option>
+                <option value="Aniversário">🎂 Aniversário</option>
+                <option value="Novo irmãozinho">👶 Novo irmãozinho</option>
+                <option value="Medo do escuro">🌑 Medo do escuro</option>
+                <option value="Saci">🌀 Saci</option>
+                <option value="Curupira">🍃 Curupira</option>
+                <option value="Iara">🧜‍♀️ Iara</option>
+                <option value="Boto Cor de Rosa">🐬 Boto Cor de Rosa</option>
+                <option value="custom">✍️ Outro Tema...</option>
+            </select>
+            
+            <div class="custom-theme-wrapper" id="customThemeWrapper">
+                <input type="text" id="customThemeInput" placeholder="Escreva seu próprio tema..." autocomplete="off">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <label for="storySynopsis" style="margin-bottom: 0;">📝 Sinopse (Opcional)</label>
+                <span id="synopsisCounter" style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 700; color: var(--color-dark-light);">0/300</span>
+            </div>
+            <textarea id="storySynopsis" maxlength="300" placeholder="Conte o que você quer que aconteça na história... Ex: Joãozinho tem medo do escuro. Você também pode sugerir mais temas aqui, personagens extras ou qualquer detalhe especial!"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>📚 Número de Páginas (Consome saldo do plano)</label>
+            <div class="pages-grid">
+                <label class="page-card" id="card2">
+                    <input type="radio" name="pageCount" value="2">
+                    <div class="page-card-title">2 Páginas</div>
+                </label>
+                <label class="page-card active" id="card4">
+                    <input type="radio" name="pageCount" value="4" checked>
+                    <div class="page-card-title">4 Páginas</div>
+                </label>
+                <label class="page-card" id="card6">
+                    <input type="radio" name="pageCount" value="6">
+                    <div class="page-card-title">6 Páginas</div>
+                </label>
+                <label class="page-card" id="card8">
+                    <input type="radio" name="pageCount" value="8">
+                    <div class="page-card-title">8 Páginas</div>
+                </label>
+                <label class="page-card" id="card10">
+                    <input type="radio" name="pageCount" value="10">
+                    <div class="page-card-title">10 Páginas</div>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>🌐 Idioma do Livro</label>
+            <div class="book-lang-grid">
+                <label class="lang-card active" id="langCardPt">
+                    <input type="radio" name="bookLang" value="pt" checked>
+                    <div class="lang-card-title">Português 🇧🇷</div>
+                </label>
+                <label class="lang-card" id="langCardEn">
+                    <input type="radio" name="bookLang" value="en">
+                    <div class="lang-card-title">Inglês 🇺🇸 <i class="fa-solid fa-lock" id="book-lang-lock-en" style="display:none;font-size:0.85rem;color:var(--color-orange);margin-left:4px;"></i></div>
+                </label>
+                <label class="lang-card" id="langCardEs">
+                    <input type="radio" name="bookLang" value="es">
+                    <div class="lang-card-title">Espanhol 🇪🇸 <i class="fa-solid fa-lock" id="book-lang-lock-es" style="display:none;font-size:0.85rem;color:var(--color-orange);margin-left:4px;"></i></div>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>🎨 Estilo das Ilustrações</label>
+            <div class="style-radio-group">
+                <label class="style-radio-label active" id="labelColor">
+                    <input type="radio" name="styleType" value="color" checked>
+                    Colorida 🌈
+                </label>
+                <label class="style-radio-label" id="labelBw">
+                    <input type="radio" name="styleType" value="bw">
+                    Para Colorir 🖍️
+                </label>
+            </div>
+        </div>
+
+        <!-- Disclaimer Box -->
+        <div class="disclaimer-box" style="background-color: #F2F4F4; border: var(--border-thin); border-radius: var(--radius-sm); padding: 15px 20px; margin-bottom: 20px; font-family: var(--font-body); font-size: 0.95rem; color: var(--color-dark-light); line-height: 1.5; box-shadow: 0 4px 0 rgba(0,0,0,0.05);">
+            <div style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px;">
+                <span style="font-size: 1.1rem;">ℹ️</span>
+                <span>Este livro é criado por Inteligência Artificial. História e ilustrações são geradas automaticamente e podem conter pequenos erros de ortografia, contexto ou ilustração. Ao continuar você está ciente disso.</span>
+            </div>
+            <label style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--color-dark); cursor: pointer; margin-bottom: 0; user-select: none;">
+                <input type="checkbox" id="chkCiente" style="width: 18px; height: 18px; accent-color: var(--color-purple); cursor: pointer;">
+                ✓ Estou ciente
+            </label>
+        </div>
+
+        <button class="btn-generate" id="btnGenerate" disabled>🧙‍♂️ Criar Livro (4 c.)</button>
+    </div>
+
+    <!-- Loading State Screen -->
+    <div class="card loading-container" id="loadingCard">
+        <div class="kidcanvas-paint-loader">
+            <span class="paint-letter" style="--letter-index: 0; --letter-color: #E74C3C;">K<span class="splash splash-1" style="--splash-color: #E74C3C;"></span><span class="splash splash-2" style="--splash-color: #E74C3C;"></span><span class="splash splash-3" style="--splash-color: #E74C3C;"></span></span>
+            <span class="paint-letter" style="--letter-index: 1; --letter-color: #3498DB;">i<span class="splash splash-1" style="--splash-color: #3498DB;"></span><span class="splash splash-2" style="--splash-color: #3498DB;"></span><span class="splash splash-3" style="--splash-color: #3498DB;"></span></span>
+            <span class="paint-letter" style="--letter-index: 2; --letter-color: #2ECC71;">d<span class="splash splash-1" style="--splash-color: #2ECC71;"></span><span class="splash splash-2" style="--splash-color: #2ECC71;"></span><span class="splash splash-3" style="--splash-color: #2ECC71;"></span></span>
+            <span class="paint-letter" style="--letter-index: 3; --letter-color: #F39C12;">C<span class="splash splash-1" style="--splash-color: #F39C12;"></span><span class="splash splash-2" style="--splash-color: #F39C12;"></span><span class="splash splash-3" style="--splash-color: #F39C12;"></span></span>
+            <span class="paint-letter" style="--letter-index: 4; --letter-color: #7B4FA6;">a<span class="splash splash-1" style="--splash-color: #7B4FA6;"></span><span class="splash splash-2" style="--splash-color: #7B4FA6;"></span><span class="splash splash-3" style="--splash-color: #7B4FA6;"></span></span>
+            <span class="paint-letter" style="--letter-index: 5; --letter-color: #E67E22;">n<span class="splash splash-1" style="--splash-color: #E67E22;"></span><span class="splash splash-2" style="--splash-color: #E67E22;"></span><span class="splash splash-3" style="--splash-color: #E67E22;"></span></span>
+            <span class="paint-letter" style="--letter-index: 6; --letter-color: #1abc9c;">v<span class="splash splash-1" style="--splash-color: #1abc9c;"></span><span class="splash splash-2" style="--splash-color: #1abc9c;"></span><span class="splash splash-3" style="--splash-color: #1abc9c;"></span></span>
+            <span class="paint-letter" style="--letter-index: 7; --letter-color: #e84393;">a<span class="splash splash-1" style="--splash-color: #e84393;"></span><span class="splash splash-2" style="--splash-color: #e84393;"></span><span class="splash splash-3" style="--splash-color: #e84393;"></span></span>
+            <span class="paint-letter" style="--letter-index: 8; --letter-color: #2d3436;">s<span class="splash splash-1" style="--splash-color: #2d3436;"></span><span class="splash splash-2" style="--splash-color: #2d3436;"></span><span class="splash splash-3" style="--splash-color: #2d3436;"></span></span>
+            <div class="paint-brush">🖌️</div>
+        </div>
+        <div class="funny-loading-text" id="loadingText">Chamando as fadas ilustradoras...</div>
+    </div>
+
+    <!-- Output Section -->
+    <div class="output-container" id="outputSection">
+        <h2 class="book-title" id="bookTitle">O Livro Mágico</h2>
+        
+        <!-- Cover Section -->
+        <div class="cover-page-card" id="coverPageCard">
+            <div class="cover-header">
+                <h2 class="cover-title" id="coverTitle">O Livro Mágico</h2>
+                <div class="cover-subtitle" id="coverSubtitle">Uma história criada especialmente para...</div>
+            </div>
+            <div class="cover-art-frame">
+                <img id="coverImage" src="" alt="Capa do Livro Mágico">
+            </div>
+            <div class="btn-action-group" style="max-width: 480px;">
+                <button class="btn-action btn-print" id="btnPrintCover">🖨️ Imprimir Capa</button>
+                <button class="btn-action" id="btnDownloadCover">💾 Salvar Capa</button>
+            </div>
+        </div>
+        
+        <!-- Story Pages list container -->
+        <div id="pagesListContainer">
+            <!-- Dynamic pages will be loaded here -->
+        </div>
+        
+        <!-- Bottom Actions -->
+        <div class="bottom-actions">
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-purple);" onclick="resetForm()">📖 Criar Outro Livro</button>
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-blue);" id="btnDownloadPDF" onclick="generatePDF()">📥 Baixar PDF A4</button>
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-green);" id="btnPrintFullBook">🖨️ Imprimir Livro Completo</button>
+        </div>
+    </div>
             </div>
         </section>
     </main>
@@ -841,6 +1051,17 @@
     </footer>
 
     <!-- Modal de Autenticação / Cadastro (Visitantes) -->
+    <!-- Preloaded Stories Viewer Modal Overlay -->
+<div class="viewer-modal-overlay" id="viewerModal">
+    <div class="viewer-modal-box">
+        <button class="btn-close-viewer" onclick="closeViewer()">&times;</button>
+        <h3 class="viewer-modal-title" id="viewerModalTitle">Visualizar Livro</h3>
+        
+        <!-- Viewer Content (Cover + Pages) -->
+        <div id="viewerContent"></div>
+    </div>
+</div>
+
     <div class="modal-overlay" id="authModal">
         <div class="modal-box">
             <button class="btn-close-modal" onclick="closeAuthModal()">✕</button>

@@ -11,11 +11,11 @@
     },
     {
       "source": "/historias-magicas",
-      "destination": "/historia.html"
+      "destination": "/index.html"
     },
     {
       "source": "/historia",
-      "destination": "/historia.html"
+      "destination": "/index.html"
     },
     {
       "source": "/",
