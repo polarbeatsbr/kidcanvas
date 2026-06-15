@@ -4107,4 +4107,22 @@ button, input, select, textarea {
             }
         }
 
-    
+/* --- BADGE EM ALTA --- */
+.trending-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.8rem;
+    background-color: #e74c3c; /* Vermelho vibrante */
+    color: var(--color-white);
+    border: var(--border-thin);
+    box-shadow: 0 3px 0 var(--color-dark);
+    z-index: 5;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    pointer-events: none; /* Evita interferir no clique do card */
+}

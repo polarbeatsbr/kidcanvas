@@ -1023,7 +1023,7 @@ function renderHomeView() {
                 homeDrawGrid.appendChild(adCard);
             }
             
-            const card = createDrawingCard(dw);
+            const card = createDrawingCard(dw, null, idx < 4);
             homeDrawGrid.appendChild(card);
         });
     }
@@ -1137,7 +1137,7 @@ function renderCategoriaDetalheView(categorySlug) {
     countEl.textContent = `${filteredDrawings.length} desenhos disponíveis`;
     
     const grid = document.getElementById('category-drawings-grid');
-    renderDrawingsInGrid(filteredDrawings, grid);
+    renderDrawingsInGrid(filteredDrawings, grid, 4);
     
     // Configurar busca interna da categoria
     const categorySearchInput = document.getElementById('category-drawings-search');
@@ -1146,7 +1146,7 @@ function renderCategoriaDetalheView(categorySlug) {
         categorySearchInput.oninput = () => {
             const val = categorySearchInput.value.trim().toLowerCase();
             const searched = filteredDrawings.filter(d => d.pt.toLowerCase().includes(val) || d.en.toLowerCase().includes(val));
-            renderDrawingsInGrid(searched, grid);
+            renderDrawingsInGrid(searched, grid, 4);
             countEl.textContent = `${searched.length} desenhos encontrados`;
         };
     }
@@ -2038,7 +2038,7 @@ function closeAllSuggestions() {
 // --- AUXILIARES E CONSTRUTORES ---
 
 // Criação de Card de Desenho individual (100% Grátis, sem cadeado)
-function createDrawingCard(dw, position = null) {
+function createDrawingCard(dw, position = null, showTrending = false) {
     const card = document.createElement('div');
     card.className = 'drawing-card';
     card.setAttribute('data-id', dw.slug);
@@ -2059,6 +2059,9 @@ function createDrawingCard(dw, position = null) {
         rankBadgeHtml = `<div class="rank-badge ${rankClass}">#${position} ${medal}</div>`;
     }
     
+    // Badge de "EM ALTA 🔥"
+    const trendingBadgeHtml = showTrending ? '<div class="trending-badge">EM ALTA 🔥</div>' : '';
+    
     // Badge do tier com suporte a tag Novo
     const isLocked = !isDrawingAccessible(dw);
     let cardLink = `/${dw.category}/${dw.slug}`;
@@ -2074,6 +2077,7 @@ function createDrawingCard(dw, position = null) {
     
     card.innerHTML = `
         ${rankBadgeHtml}
+        ${trendingBadgeHtml}
         <a href="${cardLink}" class="drawing-card-link">
             <div class="card-img-wrapper" style="${isLocked ? 'filter: grayscale(1) opacity(0.85);' : ''}">
                 <img src="${dw.url}" alt="${dw.pt}" loading="lazy">
@@ -2130,7 +2134,7 @@ function createDrawingCard(dw, position = null) {
 }
 
 // Renderizar lista de desenhos em um grid container
-function renderDrawingsInGrid(drawings, gridContainer) {
+function renderDrawingsInGrid(drawings, gridContainer, showTrendingFirstN = 0) {
     if (!gridContainer) return;
     gridContainer.innerHTML = '';
     
@@ -2159,7 +2163,8 @@ function renderDrawingsInGrid(drawings, gridContainer) {
             gridContainer.appendChild(adCard);
         }
         
-        const card = createDrawingCard(dw);
+        const showTrending = idx < showTrendingFirstN;
+        const card = createDrawingCard(dw, null, showTrending);
         gridContainer.appendChild(card);
     });
 }
