@@ -43,6 +43,68 @@ let currentDrawingPhrase = "";
 // --- LISTA DE CATEGORIAS DISPONÍVEIS PARA VISITANTES ---
 const FREE_CATEGORIES = ['animais-selvagens', 'dinossauros', 'fantasia', 'natureza', 'veiculos'];
 
+// --- DICIONÁRIO DE TRADUÇÃO DE INGLÊS PARA ESPANHOL ---
+const EN_TO_ES_DICT = {
+    "dolphin": "delfín", "whale": "ballena", "shark": "tiburón", "lion": "león", "tiger": "tigre",
+    "elephant": "elefante", "dog": "perro", "cat": "gato", "unicorn": "unicornio", "princess": "princesa",
+    "castle": "castillo", "butterfly": "mariposa", "flower": "flor", "car": "coche", "train": "tren",
+    "airplane": "avión", "rocket": "cohete", "astronaut": "astronauta", "sun": "sol", "moon": "luna",
+    "star": "estrella", "robot": "robot", "bear": "oso", "monkey": "mono", "rabbit": "conejo",
+    "panda": "panda", "giraffe": "jirafa", "zebra": "cebra", "turtle": "tortuga", "fish": "pez",
+    "octopus": "pulpo", "crab": "cangrejo", "seahorse": "caballito de mar", "owl": "búho",
+    "fox": "zorro", "deer": "ciervo", "squirrel": "ardilla", "frog": "rana", "bee": "abeja",
+    "ladybug": "mariquita", "dragon": "dragón", "fairy": "hada", "mermaid": "sirena",
+    "dinosaur": "dinosaurio", "truck": "camión", "bicycle": "bicicleta", "motorcycle": "motocicleta",
+    "boat": "barco", "helicopter": "helicóptero", "submarine": "submarino", "fire-truck": "camión de bomberos",
+    "firetruck": "camión de bomberos", "police-car": "coche de policía", "police car": "coche de policía",
+    "ambulance": "ambulancia", "ice-cream": "helado", "ice cream": "helado", "cupcake": "magdalena",
+    "cake": "pastel", "donut": "dona", "cookie": "galleta", "apple": "manzana", "banana": "plátano",
+    "strawberry": "fresa", "orange": "naranja", "grape": "uva", "watermelon": "sandía",
+    "pineapple": "piña", "carrot": "zanahoria", "tomato": "tomate", "broccoli": "brócoli",
+    "corn": "maíz", "mushroom": "champiñón", "pumpkin": "calabaza", "house": "casa",
+    "tree": "árbol", "cloud": "nube", "rainbow": "arcoíris", "mountain": "montaña",
+    "river": "río", "sea": "mar", "beach": "playa", "shell": "concha", "starfish": "estrella de mar",
+    "jellyfish": "medusa", "penguin": "pingüino", "koala": "koala", "kangaroo": "canguro",
+    "camel": "camello", "hippo": "hipopótamo", "rhino": "rinoceronte", "crocodile": "cocodrilo",
+    "snake": "serpiente", "lizard": "lagarto", "chameleon": "camaleón", "parrot": "loro",
+    "flamingo": "flamenco", "swan": "cisne", "duck": "pato", "chicken": "pollo",
+    "cow": "vaca", "horse": "caballo", "pig": "cerdo", "sheep": "oveja", "goat": "cabra",
+    "mouse": "ratón", "puppy": "cachorro", "kitten": "gatito"
+};
+
+function getSpanishWord(englishWord) {
+    if (!englishWord) return "";
+    const clean = englishWord.toLowerCase().trim();
+    return EN_TO_ES_DICT[clean] || clean;
+}
+
+// --- VERIFICAÇÃO DE ACESSO A DESENHOS POR PLANO ---
+function isDrawingAccessible(dw) {
+    if (!currentUser) {
+        // Visitante deslogado: só 5 categorias e index <= 2000
+        return FREE_CATEGORIES.includes(dw.category) && dw.index <= 2000;
+    }
+    const plan = currentUser.plan;
+    const idx = dw.index;
+    if (plan === 'Grátis') {
+        return idx <= 2000;
+    } else if (plan === 'Família') {
+        return idx <= 5000;
+    } else if (plan === 'Professor') {
+        return idx <= 7000;
+    } else if (plan === 'Colégio' || plan === 'Ultra') {
+        return true;
+    }
+    return idx <= 2000; // fallback
+}
+
+function getRequiredPlanForDrawing(dw) {
+    if (dw.index <= 2000) return 'Grátis';
+    if (dw.index <= 5000) return 'Família';
+    if (dw.index <= 7000) return 'Professor';
+    return 'Colégio';
+}
+
 // --- SISTEMA DE AUTENTICAÇÃO E SESSÃO ---
 let sessionToken = localStorage.getItem("kidcanvas_session_token") || null;
 let currentUser = null;
@@ -74,29 +136,36 @@ async function syncUserProfile() {
 
 function updateHeaderAuthDisplay() {
     const googleBtn = document.getElementById('google-signin-btn-header');
+    const btnEntrar = document.getElementById('btn-entrar-header');
     const userWidget = document.getElementById('user-profile-widget');
     const userAvatar = document.getElementById('user-avatar-img');
     const userDisplayName = document.getElementById('user-display-name');
     const userPlanBadge = document.getElementById('user-plan-badge');
 
-    if (!googleBtn || !userWidget) return;
+    if (!userWidget) return;
 
     if (currentUser) {
-        googleBtn.style.display = 'none';
+        if (googleBtn) googleBtn.style.display = 'none';
+        if (btnEntrar) btnEntrar.style.display = 'none';
         userWidget.style.display = 'flex';
         
-        userAvatar.src = currentUser.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
-        userDisplayName.textContent = currentUser.name.split(' ')[0];
-        userPlanBadge.textContent = currentUser.plan;
-        
-        if (currentUser.plan === 'Ultra') {
-            userPlanBadge.style.backgroundColor = 'var(--color-orange)';
-            userPlanBadge.textContent = 'Ultra ⚡';
-        } else {
-            userPlanBadge.style.backgroundColor = 'var(--color-purple)';
+        if (userAvatar) userAvatar.src = currentUser.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+        if (userDisplayName) userDisplayName.textContent = currentUser.name.split(' ')[0];
+        if (userPlanBadge) {
+            userPlanBadge.textContent = currentUser.plan;
+            if (currentUser.plan === 'Ultra') {
+                userPlanBadge.style.backgroundColor = 'var(--color-orange)';
+                userPlanBadge.textContent = 'Ultra ⚡';
+            } else if (currentUser.plan === 'Família') {
+                userPlanBadge.style.backgroundColor = 'var(--color-green)';
+                userPlanBadge.textContent = 'Família 🏠';
+            } else {
+                userPlanBadge.style.backgroundColor = 'var(--color-purple)';
+            }
         }
     } else {
-        googleBtn.style.display = 'block';
+        if (googleBtn) googleBtn.style.display = 'none';
+        if (btnEntrar) btnEntrar.style.display = 'inline-flex';
         userWidget.style.display = 'none';
     }
 }
@@ -163,6 +232,7 @@ async function handleGoogleCredentialResponse(response) {
             showToast(`Bem-vindo, ${currentUser.name}! 👋`, 'success');
             
             closeAuthModal();
+            await checkPendingUpgrade();
             navigate(window.location.pathname, false);
             
             // Recarregar a página se estiver na tela de histórias mágicas para sincronizar
@@ -238,6 +308,7 @@ async function handleLoginSubmit(event) {
             updateHeaderAuthDisplay();
             closeAuthModal();
             showToast(`Bem-vindo de volta, ${currentUser.name}! 👋`, 'success');
+            await checkPendingUpgrade();
             navigate(window.location.pathname, false);
         } else {
             showToast(`Erro no login: ${data.message}`, 'error');
@@ -269,6 +340,7 @@ async function handleRegisterSubmit(event) {
             updateHeaderAuthDisplay();
             closeAuthModal();
             showToast(`Cadastro realizado com sucesso! Bem-vindo, ${currentUser.name}! Você ganhou 4 páginas grátis de saldo.`, 'success');
+            await checkPendingUpgrade();
             navigate(window.location.pathname, false);
         } else {
             showToast(`Erro no cadastro: ${data.message}`, 'error');
@@ -340,6 +412,9 @@ async function loadDrawings() {
 
 // --- ROTEAMENTO SPA (CLIENT-SIDE ROUTING) ---
 function initGlobalEventListeners() {
+    const menuToggleBtn = document.getElementById('menu-toggle-btn');
+    const navbar = document.getElementById('navbar');
+
     // Interceptar cliques em links locais para fazer transição SPA
     document.addEventListener('click', (e) => {
         const targetLink = e.target.closest('a');
@@ -375,6 +450,11 @@ function initGlobalEventListeners() {
             // Interceptar apenas links locais válidos (não externos, não âncoras vazias, não arquivos estáticos como .html, e não as rotas de histórias mágicas)
             if (href && href.startsWith('/') && !href.startsWith('//') && !href.endsWith('.html') && !href.includes('.html?') && href !== '/historias-magicas' && href !== '/historia') {
                 e.preventDefault();
+                if (navbar) {
+                    navbar.classList.remove('open');
+                    const icon = menuToggleBtn ? menuToggleBtn.querySelector('i') : null;
+                    if (icon) icon.className = 'fa-solid fa-bars';
+                }
                 navigate(href);
             }
         }
@@ -405,6 +485,65 @@ function initGlobalEventListeners() {
             }
         });
     }
+
+    // Alternar expansão da busca compacta no clique da lupa
+    const searchToggleBtn = document.getElementById('search-toggle-btn');
+    const headerSearchBox = document.getElementById('header-search-box');
+    const globalSearchInput = document.getElementById('global-search-input');
+    
+    if (searchToggleBtn && headerSearchBox && globalSearchInput) {
+        searchToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isExpanded = headerSearchBox.classList.toggle('expanded');
+            if (isExpanded) {
+                globalSearchInput.focus();
+            }
+        });
+        
+        globalSearchInput.addEventListener('focus', () => {
+            headerSearchBox.classList.add('expanded');
+        });
+        
+        globalSearchInput.addEventListener('blur', () => {
+            if (globalSearchInput.value.trim() === '') {
+                headerSearchBox.classList.remove('expanded');
+            }
+        });
+        
+        // Fechar busca ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#header-search-box')) {
+                if (globalSearchInput.value.trim() === '') {
+                    headerSearchBox.classList.remove('expanded');
+                }
+            }
+        });
+    }
+
+    // Menu hambúrguer mobile toggle
+    if (menuToggleBtn && navbar) {
+        menuToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = navbar.classList.toggle('open');
+            const icon = menuToggleBtn.querySelector('i');
+            if (icon) {
+                if (isOpen) {
+                    icon.className = 'fa-solid fa-xmark';
+                } else {
+                    icon.className = 'fa-solid fa-bars';
+                }
+            }
+        });
+        
+        // Fechar menu hambúrguer ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#navbar') && !e.target.closest('#menu-toggle-btn')) {
+                navbar.classList.remove('open');
+                const icon = menuToggleBtn.querySelector('i');
+                if (icon) icon.className = 'fa-solid fa-bars';
+            }
+        });
+    }
 }
 
 function navigate(path, pushState = true) {
@@ -431,6 +570,8 @@ function navigate(path, pushState = true) {
         renderCategoriasView();
     } else if (cleanPath === '/top50') {
         renderTop50View();
+    } else if (cleanPath === '/planos') {
+        renderPlanosView();
     } else if (cleanPath === '/politica-de-privacidade') {
         renderPoliticaPrivacidadeView();
     } else if (cleanPath.startsWith('/categoria/')) {
@@ -453,7 +594,15 @@ function navigate(path, pushState = true) {
                 renderHomeView();
                 cleanPath = '/';
             } else {
-                renderDesenhoIndividualView(parts[0], parts[1]);
+                const dw = allDrawings.find(d => d.category === parts[0] && d.slug === parts[1]);
+                if (dw && !isDrawingAccessible(dw)) {
+                    const requiredPlan = getRequiredPlanForDrawing(dw);
+                    showToast(`Este desenho requer o plano ${requiredPlan}! Faça upgrade para acessar. 🎨`, 'info');
+                    renderPlanosView();
+                    cleanPath = '/planos';
+                } else {
+                    renderDesenhoIndividualView(parts[0], parts[1]);
+                }
             }
         } else {
             // Rota não encontrada -> Redirecionar para home
@@ -501,6 +650,121 @@ function renderPoliticaPrivacidadeView() {
     const view = document.getElementById('view-politica-de-privacidade');
     if (view) {
         view.style.display = 'block';
+    }
+}
+
+// PLANOS VIEW
+function renderPlanosView() {
+    document.title = "KidCanvas — Planos de Assinatura 🎨";
+    setMetaDescription("Conheça os planos de assinatura do KidCanvas. Do Grátis ao Família, libere milhares de desenhos exclusivos e histórias mágicas para colorir!");
+    
+    const view = document.getElementById('view-planos');
+    if (view) {
+        view.style.display = 'block';
+    }
+    
+    // Atualizar os botões baseados no plano do usuário
+    const btnGratis = document.getElementById('btn-plan-gratis');
+    const btnFamilia = document.getElementById('btn-plan-familia');
+    const btnProfessor = document.getElementById('btn-plan-professor');
+    const btnColegio = document.getElementById('btn-plan-colegio');
+    
+    const cardGratis = document.getElementById('plan-card-gratis');
+    const cardFamilia = document.getElementById('plan-card-familia');
+    const cardProfessor = document.getElementById('plan-card-professor');
+    const cardColegio = document.getElementById('plan-card-colegio');
+    
+    // Resetar estilos de plano atual
+    [cardGratis, cardFamilia, cardProfessor, cardColegio].forEach(card => {
+        if (card) card.classList.remove('active-plan');
+    });
+    
+    if (currentUser) {
+        const plan = currentUser.plan;
+        
+        if (plan === 'Grátis') {
+            if (btnGratis) { btnGratis.textContent = 'Plano Atual'; btnGratis.disabled = true; }
+            if (btnFamilia) { btnFamilia.textContent = 'Assinar Agora'; btnFamilia.disabled = false; btnFamilia.onclick = () => handlePlanUpgrade('Família', 20); }
+            if (cardGratis) cardGratis.classList.add('active-plan');
+        } else if (plan === 'Família') {
+            if (btnGratis) { btnGratis.textContent = 'Mudar para Grátis'; btnGratis.disabled = false; btnGratis.onclick = () => handlePlanUpgrade('Grátis', 4); }
+            if (btnFamilia) { btnFamilia.textContent = 'Plano Ativo'; btnFamilia.disabled = true; }
+            if (cardFamilia) cardFamilia.classList.add('active-plan');
+        } else if (plan === 'Professor') {
+            if (btnProfessor) { btnProfessor.textContent = 'Plano Ativo'; btnProfessor.disabled = true; }
+            if (cardProfessor) cardProfessor.classList.add('active-plan');
+        } else if (plan === 'Colégio' || plan === 'Ultra') {
+            if (btnColegio) { btnColegio.textContent = 'Plano Ativo'; btnColegio.disabled = true; }
+            if (cardColegio) cardColegio.classList.add('active-plan');
+        }
+    } else {
+        // Visitante deslogado
+        if (btnGratis) {
+            btnGratis.textContent = 'Cadastrar Grátis';
+            btnGratis.disabled = false;
+            btnGratis.onclick = () => {
+                openAuthModal();
+                switchAuthTab('register');
+            };
+        }
+        if (btnFamilia) {
+            btnFamilia.textContent = 'Assinar Agora';
+            btnFamilia.disabled = false;
+            btnFamilia.onclick = () => handlePlanUpgrade('Família', 20);
+        }
+    }
+}
+
+async function handlePlanUpgrade(planName, pageAmount) {
+    if (!currentUser) {
+        // Armazenar intenção de upgrade para depois do login/cadastro
+        localStorage.setItem("kidcanvas_pending_upgrade", JSON.stringify({ planName, pageAmount }));
+        showToast('Faça login ou cadastre-se grátis para assinar o plano! 🚀', 'info');
+        openAuthModal();
+        return;
+    }
+    
+    try {
+        showToast(`Processando atualização para plano ${planName}... 💳`, 'info');
+        const res = await fetch('/api/user/upgrade', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Session-Token': sessionToken
+            },
+            body: JSON.stringify({ planName, pageAmount })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+            currentUser = data.user;
+            updateHeaderAuthDisplay();
+            showToast(`Plano atualizado para ${planName}! Saldo de ${pageAmount} páginas ativado. 🚀`, 'success');
+            renderPlanosView();
+            
+            // Recarregar os desenhos para aplicar novos filtros
+            await loadDrawings();
+            
+            // Se estiver logando e redirecionando, limpa
+            localStorage.removeItem("kidcanvas_pending_upgrade");
+        } else {
+            showToast(`Erro ao atualizar plano: ${data.message}`, 'error');
+        }
+    } catch(err) {
+        console.error(err);
+        showToast("Erro de conexão ao processar upgrade de plano.", 'error');
+    }
+}
+
+async function checkPendingUpgrade() {
+    const pending = localStorage.getItem("kidcanvas_pending_upgrade");
+    if (pending) {
+        try {
+            const { planName, pageAmount } = JSON.parse(pending);
+            localStorage.removeItem("kidcanvas_pending_upgrade");
+            await handlePlanUpgrade(planName, pageAmount);
+        } catch(e) {
+            console.error("Erro no processar upgrade pendente:", e);
+        }
     }
 }
 
@@ -1343,11 +1607,38 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
     // Inicializar avaliação por estrelas
     initRatingSystem(categorySlug, drawingSlug);
     
-    // Escutar mudança de legenda
+    // Configurar Cadeados e Permissões dos Idiomas
+    const hasEn = currentUser && ['Família', 'Professor', 'Colégio', 'Ultra'].includes(currentUser.plan);
+    const hasEs = currentUser && ['Colégio', 'Ultra'].includes(currentUser.plan);
+    
+    const lockEn = document.getElementById('lock-en');
+    const lockEs = document.getElementById('lock-es');
+    if (lockEn) lockEn.style.display = hasEn ? 'none' : 'inline-block';
+    if (lockEs) lockEs.style.display = hasEs ? 'none' : 'inline-block';
+
+    // Escutar mudança de legenda com proteção por plano
     const radios = document.getElementsByName('phrase-lang-mode');
     radios.forEach(radio => {
         // Resetar para PT ativo
         if (radio.value === 'pt') radio.checked = true;
+        
+        radio.onclick = (e) => {
+            const val = radio.value;
+            if (val === 'en' && !hasEn) {
+                e.preventDefault();
+                // Forçar a seleção de volta para o PT
+                document.querySelector('input[name="phrase-lang-mode"][value="pt"]').checked = true;
+                showToast('A legenda bilíngue em inglês está disponível a partir do plano Família! 🚀', 'info');
+                return false;
+            }
+            if (val === 'es' && !hasEs) {
+                e.preventDefault();
+                // Forçar a seleção de volta para o PT
+                document.querySelector('input[name="phrase-lang-mode"][value="pt"]').checked = true;
+                showToast('A legenda trilíngue em espanhol está disponível no plano Colégio! 🚀', 'info');
+                return false;
+            }
+        };
         
         radio.onchange = () => {
             const mode = radio.value;
@@ -1355,8 +1646,18 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
                 phraseBox.style.display = 'flex';
                 renderHollowPhraseText(currentDrawingPhrase, 'pt');
             } else if (mode === 'en') {
+                if (!hasEn) return;
                 phraseBox.style.display = 'flex';
-                renderHollowPhraseText(`${currentDrawingPhrase} / DRAWING`, 'en');
+                const ptText = drawing.pt.toUpperCase();
+                const enText = drawing.en.toUpperCase();
+                renderHollowPhraseText(`${ptText} / ${enText}`, 'en');
+            } else if (mode === 'es') {
+                if (!hasEs) return;
+                phraseBox.style.display = 'flex';
+                const ptText = drawing.pt.toUpperCase();
+                const enText = drawing.en.toUpperCase();
+                const esText = getSpanishWord(drawing.en).toUpperCase();
+                renderHollowPhraseText(`${ptText} / ${enText} / ${esText}`, 'es');
             } else {
                 phraseBox.style.display = 'none'; // Sem legenda
             }
@@ -1553,13 +1854,14 @@ function createDrawingCard(dw, position = null) {
     }
     
     // Badge do tier com suporte a tag Novo
-    const isLocked = !currentUser && !FREE_CATEGORIES.includes(dw.category);
+    const isLocked = !isDrawingAccessible(dw);
     let cardLink = `/${dw.category}/${dw.slug}`;
     let badgeHtml = '<span class="badge-free">Grátis</span>';
     
     if (isLocked) {
         cardLink = '#';
-        badgeHtml = '<span class="badge-free" style="background-color: var(--color-orange); border-color: var(--color-dark);"><i class="fa-solid fa-lock"></i> Bloqueado</span>';
+        const requiredPlan = getRequiredPlanForDrawing(dw);
+        badgeHtml = `<span class="badge-free" style="background-color: var(--color-orange); border-color: var(--color-dark);"><i class="fa-solid fa-lock"></i> Plano ${requiredPlan}</span>`;
     } else if (dw.isNew) {
         badgeHtml = '<span class="badge-free" style="background-color: var(--color-yellow); border-color: var(--color-dark);"><i class="fa-solid fa-star"></i> Novo!</span>';
     }
@@ -1577,7 +1879,7 @@ function createDrawingCard(dw, position = null) {
         </div>
         <div class="card-bottom">
             ${badgeHtml}
-            <button class="btn-download-card" title="${isLocked ? 'Cadastre-se para desbloquear' : 'Baixar desenho'}"><i class="fa-solid ${isLocked ? 'fa-lock' : 'fa-download'}"></i> ${isLocked ? 'Desbloquear' : 'Imprimir'}</button>
+            <button class="btn-download-card" title="${isLocked ? 'Assine para desbloquear' : 'Baixar desenho'}"><i class="fa-solid ${isLocked ? 'fa-lock' : 'fa-download'}"></i> ${isLocked ? 'Desbloquear' : 'Imprimir'}</button>
         </div>
     `;
     
@@ -1587,8 +1889,14 @@ function createDrawingCard(dw, position = null) {
         cardA.addEventListener('click', (e) => {
             if (isLocked) {
                 e.preventDefault();
-                showToast('Cadastre-se grátis para desbloquear este desenho! 🎨', 'info');
-                openAuthModal();
+                if (!currentUser) {
+                    showToast('Faça login ou cadastre-se grátis para liberar este desenho e todas as categorias! 🎨', 'info');
+                    openAuthModal();
+                } else {
+                    const requiredPlan = getRequiredPlanForDrawing(dw);
+                    showToast(`Este desenho requer o plano ${requiredPlan}! Redirecionando para a página de planos... 🚀`, 'info');
+                    navigate('/planos');
+                }
             }
         });
     }
@@ -1599,8 +1907,14 @@ function createDrawingCard(dw, position = null) {
         e.stopPropagation();
         e.preventDefault();
         if (isLocked) {
-            showToast('Cadastre-se grátis para baixar e imprimir! 🎨', 'info');
-            openAuthModal();
+            if (!currentUser) {
+                showToast('Faça login ou cadastre-se grátis para baixar e imprimir! 🎨', 'info');
+                openAuthModal();
+            } else {
+                const requiredPlan = getRequiredPlanForDrawing(dw);
+                showToast(`Este desenho requer o plano ${requiredPlan}! Faça upgrade para baixar. 🚀`, 'info');
+                navigate('/planos');
+            }
         } else {
             triggerDrawingDownload(dw);
         }

@@ -292,6 +292,62 @@
             color: var(--color-green);
         }
         
+        /* Book language selector grid */
+        .book-lang-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .lang-card {
+            background-color: var(--color-white);
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            user-select: none;
+            position: relative;
+        }
+        
+        .lang-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 0 var(--color-dark);
+        }
+        
+        .lang-card.active {
+            background-color: var(--color-blue-light);
+            border-color: var(--color-blue);
+            color: var(--color-blue);
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+        
+        .lang-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            width: 0;
+            height: 0;
+        }
+        
+        .lang-card-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--color-dark);
+        }
+
+        .lang-card.active .lang-card-title {
+            color: var(--color-blue);
+        }
+        
         /* Radio inputs custom style */
         .style-radio-group {
             display: flex;
@@ -1262,6 +1318,24 @@
         </div>
 
         <div class="form-group">
+            <label>🌐 Idioma do Livro</label>
+            <div class="book-lang-grid">
+                <label class="lang-card active" id="langCardPt">
+                    <input type="radio" name="bookLang" value="pt" checked>
+                    <div class="lang-card-title">Português 🇧🇷</div>
+                </label>
+                <label class="lang-card" id="langCardEn">
+                    <input type="radio" name="bookLang" value="en">
+                    <div class="lang-card-title">Inglês 🇺🇸 <i class="fa-solid fa-lock" id="book-lang-lock-en" style="display:none;font-size:0.85rem;color:var(--color-orange);margin-left:4px;"></i></div>
+                </label>
+                <label class="lang-card" id="langCardEs">
+                    <input type="radio" name="bookLang" value="es">
+                    <div class="lang-card-title">Espanhol 🇪🇸 <i class="fa-solid fa-lock" id="book-lang-lock-es" style="display:none;font-size:0.85rem;color:var(--color-orange);margin-left:4px;"></i></div>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
             <label>🎨 Estilo das Ilustrações</label>
             <div class="style-radio-group">
                 <label class="style-radio-label active" id="labelColor">
@@ -1643,6 +1717,128 @@
             btnPlansNav.style.display = 'none';
             btnLogoutNav.style.display = 'none';
         }
+        updatePlanRestrictions();
+    }
+
+    function updatePlanRestrictions() {
+        const plan = currentUser ? currentUser.plan : 'Grátis';
+        
+        // --- 1. Restrição de Páginas do Livro ---
+        const card4 = document.getElementById('card4');
+        const card6 = document.getElementById('card6');
+        const card8 = document.getElementById('card8');
+        const card10 = document.getElementById('card10');
+        
+        const radio4 = document.querySelector('input[name="pageCount"][value="4"]');
+        const radio6 = document.querySelector('input[name="pageCount"][value="6"]');
+        const radio8 = document.querySelector('input[name="pageCount"][value="8"]');
+        const radio10 = document.querySelector('input[name="pageCount"][value="10"]');
+        
+        // Resetar bloqueios
+        [card4, card6, card8, card10].forEach(card => {
+            if (card) {
+                card.classList.remove('locked-option');
+                card.style.opacity = '1';
+                card.style.pointerEvents = 'auto';
+                const existingLock = card.querySelector('.lock-badge-mini');
+                if (existingLock) existingLock.remove();
+            }
+        });
+        
+        const lockCard = (card, radio, requiredPlan) => {
+            if (card) {
+                card.classList.add('locked-option');
+                card.style.opacity = '0.6';
+                const title = card.querySelector('.page-card-title');
+                if (title && !card.querySelector('.lock-badge-mini')) {
+                    title.innerHTML += ` <span class="lock-badge-mini" style="font-size:0.8rem;color:var(--color-orange);"><i class="fa-solid fa-lock"></i> ${requiredPlan}</span>`;
+                }
+            }
+        };
+        
+        if (plan === 'Grátis') {
+            lockCard(card6, radio6, 'Família');
+            lockCard(card8, radio8, 'Professor');
+            lockCard(card10, radio10, 'Colégio');
+        } else if (plan === 'Família') {
+            lockCard(card8, radio8, 'Professor');
+            lockCard(card10, radio10, 'Colégio');
+        } else if (plan === 'Professor') {
+            lockCard(card10, radio10, 'Colégio');
+        }
+        
+        // Escutar cliques para interceptar opções bloqueadas
+        [card4, card6, card8, card10].forEach(card => {
+            if (card) {
+                card.onclick = (e) => {
+                    if (card.classList.contains('locked-option')) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        radio4.checked = true;
+                        document.querySelectorAll('.page-card').forEach(c => c.classList.remove('active'));
+                        card4.classList.add('active');
+                        
+                        const requiredPlan = card === card6 ? 'Família' : (card === card8 ? 'Professor' : 'Colégio');
+                        alert(`Esta quantidade de páginas requer o plano ${requiredPlan}! Acesse os Planos para fazer upgrade.`);
+                        return false;
+                    }
+                };
+            }
+        });
+        
+        // --- 2. Restrição de Idiomas do Livro ---
+        const langCardPt = document.getElementById('langCardPt');
+        const langCardEn = document.getElementById('langCardEn');
+        const langCardEs = document.getElementById('langCardEs');
+        
+        const radioPt = document.querySelector('input[name="bookLang"][value="pt"]');
+        const radioEn = document.querySelector('input[name="bookLang"][value="en"]');
+        const radioEs = document.querySelector('input[name="bookLang"][value="es"]');
+        
+        const lockEnIcon = document.getElementById('book-lang-lock-en');
+        const lockEsIcon = document.getElementById('book-lang-lock-es');
+        
+        const hasEn = ['Professor', 'Colégio', 'Ultra'].includes(plan);
+        const hasEs = ['Colégio', 'Ultra'].includes(plan);
+        
+        if (lockEnIcon) lockEnIcon.style.display = hasEn ? 'none' : 'inline-block';
+        if (lockEsIcon) lockEsIcon.style.display = hasEs ? 'none' : 'inline-block';
+        
+        [langCardEn, langCardEs].forEach(card => {
+            if (card) {
+                card.onclick = (e) => {
+                    const isEn = card === langCardEn;
+                    if (isEn && !hasEn) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        radioPt.checked = true;
+                        document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
+                        langCardPt.classList.add('active');
+                        alert("A criação de livros em Inglês está disponível a partir do plano Professor!");
+                        return false;
+                    }
+                    if (!isEn && !hasEs) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        radioPt.checked = true;
+                        document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
+                        langCardPt.classList.add('active');
+                        alert("A criação de livros em Espanhol está disponível no plano Colégio!");
+                        return false;
+                    }
+                };
+            }
+        });
+        
+        // Estilo de cliques simples para os novos lang-cards
+        document.querySelectorAll('.lang-card').forEach(card => {
+            card.addEventListener('click', () => {
+                if (!card.classList.contains('locked-option')) {
+                    document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                }
+            });
+        });
     }
 
     // Modal control
@@ -1994,6 +2190,7 @@
         const characterName = capitalizeFirstLetter(rawCharacterName);
         const styleType = document.querySelector('input[name="styleType"]:checked').value;
         const pageCount = parseInt(document.querySelector('input[name="pageCount"]:checked').value, 10);
+        const bookLang = document.querySelector('input[name="bookLang"]:checked').value;
         const synopsis = storySynopsis.value.trim();
         
         let finalTheme = themeSelect.value;
@@ -2062,7 +2259,8 @@
                     themes: [finalTheme],
                     styleType: styleType,
                     pageCount: pageCount,
-                    synopsis: synopsis
+                    synopsis: synopsis,
+                    bookLang: bookLang
                 })
             });
             

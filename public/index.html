@@ -46,42 +46,55 @@
                 <span class="logo-text">kidcanvas<span class="logo-dot">.com.br</span></span>
             </a>
             
-            <!-- Barra de busca global no cabeçalho (visível em todas as páginas) -->
-            <div class="header-search-box">
-                <i class="fa-solid fa-magnifying-glass header-search-icon"></i>
-                <input type="text" id="global-search-input" placeholder="Buscar desenho..." autocomplete="off">
-                <div class="search-suggestions-dropdown" id="global-suggestions-dropdown" style="display: none;"></div>
-            </div>
-            
-            <nav id="navbar">
-                <ul>
-                    <li><a href="/categoria/animais-selvagens" class="nav-link"><i class="fa-solid fa-paw"></i> Animais</a></li>
-                    <li><a href="/categoria/dinossauros" class="nav-link"><i class="fa-solid fa-dragon"></i> Dinossauros</a></li>
-                    <li><a href="/categoria/fantasia" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Fantasia</a></li>
-                    <li><a href="/categoria/natureza" class="nav-link"><i class="fa-solid fa-leaf"></i> Natureza</a></li>
-                    <li><a href="/categoria/veiculos" class="nav-link"><i class="fa-solid fa-car"></i> Veículos</a></li>
-                    <li><a href="/categoria/novidades" class="nav-link nav-link-new">✨ Novos</a></li>
-                    <li class="nav-dropdown">
-                        <a href="#" class="nav-link dropdown-toggle">Mais <i class="fa-solid fa-chevron-down"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/top50" class="dropdown-item"><i class="fa-solid fa-trophy"></i> Top 50</a></li>
-                            <li><a href="/categorias" class="dropdown-item"><i class="fa-solid fa-shapes"></i> Todos os temas</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/historias-magicas" class="nav-link nav-link-special"><i class="fa-solid fa-book-open"></i> Histórias Mágicas ✨</a></li>
-                </ul>
-            </nav>
-            
-            <!-- Autenticação com Google e Perfil do Usuário -->
-            <div class="header-auth" id="header-auth-container">
-                <div id="google-signin-btn-header" class="google-btn-header"></div>
-                <div id="user-profile-widget" class="user-profile-widget" style="display: none;">
-                    <img id="user-avatar-img" class="user-avatar-circle" src="" alt="Avatar">
-                    <div class="user-meta-info">
-                        <span id="user-display-name" class="user-name-text">Nome</span>
-                        <span id="user-plan-badge" class="plan-badge-tag">Plano</span>
+            <div class="header-right-wrapper">
+                <!-- Barra de busca global compacta (ícone expande ao clicar) -->
+                <div class="header-search-box" id="header-search-box">
+                    <button class="header-search-toggle" id="search-toggle-btn" aria-label="Buscar desenho">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <div class="header-search-input-wrapper">
+                        <input type="text" id="global-search-input" placeholder="Buscar desenho..." autocomplete="off">
+                        <div class="search-suggestions-dropdown" id="global-suggestions-dropdown" style="display: none;"></div>
                     </div>
-                    <button id="btn-logout-header" class="btn-logout-icon" title="Sair do KidCanvas" onclick="handleHeaderLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+
+                <!-- Botão Menu Hambúrguer (Mobile) -->
+                <button class="menu-toggle" id="menu-toggle-btn" aria-label="Abrir menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                
+                <nav id="navbar">
+                    <ul>
+                        <li><a href="/categoria/animais-selvagens" class="nav-link"><i class="fa-solid fa-paw"></i> Animais</a></li>
+                        <li><a href="/categoria/dinossauros" class="nav-link"><i class="fa-solid fa-dragon"></i> Dinossauros</a></li>
+                        <li><a href="/categoria/fantasia" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Fantasia</a></li>
+                        <li><a href="/categoria/natureza" class="nav-link"><i class="fa-solid fa-leaf"></i> Natureza</a></li>
+                        <li><a href="/categoria/veiculos" class="nav-link"><i class="fa-solid fa-car"></i> Veículos</a></li>
+                        <li><a href="/categoria/novidades" class="nav-link nav-link-new">✨ Novos</a></li>
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link dropdown-toggle">Mais <i class="fa-solid fa-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/top50" class="dropdown-item"><i class="fa-solid fa-trophy"></i> Top 50</a></li>
+                                <li><a href="/categorias" class="dropdown-item"><i class="fa-solid fa-shapes"></i> Todos os temas</a></li>
+                                <li><a href="/planos" class="dropdown-item"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/historias-magicas" class="nav-link nav-link-special"><i class="fa-solid fa-book-open"></i> Histórias Mágicas ✨</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Autenticação com Google e Perfil do Usuário -->
+                <div class="header-auth" id="header-auth-container">
+                    <button id="btn-entrar-header" class="btn-entrar-header" onclick="openAuthModal()"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+                    <div id="google-signin-btn-header" class="google-btn-header" style="display: none;"></div>
+                    <div id="user-profile-widget" class="user-profile-widget" style="display: none;">
+                        <img id="user-avatar-img" class="user-avatar-circle" src="" alt="Avatar">
+                        <div class="user-meta-info">
+                            <span id="user-display-name" class="user-name-text">Nome</span>
+                            <span id="user-plan-badge" class="plan-badge-tag">Plano</span>
+                        </div>
+                        <button id="btn-logout-header" class="btn-logout-icon" title="Sair do KidCanvas" onclick="handleHeaderLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -347,11 +360,15 @@
                             <div class="phrase-mode-selection">
                                 <label class="phrase-radio-option">
                                     <input type="radio" name="phrase-lang-mode" value="pt" checked>
-                                    <span>Português 🇧🇷 (ex: "Oi, eu sou o...")</span>
+                                    <span>Português 🇧🇷</span>
                                 </label>
-                                <label class="phrase-radio-option" style="display: none;">
+                                <label class="phrase-radio-option" id="radio-option-en">
                                     <input type="radio" name="phrase-lang-mode" value="en">
-                                    <span>Bilíngue 🇧🇷 / 🇺🇸 (Português + Inglês)</span>
+                                    <span>Bilíngue 🇧🇷 / 🇺🇸 <i class="fa-solid fa-lock" id="lock-en" style="display:none; font-size:0.8rem; color:var(--color-dark-light); margin-left:4px;"></i></span>
+                                </label>
+                                <label class="phrase-radio-option" id="radio-option-es">
+                                    <input type="radio" name="phrase-lang-mode" value="es">
+                                    <span>Trilíngue 🇧🇷 / 🇺🇸 / 🇪🇸 <i class="fa-solid fa-lock" id="lock-es" style="display:none; font-size:0.8rem; color:var(--color-dark-light); margin-left:4px;"></i></span>
                                 </label>
                                 <label class="phrase-radio-option">
                                     <input type="radio" name="phrase-lang-mode" value="none">
@@ -378,6 +395,112 @@
                     <h3 class="related-title">Mais desenhos parecidos para imprimir grátis 🎨</h3>
                     <div class="drawings-grid" id="related-drawings-grid">
                         <!-- Carregado via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             PÁGINA DE PLANOS (STYLE SPOTIFY)
+             ============================================== -->
+        <section id="view-planos" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Planos</span>
+                </div>
+                
+                <div class="plans-header-text" style="text-align: center; margin-bottom: 40px;">
+                    <h1 class="page-title" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-dark); margin-bottom: 10px;">Escolha o plano ideal para a sua família! 🎨</h1>
+                    <p class="section-subtitle" style="font-size: 1.1rem; color: var(--color-dark-light); font-weight: 500;">Acesso a desenhos exclusivos com fins pedagógicos e histórias mágicas personalizadas.</p>
+                </div>
+                
+                <div class="spotify-plans-grid">
+                    <!-- Card 1: Grátis -->
+                    <div class="spotify-plan-card" id="plan-card-gratis">
+                        <div class="plan-card-header">
+                            <span class="plan-badge-gratis">Grátis</span>
+                            <h3 class="plan-title">Grátis</h3>
+                            <div class="plan-price">R$ 0</div>
+                            <span class="plan-frequency">para sempre</span>
+                        </div>
+                        <div class="plan-card-body">
+                            <ul class="plan-features-list">
+                                <li><i class="fa-solid fa-check text-green"></i> 2.000 imagens para colorir</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Todas as categorias liberadas</li>
+                                <li><i class="fa-solid fa-check text-green"></i> 1 livro de 4 páginas grátis</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Histórias em Português (PT-BR)</li>
+                            </ul>
+                        </div>
+                        <div class="plan-card-footer">
+                            <button class="btn btn-secondary btn-full-width" id="btn-plan-gratis" disabled>Plano Atual</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2: Família -->
+                    <div class="spotify-plan-card highlighted" id="plan-card-familia">
+                        <div class="plan-tag-highlighted">Disponível agora</div>
+                        <div class="plan-card-header">
+                            <span class="plan-badge-familia">Mais Popular</span>
+                            <h3 class="plan-title">Família</h3>
+                            <div class="plan-price">R$ 19,90<span class="price-cent">/mês</span></div>
+                            <span class="plan-frequency">Assinatura mensal</span>
+                        </div>
+                        <div class="plan-card-body">
+                            <ul class="plan-features-list">
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>5.000 imagens</strong> para colorir</li>
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>20 páginas</strong> de livros inclusas</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Idiomas PT-BR e EN nos desenhos</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Livros em Português (PT-BR)</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Sem anúncios na plataforma</li>
+                            </ul>
+                        </div>
+                        <div class="plan-card-footer">
+                            <button class="btn btn-primary btn-full-width" id="btn-plan-familia" onclick="handlePlanUpgrade('Família', 20)">Assinar Agora</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3: Professor -->
+                    <div class="spotify-plan-card locked" id="plan-card-professor">
+                        <div class="plan-tag-locked">Em breve</div>
+                        <div class="plan-card-header">
+                            <h3 class="plan-title">Professor</h3>
+                            <div class="plan-price">R$ 39,90<span class="price-cent">/mês</span></div>
+                            <span class="plan-frequency">Em breve</span>
+                        </div>
+                        <div class="plan-card-body">
+                            <ul class="plan-features-list">
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>7.000 imagens</strong> para colorir</li>
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>60 páginas</strong> de livros inclusas</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Idiomas PT-BR e EN em desenhos/livros</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Recursos pedagógicos extras</li>
+                            </ul>
+                        </div>
+                        <div class="plan-card-footer">
+                            <button class="btn btn-secondary btn-full-width" id="btn-plan-professor" disabled><i class="fa-solid fa-lock"></i> Em Breve</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 4: Colégio -->
+                    <div class="spotify-plan-card locked" id="plan-card-colegio">
+                        <div class="plan-tag-locked">Em breve</div>
+                        <div class="plan-card-header">
+                            <h3 class="plan-title">Colégio</h3>
+                            <div class="plan-price">R$ 119,90<span class="price-cent">/mês</span></div>
+                            <span class="plan-frequency">Em breve</span>
+                        </div>
+                        <div class="plan-card-body">
+                            <ul class="plan-features-list">
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>Todas as imagens (10.000+)</strong></li>
+                                <li><i class="fa-solid fa-check text-green"></i> <strong>400 páginas</strong> de livros inclusas</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Idiomas PT-BR, EN e ES em tudo</li>
+                                <li><i class="fa-solid fa-check text-green"></i> Painel multi-usuários para salas</li>
+                            </ul>
+                        </div>
+                        <div class="plan-card-footer">
+                            <button class="btn btn-secondary btn-full-width" id="btn-plan-colegio" disabled><i class="fa-solid fa-lock"></i> Em Breve</button>
+                        </div>
                     </div>
                 </div>
             </div>

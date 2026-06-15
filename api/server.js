@@ -258,7 +258,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
 // Endpoint para gerar livro completo: Capa + N Páginas ilustradas (Gemini + N+1 chamadas Ideogram em paralelo)
 app.post('/api/generate-full-story', async (req, res) => {
     try {
-        const { characterName, themes, styleType, pageCount, synopsis } = req.body;
+        const { characterName, themes, styleType, pageCount, synopsis, bookLang } = req.body;
         if (!characterName || !themes || !Array.isArray(themes) || themes.length === 0) {
             return res.status(400).json({
                 success: false,
@@ -295,6 +295,21 @@ app.post('/api/generate-full-story', async (req, res) => {
             });
         }
 
+        // Validar permissão de idioma do livro com base no plano do usuário
+        const userPlan = user.plan;
+        if (bookLang === 'en' && !['Professor', 'Colégio', 'Ultra'].includes(userPlan)) {
+            return res.status(400).json({
+                success: false,
+                message: `O plano ${userPlan} não permite criar livros em inglês. Faça upgrade para o plano Professor ou Colégio!`
+            });
+        }
+        if (bookLang === 'es' && !['Colégio', 'Ultra'].includes(userPlan)) {
+            return res.status(400).json({
+                success: false,
+                message: `O plano ${userPlan} não permite criar livros em espanhol. Faça upgrade para o plano Colégio!`
+            });
+        }
+
         if (user.balance < numPages) {
             return res.status(400).json({
                 success: false,
@@ -322,7 +337,7 @@ app.post('/api/generate-full-story', async (req, res) => {
         }
 
         // 2. Chamar o Gemini para gerar a história e os prompts
-        console.log(`[Full Story V4] Gerando livro (Capa + ${numPages} páginas, estilo: ${isColor ? 'Colorida' : 'P&B'}) para "${characterName}" com os temas: "${themesList}"...`);
+        console.log(`[Full Story V4] Gerando livro (Capa + ${numPages} páginas, estilo: ${isColor ? 'Colorida' : 'P&B'}) em ${bookLang || 'pt'} para "${characterName}" com os temas: "${themesList}"...`);
 
         const styleDescription = isColor 
             ? "cute children's book watercolor illustration, soft pastel colors, whimsical, detailed cartoon, playful, clean edges"
@@ -342,7 +357,21 @@ app.post('/api/generate-full-story', async (req, res) => {
             ? `Sinopse / Roteiro da história (use isso como base e enredo principal obrigatório para construir os acontecimentos): ${synopsis.trim()}\n\n`
             : '';
 
-        const storyPrompt = `Gere uma história infantil personalizada contendo exatamente ${numPages} parágrafos em português brasileiro.
+        let targetLanguage = 'português brasileiro';
+        let coverTitle = `O Livro Magico de ${characterName}`;
+        let coverSubtitle = `Uma historia criada especialmente para ${characterName}`;
+
+        if (bookLang === 'en') {
+            targetLanguage = 'inglês';
+            coverTitle = `The Magic Book of ${characterName}`;
+            coverSubtitle = `A story created especially for ${characterName}`;
+        } else if (bookLang === 'es') {
+            targetLanguage = 'espanhol';
+            coverTitle = `El Libro Magico de ${characterName}`;
+            coverSubtitle = `Una historia creada especialmente para ${characterName}`;
+        }
+
+        const storyPrompt = `Gere uma história infantil personalizada contendo exatamente ${numPages} parágrafos em ${targetLanguage}.
 Personagem principal: ${characterName}
 Temas selecionados: ${themesList}
 
@@ -352,8 +381,8 @@ Incorpore obrigatoriamente a seguinte diretiva de estilo no final de cada um dos
 
 Além disso, sugira um prompt em inglês altamente detalhado para a capa do livro no Ideogram.
 O prompt da capa deve descrever uma cena de capa de livro infantil encantadora combinando o personagem e os temas, e DEVE instruir o Ideogram a renderizar textos na imagem no seguinte estilo:
-- Um título principal com tipografia amigável e colorida em destaque que leia exatamente: "O Livro Magico de ${characterName}"
-- Um subtítulo em tipografia menor e limpa que leia exatamente: "Uma historia criada especialmente para ${characterName}"
+- Um título principal com tipografia amigável e colorida em destaque que leia exatamente: "${coverTitle}"
+- Um subtítulo em tipografia menor e limpa que leia exatamente: "${coverSubtitle}"
 - Um selo redondo no canto inferior contendo o texto "KidCanvas" em destaque e, logo abaixo dele em tipografia menor e discreta, o endereço do site "www.kidcanvas.com.br"
 Incorpore obrigatoriamente a seguinte diretiva de estilo no final do prompt da capa: "${styleDescription}".
 
