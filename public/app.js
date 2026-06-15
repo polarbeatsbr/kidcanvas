@@ -738,6 +738,21 @@ function navigate(path, pushState = true) {
         cleanPath = cleanPath.slice(0, -1);
     }
     
+    // Fechar dropdowns de navegação (perfil e hambúrguer mobile) ao navegar
+    const profileDropdownMenu = document.getElementById('profile-dropdown-menu');
+    if (profileDropdownMenu) {
+        profileDropdownMenu.classList.remove('open');
+    }
+    const navbar = document.getElementById('navbar');
+    const menuToggleBtn = document.getElementById('menu-toggle-btn');
+    if (navbar) {
+        navbar.classList.remove('open');
+        if (menuToggleBtn) {
+            const icon = menuToggleBtn.querySelector('i');
+            if (icon) icon.className = 'fa-solid fa-bars';
+        }
+    }
+    
     // Ocultar todas as views de página
     document.querySelectorAll('.page-view').forEach(view => {
         view.style.display = 'none';
