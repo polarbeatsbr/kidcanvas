@@ -67,7 +67,7 @@ app.post('/api/generate', async (req, res) => {
         if (isHF) {
             console.log(`[Proxy] Tentando gerar imagem com Hugging Face (FLUX.1-schnell)...`);
             try {
-                const hfUrl = 'https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell';
+                const hfUrl = 'https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell';
                 const hfResponse = await fetch(hfUrl, {
                     method: 'POST',
                     headers: {
@@ -79,7 +79,8 @@ app.post('/api/generate', async (req, res) => {
                     })
                 });
 
-                if (hfResponse.ok) {
+                const contentType = hfResponse.headers.get('content-type') || '';
+                if (hfResponse.ok && !contentType.includes('application/json')) {
                     const buffer = await hfResponse.arrayBuffer();
                     base64Image = Buffer.from(buffer).toString('base64');
                     success = true;
@@ -178,6 +179,19 @@ app.post('/api/generate', async (req, res) => {
                 }
             }
         }
+
+        if (success && base64Image) {
+            return res.json({
+                success: true,
+                imageUrl: base64Image.startsWith('data:') ? base64Image : `data:image/png;base64,${base64Image}`
+            });
+        }
+
+        return res.status(500).json({
+            success: false,
+            message: 'A API não retornou dados válidos da imagem.',
+            error: lastError
+        });
 
     } catch (error) {
         console.error('[Proxy Error]:', error);
@@ -1245,12 +1259,13 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         let bytesBase64 = '';
         let success = false;
         let lastError = null;
+        let isGoogleKey = false;
 
         // TENTATIVA 1: HUGGING FACE (se houver chave HF)
         if (isHF) {
             console.log(`[Custom Drawing] Tentando gerar imagem com Hugging Face (FLUX.1-schnell)...`);
             try {
-                const hfUrl = 'https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell';
+                const hfUrl = 'https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell';
                 const response = await fetch(hfUrl, {
                     method: 'POST',
                     headers: {
@@ -1262,7 +1277,8 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                     })
                 });
 
-                if (response.ok) {
+                const contentType = response.headers.get('content-type') || '';
+                if (response.ok && !contentType.includes('application/json')) {
                     const buffer = await response.arrayBuffer();
                     bytesBase64 = Buffer.from(buffer).toString('base64');
                     success = true;
@@ -1286,7 +1302,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                 geminiKey = process.env.NANOBANANA_API_KEY || '';
             }
 
-            const isGoogleKey = geminiKey.startsWith('AIza') || geminiKey.startsWith('AQ.');
+            isGoogleKey = geminiKey.startsWith('AIza') || geminiKey.startsWith('AQ.');
 
             if (isGoogleKey) {
                 const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
@@ -1376,7 +1392,8 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         if (!bytesBase64) {
             return res.status(500).json({
                 success: false,
-                message: 'A API não retornou dados válidos da imagem.'
+                message: 'A API não retornou dados válidos da imagem.',
+                error: lastError
             });
         }
 
