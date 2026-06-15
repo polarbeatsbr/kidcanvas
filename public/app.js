@@ -3811,15 +3811,34 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
     }
 
     function shareDrawingOnWhatsApp(imageUrl, promptText) {
-        const message = `Olha o desenho que eu criei no KidCanvas! 🎨\n\n"${promptText}"\n\nCrie o seu também em: https://www.kidcanvas.com.br`;
+        let absoluteImageUrl = imageUrl;
+        if (imageUrl && imageUrl.startsWith('/')) {
+            absoluteImageUrl = window.location.origin + imageUrl;
+        }
+        const imagePart = (absoluteImageUrl && !absoluteImageUrl.startsWith('data:')) ? `${absoluteImageUrl}\n\n` : '';
+        const message = `Olha o desenho que eu criei no KidCanvas! 🎨\n\n"${promptText}"\n\n${imagePart}Crie o seu também em: https://www.kidcanvas.com.br`;
         const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 
     function shareStoryOnWhatsApp(title) {
         const message = `Criei um livro mágico personalizado chamado "${title}" no KidCanvas! 📖✨\n\nVocê também pode criar histórias personalizadas com ilustrações lindas para seus filhos! Acesse: https://www.kidcanvas.com.br`;
         const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 
     function sharePreloadedStoryOnWhatsApp(storyKey) {
@@ -4069,9 +4088,21 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
 }
 
 function shareSavedDrawingOnWhatsApp(imageUrl, promptText) {
-    const message = `Olha o desenho que eu criei no KidCanvas! 🎨\n\n"${promptText}"\n\nCrie o seu também em: https://www.kidcanvas.com.br`;
+    let absoluteImageUrl = imageUrl;
+    if (imageUrl && imageUrl.startsWith('/')) {
+        absoluteImageUrl = window.location.origin + imageUrl;
+    }
+    const imagePart = (absoluteImageUrl && !absoluteImageUrl.startsWith('data:')) ? `${absoluteImageUrl}\n\n` : '';
+    const message = `Olha o desenho que eu criei no KidCanvas! 🎨\n\n"${promptText}"\n\n${imagePart}Crie o seu também em: https://www.kidcanvas.com.br`;
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
 }
 
 function openImageLightbox(imageUrl, altText) {
