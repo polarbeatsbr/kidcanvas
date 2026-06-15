@@ -375,6 +375,14 @@ button, input, select, textarea {
     background-color: #d6870a;
 }
 
+.btn-hero-purple {
+    background-color: var(--color-purple) !important;
+}
+
+.btn-hero-purple:hover {
+    background-color: #643f8a !important;
+}
+
 /* Hero Mascotes - Imagem Cópia da Sala */
 .hero-mascots {
     display: flex;
@@ -1682,4 +1690,113 @@ button, input, select, textarea {
         margin: 20px 12px 40px 12px;
     }
 }
+
+/* --- GOOGLE OAUTH & PROFILE WIDGET --- */
+.header-auth {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+    flex-shrink: 0;
+}
+
+.user-profile-widget {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--color-purple-light);
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    box-shadow: var(--shadow-cartoon-active);
+    transition: var(--transition-bounce);
+}
+
+.user-profile-widget:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-cartoon);
+}
+
+.user-avatar-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: var(--border-thin);
+    object-fit: cover;
+    background-color: var(--color-white);
+}
+
+.user-meta-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.user-name-text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--color-purple);
+    line-height: 1.1;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.plan-badge-tag {
+    font-size: 0.75rem;
+    background-color: var(--color-purple);
+    color: var(--color-white);
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn-logout-icon {
+    background: none;
+    border: none;
+    color: var(--color-red);
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    transition: var(--transition-bounce);
+}
+
+.btn-logout-icon:hover {
+    transform: scale(1.2) rotate(10deg);
+}
+
+/* Ajustes responsivos adicionais para o header-auth no celular */
+@media (max-width: 768px) {
+    .header-auth {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        margin-left: 0;
+    }
+    
+    .user-profile-widget {
+        padding: 4px 8px;
+        gap: 6px;
+    }
+    
+    .user-name-text {
+        display: none; /* Esconder nome no celular para caber na tela */
+    }
+    
+    .user-avatar-circle {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .plan-badge-tag {
+        font-size: 0.7rem;
+        padding: 0px 4px;
+    }
+}
+
 

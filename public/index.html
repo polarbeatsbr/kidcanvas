@@ -32,6 +32,9 @@
 
     <!-- CSS Customizado -->
     <link rel="stylesheet" href="/style.css">
+    
+    <!-- Google Identity Services (Google Sign-In) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -60,8 +63,22 @@
                     <li><a href="/categoria/veiculos" class="nav-link"><i class="fa-solid fa-car"></i> Veículos</a></li>
                     <li><a href="/top50" class="nav-link"><i class="fa-solid fa-trophy"></i> Top 50</a></li>
                     <li><a href="/categorias" class="nav-link"><i class="fa-solid fa-shapes"></i> Todos os temas</a></li>
+                    <li><a href="/historias-magicas" class="nav-link" style="color: var(--color-purple); font-weight: 700; background-color: var(--color-purple-light);"><i class="fa-solid fa-book-open"></i> Histórias Mágicas ✨</a></li>
                 </ul>
             </nav>
+            
+            <!-- Autenticação com Google e Perfil do Usuário -->
+            <div class="header-auth" id="header-auth-container">
+                <div id="google-signin-btn-header" class="google-btn-header"></div>
+                <div id="user-profile-widget" class="user-profile-widget" style="display: none;">
+                    <img id="user-avatar-img" class="user-avatar-circle" src="" alt="Avatar">
+                    <div class="user-meta-info">
+                        <span id="user-display-name" class="user-name-text">Nome</span>
+                        <span id="user-plan-badge" class="plan-badge-tag">Plano</span>
+                    </div>
+                    <button id="btn-logout-header" class="btn-logout-icon" title="Sair do KidCanvas" onclick="handleHeaderLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -87,7 +104,10 @@
                         <p class="hero-desc">
                             São centenas de desenhos grátis, prontos para imprimir em casa. Todo amor, nenhum custo!
                         </p>
-                        <a href="#home-drawings-grid" class="btn btn-secondary btn-hero"><i class="fa-solid fa-print"></i> Quero desenhos grátis!</a>
+                        <div class="hero-buttons" style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                            <a href="#home-drawings-grid" class="btn btn-secondary btn-hero"><i class="fa-solid fa-print"></i> Quero desenhos grátis!</a>
+                            <a href="/historias-magicas" class="btn btn-hero btn-hero-purple"><i class="fa-solid fa-book-open"></i> Criar Livro Mágico ✨</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -469,6 +489,10 @@
         <a href="/categorias" class="mobile-nav-item" id="mobile-nav-categorias">
             <i class="fa-solid fa-shapes"></i>
             <span>Temas</span>
+        </a>
+        <a href="/historias-magicas" class="mobile-nav-item" id="mobile-nav-historia" style="color: var(--color-purple);">
+            <i class="fa-solid fa-book-open"></i>
+            <span>Histórias Mágicas</span>
         </a>
         <a href="#" class="mobile-nav-item" id="mobile-nav-search-trigger">
             <i class="fa-solid fa-magnifying-glass"></i>

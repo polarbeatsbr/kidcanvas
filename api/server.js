@@ -480,8 +480,10 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             imageUrl: imageUrls[idx + 1]
         }));
 
-        // Deduce user balance and save
-        user.balance -= numPages;
+        // Deduce user balance and save (skip deduction if plan is Ultra or user is foneoliver@gmail.com)
+        if (user.email !== 'foneoliver@gmail.com' && user.plan !== 'Ultra') {
+            user.balance -= numPages;
+        }
         await saveUsers(users);
 
         return res.json({
@@ -695,6 +697,102 @@ app.post('/api/rate', (req, res) => {
 // AUTHENTICATION & PLAN ENDPOINTS
 // -------------------------------------------------------------
 
+// Endpoint de Configurações Públicas
+app.get('/api/config', (req, res) => {
+    return res.json({
+        googleClientId: process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
+    });
+});
+
+// Endpoint de Login com Google (Google OAuth)
+app.post('/api/auth/google', async (req, res) => {
+    try {
+        const { credential } = req.body;
+        if (!credential) {
+            return res.status(400).json({ success: false, message: 'ID Token do Google ausente.' });
+        }
+
+        // 1. Verificar o ID Token do Google usando o endpoint tokeninfo oficial
+        console.log('[Google Auth] Verificando token com Google...');
+        const tokeninfoUrl = `https://oauth2.googleapis.com/tokeninfo?id_token=${encodeURIComponent(credential)}`;
+        const verifyRes = await fetch(tokeninfoUrl);
+        
+        if (!verifyRes.ok) {
+            const errText = await verifyRes.text().catch(() => '');
+            console.error('[Google Auth Error] Resposta da API do Google:', verifyRes.status, errText);
+            return res.status(400).json({ success: false, message: 'Token de autenticação do Google inválido.' });
+        }
+
+        const payload = await verifyRes.json();
+        
+        // Validar e-mail verificado
+        if (payload.email_verified !== 'true' && payload.email_verified !== true) {
+            return res.status(400).json({ success: false, message: 'E-mail do Google não verificado.' });
+        }
+
+        const email = payload.email.trim().toLowerCase();
+        const name = payload.name || payload.given_name || 'Escritor Mágico';
+        const photo = payload.picture || '';
+        const googleId = payload.sub;
+
+        // 2. Carregar a lista de usuários e realizar o upsert
+        const users = await loadUsers();
+        let user = users.find(u => u.email === email);
+        const sessionToken = crypto.randomBytes(16).toString('hex');
+        const tokenExpiry = Date.now() + 30 * 24 * 60 * 60 * 1000; // 30 dias
+
+        if (!user) {
+            // Criar novo usuário
+            user = {
+                id: crypto.randomUUID(),
+                googleId: googleId,
+                name: name,
+                email: email,
+                photo: photo,
+                plan: 'Grátis',
+                balance: 1,
+                token: sessionToken,
+                tokenExpiry: tokenExpiry
+            };
+            users.push(user);
+            console.log(`[Google Auth] Novo usuário criado: ${email}`);
+        } else {
+            // Atualizar usuário existente
+            user.googleId = googleId;
+            user.name = name;
+            if (photo) user.photo = photo;
+            user.token = sessionToken;
+            user.tokenExpiry = tokenExpiry;
+            console.log(`[Google Auth] Usuário existente logado: ${email}`);
+        }
+
+        // Regra especial para foneoliver@gmail.com
+        if (email === 'foneoliver@gmail.com') {
+            user.plan = 'Ultra';
+            user.balance = 999999;
+            console.log(`[Google Auth] Plano Ultra ILIMITADO ativado automaticamente para foneoliver@gmail.com!`);
+        }
+
+        await saveUsers(users);
+
+        return res.json({
+            success: true,
+            user: {
+                name: user.name,
+                email: user.email,
+                photo: user.photo || '',
+                plan: user.plan,
+                balance: user.balance
+            },
+            token: sessionToken
+        });
+
+    } catch (err) {
+        console.error('Erro na autenticação do Google:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno no servidor ao realizar login com Google.' });
+    }
+});
+
 // Endpoint de Cadastro
 app.post('/api/auth/signup', async (req, res) => {
     try {
@@ -717,8 +815,9 @@ app.post('/api/auth/signup', async (req, res) => {
             name: name.trim(),
             email: cleanEmail,
             passwordHash: hashPassword(password),
-            plan: 'Grátis',
-            balance: 1,
+            plan: cleanEmail === 'foneoliver@gmail.com' ? 'Ultra' : 'Grátis',
+            balance: cleanEmail === 'foneoliver@gmail.com' ? 999999 : 1,
+            photo: '',
             token: sessionToken,
             tokenExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 dias
         };
@@ -731,6 +830,7 @@ app.post('/api/auth/signup', async (req, res) => {
             user: {
                 name: newUser.name,
                 email: newUser.email,
+                photo: newUser.photo || '',
                 plan: newUser.plan,
                 balance: newUser.balance
             },
@@ -764,11 +864,18 @@ app.post('/api/auth/login', async (req, res) => {
         
         await saveUsers(users);
         
+        if (cleanEmail === 'foneoliver@gmail.com') {
+            user.plan = 'Ultra';
+            user.balance = 999999;
+            await saveUsers(users);
+        }
+
         return res.json({
             success: true,
             user: {
                 name: user.name,
                 email: user.email,
+                photo: user.photo || '',
                 plan: user.plan,
                 balance: user.balance
             },
@@ -795,11 +902,17 @@ app.get('/api/auth/me', async (req, res) => {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
         
+        if (user.email === 'foneoliver@gmail.com') {
+            user.plan = 'Ultra';
+            user.balance = 999999;
+        }
+
         return res.json({
             success: true,
             user: {
                 name: user.name,
                 email: user.email,
+                photo: user.photo || '',
                 plan: user.plan,
                 balance: user.balance
             }
@@ -833,6 +946,11 @@ app.post('/api/user/upgrade', async (req, res) => {
         user.plan = planName;
         user.balance = parseInt(pageAmount, 10);
         
+        if (user.email === 'foneoliver@gmail.com') {
+            user.plan = 'Ultra';
+            user.balance = 999999;
+        }
+        
         await saveUsers(users);
         
         return res.json({
@@ -840,6 +958,7 @@ app.post('/api/user/upgrade', async (req, res) => {
             user: {
                 name: user.name,
                 email: user.email,
+                photo: user.photo || '',
                 plan: user.plan,
                 balance: user.balance
             }

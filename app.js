@@ -40,8 +40,151 @@ let allDrawings = [];
 let lastSelectedPhrase = "";
 let currentDrawingPhrase = "";
 
+// --- SISTEMA DE AUTENTICAÇÃO E SESSÃO ---
+let sessionToken = localStorage.getItem("kidcanvas_session_token") || null;
+let currentUser = null;
+
+async function syncUserProfile() {
+    if (!sessionToken) {
+        updateHeaderAuthDisplay();
+        return;
+    }
+    try {
+        const res = await fetch('/api/auth/me', {
+            headers: { 'X-Session-Token': sessionToken }
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+            currentUser = data.user;
+            updateHeaderAuthDisplay();
+        } else {
+            sessionToken = null;
+            currentUser = null;
+            localStorage.removeItem("kidcanvas_session_token");
+            updateHeaderAuthDisplay();
+        }
+    } catch(e) {
+        console.error("Erro ao sincronizar perfil:", e);
+        updateHeaderAuthDisplay();
+    }
+}
+
+function updateHeaderAuthDisplay() {
+    const googleBtn = document.getElementById('google-signin-btn-header');
+    const userWidget = document.getElementById('user-profile-widget');
+    const userAvatar = document.getElementById('user-avatar-img');
+    const userDisplayName = document.getElementById('user-display-name');
+    const userPlanBadge = document.getElementById('user-plan-badge');
+
+    if (!googleBtn || !userWidget) return;
+
+    if (currentUser) {
+        googleBtn.style.display = 'none';
+        userWidget.style.display = 'flex';
+        
+        userAvatar.src = currentUser.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+        userDisplayName.textContent = currentUser.name.split(' ')[0];
+        userPlanBadge.textContent = currentUser.plan;
+        
+        if (currentUser.plan === 'Ultra') {
+            userPlanBadge.style.backgroundColor = 'var(--color-orange)';
+            userPlanBadge.textContent = 'Ultra ⚡';
+        } else {
+            userPlanBadge.style.backgroundColor = 'var(--color-purple)';
+        }
+    } else {
+        googleBtn.style.display = 'block';
+        userWidget.style.display = 'none';
+    }
+}
+
+async function initGoogleSignIn() {
+    try {
+        const response = await fetch('/api/config');
+        const config = await response.json();
+        const clientId = config.googleClientId;
+        if (!clientId || clientId.startsWith('YOUR_GOOGLE_CLIENT_ID')) {
+            console.warn("[Google Auth] Client ID não configurado no backend (usando placeholder).");
+            return;
+        }
+
+        google.accounts.id.initialize({
+            client_id: clientId,
+            callback: handleGoogleCredentialResponse
+        });
+
+        const googleBtn = document.getElementById("google-signin-btn-header");
+        if (googleBtn) {
+            const isMobile = window.innerWidth <= 768;
+            google.accounts.id.renderButton(googleBtn, {
+                theme: "outline",
+                size: isMobile ? "small" : "medium",
+                shape: "pill",
+                text: "signin_with",
+                logo_alignment: "left"
+            });
+        }
+    } catch (err) {
+        console.error("[Google Auth] Erro ao inicializar o Google Sign-In:", err);
+    }
+}
+
+async function handleGoogleCredentialResponse(response) {
+    try {
+        console.log("[Google Auth] Login efetuado, enviando token ao servidor...");
+        const res = await fetch('/api/auth/google', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ credential: response.credential })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+            sessionToken = data.token;
+            localStorage.setItem("kidcanvas_session_token", sessionToken);
+            currentUser = data.user;
+            
+            updateHeaderAuthDisplay();
+            showToast(`Bem-vindo, ${currentUser.name}! 👋`, 'success');
+            
+            // Recarregar a página se estiver na tela de histórias mágicas para sincronizar
+            if (window.location.pathname.includes('/historias-magicas') || window.location.pathname.includes('historia.html')) {
+                window.location.reload();
+            }
+        } else {
+            showToast(`Erro na autenticação: ${data.message}`, 'error');
+        }
+    } catch (err) {
+        console.error("[Google Auth Error]:", err);
+        showToast("Erro ao conectar ao servidor para autenticação com Google.", "error");
+    }
+}
+
+function handleHeaderLogout() {
+    sessionToken = null;
+    currentUser = null;
+    localStorage.removeItem("kidcanvas_session_token");
+    updateHeaderAuthDisplay();
+    showToast("Você saiu da sua conta.", "info");
+    
+    if (window.location.pathname.includes('/historias-magicas') || window.location.pathname.includes('historia.html')) {
+        window.location.reload();
+    }
+}
+
+function checkGsiLoaded() {
+    if (window.google && window.google.accounts && window.google.accounts.id) {
+        initGoogleSignIn();
+    } else {
+        setTimeout(checkGsiLoaded, 100);
+    }
+}
+
 // --- INICIALIZAÇÃO ---
 window.addEventListener('DOMContentLoaded', async () => {
+    await syncUserProfile();
+    checkGsiLoaded();
     await loadDrawings();
     initGlobalEventListeners();
     initSearchAutocomplete();

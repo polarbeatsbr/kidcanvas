@@ -32,6 +32,9 @@
 
     <!-- CSS Customizado -->
     <link rel="stylesheet" href="/style.css">
+    
+    <!-- Google Identity Services (Google Sign-In) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
@@ -63,6 +66,19 @@
                     <li><a href="/historias-magicas" class="nav-link" style="color: var(--color-purple); font-weight: 700; background-color: var(--color-purple-light);"><i class="fa-solid fa-book-open"></i> Histórias Mágicas ✨</a></li>
                 </ul>
             </nav>
+            
+            <!-- Autenticação com Google e Perfil do Usuário -->
+            <div class="header-auth" id="header-auth-container">
+                <div id="google-signin-btn-header" class="google-btn-header"></div>
+                <div id="user-profile-widget" class="user-profile-widget" style="display: none;">
+                    <img id="user-avatar-img" class="user-avatar-circle" src="" alt="Avatar">
+                    <div class="user-meta-info">
+                        <span id="user-display-name" class="user-name-text">Nome</span>
+                        <span id="user-plan-badge" class="plan-badge-tag">Plano</span>
+                    </div>
+                    <button id="btn-logout-header" class="btn-logout-icon" title="Sair do KidCanvas" onclick="handleHeaderLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </div>
         </div>
     </header>
 
