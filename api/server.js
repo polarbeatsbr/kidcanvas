@@ -267,10 +267,10 @@ app.post('/api/generate-full-story', async (req, res) => {
         }
 
         const numPages = parseInt(pageCount, 10) || 4;
-        if (![4, 6, 8, 10].includes(numPages)) {
+        if (![2, 4, 6, 8, 10].includes(numPages)) {
             return res.status(400).json({
                 success: false,
-                message: 'Número de páginas inválido. Escolha 4, 6, 8 ou 10.'
+                message: 'Número de páginas inválido. Escolha 2, 4, 6, 8 ou 10.'
             });
         }
 
@@ -310,10 +310,10 @@ app.post('/api/generate-full-story', async (req, res) => {
             });
         }
 
-        if (user.balance < numPages) {
+        if (user.paginasRestantes < numPages) {
             return res.status(400).json({
                 success: false,
-                message: `Saldo insuficiente! Esta história requer ${numPages} páginas, mas você possui apenas ${user.balance} página(s) de saldo.`
+                message: `Saldo insuficiente! Esta história requer ${numPages} páginas, mas você possui apenas ${user.paginasRestantes} página(s) de saldo.`
             });
         }
 
@@ -511,7 +511,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
 
         // Deduce user balance and save (skip deduction if plan is Ultra or user is foneoliver@gmail.com)
         if (user.email !== 'foneoliver@gmail.com' && user.plan !== 'Ultra') {
-            user.balance -= numPages;
+            user.paginasRestantes -= numPages;
         }
         await saveUsers(users);
 
@@ -779,7 +779,7 @@ app.post('/api/auth/google', async (req, res) => {
                 email: email,
                 photo: photo,
                 plan: 'Grátis',
-                balance: 4,
+                paginasRestantes: 4,
                 token: sessionToken,
                 tokenExpiry: tokenExpiry
             };
@@ -798,7 +798,7 @@ app.post('/api/auth/google', async (req, res) => {
         // Regra especial para foneoliver@gmail.com
         if (email === 'foneoliver@gmail.com') {
             user.plan = 'Ultra';
-            user.balance = 999999;
+            user.paginasRestantes = 999999;
             console.log(`[Google Auth] Plano Ultra ILIMITADO ativado automaticamente para foneoliver@gmail.com!`);
         }
 
@@ -811,7 +811,7 @@ app.post('/api/auth/google', async (req, res) => {
                 email: user.email,
                 photo: user.photo || '',
                 plan: user.plan,
-                balance: user.balance
+                paginasRestantes: user.paginasRestantes
             },
             token: sessionToken
         });
@@ -845,7 +845,7 @@ app.post('/api/auth/signup', async (req, res) => {
             email: cleanEmail,
             passwordHash: hashPassword(password),
             plan: cleanEmail === 'foneoliver@gmail.com' ? 'Ultra' : 'Grátis',
-            balance: cleanEmail === 'foneoliver@gmail.com' ? 999999 : 4,
+            paginasRestantes: cleanEmail === 'foneoliver@gmail.com' ? 999999 : 4,
             photo: '',
             token: sessionToken,
             tokenExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 dias
@@ -861,7 +861,7 @@ app.post('/api/auth/signup', async (req, res) => {
                 email: newUser.email,
                 photo: newUser.photo || '',
                 plan: newUser.plan,
-                balance: newUser.balance
+                paginasRestantes: newUser.paginasRestantes
             },
             token: sessionToken
         });
@@ -895,7 +895,7 @@ app.post('/api/auth/login', async (req, res) => {
         
         if (cleanEmail === 'foneoliver@gmail.com') {
             user.plan = 'Ultra';
-            user.balance = 999999;
+            user.paginasRestantes = 999999;
             await saveUsers(users);
         }
 
@@ -906,7 +906,7 @@ app.post('/api/auth/login', async (req, res) => {
                 email: user.email,
                 photo: user.photo || '',
                 plan: user.plan,
-                balance: user.balance
+                paginasRestantes: user.paginasRestantes
             },
             token: sessionToken
         });
@@ -933,7 +933,7 @@ app.get('/api/auth/me', async (req, res) => {
         
         if (user.email === 'foneoliver@gmail.com') {
             user.plan = 'Ultra';
-            user.balance = 999999;
+            user.paginasRestantes = 999999;
         }
 
         return res.json({
@@ -943,7 +943,7 @@ app.get('/api/auth/me', async (req, res) => {
                 email: user.email,
                 photo: user.photo || '',
                 plan: user.plan,
-                balance: user.balance
+                paginasRestantes: user.paginasRestantes
             }
         });
     } catch(err) {
@@ -973,11 +973,11 @@ app.post('/api/user/upgrade', async (req, res) => {
         }
         
         user.plan = planName;
-        user.balance = parseInt(pageAmount, 10);
+        user.paginasRestantes = parseInt(pageAmount, 10);
         
         if (user.email === 'foneoliver@gmail.com') {
             user.plan = 'Ultra';
-            user.balance = 999999;
+            user.paginasRestantes = 999999;
         }
         
         await saveUsers(users);
@@ -989,12 +989,180 @@ app.post('/api/user/upgrade', async (req, res) => {
                 email: user.email,
                 photo: user.photo || '',
                 plan: user.plan,
-                balance: user.balance
+                paginasRestantes: user.paginasRestantes
             }
         });
     } catch(err) {
         console.error('Erro no upgrade de plano:', err);
         return res.status(500).json({ success: false, message: 'Erro ao processar upgrade de plano.' });
+    }
+});
+
+// Endpoint para gerar desenho para colorir personalizado (consome 1 crédito)
+app.post('/api/generate-custom-drawing', async (req, res) => {
+    try {
+        const { userPrompt } = req.body;
+        if (!userPrompt || !userPrompt.trim()) {
+            return res.status(400).json({
+                success: false,
+                message: 'A descrição do desenho é obrigatória.'
+            });
+        }
+
+        // 1. Validar token de sessão do usuário no R2DB
+        const token = req.headers['x-session-token'];
+        if (!token) {
+            return res.status(401).json({
+                success: false,
+                message: 'Por favor, faça login ou cadastre-se para criar desenhos personalizados.'
+            });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Sessão inválida ou expirada. Faça login novamente.'
+            });
+        }
+
+        if (user.paginasRestantes < 1) {
+            return res.status(400).json({
+                success: false,
+                message: 'Saldo insuficiente! Você possui 0 créditos.'
+            });
+        }
+
+        // 2. Obter a chave de API do Gemini/Imagen
+        const authHeader = req.headers['authorization'];
+        let apiKey = '';
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+            apiKey = authHeader.split(' ')[1];
+        }
+        if (!apiKey || apiKey.trim() === 'null' || apiKey.trim() === 'undefined') {
+            apiKey = process.env.NANOBANANA_API_KEY || '';
+        }
+        if (!apiKey) {
+            return res.status(401).json({
+                success: false,
+                message: 'Chave de API não configurada.'
+            });
+        }
+
+        console.log(`[Custom Drawing] Gerando desenho para "${user.email}" com prompt: "${userPrompt}"...`);
+
+        // Construir prompt para desenho de colorir
+        const finalPrompt = `clean black and white line art coloring page style, showing ${userPrompt.trim()}, thick clear outlines, white background, no shading, no gray, pure black and white lines, suitable for children coloring book, clean edges`;
+
+        const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
+
+        let bytesBase64 = '';
+
+        if (isGoogleKey) {
+            const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict`;
+            const response = await fetch(googleUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-goog-api-key': apiKey
+                },
+                body: JSON.stringify({
+                    instances: [
+                        {
+                            prompt: finalPrompt
+                        }
+                    ],
+                    parameters: {
+                        sampleCount: 1,
+                        aspectRatio: "1:1",
+                        outputMimeType: "image/jpeg"
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                const rawText = await response.text().catch(() => '');
+                console.error('[Google Imagen Custom Error]:', response.status, rawText);
+                return res.status(500).json({
+                    success: false,
+                    message: 'Erro na API do Google AI Studio Imagen ao desenhar.'
+                });
+            }
+
+            const data = await response.json();
+            bytesBase64 = data.predictions?.[0]?.bytesBase64Encoded;
+        } else {
+            // Fallback NanoBanana
+            const response = await fetch('https://www.nananobanana.com/api/v1/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`
+                },
+                body: JSON.stringify({
+                    prompt: finalPrompt,
+                    rendering_speed: "TURBO",
+                    num_images: 1
+                })
+            });
+
+            if (!response.ok) {
+                const rawText = await response.text().catch(() => '');
+                console.error('[NanoBanana Custom Error]:', response.status, rawText);
+                return res.status(500).json({
+                    success: false,
+                    message: 'Erro na API NanoBanana ao desenhar.'
+                });
+            }
+
+            const data = await response.json();
+            const url = data.data?.outputImageUrls?.[0] || data.outputImageUrls?.[0] || data.data?.[0]?.url;
+            if (!url) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'A API não retornou nenhuma imagem.'
+                });
+            }
+            // Converter imagem em Base64 para retornar uniformemente
+            try {
+                const imgRes = await fetch(url);
+                const arrayBuffer = await imgRes.arrayBuffer();
+                bytesBase64 = Buffer.from(arrayBuffer).toString('base64');
+            } catch (e) {
+                console.error('[Convert Image Error]:', e.message);
+                bytesBase64 = url; // Fallback URL se falhar a conversão
+            }
+        }
+
+        if (!bytesBase64) {
+            return res.status(500).json({
+                success: false,
+                message: 'A API não retornou dados válidos da imagem.'
+            });
+        }
+
+        // Deduce user credits (skip deduction if plan is Ultra or user is foneoliver@gmail.com)
+        if (user.email !== 'foneoliver@gmail.com' && user.plan !== 'Ultra') {
+            user.paginasRestantes -= 1;
+        }
+        await saveUsers(users);
+
+        const returnImage = bytesBase64.startsWith('http') ? bytesBase64 : `data:image/jpeg;base64,${bytesBase64}`;
+
+        return res.json({
+            success: true,
+            imageUrl: returnImage,
+            paginasRestantes: user.paginasRestantes
+        });
+
+    } catch (error) {
+        console.error('[Custom Drawing Error]:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Erro interno ao processar a geração do desenho pelo servidor.',
+            error: error.message
+        });
     }
 });
 

@@ -38,6 +38,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/gerar-desenho",
+      "destination": "/index.html"
+    },
+    {
       "source": "/categoria/:path*",
       "destination": "/index.html"
     },

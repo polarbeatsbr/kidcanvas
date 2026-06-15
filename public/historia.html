@@ -1298,6 +1298,10 @@
         <div class="form-group">
             <label>📚 Número de Páginas (Consome saldo do plano)</label>
             <div class="pages-grid">
+                <label class="page-card" id="card2">
+                    <input type="radio" name="pageCount" value="2">
+                    <div class="page-card-title">2 Páginas</div>
+                </label>
                 <label class="page-card active" id="card4">
                     <input type="radio" name="pageCount" value="4" checked>
                     <div class="page-card-title">4 Páginas</div>
@@ -1516,7 +1520,24 @@
             </div>
         </div>
     </div>
-</div><!-- Preloaded Stories Viewer Modal Overlay -->
+</div>
+
+<!-- Modal de Créditos Esgotados -->
+<div class="modal-overlay" id="creditsModal">
+    <div class="modal-box" style="text-align: center; max-width: 400px; padding: 30px; border: var(--border-medium); border-radius: var(--radius-sm); box-shadow: var(--shadow-cartoon);">
+        <button class="btn-close-modal" onclick="closeCreditsModal()">✕</button>
+        <div style="font-size: 4rem; margin-bottom: 15px;">😢</div>
+        <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-dark); margin-bottom: 10px;">Seus créditos acabaram!</h3>
+        <p id="creditsModalMessage" style="font-size: 1rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 25px;">
+            Faça upgrade de plano para adicionar saldo e continuar criando histórias mágicas.
+        </p>
+        <button class="btn btn-secondary" onclick="handleVerPlanosClick()" style="font-size: 1.1rem; padding: 12px 20px; width: 100%; display: inline-flex; justify-content: center; border-radius: var(--radius-sm); font-weight: 700; border: none; cursor: pointer; background-color: var(--color-orange); color: white;">
+            Ver Planos 🚀
+        </button>
+    </div>
+</div>
+
+<!-- Preloaded Stories Viewer Modal Overlay -->
 <div class="viewer-modal-overlay" id="viewerModal">
     <div class="viewer-modal-box">
         <button class="btn-close-viewer" onclick="closeViewer()">&times;</button>
@@ -1690,7 +1711,7 @@
                 balanceDisplay.textContent = `Saldo: Ilimitado`;
             } else {
                 planDisplay.textContent = `Plano: ${currentUser.plan}`;
-                balanceDisplay.textContent = `Saldo: ${currentUser.balance} página(s)`;
+                balanceDisplay.textContent = `Saldo: ${currentUser.paginasRestantes} página(s)`;
             }
             
             if (avatarSlot) {
@@ -1724,18 +1745,20 @@
         const plan = currentUser ? currentUser.plan : 'Grátis';
         
         // --- 1. Restrição de Páginas do Livro ---
+        const card2 = document.getElementById('card2');
         const card4 = document.getElementById('card4');
         const card6 = document.getElementById('card6');
         const card8 = document.getElementById('card8');
         const card10 = document.getElementById('card10');
         
+        const radio2 = document.querySelector('input[name="pageCount"][value="2"]');
         const radio4 = document.querySelector('input[name="pageCount"][value="4"]');
         const radio6 = document.querySelector('input[name="pageCount"][value="6"]');
         const radio8 = document.querySelector('input[name="pageCount"][value="8"]');
         const radio10 = document.querySelector('input[name="pageCount"][value="10"]');
         
         // Resetar bloqueios
-        [card4, card6, card8, card10].forEach(card => {
+        [card2, card4, card6, card8, card10].forEach(card => {
             if (card) {
                 card.classList.remove('locked-option');
                 card.style.opacity = '1';
@@ -1768,7 +1791,7 @@
         }
         
         // Escutar cliques para interceptar opções bloqueadas
-        [card4, card6, card8, card10].forEach(card => {
+        [card2, card4, card6, card8, card10].forEach(card => {
             if (card) {
                 card.onclick = (e) => {
                     if (card.classList.contains('locked-option')) {
@@ -1862,6 +1885,32 @@
     function closePlansModal() {
         plansModal.classList.remove('open');
     }
+
+    function openCreditsModal(message) {
+        const modal = document.getElementById('creditsModal');
+        const msgEl = document.getElementById('creditsModalMessage');
+        if (modal) {
+            if (msgEl && message) {
+                msgEl.textContent = message;
+            }
+            modal.classList.add('open');
+        }
+    }
+    
+    function closeCreditsModal() {
+        const modal = document.getElementById('creditsModal');
+        if (modal) {
+            modal.classList.remove('open');
+        }
+    }
+    
+    function handleVerPlanosClick() {
+        closeCreditsModal();
+        openPlansModal();
+    }
+    
+    window.closeCreditsModal = closeCreditsModal;
+    window.handleVerPlanosClick = handleVerPlanosClick;
 
     // Switch tabs
     function switchAuthTab(tab) {
@@ -1982,9 +2031,8 @@
                 localStorage.removeItem("kidcanvas_session_token");
                 updateNavbarDisplay();
                 
-                // Sem acesso às Histórias Mágicas para visitantes (redirecionar se token expirar)
+                // Token expirou - apenas atualiza interface sem redirecionar
                 localStorage.setItem("kidcanvas_trigger_auth", "true");
-                window.location.href = "/";
             }
         } catch(e) {
             console.error("Erro ao sincronizar perfil:", e);
@@ -2093,10 +2141,6 @@
     updateNavbarDisplay();
     if (sessionToken) {
         syncUserProfile();
-    } else {
-        // Sem acesso às Histórias Mágicas para visitantes
-        localStorage.setItem("kidcanvas_trigger_auth", "true");
-        window.location.href = "/";
     }
     
     function checkGsiLoaded() {
@@ -2215,13 +2259,14 @@
 
         // 2. Validar Saldo do Plano
         if (!currentUser) {
-            showError("Ops! Por favor, faça login ou cadastre-se para criar histórias.");
+            showError("Cadastre-se grátis para criar!");
             openPlansModal();
+            switchAuthTab('register');
             return;
         }
-        if (currentUser.balance < pageCount) {
-            showError(`Saldo insuficiente! Esta história requer ${pageCount} páginas, mas você possui apenas ${currentUser.balance} página(s) de saldo. Acesse o painel de Planos para atualizar seu saldo.`);
-            openPlansModal();
+        const hasUnlimited = currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com';
+        if (!hasUnlimited && currentUser.paginasRestantes < pageCount) {
+            openCreditsModal('Seus créditos acabaram! Faça upgrade de plano para adicionar saldo.');
             return;
         }
         

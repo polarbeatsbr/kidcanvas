@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧙‍♂️ Histórias Mágicas - PintAI</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables Matching KidCanvas Design System */
+        :root {
+            --color-dark: #3D281A;
+            --color-dark-light: #5C4033;
+            --color-bg: #FDF8F2;
+            --color-white: #FFFFFF;
+            
+            --color-purple: #7B4FA6;
+            --color-purple-light: #F2EBF9;
+            --color-yellow: #F39C12;
+            --color-yellow-light: #FEF9E7;
+            --color-orange: #E67E22;
+            --color-green: #2ECC71;
+            --color-green-light: #E8F8F5;
+            --color-blue: #3498DB;
+            --color-blue-light: #EBF5FB;
+            --color-red: #E74C3C;
+            --color-red-light: #FDEDEC;
+            
+            --font-heading: 'Fredoka', 'Quicksand', sans-serif;
+            --font-body: 'Quicksand', sans-serif;
+            
+            --border-thick: 4px solid var(--color-dark);
+            --border-medium: 3px solid var(--color-dark);
+            --border-thin: 2px solid var(--color-dark);
+            
+            --radius-sm: 16px;
+            --radius-md: 24px;
+            --radius-lg: 32px;
+            
+            --shadow-cartoon: 0 8px 0px rgba(61, 40, 26, 0.15);
+            --shadow-cartoon-hover: 0 12px 0px rgba(61, 40, 26, 0.18);
+            --shadow-cartoon-active: 0 3px 0px rgba(61, 40, 26, 0.15);
+            
+            --transition-bounce: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition-smooth: all 0.2s ease-in-out;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-dark);
+            line-height: 1.6;
+            padding: 20px 10px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo-area {
+            display: inline-block;
+            background: var(--color-white);
+            border: var(--border-medium);
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-cartoon);
+            transform: rotate(-1deg);
+            margin-bottom: 15px;
+        }
+        
+        .logo-area h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--color-purple);
+            text-shadow: 2px 2px 0px var(--color-yellow);
+        }
+        
+        .logo-area h1 span {
+            color: var(--color-orange);
+        }
+        
+        .subtitle {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-dark-light);
+            margin-top: 5px;
+        }
+        
+        /* Main card layouts */
+        .card {
+            background-color: var(--color-white);
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-cartoon);
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Form fields */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--color-dark);
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 20px;
+            border: var(--border-medium);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-dark);
+            outline: none;
+            background-color: #FCFDFE;
+            transition: var(--transition-smooth);
+        }
+        
+        input[type="text"]:focus {
+            background-color: var(--color-yellow-light);
+            border-color: var(--color-yellow);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.15);
+        }
+        
+        /* Theme selection pills */
+        .theme-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .theme-pill {
+            background-color: var(--color-white);
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            padding: 10px 18px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            user-select: none;
+        }
+        
+        .theme-pill:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 4px 0px var(--color-dark);
+        }
+        
+        .theme-pill.active {
+            color: var(--color-white);
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+        
+        /* Individual pill colors when active */
+        .theme-pill[data-theme="floresta"].active { background-color: var(--color-green); }
+        .theme-pill[data-theme="espaco"].active { background-color: var(--color-purple); }
+        .theme-pill[data-theme="oceano"].active { background-color: var(--color-blue); }
+        .theme-pill[data-theme="dinossauros"].active { background-color: var(--color-orange); }
+        .theme-pill[data-theme="fantasia"].active { background-color: var(--color-red); }
+        .theme-pill[data-theme="custom"].active { background-color: var(--color-yellow); }
+        
+        .custom-theme-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+        
+        .custom-theme-wrapper.open {
+            max-height: 100px;
+        }
+        
+        /* Submit Button */
+        .btn-generate {
+            display: block;
+            width: 100%;
+            background-color: var(--color-yellow);
+            color: var(--color-white);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.4rem;
+            text-align: center;
+            padding: 16px;
+            border: var(--border-thick);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-cartoon);
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            text-shadow: 2px 2px 0px rgba(61, 40, 26, 0.4);
+            margin-top: 10px;
+        }
+        
+        .btn-generate:hover {
+            background-color: #f5b041;
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-cartoon-hover);
+        }
+        
+        .btn-generate:active {
+            transform: translateY(4px);
+            box-shadow: var(--shadow-cartoon-active);
+        }
+        
+        /* Loading Screen */
+        .loading-container {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .spinner {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .spinner div {
+            box-sizing: border-box;
+            display: block;
+            position: absolute;
+            width: 64px;
+            height: 64px;
+            margin: 8px;
+            border: 8px solid var(--color-purple);
+            border-radius: 50%;
+            animation: spinner 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            border-color: var(--color-purple) transparent transparent transparent;
+        }
+        
+        .spinner div:nth-child(1) { animation-delay: -0.45s; }
+        .spinner div:nth-child(2) { animation-delay: -0.3s; }
+        .spinner div:nth-child(3) { animation-delay: -0.15s; }
+        
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-purple);
+            margin-top: 15px;
+            animation: pulse 1.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.6; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1.02); }
+        }
+        
+        /* Output grid split */
+        .output-container {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .output-container.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .output-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        @media(min-width: 768px) {
+            .output-grid {
+                grid-template-columns: 1.2fr 0.8fr;
+            }
+        }
+        
+        /* Storybook Layout */
+        .storybook-card {
+            background-color: var(--color-white);
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-cartoon);
+            padding: 35px;
+            position: relative;
+        }
+        
+        .storybook-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 25px;
+            bottom: 0;
+            width: 2px;
+            background-color: #fbeee6;
+            border-left: 2px dashed var(--color-orange);
+            opacity: 0.3;
+        }
+        
+        .storybook-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--color-purple);
+            margin-bottom: 25px;
+            padding-left: 15px;
+            border-left: 5px solid var(--color-purple);
+        }
+        
+        .storybook-content {
+            font-family: var(--font-body);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--color-dark-light);
+            padding-left: 15px;
+        }
+        
+        .storybook-content p {
+            margin-bottom: 20px;
+            text-indent: 15px;
+        }
+        
+        .storybook-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Illustration Art Frame */
+        .illustration-card {
+            background-color: var(--color-white);
+            border: var(--border-thick);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-cartoon);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .art-frame {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            background-color: #fafbfc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 10px;
+            position: relative;
+        }
+        
+        .art-frame svg {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .art-meta {
+            text-align: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--color-dark);
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .btn-action-group {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .btn-action {
+            flex: 1;
+            padding: 10px 15px;
+            border: var(--border-thin);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-align: center;
+            background-color: var(--color-purple-light);
+            color: var(--color-purple);
+            transition: var(--transition-bounce);
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 0 var(--color-dark);
+            background-color: var(--color-purple);
+            color: var(--color-white);
+        }
+        
+        .btn-action:active {
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+        
+        .btn-action.btn-print {
+            background-color: var(--color-green-light);
+            color: var(--color-green);
+        }
+        
+        .btn-action.btn-print:hover {
+            background-color: var(--color-green);
+            color: var(--color-white);
+        }
+        
+        /* Alert Message */
+        .alert {
+            display: none;
+            background-color: var(--color-red-light);
+            color: var(--color-red);
+            border: 2px solid var(--color-red);
+            border-radius: var(--radius-sm);
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        /* Back button */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            background: none;
+            border: none;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--color-purple);
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: var(--transition-smooth);
+        }
+        
+        .btn-back:hover {
+            color: var(--color-orange);
+            transform: translateX(-4px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <button class="btn-back" onclick="window.location.href='/'">👈 Voltar ao Início</button>
+        <br>
+        <div class="logo-area">
+            <h1>Pint<span>AI</span> - Histórias</h1>
+        </div>
+        <p class="subtitle">Crie uma história mágica ilustrada com o Gemini 2.0 Flash! ✨</p>
+    </header>
+
+    <!-- Alert for error reporting -->
+    <div id="errorAlert" class="alert"></div>
+
+    <!-- Main Generator Form Card -->
+    <div class="card" id="formCard">
+        <div class="form-group">
+            <label for="childName">👦 Nome da Criança</label>
+            <input type="text" id="childName" placeholder="Ex: Pedrinho, Sofia, Lucas..." autocomplete="off">
+        </div>
+        
+        <div class="form-group">
+            <label>🎨 Tema da Aventura</label>
+            <div class="theme-pills">
+                <button class="theme-pill active" data-theme="floresta">🌲 Floresta Encantada</button>
+                <button class="theme-pill" data-theme="espaco">🚀 Espaço Sideral</button>
+                <button class="theme-pill" data-theme="oceano">🧜‍♀️ Oceano Misterioso</button>
+                <button class="theme-pill" data-theme="dinossauros">🦖 Vale dos Dinossauros</button>
+                <button class="theme-pill" data-theme="fantasia">🏰 Castelo de Fantasia</button>
+                <button class="theme-pill" data-theme="custom">✨ Outro Tema...</button>
+            </div>
+            
+            <div class="custom-theme-wrapper" id="customThemeWrapper">
+                <input type="text" id="customThemeInput" placeholder="Digite seu próprio tema (ex: Fundo do Mar, Safari...)" autocomplete="off">
+            </div>
+        </div>
+
+        <button class="btn-generate" id="btnGenerate">🧙‍♂️ Gerar História Mágica</button>
+    </div>
+
+    <!-- Loading State Screen -->
+    <div class="card loading-container" id="loadingCard">
+        <div class="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="loading-text" id="loadingText">Preparando o pó de pirlimpimpim...</div>
+    </div>
+
+    <!-- Output Section -->
+    <div class="output-container" id="outputSection">
+        <div class="output-grid">
+            <!-- Left: Storybook -->
+            <div class="storybook-card">
+                <h2 class="storybook-title" id="storyTitle">A Aventura de Pedrinho</h2>
+                <div class="storybook-content" id="storyContent">
+                    <p>Primeiro parágrafo da história incrível...</p>
+                    <p>Segundo parágrafo super emocionante...</p>
+                    <p>Terceiro parágrafo com um final feliz e acolhedor...</p>
+                </div>
+            </div>
+            
+            <!-- Right: Illustration -->
+            <div class="illustration-card">
+                <div>
+                    <div class="art-meta">🖼️ Ilustração Mágica</div>
+                    <div class="art-frame" id="artFrame">
+                        <!-- SVG will be loaded here -->
+                    </div>
+                </div>
+                
+                <div style="width: 100%; margin-top: 15px;">
+                    <div class="btn-action-group">
+                        <button class="btn-action btn-print" id="btnPrint">🖨️ Colorir Desenho</button>
+                        <button class="btn-action" id="btnDownload">💾 Salvar Imagem</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Generate another button -->
+        <button class="btn-generate" style="background-color: var(--color-purple); margin-top: 30px;" onclick="resetForm()">📖 Criar Outra História</button>
+    </div>
+</div>
+
+<script>
+    // Theme selection logic
+    const themePills = document.querySelectorAll('.theme-pill');
+    const customThemeWrapper = document.getElementById('customThemeWrapper');
+    const customThemeInput = document.getElementById('customThemeInput');
+    let selectedThemeText = "Floresta Encantada";
+
+    themePills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            // Remove active class from all pills
+            themePills.forEach(p => p.classList.remove('active'));
+            // Add active class to clicked pill
+            pill.classList.add('active');
+            
+            const themeValue = pill.getAttribute('data-theme');
+            
+            if (themeValue === 'custom') {
+                customThemeWrapper.classList.add('open');
+                customThemeInput.focus();
+                selectedThemeText = customThemeInput.value;
+            } else {
+                customThemeWrapper.classList.remove('open');
+                selectedThemeText = pill.textContent.substring(3); // Remove emoji
+            }
+        });
+    });
+
+    customThemeInput.addEventListener('input', () => {
+        selectedThemeText = customThemeInput.value;
+    });
+
+    // Loading texts rotation
+    const loadingTexts = [
+        "Misturando as tintas mágicas...",
+        "Consultando o grimório das fadas...",
+        "Desenhando as primeiras linhas da aventura...",
+        "Colocando brilho nas estrelas...",
+        "Afiando os lápis de cor...",
+        "Pedindo ajuda aos elfos escritores..."
+    ];
+    
+    let loadingInterval;
+    function startLoadingAnimation() {
+        const loadingTextEl = document.getElementById('loadingText');
+        let index = 0;
+        loadingTextEl.textContent = loadingTexts[0];
+        
+        loadingInterval = setInterval(() => {
+            index = (index + 1) % loadingTexts.length;
+            loadingTextEl.textContent = loadingTexts[index];
+        }, 3000);
+    }
+    
+    function stopLoadingAnimation() {
+        clearInterval(loadingInterval);
+    }
+
+    // Generate story request
+    const btnGenerate = document.getElementById('btnGenerate');
+    const errorAlert = document.getElementById('errorAlert');
+    
+    btnGenerate.addEventListener('click', async () => {
+        const childName = document.getElementById('childName').value.trim();
+        let finalTheme = selectedThemeText.trim();
+        
+        // Validation
+        if (!childName) {
+            showError("Ops! Por favor, digite o nome da criança.");
+            document.getElementById('childName').focus();
+            return;
+        }
+        
+        if (!finalTheme) {
+            showError("Ops! Por favor, selecione ou escreva um tema para a história.");
+            if (customThemeWrapper.classList.contains('open')) {
+                customThemeInput.focus();
+            }
+            return;
+        }
+        
+        hideError();
+        
+        // Hide Form, Show Loading
+        document.getElementById('formCard').style.display = 'none';
+        document.getElementById('loadingCard').style.display = 'block';
+        startLoadingAnimation();
+        
+        try {
+            const response = await fetch('/api/generate-story', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    childName: childName,
+                    theme: finalTheme
+                })
+            });
+            
+            const result = await response.json();
+            
+            if (!response.ok || !result.success) {
+                throw new Error(result.message || "Ocorreu um erro desconhecido ao gerar a história.");
+            }
+            
+            // Populating layout
+            document.getElementById('storyTitle').textContent = `✨ A Grande Aventura de ${childName} no tema ${finalTheme}`;
+            
+            // Format story content (paragraphs)
+            const storyContentEl = document.getElementById('storyContent');
+            storyContentEl.innerHTML = '';
+            
+            // If the story is returned as a single string, we split by double newlines to display as paragraphs
+            const paragraphs = result.story.split(/\n+/);
+            paragraphs.forEach(p => {
+                if (p.trim()) {
+                    const pEl = document.createElement('p');
+                    pEl.textContent = p.trim();
+                    storyContentEl.appendChild(pEl);
+                }
+            });
+            
+            // Load SVG inside art frame
+            const artFrame = document.getElementById('artFrame');
+            artFrame.innerHTML = result.svg;
+            
+            // Hide loading, show output
+            document.getElementById('loadingCard').style.display = 'none';
+            stopLoadingAnimation();
+            
+            const outputSection = document.getElementById('outputSection');
+            outputSection.classList.add('show');
+            
+            // Add download and print listeners for the specific SVG
+            setupActions(result.svg, childName, finalTheme);
+            
+        } catch (err) {
+            console.error(err);
+            stopLoadingAnimation();
+            document.getElementById('loadingCard').style.display = 'none';
+            document.getElementById('formCard').style.display = 'block';
+            showError(`Erro ao gerar aventura: ${err.message}`);
+        }
+    });
+    
+    function showError(msg) {
+        errorAlert.textContent = msg;
+        errorAlert.style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    function hideError() {
+        errorAlert.style.display = 'none';
+    }
+    
+    function resetForm() {
+        document.getElementById('outputSection').classList.remove('show');
+        setTimeout(() => {
+            document.getElementById('formCard').style.display = 'block';
+            document.getElementById('childName').value = '';
+            document.getElementById('customThemeInput').value = '';
+            // reset pills
+            themePills.forEach((p, idx) => {
+                if (idx === 0) p.classList.add('active');
+                else p.classList.remove('active');
+            });
+            customThemeWrapper.classList.remove('open');
+            selectedThemeText = themePills[0].textContent.substring(3);
+        }, 300);
+    }
+    
+    function setupActions(svgContent, childName, theme) {
+        // Print action
+        const btnPrint = document.getElementById('btnPrint');
+        btnPrint.onclick = () => {
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Colorir - Desenho de ${childName}</title>
+                    <style>
+                        body {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            height: 100vh;
+                            margin: 0;
+                            font-family: sans-serif;
+                        }
+                        .svg-container {
+                            width: 80%;
+                            max-width: 600px;
+                            aspect-ratio: 1/1;
+                        }
+                        svg {
+                            width: 100%;
+                            height: 100%;
+                        }
+                        h2 {
+                            margin-bottom: 20px;
+                            color: #3D281A;
+                        }
+                        @media print {
+                            .no-print { display: none; }
+                            body { height: auto; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2 class="no-print">Imprimir Desenho para Colorir</h2>
+                    <button class="no-print" onclick="window.print()" style="padding: 10px 20px; font-size: 1.1rem; cursor: pointer; margin-bottom: 20px; background: #2ECC71; color: white; border: none; border-radius: 5px;">Imprimir Agora 🖨️</button>
+                    <div class="svg-container">
+                        ${svgContent}
+                    </div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        };
+        
+        // Download action
+        const btnDownload = document.getElementById('btnDownload');
+        btnDownload.onclick = () => {
+            const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `desenho-${childName.toLowerCase().replace(/\s+/g, '-')}-${theme.toLowerCase().replace(/\s+/g, '-')}.svg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        };
+    }
+</script>
+</body>
+</html>

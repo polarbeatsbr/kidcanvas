@@ -92,7 +92,7 @@ button, input, select, textarea {
 }
 
 .main-header .container {
-    max-width: 1250px;
+    max-width: 1350px;
 }
 
 .header-container {
@@ -348,6 +348,25 @@ button, input, select, textarea {
 
 .nav-link-special:hover {
     background-color: var(--color-orange) !important;
+    color: var(--color-white) !important;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-cartoon-hover);
+}
+
+.nav-link-custom-drawing {
+    color: var(--color-white) !important;
+    font-weight: 700;
+    background-color: var(--color-orange);
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    box-shadow: var(--shadow-cartoon-active);
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.nav-link-custom-drawing:hover {
+    background-color: var(--color-yellow) !important;
     color: var(--color-white) !important;
     transform: translateY(-2px) scale(1.02);
     box-shadow: var(--shadow-cartoon-hover);
@@ -1951,6 +1970,16 @@ button, input, select, textarea {
     text-transform: uppercase;
 }
 
+.credits-badge-tag {
+    font-size: 0.75rem;
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: lowercase;
+}
+
 .btn-logout-icon {
     background: none;
     border: none;
@@ -2313,6 +2342,49 @@ button, input, select, textarea {
         padding: 0 10px;
     }
 }
+/* --- ANIMATED BRUSH LOADER FOR CUSTOM GENERATOR --- */
+.brush-loading-container {
+    position: relative;
+    width: 120px;
+    height: 60px;
+    margin: 0 auto;
+}
 
+.brush-icon {
+    font-size: 3rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: brushDraw 2s ease-in-out infinite;
+}
 
+.brush-line {
+    position: absolute;
+    bottom: 15px;
+    left: 10px;
+    height: 6px;
+    background-color: var(--color-purple);
+    border: 2px solid var(--color-dark);
+    border-radius: 4px;
+    animation: brushLineDraw 2s ease-in-out infinite;
+}
 
+@keyframes brushDraw {
+    0% { left: 0; transform: rotate(0deg) translateY(0); }
+    50% { left: 60px; transform: rotate(15deg) translateY(-8px); }
+    100% { left: 0; transform: rotate(0deg) translateY(0); }
+}
+
+@keyframes brushLineDraw {
+    0% { width: 0; }
+    50% { width: 60px; }
+    100% { width: 0; }
+}
+
+/* responsive generator layout */
+@media (max-width: 900px) {
+    #view-gerar-desenho .generator-layout {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+}

@@ -141,6 +141,10 @@ function updateHeaderAuthDisplay() {
     const userAvatar = document.getElementById('user-avatar-img');
     const userDisplayName = document.getElementById('user-display-name');
     const userPlanBadge = document.getElementById('user-plan-badge');
+    const userCreditsBadge = document.getElementById('user-credits-badge');
+    const creatorPanel = document.getElementById('creator-dashboard-panel');
+    const creatorName = document.getElementById('creator-dashboard-name');
+    const creatorCredits = document.getElementById('creator-dashboard-credits');
 
     if (!userWidget) return;
 
@@ -151,6 +155,7 @@ function updateHeaderAuthDisplay() {
         
         if (userAvatar) userAvatar.src = currentUser.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
         if (userDisplayName) userDisplayName.textContent = currentUser.name.split(' ')[0];
+        
         if (userPlanBadge) {
             userPlanBadge.textContent = currentUser.plan;
             if (currentUser.plan === 'Ultra') {
@@ -163,10 +168,36 @@ function updateHeaderAuthDisplay() {
                 userPlanBadge.style.backgroundColor = 'var(--color-purple)';
             }
         }
+
+        if (userCreditsBadge) {
+            if (currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com') {
+                userCreditsBadge.textContent = 'ilimitado ⚡';
+                userCreditsBadge.style.backgroundColor = 'var(--color-purple)';
+            } else {
+                userCreditsBadge.textContent = `${currentUser.paginasRestantes} c.`;
+                userCreditsBadge.style.backgroundColor = 'var(--color-orange)';
+            }
+        }
+
+        if (creatorPanel) {
+            creatorPanel.style.display = 'block';
+            if (creatorName) creatorName.textContent = currentUser.name.split(' ')[0];
+            if (creatorCredits) {
+                if (currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com') {
+                    creatorCredits.textContent = 'ilimitados ⚡';
+                } else {
+                    creatorCredits.textContent = currentUser.paginasRestantes;
+                }
+            }
+        }
     } else {
         if (googleBtn) googleBtn.style.display = 'none';
         if (btnEntrar) btnEntrar.style.display = 'inline-flex';
         userWidget.style.display = 'none';
+
+        if (creatorPanel) {
+            creatorPanel.style.display = 'none';
+        }
     }
 }
 
@@ -437,15 +468,7 @@ function initGlobalEventListeners() {
                 e.preventDefault();
             }
             
-            // Bloquear acesso às Histórias Mágicas se não logado
-            if (href && (href === '/historias-magicas' || href === '/historia' || href.startsWith('/historias-magicas') || href.startsWith('/historia'))) {
-                if (!currentUser) {
-                    e.preventDefault();
-                    showToast('Faça login ou cadastre-se grátis para acessar as Histórias Mágicas! ✨', 'info');
-                    openAuthModal();
-                    return;
-                }
-            }
+            
             
             // Interceptar apenas links locais válidos (não externos, não âncoras vazias, não arquivos estáticos como .html, e não as rotas de histórias mágicas)
             if (href && href.startsWith('/') && !href.startsWith('//') && !href.endsWith('.html') && !href.includes('.html?') && href !== '/historias-magicas' && href !== '/historia') {
@@ -572,6 +595,8 @@ function navigate(path, pushState = true) {
         renderTop50View();
     } else if (cleanPath === '/planos') {
         renderPlanosView();
+    } else if (cleanPath === '/gerar-desenho') {
+        renderGerarDesenhoView();
     } else if (cleanPath === '/politica-de-privacidade') {
         renderPoliticaPrivacidadeView();
     } else if (cleanPath.startsWith('/categoria/')) {
@@ -2263,4 +2288,194 @@ function getCuriosityForDrawing(drawing) {
 
     // Fallback geral de desenho / pintura
     return "Colorir é uma atividade maravilhosa! Ajuda a relaxar, desenvolve a coordenação motora e deixa o cérebro super ativo.";
+}
+
+// --- CRIAÇÃO DE DESENHOS PERSONALIZADOS (Gere sua Imagem) ---
+
+function renderGerarDesenhoView() {
+    document.querySelectorAll('.page-view').forEach(view => {
+        view.style.display = 'none';
+    });
+    const viewGerarDesenho = document.getElementById('view-gerar-desenho');
+    if (viewGerarDesenho) {
+        viewGerarDesenho.style.display = 'block';
+    }
+    
+    const form = document.getElementById('customDrawingForm');
+    if (form) form.reset();
+    
+    const placeholder = document.getElementById('custom-drawing-placeholder');
+    const loader = document.getElementById('custom-drawing-loader');
+    const img = document.getElementById('custom-drawing-img');
+    const actions = document.getElementById('custom-drawing-actions');
+    
+    if (placeholder) placeholder.style.display = 'block';
+    if (loader) loader.style.display = 'none';
+    if (img) img.style.display = 'none';
+    if (actions) actions.style.display = 'none';
+}
+
+function openCreditsModal(message) {
+    const modal = document.getElementById('creditsModal');
+    const msgEl = document.getElementById('creditsModalMessage');
+    if (modal) {
+        if (msgEl && message) {
+            msgEl.textContent = message;
+        }
+        modal.classList.add('open');
+    }
+}
+
+function closeCreditsModal() {
+    const modal = document.getElementById('creditsModal');
+    if (modal) {
+        modal.classList.remove('open');
+    }
+}
+
+window.closeCreditsModal = closeCreditsModal;
+
+function handleVerPlanosClick() {
+    closeCreditsModal();
+    if (typeof navigate === 'function') {
+        navigate('/planos');
+    } else {
+        window.location.href = '/planos';
+    }
+}
+
+window.handleVerPlanosClick = handleVerPlanosClick;
+
+async function handleCustomDrawingSubmit(event) {
+    event.preventDefault();
+    
+    const promptInput = document.getElementById('customDrawingPrompt');
+    if (!promptInput) return;
+    const userPrompt = promptInput.value.trim();
+    if (!userPrompt) return;
+    
+    if (!currentUser) {
+        showToast('Cadastre-se grátis para criar desenhos mágicos! 🎨', 'info');
+        openAuthModal();
+        switchAuthTab('register');
+        return;
+    }
+    
+    const hasUnlimited = currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com';
+    if (!hasUnlimited && currentUser.paginasRestantes < 1) {
+        openCreditsModal('Seus créditos acabaram! Faça upgrade de plano para continuar criando desenhos mágicos.');
+        return;
+    }
+    
+    const placeholder = document.getElementById('custom-drawing-placeholder');
+    const loader = document.getElementById('custom-drawing-loader');
+    const img = document.getElementById('custom-drawing-img');
+    const actions = document.getElementById('custom-drawing-actions');
+    const submitBtn = document.getElementById('btn-submit-custom-drawing');
+    
+    if (placeholder) placeholder.style.display = 'none';
+    if (loader) loader.style.display = 'block';
+    if (img) img.style.display = 'none';
+    if (actions) actions.style.display = 'none';
+    if (submitBtn) submitBtn.disabled = true;
+    
+    try {
+        const response = await fetch('/api/generate-custom-drawing', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Session-Token': sessionToken
+            },
+            body: JSON.stringify({ userPrompt })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+            if (img) {
+                img.src = data.imageUrl;
+                img.style.display = 'block';
+            }
+            if (actions) {
+                actions.style.display = 'flex';
+            }
+            
+            setupCustomDrawingActionListeners(data.imageUrl);
+            
+            currentUser.paginasRestantes = data.paginasRestantes;
+            updateHeaderAuthDisplay();
+            
+            showToast('Desenho gerado com sucesso! Divirta-se colorindo! 🎨', 'success');
+        } else {
+            showToast(data.message || 'Ocorreu um erro ao gerar a imagem.', 'error');
+            if (placeholder) placeholder.style.display = 'block';
+        }
+    } catch (err) {
+        console.error('[Generate Custom Drawing Error]:', err);
+        showToast('Erro de conexão ao gerar a imagem.', 'error');
+        if (placeholder) placeholder.style.display = 'block';
+    } finally {
+        if (loader) loader.style.display = 'none';
+        if (submitBtn) submitBtn.disabled = false;
+    }
+}
+
+window.handleCustomDrawingSubmit = handleCustomDrawingSubmit;
+
+function setupCustomDrawingActionListeners(imageUrl) {
+    const downloadBtn = document.getElementById('btn-download-custom');
+    const printBtn = document.getElementById('btn-print-custom');
+    
+    if (downloadBtn) {
+        downloadBtn.onclick = () => {
+            const a = document.createElement('a');
+            a.href = imageUrl;
+            a.download = 'desenho-magico-kidcanvas.jpg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast('Download iniciado! ⬇️', 'success');
+        };
+    }
+    
+    if (printBtn) {
+        printBtn.onclick = () => {
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Imprimir Desenho Mágico — KidCanvas</title>
+                    <style>
+                        body {
+                            margin: 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            height: 100vh;
+                            background: white;
+                        }
+                        img {
+                            max-width: 100%;
+                            max-height: 100%;
+                            object-fit: contain;
+                        }
+                        @media print {
+                            body {
+                                height: auto;
+                            }
+                            img {
+                                width: 100%;
+                                max-height: 100%;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <img src="${imageUrl}" onload="window.print(); window.close();">
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        };
+    }
 }
