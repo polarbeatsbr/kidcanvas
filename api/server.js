@@ -160,6 +160,225 @@ app.post('/api/stripe/create-checkout-session', async (req, res) => {
 });
 
 
+// ==========================================
+// MERCADO PAGO PIX CHECKOUT & WEBHOOK
+// ==========================================
+
+app.post('/api/mercadopago/create-pix-payment', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { planName, fullName, cpf } = req.body;
+
+        const mpAccessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
+        if (!mpAccessToken) {
+            return res.status(500).json({ success: false, message: 'Mercado Pago não está configurado no servidor. MERCADOPAGO_ACCESS_TOKEN ausente.' });
+        }
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado. Token de sessão ausente.' });
+        }
+        if (!planName || !fullName || !cpf) {
+            return res.status(400).json({ success: false, message: 'Nome do plano, Nome completo e CPF são obrigatórios.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada. Faça login novamente.' });
+        }
+
+        // Mapear plano para preço
+        let amount = 0;
+        if (planName === 'Família') {
+            amount = 19.90;
+        } else if (planName === 'Professor') {
+            amount = 39.90;
+        } else if (planName === 'Colégio') {
+            amount = 119.90;
+        } else {
+            return res.status(400).json({ success: false, message: 'Plano inválido.' });
+        }
+
+        // Dividir primeiro e último nome
+        const nameParts = fullName.trim().split(/\s+/);
+        const firstName = nameParts[0] || 'Cliente';
+        const lastName = nameParts.slice(1).join(' ') || 'PintAI';
+        const cleanCpf = cpf.replace(/\D/g, '');
+
+        const idempotencyKey = crypto.randomUUID();
+
+        console.log(`[Mercado Pago Pix] Criando pagamento Pix para o plano ${planName} e usuário ${user.email}`);
+
+        const mpRes = await fetch('https://api.mercadopago.com/v1/payments', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${mpAccessToken}`,
+                'Content-Type': 'application/json',
+                'X-Idempotency-Key': idempotencyKey
+            },
+            body: JSON.stringify({
+                transaction_amount: amount,
+                description: `Assinatura Plano ${planName} - KidCanvas`,
+                payment_method_id: 'pix',
+                payer: {
+                    email: user.email,
+                    first_name: firstName,
+                    last_name: lastName,
+                    identification: {
+                        type: 'CPF',
+                        number: cleanCpf
+                    }
+                },
+                metadata: {
+                    userId: user.id || user.email,
+                    planName: planName
+                }
+            })
+        });
+
+        const mpData = await mpRes.json();
+
+        if (!mpRes.ok) {
+            console.error('[Mercado Pago API Error]:', mpData);
+            return res.status(mpRes.status).json({
+                success: false,
+                message: mpData.message || 'Erro ao gerar o Pix no Mercado Pago.',
+                errors: mpData.cause
+            });
+        }
+
+        const transactionData = mpData.point_of_interaction?.transaction_data;
+        if (!transactionData) {
+            return res.status(500).json({ success: false, message: 'Dados de transação Pix não retornados pelo Mercado Pago.' });
+        }
+
+        return res.json({
+            success: true,
+            paymentId: mpData.id,
+            qrCode: transactionData.qr_code,
+            qrCodeBase64: transactionData.qr_code_base64
+        });
+
+    } catch (error) {
+        console.error('[Mercado Pago Pix Error]:', error);
+        return res.status(500).json({ success: false, message: 'Erro interno ao processar Pix.', error: error.message });
+    }
+});
+
+app.get('/api/mercadopago/payment-status/:paymentId', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { paymentId } = req.params;
+
+        const mpAccessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
+        if (!mpAccessToken) {
+            return res.status(500).json({ success: false, message: 'Mercado Pago não está configurado.' });
+        }
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida.' });
+        }
+
+        const mpRes = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+            headers: {
+                'Authorization': `Bearer ${mpAccessToken}`
+            }
+        });
+
+        const mpData = await mpRes.json();
+        if (!mpRes.ok) {
+            return res.status(mpRes.status).json({ success: false, message: mpData.message });
+        }
+
+        const status = mpData.status;
+
+        // Se estiver aprovado, ativa o plano preventivamente
+        if (status === 'approved') {
+            const planName = mpData.metadata?.plan_name || mpData.metadata?.planName;
+            const userId = mpData.metadata?.user_id || mpData.metadata?.userId;
+
+            if (userId && planName) {
+                const targetUser = users.find(u => u.id === userId || u.email === userId);
+                if (targetUser && targetUser.plan !== planName) {
+                    let credits = 20;
+                    if (planName === 'Professor') {
+                        credits = 100;
+                    } else if (planName === 'Colégio') {
+                        credits = 400;
+                    }
+                    targetUser.plan = planName;
+                    targetUser.paginasRestantes = credits;
+                    await saveUsers(users);
+                    console.log(`[SUCCESS - Polling] Plano ${planName} ativado para o usuário ${targetUser.email}.`);
+                }
+            }
+        }
+
+        return res.json({ success: true, status });
+    } catch (error) {
+        console.error('[Payment Status Error]:', error);
+        return res.status(500).json({ success: false, message: 'Erro ao verificar status.', error: error.message });
+    }
+});
+
+app.post('/api/mercadopago/webhook', async (req, res) => {
+    try {
+        const mpAccessToken = process.env.MERCADOPAGO_ACCESS_TOKEN;
+        if (!mpAccessToken) {
+            return res.status(500).send('Mercado Pago não configurado');
+        }
+
+        // O Mercado Pago envia o ID do recurso em req.body.data.id ou no query param/body id
+        const payload = req.body;
+        const paymentId = payload.data?.id || payload.id;
+        const type = payload.type || payload.action;
+
+        // Apenas processa se for um evento de pagamento
+        if (paymentId && (type === 'payment' || payload.action?.startsWith('payment.'))) {
+            const mpRes = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+                headers: {
+                    'Authorization': `Bearer ${mpAccessToken}`
+                }
+            });
+
+            const mpData = await mpRes.json();
+            if (mpRes.ok && mpData.status === 'approved') {
+                const planName = mpData.metadata?.plan_name || mpData.metadata?.planName;
+                const userId = mpData.metadata?.user_id || mpData.metadata?.userId;
+
+                if (userId && planName) {
+                    const users = await loadUsers();
+                    const user = users.find(u => u.id === userId || u.email === userId);
+                    if (user) {
+                        let credits = 20;
+                        if (planName === 'Professor') {
+                            credits = 100;
+                        } else if (planName === 'Colégio') {
+                            credits = 400;
+                        }
+                        user.plan = planName;
+                        user.paginasRestantes = credits;
+                        await saveUsers(users);
+                        console.log(`[SUCCESS - Webhook MP] Plano ${planName} ativado para ${user.email} via Pix.`);
+                    }
+                }
+            }
+        }
+
+        return res.json({ received: true });
+    } catch (error) {
+        console.error('[Mercado Pago Webhook Error]:', error);
+        return res.status(500).send('Erro interno no webhook');
+    }
+});
+
+
 // Servir os arquivos estáticos do frontend da raiz do projeto e da pasta public
 app.use(express.static(path.join(__dirname, '..')));
 app.use(express.static(path.join(__dirname, '..', 'public')));

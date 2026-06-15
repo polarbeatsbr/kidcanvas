@@ -931,14 +931,55 @@ function renderPlanosView() {
     }
 }
 
+let selectedPlanForUpgrade = null;
+let selectedPageAmountForUpgrade = null;
+let pixPollInterval = null;
+
 async function handlePlanUpgrade(planName, pageAmount) {
     if (!currentUser) {
-        // Armazenar intenção de upgrade para depois do login/cadastro
         localStorage.setItem("kidcanvas_pending_upgrade", JSON.stringify({ planName, pageAmount }));
         showToast('Faça login ou cadastre-se grátis para assinar o plano! 🚀', 'info');
         openAuthModal();
         return;
     }
+    
+    selectedPlanForUpgrade = planName;
+    selectedPageAmountForUpgrade = pageAmount;
+    
+    // Abre o modal de escolha de método de pagamento
+    const planNameEl = document.getElementById('paymentModalPlanName');
+    if (planNameEl) {
+        planNameEl.textContent = planName;
+    }
+    const modal = document.getElementById('paymentMethodModal');
+    if (modal) {
+        modal.classList.add('open');
+    }
+}
+
+function closePaymentMethodModal() {
+    const modal = document.getElementById('paymentMethodModal');
+    if (modal) {
+        modal.classList.remove('open');
+    }
+}
+
+function closePixCheckoutModal() {
+    const modal = document.getElementById('pixCheckoutModal');
+    if (modal) {
+        modal.classList.remove('open');
+    }
+    // Para o polling do Pix se estiver rodando
+    if (pixPollInterval) {
+        clearInterval(pixPollInterval);
+        pixPollInterval = null;
+    }
+}
+
+async function handlePayWithCard() {
+    closePaymentMethodModal();
+    const planName = selectedPlanForUpgrade;
+    if (!planName) return;
     
     try {
         showToast(`Redirecionando para o Stripe Checkout... 💳`, 'info');
@@ -952,9 +993,7 @@ async function handlePlanUpgrade(planName, pageAmount) {
         });
         const data = await res.json();
         if (res.ok && data.success && data.url) {
-            // Se estiver logando e redirecionando, limpa
             localStorage.removeItem("kidcanvas_pending_upgrade");
-            // Redirecionar para o Stripe Checkout
             window.location.href = data.url;
         } else {
             showToast(`Erro ao abrir checkout: ${data.message || 'Erro desconhecido'}`, 'error');
@@ -968,6 +1007,166 @@ async function handlePlanUpgrade(planName, pageAmount) {
         console.error(err);
         showToast("Erro de conexão ao processar checkout.", 'error');
     }
+}
+
+function handlePayWithPix() {
+    closePaymentMethodModal();
+    
+    const pixFullnameInput = document.getElementById('pix-fullname');
+    if (pixFullnameInput && currentUser) {
+        pixFullnameInput.value = currentUser.name || '';
+    }
+    
+    // Resetar campos e etapas
+    const pixCpfInput = document.getElementById('pix-cpf');
+    if (pixCpfInput) pixCpfInput.value = '';
+    
+    document.getElementById('pix-details-step').style.display = 'block';
+    document.getElementById('pix-display-step').style.display = 'none';
+    
+    const modal = document.getElementById('pixCheckoutModal');
+    if (modal) {
+        modal.classList.add('open');
+    }
+}
+
+function validateCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g,'');
+    if(cpf == '') return false;
+    if (cpf.length != 11 || 
+        cpf == "00000000000" || 
+        cpf == "11111111111" || 
+        cpf == "22222222222" || 
+        cpf == "33333333333" || 
+        cpf == "44444444444" || 
+        cpf == "55555555555" || 
+        cpf == "66666666666" || 
+        cpf == "77777777777" || 
+        cpf == "88888888888" || 
+        cpf == "99999999999")
+            return false;       
+    let add = 0;
+    for (let i=0; i < 9; i ++)
+        add += parseInt(cpf.charAt(i)) * (10 - i);
+    let rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+        rev = 0;
+    if (rev != parseInt(cpf.charAt(9)))
+        return false;       
+    add = 0;
+    for (let i = 0; i < 10; i ++)
+        add += parseInt(cpf.charAt(i)) * (11 - i);
+    rev = 11 - (add % 11);
+    if (rev == 10 || rev == 11)
+        rev = 0;
+    if (rev != parseInt(cpf.charAt(10)))
+        return false;       
+    return true;   
+}
+
+async function generatePixPayment() {
+    const fullName = document.getElementById('pix-fullname').value.trim();
+    const cpf = document.getElementById('pix-cpf').value.trim();
+    const planName = selectedPlanForUpgrade;
+    
+    if (!fullName) {
+        showToast("Por favor, insira seu nome completo.", "warning");
+        return;
+    }
+    if (!cpf) {
+        showToast("Por favor, insira seu CPF.", "warning");
+        return;
+    }
+    if (!validateCPF(cpf)) {
+        showToast("CPF inválido. Por favor, verifique os dígitos.", "warning");
+        return;
+    }
+    
+    try {
+        showToast("Gerando Pix no Mercado Pago... ⚡", "info");
+        const res = await fetch('/api/mercadopago/create-pix-payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Session-Token': sessionToken
+            },
+            body: JSON.stringify({ planName, fullName, cpf })
+        });
+        
+        const data = await res.json();
+        if (res.ok && data.success) {
+            document.getElementById('pix-details-step').style.display = 'none';
+            document.getElementById('pix-display-step').style.display = 'block';
+            
+            document.getElementById('pix-qr-code-img').src = `data:image/png;base64,${data.qrCodeBase64}`;
+            document.getElementById('pix-copy-paste-code').value = data.qrCode;
+            document.getElementById('pix-status-message').textContent = "Aguardando pagamento... 🔄";
+            
+            showToast("QR Code Pix gerado com sucesso!", "success");
+            localStorage.removeItem("kidcanvas_pending_upgrade");
+            
+            startPixPolling(data.paymentId);
+        } else {
+            showToast(`Erro ao gerar Pix: ${data.message || 'Erro desconhecido'}`, 'error');
+        }
+    } catch (err) {
+        console.error(err);
+        showToast("Erro de conexão ao gerar o Pix.", "error");
+    }
+}
+
+function copyPixCode() {
+    const copyText = document.getElementById("pix-copy-paste-code");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value)
+        .then(() => {
+            showToast("Código Pix Copia e Cola copiado! 📋", "success");
+        })
+        .catch(err => {
+            console.error('Erro ao copiar código Pix: ', err);
+            showToast("Não foi possível copiar. Selecione e copie o código manualmente.", "warning");
+        });
+}
+
+function startPixPolling(paymentId) {
+    if (pixPollInterval) clearInterval(pixPollInterval);
+    
+    pixPollInterval = setInterval(async () => {
+        try {
+            const res = await fetch(`/api/mercadopago/payment-status/${paymentId}`, {
+                headers: {
+                    'X-Session-Token': sessionToken
+                }
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                if (data.status === 'approved') {
+                    clearInterval(pixPollInterval);
+                    pixPollInterval = null;
+                    
+                    document.getElementById('pix-status-message').innerHTML = "Pagamento confirmado! 🎉";
+                    showToast("Oba! Pagamento Pix confirmado e plano ativado! 🎉✨", "success");
+                    
+                    setTimeout(async () => {
+                        closePixCheckoutModal();
+                        await syncUserProfile();
+                        // Se estiver na aba planos, recarrega a visualização
+                        if (window.location.pathname === '/planos') {
+                            renderPlanosView();
+                        }
+                    }, 3000);
+                } else if (data.status === 'cancelled' || data.status === 'rejected') {
+                    clearInterval(pixPollInterval);
+                    pixPollInterval = null;
+                    document.getElementById('pix-status-message').textContent = "Pagamento recusado ou cancelado.";
+                    showToast("O pagamento do Pix foi recusado ou cancelado.", "error");
+                }
+            }
+        } catch (err) {
+            console.error("Erro no polling de status do Pix:", err);
+        }
+    }, 5000);
 }
 
 async function checkPendingUpgrade() {

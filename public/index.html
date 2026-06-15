@@ -1311,6 +1311,92 @@
         </div>
     </div>
 
+    <!-- Modal de Seleção do Método de Pagamento -->
+    <div id="paymentMethodModal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 420px; text-align: center; padding: 35px 25px; border: var(--border-medium); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon);">
+            <button class="btn-close-modal" onclick="closePaymentMethodModal()">&times;</button>
+            <span style="font-size: 3.5rem; display: block; margin-bottom: 15px; animation: bounce-slow 2s infinite;">💳</span>
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-dark); margin-bottom: 10px;">Escolha como pagar</h3>
+            <p style="font-size: 1rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 25px;">
+                Selecione a forma de pagamento para assinar o plano <strong id="paymentModalPlanName"></strong>.
+            </p>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <button class="btn btn-primary" onclick="handlePayWithCard()" style="font-size: 1.1rem; padding: 14px 20px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: var(--radius-sm); font-weight: 700; width: 100%;">
+                    <i class="fa-solid fa-credit-card"></i> Pagar com Cartão (Stripe)
+                </button>
+                <button class="btn btn-secondary" onclick="handlePayWithPix()" style="font-size: 1.1rem; padding: 14px 20px; background-color: #00bfa5; border-color: #00bfa5; color: white; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: var(--radius-sm); font-weight: 700; width: 100%; border: none; cursor: pointer;">
+                    <i class="fa-solid fa-bolt"></i> Pagar com Pix (Mercado Pago)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Checkout Pix (Mercado Pago) -->
+    <div id="pixCheckoutModal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 450px; padding: 30px; text-align: center; background-color: #fffdf5; border: var(--border-medium); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon);">
+            <button class="btn-close-modal" onclick="closePixCheckoutModal()">&times;</button>
+            
+            <!-- Etapa 1: Preencher Nome e CPF -->
+            <div id="pix-details-step">
+                <span style="font-size: 3.5rem; display: block; margin-bottom: 15px;">⚡</span>
+                <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-dark); margin-bottom: 10px;">Pagar via Pix</h3>
+                <p style="font-size: 0.95rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 25px;">
+                    Preencha os dados abaixo exigidos pelo Banco Central e Mercado Pago para gerar o Pix de forma segura.
+                </p>
+                
+                <div style="text-align: left; margin-bottom: 20px;">
+                    <label for="pix-fullname" style="font-family: var(--font-heading); font-weight: 700; color: var(--color-dark); display: block; margin-bottom: 6px; font-size: 0.95rem;">Nome Completo:</label>
+                    <input type="text" id="pix-fullname" placeholder="Ex: Maria Souza" style="width: 100%; padding: 12px 15px; border: var(--border-medium); border-radius: var(--radius-sm); font-size: 1rem; font-family: inherit; box-sizing: border-box; margin-bottom: 15px;">
+                    
+                    <label for="pix-cpf" style="font-family: var(--font-heading); font-weight: 700; color: var(--color-dark); display: block; margin-bottom: 6px; font-size: 0.95rem;">CPF:</label>
+                    <input type="text" id="pix-cpf" placeholder="000.000.000-00" style="width: 100%; padding: 12px 15px; border: var(--border-medium); border-radius: var(--radius-sm); font-size: 1rem; font-family: inherit; box-sizing: border-box;">
+                </div>
+                
+                <button class="btn btn-primary" onclick="generatePixPayment()" style="font-size: 1.15rem; padding: 14px 20px; width: 100%; border-radius: var(--radius-sm); font-weight: 700; display: inline-flex; justify-content: center; align-items: center; gap: 8px;">
+                    Gerar QR Code Pix ⚡
+                </button>
+            </div>
+            
+            <!-- Etapa 2: Exibir QR Code e Código de Copiar -->
+            <div id="pix-display-step" style="display: none;">
+                <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-dark); margin-bottom: 10px;">Escaneie o QR Code</h3>
+                <p style="font-size: 0.95rem; color: var(--color-dark-light); line-height: 1.4; margin-bottom: 20px;">
+                    Abra o aplicativo de pagamentos do seu banco e escaneie o código abaixo.
+                </p>
+                
+                <!-- Imagem do QR Code -->
+                <div style="margin: 0 auto 20px auto; width: 200px; height: 200px; border: var(--border-medium); border-radius: var(--radius-sm); background: white; padding: 10px; display: flex; align-items: center; justify-content: center; box-sizing: border-box;">
+                    <img id="pix-qr-code-img" src="" alt="QR Code Pix" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                
+                <!-- Código de Copiar -->
+                <div style="margin-bottom: 20px;">
+                    <label style="font-family: var(--font-heading); font-weight: 700; display: block; margin-bottom: 6px; font-size: 0.9rem; text-align: left;">Pix Copia e Cola:</label>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="text" id="pix-copy-paste-code" readonly style="flex: 1; padding: 10px 12px; border: var(--border-thin); border-radius: var(--radius-sm); font-size: 0.85rem; background: #fafafa; font-family: monospace;" onclick="this.select();">
+                        <button class="btn btn-secondary" onclick="copyPixCode()" style="padding: 10px 15px; font-weight: bold; border-radius: var(--radius-sm); font-size: 0.9rem; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; height: 100%;">
+                            <i class="fa-solid fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Status do Pagamento -->
+                <div style="border-top: var(--border-thin); padding-top: 20px; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <span style="font-size: 1.3rem; animation: rotate-slow 2s linear infinite; display: inline-block;">⏳</span>
+                    <span style="font-weight: 700; color: var(--color-dark); font-size: 1rem;" id="pix-status-message">Aguardando pagamento...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes rotate-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
     <!-- NAV BAR INFERIOR MOBILE (Navegação Simplificada estilo App) -->
 
     <div class="mobile-bottom-nav">
