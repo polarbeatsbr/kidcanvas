@@ -1249,10 +1249,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
         if (!user) {
             let userPlan = 'Grátis';
             let userCredits = 4;
-            if (email === 'foneoliver@gmail.com') {
-                userPlan = 'Colégio';
-                userCredits = 250;
-            } else if (email === 'marcofariaddos@gmail.com') {
+            if (email === 'foneoliver@gmail.com' || email === 'marcofariaddos@gmail.com' || email === 'sergio0014ortiz@hotmail.com') {
                 userPlan = 'Ultra';
                 userCredits = 400;
             }
@@ -1276,8 +1273,9 @@ app.get('/api/auth/google/callback', async (req, res) => {
             if (photo) user.photo = photo;
             user.token = sessionToken;
             user.tokenExpiry = tokenExpiry;
-            // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com
-            if (email === 'marcofariaddos@gmail.com' && user.plan !== 'Ultra') {
+            // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com, foneoliver@gmail.com or sergio0014ortiz@hotmail.com
+            const ultraEmails = ['marcofariaddos@gmail.com', 'foneoliver@gmail.com', 'sergio0014ortiz@hotmail.com'];
+            if (ultraEmails.includes(email.toLowerCase()) && user.plan !== 'Ultra') {
                 user.plan = 'Ultra';
                 user.paginasRestantes = 400;
             }
@@ -1341,10 +1339,7 @@ app.post('/api/auth/google', async (req, res) => {
             // Criar novo usuário
             let userPlan = 'Grátis';
             let userCredits = 4;
-            if (email === 'foneoliver@gmail.com') {
-                userPlan = 'Colégio';
-                userCredits = 250;
-            } else if (email === 'marcofariaddos@gmail.com') {
+            if (email === 'foneoliver@gmail.com' || email === 'marcofariaddos@gmail.com' || email === 'sergio0014ortiz@hotmail.com') {
                 userPlan = 'Ultra';
                 userCredits = 400;
             }
@@ -1370,8 +1365,9 @@ app.post('/api/auth/google', async (req, res) => {
             if (photo) user.photo = photo;
             user.token = sessionToken;
             user.tokenExpiry = tokenExpiry;
-            // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com
-            if (email === 'marcofariaddos@gmail.com' && user.plan !== 'Ultra') {
+            // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com, foneoliver@gmail.com or sergio0014ortiz@hotmail.com
+            const ultraEmails = ['marcofariaddos@gmail.com', 'foneoliver@gmail.com', 'sergio0014ortiz@hotmail.com'];
+            if (ultraEmails.includes(email.toLowerCase()) && user.plan !== 'Ultra') {
                 user.plan = 'Ultra';
                 user.paginasRestantes = 400;
             }
@@ -1420,10 +1416,7 @@ app.post('/api/auth/signup', async (req, res) => {
         const sessionToken = crypto.randomBytes(16).toString('hex');
         let userPlan = 'Grátis';
         let userCredits = 4;
-        if (cleanEmail === 'foneoliver@gmail.com') {
-            userPlan = 'Colégio';
-            userCredits = 250;
-        } else if (cleanEmail === 'marcofariaddos@gmail.com') {
+        if (cleanEmail === 'foneoliver@gmail.com' || cleanEmail === 'marcofariaddos@gmail.com' || cleanEmail === 'sergio0014ortiz@hotmail.com') {
             userPlan = 'Ultra';
             userCredits = 400;
         }
