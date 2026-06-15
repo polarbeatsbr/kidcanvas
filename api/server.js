@@ -890,7 +890,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
                 userCredits = 250;
             } else if (email === 'marcofariaddos@gmail.com') {
                 userPlan = 'Ultra';
-                userCredits = 1000;
+                userCredits = 400;
             }
 
             user = {
@@ -915,7 +915,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
             // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com
             if (email === 'marcofariaddos@gmail.com' && user.plan !== 'Ultra') {
                 user.plan = 'Ultra';
-                user.paginasRestantes = 1000;
+                user.paginasRestantes = 400;
             }
         }
         
@@ -982,7 +982,7 @@ app.post('/api/auth/google', async (req, res) => {
                 userCredits = 250;
             } else if (email === 'marcofariaddos@gmail.com') {
                 userPlan = 'Ultra';
-                userCredits = 1000;
+                userCredits = 400;
             }
 
             user = {
@@ -1000,7 +1000,7 @@ app.post('/api/auth/google', async (req, res) => {
             isNewUser = true;
             console.log(`[Google Auth] Novo usuário criado: ${email}`);
         } else {
-            // Atualizar usuário existente
+            // Update existing user
             user.googleId = googleId;
             user.name = name;
             if (photo) user.photo = photo;
@@ -1009,7 +1009,7 @@ app.post('/api/auth/google', async (req, res) => {
             // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com
             if (email === 'marcofariaddos@gmail.com' && user.plan !== 'Ultra') {
                 user.plan = 'Ultra';
-                user.paginasRestantes = 1000;
+                user.paginasRestantes = 400;
             }
             console.log(`[Google Auth] Usuário existente logado: ${email}`);
         }
@@ -1061,7 +1061,7 @@ app.post('/api/auth/signup', async (req, res) => {
             userCredits = 250;
         } else if (cleanEmail === 'marcofariaddos@gmail.com') {
             userPlan = 'Ultra';
-            userCredits = 1000;
+            userCredits = 400;
         }
 
         const newUser = {
