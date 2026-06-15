@@ -178,10 +178,38 @@ function hashPassword(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
 }
 
+// Enviar buffer de imagem para o Cloudflare R2
+async function uploadImage(buffer, filename, contentType = 'image/jpeg') {
+    if (s3Client && bucketName) {
+        try {
+            const key = `saved_images/${filename}`;
+            console.log(`[R2DB] Enviando imagem ${key} para o Cloudflare R2...`);
+            const command = new PutObjectCommand({
+                Bucket: bucketName,
+                Key: key,
+                Body: buffer,
+                ContentType: contentType,
+            });
+            await s3Client.send(command);
+            const publicUrl = process.env.R2_PUBLIC_URL || 'https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev';
+            const url = `${publicUrl}/${key}`;
+            console.log(`[R2DB] Imagem enviada com sucesso para o R2: ${url}`);
+            return url;
+        } catch (err) {
+            console.error('[R2DB] Falha ao enviar imagem para o R2:', err.message);
+        }
+    } else {
+        console.warn('[R2DB] Envio R2 ignorado: S3 Client ou Bucket não inicializado.');
+    }
+    return null;
+}
+
 module.exports = {
     loadUsers,
     saveUsers,
     loadWaitlist,
     saveWaitlist,
-    hashPassword
+    hashPassword,
+    uploadImage
 };
+

@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
-const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, hashPassword } = require('./r2db');
+const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, hashPassword, uploadImage } = require('./r2db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -1293,19 +1293,36 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             });
         }
 
-        // Save custom drawing to file inside local directory
-        const savedImagesDir = path.join(__dirname, '..', 'saved_images');
-        if (!fs.existsSync(savedImagesDir)) {
-            fs.mkdirSync(savedImagesDir, { recursive: true });
-        }
+        // 3. Salvar a imagem gerada
         const imageId = `${user.id}_${Date.now()}.jpg`;
-        const filePath = path.join(savedImagesDir, imageId);
-        fs.writeFileSync(filePath, Buffer.from(bytesBase64, 'base64'));
-        const relativeUrl = `/saved_images/${imageId}`;
+        const buffer = Buffer.from(bytesBase64, 'base64');
+        let imageUrl = '';
+
+        // Tentar enviar para o Cloudflare R2 primeiro (evita erros de EROFS no Vercel)
+        const r2Url = await uploadImage(buffer, imageId, 'image/jpeg');
+        if (r2Url) {
+            imageUrl = r2Url;
+            console.log(`[Custom Drawing] Imagem salva no Cloudflare R2: ${imageUrl}`);
+        } else {
+            // Fallback local se falhar ou não estiver configurado (ex: rodando localmente sem R2)
+            try {
+                const savedImagesDir = path.join(__dirname, '..', 'saved_images');
+                if (!fs.existsSync(savedImagesDir)) {
+                    fs.mkdirSync(savedImagesDir, { recursive: true });
+                }
+                const filePath = path.join(savedImagesDir, imageId);
+                fs.writeFileSync(filePath, buffer);
+                imageUrl = `/saved_images/${imageId}`;
+                console.log(`[Custom Drawing] Imagem salva localmente: ${imageUrl}`);
+            } catch (err) {
+                console.warn('[Custom Drawing Warning] Falha ao salvar localmente (provável Vercel). Usando Base64:', err.message);
+                imageUrl = `data:image/jpeg;base64,${bytesBase64}`;
+            }
+        }
 
         if (!user.myImages) user.myImages = [];
         user.myImages.push({
-            url: relativeUrl,
+            url: imageUrl,
             prompt: userPrompt,
             styleType: style,
             createdAt: new Date().toISOString()
@@ -1317,7 +1334,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
 
         return res.json({
             success: true,
-            imageUrl: relativeUrl,
+            imageUrl: imageUrl,
             paginasRestantes: user.paginasRestantes
         });
 
