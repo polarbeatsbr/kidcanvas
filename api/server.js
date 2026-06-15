@@ -731,25 +731,6 @@ app.get('/api/config', (req, res) => {
     });
 });
 
-app.get('/api/debug-users', async (req, res) => {
-    try {
-        const users = await loadUsers();
-        return res.json(users);
-    } catch (err) {
-        return res.status(500).json({ error: err.message });
-    }
-});
-
-app.get('/api/debug-env', (req, res) => {
-    return res.json({
-        R2_BUCKET_NAME: process.env.R2_BUCKET_NAME ? process.env.R2_BUCKET_NAME : 'missing',
-        R2_ENDPOINT_URL: process.env.R2_ENDPOINT_URL ? 'set' : 'missing',
-        R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID ? 'set' : 'missing',
-        R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY ? 'set' : 'missing',
-        NODE_ENV: process.env.NODE_ENV || 'not set'
-    });
-});
-
 // Rota para redirecionar para o consentimento do Google OAuth
 app.get('/api/auth/google/redirect', (req, res) => {
     const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
