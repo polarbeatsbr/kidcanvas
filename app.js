@@ -859,6 +859,11 @@ async function handlePlanUpgrade(planName, pageAmount) {
             localStorage.removeItem("kidcanvas_pending_upgrade");
         } else {
             showToast(`Erro ao atualizar plano: ${data.message}`, 'error');
+            if (res.status === 401 || (data.message && (data.message.includes('Sessão inválida') || data.message.includes('Sessão expirada') || data.message.includes('Faça login novamente')))) {
+                setTimeout(() => {
+                    handleHeaderLogout();
+                }, 1500);
+            }
         }
     } catch(err) {
         console.error(err);
@@ -2520,6 +2525,11 @@ async function handleCustomDrawingSubmit(event) {
         } else {
             showToast(data.message || 'Ocorreu um erro ao gerar a imagem.', 'error');
             if (placeholder) placeholder.style.display = 'block';
+            if (response.status === 401 || (data.message && (data.message.includes('Sessão inválida') || data.message.includes('Sessão expirada') || data.message.includes('Faça login novamente')))) {
+                setTimeout(() => {
+                    handleHeaderLogout();
+                }, 1500);
+            }
         }
     } catch (err) {
         console.error('[Generate Custom Drawing Error]:', err);
@@ -3176,6 +3186,11 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             document.getElementById('loadingCard').style.display = 'none';
             document.getElementById('formCard').style.display = 'block';
             showError(`Erro ao gerar livro: ${err.message}`);
+            if (err.message && (err.message.includes('Sessão inválida') || err.message.includes('Sessão expirada') || err.message.includes('Faça login novamente'))) {
+                setTimeout(() => {
+                    handleHeaderLogout();
+                }, 1500);
+            }
         }
     });
     
