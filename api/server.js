@@ -297,13 +297,13 @@ app.post('/api/generate-full-story', async (req, res) => {
 
         // Validar permissão de idioma do livro com base no plano do usuário
         const userPlan = user.plan;
-        if (bookLang === 'en' && !['Professor', 'Colégio', 'Ultra'].includes(userPlan)) {
+        if (bookLang === 'en' && !['Professor', 'Colégio'].includes(userPlan)) {
             return res.status(400).json({
                 success: false,
                 message: `O plano ${userPlan} não permite criar livros em inglês. Faça upgrade para o plano Professor ou Colégio!`
             });
         }
-        if (bookLang === 'es' && !['Colégio', 'Ultra'].includes(userPlan)) {
+        if (bookLang === 'es' && !['Colégio'].includes(userPlan)) {
             return res.status(400).json({
                 success: false,
                 message: `O plano ${userPlan} não permite criar livros em espanhol. Faça upgrade para o plano Colégio!`
@@ -509,10 +509,8 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             imageUrl: imageUrls[idx + 1]
         }));
 
-        // Deduce user balance and save (skip deduction if plan is Ultra or user is foneoliver@gmail.com)
-        if (user.email !== 'foneoliver@gmail.com' && user.plan !== 'Ultra') {
-            user.paginasRestantes -= numPages;
-        }
+        // Deduce user balance and save
+        user.paginasRestantes -= numPages;
         await saveUsers(users);
 
         return res.json({
@@ -811,6 +809,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
         const sessionToken = crypto.randomBytes(16).toString('hex');
         const tokenExpiry = Date.now() + 30 * 24 * 60 * 60 * 1000;
         
+        let isNew = false;
         if (!user) {
             user = {
                 id: crypto.randomUUID(),
@@ -824,6 +823,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
                 tokenExpiry: tokenExpiry
             };
             users.push(user);
+            isNew = true;
         } else {
             user.googleId = googleId;
             user.name = name;
@@ -832,14 +832,11 @@ app.get('/api/auth/google/callback', async (req, res) => {
             user.tokenExpiry = tokenExpiry;
         }
         
-        if (email === 'foneoliver@gmail.com') {
-            user.plan = 'Ultra';
-            user.paginasRestantes = 999999;
-        }
+        
         
         await saveUsers(users);
         
-        return res.redirect(`${protocol}://${host}/?google_token=${sessionToken}`);
+        return res.redirect(`${protocol}://${host}/?google_token=${sessionToken}${isNew ? '&is_new_user=true' : ''}`);
     } catch (err) {
         console.error('[Google OAuth Callback Error]:', err);
         return res.status(500).send('Erro interno ao processar autenticação do Google.');
@@ -888,6 +885,7 @@ app.post('/api/auth/google', async (req, res) => {
         const sessionToken = crypto.randomBytes(16).toString('hex');
         const tokenExpiry = Date.now() + 30 * 24 * 60 * 60 * 1000; // 30 dias
 
+        let isNewUser = false;
         if (!user) {
             // Criar novo usuário
             user = {
@@ -902,6 +900,7 @@ app.post('/api/auth/google', async (req, res) => {
                 tokenExpiry: tokenExpiry
             };
             users.push(user);
+            isNewUser = true;
             console.log(`[Google Auth] Novo usuário criado: ${email}`);
         } else {
             // Atualizar usuário existente
@@ -913,12 +912,7 @@ app.post('/api/auth/google', async (req, res) => {
             console.log(`[Google Auth] Usuário existente logado: ${email}`);
         }
 
-        // Regra especial para foneoliver@gmail.com
-        if (email === 'foneoliver@gmail.com') {
-            user.plan = 'Ultra';
-            user.paginasRestantes = 999999;
-            console.log(`[Google Auth] Plano Ultra ILIMITADO ativado automaticamente para foneoliver@gmail.com!`);
-        }
+        
 
         await saveUsers(users);
 
@@ -931,7 +925,8 @@ app.post('/api/auth/google', async (req, res) => {
                 plan: user.plan,
                 paginasRestantes: user.paginasRestantes
             },
-            token: sessionToken
+            token: sessionToken,
+            isNewUser: isNewUser
         });
 
     } catch (err) {
@@ -962,8 +957,8 @@ app.post('/api/auth/signup', async (req, res) => {
             name: name.trim(),
             email: cleanEmail,
             passwordHash: hashPassword(password),
-            plan: cleanEmail === 'foneoliver@gmail.com' ? 'Ultra' : 'Grátis',
-            paginasRestantes: cleanEmail === 'foneoliver@gmail.com' ? 999999 : 4,
+            plan: cleanEmail === 'foneoliver@gmail.com' ? 'Colégio' : 'Grátis',
+            paginasRestantes: cleanEmail === 'foneoliver@gmail.com' ? 400 : 4,
             photo: '',
             token: sessionToken,
             tokenExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 dias
@@ -981,7 +976,8 @@ app.post('/api/auth/signup', async (req, res) => {
                 plan: newUser.plan,
                 paginasRestantes: newUser.paginasRestantes
             },
-            token: sessionToken
+            token: sessionToken,
+            isNewUser: true
         });
     } catch(err) {
         console.error('Erro no cadastro:', err);
@@ -1011,11 +1007,7 @@ app.post('/api/auth/login', async (req, res) => {
         
         await saveUsers(users);
         
-        if (cleanEmail === 'foneoliver@gmail.com') {
-            user.plan = 'Ultra';
-            user.paginasRestantes = 999999;
-            await saveUsers(users);
-        }
+        
 
         return res.json({
             success: true,
@@ -1049,10 +1041,7 @@ app.get('/api/auth/me', async (req, res) => {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
         
-        if (user.email === 'foneoliver@gmail.com') {
-            user.plan = 'Ultra';
-            user.paginasRestantes = 999999;
-        }
+        
 
         return res.json({
             success: true,
@@ -1093,10 +1082,7 @@ app.post('/api/user/upgrade', async (req, res) => {
         user.plan = planName;
         user.paginasRestantes = parseInt(pageAmount, 10);
         
-        if (user.email === 'foneoliver@gmail.com') {
-            user.plan = 'Ultra';
-            user.paginasRestantes = 999999;
-        }
+        
         
         await saveUsers(users);
         
@@ -1260,10 +1246,8 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             });
         }
 
-        // Deduce user credits (skip deduction if plan is Ultra or user is foneoliver@gmail.com)
-        if (user.email !== 'foneoliver@gmail.com' && user.plan !== 'Ultra') {
-            user.paginasRestantes -= 1;
-        }
+        // Deduce user credits
+        user.paginasRestantes -= 1;
         await saveUsers(users);
 
         const returnImage = bytesBase64.startsWith('http') ? bytesBase64 : `data:image/jpeg;base64,${bytesBase64}`;

@@ -92,7 +92,7 @@ function isDrawingAccessible(dw) {
         return idx <= 5000;
     } else if (plan === 'Professor') {
         return idx <= 7000;
-    } else if (plan === 'Colégio' || plan === 'Ultra') {
+    } else if (plan === 'Colégio') {
         return true;
     }
     return idx <= 2000; // fallback
@@ -134,6 +134,20 @@ async function syncUserProfile() {
     }
 }
 
+function showWelcomeModal() {
+    const modal = document.getElementById('welcomeModal');
+    if (modal) {
+        modal.classList.add('open');
+    }
+}
+
+function closeWelcomeModal() {
+    const modal = document.getElementById('welcomeModal');
+    if (modal) {
+        modal.classList.remove('open');
+    }
+}
+
 function updateHeaderAuthDisplay() {
     const googleBtn = document.getElementById('google-signin-btn-header');
     const btnEntrar = document.getElementById('btn-entrar-header');
@@ -161,10 +175,7 @@ function updateHeaderAuthDisplay() {
         
         if (userPlanBadge) {
             userPlanBadge.textContent = currentUser.plan;
-            if (currentUser.plan === 'Ultra') {
-                userPlanBadge.style.backgroundColor = 'var(--color-orange)';
-                userPlanBadge.textContent = 'Ultra ⚡';
-            } else if (currentUser.plan === 'Família') {
+            if (currentUser.plan === 'Família') {
                 userPlanBadge.style.backgroundColor = 'var(--color-green)';
                 userPlanBadge.textContent = 'Família 🏠';
             } else {
@@ -172,14 +183,32 @@ function updateHeaderAuthDisplay() {
             }
         }
 
-        if (userCreditsBadge) {
-            if (currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com') {
-                userCreditsBadge.textContent = 'ilimitado ⚡';
-                userCreditsBadge.style.backgroundColor = 'var(--color-purple)';
+        const credits = currentUser.paginasRestantes;
+        
+        // Pílula de moedas no header
+        const headerUserCoins = document.getElementById('header-user-coins');
+        const headerCreditsCount = document.getElementById('header-credits-count');
+        if (headerUserCoins && headerCreditsCount) {
+            headerCreditsCount.textContent = credits;
+            if (credits === 0) {
+                headerUserCoins.classList.add('zero-credits');
             } else {
-                userCreditsBadge.textContent = `${currentUser.paginasRestantes} c.`;
-                userCreditsBadge.style.backgroundColor = 'var(--color-orange)';
+                headerUserCoins.classList.remove('zero-credits');
             }
+        }
+
+        // Cor do raio baseada nos novos thresholds
+        let boltColor = '#95A5A6'; // Cinza (0)
+        if (credits >= 400) {
+            boltColor = '#FFD700'; // Amarelo (400+)
+        } else if (credits >= 200) {
+            boltColor = '#E67E22'; // Laranja (200 a 399)
+        } else if (credits >= 1) {
+            boltColor = '#E74C3C'; // Vermelho (1 a 199)
+        }
+
+        if (userCreditsBadge) {
+            userCreditsBadge.innerHTML = `${credits} c. <span style="color: ${boltColor}; font-weight: bold; text-shadow: 0 0 2px rgba(0,0,0,0.5);">⚡</span>`;
         }
 
         if (creatorPanel) {
@@ -188,11 +217,7 @@ function updateHeaderAuthDisplay() {
             if (creatorLoggedOut) creatorLoggedOut.style.display = 'none';
             if (creatorName) creatorName.textContent = currentUser.name.split(' ')[0];
             if (creatorCredits) {
-                if (currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com') {
-                    creatorCredits.textContent = 'ilimitados ⚡';
-                } else {
-                    creatorCredits.textContent = currentUser.paginasRestantes;
-                }
+                creatorCredits.innerHTML = `${credits} <span style="color: ${boltColor}; font-weight: bold; text-shadow: 0 0 2px rgba(0,0,0,0.5);">⚡</span>`;
             }
         }
         
@@ -203,6 +228,12 @@ function updateHeaderAuthDisplay() {
         if (googleBtn) googleBtn.style.display = 'none';
         if (btnEntrar) btnEntrar.style.display = 'inline-flex';
         userWidget.style.display = 'none';
+
+        // Esconder pílula de moedas se não estiver logado
+        const headerUserCoins = document.getElementById('header-user-coins');
+        if (headerUserCoins) {
+            headerUserCoins.style.display = 'none';
+        }
 
         if (creatorPanel) {
             creatorPanel.style.display = 'block';
@@ -275,9 +306,12 @@ async function handleGoogleCredentialResponse(response) {
             currentUser = data.user;
             
             updateHeaderAuthDisplay();
-            showToast(`Bem-vindo, ${currentUser.name}! 👋`, 'success');
-            
             closeAuthModal();
+            if (data.isNewUser) {
+                showWelcomeModal();
+            } else {
+                showToast(`Bem-vindo, ${currentUser.name}! 👋`, 'success');
+            }
             await checkPendingUpgrade();
             navigate(window.location.pathname, false);
             
@@ -385,7 +419,7 @@ async function handleRegisterSubmit(event) {
             
             updateHeaderAuthDisplay();
             closeAuthModal();
-            showToast(`Cadastro realizado com sucesso! Bem-vindo, ${currentUser.name}! Você ganhou 4 páginas grátis de saldo.`, 'success');
+            showWelcomeModal();
             await checkPendingUpgrade();
             navigate(window.location.pathname, false);
         } else {
@@ -423,10 +457,23 @@ window.addEventListener('DOMContentLoaded', async () => {
     // Intercept Google OAuth redirect token
     const urlParams = new URLSearchParams(window.location.search);
     const googleToken = urlParams.get('google_token');
+    const isNewUserQuery = urlParams.get('is_new_user');
+
     if (googleToken) {
         localStorage.setItem("kidcanvas_session_token", googleToken);
         sessionToken = googleToken;
-        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        let newUrl = window.location.pathname;
+        if (isNewUserQuery === 'true') {
+            newUrl += '?is_new_user=true';
+        }
+        window.history.replaceState({}, document.title, newUrl);
+    }
+
+    if (isNewUserQuery === 'true' || urlParams.get('is_new_user') === 'true') {
+        showWelcomeModal();
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
     }
 
     await syncUserProfile();
@@ -476,13 +523,23 @@ function initGlobalEventListeners() {
         if (targetLink) {
             const href = targetLink.getAttribute('href');
             
-            // Alternar dropdown "Mais" ao clicar
+            // Alternar dropdowns ao clicar
             if (targetLink.classList.contains('dropdown-toggle')) {
                 e.preventDefault();
                 e.stopPropagation();
                 const dropdownMenu = targetLink.nextElementSibling;
+                
+                // Fecha outros dropdowns abertos
+                document.querySelectorAll('#navbar ul.dropdown-menu').forEach(menu => {
+                    if (menu !== dropdownMenu) {
+                        menu.classList.remove('show');
+                        menu.previousElementSibling.classList.remove('open');
+                    }
+                });
+
                 if (dropdownMenu) {
-                    dropdownMenu.classList.toggle('show');
+                    const isOpen = dropdownMenu.classList.toggle('show');
+                    targetLink.classList.toggle('open', isOpen);
                 }
                 return;
             }
@@ -507,12 +564,14 @@ function initGlobalEventListeners() {
         }
     });
     
-    // Fechar dropdown "Mais" ao clicar fora
+    // Fechar dropdowns ao clicar fora
     document.addEventListener('click', () => {
-        const dropdownMenu = document.querySelector('.dropdown-menu');
-        if (dropdownMenu) {
-            dropdownMenu.classList.remove('show');
-        }
+        document.querySelectorAll('#navbar ul.dropdown-menu').forEach(menu => {
+            menu.classList.remove('show');
+        });
+        document.querySelectorAll('#navbar .dropdown-toggle').forEach(btn => {
+            btn.classList.remove('open');
+        });
     });
     
     // Escutar eventos de voltar/avançar no navegador
@@ -742,7 +801,7 @@ function renderPlanosView() {
         } else if (plan === 'Professor') {
             if (btnProfessor) { btnProfessor.textContent = 'Seu plano atual 🎨'; btnProfessor.disabled = true; }
             if (cardProfessor) cardProfessor.classList.add('active-plan');
-        } else if (plan === 'Colégio' || plan === 'Ultra') {
+        } else if (plan === 'Colégio') {
             if (btnColegio) { btnColegio.textContent = 'Seu plano atual 🎨'; btnColegio.disabled = true; }
             if (cardColegio) cardColegio.classList.add('active-plan');
         }
@@ -1657,8 +1716,8 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
     initRatingSystem(categorySlug, drawingSlug);
     
     // Configurar Cadeados e Permissões dos Idiomas
-    const hasEn = currentUser && ['Família', 'Professor', 'Colégio', 'Ultra'].includes(currentUser.plan);
-    const hasEs = currentUser && ['Colégio', 'Ultra'].includes(currentUser.plan);
+    const hasEn = currentUser && ['Família', 'Professor', 'Colégio'].includes(currentUser.plan);
+    const hasEs = currentUser && ['Colégio'].includes(currentUser.plan);
     
     const lockEn = document.getElementById('lock-en');
     const lockEs = document.getElementById('lock-es');
@@ -2390,8 +2449,7 @@ async function handleCustomDrawingSubmit(event) {
         return;
     }
     
-    const hasUnlimited = currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com';
-    if (!hasUnlimited && currentUser.paginasRestantes < 1) {
+    if (currentUser.paginasRestantes < 1) {
         openCreditsModal('Seus créditos mágicos acabaram! Faça upgrade de plano para continuar criando desenhos mágicos.');
         return;
     }

@@ -443,9 +443,10 @@ button, input, select, textarea {
 
 /* --- HERO & MASCOTES COZY --- */
 .hero-bg {
+    position: relative;
     background-color: #FAF2E8; /* Fundo bege quente igual à sala da imagem */
-    padding: 40px 0 50px 0;
-    border-bottom: var(--border-medium);
+    padding: 40px 0 70px 0;
+    border-bottom: none;
 }
 
 .hero-container {
@@ -2476,4 +2477,237 @@ button, input, select, textarea {
         grid-template-columns: 1fr !important;
         gap: 30px !important;
     }
+}
+
+/* --- MELHORIAS VISUAIS COLORIFYAI --- */
+
+/* Gotas de tinta no Hero */
+.hero-drip-divider {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 10;
+}
+
+.hero-drip-divider svg {
+    display: block;
+    width: calc(100% + 1.3px);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 40px;
+}
+
+.drip-fill {
+    fill: #fffdf5; /* Cor de fundo da área do criador (creator-dashboard-panel) */
+}
+
+/* Seção de Desenhos em Destaque */
+.featured-section {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    border-bottom: var(--border-medium);
+}
+
+.featured-cards-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.featured-card {
+    background: #ffffff;
+    border: var(--border-medium);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-cartoon);
+    padding: 20px;
+    width: 280px;
+    text-align: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.featured-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-cartoon-hover);
+}
+
+.featured-image-container {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background-color: #fafbfc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    border: var(--border-thin);
+}
+
+.featured-img {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    z-index: 2;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.08));
+    mix-blend-mode: multiply;
+}
+
+/* Manchas coloridas de tinta (Blobs) */
+.splash-bg {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    z-index: 1;
+    opacity: 0.85;
+    filter: blur(4px);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.featured-card:hover .splash-bg {
+    transform: scale(1.25) rotate(15deg);
+}
+
+.splash-pink {
+    background: radial-gradient(circle, #ff8da1 0%, #ff527b 100%);
+    border-radius: 43% 57% 41% 59% / 57% 45% 55% 43%;
+}
+
+.splash-blue {
+    background: radial-gradient(circle, #8ad3ff 0%, #359aff 100%);
+    border-radius: 53% 47% 61% 39% / 47% 55% 45% 53%;
+}
+
+.splash-yellow {
+    background: radial-gradient(circle, #ffdf8d 0%, #ffc03d 100%);
+    border-radius: 47% 53% 39% 61% / 55% 43% 57% 45%;
+}
+
+.featured-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--color-dark);
+    margin: 10px 0 15px 0;
+}
+
+.featured-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+
+/* Pílula de Moedas no Header */
+.header-coins-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #fff8e7;
+    border: 1.5px solid #ffd56b;
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #b25e00;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+    margin-right: 10px;
+}
+
+.header-coins-pill.zero-credits {
+    background-color: #ffeef0;
+    border-color: #ffa3a3;
+    color: #d32f2f;
+}
+
+.header-coins-pill:hover {
+    transform: scale(1.05);
+}
+
+.header-coins-pill .coin-icon {
+    font-size: 1.1rem;
+    animation: coin-spin 3s infinite ease-in-out;
+}
+
+@keyframes coin-spin {
+    0%, 100% { transform: rotateY(0deg); }
+    50% { transform: rotateY(180deg); }
+}
+
+/* Modal de Boas-vindas */
+.welcome-modal-box {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+.modal-overlay.open .welcome-modal-box {
+    transform: scale(1);
+    opacity: 1;
+}
+
+@keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Dropdowns scrollables e desabilitados */
+.scrollable-dropdown {
+    max-height: 280px;
+    overflow-y: auto !important;
+}
+
+/* Estilo para barra de scroll elegante nos dropdowns */
+.scrollable-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.scrollable-dropdown::-webkit-scrollbar-track {
+    background: #f7f3ed;
+}
+.scrollable-dropdown::-webkit-scrollbar-thumb {
+    background: #d5c3af;
+    border-radius: 4px;
+}
+.scrollable-dropdown::-webkit-scrollbar-thumb:hover {
+    background: var(--color-purple);
+}
+
+.dropdown-item.disabled-item {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    color: var(--color-dark-light);
+}
+
+.badge-soon {
+    font-size: 0.7rem;
+    background-color: var(--color-dark-light);
+    color: white;
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-left: 6px;
+    font-weight: 700;
+}
+
+/* Caret Icon do Dropdown */
+.caret-icon {
+    font-size: 0.75rem;
+    margin-left: 4px;
+    transition: transform 0.25s ease;
+}
+
+.dropdown-toggle.open .caret-icon {
+    transform: rotate(180deg);
 }

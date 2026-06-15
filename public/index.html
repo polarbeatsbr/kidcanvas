@@ -65,17 +65,51 @@
                 
                 <nav id="navbar">
                     <ul>
-                        <li><a href="/categorias" class="nav-link"><i class="fa-solid fa-shapes"></i> Temas</a></li>
-                        <li><a href="/top50" class="nav-link"><i class="fa-solid fa-trophy"></i> Top 50</a></li>
-                        <li><a href="/categoria/novidades" class="nav-link nav-link-new">✨ Novos</a></li>
-                        <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
                         <li class="nav-dropdown">
-                            <a href="#" class="nav-link nav-link-special dropdown-toggle"><i class="fa-solid fa-wand-magic-sparkles"></i> ✨ Criar</a>
+                            <a href="#" class="nav-link dropdown-toggle"><i class="fa-solid fa-shapes"></i> Temas <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+                            <ul class="dropdown-menu scrollable-dropdown">
+                                <li><a href="/categoria/novidades" class="dropdown-item">✨ Novidades</a></li>
+                                <li><a href="/categoria/animais-selvagens" class="dropdown-item">🦁 Animais Selvagens</a></li>
+                                <li><a href="/categoria/animais-do-mar" class="dropdown-item">🦈 Animais do Mar</a></li>
+                                <li><a href="/categoria/animais-domesticos" class="dropdown-item">🐱 Animais Domésticos</a></li>
+                                <li><a href="/categoria/dinossauros" class="dropdown-item">🦖 Dinossauros</a></li>
+                                <li><a href="/categoria/contos-de-fada" class="dropdown-item">👑 Contos de Fada</a></li>
+                                <li><a href="/categoria/espaco" class="dropdown-item">🚀 Espaço Sideral</a></li>
+                                <li><a href="/categoria/natureza" class="dropdown-item">🌻 Natureza e Flores</a></li>
+                                <li><a href="/categoria/veiculos" class="dropdown-item">🚗 Veículos e Carros</a></li>
+                                <li><a href="/categoria/comidas-e-doces" class="dropdown-item">🍩 Comidas e Doces</a></li>
+                                <li><a href="/categoria/cotidiano" class="dropdown-item">🧸 Cotidiano</a></li>
+                                <li><a href="/categoria/fantasia" class="dropdown-item">🦄 Fantasia</a></li>
+                                <li><a href="/categoria/profissoes" class="dropdown-item">👩‍🚒 Profissões</a></li>
+                                <li><a href="/categoria/unicornios" class="dropdown-item">🦄 Unicórnios</a></li>
+                                <li><a href="/categoria/festa-junina" class="dropdown-item">🤠 Festa Junina</a></li>
+                                <li><a href="/categoria/datas-comemorativas" class="dropdown-item">🎄 Datas Comemorativas</a></li>
+                                <li><a href="/categoria/alfabeto-e-numeros" class="dropdown-item">🔤 Alfabeto e Números</a></li>
+                                <li><a href="/categoria/futebol" class="dropdown-item">⚽ Futebol</a></li>
+                                <li><a href="/categoria/princesas" class="dropdown-item">👸 Princesas</a></li>
+                                <li><a href="/categoria/super-herois" class="dropdown-item">🦸 Super-Heróis</a></li>
+                                <li><a href="/categoria/frutas-e-legumes" class="dropdown-item">🍎 Frutas e Legumes</a></li>
+                                <li><a href="/categoria/flores" class="dropdown-item">🌸 Flores</a></li>
+                                <li><a href="/categoria/paper-doll" class="dropdown-item">✂️ Bonecas de Papel</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link dropdown-toggle"><i class="fa-solid fa-wand-magic-sparkles"></i> Ferramentas IA <i class="fa-solid fa-chevron-down caret-icon"></i></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/gerar-desenho" class="dropdown-item"><i class="fa-solid fa-paint-brush"></i> Gere sua Imagem</a></li>
                                 <li><a href="/historias-magicas" class="dropdown-item"><i class="fa-solid fa-book-open"></i> Crie seu Livro</a></li>
+                                <li><a href="#" class="dropdown-item disabled-item" onclick="return false;"><i class="fa-solid fa-image"></i> Photo to Sketch <span class="badge-soon">Em breve</span></a></li>
                             </ul>
                         </li>
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link dropdown-toggle"><i class="fa-solid fa-gift"></i> Desenhos Grátis <i class="fa-solid fa-chevron-down caret-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/top50" class="dropdown-item"><i class="fa-solid fa-trophy"></i> Top 50</a></li>
+                                <li><a href="/categoria/novidades" class="dropdown-item">✨ Novos</a></li>
+                                <li><a href="/categorias" class="dropdown-item"><i class="fa-solid fa-shapes"></i> Categorias</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
                     </ul>
                 </nav>
                 
@@ -84,6 +118,10 @@
                     <button id="btn-entrar-header" class="btn-entrar-header" onclick="openAuthModal()"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
                     <div id="google-signin-btn-header" class="google-btn-header" style="display: none;"></div>
                     <div id="user-profile-widget" class="user-profile-widget" style="display: none;">
+                        <div id="header-user-coins" class="header-coins-pill">
+                            <span class="coin-icon">🪙</span>
+                            <span id="header-credits-count">0</span>
+                        </div>
                         <img id="user-avatar-img" class="user-avatar-circle" src="" alt="Avatar">
                         <div class="user-meta-info">
                             <span id="user-display-name" class="user-name-text">Nome</span>
@@ -126,6 +164,12 @@
                             <a href="/historias-magicas" class="btn-hero-secondary"><i class="fa-solid fa-book-open"></i> Criar Livro Mágico ✨</a>
                         </div>
                     </div>
+                </div>
+                <!-- Efeito de tinta escorrendo no hero (SVG shape divider) -->
+                <div class="hero-drip-divider" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 283.5 27.8" preserveAspectRatio="none">
+                        <path class="drip-fill" d="M0 0v1.4c.6.7 1.1 1.4 1.4 2 2 3.8 2.2 6.6 1.8 10.8-.3 3.3-2.4 9.4 0 12.3 1.7 2 3.7 1.4 4.6-.9 1.4-3.8-.7-8.2-.6-12 .1-3.7 3.2-5.5 6.9-4.9 4 .6 4.8 4 4.9 7.4.1 1.8-1.1 7 0 8.5.6.8 1.6 1.2 2.4.5 1.4-1.1.1-5.4.1-6.9.1-3.7.3-8.6 4.1-10.5 5-2.5 6.2 1.6 5.4 5.6-.4 1.7-1 9.2 2.9 6.3 1.5-1.1.7-3.5.5-4.9-.4-2.4-.4-4.3 1-6.5.9-1.4 2.4-3.1 4.2-3 2.4.1 2.7 2.2 4 3.7 1.5 1.8 1.8 2.2 3 .1 1.1-1.9 1.2-2.8 3.6-3.3 1.3-.3 4.8-1.4 5.9-.5 1.5 1.1.6 2.8.4 4.3-.2 1.1-.6 4 1.8 3.4 1.7-.4-.3-4.1.6-5.6 1.3-2.2 5.8-1.4 7 .5 1.3 2.1.5 5.8.1 8.1s-1.2 5-.6 7.4c1.3 5.1 4.4.9 4.3-2.4-.1-4.4-2-8.8-.5-13 .9-2.4 4.6-6.6 7.7-4.5 2.7 1.8.5 7.8.2 10.3-.2 1.7-.8 4.6.2 6.2.9 1.4 2 1.5 2.6-.3.5-1.5-.9-4.5-1-6.1-.2-1.7-.4-3.7.2-5.4 1.8-5.6 3.5 2.4 6.3.6 1.4-.9 4.3-9.4 6.1-3.1.6 2.2-1.3 7.8.7 8.9 4.2 2.3 1.5-7.1 2.2-8 3.1-4 4.7 3.8 6.1 4.1 3.1.7 2.8-7.9 8.1-4.5 1.7 1.1 2.9 3.3 3.2 5.2.4 2.2-1 4.5-.6 6.6 1 4.3 4.4 1.5 4.4-1.7 0-2.7-3-8.3 1.4-9.1 4.4-.9 7.3 3.5 7.8 6.9.3 2-1.5 10.9 1.3 11.3 4.1.6-3.2-15.7 4.8-15.8 4.7-.1 2.8 4.1 3.9 6.6 1 2.4 2.1 1 2.3-.8.3-1.9-.9-3.2 1.3-4.3 5.9-2.9 5.9 5.4 5.5 8.5-.3 2-1.7 8.4 2 8.1 6.9-.5-2.8-16.9 4.8-18.7 4.7-1.2 6.1 3.6 6.3 7.1.1 1.7-1.2 8.1.6 9.1 3.5 2 1.9-7 2-8.4.2-4 1.2-9.6 6.4-9.8 4.7-.2 3.2 4.6 2.7 7.5-.4 2.2 1.3 8.6 3.8 4.4 1.1-1.9-.3-4.1-.3-6 0-1.7.4-3.2 1.3-4.6 1-1.6 2.9-3.5 5.1-2.9 2.5.6 2.3 4.1 4.1 4.9 1.9.8 1.6-.9 2.3-2.1 1.2-2.1 2.1-2.1 4.4-2.4 1.4-.2 3.6-1.5 4.9-.5 2.3 1.7-.7 4.4.1 6.5.6 1.5 2.1 1.7 2.8.3.7-1.4-1.1-3.4-.3-4.8 1.4-2.5 6.2-1.2 7.2 1 2.3 4.8-3.3 12-.2 16.3 3 4.1 3.9-2.8 3.8-4.8-.4-4.3-2.1-8.9 0-13.1 1.3-2.5 5.9-5.7 7.9-2.4 2 3.2-1.3 9.8-.8 13.4.5 4.4 3.5 3.3 2.7-.8-.4-1.9-2.4-10 .6-11.1 3.7-1.4 2.8 7.2 6.5.4 2.2-4.1 4.9-3.1 5.2 1.2.1 1.5-.6 3.1-.4 4.6.2 1.9 1.8 3.7 3.3 1.3 1-1.6-2.6-10.4 2.9-7.3 2.6 1.5 1.6 6.5 4.8 2.7 1.3-1.5 1.7-3.6 4-3.7 2.2-.1 4 2.3 4.8 4.1 1.3 2.9-1.5 8.4.9 10.3 4.2 3.3 3-5.5 2.7-6.9-.6-3.9 1-7.2 5.5-5 4.1 2.1 4.3 7.7 4.1 11.6 0 .8-.6 9.5 2.5 5.2 1.2-1.7-.1-7.7.1-9.6.3-2.9 1.2-5.5 4.3-6.2 4.5-1 7.7 1.5 7.4 5.8-.2 3.5-1.8 7.7-.5 11.1 1 2.7 3.6 2.8 5 .2 1.6-3.1 0-8.3-.4-11.6-.4-4.2-.2-7 1.8-10.8 0 0-.1.1-.1.2-.2.4-.3.7-.4.8v.1c-.1.2-.1.2 0 0v-.1l.4-.8c0-.1.1-.1.1-.2.2-.4.5-.8.8-1.2V0H0zM282.7 3.4z" />
+                    </svg>
                 </div>
             </div>
             
@@ -178,6 +222,50 @@
                     </a>
                 </div>
             </div>
+            
+            <!-- SEÇÃO DE DESENHOS EM DESTAQUE (COM SPLASH COLORIDO ATRÁS) -->
+            <section class="featured-section">
+                <div class="container">
+                    <div class="section-title-wrapper" style="margin-bottom: 25px;">
+                        <h2 class="section-title" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <span style="font-size: 2.2rem;">✨</span> Desenhos em Destaque 🌟
+                        </h2>
+                        <p class="section-subtitle">Os desenhos favoritos das crianças para colorir e imprimir agora mesmo!</p>
+                    </div>
+                    
+                    <div class="featured-cards-grid">
+                        <!-- Card 1: Unicórnio -->
+                        <div class="featured-card">
+                            <div class="featured-image-container">
+                                <div class="splash-bg splash-pink"></div>
+                                <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/01-unicornio-pirata-com-mapa__unicorn_pirate.png" alt="Desenho de Unicórnio Pirata para colorir" class="featured-img">
+                            </div>
+                            <h3 class="featured-card-title">Unicórnio Pirata 🦄</h3>
+                            <a href="/fantasia/01-unicornio-pirata-com-mapa__unicorn_pirate" class="btn btn-secondary featured-btn">Colorir Grátis</a>
+                        </div>
+                        
+                        <!-- Card 2: T-Rex -->
+                        <div class="featured-card">
+                            <div class="featured-image-container">
+                                <div class="splash-bg splash-blue"></div>
+                                <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/01-t-rex-correndo-feliz__t-rex.png" alt="Desenho de T-Rex Feliz para colorir" class="featured-img">
+                            </div>
+                            <h3 class="featured-card-title">T-Rex Feliz 🦖</h3>
+                            <a href="/dinossauros/01-t-rex-correndo-feliz__t-rex" class="btn btn-secondary featured-btn">Colorir Grátis</a>
+                        </div>
+                        
+                        <!-- Card 3: Golfinho -->
+                        <div class="featured-card">
+                            <div class="featured-image-container">
+                                <div class="splash-bg splash-yellow"></div>
+                                <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/01-golfinho-nadando-feliz__dolphin.png" alt="Desenho de Golfinho Nadando para colorir" class="featured-img">
+                            </div>
+                            <h3 class="featured-card-title">Golfinho Alegre 🐬</h3>
+                            <a href="/animais-do-mar/01-golfinho-nadando-feliz__dolphin" class="btn btn-secondary featured-btn">Colorir Grátis</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- BARRA DE BUSCA COM DESTAQUE DA HOME -->
             <div class="search-section">
@@ -674,7 +762,7 @@
                                     <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500; text-align: right;">Descreva o que você quer desenhar (até 200 letras)</span>
                                 </div>
                                 <button class="btn btn-secondary" type="submit" id="btn-submit-custom-drawing" style="font-size: 1.2rem; padding: 15px; width: 100%; border-radius: var(--radius-sm); font-weight: 700; justify-content: center; gap: 8px;">
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Desenhar Desenho Mágico! (1 crédito mágico)
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 c.)
                                 </button>
                             </form>
                         </div>
@@ -818,6 +906,24 @@
             </p>
             <button class="btn btn-secondary" onclick="handleVerPlanosClick()" style="font-size: 1.1rem; padding: 12px 20px; width: 100%; display: inline-flex; justify-content: center; border-radius: var(--radius-sm); font-weight: 700; border: none; cursor: pointer;">
                 Ver Planos 🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Boas-vindas (Novo Cadastro) -->
+    <div id="welcomeModal" class="modal-overlay">
+        <div class="modal-box welcome-modal-box" style="text-align: center; max-width: 420px; padding: 40px 30px; border: var(--border-medium); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon); background-color: #fffdf5; position: relative;">
+            <button class="btn-close-modal" onclick="closeWelcomeModal()">&times;</button>
+            <span style="font-size: 4rem; display: block; margin-bottom: 20px; animation: bounce-slow 2s infinite;">🎨</span>
+            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-purple); margin-bottom: 12px; line-height: 1.2;">Parabéns!</h3>
+            <p style="font-size: 1.25rem; color: var(--color-dark); font-weight: 700; margin-bottom: 15px;">
+                Você ganhou 4 créditos mágicos! 🌟
+            </p>
+            <p style="font-size: 1rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 30px;">
+                Use seus créditos para gerar desenhos mágicos exclusivos com inteligência artificial ou criar livrinhos de colorir completos!
+            </p>
+            <button class="btn btn-primary btn-large" onclick="closeWelcomeModal()" style="font-size: 1.15rem; padding: 14px 28px; width: 100%; display: inline-flex; justify-content: center; border-radius: var(--radius-sm); font-weight: 700;">
+                Começar a criar! 🚀
             </button>
         </div>
     </div>

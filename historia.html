@@ -1203,6 +1203,10 @@
     <!-- Top Navbar showing Plan/Balance and Upgrade actions -->
     <div class="top-navbar">
         <div class="user-status-card">
+            <div id="header-user-coins" class="header-coins-pill" style="display: none; margin-right: 8px;">
+                <span class="coin-icon">🪙</span>
+                <span id="header-credits-count">0</span>
+            </div>
             <div class="user-avatar" id="userAvatarSlot">🧙‍♂️</div>
             <div class="user-info">
                 <span class="user-info-plan" id="userNameDisplay">Olá, Visitante</span>
@@ -1365,7 +1369,7 @@
             </label>
         </div>
 
-        <button class="btn-generate" id="btnGenerate" disabled>🧙‍♂️ Criar Livro e Descontar Saldo</button>
+        <button class="btn-generate" id="btnGenerate" disabled>🧙‍♂️ Criar Livro (4 c.)</button>
     </div>
 
     <!-- Loading State Screen -->
@@ -1506,15 +1510,15 @@
                         <button class="btn-activate-plan" onclick="subscribePlan('Premium', 60)">Assinar Plano</button>
                     </div>
                 </div>
-                <!-- Ultra Plan -->
+                <!-- Colégio Plan -->
                 <div class="plan-card">
                     <div>
-                        <h4 class="plan-card-title">Ultra</h4>
+                        <h4 class="plan-card-title">Colégio</h4>
                         <p class="plan-card-features">400 páginas / mês</p>
                     </div>
                     <div>
                         <p class="plan-card-price">R$ 119,90 / mês</p>
-                        <button class="btn-activate-plan" onclick="subscribePlan('Ultra', 400)">Assinar Plano</button>
+                        <button class="btn-activate-plan" onclick="subscribePlan('Colégio', 400)">Assinar Plano</button>
                     </div>
                 </div>
             </div>
@@ -1545,6 +1549,24 @@
         
         <!-- Viewer Content (Cover + Pages) -->
         <div id="viewerContent"></div>
+    </div>
+</div>
+
+<!-- Modal de Boas-vindas (Novo Cadastro) -->
+<div id="welcomeModal" class="modal-overlay">
+    <div class="modal-box welcome-modal-box" style="text-align: center; max-width: 420px; padding: 40px 30px; border: var(--border-medium); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon); background-color: #fffdf5; position: relative;">
+        <button class="btn-close-modal" onclick="closeWelcomeModal()">✕</button>
+        <span style="font-size: 4rem; display: block; margin-bottom: 20px; animation: bounce-slow 2s infinite;">🎨</span>
+        <h3 style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-purple); margin-bottom: 12px; line-height: 1.2;">Parabéns!</h3>
+        <p style="font-size: 1.25rem; color: var(--color-dark); font-weight: 700; margin-bottom: 15px;">
+            Você ganhou 4 créditos mágicos! 🌟
+        </p>
+        <p style="font-size: 1rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 30px;">
+            Use seus créditos para gerar desenhos mágicos exclusivos com inteligência artificial ou criar livrinhos de colorir completos!
+        </p>
+        <button class="btn btn-primary btn-large" onclick="closeWelcomeModal()" style="font-size: 1.15rem; padding: 14px 28px; width: 100%; display: inline-flex; justify-content: center; border-radius: var(--radius-sm); font-weight: 700;">
+            Começar a criar! 🚀
+        </button>
     </div>
 </div>
 
@@ -1693,6 +1715,20 @@
     let sessionToken = localStorage.getItem("kidcanvas_session_token") || null;
     let currentUser = null;
 
+    function showWelcomeModal() {
+        const modal = document.getElementById('welcomeModal');
+        if (modal) {
+            modal.classList.add('open');
+        }
+    }
+
+    function closeWelcomeModal() {
+        const modal = document.getElementById('welcomeModal');
+        if (modal) {
+            modal.classList.remove('open');
+        }
+    }
+
     function updateNavbarDisplay() {
         const nameDisplay = document.getElementById('userNameDisplay');
         const planDisplay = document.getElementById('userPlanDisplay');
@@ -1705,14 +1741,33 @@
         if (currentUser) {
             nameDisplay.textContent = `Olá, ${currentUser.name}`;
             
-            // Exibir Ultra de forma bem destacada
-            if (currentUser.plan === 'Ultra') {
-                planDisplay.innerHTML = `Plano: <span style="font-weight: 800; color: var(--color-orange);">Ultra ⚡ (Ilimitado)</span>`;
-                balanceDisplay.textContent = `Saldo: Ilimitado`;
-            } else {
-                planDisplay.textContent = `Plano: ${currentUser.plan}`;
-                balanceDisplay.textContent = `Saldo: ${currentUser.paginasRestantes} página(s)`;
+            planDisplay.textContent = `Plano: ${currentUser.plan}`;
+            
+            const credits = currentUser.paginasRestantes;
+            
+            // Pílula de moedas no header
+            const headerUserCoins = document.getElementById('header-user-coins');
+            const headerCreditsCount = document.getElementById('header-credits-count');
+            if (headerUserCoins && headerCreditsCount) {
+                headerUserCoins.style.display = 'flex';
+                headerCreditsCount.textContent = credits;
+                if (credits === 0) {
+                    headerUserCoins.classList.add('zero-credits');
+                } else {
+                    headerUserCoins.classList.remove('zero-credits');
+                }
             }
+
+            // Novos thresholds para o raio
+            let boltColor = '#95A5A6'; // Cinza
+            if (credits >= 400) {
+                boltColor = '#FFD700'; // Amarelo
+            } else if (credits >= 200) {
+                boltColor = '#E67E22'; // Laranja
+            } else if (credits >= 1) {
+                boltColor = '#E74C3C'; // Vermelho
+            }
+            balanceDisplay.innerHTML = `Saldo: ${credits} página(s) <span style="color: ${boltColor}; font-weight: bold; text-shadow: 0 0 2px rgba(0,0,0,0.5);">⚡</span>`;
             
             if (avatarSlot) {
                 if (currentUser.photo) {
@@ -1729,6 +1784,12 @@
             nameDisplay.textContent = `Olá, Visitante`;
             planDisplay.textContent = `Plano: Nenhum`;
             balanceDisplay.textContent = `Saldo: 0 páginas`;
+            
+            // Esconder pílula de moedas
+            const headerUserCoins = document.getElementById('header-user-coins');
+            if (headerUserCoins) {
+                headerUserCoins.style.display = 'none';
+            }
             
             if (avatarSlot) {
                 avatarSlot.textContent = "🧙‍♂️";
@@ -1800,6 +1861,7 @@
                         radio4.checked = true;
                         document.querySelectorAll('.page-card').forEach(c => c.classList.remove('active'));
                         card4.classList.add('active');
+                        updateGenerateButtonText();
                         
                         const requiredPlan = card === card6 ? 'Família' : (card === card8 ? 'Professor' : 'Colégio');
                         alert(`Esta quantidade de páginas requer o plano ${requiredPlan}! Acesse os Planos para fazer upgrade.`);
@@ -1821,8 +1883,8 @@
         const lockEnIcon = document.getElementById('book-lang-lock-en');
         const lockEsIcon = document.getElementById('book-lang-lock-es');
         
-        const hasEn = ['Professor', 'Colégio', 'Ultra'].includes(plan);
-        const hasEs = ['Colégio', 'Ultra'].includes(plan);
+        const hasEn = ['Professor', 'Colégio'].includes(plan);
+        const hasEs = ['Colégio'].includes(plan);
         
         if (lockEnIcon) lockEnIcon.style.display = hasEn ? 'none' : 'inline-block';
         if (lockEsIcon) lockEsIcon.style.display = hasEs ? 'none' : 'inline-block';
@@ -1993,7 +2055,7 @@
                 document.getElementById('authSection').style.display = 'none';
                 document.getElementById('plansGridSection').style.display = 'block';
                 
-                alert(`Cadastro realizado com sucesso! Bem-vindo, ${currentUser.name}! Você ganhou 4 páginas grátis de saldo.`);
+                showWelcomeModal();
             } else {
                 alert(`Erro no cadastro: ${data.message}`);
             }
@@ -2096,7 +2158,11 @@
                     plansGridSection.style.display = 'block';
                 }
                 
-                alert(`Bem-vindo, ${currentUser.name}! 👋`);
+                if (data.isNewUser) {
+                    showWelcomeModal();
+                } else {
+                    alert(`Bem-vindo, ${currentUser.name}! 👋`);
+                }
             } else {
                 alert(`Erro na autenticação com Google: ${data.message}`);
             }
@@ -2140,10 +2206,23 @@
     // Initialize display & sync on load
     const urlParams = new URLSearchParams(window.location.search);
     const googleToken = urlParams.get('google_token');
+    const isNewUserQuery = urlParams.get('is_new_user');
+    
     if (googleToken) {
         localStorage.setItem("kidcanvas_session_token", googleToken);
         sessionToken = googleToken;
-        window.history.replaceState({}, document.title, window.location.pathname);
+        
+        let newUrl = window.location.pathname;
+        if (isNewUserQuery === 'true') {
+            newUrl += '?is_new_user=true';
+        }
+        window.history.replaceState({}, document.title, newUrl);
+    }
+    
+    if (isNewUserQuery === 'true' || urlParams.get('is_new_user') === 'true') {
+        showWelcomeModal();
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
     }
 
     updateNavbarDisplay();
@@ -2160,6 +2239,16 @@
     }
     checkGsiLoaded();
 
+    function updateGenerateButtonText() {
+        const checkedRadio = document.querySelector('input[name="pageCount"]:checked');
+        const pageCount = checkedRadio ? checkedRadio.value : '4';
+        const btnGenerate = document.getElementById('btnGenerate');
+        if (btnGenerate) {
+            btnGenerate.textContent = `🧙‍♂️ Criar Livro (${pageCount} c.)`;
+        }
+    }
+    updateGenerateButtonText();
+
     // -------------------------------------------------------------
     // FORM CONTROLS & INTERACTIVE UI
     // -------------------------------------------------------------
@@ -2171,6 +2260,7 @@
             pageCards.forEach(c => c.classList.remove('active'));
             card.classList.add('active');
             card.querySelector('input[type="radio"]').checked = true;
+            updateGenerateButtonText();
         });
     });
 
@@ -2272,8 +2362,7 @@
             switchAuthTab('register');
             return;
         }
-        const hasUnlimited = currentUser.plan === 'Ultra' || currentUser.email === 'foneoliver@gmail.com';
-        if (!hasUnlimited && currentUser.paginasRestantes < pageCount) {
+        if (currentUser.paginasRestantes < pageCount) {
             openCreditsModal('Seus créditos mágicos acabaram! Faça upgrade de plano para adicionar saldo.');
             return;
         }
@@ -2412,6 +2501,7 @@
             pageCards.forEach(c => c.classList.remove('active'));
             document.getElementById('card4').classList.add('active');
             document.querySelector('input[name="pageCount"][value="4"]').checked = true;
+            updateGenerateButtonText();
             
             // reset radios to color
             document.querySelector('input[name="styleType"][value="color"]').checked = true;
