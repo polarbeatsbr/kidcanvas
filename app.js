@@ -3918,9 +3918,11 @@ function renderMinhasCriacoesView() {
                         <span class="drawing-card-category">${dw.styleType === 'color' ? 'Colorido 🌈' : 'Preto e Branco 🖍️'}</span>
                         <h4 class="drawing-card-title" style="font-size: 0.85rem; line-height: 1.2; max-height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${dw.prompt}</h4>
                     </div>
-                    <div class="card-bottom" style="display: flex; gap: 8px;">
-                        <button class="btn btn-secondary btn-sm" onclick="downloadSavedImage('${imageUrl}', '${dw.prompt}')" style="flex: 1; justify-content: center; padding: 6px 10px; font-size: 0.85rem;"><i class="fa-solid fa-download"></i> Salvar</button>
-                        <button class="btn btn-primary btn-sm" onclick="printSavedImage('${imageUrl}')" style="flex: 1; justify-content: center; padding: 6px 10px; font-size: 0.85rem; background-color: var(--color-purple);"><i class="fa-solid fa-print"></i> Imprimir</button>
+                    <div class="card-bottom" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <button class="btn btn-secondary btn-sm" onclick="downloadSavedImage('${imageUrl}', '${dw.prompt}')" style="justify-content: center; padding: 6px 10px; font-size: 0.85rem;"><i class="fa-solid fa-download"></i> Salvar</button>
+                        <button class="btn btn-secondary btn-sm" onclick="downloadSavedDrawingPDF('${imageUrl}', '${dw.prompt}', this)" style="justify-content: center; padding: 6px 10px; font-size: 0.85rem; background-color: #e74c3c; border-color: #e74c3c; color: white;"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+                        <button class="btn btn-primary btn-sm" onclick="printSavedImage('${imageUrl}')" style="justify-content: center; padding: 6px 10px; font-size: 0.85rem; background-color: var(--color-purple);"><i class="fa-solid fa-print"></i> Imprimir</button>
+                        <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${imageUrl}', '${dw.prompt}')" style="justify-content: center; padding: 6px 10px; font-size: 0.85rem; background-color: #25d366; border-color: #25d366; color: white;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
                     </div>
                 `;
                 drawingsGrid.appendChild(card);
@@ -3995,6 +3997,76 @@ function printSavedImage(url) {
     `);
     printWindow.document.close();
 }
+
+function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
+    const tempContainer = document.createElement('div');
+    tempContainer.style.width = '210mm';
+    tempContainer.style.height = '297mm';
+    tempContainer.style.background = '#FFFFFF';
+    tempContainer.style.color = '#3D281A';
+    tempContainer.style.fontFamily = 'sans-serif';
+    tempContainer.style.display = 'flex';
+    tempContainer.style.flexDirection = 'column';
+    tempContainer.style.alignItems = 'center';
+    tempContainer.style.justifyContent = 'space-between';
+    tempContainer.style.boxSizing = 'border-box';
+    tempContainer.style.padding = '20mm 20mm';
+
+    tempContainer.innerHTML = `
+        <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
+            Desenho Mágico — KidCanvas
+        </div>
+        <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
+            <img src="${imageUrl}" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
+            <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
+        </div>
+        <div style="width: 100%; border-top: 1px solid #eee; padding-top: 10px; font-size: 12px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between; font-family: sans-serif;">
+            <span>Criado em www.kidcanvas.com.br</span>
+            <span>KidCanvas IA Mágica</span>
+        </div>
+    `;
+
+    const opt = {
+        margin: 0,
+        filename: `desenho-magico-kidcanvas.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    let oldText = "";
+    if (btnEl) {
+        oldText = btnEl.innerHTML;
+        btnEl.innerHTML = "⏳ PDF...";
+        btnEl.disabled = true;
+    }
+
+    html2pdf().from(tempContainer).set(opt).save().then(() => {
+        if (btnEl) {
+            btnEl.innerHTML = oldText;
+            btnEl.disabled = false;
+        }
+        showToast('PDF pronto para impressão! ⬇️', 'success');
+    }).catch(err => {
+        console.error("Erro ao gerar PDF:", err);
+        if (btnEl) {
+            btnEl.innerHTML = oldText;
+            btnEl.disabled = false;
+        }
+        alert("Erro ao exportar PDF. Tente novamente.");
+    });
+}
+
+function shareSavedDrawingOnWhatsApp(imageUrl, promptText) {
+    const message = `Olha o desenho que eu criei no KidCanvas! 🎨\n\n"${promptText}"\n\nCrie o seu também em: https://www.kidcanvas.com.br`;
+    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+}
+
+window.downloadSavedDrawingPDF = downloadSavedDrawingPDF;
+window.shareSavedDrawingOnWhatsApp = shareSavedDrawingOnWhatsApp;
 
 function openSavedStoryViewer(storyIdx) {
     if (!currentUser || !currentUser.myStories || !currentUser.myStories[storyIdx]) return;
