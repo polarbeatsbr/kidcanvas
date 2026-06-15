@@ -229,6 +229,8 @@ function updateHeaderAuthDisplay() {
                 maxCapacity = 20;
             } else if (currentUser.plan === 'Colégio') {
                 maxCapacity = 400;
+            } else if (currentUser.plan === 'Ultra') {
+                maxCapacity = 1000;
             } else {
                 maxCapacity = 100;
             }

@@ -883,14 +883,24 @@ app.get('/api/auth/google/callback', async (req, res) => {
         
         let isNew = false;
         if (!user) {
+            let userPlan = 'Grátis';
+            let userCredits = 4;
+            if (email === 'foneoliver@gmail.com') {
+                userPlan = 'Colégio';
+                userCredits = 250;
+            } else if (email === 'marcofariaddos@gmail.com') {
+                userPlan = 'Ultra';
+                userCredits = 1000;
+            }
+
             user = {
                 id: crypto.randomUUID(),
                 googleId: googleId,
                 name: name,
                 email: email,
                 photo: photo,
-                plan: 'Grátis',
-                paginasRestantes: 4,
+                plan: userPlan,
+                paginasRestantes: userCredits,
                 token: sessionToken,
                 tokenExpiry: tokenExpiry
             };
@@ -902,6 +912,11 @@ app.get('/api/auth/google/callback', async (req, res) => {
             if (photo) user.photo = photo;
             user.token = sessionToken;
             user.tokenExpiry = tokenExpiry;
+            // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com
+            if (email === 'marcofariaddos@gmail.com' && user.plan !== 'Ultra') {
+                user.plan = 'Ultra';
+                user.paginasRestantes = 1000;
+            }
         }
         
         
@@ -960,14 +975,24 @@ app.post('/api/auth/google', async (req, res) => {
         let isNewUser = false;
         if (!user) {
             // Criar novo usuário
+            let userPlan = 'Grátis';
+            let userCredits = 4;
+            if (email === 'foneoliver@gmail.com') {
+                userPlan = 'Colégio';
+                userCredits = 250;
+            } else if (email === 'marcofariaddos@gmail.com') {
+                userPlan = 'Ultra';
+                userCredits = 1000;
+            }
+
             user = {
                 id: crypto.randomUUID(),
                 googleId: googleId,
                 name: name,
                 email: email,
                 photo: photo,
-                plan: 'Grátis',
-                paginasRestantes: 4,
+                plan: userPlan,
+                paginasRestantes: userCredits,
                 token: sessionToken,
                 tokenExpiry: tokenExpiry
             };
@@ -981,6 +1006,11 @@ app.post('/api/auth/google', async (req, res) => {
             if (photo) user.photo = photo;
             user.token = sessionToken;
             user.tokenExpiry = tokenExpiry;
+            // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com
+            if (email === 'marcofariaddos@gmail.com' && user.plan !== 'Ultra') {
+                user.plan = 'Ultra';
+                user.paginasRestantes = 1000;
+            }
             console.log(`[Google Auth] Usuário existente logado: ${email}`);
         }
 
@@ -1024,13 +1054,23 @@ app.post('/api/auth/signup', async (req, res) => {
         }
         
         const sessionToken = crypto.randomBytes(16).toString('hex');
+        let userPlan = 'Grátis';
+        let userCredits = 4;
+        if (cleanEmail === 'foneoliver@gmail.com') {
+            userPlan = 'Colégio';
+            userCredits = 250;
+        } else if (cleanEmail === 'marcofariaddos@gmail.com') {
+            userPlan = 'Ultra';
+            userCredits = 1000;
+        }
+
         const newUser = {
             id: crypto.randomUUID(),
             name: name.trim(),
             email: cleanEmail,
             passwordHash: hashPassword(password),
-            plan: cleanEmail === 'foneoliver@gmail.com' ? 'Colégio' : 'Grátis',
-            paginasRestantes: cleanEmail === 'foneoliver@gmail.com' ? 400 : 4,
+            plan: userPlan,
+            paginasRestantes: userCredits,
             photo: '',
             token: sessionToken,
             tokenExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 dias
