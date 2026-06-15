@@ -683,6 +683,8 @@ function navigate(path, pushState = true) {
         renderGerarDesenhoView();
     } else if (cleanPath === '/historias-magicas' || cleanPath === '/historia') {
         renderHistoriasMagicasView();
+    } else if (cleanPath === '/historias-exemplo') {
+        renderHistoriasExemploView();
     } else if (cleanPath === '/politica-de-privacidade') {
         renderPoliticaPrivacidadeView();
     } else if (cleanPath.startsWith('/categoria/')) {
@@ -2545,7 +2547,11 @@ window.handleCustomDrawingSubmit = handleCustomDrawingSubmit;
 
 function setupCustomDrawingActionListeners(imageUrl) {
     const downloadBtn = document.getElementById('btn-download-custom');
+    const downloadPdfBtn = document.getElementById('btn-download-pdf-custom');
     const printBtn = document.getElementById('btn-print-custom');
+    const shareWhatsAppBtn = document.getElementById('btn-share-whatsapp-custom');
+    
+    const promptText = document.getElementById('customDrawingPrompt').value.trim() || 'Meu desenho mágico';
     
     if (downloadBtn) {
         downloadBtn.onclick = () => {
@@ -2564,6 +2570,12 @@ function setupCustomDrawingActionListeners(imageUrl) {
             a.click();
             document.body.removeChild(a);
             showToast('Download iniciado! ⬇️', 'success');
+        };
+    }
+
+    if (downloadPdfBtn) {
+        downloadPdfBtn.onclick = () => {
+            downloadCustomDrawingPDF(imageUrl, promptText);
         };
     }
     
@@ -2605,6 +2617,12 @@ function setupCustomDrawingActionListeners(imageUrl) {
                 </html>
             `);
             printWindow.document.close();
+        };
+    }
+
+    if (shareWhatsAppBtn) {
+        shareWhatsAppBtn.onclick = () => {
+            shareDrawingOnWhatsApp(imageUrl, promptText);
         };
     }
 }
@@ -2653,23 +2671,23 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             characterName: "Pedrinho, Perigo e Tequila",
             themes: ["Visita à casa da Vovó Sônia"],
             pageCount: 4,
-            coverUrl: "https://ideogram.ai/api/images/ephemeral/zHb235_nWmeW0QQRmND2bw.png?exp=1781586012&sig=f79d91c4d1dfbb3278f2a32fd1e6d7917b98a125063c419ad23636b943fab0e5",
+            coverUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story1_cover.png",
             paragraphs: [
                 {
-                    text: "Pedrinho mal podia esperar para visitar a casa da Vovó Sônia, pois lá o aguardava uma dupla inseparável e cheia de personalidade: os cachorrinhos Lhasa Apso, Perigo e Tequila. Perigo, com seu pelo fofo e olhos espertos, era um verdadeiro traquinas, sempre pronto para uma nova aventura e aprontando as mais divertidas bagunças. Já Tequila, sua irmãzinha, era a doçura em pessoa, adorando receber carinhos e distribuir lambidinhas carinhosas, com seu rabinho abanando sem parar.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/UqovhlbPUvaAXmw3gWllYA.png?exp=1781586009&sig=3b32d274fcfc0a5f923717af787c2fc0867eedc4761880280f69a72281941b2f"
+                    text: "Pedrinho, um menino adorável de três anos com bochechas fofinhas e um sorriso largo, mal podia esperar para chegar na casa da Vovó Sônia. Assim que a porta se abriu, ele correu para um abraço apertado com sua avó, que usava seus óculos e sorria com carinho. Logo Perigo e Tequila, seus dois amiguinhos Lhasa Apso, apareceram abanando o rabo para dar as boas-vindas. Perigo, o mais travesso, já estava pronto para a brincadeira, enquanto Tequila espreguiçava-se calmamente no tapete fofo da sala.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story1_page_1.png"
                 },
                 {
-                    text: "Assim que Pedrinho chegou, Perigo, fiel ao seu nome e à sua fama de arteiro, logo o chamou para brincar. Ele pegou uma meia colorida da vovó que estava no varal e começou a correr pelo quintal, convidando Pedrinho para uma perseguição cheia de risadas. Pedrinho, rindo muito, correu atrás dele, tentando pegar a meia, enquanto Perigo desviava com agilidade, fazendo piruetas engraçadas. Era uma verdadeira aventura com Perigo, onde a diversão era garantida a cada pulo e a cada fuga do cachorrinho fujão.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/MwjVVTKFVD-POyquNSUEoQ.png?exp=1781586009&sig=95927acea8e50fa8e3a86ce28753c0261e5498aca95a711eaa305fe2bf5241e6"
+                    text: "Pedrinho adorava a energia do Perigo. O cachorrinho marrom e branco pulava, latia de alegria e corria pela sala, convidando Pedrinho para uma emocionante perseguição de bola. Com suas mãozinhas, Pedrinho jogava a bolinha vermelha, e Perigo, com seus pelos fofos voando, disparava para pegá-la, trazendo de volta com um ar de orgulho. Vovó Sônia observava os dois, rindo baixinho da bagunça divertida que faziam, com Perigo sempre aprontando uma gracinha.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story1_page_2.png"
                 },
                 {
-                    text: "Depois de muita correria e travessuras, Perigo finalmente soltou a meia e se aconchegou perto de Pedrinho para um merecido descanso. Foi a vez de Tequila, com sua delicadeza, aproximar-se e deitar a cabeça no colo do menino. Pedrinho acariciou seu pelo macio, sentindo o calor e o carinho da cachorrinha. Ela fechou os olhinhos, relaxada, enquanto Pedrinho sussurrava segredos em seu ouvido, criando um momento de pura magia e conexão.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/DsQErABlWDCPtKgZ8Mkddg.png?exp=1781586007&sig=29396ac5fad485e3d660fbe4cea1d94a953c67f4f9024935cc616b36d0a58207"
+                    text: "Depois de tanta correria, Pedrinho sentou-se ao lado da Tequila, a Lhasa Apso mais calma e preguiçosa. Ela era toda branca, parecendo uma nuvem de algodão, e adorava um bom cochilo. Pedrinho fez um carinho suave em sua cabeça, e Tequila, com um suspiro preguiçoso, deitou a cabeça em seu colo, fechando os olhinhos de satisfação. Era um momento tranquilo, de puro carinho entre o menino e sua amiga peluda, que nem se importava com as brincadeiras agitadas do Perigo, preferindo o aconchego.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story1_page_3.png"
                 },
                 {
-                    text: "A tarde na casa da Vovó Sônia passou voando, cheia de brincadeiras e abraços apertados. Pedrinho, Perigo e Tequila formavam um trio perfeito, onde a alegria das traquinagens de um se equilibrava com a doçura e o aconchego do outro. Ao final do dia, Pedrinho se despediu com a promessa de voltar em breve para mais aventuras e carinhos com seus amigos peludos, levando no coração a certeza de que a casa da vovó era um lugar mágico, repleto de amor e diversão sem fim.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/HD4-ArS7Uai7n7q4-EZrEw.png?exp=1781586008&sig=3b32f53ece9ffb83a7f1d0c49bd3226f8b04d72f66fabb3c2a21d596b8a1cc38"
+                    text: "À medida que a tarde chegava ao fim, Pedrinho, Perigo e Tequila se aninhavam na sala de Vovó Sônia. Pedrinho estava no chão, encostado nas pernas da avó, que lia um livro para ele com sua voz doce. Perigo, cansado da brincadeira, cochilava aos pés de Pedrinho, e Tequila, sempre preguiçosa, dormia profundamente ao lado deles. A casa estava cheia de amor e alegria, prometendo mais aventuras na próxima visita.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story1_page_4.png"
                 }
             ]
         },
@@ -2677,31 +2695,31 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             characterName: "Vovó Sônia e Pedrinho",
             themes: ["Tarde de brincadeiras e amor entre avó e neto"],
             pageCount: 6,
-            coverUrl: "https://ideogram.ai/api/images/ephemeral/KJYwdOmmUZe98re-xAQnWQ.png?exp=1781585005&sig=eefa85cbdfc071442714bc103879436bfee6aa361b698f8ef176e659f499487c",
+            coverUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story2_cover.png",
             paragraphs: [
                 {
-                    text: "O sol da tarde entrava pela janela da casa da Vovó Sônia, pintando o tapete da sala com listras douradas. Pedrinho, com seus olhos cheios de brilho, acabava de chegar. \"Vovó Sônia!\", ele exclamou, correndo para abraçar sua avó, que já o esperava com um sorriso caloroso e um abraço apertado. Vovó Sônia, com seus cabelos branquinhos e seu avental florido, sabia que aquela seria mais uma tarde repleta de magia.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/5ux-WgF2XWOxXqodUShnLA.png?exp=1781585001&sig=af37933cbebe4bdd30629e778ca917409e6b62cdc19da19c1ca7971bf70152df"
+                    text: "Era uma vez um menininho chamado Pedrinho, com suas bochechas gordinhas e um sorriso que iluminava qualquer dia. Hoje era um dia especial: Pedrinho ia passar a tarde na casa de sua querida Vovó Sônia! Com sua mochila colorida nas costas e o coração cheio de alegria, ele correu para os braços da vovó, que o esperava na porta com um abraço quentinho e um sorriso doce por trás de seus óculos.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story2_page_1.png"
                 },
                 {
-                    text: "\"O que vamos fazer hoje, vovó?\", perguntou Pedrinho, ansioso. Vovó Sônia piscou. \"Hoje, meu pequeno explorador, vamos viajar sem sair do lugar!\" Ela pegou um lençol antigo e, juntos, construíram uma cabana aconchegante no meio da sala, transformando-a em uma nave espacial com almofadas de planetas e um cobertor estrelado. Pedrinho ria enquanto eles fingiam voar entre cometas coloridos e luas sorridentes.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/Hr0p1CM2VGiuNWvm4PtD-w.png?exp=1781585003&sig=435458dea330def899f026cb61af3eef4cbcb6b7c0625f29134b54b72d7d4700"
+                    text: "Depois de muitos beijinhos e abraços, Vovó Sônia convidou Pedrinho para uma aventura no jardim. 'Vamos ajudar as florzinhas a beber água?', perguntou ela, entregando a ele um pequeno regador verde. Pedrinho, com seu sorriso largo, aceitou a missão com entusiasmo. Juntos, eles passearam entre as roseiras e as margaridas, regando cada plantinha com muito carinho, enquanto o sol brilhava suavemente.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story2_page_2.png"
                 },
                 {
-                    text: "Dentro da \"nave\", Vovó Sônia tirou de um baú mágico um livro de histórias que brilhava suavemente. \"Este não é um livro comum, Pedrinho\", ela sussurrou. \"Cada palavra que lemos, vira um brinquedo de verdade!\" Eles começaram a ler sobre um dragão amigável, e de repente, um pequeno dragão de pelúcia, com olhos verdes cintilantes, apareceu no colo de Pedrinho, acenando sua cauda.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/KN1n8CCtXpmOTmXXRXauhw.png?exp=1781585001&sig=06476f1919ed08d225043e8a435498024c5eae1093c66459ea6da719382e9f6f"
+                    text: "O cheirinho doce que vinha da cozinha já estava enchendo a casa. 'Que cheiro delicioso, vovó!', exclamou Pedrinho, seguindo o aroma até encontrar um bolo recém-assado sobre a mesa, dourado e fofinho, esperando por eles. Vovó Sônia sorriu e disse: 'É o seu bolo favorito, Pedrinho! Com muito amor, como você gosta'.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story2_page_3.png"
                 },
                 {
-                    text: "Em seguida, leram sobre um jardim encantado, e a sala se encheu de bolhas de sabão que pareciam flores flutuantes, girando e dançando ao redor deles. Pedrinho tentava pegá-las com as mãos, e cada bolha estourada liberava um cheirinho doce de jasmim e camomila, deixando o ambiente ainda mais acolhedor e mágico. Vovó Sônia sorria, feliz com a imaginação do neto.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/44mvlnlOWIqA8yYWokcEyw.png?exp=1781585003&sig=d54a78af8d64f441372f2123ac3fdbae34ade2de91a88cf00c69ca189d0306d3"
+                    text: "Sentados à mesa, com xícaras de chá de camomila e fatias generosas do bolo, Pedrinho saboreava cada pedacinho. Ele tinha um pouco de glacê no nariz, o que fazia Vovó Sônia rir carinhosamente. Era o bolo mais gostoso do mundo, cheio do sabor do carinho da vovó. Ele se sentia o menino mais sortudo do universo, comendo aquele doce pedaço de nuvem.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story2_page_4.png"
                 },
                 {
-                    text: "Quando as bolhas desapareceram, Vovó Sônia e Pedrinho se aninharam, o dragão de pelúcia entre eles. Vovó Sônia alisou os cabelos de Pedrinho. \"Você sabe, meu amor, a maior magia de todas é o tempo que passamos juntos.\" Pedrinho olhou para ela com carinho. \"Sim, vovó. É a melhor magia do mundo!\" O abraço deles era tão quente quanto o sol que se punha lá fora.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/hEaF30EqUzWGer4KnypERw.png?exp=1781585001&sig=d6d9614c6c4c20a80bb38cb78613fbf1e47ca33f283faced1f3873c95ab1b59b"
+                    text: "Com a barriguinha cheia e o coração feliz, Pedrinho e a Vovó Sônia foram para a sala de estar. A vovó sentou-se em sua poltrona preferida, e Pedrinho aconchegou-se a seu lado, pronto para a melhor parte da tarde. 'Que história vamos ouvir hoje, vovó?', perguntou ele, com os olhinhos brilhando de curiosidade. Vovó Sônia pegou um livro com capa antiga e um sorriso misterioso.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story2_page_5.png"
                 },
                 {
-                    text: "Com o anoitecer se aproximando e as estrelas começando a aparecer na janela, era hora de Pedrinho ir. Ele deu um último abraço apertado em sua Vovó Sônia, o coração cheio de alegria e a mente repleta de aventuras fantásticas. \"Até a próxima, vovó! Mal posso esperar pela nossa próxima viagem mágica!\" Vovó Sônia acenou, seu amor por Pedrinho brilhando mais forte que qualquer estrela, sabendo que cada tarde juntos era um tesouro.",
-                    imageUrl: "https://ideogram.ai/api/images/ephemeral/Bz4-JYelX-Ce4Yk_NF1L0g.png?exp=1781585000&sig=ce1dc29281dd42331de57c8e76f3136c1af8b4aa9352658d8f01d86c4cc3da72"
+                    text: "Enquanto Vovó Sônia contava sobre dragões gentis e princesas corajosas, a imaginação de Pedrinho voava. Ele podia ver os castelos e as florestas encantadas, tudo ganhando vida na sua mente. A tarde na casa da vovó foi mais do que apenas regar flores ou comer bolo; foi uma tarde de magia, amor e histórias que ele guardaria para sempre em seu coração, até a próxima visita.",
+                    imageUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story2_page_6.png"
                 }
             ]
         }
@@ -2752,8 +2770,10 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         });
 
         html += `
-            <div style="text-align: center; margin-top: 40px; margin-bottom: 10px;">
-                <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 16px 40px;" onclick="scrollToFormAndClose()">✨ Criar a sua história agora! ✨</button>
+            <div style="text-align: center; margin-top: 40px; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+                <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 12px 30px;" onclick="scrollToFormAndClose()">✨ Criar a sua história agora! ✨</button>
+                <button class="btn-generate btn-bottom" style="background-color: var(--color-blue); display: inline-block; width: auto; padding: 12px 30px;" id="btnDownloadPreloadedPDF" onclick="generatePreloadedPDF('${storyKey}')">📥 Baixar PDF A4</button>
+                <button class="btn-generate btn-bottom" style="background-color: #25d366; display: inline-block; width: auto; padding: 12px 30px;" onclick="sharePreloadedStoryOnWhatsApp('${storyKey}')"><i class="fa-brands fa-whatsapp"></i> Enviar pelo WhatsApp</button>
             </div>
         `;
 
@@ -3513,10 +3533,15 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             alert("Nenhum livro gerado para exportação.");
             return;
         }
+        const characterName = document.getElementById('characterName').value.trim() || 'Crianca';
+        generatePDFFromData(characterName, generatedCoverUrl, generatedParagraphs, 'btnDownloadPDF');
+    }
 
-        // Create a temporary element to hold the print-friendly pages
+    function generatePDFFromData(characterName, coverUrl, paragraphs, btnId) {
+        const cleanCharName = capitalizeFirstLetter(characterName || 'Crianca');
+        
         const tempContainer = document.createElement('div');
-        tempContainer.style.width = '210mm'; // Width of A4 in portrait
+        tempContainer.style.width = '210mm';
         tempContainer.style.background = '#FFFFFF';
         tempContainer.style.color = '#3D281A';
         tempContainer.style.fontFamily = 'sans-serif';
@@ -3533,10 +3558,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         coverPage.style.boxSizing = 'border-box';
         coverPage.style.padding = '20mm';
         coverPage.style.textAlign = 'center';
-        
-        const rawCharName = document.getElementById('characterName').value.trim() || 'Crianca';
-        const cleanCharName = capitalizeFirstLetter(rawCharName);
-        
+
         coverPage.innerHTML = `
             <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 10mm 0;">
                 <div>
@@ -3544,7 +3566,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
                     <p style="font-size: 16px; color: #5C4033; font-weight: bold; text-align: center; margin: 0;">Uma história criada especialmente para ${cleanCharName}</p>
                 </div>
                 <div style="width: 140mm; height: 140mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                    <img src="${generatedCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="${coverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div style="text-align: center;">
                     <div style="font-size: 15px; font-weight: bold; color: #7B4FA6;">KidCanvas</div>
@@ -3555,11 +3577,11 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         tempContainer.appendChild(coverPage);
 
         // 2. Inner Pages
-        generatedParagraphs.forEach((page, idx) => {
+        paragraphs.forEach((page, idx) => {
             const pageDiv = document.createElement('div');
             pageDiv.style.width = '210mm';
             pageDiv.style.height = '297mm';
-            pageDiv.style.pageBreakAfter = (idx === generatedParagraphs.length - 1) ? 'avoid' : 'always';
+            pageDiv.style.pageBreakAfter = (idx === paragraphs.length - 1) ? 'avoid' : 'always';
             pageDiv.style.display = 'flex';
             pageDiv.style.flexDirection = 'column';
             pageDiv.style.alignItems = 'center';
@@ -3584,7 +3606,6 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             tempContainer.appendChild(pageDiv);
         });
 
-        // Generate PDF
         const cleanCharNameLower = cleanCharName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         const opt = {
             margin: 0,
@@ -3594,22 +3615,146 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        const btnPDF = document.getElementById('btnDownloadPDF');
-        const oldText = btnPDF.textContent;
-        btnPDF.textContent = "⏳ Gerando PDF...";
-        btnPDF.disabled = true;
+        const btnPDF = document.getElementById(btnId);
+        let oldText = "";
+        if (btnPDF) {
+            oldText = btnPDF.textContent;
+            btnPDF.textContent = "⏳ Gerando PDF...";
+            btnPDF.disabled = true;
+        }
 
         html2pdf().from(tempContainer).set(opt).save().then(() => {
-            btnPDF.textContent = oldText;
-            btnPDF.disabled = false;
+            if (btnPDF) {
+                btnPDF.textContent = oldText;
+                btnPDF.disabled = false;
+            }
+            showToast('PDF pronto para impressão! ⬇️', 'success');
         }).catch(err => {
             console.error("Erro ao gerar PDF:", err);
-            btnPDF.textContent = oldText;
-            btnPDF.disabled = false;
+            if (btnPDF) {
+                btnPDF.textContent = oldText;
+                btnPDF.disabled = false;
+            }
             alert("Erro ao exportar PDF. Tente novamente.");
         });
     }
 
+    function downloadCustomDrawingPDF(imageUrl, promptText) {
+        const tempContainer = document.createElement('div');
+        tempContainer.style.width = '210mm';
+        tempContainer.style.height = '297mm';
+        tempContainer.style.background = '#FFFFFF';
+        tempContainer.style.color = '#3D281A';
+        tempContainer.style.fontFamily = 'sans-serif';
+        tempContainer.style.display = 'flex';
+        tempContainer.style.flexDirection = 'column';
+        tempContainer.style.alignItems = 'center';
+        tempContainer.style.justifyContent = 'space-between';
+        tempContainer.style.boxSizing = 'border-box';
+        tempContainer.style.padding = '20mm 20mm';
+
+        tempContainer.innerHTML = `
+            <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
+                Desenho Mágico — KidCanvas
+            </div>
+            <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
+                <img src="${imageUrl}" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
+                <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
+            </div>
+            <div style="width: 100%; border-top: 1px solid #eee; padding-top: 10px; font-size: 12px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between; font-family: sans-serif;">
+                <span>Criado em www.kidcanvas.com.br</span>
+                <span>KidCanvas IA Mágica</span>
+            </div>
+        `;
+
+        const opt = {
+            margin: 0,
+            filename: `desenho-magico-kidcanvas.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        const btnPDF = document.getElementById('btn-download-pdf-custom');
+        let oldText = "";
+        if (btnPDF) {
+            oldText = btnPDF.textContent;
+            btnPDF.textContent = "⏳ Gerando PDF...";
+            btnPDF.disabled = true;
+        }
+
+        html2pdf().from(tempContainer).set(opt).save().then(() => {
+            if (btnPDF) {
+                btnPDF.textContent = oldText;
+                btnPDF.disabled = false;
+            }
+            showToast('PDF pronto para impressão! ⬇️', 'success');
+        }).catch(err => {
+            console.error("Erro ao gerar PDF:", err);
+            if (btnPDF) {
+                btnPDF.textContent = oldText;
+                btnPDF.disabled = false;
+            }
+            alert("Erro ao exportar PDF. Tente novamente.");
+        });
+    }
+
+    function shareDrawingOnWhatsApp(imageUrl, promptText) {
+        const message = `Olha o desenho que eu criei no KidCanvas! 🎨\n\n"${promptText}"\n\nCrie o seu também em: https://www.kidcanvas.com.br`;
+        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
+
+    function shareStoryOnWhatsApp(title) {
+        const message = `Criei um livro mágico personalizado chamado "${title}" no KidCanvas! 📖✨\n\nVocê também pode criar histórias personalizadas com ilustrações lindas para seus filhos! Acesse: https://www.kidcanvas.com.br`;
+        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    }
+
+    function sharePreloadedStoryOnWhatsApp(storyKey) {
+        const story = PRELOADED_STORIES[storyKey];
+        if (!story) return;
+        shareStoryOnWhatsApp(story.characterName);
+    }
+
+    function generatePreloadedPDF(storyKey) {
+        const story = PRELOADED_STORIES[storyKey];
+        if (!story) return;
+        generatePDFFromData(story.characterName, story.coverUrl, story.paragraphs, 'btnDownloadPreloadedPDF');
+    }
+
+    function shareGeneratedStory() {
+        const characterName = document.getElementById('characterName').value.trim() || 'Crianca';
+        shareStoryOnWhatsApp(characterName);
+    }
+
+    function renderHistoriasExemploView() {
+        document.title = "Exemplos de Histórias Mágicas — KidCanvas 📚";
+        setMetaDescription("Confira exemplos reais de livros ilustrados personalizados gerados por Inteligência Artificial no KidCanvas.");
+        
+        const view = document.getElementById('view-historias-exemplo');
+        if (view) view.style.display = 'block';
+        
+        fetch('/examples_metadata.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data.story1 && data.story1.coverUrl) {
+                    document.getElementById('exemplo-story1-img').src = data.story1.coverUrl;
+                }
+                if (data.story2 && data.story2.coverUrl) {
+                    document.getElementById('exemplo-story2-img').src = data.story2.coverUrl;
+                }
+                if (data.story1) PRELOADED_STORIES.story1 = { ...PRELOADED_STORIES.story1, ...data.story1 };
+                if (data.story2) PRELOADED_STORIES.story2 = { ...PRELOADED_STORIES.story2, ...data.story2 };
+            })
+            .catch(err => {
+                console.warn("examples_metadata.json não pôde ser carregado, usando cache estático:", err);
+                document.getElementById('exemplo-story1-img').src = PRELOADED_STORIES.story1.coverUrl;
+                document.getElementById('exemplo-story2-img').src = PRELOADED_STORIES.story2.coverUrl;
+            });
+    }
 
 // === HISTORIAS MAGICAS WINDOW BINDINGS ===
 window.openViewer = openViewer;
@@ -3618,4 +3763,8 @@ window.scrollToFormAndClose = scrollToFormAndClose;
 window.printSinglePage = printSinglePage;
 window.downloadImage = downloadImage;
 window.generatePDF = generatePDF;
+window.generatePreloadedPDF = generatePreloadedPDF;
+window.sharePreloadedStoryOnWhatsApp = sharePreloadedStoryOnWhatsApp;
+window.shareGeneratedStory = shareGeneratedStory;
+window.renderHistoriasExemploView = renderHistoriasExemploView;
 window.resetForm = resetForm;

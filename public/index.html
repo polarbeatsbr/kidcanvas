@@ -101,6 +101,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/gerar-desenho" class="dropdown-item"><i class="fa-solid fa-paint-brush"></i> Gere sua Imagem</a></li>
                                 <li><a href="/historias-magicas" class="dropdown-item"><i class="fa-solid fa-book-open"></i> Crie seu Livro</a></li>
+                                <li><a href="/historias-exemplo" class="dropdown-item"><i class="fa-solid fa-graduation-cap"></i> Exemplos de Livros</a></li>
                                 <li><a href="#" class="dropdown-item disabled-item" onclick="return false;"><i class="fa-solid fa-image"></i> Photo to Sketch <span class="badge-soon">Em breve</span></a></li>
                             </ul>
                         </li>
@@ -793,9 +794,11 @@
                             </div>
                         </div>
                         
-                        <div id="custom-drawing-actions" style="display: none; margin-top: 20px; gap: 15px;">
-                            <button class="btn btn-secondary" id="btn-download-custom"><i class="fa-solid fa-download"></i> Baixar Desenho</button>
-                            <button class="btn btn-primary" id="btn-print-custom" style="background-color: var(--color-purple);"><i class="fa-solid fa-print"></i> Imprimir</button>
+                        <div id="custom-drawing-actions" style="display: none; margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                            <button class="btn btn-secondary" id="btn-download-custom"><i class="fa-solid fa-download"></i> Baixar Imagem</button>
+                            <button class="btn btn-secondary" id="btn-download-pdf-custom" style="background-color: #e74c3c; border-color: #e74c3c; color: white;"><i class="fa-solid fa-file-pdf"></i> Baixar PDF</button>
+                            <button class="btn btn-primary" id="btn-print-custom" style="background-color: var(--color-purple); border-color: var(--color-purple);"><i class="fa-solid fa-print"></i> Imprimir</button>
+                            <button class="btn btn-success" id="btn-share-whatsapp-custom" style="background-color: #25d366; border-color: #25d366; color: white;"><i class="fa-brands fa-whatsapp"></i> Compartilhar</button>
                         </div>
                     </div>
                 </div>
@@ -853,17 +856,17 @@
         <!-- Story 1 -->
         <div class="preloaded-cover-card" onclick="openViewer('story1')">
             <div class="preloaded-cover-img-frame">
-                <img src="https://ideogram.ai/api/images/ephemeral/zHb235_nWmeW0QQRmND2bw.png?exp=1781586012&sig=f79d91c4d1dfbb3278f2a32fd1e6d7917b98a125063c419ad23636b943fab0e5" alt="Capa: Pedrinho, Perigo e Tequila">
+                <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story1_cover.png" alt="Capa: Pedrinho brinca com Perigo e Tequila na casa da Vovó Sônia">
             </div>
-            <h4 class="preloaded-cover-title">Pedrinho, Perigo e Tequila na Vovó Sônia</h4>
+            <h4 class="preloaded-cover-title">Pedrinho brinca com Perigo e Tequila na casa da Vovó Sônia</h4>
             <p class="preloaded-cover-desc">Livro com 4 páginas • Estilo Colorido 🌈</p>
         </div>
         <!-- Story 2 -->
         <div class="preloaded-cover-card" onclick="openViewer('story2')">
             <div class="preloaded-cover-img-frame">
-                <img src="https://ideogram.ai/api/images/ephemeral/KJYwdOmmUZe98re-xAQnWQ.png?exp=1781585005&sig=eefa85cbdfc071442714bc103879436bfee6aa361b698f8ef176e659f499487c" alt="Capa: Vovó Sônia e Pedrinho">
+                <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story2_cover.png" alt="Capa: Pedrinho na casa da Vovó Sônia">
             </div>
-            <h4 class="preloaded-cover-title">Tarde de Brincadeiras na Vovó Sônia</h4>
+            <h4 class="preloaded-cover-title">Pedrinho na casa da Vovó Sônia</h4>
             <p class="preloaded-cover-desc">Livro com 6 páginas • Estilo Colorido 🌈</p>
         </div>
     </div>
@@ -1030,8 +1033,49 @@
             <button class="btn-generate btn-bottom" style="background-color: var(--color-purple);" onclick="resetForm()">📖 Criar Outro Livro</button>
             <button class="btn-generate btn-bottom" style="background-color: var(--color-blue);" id="btnDownloadPDF" onclick="generatePDF()">📥 Baixar PDF A4</button>
             <button class="btn-generate btn-bottom" style="background-color: var(--color-green);" id="btnPrintFullBook">🖨️ Imprimir Livro Completo</button>
+            <button class="btn-generate btn-bottom" style="background-color: #25d366; color: white;" id="btnShareWhatsAppBook" onclick="shareGeneratedStory()"><i class="fa-brands fa-whatsapp"></i> Enviar pelo WhatsApp</button>
         </div>
     </div>
+            </div>
+        </section>
+
+        <section id="view-historias-exemplo" class="page-view" style="display: none;">
+            <div class="container" style="padding-top: 40px; padding-bottom: 60px;">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h1 style="font-family: var(--font-heading); font-weight: 700; font-size: 2.5rem; color: var(--color-dark); margin-bottom: 10px;">📚 Histórias Mágicas de Exemplo</h1>
+                    <p style="font-family: var(--font-body); font-size: 1.1rem; color: var(--color-dark-light); max-width: 600px; margin: 0 auto;">
+                        Confira exemplos reais de livrinhos ilustrados gerados pela Inteligência Artificial do KidCanvas. Você pode ler, imprimir ou baixar o PDF completo gratuitamente!
+                    </p>
+                </div>
+                
+                <div class="preloaded-covers-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 800px; margin: 0 auto;">
+                    <!-- Story 1 -->
+                    <div class="preloaded-cover-card" onclick="openViewer('story1')" style="cursor: pointer; background: white; border: var(--border-medium); border-radius: var(--radius-sm); overflow: hidden; box-shadow: 0 8px 0 rgba(61, 40, 26, 0.15); transition: transform 0.2s;">
+                        <div class="preloaded-cover-img-frame" style="aspect-ratio: 1/1; overflow: hidden; border-bottom: var(--border-thin);">
+                            <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story1_cover.png" id="exemplo-story1-img" alt="Capa: Pedrinho brinca com Perigo e Tequila na casa da Vovó Sônia" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 20px; text-align: center;">
+                            <h4 class="preloaded-cover-title" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; color: var(--color-dark); margin-bottom: 10px; line-height: 1.3;">Pedrinho brinca com Perigo e Tequila na casa da Vovó Sônia</h4>
+                            <p class="preloaded-cover-desc" style="font-size: 0.9rem; color: var(--color-dark-light); font-weight: bold; margin: 0;">Livro com 4 páginas • Estilo Colorido 🌈</p>
+                        </div>
+                    </div>
+                    <!-- Story 2 -->
+                    <div class="preloaded-cover-card" onclick="openViewer('story2')" style="cursor: pointer; background: white; border: var(--border-medium); border-radius: var(--radius-sm); overflow: hidden; box-shadow: 0 8px 0 rgba(61, 40, 26, 0.15); transition: transform 0.2s;">
+                        <div class="preloaded-cover-img-frame" style="aspect-ratio: 1/1; overflow: hidden; border-bottom: var(--border-thin);">
+                            <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/exemplos/story2_cover.png" id="exemplo-story2-img" alt="Capa: Pedrinho na casa da Vovó Sônia" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="padding: 20px; text-align: center;">
+                            <h4 class="preloaded-cover-title" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; color: var(--color-dark); margin-bottom: 10px; line-height: 1.3;">Pedrinho na casa da Vovó Sônia</h4>
+                            <p class="preloaded-cover-desc" style="font-size: 0.9rem; color: var(--color-dark-light); font-weight: bold; margin: 0;">Livro com 6 páginas • Estilo Colorido 🌈</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px;">
+                    <button class="btn btn-secondary" onclick="navigate('/historias-magicas')" style="font-size: 1.2rem; padding: 15px 30px; font-weight: 700; background-color: var(--color-purple); border-color: var(--color-purple);">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Criar Meu Livro Personalizado!
+                    </button>
+                </div>
             </div>
         </section>
     </main>

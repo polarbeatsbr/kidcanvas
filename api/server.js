@@ -464,9 +464,10 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
         const ideogramKey = process.env.IDEOGRAM_API_KEY || "RK-CWKSVJ9Jet7vJwHOMmfsYVNHBmGA8jKujDMtQcI5snVW3ThAW_H_Zf_jYjU8be7mYXSOFdO7xLvkBgI7rcQ";
 
         // Preparar lista de prompts: Capa em primeiro lugar, depois as N páginas
+        const watermarkDescription = "A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image.";
         const promptItems = [
-            { type: 'cover', prompt: parsedGemini.cover_prompt },
-            ...parsedGemini.paragraphs.map((p, idx) => ({ type: 'page', index: idx, prompt: p.image_prompt }))
+            { type: 'cover', prompt: parsedGemini.cover_prompt + ". " + watermarkDescription },
+            ...parsedGemini.paragraphs.map((p, idx) => ({ type: 'page', index: idx, prompt: p.image_prompt + ". " + watermarkDescription }))
         ];
 
         const imageGenerationPromises = promptItems.map(async (item, i) => {
@@ -1162,7 +1163,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         console.log(`[Custom Drawing] Gerando desenho para "${user.email}" com prompt: "${userPrompt}"...`);
 
         // Construir prompt para desenho de colorir
-        const finalPrompt = `Digital 2D coloring book page for kids, flat vector line art, black contours, clean white background. The drawing shows ${userPrompt.trim()}. Centralized and large, no busy backgrounds, simple shapes, clean lines, no shading, no gradient, no shadows, no paper texture. No border, no frame. A small watermark text 'kidcanvas.com.br' in a clean, tiny, light gray font is written at the bottom right corner. No other text, no titles in the image. Top-down straight view, no perspective.`;
+        const finalPrompt = `Digital 2D coloring book page for kids, flat vector line art, black contours, clean white background. The drawing shows ${userPrompt.trim()}. Centralized and large, no busy backgrounds, simple shapes, clean lines, no shading, no gradient, no shadows, no paper texture. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No other text, no titles in the image. Top-down straight view, no perspective.`;
 
         const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
 

@@ -9,6 +9,7 @@ const filesToCopy = [
     'historia.html',
     'drawings.json',
     'creation_dates.json',
+    'examples_metadata.json',
     'sitemap.xml',
     'robots.txt',
     'favicon.ico',

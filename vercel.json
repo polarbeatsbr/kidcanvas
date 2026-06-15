@@ -18,6 +18,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/historias-exemplo",
+      "destination": "/index.html"
+    },
+    {
       "source": "/",
       "destination": "/index.html"
     },
