@@ -562,6 +562,16 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             imageUrl: imageUrls[idx + 1]
         }));
 
+        // Save story/book to user account
+        if (!user.myStories) user.myStories = [];
+        user.myStories.push({
+            title: `O Livro Mágico de ${characterName}`,
+            theme: themesList,
+            coverUrl: coverUrl,
+            paragraphs: finalParagraphs,
+            createdAt: new Date().toISOString()
+        });
+
         // Deduce user balance and save
         user.paginasRestantes -= numPages;
         await saveUsers(users);
@@ -1069,7 +1079,9 @@ app.post('/api/auth/login', async (req, res) => {
                 email: user.email,
                 photo: user.photo || '',
                 plan: user.plan,
-                paginasRestantes: user.paginasRestantes
+                paginasRestantes: user.paginasRestantes,
+                myImages: user.myImages || [],
+                myStories: user.myStories || []
             },
             token: sessionToken
         });
@@ -1103,7 +1115,9 @@ app.get('/api/auth/me', async (req, res) => {
                 email: user.email,
                 photo: user.photo || '',
                 plan: user.plan,
-                paginasRestantes: user.paginasRestantes
+                paginasRestantes: user.paginasRestantes,
+                myImages: user.myImages || [],
+                myStories: user.myStories || []
             }
         });
     } catch(err) {
@@ -1270,15 +1284,31 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             });
         }
 
-        // Deduce user credits
+        // Save custom drawing to file inside local directory
+        const savedImagesDir = path.join(__dirname, '..', 'saved_images');
+        if (!fs.existsSync(savedImagesDir)) {
+            fs.mkdirSync(savedImagesDir, { recursive: true });
+        }
+        const imageId = `${user.id}_${Date.now()}.jpg`;
+        const filePath = path.join(savedImagesDir, imageId);
+        fs.writeFileSync(filePath, Buffer.from(bytesBase64, 'base64'));
+        const relativeUrl = `/saved_images/${imageId}`;
+
+        if (!user.myImages) user.myImages = [];
+        user.myImages.push({
+            url: relativeUrl,
+            prompt: userPrompt,
+            styleType: style,
+            createdAt: new Date().toISOString()
+        });
+
+        // Deduce user credits and save
         user.paginasRestantes -= 1;
         await saveUsers(users);
 
-        const returnImage = `data:image/jpeg;base64,${bytesBase64}`;
-
         return res.json({
             success: true,
-            imageUrl: returnImage,
+            imageUrl: relativeUrl,
             paginasRestantes: user.paginasRestantes
         });
 

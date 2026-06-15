@@ -3868,4 +3868,243 @@ button, input, select, textarea {
             object-fit: cover;
             display: block;
         }
+
+
+
+        /* --- MEDIDOR DE BATERIA DO IPHONE (COINS METER) --- */
+        .iphone-battery-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #fffdf5;
+            border: var(--border-thin);
+            border-radius: 20px;
+            padding: 4px 10px;
+            height: 32px;
+            user-select: none;
+            box-shadow: var(--shadow-cartoon-active);
+        }
+
+        .iphone-battery {
+            width: 32px;
+            height: 16px;
+            border: 2px solid var(--color-dark);
+            border-radius: 4px;
+            position: relative;
+            padding: 1.5px;
+            background-color: var(--color-white);
+            display: flex;
+            align-items: center;
+            margin-right: 4px;
+        }
+
+        .battery-segments {
+            display: flex;
+            gap: 1px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .battery-segment {
+            flex: 1;
+            height: 100%;
+            border-radius: 1px;
+            transition: background-color 0.3s ease;
+        }
+
+        .battery-cap {
+            width: 2px;
+            height: 6px;
+            background-color: var(--color-dark);
+            border-radius: 0 1.5px 1.5px 0;
+            position: absolute;
+            right: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .battery-percentage {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--color-dark);
+            line-height: 1;
+            margin-top: -1px;
+        }
+
+        /* --- MENU DROPDOWN DE CONFIGURAÇÕES (ENGRENAGEM) --- */
+        .profile-settings-dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .btn-profile-settings {
+            background-color: var(--color-white);
+            border: var(--border-thin);
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-dark);
+            font-size: 1.05rem;
+            box-shadow: var(--shadow-cartoon-active);
+            transition: var(--transition-bounce);
+        }
+
+        .btn-profile-settings:hover {
+            transform: scale(1.08) rotate(30deg);
+            box-shadow: 0 4px 0px rgba(61, 40, 26, 0.1);
+            color: var(--color-purple);
+        }
+
+        .profile-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background-color: var(--color-white);
+            border: var(--border-medium);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-cartoon);
+            width: 250px;
+            z-index: 1100;
+            overflow: hidden;
+            animation: slideDownFade 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .profile-dropdown-menu.open {
+            display: block;
+        }
+
+        @keyframes slideDownFade {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-user-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background-color: #faf6f0;
+        }
+
+        .dropdown-user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: var(--border-thin);
+            object-fit: cover;
+            background-color: var(--color-white);
+        }
+
+        .dropdown-user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .dropdown-user-name {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--color-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+
+        .dropdown-user-plan {
+            font-size: 0.75rem;
+            background-color: var(--color-purple);
+            color: var(--color-white);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 2px;
+            display: inline-block;
+        }
+
+        .dropdown-divider {
+            height: 2px;
+            background-color: var(--color-dark);
+            opacity: 0.15;
+            margin: 0;
+        }
+
+        .dropdown-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--color-dark);
+            transition: background-color 0.2s ease, color 0.2s ease;
+            text-align: left;
+        }
+
+        .dropdown-menu-item i {
+            font-size: 1rem;
+            width: 16px;
+            text-align: center;
+            color: var(--color-dark-light);
+        }
+
+        .dropdown-menu-item:hover {
+            background-color: var(--color-purple-light);
+            color: var(--color-purple);
+        }
+
+        .dropdown-menu-item:hover i {
+            color: var(--color-purple);
+        }
+
+        .dropdown-menu-item.logout-item {
+            color: var(--color-red);
+        }
+
+        .dropdown-menu-item.logout-item i {
+            color: var(--color-red);
+        }
+
+        .dropdown-menu-item.logout-item:hover {
+            background-color: #ffeef0;
+            color: var(--color-red);
+        }
+
+        /* --- RESPONSIVIDADE DO PERFIL --- */
+        @media (max-width: 768px) {
+            .header-auth {
+                position: absolute;
+                top: 10px;
+                right: 50px; /* dar espaço para o menu hambúrguer */
+                margin-left: 0;
+                z-index: 1050;
+            }
+            .user-profile-widget {
+                padding: 4px;
+                gap: 5px;
+                border: none;
+                background: none;
+                box-shadow: none;
+            }
+            .user-profile-widget:hover {
+                transform: none;
+                box-shadow: none;
+            }
+        }
+
     

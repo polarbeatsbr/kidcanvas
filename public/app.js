@@ -152,10 +152,19 @@ function updateHeaderAuthDisplay() {
     const googleBtn = document.getElementById('google-signin-btn-header');
     const btnEntrar = document.getElementById('btn-entrar-header');
     const userWidget = document.getElementById('user-profile-widget');
-    const userAvatar = document.getElementById('user-avatar-img');
+    
+    const dropdownAvatar = document.getElementById('dropdown-user-avatar');
+    const dropdownDisplayName = document.getElementById('dropdown-user-display-name');
+    const dropdownPlanBadge = document.getElementById('dropdown-user-plan-badge');
+    
+    // Elementos do Perfil Direto no Header
+    const userAvatarImg = document.getElementById('user-avatar-img');
     const userDisplayName = document.getElementById('user-display-name');
     const userPlanBadge = document.getElementById('user-plan-badge');
-    const userCreditsBadge = document.getElementById('user-credits-badge');
+    
+    const batterySegments = document.getElementById('battery-segments');
+    const headerCreditsCount = document.getElementById('header-credits-count');
+    
     const creatorPanel = document.getElementById('creator-dashboard-panel');
     const creatorLoggedIn = document.getElementById('creator-dashboard-logged-in');
     const creatorLoggedOut = document.getElementById('creator-dashboard-logged-out');
@@ -170,53 +179,98 @@ function updateHeaderAuthDisplay() {
         if (btnEntrar) btnEntrar.style.display = 'none';
         userWidget.style.display = 'flex';
         
-        if (userAvatar) userAvatar.src = currentUser.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
-        if (userDisplayName) userDisplayName.textContent = currentUser.name.split(' ')[0];
+        // Atualizar Foto/Avatar (Header e Dropdown)
+        const photoUrl = currentUser.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+        if (userAvatarImg) userAvatarImg.src = photoUrl;
+        if (dropdownAvatar) dropdownAvatar.src = photoUrl;
         
-        if (userPlanBadge) {
-            userPlanBadge.textContent = currentUser.plan;
-            if (currentUser.plan === 'Família') {
-                userPlanBadge.style.backgroundColor = 'var(--color-green)';
-                userPlanBadge.textContent = 'Família 🏠';
-            } else {
-                userPlanBadge.style.backgroundColor = 'var(--color-purple)';
+        // Atualizar Nome (Header e Dropdown)
+        const shortName = currentUser.name ? currentUser.name.split(' ')[0] : 'Nome';
+        if (userDisplayName) userDisplayName.textContent = shortName;
+        if (dropdownDisplayName) dropdownDisplayName.textContent = shortName;
+        
+        // Atualizar Badge de Plano (Header e Dropdown)
+        [userPlanBadge, dropdownPlanBadge].forEach(badge => {
+            if (badge) {
+                badge.textContent = currentUser.plan;
+                if (currentUser.plan === 'Família') {
+                    badge.style.backgroundColor = 'var(--color-green)';
+                    badge.textContent = 'Família 🏠';
+                } else if (currentUser.plan === 'Colégio') {
+                    badge.style.backgroundColor = 'var(--color-purple)';
+                    badge.textContent = 'Colégio 🏫';
+                } else if (currentUser.plan === 'Professor') {
+                    badge.style.backgroundColor = 'var(--color-orange)';
+                    badge.textContent = 'Professor 🍎';
+                } else {
+                    badge.style.backgroundColor = 'var(--color-dark-light)';
+                    badge.textContent = currentUser.plan || 'Grátis';
+                }
             }
-        }
+        });
 
-        const credits = currentUser.paginasRestantes;
+        const credits = currentUser.paginasRestantes || 0;
         
-        // Pílula de moedas no header
-        const headerUserCoins = document.getElementById('header-user-coins');
-        const headerCreditsCount = document.getElementById('header-credits-count');
-        if (headerUserCoins && headerCreditsCount) {
+        // Atualizar Medidor de Bateria (iPhone Coins Meter)
+        if (headerCreditsCount) {
             headerCreditsCount.textContent = credits;
-            if (credits === 0) {
-                headerUserCoins.classList.add('zero-credits');
+        }
+        
+        if (batterySegments) {
+            batterySegments.innerHTML = '';
+            
+            // Determinar capacidade máxima por plano para calcular porcentagem real
+            let maxCapacity = 4;
+            if (currentUser.plan === 'Grátis') {
+                maxCapacity = 4;
+            } else if (currentUser.plan === 'Premium') {
+                maxCapacity = 60;
+            } else if (currentUser.plan === 'Família') {
+                maxCapacity = 20;
+            } else if (currentUser.plan === 'Colégio') {
+                maxCapacity = 400;
             } else {
-                headerUserCoins.classList.remove('zero-credits');
+                maxCapacity = 100;
+            }
+            
+            const percentage = Math.min(100, Math.max(0, Math.floor((credits / maxCapacity) * 100)));
+            
+            // Definir número de segmentos (de 0 a 5)
+            let segmentCount = 0;
+            if (credits > 0) {
+                segmentCount = Math.max(1, Math.ceil((percentage / 100) * 5));
+            }
+            
+            // Definir cor com base na quantidade de segmentos
+            let segmentColor = '#2ECC71'; // Verde
+            if (segmentCount <= 1) {
+                segmentColor = '#E74C3C'; // Vermelho
+            } else if (segmentCount <= 2) {
+                segmentColor = '#E67E22'; // Laranja
+            } else if (segmentCount <= 3) {
+                segmentColor = '#F39C12'; // Amarelo/Laranja
+            }
+            
+            // Criar elementos de segmento
+            for (let i = 0; i < segmentCount; i++) {
+                const seg = document.createElement('div');
+                seg.className = 'battery-segment';
+                seg.style.backgroundColor = segmentColor;
+                batterySegments.appendChild(seg);
             }
         }
 
-        // Cor do raio baseada nos novos thresholds
-        let boltColor = '#95A5A6'; // Cinza (0)
-        if (credits >= 400) {
-            boltColor = '#FFD700'; // Amarelo (400+)
-        } else if (credits >= 200) {
-            boltColor = '#E67E22'; // Laranja (200 a 399)
-        } else if (credits >= 1) {
-            boltColor = '#E74C3C'; // Vermelho (1 a 199)
-        }
-
-        if (userCreditsBadge) {
-            userCreditsBadge.innerHTML = `${credits} c. <span style="color: ${boltColor}; font-weight: bold; text-shadow: 0 0 2px rgba(0,0,0,0.5);">⚡</span>`;
-        }
-
+        // Dashboard do Criador (painel da home)
         if (creatorPanel) {
             creatorPanel.style.display = 'block';
             if (creatorLoggedIn) creatorLoggedIn.style.display = 'block';
             if (creatorLoggedOut) creatorLoggedOut.style.display = 'none';
             if (creatorName) creatorName.textContent = currentUser.name.split(' ')[0];
             if (creatorCredits) {
+                let boltColor = '#95A5A6';
+                if (credits >= 400) boltColor = '#FFD700';
+                else if (credits >= 200) boltColor = '#E67E22';
+                else if (credits >= 1) boltColor = '#E74C3C';
                 creatorCredits.innerHTML = `${credits} <span style="color: ${boltColor}; font-weight: bold; text-shadow: 0 0 2px rgba(0,0,0,0.5);">⚡</span>`;
             }
         }
@@ -228,12 +282,6 @@ function updateHeaderAuthDisplay() {
         if (googleBtn) googleBtn.style.display = 'none';
         if (btnEntrar) btnEntrar.style.display = 'inline-flex';
         userWidget.style.display = 'none';
-
-        // Esconder pílula de moedas se não estiver logado
-        const headerUserCoins = document.getElementById('header-user-coins');
-        if (headerUserCoins) {
-            headerUserCoins.style.display = 'none';
-        }
 
         if (creatorPanel) {
             creatorPanel.style.display = 'block';
@@ -651,6 +699,23 @@ function initGlobalEventListeners() {
             }
         });
     }
+
+    // Toggle engrenagem settings dropdown
+    const btnProfileSettings = document.getElementById('btn-profile-settings');
+    const profileDropdownMenu = document.getElementById('profile-dropdown-menu');
+    if (btnProfileSettings && profileDropdownMenu) {
+        btnProfileSettings.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileDropdownMenu.classList.toggle('open');
+        });
+        
+        // Fechar dropdown de perfil ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.profile-settings-dropdown-wrapper')) {
+                profileDropdownMenu.classList.remove('open');
+            }
+        });
+    }
 }
 
 function navigate(path, pushState = true) {
@@ -687,6 +752,8 @@ function navigate(path, pushState = true) {
         renderHistoriasExemploView();
     } else if (cleanPath === '/politica-de-privacidade') {
         renderPoliticaPrivacidadeView();
+    } else if (cleanPath === '/minhas-criacoes') {
+        renderMinhasCriacoesView();
     } else if (cleanPath.startsWith('/categoria/')) {
         const categorySlug = cleanPath.replace('/categoria/', '');
         if (!currentUser && !FREE_CATEGORIES.includes(categorySlug)) {
@@ -3791,3 +3858,218 @@ window.sharePreloadedStoryOnWhatsApp = sharePreloadedStoryOnWhatsApp;
 window.shareGeneratedStory = shareGeneratedStory;
 window.renderHistoriasExemploView = renderHistoriasExemploView;
 window.resetForm = resetForm;
+
+// === MINHAS CRIAÇÕES GALLERY LOGIC ===
+function renderMinhasCriacoesView() {
+    document.title = "Minhas Criações — KidCanvas 🎨";
+    setMetaDescription("Gerencie e veja seus desenhos e livros mágicos gerados por Inteligência Artificial.");
+    
+    const view = document.getElementById('view-minhas-criacoes');
+    if (view) {
+        view.style.display = 'block';
+    }
+    
+    const drawingsGrid = document.getElementById('my-drawings-grid');
+    const storiesContainer = document.getElementById('my-stories-container');
+    
+    if (!currentUser) {
+        showToast('Faça login para ver suas criações! 🚪', 'info');
+        openAuthModal();
+        navigate('/');
+        return;
+    }
+    
+    // 1. Renderizar Desenhos
+    if (drawingsGrid) {
+        drawingsGrid.innerHTML = '';
+        const drawings = currentUser.myImages || [];
+        
+        if (drawings.length === 0) {
+            drawingsGrid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: white; border: 2px dashed var(--color-dark); border-radius: var(--radius-sm);">
+                    <span style="font-size: 3rem;">🖍️</span>
+                    <h4 style="font-size: 1.3rem; margin-top:10px;">Você ainda não gerou desenhos!</h4>
+                    <p style="color: var(--color-dark-light); font-size: 0.95rem;">Vá em 'Gere sua Imagem' para criar desenhos incríveis.</p>
+                </div>
+            `;
+        } else {
+            drawings.forEach(dw => {
+                const card = document.createElement('div');
+                card.className = 'drawing-card';
+                card.innerHTML = `
+                    <div class="card-img-wrapper">
+                        <img src="${dw.url}" alt="${dw.prompt}" loading="lazy">
+                    </div>
+                    <div class="card-bottom-info">
+                        <span class="drawing-card-category">${dw.styleType === 'color' ? 'Colorido 🌈' : 'Preto e Branco 🖍️'}</span>
+                        <h4 class="drawing-card-title" style="font-size: 0.85rem; line-height: 1.2; max-height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${dw.prompt}</h4>
+                    </div>
+                    <div class="card-bottom" style="display: flex; gap: 8px;">
+                        <button class="btn btn-secondary btn-sm" onclick="downloadSavedImage('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; padding: 6px 10px; font-size: 0.85rem;"><i class="fa-solid fa-download"></i> Salvar</button>
+                        <button class="btn btn-primary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; padding: 6px 10px; font-size: 0.85rem; background-color: var(--color-purple);"><i class="fa-solid fa-print"></i> Imprimir</button>
+                    </div>
+                `;
+                drawingsGrid.appendChild(card);
+            });
+        }
+    }
+    
+    // 2. Renderizar Histórias
+    if (storiesContainer) {
+        storiesContainer.innerHTML = '';
+        const stories = currentUser.myStories || [];
+        
+        if (stories.length === 0) {
+            storiesContainer.innerHTML = `
+                <div style="text-align: center; padding: 40px; background: white; border: 2px dashed var(--color-dark); border-radius: var(--radius-sm);">
+                    <span style="font-size: 3rem;">📖</span>
+                    <h4 style="font-size: 1.3rem; margin-top:10px;">Você ainda não criou livros mágicos!</h4>
+                    <p style="color: var(--color-dark-light); font-size: 0.95rem;">Vá em 'Crie seu Livro' para iniciar histórias personalizadas.</p>
+                </div>
+            `;
+        } else {
+            const grid = document.createElement('div');
+            grid.className = 'drawings-grid';
+            stories.forEach((st, idx) => {
+                const card = document.createElement('div');
+                card.className = 'drawing-card';
+                card.innerHTML = `
+                    <div class="card-img-wrapper" style="cursor: pointer;" onclick="openSavedStoryViewer(${idx})">
+                        <img src="${st.coverUrl}" alt="${st.title}" loading="lazy">
+                    </div>
+                    <div class="card-bottom-info">
+                        <span class="drawing-card-category">Livro Mágico 📖</span>
+                        <h4 class="drawing-card-title">${st.title}</h4>
+                    </div>
+                    <div class="card-bottom" style="display: flex; gap: 8px;">
+                        <button class="btn btn-secondary btn-sm" onclick="openSavedStoryViewer(${idx})" style="flex: 1; justify-content: center; padding: 6px 10px; font-size: 0.85rem;"><i class="fa-solid fa-eye"></i> Ler</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+            storiesContainer.appendChild(grid);
+        }
+    }
+}
+
+function downloadSavedImage(url, prompt) {
+    const cleanPrompt = prompt.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `kidcanvas-${cleanPrompt}.jpg`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
+function printSavedImage(url) {
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>Imprimir Desenho — KidCanvas</title>
+            <style>
+                body { margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: white; }
+                img { max-width: 100%; max-height: 100%; object-fit: contain; }
+                @media print { body { height: auto; } img { width: 100%; max-height: 100%; } }
+            </style>
+        </head>
+        <body>
+            <img src="${url}" onload="window.print(); window.close();">
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+}
+
+function openSavedStoryViewer(storyIdx) {
+    if (!currentUser || !currentUser.myStories || !currentUser.myStories[storyIdx]) return;
+    const story = currentUser.myStories[storyIdx];
+    
+    const viewerModal = document.getElementById('viewerModal');
+    const viewerContent = document.getElementById('viewerContent');
+    const viewerModalTitle = document.getElementById('viewerModalTitle');
+    
+    if (!viewerModal || !viewerContent || !viewerModalTitle) return;
+    
+    viewerModalTitle.textContent = `✨ ${story.title}`;
+    
+    let html = `
+        <div class="cover-page-card" style="margin-top: 10px;">
+            <div class="cover-header">
+                <h2 class="cover-title">${story.title}</h2>
+                <div class="cover-subtitle">Uma história personalizada salva na sua conta</div>
+            </div>
+            <div class="cover-art-frame">
+                <img src="${story.coverUrl}" alt="Capa do Livro Mágico">
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; margin-bottom: 20px;">
+            <h4 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-orange); text-align: center; margin-bottom: 25px;">📖 Páginas do Livro</h4>
+        </div>
+    `;
+
+    story.paragraphs.forEach((page, idx) => {
+        html += `
+            <div class="story-page" style="margin-bottom: 30px;">
+                <div class="page-grid">
+                    <div class="page-text">
+                        <span class="page-number">Página ${idx + 1}</span>
+                        <p>${page.text}</p>
+                    </div>
+                    <div class="page-art">
+                        <div class="art-frame">
+                            <img src="${page.imageUrl}" alt="Ilustração da Página ${idx + 1}">
+                        </div>
+                        <div class="btn-action-group">
+                            <button class="btn-action btn-print" onclick="printSavedImage('${page.imageUrl}')">🖨️ Imprimir Página</button>
+                            <button class="btn-action" onclick="downloadSavedImage('${page.imageUrl}', 'pagina-${idx+1}')">💾 Salvar Imagem</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+        <div style="text-align: center; margin-top: 40px; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 12px 30px;" onclick="closeViewer()">Fechar Livro</button>
+        </div>
+    `;
+
+    viewerContent.innerHTML = html;
+    viewerModal.classList.add('open');
+}
+
+function switchCreationsTab(tab) {
+    const tabDrawings = document.getElementById('tab-my-drawings');
+    const tabStories = document.getElementById('tab-my-stories');
+    const gridDrawings = document.getElementById('my-drawings-grid');
+    const containerStories = document.getElementById('my-stories-container');
+    
+    if (!tabDrawings || !tabStories || !gridDrawings || !containerStories) return;
+    
+    if (tab === 'drawings') {
+        tabDrawings.style.color = 'var(--color-purple)';
+        tabDrawings.style.borderBottomColor = 'var(--color-purple)';
+        tabStories.style.color = 'var(--color-dark-light)';
+        tabStories.style.borderBottomColor = 'transparent';
+        gridDrawings.style.display = 'grid';
+        containerStories.style.display = 'none';
+    } else {
+        tabStories.style.color = 'var(--color-purple)';
+        tabStories.style.borderBottomColor = 'var(--color-purple)';
+        tabDrawings.style.color = 'var(--color-dark-light)';
+        tabDrawings.style.borderBottomColor = 'transparent';
+        gridDrawings.style.display = 'none';
+        containerStories.style.display = 'block';
+    }
+}
+
+window.renderMinhasCriacoesView = renderMinhasCriacoesView;
+window.downloadSavedImage = downloadSavedImage;
+window.printSavedImage = printSavedImage;
+window.openSavedStoryViewer = openSavedStoryViewer;
+window.switchCreationsTab = switchCreationsTab;
+

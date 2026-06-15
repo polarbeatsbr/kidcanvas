@@ -122,19 +122,59 @@
                     <button id="btn-entrar-header" class="btn-entrar-header" onclick="openAuthModal()"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
                     <div id="google-signin-btn-header" class="google-btn-header" style="display: none;"></div>
                     <div id="user-profile-widget" class="user-profile-widget" style="display: none;">
-                        <div id="header-user-coins" class="header-coins-pill">
-                            <span class="coin-icon">🪙</span>
-                            <span id="header-credits-count">0</span>
-                        </div>
-                        <img id="user-avatar-img" class="user-avatar-circle" src="" alt="Avatar">
-                        <div class="user-meta-info">
-                            <span id="user-display-name" class="user-name-text">Nome</span>
-                            <div style="display: flex; gap: 4px; align-items: center; margin-top: 2px;">
-                                <span id="user-plan-badge" class="plan-badge-tag">Plano</span>
-                                <span id="user-credits-badge" class="credits-badge-tag">0 c.</span>
+                        <!-- Medidor de Coins estilo bateria de iPhone -->
+                        <div class="iphone-battery-wrapper" id="iphone-battery-wrapper" title="Moedas Mágicas Restantes">
+                            <span class="battery-percentage" id="header-credits-count">0</span>
+                            <div class="iphone-battery">
+                                <div class="battery-segments" id="battery-segments"></div>
+                                <div class="battery-cap"></div>
                             </div>
                         </div>
-                        <button id="btn-logout-header" class="btn-logout-icon" title="Sair do KidCanvas" onclick="handleHeaderLogout()"><i class="fa-solid fa-right-from-bracket"></i></button>
+
+                        <!-- Foto do Perfil -->
+                        <img id="user-avatar-img" class="user-avatar-circle" src="" alt="Avatar">
+
+                        <!-- Informações do Usuário (Nome e Plano) -->
+                        <div class="user-meta-info">
+                            <span id="user-display-name" class="user-name-text">Nome</span>
+                            <span id="user-plan-badge" class="plan-badge-tag">Plano</span>
+                        </div>
+                        
+                        <!-- Engrenagem que abre o dropdown de configurações/ações -->
+                        <div class="profile-settings-dropdown-wrapper">
+                            <button id="btn-profile-settings" class="btn-profile-settings" title="Menu da Conta">
+                                <i class="fa-solid fa-gear"></i>
+                            </button>
+                            <div class="profile-dropdown-menu" id="profile-dropdown-menu">
+                                <div class="dropdown-user-header">
+                                    <img id="dropdown-user-avatar" class="dropdown-user-avatar" src="" alt="Avatar">
+                                    <div class="dropdown-user-info">
+                                        <span id="dropdown-user-display-name" class="dropdown-user-name">Nome</span>
+                                        <span id="dropdown-user-plan-badge" class="dropdown-user-plan">Plano</span>
+                                    </div>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" onclick="navigate('/minhas-criacoes'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-image"></i> Minhas Imagens e Livros
+                                </a>
+                                <a href="#" onclick="navigate('/gerar-desenho'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho IA
+                                </a>
+                                <a href="#" onclick="navigate('/historias-magicas'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-book-open"></i> Criar Livro Mágico
+                                </a>
+                                <a href="#" onclick="navigate('/planos'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Upgrade de Plano
+                                </a>
+                                <a href="#" onclick="navigate('/politica-de-privacidade'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-shield-halved"></i> Política de Privacidade
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" onclick="handleHeaderLogout(); return false;" class="dropdown-menu-item logout-item">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Deslogar
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1090,6 +1130,39 @@
                     <button class="btn btn-secondary" onclick="navigate('/historias-magicas')" style="font-size: 1.2rem; padding: 15px 30px; font-weight: 700; background-color: var(--color-purple); border-color: var(--color-purple);">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> Criar Meu Livro Personalizado!
                     </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             MINHAS CRIAÇÕES VIEW (Minhas Imagens e Livros)
+             ============================================== -->
+        <section id="view-minhas-criacoes" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Minhas Criações</span>
+                </div>
+                
+                <div class="section-title-wrapper align-left">
+                    <h1 class="page-title">Minhas Criações 🎨</h1>
+                    <p class="section-subtitle">Aqui ficam salvos os desenhos e livros mágicos que você criou!</p>
+                </div>
+                
+                <div class="creations-tabs" style="display: flex; gap: 15px; margin-bottom: 25px; border-bottom: var(--border-thin); padding-bottom: 10px;">
+                    <button class="tab-btn active" id="tab-my-drawings" onclick="switchCreationsTab('drawings')" style="background: none; border: none; font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; cursor: pointer; color: var(--color-purple); border-bottom: 4px solid var(--color-purple); padding: 5px 10px;">🖍️ Meus Desenhos</button>
+                    <button class="tab-btn" id="tab-my-stories" onclick="switchCreationsTab('stories')" style="background: none; border: none; font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; cursor: pointer; color: var(--color-dark-light); border-bottom: 4px solid transparent; padding: 5px 10px;">📖 Meus Livros</button>
+                </div>
+                
+                <!-- Grid de Desenhos Gerados -->
+                <div class="drawings-grid" id="my-drawings-grid">
+                    <!-- Preenchido via JS -->
+                </div>
+                
+                <!-- Grid de Histórias Geradas -->
+                <div class="my-stories-container" id="my-stories-container" style="display: none;">
+                    <!-- Preenchido via JS -->
                 </div>
             </div>
         </section>
