@@ -315,6 +315,7 @@ button, input, select, textarea {
     align-items: center;
     gap: 5px; /* Reduzido de 6px */
     transition: var(--transition-bounce);
+    white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -342,6 +343,7 @@ button, input, select, textarea {
     padding: 6px 12px;
     box-shadow: var(--shadow-cartoon-active);
     flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .nav-link-special:hover {
@@ -1107,6 +1109,36 @@ button, input, select, textarea {
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: 1.15rem;
+}
+
+/* Prevenir quebras no menu em resoluções intermediárias (desktop menor/tablet horizontal) */
+@media (max-width: 1250px) and (min-width: 901px) {
+    .header-right-wrapper {
+        gap: 10px;
+    }
+    #navbar ul {
+        gap: 6px;
+    }
+    .nav-link {
+        font-size: 0.85rem;
+        padding: 5px 8px;
+    }
+    #navbar .nav-link i.fa-paw,
+    #navbar .nav-link i.fa-dragon,
+    #navbar .nav-link i.fa-wand-magic-sparkles,
+    #navbar .nav-link i.fa-leaf,
+    #navbar .nav-link i.fa-car {
+        display: none;
+    }
+    .logo-dot {
+        display: none;
+    }
+    .logo {
+        font-size: 1.5rem;
+    }
+    .logo-icon {
+        font-size: 1.7rem;
+    }
 }
 
 /* --- RESPONSIVIDADE (MOBILE FIRST & DESIGN DE APLICATIVO) --- */
@@ -1974,7 +2006,7 @@ button, input, select, textarea {
     position: relative;
 }
 
-.dropdown-menu {
+#navbar ul.dropdown-menu {
     display: none;
     position: absolute;
     top: calc(100% + 8px); /* Posicionado abaixo do item do menu com espaço */
@@ -1989,10 +2021,20 @@ button, input, select, textarea {
     z-index: 2005; /* Acima do conteúdo da página */
     list-style: none;
     margin: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
 }
 
 /* Mostra o dropdown ao clicar */
-.dropdown-menu.show {
+#navbar ul.dropdown-menu.show {
+    display: flex;
+}
+
+#navbar ul.dropdown-menu li {
+    width: 100%;
+    margin: 0;
+    padding: 0;
     display: block;
 }
 
@@ -2006,6 +2048,7 @@ button, input, select, textarea {
     align-items: center;
     gap: 8px;
     transition: var(--transition-bounce);
+    white-space: nowrap;
 }
 
 .dropdown-item:hover {
