@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const crypto = require('crypto');
+const fs = require('fs');
 const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, hashPassword } = require('./r2db');
 
 const app = express();
@@ -204,7 +205,7 @@ app.post('/api/generate-story', async (req, res) => {
             });
         }
 
-        console.log(`[Story Proxy] Gerando história para "${childName}" com tema "${theme}" usando Gemini 2.0 Flash...`);
+        console.log(`[Story Proxy] Gerando história para "${childName}" com tema "${theme}" usando Gemini 2.5 Flash...`);
 
         const prompt = `Gere uma história infantil personalizada e uma ilustração correspondente.
 Nome da criança: ${childName}
@@ -248,7 +249,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             const rawText = await response.text().catch(() => '');
             console.error('[Google Story API Error Status]:', response.status);
             console.error('[Google Story API Error Response]:', rawText);
-            let errMsg = 'Erro na API do Gemini 2.0 Flash.';
+            let errMsg = 'Erro na API do Gemini 2.5 Flash.';
             try {
                 const errJson = JSON.parse(rawText);
                 if (errJson.error?.message) {
@@ -267,7 +268,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
         if (!textResult) {
             return res.status(500).json({
                 success: false,
-                message: 'O Gemini 2.0 Flash não retornou nenhum texto.'
+                message: 'O Gemini 2.5 Flash não retornou nenhum texto.'
             });
         }
 
@@ -389,7 +390,7 @@ app.post('/api/generate-full-story', async (req, res) => {
         }
 
         // 2. Chamar o Gemini para gerar a história e os prompts
-        console.log(`[Full Story V4] Gerando livro (Capa + ${numPages} páginas, estilo: ${isColor ? 'Colorida' : 'P&B'}) em ${bookLang || 'pt'} para "${characterName}" com os temas: "${themesList}"...`);
+        console.log(`[Full Story V4] Gerando livro (Capa + ${numPages} páginas, estilo: ${isColor ? 'Colorida' : 'P&B'}) em ${bookLang || 'pt'} para "${characterName}" usando Gemini 3.5 Flash...`);
 
         const styleDescription = isColor 
             ? "cute children's book watercolor illustration, soft pastel colors, whimsical, detailed cartoon, playful, clean edges"
@@ -427,16 +428,24 @@ app.post('/api/generate-full-story', async (req, res) => {
 Personagem principal: ${characterName}
 Temas selecionados: ${themesList}
 
-${synopsisInstructions}A história deve unir o personagem principal e os temas de forma lúdica, fluida, mágica e adequada para crianças.
-Para cada um dos ${numPages} parágrafos, sugira um prompt em inglês altamente descritivo para gerar uma ilustração correspondente no Ideogram. Cada prompt deve descrever a cena exata daquele parágrafo específico, mantendo a consistência física e de visual do personagem principal.
-Incorpore obrigatoriamente a seguinte diretiva de estilo no final de cada um dos ${numPages} prompts das páginas: "${styleDescription}".
+${synopsisInstructions}Diretrizes Literárias e de Estilo para a História:
+1. Tom de Voz: Mágico, afetuoso, alegre e estimulante. Lembre-se de que a história será lida por pais para seus filhos na hora de dormir ou por educadores em salas de aula de educação infantil.
+2. Dinâmica e Sons: Incorpore onomatopeias e sons divertidos adequados para crianças (por exemplo: "vrum!", "chuá!", "ploc!", "shh!", "nham-nham!") para tornar a leitura em voz alta interativa e divertida.
+3. Ritmo Narrativo: Crie uma narrativa fluida com início lúdico, um pequeno desafio ou aventura engraçada, e uma resolução mágica ou calorosa ao final.
+4. Engajamento: Adicione perguntas interativas discretas em alguns parágrafos para que o leitor possa conversar com a criança (por exemplo: "Você consegue imaginar como era essa cor?", "O que você faria se estivesse lá?").
+5. Concisão Visual: Cada parágrafo deve ter entre 2 a 4 frases, focando em ações fáceis de serem ilustradas e coloridas.
+
+Diretrizes de Consistência e Prompts de Imagem (Ideogram):
+- Para cada um dos ${numPages} parágrafos, sugira um prompt em inglês altamente descritivo para gerar uma ilustração correspondente no Ideogram. Cada prompt deve descrever a cena exata daquele parágrafo específico.
+- IMPORTANTE PARA A CONSISTÊNCIA: Em CADA um dos prompts de página gerados, descreva explicitamente a aparência física do personagem principal usando de 2 a 3 características físicas marcantes e fixas (ex: se for um cãozinho, descreva sempre como "a happy fluffy golden retriever puppy with floppy ears and a red collar"; se for uma menina, como "a cute 5-year-old girl with curly brown hair in a bright yellow dress"). Nunca diga apenas "the character" ou "the dog", repita as características em todos os prompts de página para que o Ideogram desenhe o mesmo personagem de forma consistente!
+- Incorpore obrigatoriamente a seguinte diretiva de estilo no final de cada um dos prompts das páginas: "${styleDescription}".
 
 Além disso, sugira um prompt em inglês altamente detalhado para a capa do livro no Ideogram.
 O prompt da capa deve descrever uma cena de capa de livro infantil encantadora combinando o personagem e os temas, e DEVE instruir o Ideogram a renderizar textos na imagem no seguinte estilo:
 - Um título principal com tipografia amigável e colorida em destaque que leia exatamente: "${coverTitle}"
 - Um subtítulo em tipografia menor e limpa que leia exatamente: "${coverSubtitle}"
 - Um selo redondo no canto inferior contendo o texto "KidCanvas" em destaque e, logo abaixo dele em tipografia menor e discreta, o endereço do site "www.kidcanvas.com.br"
-Incorpore obrigatoriamente a seguinte diretiva de estilo no final do prompt da capa: "${styleDescription}".
+- Incorpore obrigatoriamente a seguinte diretiva de estilo no final do prompt da capa: "${styleDescription}".
 
 Retorne a resposta estritamente no formato JSON estruturado com o seguinte esquema (sem marcações de markdown adicionais, apenas o JSON puro):
 {
@@ -446,7 +455,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
   ]
 }`;
 
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${geminiKey}`;
         
         const geminiRes = await fetch(geminiUrl, {
             method: 'POST',
@@ -476,7 +485,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             console.error('[Gemini API Error Response]:', rawText);
             return res.status(geminiRes.status).json({
                 success: false,
-                message: 'Erro ao gerar o texto da história no Gemini.'
+                message: 'Erro ao gerar o texto da história no Gemini 3.5 Flash.'
             });
         }
 
@@ -486,7 +495,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
         if (!textResult) {
             return res.status(500).json({
                 success: false,
-                message: 'O Gemini não retornou nenhum texto.'
+                message: 'O Gemini 3.5 Flash não retornou nenhum texto.'
             });
         }
 

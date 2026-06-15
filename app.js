@@ -1336,7 +1336,17 @@ function get5PhrasesForDrawing(drawing) {
     // Extrai o restante do título para dar um contexto da ação se houver
     let action = title.replace(new RegExp('^' + subject, 'i'), '').trim();
     if (!action) {
-        action = "brincando feliz";
+        if (category === 'veiculos') {
+            action = "pronto para correr";
+        } else if (category === 'comidas-e-doces') {
+            action = "esperando para ser provado";
+        } else if (category === 'natureza') {
+            action = "deixando o mundo mais lindo";
+        } else if (category === 'espaco') {
+            action = "viajando pelo espaço";
+        } else {
+            action = "brincando feliz";
+        }
     }
     
     const subjectLower = subject.toLowerCase();
@@ -1352,11 +1362,11 @@ function get5PhrasesForDrawing(drawing) {
         phrases.push(`Sou uma estrela, mas moro no mar...\ne adoro ver você pintar!`);
     }
     else if (subjectLower.includes('golfinho')) {
-        phrases.push(`Splash! Pulei bem alto\nsó pra te ver hoje!`);
-        phrases.push(`Eiii! Quer nadar comigo?\nMe colore primeiro!`);
-        phrases.push(`Faço acrobacias no mar quando\nganho cores lindas!`);
-        phrases.push(`Que tal me pintar de azul bem\nclarinho ou turquesa?`);
-        phrases.push(`Dá um salto na imaginação\ne escolhe sua cor favorita!`);
+        phrases.push(`Splash! Estou aqui ${action}!\nMe colore primeiro, amiguinho!`);
+        phrases.push(`Eiii! Quer nadar comigo ${action}?\nMe colore primeiro!`);
+        phrases.push(`Faço acrobacias no mar quando\nganho cores lindas e fico ${action}!`);
+        phrases.push(`Que tal me pintar de azul bem\nclarinho ou turquesa ${action}?`);
+        phrases.push(`Dá um salto na imaginação ${action}\ne escolhe sua cor favorita!`);
     }
     else if (subjectLower.includes('camaleão') || subjectLower.includes('camaleao')) {
         phrases.push(`Mudei de cor só pra te ver...\nme colore com sua cor favorita!`);
@@ -1394,11 +1404,11 @@ function get5PhrasesForDrawing(drawing) {
         phrases.push(`Mostre seus dentinhos num\nsorriso e vamos pintar!`);
     }
     else if (subjectLower.includes('carro')) {
-        phrases.push(`Vrum vrum! Tô esperando\nminha cor favorita!`);
-        phrases.push(`Meu tanque tá cheio mas\nde cor tá vazio!`);
-        phrases.push(`Apita apita! Me pinta\nque vou te dar uma volta!`);
-        phrases.push(`Todo carro tem uma cor...\nqual vai ser a minha?`);
-        phrases.push(`Tô parado na garagem\nesperando você me colorir!`);
+        phrases.push(`Vrum vrum! Olha eu ${action}!\nTô esperando minha cor favorita!`);
+        phrases.push(`Meu tanque tá cheio enquanto estou ${action},\nmas meu corpinho tá sem cor!`);
+        phrases.push(`Apita apita! Me colore ${action}\nque vou te dar uma volta!`);
+        phrases.push(`Todo carro tem uma cor...\nqual vai ser a minha para ficar ${action}?`);
+        phrases.push(`Tô parado na garagem ${action}\nesperando você me colorir!`);
     }
     else if (subjectLower.includes('avião') || subjectLower.includes('aviao')) {
         phrases.push(`Decolo em 3... 2... 1...\nmas primeiro me colore!`);
@@ -1461,11 +1471,11 @@ function get5PhrasesForDrawing(drawing) {
         phrases.push(`Onde termina o arco-íris?\nNo seu estojo de lápis!`);
     }
     else if (subjectLower.includes('bolo')) {
-        phrases.push(`Hoje é meu aniversário!\nMe enfeita de cor?`);
-        phrases.push(`Tenho várias camadas mas\nnenhuma tem cor ainda!`);
-        phrases.push(`Que tal colocar granulados\ncoloridos em mim?`);
-        phrases.push(`Hummm, com cereja no topo\nfica ainda mais gostoso!`);
-        phrases.push(`Pode me colorir com o\nsabor que você mais gostar!`);
+        phrases.push(`Hoje é dia de festa e estou ${action}!\nMe enfeita de cor?`);
+        phrases.push(`Tenho várias camadas fofas ${action},\nnenhuma tem cor ainda!`);
+        phrases.push(`Que tal colocar granulados coloridos\nem mim enquanto estou ${action}?`);
+        phrases.push(`Hummm, olha eu ${action}!\nCom cereja no topo fica ainda mais gostoso!`);
+        phrases.push(`Pode me colorir com o sabor que você\nmais gostar para ficar ${action}!`);
     }
     else if (subjectLower.includes('sorvete')) {
         phrases.push(`Tô derretendo de calor!\nMe colore rápido!`);
@@ -1545,107 +1555,107 @@ function get5PhrasesForDrawing(drawing) {
     if (phrases.length === 0) {
         switch (category) {
             case 'animais-do-mar':
-                phrases.push(`Splash! Quer nadar comigo?\nMe colore primeiro, amiguinho!`);
-                phrases.push(`Oi! Me dá um mergulho\ncolorido no papel!`);
-                phrases.push(`Achei um tesouro no mar:\nsuas cores lindas!`);
-                phrases.push(`Tenho nadadeiras sem cor...\nme ajuda, amiguinho?`);
-                phrases.push(`Oi! Sou ${art} ${subject}!\nMe colore com a cor do oceano!`);
+                phrases.push(`Splash! Estou aqui ${action}!\nMe colore primeiro, amiguinho!`);
+                phrases.push(`Olha só eu ${action}!\nMe dá um mergulho colorido no papel!`);
+                phrases.push(`Achei um tesouro no mar enquanto estava ${action}:\nsuas cores lindas!`);
+                phrases.push(`Como ${subject}, adoro ficar ${action}...\nmas preciso de cor!`);
+                phrases.push(`Oi! Sou ${art} ${subject} ${action}!\nMe colore com a cor do oceano!`);
                 break;
                 
             case 'animais-selvagens':
-                phrases.push(`Oi! Sou ${art} ${subject}!\nMe pinta bem bonito!`);
-                phrases.push(`Socorro! Estou sem cor\naqui na selva!`);
-                phrases.push(`Quer brincar na floresta?\nMe colore primeiro!`);
-                phrases.push(`Meu coração de ${subject}\nadora suas cores!`);
-                phrases.push(`Roarrr! Pinta meu desenho\ncom muito amor!`);
+                phrases.push(`Oi! Sou ${art} ${subject} ${action}!\nMe pinta bem bonito!`);
+                phrases.push(`Socorro! Estou ${action} na selva\nmas estou sem cor!`);
+                phrases.push(`Quer brincar de pintar? Olha eu aqui\n${action}!`);
+                phrases.push(`Meu coração de ${subject} adora ver você\npintando meu desenho!`);
+                phrases.push(`Roarrr! O que achou de me ver ${action}?\nMe colore com muito amor!`);
                 break;
                 
             case 'animais-domesticos':
-                phrases.push(`Miau! Au au! Me colore\ncom sua cor favorita!`);
-                phrases.push(`Oi! Sou ${art} ${subject}!\nQuer ser meu amigo de pintura?`);
-                phrases.push(`Abanei o rabinho de alegria\nquando vi seus lápis!`);
-                phrases.push(`Estou te esperando no papel...\nvamos colorir juntinhos?`);
-                phrases.push(`Que tal me pintar de colorido?\nAdoro brincar!`);
+                phrases.push(`Miau! Au au! Olha eu aqui ${action}!\nMe colore com sua cor favorita!`);
+                phrases.push(`Oi! Sou ${art} ${subject} ${action}!\nQuer ser meu amigo de pintura?`);
+                phrases.push(`Abanei o rabinho de alegria por estar ${action}!\nVamos colorir?`);
+                phrases.push(`Estou te esperando no papel ${action}...\nvamos colorir juntinhos?`);
+                phrases.push(`Que tal me pintar de colorido?\nAdoro ficar ${action}!`);
                 break;
                 
             case 'dinossauros':
-                phrases.push(`RAWRR! Pinta meu corpinho\nde dinossauro!`);
-                phrases.push(`Tenho chifres e espinhos,\nmas sou super bonzinho!`);
-                phrases.push(`Corri tanto pra te ver!\nAgora me colore logo!`);
-                phrases.push(`De que cor eu era de verdade?\nVocê que manda!`);
-                phrases.push(`Grrr! Um dinossauro grandão\nquerendo suas cores!`);
+                phrases.push(`RAWRR! Pinta meu corpinho de dino\nenquanto estou ${action}!`);
+                phrases.push(`Pareço grandão ${action},\nmas sou um dinossauro super bonzinho!`);
+                phrases.push(`Corri tanto para ficar ${action}!\nAgora me colore bem lindo!`);
+                phrases.push(`De que cor era ${art} ${subject} ${action}?\nVocê que manda!`);
+                phrases.push(`Grrr! Um dinossauro grandão ${action}\nquerendo suas cores favoritas!`);
                 break;
                 
             case 'fantasia':
-                phrases.push(`Minhas asas perderam o brilho...\npode me ajudar?`);
-                phrases.push(`Galopei pelas nuvens mágicas\nsó pra te ver colorir!`);
-                phrases.push(`Espalhei purpurina no papel!\nEscolha os lápis mais lindos!`);
-                phrases.push(`Pareço assustador mas só\nquero ser seu amigo colorido!`);
-                phrases.push(`Joguei um pó de estrelas\npara te dar sorte na pintura!`);
+                phrases.push(`Minhas asas perderam o brilho enquanto eu estava ${action}...\nme ajuda?`);
+                phrases.push(`Galopei pelas nuvens mágicas ${action}\nsó pra te ver colorir!`);
+                phrases.push(`Olha eu aqui ${action}! Espalhei purpurina\nno papel para você brilhar!`);
+                phrases.push(`Pareço mágico ${action}, mas só\nfico completo com as suas cores!`);
+                phrases.push(`Joguei um pó de estrelas enquanto estava ${action}\npara te dar sorte na pintura!`);
                 break;
                 
             case 'contos-de-fada':
-                phrases.push(`Era uma vez um desenho fofo\nesperando suas cores!`);
-                phrases.push(`O final feliz desse conto\ndepende das suas cores!`);
-                phrases.push(`Abra este livro de aventura\ne me colore bem lindo!`);
-                phrases.push(`Sou ${art} ${subject}!\nTrouxe um abraço pra você!`);
-                phrases.push(`Era uma vez uma criança que\npintava com muito amor!`);
+                phrases.push(`Era uma vez ${art} ${subject} ${action}\nesperando suas cores lindas!`);
+                phrases.push(`O final feliz desse desenho ${action}\ndepende do seu toque colorido!`);
+                phrases.push(`Abra este livro de aventura e pinte\neu aqui ${action}!`);
+                phrases.push(`Sou ${art} ${subject} ${action}!\nTrouxe um abraço bem quentinho!`);
+                phrases.push(`Era uma vez uma criança que pintava\neu aqui ${action} com muito amor!`);
                 break;
                 
             case 'espaco':
-                phrases.push(`Houston, temos um problema:\nestou sem cor no espaço!`);
-                phrases.push(`Flutuo pelas estrelas\nesperando você me pintar!`);
-                phrases.push(`Contagem regressiva!\n3... 2... 1... me colore!`);
-                phrases.push(`Já fui até a lua e de volta,\nmas adoro a sua pintura!`);
-                phrases.push(`Vim de outro planeta só pra\nser seu amigo colorido!`);
+                phrases.push(`Houston, temos um problema:\nestou sem cor aqui ${action}!`);
+                phrases.push(`Flutuo pelas estrelas ${action}\nesperando você me pintar!`);
+                phrases.push(`Contagem regressiva! Olha eu ${action}...\n3... 2... 1... me colore!`);
+                phrases.push(`Já fui até a lua e de volta ${action},\nmas amo quando você me pinta!`);
+                phrases.push(`Vim de outro planeta ${action}\nsó para ver sua pintura linda!`);
                 break;
                 
             case 'natureza':
-                phrases.push(`Pousei aqui pertinho\nsó pra te ver colorir!`);
-                phrases.push(`Minhas pétalas e folhas\nprecisam de cores lindas!`);
-                phrases.push(`O sol me aquece no jardim,\nmas você me dá vida!`);
-                phrases.push(`Apareci depois da chuva\nsó pra te surpreender!`);
-                phrases.push(`Abri minhas flores para\nreceber suas cores!`);
+                phrases.push(`Pousei aqui pertinho ${action}\nsó pra te ver colorir!`);
+                phrases.push(`Minhas pétalas e folhas ${action}\nprecisam de cores lindas!`);
+                phrases.push(`Olha só eu ${action}!\nVocê me dá vida com seus lápis!`);
+                phrases.push(`Apareci bem lindo ${action}\nsó pra te surpreender!`);
+                phrases.push(`Estou no jardim ${action}\npronto para receber suas cores!`);
                 break;
                 
             case 'veiculos':
-                phrases.push(`Vrum vrum! Tô esperando\nminha cor favorita!`);
-                phrases.push(`Meu tanque tá cheio mas\nmeu corpinho tá sem cor!`);
-                phrases.push(`Apita apita! Me colore\nque vou te dar uma volta!`);
-                phrases.push(`Estou parado na garagem\nesperando a largada das cores!`);
-                phrases.push(`Buzina, buzina! Me pinta\nbem rápido, amiguinho!`);
+                phrases.push(`Vrum vrum! Olha eu ${action}!\nTô esperando minha cor favorita!`);
+                phrases.push(`Meu tanque tá cheio enquanto estou ${action},\nmas meu corpinho tá sem cor!`);
+                phrases.push(`Apita apita! Me colore ${action}\nque vou te dar uma volta!`);
+                phrases.push(`Estou ${action} e esperando\na largada das suas cores!`);
+                phrases.push(`Buzina, buzina! Me pinta ${action}\nbem rápido, amiguinho!`);
                 break;
                 
             case 'comidas-e-doces':
-                phrases.push(`Hummm! Estou derretendo\nde calor! Me colore rápido!`);
-                phrases.push(`Hoje é dia de festa!\nMe enfeita de cor?`);
-                phrases.push(`Tenho várias camadas fofas,\nnenhuma tem cor ainda!`);
-                phrases.push(`Que sabor de cor você\nvai escolher para mim?`);
-                phrases.push(`Giro giro rodando no prato\nesperando o seu toque de cor!`);
+                phrases.push(`Hummm! Estou ${action}!\nMe colore rápido com cores deliciosas!`);
+                phrases.push(`Hoje é dia de festa e eu estou ${action}!\nMe enfeita de cor?`);
+                phrases.push(`Estou aqui ${action} e fofinho,\nmas ainda não tenho cor!`);
+                phrases.push(`Que sabor de cor você vai escolher\npara me pintar ${action}?`);
+                phrases.push(`Olha só eu ${action}!\nEstou esperando o seu toque de cor!`);
                 break;
                 
             case 'cotidiano':
-                phrases.push(`Oi! Vamos passear e brincar\njuntos hoje?`);
-                phrases.push(`Hoje o dia tá lindo,\nfalta só a sua cor!`);
-                phrases.push(`Quer brincar comigo?\nMe colore primeiro!`);
-                phrases.push(`Aprendi coisas muito legais,\nvamos pintar juntinhos?`);
-                phrases.push(`A Vovó Sônia disse que\nvocê pinta muito bem!`);
+                phrases.push(`Oi! Olha eu aqui ${action}!\nVamos brincar e colorir juntos hoje?`);
+                phrases.push(`Hoje o dia tá lindo e eu estou ${action}...\nfalta só a sua cor!`);
+                phrases.push(`Quer se divertir comigo ${action}?\nMe colore primeiro!`);
+                phrases.push(`Estou ${action} e aprendendo coisas legais,\nvamos pintar juntinhos?`);
+                phrases.push(`A Vovó Sônia disse que adora ver\neu aqui ${action} bem colorido!`);
                 break;
                 
             case 'profissoes':
-                phrases.push(`SIRENE! Chamado urgente:\npreciso de cor agora!`);
-                phrases.push(`Cuido de todo mundo, mas\nquem cuida de mim é você!`);
-                phrases.push(`Preparei uma receita:\numa xícara de cor e alegria!`);
-                phrases.push(`Trabalho com amor todos os dias,\ne colorir comigo é pura diversão!`);
-                phrases.push(`Qual profissão você quer ter?\nVamos sonhar colorindo!`);
+                phrases.push(`SIRENE! Chamado urgente:\npreciso de cor agora para continuar ${action}!`);
+                phrases.push(`Cuido de todo mundo enquanto estou ${action},\nmas quem cuida de mim é você!`);
+                phrases.push(`Preparei uma receita de cor e alegria\nenquanto estava ${action}!`);
+                phrases.push(`Trabalho com amor ${action},\ne colorir comigo é pura diversão!`);
+                phrases.push(`Olha eu aqui ${action}!\nQual profissão você quer ter quando crescer?`);
                 break;
                 
             default:
-                phrases.push(`Oi! Quer brincar comigo?\nMe colore bem lindo!`);
-                phrases.push(`De que cor você vai me pintar?\nEscolha a sua favorita!`);
-                phrases.push(`Estou no papel esperando,\nvamos colorir juntinhos?`);
-                phrases.push(`Deixa meu desenho alegre\ne cheio de vida!`);
-                phrases.push(`A Vovó Sônia separou esse\ndesenho com muito amor!`);
+                phrases.push(`Oi! Quer brincar comigo ${action}?\nMe colore bem lindo!`);
+                phrases.push(`De que cor você vai me pintar ${action}?\nEscolha a sua favorita!`);
+                phrases.push(`Estou no papel ${action} esperando,\nvamos colorir juntinhos?`);
+                phrases.push(`Deixa meu desenho ${action}\nsuper alegre e cheio de vida!`);
+                phrases.push(`A Vovó Sônia separou esse desenho\neu aqui ${action} com muito amor!`);
         }
     }
     
