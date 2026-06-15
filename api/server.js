@@ -46,102 +46,70 @@ app.post('/api/generate', async (req, res) => {
         const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
 
         if (isGoogleKey) {
-            console.log(`[Proxy] Utilizando API do Google AI Studio (Gemini 2.5 Flash SVG)...`);
-            const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-            
-            const prompt = `Gere um desenho infantil para colorir em formato SVG (código XML completo do SVG contido dentro da tag <svg>...</svg>) baseado na descrição abaixo:
-Descrição: ${req.body.prompt}
+            console.log(`[Proxy] Gerando imagem real PNG com Gemini...`);
+            const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
+            let success = false;
+            let lastError = null;
 
-O desenho deve ser estritamente em estilo livro de colorir (coloring book page):
-- Apenas traços pretos (stroke="black" ou stroke="#000000", com stroke-width adequado, ex: 2 ou 3)
-- Sem preenchimento (fill="none" para todas as formas fechadas, ou fill="white")
-- Fundo transparente ou branco
-- Sem sombreamento, sem gradientes, sem cinza
-- Linhas limpas e contornos bem definidos, fáceis de colorir para crianças.
-- O SVG deve ser válido, bem estruturado, responsivo (com viewBox, ex: "0 0 500 500", e sem width/height fixos no elemento svg ou width="100%" height="100%").
-
-Retorne a resposta estritamente no formato JSON estruturado com o seguinte esquema (sem marcações de markdown adicionais, apenas o JSON puro):
-{
-  "svg": "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 500 500\\">...</svg>"
-}`;
-
-            const response = await fetch(googleUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            role: "user",
-                            parts: [
-                                {
-                                    text: prompt
-                                }
-                            ]
-                        }
-                    ],
-                    generationConfig: {
-                        responseMimeType: "application/json"
-                    }
-                })
-            });
-
-            if (!response.ok) {
-                const rawText = await response.text().catch(() => '');
-                console.error('[Google API Error Status]:', response.status);
-                console.error('[Google API Error Response]:', rawText);
-                let errMsg = 'Erro na API do Google AI Studio.';
+            for (const model of models) {
                 try {
-                    const errJson = JSON.parse(rawText);
-                    if (errJson.error?.message) {
-                        errMsg = errJson.error.message;
+                    console.log(`[Proxy] Tentando modelo: ${model}...`);
+                    const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                    const response = await fetch(googleUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            contents: [
+                                {
+                                    parts: [
+                                        {
+                                            text: req.body.prompt
+                                        }
+                                    ]
+                                }
+                            ],
+                            generationConfig: {
+                                responseModalities: ["IMAGE"]
+                            }
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const candidate = data.candidates?.[0];
+                        const part = candidate?.content?.parts?.[0];
+                        if (part?.inlineData?.data) {
+                            const bytesBase64 = part.inlineData.data;
+                            success = true;
+                            console.log(`[Proxy] Sucesso com o modelo ${model}.`);
+                            return res.json({
+                                success: true,
+                                data: {
+                                    outputImageUrls: [
+                                        `data:image/png;base64,${bytesBase64}`
+                                    ]
+                                }
+                            });
+                        }
+                    } else {
+                        const errText = await response.text().catch(() => '');
+                        console.error(`[Proxy Error] Modelo ${model} falhou com status ${response.status}:`, errText);
+                        lastError = `Status ${response.status}: ${errText}`;
                     }
-                } catch(e) {}
-                return res.status(response.status).json({
-                    success: false,
-                    message: errMsg
-                });
-            }
-
-            const data = await response.json();
-            const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-            if (!textResult) {
-                return res.status(500).json({
-                    success: false,
-                    message: 'O Gemini não retornou nenhum desenho.'
-                });
-            }
-
-            let parsedResult;
-            try {
-                parsedResult = JSON.parse(textResult.trim());
-            } catch (e) {
-                console.error('[Parse JSON Error] Tentando limpar resposta:', textResult);
-                const cleanText = textResult.replace(/```json\s*/g, '').replace(/```\s*$/g, '').trim();
-                parsedResult = JSON.parse(cleanText);
-            }
-
-            const svgString = parsedResult.svg;
-            if (!svgString) {
-                return res.status(500).json({
-                    success: false,
-                    message: 'O desenho retornado pelo Gemini é inválido.'
-                });
-            }
-
-            const bytesBase64 = Buffer.from(svgString).toString('base64');
-
-            // Retornar a imagem em Base64 DataURL no formato esperado pelo frontend
-            return res.json({
-                success: true,
-                data: {
-                    outputImageUrls: [
-                        `data:image/svg+xml;base64,${bytesBase64}`
-                    ]
+                } catch (e) {
+                    console.error(`[Proxy Error] Erro no modelo ${model}:`, e.message);
+                    lastError = e.message;
                 }
-            });
+            }
+
+            if (!success) {
+                return res.status(500).json({
+                    success: false,
+                    message: `Erro ao gerar a imagem no Google AI Studio. Último erro: ${lastError}`
+                });
+            }
 
         } else {
             // Chamada original para o NanoBanana
@@ -1194,91 +1162,70 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         console.log(`[Custom Drawing] Gerando desenho para "${user.email}" com prompt: "${userPrompt}"...`);
 
         // Construir prompt para desenho de colorir
-        const finalPrompt = `clean black and white line art coloring page style, showing ${userPrompt.trim()}, thick clear outlines, white background, no shading, no gray, pure black and white lines, suitable for children coloring book, clean edges`;
+        const finalPrompt = `Digital 2D coloring book page for kids, flat vector line art, black contours, clean white background. The drawing shows ${userPrompt.trim()}. Centralized and large, no busy backgrounds, simple shapes, clean lines, no shading, no gradient, no shadows, no paper texture. No border, no frame. A small watermark text 'kidcanvas.com.br' in a clean, tiny, light gray font is written at the bottom right corner. No other text, no titles in the image. Top-down straight view, no perspective.`;
 
         const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
 
         let bytesBase64 = '';
 
         if (isGoogleKey) {
-            console.log(`[Custom Drawing] Utilizando API do Google AI Studio (Gemini 2.5 Flash SVG)...`);
-            const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-            
-            const prompt = `Gere um desenho infantil para colorir em formato SVG (código XML completo do SVG contido dentro da tag <svg>...</svg>) baseado na descrição abaixo:
-Descrição: ${userPrompt.trim()}
+            console.log(`[Custom Drawing] Gerando imagem real PNG com Gemini...`);
+            const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
+            let success = false;
+            let lastError = null;
 
-O desenho deve ser estritamente em estilo livro de colorir (coloring book page):
-- Apenas traços pretos (stroke="black" ou stroke="#000000", com stroke-width adequado, ex: 2 ou 3)
-- Sem preenchimento (fill="none" para todas as formas fechadas, ou fill="white")
-- Fundo transparente ou branco
-- Sem sombreamento, sem gradientes, sem cinza
-- Linhas limpas e contornos bem definidos, fáceis de colorir para crianças.
-- O SVG deve ser válido, bem estruturado, responsivo (com viewBox, ex: "0 0 500 500", e sem width/height fixos no elemento svg ou width="100%" height="100%").
-
-Retorne a resposta estritamente no formato JSON estruturado com o seguinte esquema (sem marcações de markdown adicionais, apenas o JSON puro):
-{
-  "svg": "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 500 500\\">...</svg>"
-}`;
-
-            const response = await fetch(googleUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    contents: [
-                        {
-                            role: "user",
-                            parts: [
+            for (const model of models) {
+                try {
+                    console.log(`[Custom Drawing] Tentando modelo: ${model}...`);
+                    const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                    const response = await fetch(googleUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            contents: [
                                 {
-                                    text: prompt
+                                    parts: [
+                                        {
+                                            text: finalPrompt
+                                        }
+                                    ]
                                 }
-                            ]
+                            ],
+                            generationConfig: {
+                                responseModalities: ["IMAGE"]
+                            }
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const candidate = data.candidates?.[0];
+                        const part = candidate?.content?.parts?.[0];
+                        if (part?.inlineData?.data) {
+                            bytesBase64 = part.inlineData.data;
+                            success = true;
+                            console.log(`[Custom Drawing] Sucesso com o modelo ${model}.`);
+                            break;
                         }
-                    ],
-                    generationConfig: {
-                        responseMimeType: "application/json"
+                    } else {
+                        const errText = await response.text().catch(() => '');
+                        console.error(`[Custom Drawing Error] Modelo ${model} falhou com status ${response.status}:`, errText);
+                        lastError = `Status ${response.status}: ${errText}`;
                     }
-                })
-            });
+                } catch (e) {
+                    console.error(`[Custom Drawing Error] Erro no modelo ${model}:`, e.message);
+                    lastError = e.message;
+                }
+            }
 
-            if (!response.ok) {
-                const rawText = await response.text().catch(() => '');
-                console.error('[Google Gemini Custom Error]:', response.status, rawText);
+            if (!success) {
                 return res.status(500).json({
                     success: false,
-                    message: 'Erro na API do Google AI Studio Gemini ao desenhar.'
+                    message: `Erro ao gerar a imagem no Google AI Studio. Último erro: ${lastError}`
                 });
             }
-
-            const data = await response.json();
-            const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-            if (!textResult) {
-                return res.status(500).json({
-                    success: false,
-                    message: 'O Gemini não retornou nenhum desenho.'
-                });
-            }
-
-            let parsedResult;
-            try {
-                parsedResult = JSON.parse(textResult.trim());
-            } catch (e) {
-                console.error('[Parse JSON Error] Tentando limpar resposta:', textResult);
-                const cleanText = textResult.replace(/```json\s*/g, '').replace(/```\s*$/g, '').trim();
-                parsedResult = JSON.parse(cleanText);
-            }
-
-            const svgString = parsedResult.svg;
-            if (!svgString) {
-                return res.status(500).json({
-                    success: false,
-                    message: 'O desenho retornado pelo Gemini é inválido.'
-                });
-            }
-
-            bytesBase64 = Buffer.from(svgString).toString('base64');
         } else {
             // Fallback NanoBanana
             const response = await fetch('https://www.nananobanana.com/api/v1/generate', {
@@ -1333,7 +1280,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
         user.paginasRestantes -= 1;
         await saveUsers(users);
 
-        const returnImage = bytesBase64.startsWith('http') ? bytesBase64 : (isGoogleKey ? `data:image/svg+xml;base64,${bytesBase64}` : `data:image/jpeg;base64,${bytesBase64}`);
+        const returnImage = bytesBase64.startsWith('http') ? bytesBase64 : (isGoogleKey ? `data:image/png;base64,${bytesBase64}` : `data:image/jpeg;base64,${bytesBase64}`);
 
         return res.json({
             success: true,

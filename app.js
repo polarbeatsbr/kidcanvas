@@ -2551,8 +2551,15 @@ function setupCustomDrawingActionListeners(imageUrl) {
         downloadBtn.onclick = () => {
             const a = document.createElement('a');
             a.href = imageUrl;
-            const isSvg = imageUrl.startsWith('data:image/svg+xml');
-            a.download = isSvg ? 'desenho-magico-kidcanvas.svg' : 'desenho-magico-kidcanvas.jpg';
+            let extension = 'jpg';
+            if (imageUrl.startsWith('data:image/png')) {
+                extension = 'png';
+            } else if (imageUrl.startsWith('data:image/svg+xml')) {
+                extension = 'svg';
+            } else if (imageUrl.startsWith('data:image/webp')) {
+                extension = 'webp';
+            }
+            a.download = `desenho-magico-kidcanvas.${extension}`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
