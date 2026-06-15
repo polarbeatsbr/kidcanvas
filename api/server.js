@@ -79,14 +79,25 @@ app.post('/api/generate', async (req, res) => {
                     })
                 });
 
+                console.log(`[Proxy] Hugging Face status:`, hfResponse.status);
+                const headersObj = {};
+                hfResponse.headers.forEach((value, key) => {
+                    headersObj[key] = value;
+                });
+                console.log(`[Proxy] Hugging Face headers:`, JSON.stringify(headersObj));
+
+                const buffer = await hfResponse.arrayBuffer();
+                const bufferSlice = Buffer.from(buffer).slice(0, 100);
+                console.log(`[Proxy] Hugging Face primeiros 100 bytes (hex):`, bufferSlice.toString('hex'));
+                console.log(`[Proxy] Hugging Face primeiros 100 bytes (texto):`, bufferSlice.toString('utf8').replace(/[\x00-\x1F\x7F-\x9F]/g, '.'));
+
                 const contentType = hfResponse.headers.get('content-type') || '';
                 if (hfResponse.ok && !contentType.includes('application/json')) {
-                    const buffer = await hfResponse.arrayBuffer();
                     base64Image = Buffer.from(buffer).toString('base64');
                     success = true;
                     console.log(`[Proxy] Sucesso com Hugging Face FLUX.1-schnell.`);
                 } else {
-                    const errText = await hfResponse.text().catch(() => '');
+                    const errText = Buffer.from(buffer).toString('utf8');
                     console.warn(`[Proxy Warning] Hugging Face falhou com status ${hfResponse.status}:`, errText);
                     lastError = `Hugging Face (Status ${hfResponse.status}): ${errText}`;
                 }
@@ -189,7 +200,7 @@ app.post('/api/generate', async (req, res) => {
 
         return res.status(500).json({
             success: false,
-            message: 'A API não retornou dados válidos da imagem.',
+            message: `A API não retornou dados válidos da imagem. Detalhes: ${lastError}`,
             error: lastError
         });
 
@@ -1277,14 +1288,25 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                     })
                 });
 
+                console.log(`[Custom Drawing] Hugging Face status:`, response.status);
+                const headersObj = {};
+                response.headers.forEach((value, key) => {
+                    headersObj[key] = value;
+                });
+                console.log(`[Custom Drawing] Hugging Face headers:`, JSON.stringify(headersObj));
+
+                const buffer = await response.arrayBuffer();
+                const bufferSlice = Buffer.from(buffer).slice(0, 100);
+                console.log(`[Custom Drawing] Hugging Face primeiros 100 bytes (hex):`, bufferSlice.toString('hex'));
+                console.log(`[Custom Drawing] Hugging Face primeiros 100 bytes (texto):`, bufferSlice.toString('utf8').replace(/[\x00-\x1F\x7F-\x9F]/g, '.'));
+
                 const contentType = response.headers.get('content-type') || '';
                 if (response.ok && !contentType.includes('application/json')) {
-                    const buffer = await response.arrayBuffer();
                     bytesBase64 = Buffer.from(buffer).toString('base64');
                     success = true;
                     console.log(`[Custom Drawing] Sucesso com Hugging Face FLUX.1-schnell.`);
                 } else {
-                    const errText = await response.text().catch(() => '');
+                    const errText = Buffer.from(buffer).toString('utf8');
                     console.warn(`[Custom Drawing Warning] Hugging Face falhou com status ${response.status}:`, errText);
                     lastError = `Hugging Face (Status ${response.status}): ${errText}`;
                 }
@@ -1392,7 +1414,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         if (!bytesBase64) {
             return res.status(500).json({
                 success: false,
-                message: 'A API não retornou dados válidos da imagem.',
+                message: `A API não retornou dados válidos da imagem. Detalhes: ${lastError}`,
                 error: lastError
             });
         }
