@@ -3985,21 +3985,23 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             btnPDF.disabled = true;
         }
 
-        html2pdf().from(tempContainer).set(opt).save().then(() => {
-            document.body.removeChild(tempContainer);
-            if (btnPDF) {
-                btnPDF.textContent = oldText;
-                btnPDF.disabled = false;
-            }
-            showToast('PDF pronto para impressão! ⬇️', 'success');
-        }).catch(err => {
-            document.body.removeChild(tempContainer);
-            console.error("Erro ao gerar PDF:", err);
-            if (btnPDF) {
-                btnPDF.textContent = oldText;
-                btnPDF.disabled = false;
-            }
-            alert("Erro ao exportar PDF. Tente novamente.");
+        waitForImages(tempContainer).then(() => {
+            html2pdf().from(tempContainer).set(opt).save().then(() => {
+                document.body.removeChild(tempContainer);
+                if (btnPDF) {
+                    btnPDF.textContent = oldText;
+                    btnPDF.disabled = false;
+                }
+                showToast('PDF pronto para impressão! ⬇️', 'success');
+            }).catch(err => {
+                document.body.removeChild(tempContainer);
+                console.error("Erro ao gerar PDF:", err);
+                if (btnPDF) {
+                    btnPDF.textContent = oldText;
+                    btnPDF.disabled = false;
+                }
+                alert("Erro ao exportar PDF. Tente novamente.");
+            });
         });
     }
 
@@ -4053,21 +4055,23 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             btnPDF.disabled = true;
         }
 
-        html2pdf().from(tempContainer).set(opt).save().then(() => {
-            document.body.removeChild(tempContainer);
-            if (btnPDF) {
-                btnPDF.textContent = oldText;
-                btnPDF.disabled = false;
-            }
-            showToast('PDF pronto para impressão! ⬇️', 'success');
-        }).catch(err => {
-            document.body.removeChild(tempContainer);
-            console.error("Erro ao gerar PDF:", err);
-            if (btnPDF) {
-                btnPDF.textContent = oldText;
-                btnPDF.disabled = false;
-            }
-            alert("Erro ao exportar PDF. Tente novamente.");
+        waitForImages(tempContainer).then(() => {
+            html2pdf().from(tempContainer).set(opt).save().then(() => {
+                document.body.removeChild(tempContainer);
+                if (btnPDF) {
+                    btnPDF.textContent = oldText;
+                    btnPDF.disabled = false;
+                }
+                showToast('PDF pronto para impressão! ⬇️', 'success');
+            }).catch(err => {
+                document.body.removeChild(tempContainer);
+                console.error("Erro ao gerar PDF:", err);
+                if (btnPDF) {
+                    btnPDF.textContent = oldText;
+                    btnPDF.disabled = false;
+                }
+                alert("Erro ao exportar PDF. Tente novamente.");
+            });
         });
     }
 
@@ -4287,6 +4291,29 @@ function printSavedImage(url) {
     printWindow.document.close();
 }
 
+function waitForImages(container) {
+    const images = Array.from(container.getElementsByTagName('img'));
+    const promises = images.map(img => {
+        return new Promise((resolve) => {
+            if (img.complete) {
+                resolve();
+            } else {
+                let resolved = false;
+                const done = () => {
+                    if (!resolved) {
+                        resolved = true;
+                        resolve();
+                    }
+                };
+                img.addEventListener('load', done);
+                img.addEventListener('error', done);
+                setTimeout(done, 8000); // safety timeout
+            }
+        });
+    });
+    return Promise.all(promises);
+}
+
 function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
     const tempContainer = document.createElement('div');
     tempContainer.style.position = 'fixed';
@@ -4336,21 +4363,23 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
         btnEl.disabled = true;
     }
 
-    html2pdf().from(tempContainer).set(opt).save().then(() => {
-        document.body.removeChild(tempContainer);
-        if (btnEl) {
-            btnEl.innerHTML = oldText;
-            btnEl.disabled = false;
-        }
-        showToast('PDF pronto para impressão! ⬇️', 'success');
-    }).catch(err => {
-        document.body.removeChild(tempContainer);
-        console.error("Erro ao gerar PDF:", err);
-        if (btnEl) {
-            btnEl.innerHTML = oldText;
-            btnEl.disabled = false;
-        }
-        alert("Erro ao exportar PDF. Tente novamente.");
+    waitForImages(tempContainer).then(() => {
+        html2pdf().from(tempContainer).set(opt).save().then(() => {
+            document.body.removeChild(tempContainer);
+            if (btnEl) {
+                btnEl.innerHTML = oldText;
+                btnEl.disabled = false;
+            }
+            showToast('PDF pronto para impressão! ⬇️', 'success');
+        }).catch(err => {
+            document.body.removeChild(tempContainer);
+            console.error("Erro ao gerar PDF:", err);
+            if (btnEl) {
+                btnEl.innerHTML = oldText;
+                btnEl.disabled = false;
+            }
+            alert("Erro ao exportar PDF. Tente novamente.");
+        });
     });
 }
 
