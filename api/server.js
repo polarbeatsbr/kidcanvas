@@ -47,7 +47,7 @@ app.post('/api/generate', async (req, res) => {
 
         if (isGoogleKey) {
             console.log(`[Proxy] Gerando imagem real PNG com Gemini...`);
-            const models = ['gemini-3.1-flash-image'];
+            const models = ['gemini-2.5-flash-image'];
             let success = false;
             let lastError = null;
 
@@ -1177,7 +1177,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
 
         if (isGoogleKey) {
             console.log(`[Custom Drawing] Gerando imagem real PNG com Gemini...`);
-            const models = ['gemini-3.1-flash-image'];
+            const models = ['gemini-2.5-flash-image'];
             let success = false;
             let lastError = null;
 
