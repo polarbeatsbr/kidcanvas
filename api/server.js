@@ -27,11 +27,18 @@ app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), async (
     try {
         const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
         if (endpointSecret && sig) {
-            event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+            // Vercel populates the raw request body as req.rawBody (Buffer)
+            const rawBody = req.rawBody || req.body;
+            event = stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
         } else {
-            // Fallback local se não tiver a chave de assinatura de webhook configurada
-            const payload = req.body.toString('utf-8');
-            event = JSON.parse(payload);
+            // Fallback local/desenvolvimento
+            let payload = req.rawBody;
+            if (!payload) {
+                payload = Buffer.isBuffer(req.body) ? req.body.toString('utf-8') : (typeof req.body === 'object' ? JSON.stringify(req.body) : req.body);
+            } else {
+                payload = payload.toString('utf-8');
+            }
+            event = typeof payload === 'string' ? JSON.parse(payload) : payload;
         }
     } catch (err) {
         console.error('Webhook signature verification failed:', err.message);
