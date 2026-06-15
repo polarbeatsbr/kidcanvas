@@ -733,7 +733,120 @@ app.get('/api/config', (req, res) => {
     });
 });
 
-// Endpoint de Login com Google (Google OAuth)
+// Rota para redirecionar para o consentimento do Google OAuth
+app.get('/api/auth/google/redirect', (req, res) => {
+    const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth';
+    const host = req.get('host');
+    const protocol = host.includes('localhost') ? 'http' : 'https';
+    const redirectUri = `${protocol}://${host}/api/auth/google/callback`;
+    
+    const options = {
+        redirect_uri: redirectUri,
+        client_id: process.env.GOOGLE_CLIENT_ID,
+        access_type: 'offline',
+        response_type: 'code',
+        prompt: 'consent',
+        scope: [
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'https://www.googleapis.com/auth/userinfo.email'
+        ].join(' ')
+    };
+    
+    const qs = new URLSearchParams(options);
+    return res.redirect(`${rootUrl}?${qs.toString()}`);
+});
+
+// Rota de callback do Google OAuth (Authorization Code Flow)
+app.get('/api/auth/google/callback', async (req, res) => {
+    const code = req.query.code;
+    if (!code) {
+        return res.status(400).send('Código de autorização ausente.');
+    }
+    
+    const host = req.get('host');
+    const protocol = host.includes('localhost') ? 'http' : 'https';
+    const redirectUri = `${protocol}://${host}/api/auth/google/callback`;
+    
+    try {
+        // Obter access token
+        const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                code,
+                client_id: process.env.GOOGLE_CLIENT_ID,
+                client_secret: process.env.GOOGLE_CLIENT_SECRET,
+                redirect_uri: redirectUri,
+                grant_type: 'authorization_code'
+            }).toString()
+        });
+        
+        if (!tokenRes.ok) {
+            const errText = await tokenRes.text();
+            console.error('[Google OAuth Token Error]:', errText);
+            return res.status(400).send('Erro ao obter token do Google.');
+        }
+        
+        const tokenData = await tokenRes.json();
+        const accessToken = tokenData.access_token;
+        
+        // Obter dados do usuário
+        const userRes = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+            headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        
+        if (!userRes.ok) {
+            return res.status(400).send('Erro ao obter dados de perfil do Google.');
+        }
+        
+        const payload = await userRes.json();
+        const email = payload.email.trim().toLowerCase();
+        const name = payload.name || 'Escritor Mágico';
+        const photo = payload.picture || '';
+        const googleId = payload.id;
+        
+        // Registrar/logar usuário no R2DB
+        const users = await loadUsers();
+        let user = users.find(u => u.email === email);
+        const sessionToken = crypto.randomBytes(16).toString('hex');
+        const tokenExpiry = Date.now() + 30 * 24 * 60 * 60 * 1000;
+        
+        if (!user) {
+            user = {
+                id: crypto.randomUUID(),
+                googleId: googleId,
+                name: name,
+                email: email,
+                photo: photo,
+                plan: 'Grátis',
+                paginasRestantes: 4,
+                token: sessionToken,
+                tokenExpiry: tokenExpiry
+            };
+            users.push(user);
+        } else {
+            user.googleId = googleId;
+            user.name = name;
+            if (photo) user.photo = photo;
+            user.token = sessionToken;
+            user.tokenExpiry = tokenExpiry;
+        }
+        
+        if (email === 'foneoliver@gmail.com') {
+            user.plan = 'Ultra';
+            user.paginasRestantes = 999999;
+        }
+        
+        await saveUsers(users);
+        
+        return res.redirect(`${protocol}://${host}/?google_token=${sessionToken}`);
+    } catch (err) {
+        console.error('[Google OAuth Callback Error]:', err);
+        return res.status(500).send('Erro interno ao processar autenticação do Google.');
+    }
+});
+
+// Endpoint de Login com Google (Google OAuth One Tap)
 app.post('/api/auth/google', async (req, res) => {
     try {
         const { credential } = req.body;
@@ -754,6 +867,11 @@ app.post('/api/auth/google', async (req, res) => {
 
         const payload = await verifyRes.json();
         
+        // Validar audience (Client ID)
+        if (payload.aud !== process.env.GOOGLE_CLIENT_ID) {
+            return res.status(400).json({ success: false, message: 'Token do Google inválido (Client ID incorreto).' });
+        }
+
         // Validar e-mail verificado
         if (payload.email_verified !== 'true' && payload.email_verified !== true) {
             return res.status(400).json({ success: false, message: 'E-mail do Google não verificado.' });

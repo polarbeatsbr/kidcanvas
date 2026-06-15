@@ -405,6 +405,15 @@ function checkGsiLoaded() {
 
 // --- INICIALIZAÇÃO ---
 window.addEventListener('DOMContentLoaded', async () => {
+    // Intercept Google OAuth redirect token
+    const urlParams = new URLSearchParams(window.location.search);
+    const googleToken = urlParams.get('google_token');
+    if (googleToken) {
+        localStorage.setItem("kidcanvas_session_token", googleToken);
+        sessionToken = googleToken;
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     await syncUserProfile();
     checkGsiLoaded();
     await loadDrawings();
