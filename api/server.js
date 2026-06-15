@@ -44,8 +44,51 @@ app.post('/api/generate', async (req, res) => {
 
         // 2. Encaminhar a requisição para a API correspondente
         const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
+        const isHFKey = apiKey.startsWith('hf_');
 
-        if (isGoogleKey) {
+        if (isHFKey) {
+            console.log(`[Proxy] Gerando imagem com Hugging Face (FLUX.1-schnell)...`);
+            try {
+                const hfUrl = 'https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell';
+                const response = await fetch(hfUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        inputs: req.body.prompt
+                    })
+                });
+
+                if (response.ok) {
+                    const buffer = await response.arrayBuffer();
+                    const base64Image = Buffer.from(buffer).toString('base64');
+                    console.log(`[Proxy] Sucesso com Hugging Face FLUX.1-schnell.`);
+                    return res.json({
+                        success: true,
+                        data: {
+                            outputImageUrls: [
+                                `data:image/png;base64,${base64Image}`
+                            ]
+                        }
+                    });
+                } else {
+                    const errText = await response.text().catch(() => '');
+                    console.error(`[Proxy Error] Hugging Face falhou com status ${response.status}:`, errText);
+                    return res.status(response.status).json({
+                        success: false,
+                        message: `Hugging Face API retornou erro ${response.status}: ${errText}`
+                    });
+                }
+            } catch (e) {
+                console.error(`[Proxy Error] Erro no Hugging Face:`, e.message);
+                return res.status(500).json({
+                    success: false,
+                    message: `Erro ao gerar imagem no Hugging Face: ${e.message}`
+                });
+            }
+        } else if (isGoogleKey) {
             console.log(`[Proxy] Gerando imagem real PNG com Gemini...`);
             const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
             let success = false;
@@ -1172,10 +1215,44 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         }
 
         const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
+        const isHFKey = apiKey.startsWith('hf_');
 
         let bytesBase64 = '';
 
-        if (isGoogleKey) {
+        if (isHFKey) {
+            console.log(`[Custom Drawing] Gerando imagem com Hugging Face (FLUX.1-schnell)...`);
+            try {
+                const hfUrl = 'https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell';
+                const response = await fetch(hfUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        inputs: finalPrompt
+                    })
+                });
+
+                if (response.ok) {
+                    const buffer = await response.arrayBuffer();
+                    bytesBase64 = Buffer.from(buffer).toString('base64');
+                } else {
+                    const errText = await response.text().catch(() => '');
+                    console.error(`[Custom Drawing Error] Hugging Face falhou com status ${response.status}:`, errText);
+                    return res.status(response.status).json({
+                        success: false,
+                        message: `Hugging Face API retornou erro ${response.status}: ${errText}`
+                    });
+                }
+            } catch (e) {
+                console.error(`[Custom Drawing Error] Erro no Hugging Face:`, e.message);
+                return res.status(500).json({
+                    success: false,
+                    message: `Erro ao gerar imagem no Hugging Face: ${e.message}`
+                });
+            }
+        } else if (isGoogleKey) {
             console.log(`[Custom Drawing] Gerando imagem real PNG com Gemini...`);
             const models = ['gemini-3.1-flash-image', 'gemini-2.5-flash-image'];
             let success = false;
