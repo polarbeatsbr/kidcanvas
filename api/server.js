@@ -46,25 +46,43 @@ app.post('/api/generate', async (req, res) => {
         const isGoogleKey = apiKey.startsWith('AIza') || apiKey.startsWith('AQ.');
 
         if (isGoogleKey) {
-            console.log(`[Proxy] Utilizando API do Google AI Studio (Imagen 4.0)...`);
-            const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict`;
+            console.log(`[Proxy] Utilizando API do Google AI Studio (Gemini 2.5 Flash SVG)...`);
+            const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
             
+            const prompt = `Gere um desenho infantil para colorir em formato SVG (código XML completo do SVG contido dentro da tag <svg>...</svg>) baseado na descrição abaixo:
+Descrição: ${req.body.prompt}
+
+O desenho deve ser estritamente em estilo livro de colorir (coloring book page):
+- Apenas traços pretos (stroke="black" ou stroke="#000000", com stroke-width adequado, ex: 2 ou 3)
+- Sem preenchimento (fill="none" para todas as formas fechadas, ou fill="white")
+- Fundo transparente ou branco
+- Sem sombreamento, sem gradientes, sem cinza
+- Linhas limpas e contornos bem definidos, fáceis de colorir para crianças.
+- O SVG deve ser válido, bem estruturado, responsivo (com viewBox, ex: "0 0 500 500", e sem width/height fixos no elemento svg ou width="100%" height="100%").
+
+Retorne a resposta estritamente no formato JSON estruturado com o seguinte esquema (sem marcações de markdown adicionais, apenas o JSON puro):
+{
+  "svg": "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 500 500\\">...</svg>"
+}`;
+
             const response = await fetch(googleUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'x-goog-api-key': apiKey
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    instances: [
+                    contents: [
                         {
-                            prompt: req.body.prompt
+                            role: "user",
+                            parts: [
+                                {
+                                    text: prompt
+                                }
+                            ]
                         }
                     ],
-                    parameters: {
-                        sampleCount: 1,
-                        aspectRatio: "1:1",
-                        outputMimeType: "image/jpeg"
+                    generationConfig: {
+                        responseMimeType: "application/json"
                     }
                 })
             });
@@ -87,21 +105,40 @@ app.post('/api/generate', async (req, res) => {
             }
 
             const data = await response.json();
-            const bytesBase64 = data.predictions?.[0]?.bytesBase64Encoded;
+            const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-            if (!bytesBase64) {
+            if (!textResult) {
                 return res.status(500).json({
                     success: false,
-                    message: 'A API do Google AI Studio não retornou os dados do desenho.'
+                    message: 'O Gemini não retornou nenhum desenho.'
                 });
             }
+
+            let parsedResult;
+            try {
+                parsedResult = JSON.parse(textResult.trim());
+            } catch (e) {
+                console.error('[Parse JSON Error] Tentando limpar resposta:', textResult);
+                const cleanText = textResult.replace(/```json\s*/g, '').replace(/```\s*$/g, '').trim();
+                parsedResult = JSON.parse(cleanText);
+            }
+
+            const svgString = parsedResult.svg;
+            if (!svgString) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'O desenho retornado pelo Gemini é inválido.'
+                });
+            }
+
+            const bytesBase64 = Buffer.from(svgString).toString('base64');
 
             // Retornar a imagem em Base64 DataURL no formato esperado pelo frontend
             return res.json({
                 success: true,
                 data: {
                     outputImageUrls: [
-                        `data:image/jpeg;base64,${bytesBase64}`
+                        `data:image/svg+xml;base64,${bytesBase64}`
                     ]
                 }
             });
@@ -1164,38 +1201,84 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         let bytesBase64 = '';
 
         if (isGoogleKey) {
-            const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict`;
+            console.log(`[Custom Drawing] Utilizando API do Google AI Studio (Gemini 2.5 Flash SVG)...`);
+            const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+            
+            const prompt = `Gere um desenho infantil para colorir em formato SVG (código XML completo do SVG contido dentro da tag <svg>...</svg>) baseado na descrição abaixo:
+Descrição: ${userPrompt.trim()}
+
+O desenho deve ser estritamente em estilo livro de colorir (coloring book page):
+- Apenas traços pretos (stroke="black" ou stroke="#000000", com stroke-width adequado, ex: 2 ou 3)
+- Sem preenchimento (fill="none" para todas as formas fechadas, ou fill="white")
+- Fundo transparente ou branco
+- Sem sombreamento, sem gradientes, sem cinza
+- Linhas limpas e contornos bem definidos, fáceis de colorir para crianças.
+- O SVG deve ser válido, bem estruturado, responsivo (com viewBox, ex: "0 0 500 500", e sem width/height fixos no elemento svg ou width="100%" height="100%").
+
+Retorne a resposta estritamente no formato JSON estruturado com o seguinte esquema (sem marcações de markdown adicionais, apenas o JSON puro):
+{
+  "svg": "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 500 500\\">...</svg>"
+}`;
+
             const response = await fetch(googleUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'x-goog-api-key': apiKey
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    instances: [
+                    contents: [
                         {
-                            prompt: finalPrompt
+                            role: "user",
+                            parts: [
+                                {
+                                    text: prompt
+                                }
+                            ]
                         }
                     ],
-                    parameters: {
-                        sampleCount: 1,
-                        aspectRatio: "1:1",
-                        outputMimeType: "image/jpeg"
+                    generationConfig: {
+                        responseMimeType: "application/json"
                     }
                 })
             });
 
             if (!response.ok) {
                 const rawText = await response.text().catch(() => '');
-                console.error('[Google Imagen Custom Error]:', response.status, rawText);
+                console.error('[Google Gemini Custom Error]:', response.status, rawText);
                 return res.status(500).json({
                     success: false,
-                    message: 'Erro na API do Google AI Studio Imagen ao desenhar.'
+                    message: 'Erro na API do Google AI Studio Gemini ao desenhar.'
                 });
             }
 
             const data = await response.json();
-            bytesBase64 = data.predictions?.[0]?.bytesBase64Encoded;
+            const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+            if (!textResult) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'O Gemini não retornou nenhum desenho.'
+                });
+            }
+
+            let parsedResult;
+            try {
+                parsedResult = JSON.parse(textResult.trim());
+            } catch (e) {
+                console.error('[Parse JSON Error] Tentando limpar resposta:', textResult);
+                const cleanText = textResult.replace(/```json\s*/g, '').replace(/```\s*$/g, '').trim();
+                parsedResult = JSON.parse(cleanText);
+            }
+
+            const svgString = parsedResult.svg;
+            if (!svgString) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'O desenho retornado pelo Gemini é inválido.'
+                });
+            }
+
+            bytesBase64 = Buffer.from(svgString).toString('base64');
         } else {
             // Fallback NanoBanana
             const response = await fetch('https://www.nananobanana.com/api/v1/generate', {
@@ -1250,7 +1333,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         user.paginasRestantes -= 1;
         await saveUsers(users);
 
-        const returnImage = bytesBase64.startsWith('http') ? bytesBase64 : `data:image/jpeg;base64,${bytesBase64}`;
+        const returnImage = bytesBase64.startsWith('http') ? bytesBase64 : (isGoogleKey ? `data:image/svg+xml;base64,${bytesBase64}` : `data:image/jpeg;base64,${bytesBase64}`);
 
         return res.json({
             success: true,

@@ -2551,7 +2551,8 @@ function setupCustomDrawingActionListeners(imageUrl) {
         downloadBtn.onclick = () => {
             const a = document.createElement('a');
             a.href = imageUrl;
-            a.download = 'desenho-magico-kidcanvas.jpg';
+            const isSvg = imageUrl.startsWith('data:image/svg+xml');
+            a.download = isSvg ? 'desenho-magico-kidcanvas.svg' : 'desenho-magico-kidcanvas.jpg';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
