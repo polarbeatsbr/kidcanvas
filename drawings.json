@@ -121,6 +121,105 @@
     "isNew": false
   },
   {
+    "index": 101,
+    "filename": "101-lagosta-com-conchinhas__lobster.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/101-lagosta-com-conchinhas__lobster.png",
+    "category": "animais-do-mar",
+    "pt": "Lagosta com conchinhas",
+    "en": "Lobster",
+    "slug": "lagosta-com-conchinhas",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 102,
+    "filename": "102-foca-com-conchinhas__seal.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/102-foca-com-conchinhas__seal.png",
+    "category": "animais-do-mar",
+    "pt": "Foca com conchinhas",
+    "en": "Seal",
+    "slug": "foca-com-conchinhas",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 103,
+    "filename": "103-leao-marinho-com-conchinhas__sea_lion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/103-leao-marinho-com-conchinhas__sea_lion.png",
+    "category": "animais-do-mar",
+    "pt": "Leao marinho com conchinhas",
+    "en": "Sea lion",
+    "slug": "leao-marinho-com-conchinhas",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 104,
+    "filename": "104-peixe-espada-com-conchinhas__swordfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/104-peixe-espada-com-conchinhas__swordfish.png",
+    "category": "animais-do-mar",
+    "pt": "Peixe espada com conchinhas",
+    "en": "Swordfish",
+    "slug": "peixe-espada-com-conchinhas",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 105,
+    "filename": "105-lula-com-conchinhas__squid.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/105-lula-com-conchinhas__squid.png",
+    "category": "animais-do-mar",
+    "pt": "Lula com conchinhas",
+    "en": "Squid",
+    "slug": "lula-com-conchinhas",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 106,
+    "filename": "106-golfinho-explorando-caverna__dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/106-golfinho-explorando-caverna__dolphin.png",
+    "category": "animais-do-mar",
+    "pt": "Golfinho explorando caverna",
+    "en": "Dolphin",
+    "slug": "golfinho-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 107,
+    "filename": "107-baleia-explorando-caverna__whale.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/107-baleia-explorando-caverna__whale.png",
+    "category": "animais-do-mar",
+    "pt": "Baleia explorando caverna",
+    "en": "Whale",
+    "slug": "baleia-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 108,
+    "filename": "108-tubarao-explorando-caverna__shark.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/108-tubarao-explorando-caverna__shark.png",
+    "category": "animais-do-mar",
+    "pt": "Tubarao explorando caverna",
+    "en": "Shark",
+    "slug": "tubarao-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 109,
+    "filename": "109-polvo-explorando-caverna__octopus.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/109-polvo-explorando-caverna__octopus.png",
+    "category": "animais-do-mar",
+    "pt": "Polvo explorando caverna",
+    "en": "Octopus",
+    "slug": "polvo-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 11,
     "filename": "11-lagosta-nadando-feliz__lobster.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/11-lagosta-nadando-feliz__lobster.png",
@@ -132,6 +231,116 @@
     "isNew": false
   },
   {
+    "index": 110,
+    "filename": "110-cavalo-marinho-explorando-caverna__seahorse.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/110-cavalo-marinho-explorando-caverna__seahorse.png",
+    "category": "animais-do-mar",
+    "pt": "Cavalo marinho explorando caverna",
+    "en": "Seahorse",
+    "slug": "cavalo-marinho-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 111,
+    "filename": "111-tartaruga-marinha-explorando-caverna__sea_turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/111-tartaruga-marinha-explorando-caverna__sea_turtle.png",
+    "category": "animais-do-mar",
+    "pt": "Tartaruga marinha explorando caverna",
+    "en": "Sea turtle",
+    "slug": "tartaruga-marinha-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 112,
+    "filename": "112-peixe-palhaco-explorando-caverna__clownfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/112-peixe-palhaco-explorando-caverna__clownfish.png",
+    "category": "animais-do-mar",
+    "pt": "Peixe palhaco explorando caverna",
+    "en": "Clownfish",
+    "slug": "peixe-palhaco-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 113,
+    "filename": "113-estrela-do-mar-explorando-caverna__starfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/113-estrela-do-mar-explorando-caverna__starfish.png",
+    "category": "animais-do-mar",
+    "pt": "Estrela do mar explorando caverna",
+    "en": "Starfish",
+    "slug": "estrela-do-mar-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 114,
+    "filename": "114-arraia-explorando-caverna__stingray.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/114-arraia-explorando-caverna__stingray.png",
+    "category": "animais-do-mar",
+    "pt": "Arraia explorando caverna",
+    "en": "Stingray",
+    "slug": "arraia-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 115,
+    "filename": "115-caranguejo-explorando-caverna__crab.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/115-caranguejo-explorando-caverna__crab.png",
+    "category": "animais-do-mar",
+    "pt": "Caranguejo explorando caverna",
+    "en": "Crab",
+    "slug": "caranguejo-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 116,
+    "filename": "116-lagosta-explorando-caverna__lobster.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/116-lagosta-explorando-caverna__lobster.png",
+    "category": "animais-do-mar",
+    "pt": "Lagosta explorando caverna",
+    "en": "Lobster",
+    "slug": "lagosta-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 117,
+    "filename": "117-foca-explorando-caverna__seal.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/117-foca-explorando-caverna__seal.png",
+    "category": "animais-do-mar",
+    "pt": "Foca explorando caverna",
+    "en": "Seal",
+    "slug": "foca-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 118,
+    "filename": "118-leao-marinho-explorando-caverna__sea_lion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/118-leao-marinho-explorando-caverna__sea_lion.png",
+    "category": "animais-do-mar",
+    "pt": "Leao marinho explorando caverna",
+    "en": "Sea lion",
+    "slug": "leao-marinho-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 119,
+    "filename": "119-peixe-espada-explorando-caverna__swordfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/119-peixe-espada-explorando-caverna__swordfish.png",
+    "category": "animais-do-mar",
+    "pt": "Peixe espada explorando caverna",
+    "en": "Swordfish",
+    "slug": "peixe-espada-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 12,
     "filename": "12-foca-nadando-feliz__seal.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/12-foca-nadando-feliz__seal.png",
@@ -141,6 +350,39 @@
     "slug": "foca-nadando-feliz",
     "tier": "free",
     "isNew": false
+  },
+  {
+    "index": 120,
+    "filename": "120-lula-explorando-caverna__squid.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/120-lula-explorando-caverna__squid.png",
+    "category": "animais-do-mar",
+    "pt": "Lula explorando caverna",
+    "en": "Squid",
+    "slug": "lula-explorando-caverna",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 121,
+    "filename": "121-golfinho-fazendo-amigos__dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/121-golfinho-fazendo-amigos__dolphin.png",
+    "category": "animais-do-mar",
+    "pt": "Golfinho fazendo amigos",
+    "en": "Dolphin",
+    "slug": "golfinho-fazendo-amigos",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 122,
+    "filename": "122-baleia-fazendo-amigos__whale.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-do-mar/122-baleia-fazendo-amigos__whale.png",
+    "category": "animais-do-mar",
+    "pt": "Baleia fazendo amigos",
+    "en": "Whale",
+    "slug": "baleia-fazendo-amigos",
+    "tier": "free",
+    "isNew": true
   },
   {
     "index": 13,
@@ -1507,6 +1749,28 @@
     "isNew": true
   },
   {
+    "index": 125,
+    "filename": "125-papagaio-tomando-sol__parrot.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/125-papagaio-tomando-sol__parrot.png",
+    "category": "animais-domesticos",
+    "pt": "Papagaio tomando sol",
+    "en": "Parrot",
+    "slug": "papagaio-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 126,
+    "filename": "126-peixe-dourado-tomando-sol__goldfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/126-peixe-dourado-tomando-sol__goldfish.png",
+    "category": "animais-domesticos",
+    "pt": "Peixe dourado tomando sol",
+    "en": "Goldfish",
+    "slug": "peixe-dourado-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 127,
     "filename": "127-porquinho-da-india-tomando-sol__guinea_pig.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/127-porquinho-da-india-tomando-sol__guinea_pig.png",
@@ -1514,6 +1778,28 @@
     "pt": "Porquinho da india tomando sol",
     "en": "Guinea pig",
     "slug": "porquinho-da-india-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 128,
+    "filename": "128-calopsita-tomando-sol__cockatiel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/128-calopsita-tomando-sol__cockatiel.png",
+    "category": "animais-domesticos",
+    "pt": "Calopsita tomando sol",
+    "en": "Cockatiel",
+    "slug": "calopsita-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 129,
+    "filename": "129-furao-tomando-sol__ferret.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/129-furao-tomando-sol__ferret.png",
+    "category": "animais-domesticos",
+    "pt": "Furao tomando sol",
+    "en": "Ferret",
+    "slug": "furao-tomando-sol",
     "tier": "free",
     "isNew": true
   },
@@ -1540,6 +1826,94 @@
     "isNew": true
   },
   {
+    "index": 131,
+    "filename": "131-canario-tomando-sol__canary.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/131-canario-tomando-sol__canary.png",
+    "category": "animais-domesticos",
+    "pt": "Canario tomando sol",
+    "en": "Canary",
+    "slug": "canario-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 132,
+    "filename": "132-chinchila-tomando-sol__chinchilla.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/132-chinchila-tomando-sol__chinchilla.png",
+    "category": "animais-domesticos",
+    "pt": "Chinchila tomando sol",
+    "en": "Chinchilla",
+    "slug": "chinchila-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 133,
+    "filename": "133-periquito-tomando-sol__parakeet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/133-periquito-tomando-sol__parakeet.png",
+    "category": "animais-domesticos",
+    "pt": "Periquito tomando sol",
+    "en": "Parakeet",
+    "slug": "periquito-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 134,
+    "filename": "134-gatinho-tomando-sol__kitten.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/134-gatinho-tomando-sol__kitten.png",
+    "category": "animais-domesticos",
+    "pt": "Gatinho tomando sol",
+    "en": "Kitten",
+    "slug": "gatinho-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 135,
+    "filename": "135-cachorrinho-tomando-sol__puppy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/135-cachorrinho-tomando-sol__puppy.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorrinho tomando sol",
+    "en": "Puppy",
+    "slug": "cachorrinho-tomando-sol",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 136,
+    "filename": "136-gato-correndo-na-grama__cat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/136-gato-correndo-na-grama__cat.png",
+    "category": "animais-domesticos",
+    "pt": "Gato correndo na grama",
+    "en": "Cat",
+    "slug": "gato-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 137,
+    "filename": "137-cachorro-correndo-na-grama__dog.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/137-cachorro-correndo-na-grama__dog.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro correndo na grama",
+    "en": "Dog",
+    "slug": "cachorro-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 138,
+    "filename": "138-coelho-correndo-na-grama__rabbit.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/138-coelho-correndo-na-grama__rabbit.png",
+    "category": "animais-domesticos",
+    "pt": "Coelho correndo na grama",
+    "en": "Rabbit",
+    "slug": "coelho-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 139,
     "filename": "139-hamster-correndo-na-grama__hamster.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/139-hamster-correndo-na-grama__hamster.png",
@@ -1562,6 +1936,28 @@
     "isNew": false
   },
   {
+    "index": 140,
+    "filename": "140-papagaio-correndo-na-grama__parrot.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/140-papagaio-correndo-na-grama__parrot.png",
+    "category": "animais-domesticos",
+    "pt": "Papagaio correndo na grama",
+    "en": "Parrot",
+    "slug": "papagaio-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 141,
+    "filename": "141-peixe-dourado-correndo-na-grama__goldfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/141-peixe-dourado-correndo-na-grama__goldfish.png",
+    "category": "animais-domesticos",
+    "pt": "Peixe dourado correndo na grama",
+    "en": "Goldfish",
+    "slug": "peixe-dourado-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 142,
     "filename": "142-porquinho-da-india-correndo-na-grama__guinea_pig.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/142-porquinho-da-india-correndo-na-grama__guinea_pig.png",
@@ -1569,6 +1965,28 @@
     "pt": "Porquinho da india correndo na grama",
     "en": "Guinea pig",
     "slug": "porquinho-da-india-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 143,
+    "filename": "143-calopsita-correndo-na-grama__cockatiel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/143-calopsita-correndo-na-grama__cockatiel.png",
+    "category": "animais-domesticos",
+    "pt": "Calopsita correndo na grama",
+    "en": "Cockatiel",
+    "slug": "calopsita-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 144,
+    "filename": "144-furao-correndo-na-grama__ferret.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/144-furao-correndo-na-grama__ferret.png",
+    "category": "animais-domesticos",
+    "pt": "Furao correndo na grama",
+    "en": "Ferret",
+    "slug": "furao-correndo-na-grama",
     "tier": "free",
     "isNew": true
   },
@@ -1584,6 +2002,50 @@
     "isNew": true
   },
   {
+    "index": 146,
+    "filename": "146-canario-correndo-na-grama__canary.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/146-canario-correndo-na-grama__canary.png",
+    "category": "animais-domesticos",
+    "pt": "Canario correndo na grama",
+    "en": "Canary",
+    "slug": "canario-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 147,
+    "filename": "147-chinchila-correndo-na-grama__chinchilla.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/147-chinchila-correndo-na-grama__chinchilla.png",
+    "category": "animais-domesticos",
+    "pt": "Chinchila correndo na grama",
+    "en": "Chinchilla",
+    "slug": "chinchila-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 148,
+    "filename": "148-periquito-correndo-na-grama__parakeet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/148-periquito-correndo-na-grama__parakeet.png",
+    "category": "animais-domesticos",
+    "pt": "Periquito correndo na grama",
+    "en": "Parakeet",
+    "slug": "periquito-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 149,
+    "filename": "149-gatinho-correndo-na-grama__kitten.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/149-gatinho-correndo-na-grama__kitten.png",
+    "category": "animais-domesticos",
+    "pt": "Gatinho correndo na grama",
+    "en": "Kitten",
+    "slug": "gatinho-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 15,
     "filename": "15-cachorrinho-brincando-com-novelo__puppy.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/15-cachorrinho-brincando-com-novelo__puppy.png",
@@ -1595,6 +2057,116 @@
     "isNew": false
   },
   {
+    "index": 150,
+    "filename": "150-cachorrinho-correndo-na-grama__puppy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/150-cachorrinho-correndo-na-grama__puppy.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorrinho correndo na grama",
+    "en": "Puppy",
+    "slug": "cachorrinho-correndo-na-grama",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 151,
+    "filename": "151-gato-bebendo-agua__cat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/151-gato-bebendo-agua__cat.png",
+    "category": "animais-domesticos",
+    "pt": "Gato bebendo agua",
+    "en": "Cat",
+    "slug": "gato-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 152,
+    "filename": "152-cachorro-bebendo-agua__dog.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/152-cachorro-bebendo-agua__dog.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro bebendo agua",
+    "en": "Dog",
+    "slug": "cachorro-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 153,
+    "filename": "153-coelho-bebendo-agua__rabbit.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/153-coelho-bebendo-agua__rabbit.png",
+    "category": "animais-domesticos",
+    "pt": "Coelho bebendo agua",
+    "en": "Rabbit",
+    "slug": "coelho-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 154,
+    "filename": "154-hamster-bebendo-agua__hamster.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/154-hamster-bebendo-agua__hamster.png",
+    "category": "animais-domesticos",
+    "pt": "Hamster bebendo agua",
+    "en": "Hamster",
+    "slug": "hamster-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 155,
+    "filename": "155-papagaio-bebendo-agua__parrot.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/155-papagaio-bebendo-agua__parrot.png",
+    "category": "animais-domesticos",
+    "pt": "Papagaio bebendo agua",
+    "en": "Parrot",
+    "slug": "papagaio-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 156,
+    "filename": "156-peixe-dourado-bebendo-agua__goldfish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/156-peixe-dourado-bebendo-agua__goldfish.png",
+    "category": "animais-domesticos",
+    "pt": "Peixe dourado bebendo agua",
+    "en": "Goldfish",
+    "slug": "peixe-dourado-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 157,
+    "filename": "157-porquinho-da-india-bebendo-agua__guinea_pig.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/157-porquinho-da-india-bebendo-agua__guinea_pig.png",
+    "category": "animais-domesticos",
+    "pt": "Porquinho da india bebendo agua",
+    "en": "Guinea pig",
+    "slug": "porquinho-da-india-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 158,
+    "filename": "158-calopsita-bebendo-agua__cockatiel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/158-calopsita-bebendo-agua__cockatiel.png",
+    "category": "animais-domesticos",
+    "pt": "Calopsita bebendo agua",
+    "en": "Cockatiel",
+    "slug": "calopsita-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 159,
+    "filename": "159-furao-bebendo-agua__ferret.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/159-furao-bebendo-agua__ferret.png",
+    "category": "animais-domesticos",
+    "pt": "Furao bebendo agua",
+    "en": "Ferret",
+    "slug": "furao-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
     "index": 16,
     "filename": "16-gato-dormindo-na-almofada__cat.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/16-gato-dormindo-na-almofada__cat.png",
@@ -1604,6 +2176,94 @@
     "slug": "gato-dormindo-na-almofada",
     "tier": "free",
     "isNew": false
+  },
+  {
+    "index": 160,
+    "filename": "160-tartaruga-bebendo-agua__turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/160-tartaruga-bebendo-agua__turtle.png",
+    "category": "animais-domesticos",
+    "pt": "Tartaruga bebendo agua",
+    "en": "Turtle",
+    "slug": "tartaruga-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 161,
+    "filename": "161-canario-bebendo-agua__canary.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/161-canario-bebendo-agua__canary.png",
+    "category": "animais-domesticos",
+    "pt": "Canario bebendo agua",
+    "en": "Canary",
+    "slug": "canario-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 162,
+    "filename": "162-chinchila-bebendo-agua__chinchilla.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/162-chinchila-bebendo-agua__chinchilla.png",
+    "category": "animais-domesticos",
+    "pt": "Chinchila bebendo agua",
+    "en": "Chinchilla",
+    "slug": "chinchila-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 163,
+    "filename": "163-periquito-bebendo-agua__parakeet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/163-periquito-bebendo-agua__parakeet.png",
+    "category": "animais-domesticos",
+    "pt": "Periquito bebendo agua",
+    "en": "Parakeet",
+    "slug": "periquito-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 164,
+    "filename": "164-gatinho-bebendo-agua__kitten.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/164-gatinho-bebendo-agua__kitten.png",
+    "category": "animais-domesticos",
+    "pt": "Gatinho bebendo agua",
+    "en": "Kitten",
+    "slug": "gatinho-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 165,
+    "filename": "165-cachorrinho-bebendo-agua__puppy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/165-cachorrinho-bebendo-agua__puppy.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorrinho bebendo agua",
+    "en": "Puppy",
+    "slug": "cachorrinho-bebendo-agua",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 166,
+    "filename": "166-gato-brincando-de-esconder__cat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/166-gato-brincando-de-esconder__cat.png",
+    "category": "animais-domesticos",
+    "pt": "Gato brincando de esconder",
+    "en": "Cat",
+    "slug": "gato-brincando-de-esconder",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 167,
+    "filename": "167-cachorro-brincando-de-esconder__dog.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/167-cachorro-brincando-de-esconder__dog.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro brincando de esconder",
+    "en": "Dog",
+    "slug": "cachorro-brincando-de-esconder",
+    "tier": "free",
+    "isNew": true
   },
   {
     "index": 17,
