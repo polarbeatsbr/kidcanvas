@@ -969,6 +969,11 @@ app.post('/api/user/upgrade', async (req, res) => {
     }
 });
 
+// Servir historia.html para as rotas de histórias mágicas
+app.get(['/historias-magicas', '/historia'], (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'historia.html'));
+});
+
 // Rota catch-all para servir index.html e dar suporte ao roteamento SPA (histórico pushState)
 app.get('*', (req, res) => {
     // Ignorar chamadas de API ou arquivos estáticos com extensão que caíram aqui por erro
