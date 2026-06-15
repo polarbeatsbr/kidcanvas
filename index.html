@@ -58,12 +58,17 @@
                     <li><a href="/categoria/animais-selvagens" class="nav-link"><i class="fa-solid fa-paw"></i> Animais</a></li>
                     <li><a href="/categoria/dinossauros" class="nav-link"><i class="fa-solid fa-dragon"></i> Dinossauros</a></li>
                     <li><a href="/categoria/fantasia" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Fantasia</a></li>
-                    <li><a href="/categoria/novidades" class="nav-link nav-link-new">✨ Novos</a></li>
                     <li><a href="/categoria/natureza" class="nav-link"><i class="fa-solid fa-leaf"></i> Natureza</a></li>
                     <li><a href="/categoria/veiculos" class="nav-link"><i class="fa-solid fa-car"></i> Veículos</a></li>
-                    <li><a href="/top50" class="nav-link"><i class="fa-solid fa-trophy"></i> Top 50</a></li>
-                    <li><a href="/categorias" class="nav-link"><i class="fa-solid fa-shapes"></i> Todos os temas</a></li>
-                    <li><a href="/historias-magicas" class="nav-link" style="color: var(--color-purple); font-weight: 700; background-color: var(--color-purple-light);"><i class="fa-solid fa-book-open"></i> Histórias Mágicas ✨</a></li>
+                    <li><a href="/categoria/novidades" class="nav-link nav-link-new">✨ Novos</a></li>
+                    <li class="nav-dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Mais <i class="fa-solid fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/top50" class="dropdown-item"><i class="fa-solid fa-trophy"></i> Top 50</a></li>
+                            <li><a href="/categorias" class="dropdown-item"><i class="fa-solid fa-shapes"></i> Todos os temas</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/historias-magicas" class="nav-link nav-link-special" style="color: var(--color-white); font-weight: 700; background-color: var(--color-purple); border: var(--border-thin); border-radius: var(--radius-sm); padding: 8px 16px; box-shadow: var(--shadow-cartoon-active);"><i class="fa-solid fa-book-open"></i> Histórias Mágicas ✨</a></li>
                 </ul>
             </nav>
             
@@ -480,7 +485,60 @@
         </div>
     </footer>
 
+    <!-- Modal de Autenticação / Cadastro (Visitantes) -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-box">
+            <button class="btn-close-modal" onclick="closeAuthModal()">✕</button>
+            
+            <div id="authSection" style="margin-bottom: 20px;">
+                <div style="display: flex; border-bottom: var(--border-thin); margin-bottom: 20px;">
+                    <button id="tabLogin" onclick="switchAuthTab('login')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-purple); border-bottom: 4px solid var(--color-purple);">🔑 Entrar</button>
+                    <button id="tabRegister" onclick="switchAuthTab('register')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-dark-light); border-bottom: 4px solid transparent;">📝 Cadastrar</button>
+                </div>
+                
+                <!-- Formulário de Login -->
+                <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">E-mail</label>
+                        <input type="email" id="loginEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                    </div>
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">Senha</label>
+                        <input type="password" id="loginPassword" placeholder="Sua senha..." required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                    </div>
+                    <button class="btn btn-secondary" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Entrar na Minha Conta 🚪</button>
+                </form>
+                
+                <!-- Formulário de Cadastro -->
+                <form id="registerForm" onsubmit="handleRegisterSubmit(event)" style="display: none;">
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">Nome do Responsável (ou Escritor)</label>
+                        <input type="text" id="regName" placeholder="Ex: Joãozinho, Maria..." required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                    </div>
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">E-mail</label>
+                        <input type="email" id="regEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                    </div>
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">Senha</label>
+                        <input type="password" id="regPassword" placeholder="Crie uma senha..." required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                    </div>
+                    <button class="btn btn-secondary" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Criar Minha Conta Grátis 🎁</button>
+                </form>
+                
+                <!-- Separador e Botão Google -->
+                <div style="text-align: center; margin-top: 20px; border-top: 1px dashed #d5c3af; padding-top: 15px;">
+                    <p style="font-size: 0.9rem; color: var(--color-dark-light); margin-bottom: 10px; font-weight: 600;">Ou entre de forma rápida:</p>
+                    <div style="display: flex; justify-content: center;">
+                        <div id="google-signin-btn-modal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- NAV BAR INFERIOR MOBILE (Navegação Simplificada estilo App) -->
+
     <div class="mobile-bottom-nav">
         <a href="/" class="mobile-nav-item active" id="mobile-nav-home">
             <i class="fa-solid fa-house"></i>

@@ -750,7 +750,7 @@ app.post('/api/auth/google', async (req, res) => {
                 email: email,
                 photo: photo,
                 plan: 'Grátis',
-                balance: 1,
+                balance: 4,
                 token: sessionToken,
                 tokenExpiry: tokenExpiry
             };
@@ -816,7 +816,7 @@ app.post('/api/auth/signup', async (req, res) => {
             email: cleanEmail,
             passwordHash: hashPassword(password),
             plan: cleanEmail === 'foneoliver@gmail.com' ? 'Ultra' : 'Grátis',
-            balance: cleanEmail === 'foneoliver@gmail.com' ? 999999 : 1,
+            balance: cleanEmail === 'foneoliver@gmail.com' ? 999999 : 4,
             photo: '',
             token: sessionToken,
             tokenExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 dias

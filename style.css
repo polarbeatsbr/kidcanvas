@@ -1799,4 +1799,129 @@ button, input, select, textarea {
     }
 }
 
+/* --- DROPDOWN DO MENU DE NAVEGAÇÃO --- */
+.nav-dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--color-white);
+    border: var(--border-thin);
+    border-radius: var(--radius-sm);
+    padding: 8px 0;
+    min-width: 180px;
+    box-shadow: var(--shadow-cartoon);
+    z-index: 1001;
+    list-style: none;
+    margin: 8px 0 0 0;
+}
+
+/* Mostra o dropdown no hover */
+.nav-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-item {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    color: var(--color-dark);
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-bounce);
+}
+
+.dropdown-item:hover {
+    background-color: #fcf4ea;
+    color: var(--color-purple);
+    padding-left: 20px; /* Efeito de deslizar suave */
+}
+
+/* --- SISTEMA DE POPUP MODAL COMPARTILHADO --- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(61, 40, 26, 0.6);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-overlay.open {
+    display: flex;
+}
+
+.modal-box {
+    background-color: var(--color-bg);
+    border: var(--border-thick);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-cartoon);
+    width: 100%;
+    max-width: 650px;
+    padding: 30px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    font-family: var(--font-heading);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-dark);
+    font-weight: bold;
+}
+
+/* --- ESTILO DE CATEGORIA BLOQUEADA --- */
+.category-card.locked {
+    opacity: 0.85;
+    background-color: #ECE5DB; /* Um pouco mais escuro/cinza */
+    border-color: #A09384 !important; /* Borda cinza para parecer bloqueada */
+    position: relative;
+}
+.category-card.locked .category-icon {
+    position: relative;
+    display: inline-block;
+}
+.category-card.locked .locked-badge {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background-color: var(--color-orange);
+    color: white;
+    border: 2px solid var(--color-dark);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 0 var(--color-dark);
+}
+.category-card.locked .category-count {
+    color: var(--color-orange);
+    background-color: #FDF1E2;
+    border: 1px solid #F6D6B4;
+    font-size: 0.78rem;
+    padding: 3px 8px;
+}
+
+
 

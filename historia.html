@@ -1748,7 +1748,7 @@
                 document.getElementById('authSection').style.display = 'none';
                 document.getElementById('plansGridSection').style.display = 'block';
                 
-                alert(`Cadastro realizado com sucesso! Bem-vindo, ${currentUser.name}! Você ganhou 1 página grátis de saldo.`);
+                alert(`Cadastro realizado com sucesso! Bem-vindo, ${currentUser.name}! Você ganhou 4 páginas grátis de saldo.`);
             } else {
                 alert(`Erro no cadastro: ${data.message}`);
             }
@@ -1785,6 +1785,10 @@
                 currentUser = null;
                 localStorage.removeItem("kidcanvas_session_token");
                 updateNavbarDisplay();
+                
+                // Sem acesso às Histórias Mágicas para visitantes (redirecionar se token expirar)
+                localStorage.setItem("kidcanvas_trigger_auth", "true");
+                window.location.href = "/";
             }
         } catch(e) {
             console.error("Erro ao sincronizar perfil:", e);
@@ -1797,8 +1801,8 @@
             const response = await fetch('/api/config');
             const config = await response.json();
             const clientId = config.googleClientId;
-            if (!clientId || clientId.startsWith('YOUR_GOOGLE_CLIENT_ID')) {
-                console.warn("[Google Auth] Client ID não configurado no backend (usando placeholder).");
+            if (!clientId) {
+                console.warn("[Google Auth] Client ID não configurado no backend.");
                 return;
             }
 
@@ -1893,6 +1897,10 @@
     updateNavbarDisplay();
     if (sessionToken) {
         syncUserProfile();
+    } else {
+        // Sem acesso às Histórias Mágicas para visitantes
+        localStorage.setItem("kidcanvas_trigger_auth", "true");
+        window.location.href = "/";
     }
     
     function checkGsiLoaded() {

@@ -40,6 +40,9 @@ let allDrawings = [];
 let lastSelectedPhrase = "";
 let currentDrawingPhrase = "";
 
+// --- LISTA DE CATEGORIAS DISPONÍVEIS PARA VISITANTES ---
+const FREE_CATEGORIES = ['animais-selvagens', 'dinossauros', 'fantasia', 'natureza', 'veiculos'];
+
 // --- SISTEMA DE AUTENTICAÇÃO E SESSÃO ---
 let sessionToken = localStorage.getItem("kidcanvas_session_token") || null;
 let currentUser = null;
@@ -103,8 +106,8 @@ async function initGoogleSignIn() {
         const response = await fetch('/api/config');
         const config = await response.json();
         const clientId = config.googleClientId;
-        if (!clientId || clientId.startsWith('YOUR_GOOGLE_CLIENT_ID')) {
-            console.warn("[Google Auth] Client ID não configurado no backend (usando placeholder).");
+        if (!clientId) {
+            console.warn("[Google Auth] Client ID não configurado no backend.");
             return;
         }
 
@@ -122,6 +125,17 @@ async function initGoogleSignIn() {
                 shape: "pill",
                 text: "signin_with",
                 logo_alignment: "left"
+            });
+        }
+
+        const modalBtn = document.getElementById("google-signin-btn-modal");
+        if (modalBtn) {
+            google.accounts.id.renderButton(modalBtn, {
+                theme: "outline",
+                size: "large",
+                shape: "pill",
+                text: "signin_with",
+                width: 280
             });
         }
     } catch (err) {
@@ -148,6 +162,9 @@ async function handleGoogleCredentialResponse(response) {
             updateHeaderAuthDisplay();
             showToast(`Bem-vindo, ${currentUser.name}! 👋`, 'success');
             
+            closeAuthModal();
+            navigate(window.location.pathname, false);
+            
             // Recarregar a página se estiver na tela de histórias mágicas para sincronizar
             if (window.location.pathname.includes('/historias-magicas') || window.location.pathname.includes('historia.html')) {
                 window.location.reload();
@@ -160,6 +177,108 @@ async function handleGoogleCredentialResponse(response) {
         showToast("Erro ao conectar ao servidor para autenticação com Google.", "error");
     }
 }
+
+function openAuthModal() {
+    const modal = document.getElementById('authModal');
+    if (modal) {
+        modal.classList.add('open');
+        switchAuthTab('login');
+    }
+}
+
+function closeAuthModal() {
+    const modal = document.getElementById('authModal');
+    if (modal) {
+        modal.classList.remove('open');
+    }
+}
+
+function switchAuthTab(tab) {
+    const tabLogin = document.getElementById('tabLogin');
+    const tabRegister = document.getElementById('tabRegister');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    
+    if (!tabLogin || !tabRegister || !loginForm || !registerForm) return;
+    
+    if (tab === 'login') {
+        tabLogin.style.color = 'var(--color-purple)';
+        tabLogin.style.borderBottomColor = 'var(--color-purple)';
+        tabRegister.style.color = 'var(--color-dark-light)';
+        tabRegister.style.borderBottomColor = 'transparent';
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+    } else {
+        tabRegister.style.color = 'var(--color-purple)';
+        tabRegister.style.borderBottomColor = 'var(--color-purple)';
+        tabLogin.style.color = 'var(--color-dark-light)';
+        tabLogin.style.borderBottomColor = 'transparent';
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+    }
+}
+
+async function handleLoginSubmit(event) {
+    event.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    
+    try {
+        const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+            sessionToken = data.token;
+            localStorage.setItem("kidcanvas_session_token", sessionToken);
+            currentUser = data.user;
+            
+            updateHeaderAuthDisplay();
+            closeAuthModal();
+            showToast(`Bem-vindo de volta, ${currentUser.name}! 👋`, 'success');
+            navigate(window.location.pathname, false);
+        } else {
+            showToast(`Erro no login: ${data.message}`, 'error');
+        }
+    } catch(err) {
+        console.error(err);
+        showToast("Erro ao conectar com o servidor para login.", 'error');
+    }
+}
+
+async function handleRegisterSubmit(event) {
+    event.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    
+    try {
+        const res = await fetch('/api/auth/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, password })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+            sessionToken = data.token;
+            localStorage.setItem("kidcanvas_session_token", sessionToken);
+            currentUser = data.user;
+            
+            updateHeaderAuthDisplay();
+            closeAuthModal();
+            showToast(`Cadastro realizado com sucesso! Bem-vindo, ${currentUser.name}! Você ganhou 4 páginas grátis de saldo.`, 'success');
+            navigate(window.location.pathname, false);
+        } else {
+            showToast(`Erro no cadastro: ${data.message}`, 'error');
+        }
+    } catch(err) {
+        console.error(err);
+        showToast("Erro ao conectar com o servidor para cadastro.", 'error');
+    }
+}
+
 
 function handleHeaderLogout() {
     sessionToken = null;
@@ -191,6 +310,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     
     // Roteamento inicial baseado na URL atual
     navigate(window.location.pathname, false);
+
+    // Abrir modal de login se foi redirecionado
+    if (localStorage.getItem("kidcanvas_trigger_auth") === "true") {
+        localStorage.removeItem("kidcanvas_trigger_auth");
+        openAuthModal();
+    }
 });
 
 // --- CARREGAMENTO DE DESENHOS ---
@@ -220,6 +345,21 @@ function initGlobalEventListeners() {
         const targetLink = e.target.closest('a');
         if (targetLink) {
             const href = targetLink.getAttribute('href');
+            
+            // Evitar comportamento padrão para links vazios ou toggles
+            if (href === '#' || targetLink.classList.contains('dropdown-toggle')) {
+                e.preventDefault();
+            }
+            
+            // Bloquear acesso às Histórias Mágicas se não logado
+            if (href && (href === '/historias-magicas' || href === '/historia' || href.startsWith('/historias-magicas') || href.startsWith('/historia'))) {
+                if (!currentUser) {
+                    e.preventDefault();
+                    showToast('Faça login ou cadastre-se grátis para acessar as Histórias Mágicas! ✨', 'info');
+                    openAuthModal();
+                    return;
+                }
+            }
             
             // Interceptar apenas links locais válidos (não externos, não âncoras vazias, não arquivos estáticos como .html, e não as rotas de histórias mágicas)
             if (href && href.startsWith('/') && !href.startsWith('//') && !href.endsWith('.html') && !href.includes('.html?') && href !== '/historias-magicas' && href !== '/historia') {
@@ -276,12 +416,26 @@ function navigate(path, pushState = true) {
         renderPoliticaPrivacidadeView();
     } else if (cleanPath.startsWith('/categoria/')) {
         const categorySlug = cleanPath.replace('/categoria/', '');
-        renderCategoriaDetalheView(categorySlug);
+        if (!currentUser && !FREE_CATEGORIES.includes(categorySlug)) {
+            showToast('Cadastre-se grátis para desbloquear todas as categorias! 🎨', 'info');
+            openAuthModal();
+            renderHomeView();
+            cleanPath = '/';
+        } else {
+            renderCategoriaDetalheView(categorySlug);
+        }
     } else {
         // Possível rota de desenho individual: /:categoria-slug/:desenho-slug
         const parts = cleanPath.split('/').filter(p => p !== '');
         if (parts.length === 2 && CATEGORIES_DATA[parts[0]]) {
-            renderDesenhoIndividualView(parts[0], parts[1]);
+            if (!currentUser && !FREE_CATEGORIES.includes(parts[0])) {
+                showToast('Cadastre-se grátis para desbloquear todos os desenhos! 🎨', 'info');
+                openAuthModal();
+                renderHomeView();
+                cleanPath = '/';
+            } else {
+                renderDesenhoIndividualView(parts[0], parts[1]);
+            }
         } else {
             // Rota não encontrada -> Redirecionar para home
             renderHomeView();
@@ -349,14 +503,31 @@ function renderHomeView() {
                 ? allDrawings.filter(d => d.isNew).length
                 : allDrawings.filter(d => d.category === slug).length;
             
+            const isLocked = !currentUser && !FREE_CATEGORIES.includes(slug);
             const card = document.createElement('a');
-            card.href = `/categoria/${slug}`;
-            card.className = 'category-card';
-            card.innerHTML = `
-                <span class="category-icon">${catInfo.emoji}</span>
-                <span class="category-name">${catInfo.name}</span>
-                <span class="category-count">${drawingCount} desenhos</span>
-            `;
+            
+            if (isLocked) {
+                card.href = '#';
+                card.className = 'category-card locked';
+                card.innerHTML = `
+                    <span class="category-icon">${catInfo.emoji}<i class="fa-solid fa-lock locked-badge"></i></span>
+                    <span class="category-name">${catInfo.name}</span>
+                    <span class="category-count">Cadastre-se grátis para desbloquear</span>
+                `;
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showToast('Cadastre-se grátis para desbloquear todas as categorias! 🎨', 'info');
+                    openAuthModal();
+                });
+            } else {
+                card.href = `/categoria/${slug}`;
+                card.className = 'category-card';
+                card.innerHTML = `
+                    <span class="category-icon">${catInfo.emoji}</span>
+                    <span class="category-name">${catInfo.name}</span>
+                    <span class="category-count">${drawingCount} desenhos</span>
+                `;
+            }
             homeCatGrid.appendChild(card);
         });
     }
@@ -439,14 +610,31 @@ function renderCategoriasView() {
                 ? allDrawings.filter(d => d.isNew).length
                 : allDrawings.filter(d => d.category === slug).length;
             
+            const isLocked = !currentUser && !FREE_CATEGORIES.includes(slug);
             const card = document.createElement('a');
-            card.href = `/categoria/${slug}`;
-            card.className = 'category-card';
-            card.innerHTML = `
-                <span class="category-icon">${catInfo.emoji}</span>
-                <span class="category-name">${catInfo.name}</span>
-                <span class="category-count">${drawingCount} desenhos</span>
-            `;
+            
+            if (isLocked) {
+                card.href = '#';
+                card.className = 'category-card locked';
+                card.innerHTML = `
+                    <span class="category-icon">${catInfo.emoji}<i class="fa-solid fa-lock locked-badge"></i></span>
+                    <span class="category-name">${catInfo.name}</span>
+                    <span class="category-count">Cadastre-se grátis para desbloquear</span>
+                `;
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    showToast('Cadastre-se grátis para desbloquear todas as categorias! 🎨', 'info');
+                    openAuthModal();
+                });
+            } else {
+                card.href = `/categoria/${slug}`;
+                card.className = 'category-card';
+                card.innerHTML = `
+                    <span class="category-icon">${catInfo.emoji}</span>
+                    <span class="category-name">${catInfo.name}</span>
+                    <span class="category-count">${drawingCount} desenhos</span>
+                `;
+            }
             pageGrid.appendChild(card);
         });
     }
@@ -1346,17 +1534,21 @@ function createDrawingCard(dw, position = null) {
     }
     
     // Badge do tier com suporte a tag Novo
+    const isLocked = !currentUser && !FREE_CATEGORIES.includes(dw.category);
+    let cardLink = `/${dw.category}/${dw.slug}`;
     let badgeHtml = '<span class="badge-free">Grátis</span>';
     
-    // Desenhos marcados como isNew recebem badge de Novo!
-    if (dw.isNew) {
+    if (isLocked) {
+        cardLink = '#';
+        badgeHtml = '<span class="badge-free" style="background-color: var(--color-orange); border-color: var(--color-dark);"><i class="fa-solid fa-lock"></i> Bloqueado</span>';
+    } else if (dw.isNew) {
         badgeHtml = '<span class="badge-free" style="background-color: var(--color-yellow); border-color: var(--color-dark);"><i class="fa-solid fa-star"></i> Novo!</span>';
     }
     
     card.innerHTML = `
         ${rankBadgeHtml}
-        <a href="/${dw.category}/${dw.slug}">
-            <div class="card-img-wrapper">
+        <a href="${cardLink}" class="drawing-card-link">
+            <div class="card-img-wrapper" style="${isLocked ? 'filter: grayscale(1) opacity(0.85);' : ''}">
                 <img src="${dw.url}" alt="${dw.pt}" loading="lazy">
             </div>
         </a>
@@ -1366,16 +1558,33 @@ function createDrawingCard(dw, position = null) {
         </div>
         <div class="card-bottom">
             ${badgeHtml}
-            <button class="btn-download-card" title="Baixar desenho"><i class="fa-solid fa-download"></i> Imprimir</button>
+            <button class="btn-download-card" title="${isLocked ? 'Cadastre-se para desbloquear' : 'Baixar desenho'}"><i class="fa-solid ${isLocked ? 'fa-lock' : 'fa-download'}"></i> ${isLocked ? 'Desbloquear' : 'Imprimir'}</button>
         </div>
     `;
     
+    // Interceptar clique no link do card
+    const cardA = card.querySelector('.drawing-card-link');
+    if (cardA) {
+        cardA.addEventListener('click', (e) => {
+            if (isLocked) {
+                e.preventDefault();
+                showToast('Cadastre-se grátis para desbloquear este desenho! 🎨', 'info');
+                openAuthModal();
+            }
+        });
+    }
+
     // Configurar download direto no clique
     const btnDl = card.querySelector('.btn-download-card');
     btnDl.addEventListener('click', (e) => {
         e.stopPropagation();
         e.preventDefault();
-        triggerDrawingDownload(dw);
+        if (isLocked) {
+            showToast('Cadastre-se grátis para baixar e imprimir! 🎨', 'info');
+            openAuthModal();
+        } else {
+            triggerDrawingDownload(dw);
+        }
     });
     
     return card;
