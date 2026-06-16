@@ -4146,7 +4146,7 @@ button, input, select, textarea {
    ============================================== */
 .paint-workspace-layout {
     display: grid;
-    grid-template-columns: 80px 1fr;
+    grid-template-columns: 110px 1fr;
     gap: 20px;
     align-items: start;
     margin-top: 20px;
