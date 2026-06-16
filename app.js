@@ -2761,6 +2761,17 @@ function renderGerarDesenhoView() {
     if (img) img.style.display = 'none';
     if (actions) actions.style.display = 'none';
     
+    // Reset quality selectors and button text
+    const customDrawingRadioMedium = document.getElementById('customDrawingQualityMedium');
+    const customDrawingRadioHigh = document.getElementById('customDrawingQualityHigh');
+    if (customDrawingRadioMedium) customDrawingRadioMedium.classList.add('active');
+    if (customDrawingRadioHigh) customDrawingRadioHigh.classList.remove('active');
+    
+    const submitBtn = document.getElementById('btn-submit-custom-drawing');
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 c.)';
+    }
+    
     if (loginGate) {
         loginGate.style.display = currentUser ? 'none' : 'block';
     }
@@ -2830,6 +2841,11 @@ async function handleCustomDrawingSubmit(event) {
     const checkedRadio = document.querySelector('input[name="customDrawingStyle"]:checked');
     const styleType = checkedRadio ? checkedRadio.value : 'bw';
     
+    // Obter a qualidade escolhida (medium ou high)
+    const checkedQuality = document.querySelector('input[name="customDrawingQuality"]:checked');
+    const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
+    const cost = imageQuality === 'high' ? 2 : 1;
+    
     if (!currentUser) {
         showToast('Cadastre-se grátis para criar desenhos mágicos! 🎨', 'info');
         openAuthModal();
@@ -2837,7 +2853,7 @@ async function handleCustomDrawingSubmit(event) {
         return;
     }
     
-    if (currentUser.paginasRestantes < 1) {
+    if (currentUser.paginasRestantes < cost) {
         openCreditsModal('Seus créditos mágicos acabaram! Faça upgrade de plano para continuar criando desenhos mágicos.');
         return;
     }
@@ -2861,7 +2877,7 @@ async function handleCustomDrawingSubmit(event) {
                 'Content-Type': 'application/json',
                 'X-Session-Token': sessionToken
             },
-            body: JSON.stringify({ userPrompt, styleType })
+            body: JSON.stringify({ userPrompt, styleType, imageQuality })
         });
         
         const data = await response.json();
@@ -2911,22 +2927,38 @@ function setupCustomDrawingActionListeners(imageUrl) {
     const promptText = document.getElementById('customDrawingPrompt').value.trim() || 'Meu desenho mágico';
     
     if (downloadBtn) {
-        downloadBtn.onclick = () => {
-            const a = document.createElement('a');
-            a.href = imageUrl;
-            let extension = 'jpg';
-            if (imageUrl.startsWith('data:image/png')) {
-                extension = 'png';
-            } else if (imageUrl.startsWith('data:image/svg+xml')) {
-                extension = 'svg';
-            } else if (imageUrl.startsWith('data:image/webp')) {
-                extension = 'webp';
+        downloadBtn.onclick = async () => {
+            try {
+                const cleanPrompt = promptText.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
+                const res = await fetch(imageUrl);
+                const blob = await res.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                let extension = 'png';
+                if (blob.type === 'image/jpeg') {
+                    extension = 'jpg';
+                } else if (blob.type === 'image/webp') {
+                    extension = 'webp';
+                }
+                a.download = `desenho-magico-${cleanPrompt}.${extension}`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(blobUrl);
+                showToast('Download iniciado! ⬇️', 'success');
+            } catch (err) {
+                console.error('[Download Custom Drawing Error]:', err);
+                // Fallback direct link
+                const a = document.createElement('a');
+                a.href = imageUrl;
+                a.download = `desenho-magico-kidcanvas.jpg`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                showToast('Download iniciado! ⬇️', 'success');
             }
-            a.download = `desenho-magico-kidcanvas.${extension}`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            showToast('Download iniciado! ⬇️', 'success');
         };
     }
 
@@ -3395,6 +3427,32 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
                 } else {
                     if (customDrawingRadioBw) customDrawingRadioBw.classList.add('active');
                     if (customDrawingRadioColor) customDrawingRadioColor.classList.remove('active');
+                }
+            });
+        });
+    }
+
+    // Custom drawing quality toggle styling visual feedback and price updates
+    const customDrawingRadioMedium = document.getElementById('customDrawingQualityMedium');
+    const customDrawingRadioHigh = document.getElementById('customDrawingQualityHigh');
+    const customDrawingInputQualityRadios = document.querySelectorAll('input[name="customDrawingQuality"]');
+    const submitBtnCustomDrawing = document.getElementById('btn-submit-custom-drawing');
+
+    if (customDrawingInputQualityRadios.length > 0) {
+        customDrawingInputQualityRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === 'high') {
+                    if (customDrawingRadioHigh) customDrawingRadioHigh.classList.add('active');
+                    if (customDrawingRadioMedium) customDrawingRadioMedium.classList.remove('active');
+                    if (submitBtnCustomDrawing) {
+                        submitBtnCustomDrawing.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (2 c.)';
+                    }
+                } else {
+                    if (customDrawingRadioMedium) customDrawingRadioMedium.classList.add('active');
+                    if (customDrawingRadioHigh) customDrawingRadioHigh.classList.remove('active');
+                    if (submitBtnCustomDrawing) {
+                        submitBtnCustomDrawing.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 c.)';
+                    }
                 }
             });
         });
@@ -4279,14 +4337,35 @@ function renderMinhasCriacoesView() {
     }
 }
 
-function downloadSavedImage(url, prompt) {
+async function downloadSavedImage(url, prompt) {
     const cleanPrompt = prompt.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `kidcanvas-${cleanPrompt}.jpg`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    try {
+        const res = await fetch(url);
+        const blob = await res.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        let extension = 'png';
+        if (blob.type === 'image/jpeg') {
+            extension = 'jpg';
+        } else if (blob.type === 'image/webp') {
+            extension = 'webp';
+        }
+        a.download = `kidcanvas-${cleanPrompt}.${extension}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+    } catch (err) {
+        console.error('[Download Saved Image Error]:', err);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `kidcanvas-${cleanPrompt}.jpg`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
 }
 
 function printSavedImage(url) {

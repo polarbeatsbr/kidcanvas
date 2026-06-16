@@ -1609,10 +1609,10 @@ app.post('/api/user/upgrade', async (req, res) => {
     }
 });
 
-// Endpoint para gerar desenho para colorir personalizado (consome 1 crédito)
+// Endpoint para gerar desenho para colorir personalizado (consome 1 ou 2 créditos)
 app.post('/api/generate-custom-drawing', async (req, res) => {
     try {
-        const { userPrompt, styleType } = req.body;
+        const { userPrompt, styleType, imageQuality } = req.body;
         if (!userPrompt || !userPrompt.trim()) {
             return res.status(400).json({
                 success: false,
@@ -1648,14 +1648,17 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             });
         }
 
-        if (user.paginasRestantes < 1) {
+        const engine = imageQuality === 'high' ? 'ideogram' : 'flux';
+        const cost = engine === 'flux' ? 1 : 2;
+
+        if (user.paginasRestantes < cost) {
             return res.status(400).json({
                 success: false,
-                message: 'Saldo insuficiente! Você possui 0 créditos.'
+                message: `Saldo insuficiente! Você possui apenas ${user.paginasRestantes} crédito(s) de saldo.`
             });
         }
 
-        console.log(`[Custom Drawing] Gerando desenho para "${user.email}" com prompt: "${userPrompt}" (Estilo: ${styleType || 'bw'})...`);
+        console.log(`[Custom Drawing] Gerando desenho para "${user.email}" com prompt: "${userPrompt}" usando ${engine.toUpperCase()} (Estilo: ${styleType || 'bw'})...`);
 
         // Construir prompt baseado no estilo escolhido (bw ou color)
         const style = styleType || 'bw';
@@ -1670,50 +1673,92 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         let success = false;
         let lastError = null;
 
-        console.log(`[Custom Drawing] Gerando imagem com Ideogram V4 Turbo...`);
         try {
-            const ideogramKey = process.env.IDEOGRAM_API_KEY || "RK-CWKSVJ9Jet7vJwHOMmfsYVNHBmGA8jKujDMtQcI5snVW3ThAW_H_Zf_jYjU8be7mYXSOFdO7xLvkBgI7rcQ";
-            const response = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
-                method: 'POST',
-                headers: {
-                    'Api-Key': ideogramKey,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    text_prompt: finalPrompt,
-                    resolution: "2048x2048",
-                    rendering_speed: "TURBO",
-                    num_images: 1
-                })
-            });
+            if (engine === 'flux') {
+                console.log(`[Custom Drawing] Gerando imagem com Fal.ai Flux Schnell...`);
+                const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Key ${process.env.FAL_KEY || "c143ca28-99d8-4bd2-8d56-82870b0d28cd:e0e10d34e1477969e0f15660c3093a0e"}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        prompt: finalPrompt,
+                        image_size: "square_hd",
+                        num_inference_steps: 4,
+                        enable_safety_checker: true
+                    })
+                });
 
-            console.log(`[Custom Drawing] Ideogram status:`, response.status);
-            if (response.ok) {
-                const data = await response.json();
-                const url = data.data?.[0]?.url;
-                if (url) {
-                    console.log(`[Custom Drawing] Ideogram gerou URL: ${url}. Baixando bytes...`);
-                    const imgRes = await fetch(url);
-                    if (imgRes.ok) {
-                        const buffer = await imgRes.arrayBuffer();
-                        bytesBase64 = Buffer.from(buffer).toString('base64');
-                        success = true;
-                        console.log(`[Custom Drawing] Sucesso ao baixar e converter imagem do Ideogram.`);
+                console.log(`[Custom Drawing] Fal.ai status:`, falRes.status);
+                if (falRes.ok) {
+                    const falData = await falRes.json();
+                    const url = falData.images?.[0]?.url;
+                    if (url) {
+                        console.log(`[Custom Drawing] Fal.ai gerou URL: ${url}. Baixando bytes...`);
+                        const imgRes = await fetch(url);
+                        if (imgRes.ok) {
+                            const buffer = await imgRes.arrayBuffer();
+                            bytesBase64 = Buffer.from(buffer).toString('base64');
+                            success = true;
+                            console.log(`[Custom Drawing] Sucesso ao baixar e converter imagem do Fal.ai.`);
+                        } else {
+                            const errText = await imgRes.text().catch(() => '');
+                            lastError = `Erro ao baixar imagem da URL do Fal.ai: ${errText}`;
+                        }
                     } else {
-                        const errText = await imgRes.text().catch(() => '');
-                        lastError = `Erro ao baixar imagem da URL do Ideogram: ${errText}`;
+                        lastError = `Fal.ai não retornou URL de imagem. Resposta: ${JSON.stringify(falData)}`;
                     }
                 } else {
-                    lastError = `Ideogram não retornou URL de imagem. Resposta: ${JSON.stringify(data)}`;
+                    const errText = await falRes.text().catch(() => '');
+                    console.warn(`[Custom Drawing Warning] Fal.ai falhou com status ${falRes.status}:`, errText);
+                    lastError = `Fal.ai (Status ${falRes.status}): ${errText}`;
                 }
             } else {
-                const errText = await response.text().catch(() => '');
-                console.warn(`[Custom Drawing Warning] Ideogram falhou com status ${response.status}:`, errText);
-                lastError = `Ideogram (Status ${response.status}): ${errText}`;
+                console.log(`[Custom Drawing] Gerando imagem com Ideogram V4 Turbo...`);
+                const ideogramKey = process.env.IDEOGRAM_API_KEY || "RK-CWKSVJ9Jet7vJwHOMmfsYVNHBmGA8jKujDMtQcI5snVW3ThAW_H_Zf_jYjU8be7mYXSOFdO7xLvkBgI7rcQ";
+                const response = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
+                    method: 'POST',
+                    headers: {
+                        'Api-Key': ideogramKey,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        text_prompt: finalPrompt,
+                        resolution: "2048x2048",
+                        rendering_speed: "TURBO",
+                        num_images: 1
+                    })
+                });
+
+                console.log(`[Custom Drawing] Ideogram status:`, response.status);
+                if (response.ok) {
+                    const data = await response.json();
+                    const url = data.data?.[0]?.url;
+                    if (url) {
+                        console.log(`[Custom Drawing] Ideogram gerou URL: ${url}. Baixando bytes...`);
+                        const imgRes = await fetch(url);
+                        if (imgRes.ok) {
+                            const buffer = await imgRes.arrayBuffer();
+                            bytesBase64 = Buffer.from(buffer).toString('base64');
+                            success = true;
+                            console.log(`[Custom Drawing] Sucesso ao baixar e converter imagem do Ideogram.`);
+                        } else {
+                            const errText = await imgRes.text().catch(() => '');
+                            lastError = `Erro ao baixar imagem da URL do Ideogram: ${errText}`;
+                        }
+                    } else {
+                        lastError = `Ideogram não retornou URL de imagem. Resposta: ${JSON.stringify(data)}`;
+                    }
+                } else {
+                    const errText = await response.text().catch(() => '');
+                    console.warn(`[Custom Drawing Warning] Ideogram falhou com status ${response.status}:`, errText);
+                    lastError = `Ideogram (Status ${response.status}): ${errText}`;
+                }
             }
         } catch (e) {
-            console.warn(`[Custom Drawing Warning] Erro no Ideogram:`, e.message);
-            lastError = `Ideogram error: ${e.message}`;
+            console.warn(`[Custom Drawing Warning] Erro na geração:`, e.message);
+            lastError = `Erro de geração: ${e.message}`;
         }
 
         if (!bytesBase64) {
@@ -1760,7 +1805,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         });
 
         // Deduce user credits and save
-        user.paginasRestantes -= 1;
+        user.paginasRestantes -= cost;
         await saveUsers(users);
 
         return res.json({
