@@ -27,7 +27,12 @@ const CATEGORIES_DATA = {
     'esportes': { name: 'Esportes', emoji: '🏆', desc: 'Desenhos de Esportes para colorir e imprimir grátis! Baixe imagens de futebol, basquete, natação, ginástica e muitas outras modalidades divertidas.' },
     'robos': { name: 'Robôs', emoji: '🤖', desc: 'Desenhos de robôs fofos e inteligentes para colorir grátis! Baixe imagens de robôs astronautas, brinquedos e robôs amigos.' },
     'copa-do-mundo': { name: 'Copa do Mundo', emoji: '⚽', desc: 'Desenhos da Copa do Mundo para colorir grátis! Encontre jogadores com camisas de seleções, grandes estádios e a taça dos campeões.' },
-    'monstros': { name: 'Monstros Infantil', emoji: '👾', desc: 'Desenhos de monstros infantis fofos para colorir e imprimir grátis! Encontre monstrinhos peludos, múmias fofas e zumbis amigáveis.' }
+    'monstros': { name: 'Monstros Infantil', emoji: '👾', desc: 'Desenhos de monstros infantis fofos para colorir e imprimir grátis! Encontre monstrinhos peludos, múmias fofas e zumbis amigáveis.' },
+    'cowboys': { name: 'Cowboys', emoji: '🤠', desc: 'Desenhos de cowboys para colorir e imprimir grátis! Pinte cowboys em cavalos, no saloon, xerifes com laço e muito mais.' },
+    'bandeiras': { name: 'Bandeiras', emoji: '🚩', desc: 'Desenhos de bandeiras de países para colorir e imprimir grátis! Pinte a bandeira do Brasil, Estados Unidos, Japão e muitas outras.' },
+    'instrumentos-musicais': { name: 'Instrumentos Musicais', emoji: '🎸', desc: 'Desenhos de instrumentos musicais para colorir e imprimir grátis! Baixe desenhos de violão, piano, bateria, flauta e outros instrumentos.' },
+    'brinquedos': { name: 'Brinquedos', emoji: '🧸', desc: 'Desenhos de brinquedos para colorir e imprimir grátis! Pinte ursinhos de pelúcia, bonecas, carrinhos, blocos de montar e muito mais.' },
+    'fan-art': { name: 'Fan Art', emoji: '🎨', desc: 'Desenhos de Fan Art dos seus personagens favoritos para colorir! Pinte o Goku, Stitch, Pikachu, Super Mario, Homem-Aranha e muitos outros.' }
 };
 
 const POPULAR_SUGGESTIONS = ['unicórnio', 'dinossauro', 'borboleta', 'leão', 'golfinho'];
