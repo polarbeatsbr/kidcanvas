@@ -1674,7 +1674,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                 if (!hfToken) {
                     throw new Error("HUGGING_FACE_TOKEN/HF_TOKEN não configurado no servidor.");
                 }
-                const hfRes = await fetch("https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell", {
+                const hfRes = await fetch("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell", {
                     method: "POST",
                     headers: {
                         "Authorization": `Bearer ${hfToken}`,
