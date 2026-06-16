@@ -808,8 +808,16 @@ button, input, select, textarea {
 
 .drawings-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
+}
+
+.pagination-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin: 40px auto 20px auto;
+    width: 100%;
 }
 
 .drawing-card {

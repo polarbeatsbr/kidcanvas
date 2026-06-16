@@ -44,6 +44,12 @@ const CATEGORY_PHRASES = {};
 let allDrawings = [];
 let lastSelectedPhrase = "";
 let currentDrawingPhrase = "";
+let categoryPaginationState = {
+    drawings: [],
+    currentIndex: 0,
+    limit: 24,
+    showTrendingFirstN: 0
+};
 
 // --- LISTA DE CATEGORIAS DISPONÍVEIS PARA VISITANTES ---
 const FREE_CATEGORIES = ['animais-selvagens', 'dinossauros', 'fantasia', 'flores-e-natureza', 'veiculos'];
@@ -759,6 +765,14 @@ function initGlobalEventListeners() {
             if (!e.target.closest('.profile-settings-dropdown-wrapper')) {
                 profileDropdownMenu.classList.remove('open');
             }
+        });
+    }
+
+    // Configurar botão de "Carregar mais" da categoria
+    const btnLoadMore = document.getElementById('btn-load-more-category');
+    if (btnLoadMore) {
+        btnLoadMore.addEventListener('click', () => {
+            loadNextCategoryDrawings();
         });
     }
 }
@@ -2414,6 +2428,48 @@ function createDrawingCard(dw, position = null, showTrending = false) {
     return card;
 }
 
+// Função para carregar mais desenhos paginados na categoria
+function loadNextCategoryDrawings() {
+    const grid = document.getElementById('category-drawings-grid');
+    if (!grid) return;
+    
+    const start = categoryPaginationState.currentIndex;
+    const end = Math.min(start + categoryPaginationState.limit, categoryPaginationState.drawings.length);
+    const chunk = categoryPaginationState.drawings.slice(start, end);
+    
+    chunk.forEach((dw, idx) => {
+        const absoluteIdx = start + idx;
+        
+        // Adicionar anúncio AdSense a cada 8 desenhos
+        if (absoluteIdx > 0 && absoluteIdx % 8 === 0) {
+            const adCard = document.createElement('div');
+            adCard.className = 'simulated-ad-card';
+            adCard.innerHTML = `
+                <span class="ad-label">Anúncio AdSense</span>
+                <h4 class="ad-title">Lápis de Cor Faber-Castell 🎨</h4>
+                <p class="ad-desc">Caixa com 24 cores estojo metálico para os pequenos colorirem com alta qualidade.</p>
+                <a href="https://google.com" target="_blank" class="btn btn-secondary btn-sm">Ver Ofertas</a>
+            `;
+            grid.appendChild(adCard);
+        }
+        
+        const showTrending = absoluteIdx < categoryPaginationState.showTrendingFirstN;
+        const card = createDrawingCard(dw, null, showTrending);
+        grid.appendChild(card);
+    });
+    
+    categoryPaginationState.currentIndex = end;
+    
+    const loadMoreContainer = document.getElementById('category-pagination-container');
+    if (loadMoreContainer) {
+        if (categoryPaginationState.currentIndex < categoryPaginationState.drawings.length) {
+            loadMoreContainer.style.display = 'flex';
+        } else {
+            loadMoreContainer.style.display = 'none';
+        }
+    }
+}
+
 // Renderizar lista de desenhos em um grid container
 function renderDrawingsInGrid(drawings, gridContainer, showTrendingFirstN = 0) {
     if (!gridContainer) return;
@@ -2427,27 +2483,39 @@ function renderDrawingsInGrid(drawings, gridContainer, showTrendingFirstN = 0) {
                 <p style="color: var(--color-dark-light); font-size: 0.95rem;">Tente buscar por termos parecidos.</p>
             </div>
         `;
+        const loadMoreContainer = document.getElementById('category-pagination-container');
+        if (loadMoreContainer) loadMoreContainer.style.display = 'none';
         return;
     }
     
-    drawings.forEach((dw, idx) => {
-        // Adicionar anúncio AdSense a cada 8 desenhos
-        if (idx > 0 && idx % 8 === 0) {
-            const adCard = document.createElement('div');
-            adCard.className = 'simulated-ad-card';
-            adCard.innerHTML = `
-                <span class="ad-label">Anúncio AdSense</span>
-                <h4 class="ad-title">Lápis de Cor Faber-Castell 🎨</h4>
-                <p class="ad-desc">Caixa com 24 cores estojo metálico para os pequenos colorirem com alta qualidade.</p>
-                <a href="https://google.com" target="_blank" class="btn btn-secondary btn-sm">Ver Ofertas</a>
-            `;
-            gridContainer.appendChild(adCard);
-        }
+    // Se o container for o grid de categorias, usa paginação. Caso contrário, renderiza tudo diretamente.
+    if (gridContainer.id === 'category-drawings-grid') {
+        categoryPaginationState.drawings = drawings;
+        categoryPaginationState.currentIndex = 0;
+        categoryPaginationState.showTrendingFirstN = showTrendingFirstN;
+        loadNextCategoryDrawings();
+    } else {
+        // Ocultar botão de carregar mais se for outro grid
+        const loadMoreContainer = document.getElementById('category-pagination-container');
+        if (loadMoreContainer) loadMoreContainer.style.display = 'none';
         
-        const showTrending = idx < showTrendingFirstN;
-        const card = createDrawingCard(dw, null, showTrending);
-        gridContainer.appendChild(card);
-    });
+        drawings.forEach((dw, idx) => {
+            if (idx > 0 && idx % 8 === 0) {
+                const adCard = document.createElement('div');
+                adCard.className = 'simulated-ad-card';
+                adCard.innerHTML = `
+                    <span class="ad-label">Anúncio AdSense</span>
+                    <h4 class="ad-title">Lápis de Cor Faber-Castell 🎨</h4>
+                    <p class="ad-desc">Caixa com 24 cores estojo metálico para os pequenos colorirem com alta qualidade.</p>
+                    <a href="https://google.com" target="_blank" class="btn btn-secondary btn-sm">Ver Ofertas</a>
+                `;
+                gridContainer.appendChild(adCard);
+            }
+            const showTrending = idx < showTrendingFirstN;
+            const card = createDrawingCard(dw, null, showTrending);
+            gridContainer.appendChild(card);
+        });
+    }
 }
 
 // Disparar a busca global e navegar para categorias exibindo o resultado filtrado
