@@ -757,7 +757,7 @@ app.post('/api/generate-full-story', async (req, res) => {
         }
 
         // 2. Chamar o Gemini para gerar a história e os prompts
-        console.log(`[Full Story V4] Gerando livro (Capa + ${numPages} páginas, estilo: ${isColor ? 'Colorida' : 'P&B'}) em ${bookLang || 'pt'} para "${characterName}" usando Gemini 3.5 Flash...`);
+        console.log(`[Full Story V4] Gerando livro (Capa + ${numPages} páginas, estilo: ${isColor ? 'Colorida' : 'P&B'}) em ${bookLang || 'pt'} para "${characterName}" usando Gemini 2.0 Flash...`);
 
         const styleDescription = isColor 
             ? "cute children's book watercolor illustration, soft pastel colors, whimsical, detailed cartoon, playful, clean edges"
@@ -822,7 +822,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
   ]
 }`;
 
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${geminiKey}`;
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`;
         
         const geminiRes = await fetch(geminiUrl, {
             method: 'POST',
@@ -852,7 +852,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             console.error('[Gemini API Error Response]:', rawText);
             return res.status(geminiRes.status).json({
                 success: false,
-                message: 'Erro ao gerar o texto da história no Gemini 3.5 Flash.'
+                message: 'Erro ao gerar o texto da história no Gemini 2.0 Flash.'
             });
         }
 
@@ -862,7 +862,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
         if (!textResult) {
             return res.status(500).json({
                 success: false,
-                message: 'O Gemini 3.5 Flash não retornou nenhum texto.'
+                message: 'O Gemini 2.0 Flash não retornou nenhum texto.'
             });
         }
 
@@ -898,33 +898,49 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
                 console.log(`[Full Story V4] Gerando imagem ${i + 1}/${numPages + 1} (${item.type === 'cover' ? 'Capa' : 'Pág. ' + (item.index + 1)}) usando ${engine.toUpperCase()}...`);
                 
                 if (engine === 'flux') {
-                    const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
-                        method: 'POST',
+                    const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || "";
+                    if (!hfToken) {
+                        throw new Error("HUGGING_FACE_TOKEN/HF_TOKEN não configurado no servidor.");
+                    }
+                    const hfRes = await fetch("https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell", {
+                        method: "POST",
                         headers: {
-                            'Authorization': `Key ${process.env.FAL_KEY || "c143ca28-99d8-4bd2-8d56-82870b0d28cd:e0e10d34e1477969e0f15660c3093a0e"}`,
-                            'Content-Type': 'application/json'
+                            "Authorization": `Bearer ${hfToken}`,
+                            "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({
-                            prompt: item.prompt,
-                            image_size: "square_hd",
-                            num_inference_steps: 4,
-                            enable_safety_checker: true
-                        })
+                        body: JSON.stringify({ inputs: item.prompt })
                     });
-
-                    if (!falRes.ok) {
-                        const rawText = await falRes.text().catch(() => '');
-                        console.error(`[Fal.ai API Error Image ${i + 1} Status]:`, falRes.status);
-                        console.error(`[Fal.ai API Error Image ${i + 1} Response]:`, rawText);
-                        throw new Error(`Erro na API do Fal.ai para imagem ${i + 1}`);
+                    if (!hfRes.ok) {
+                        const hfErr = await hfRes.text().catch(() => '');
+                        console.error(`[HF API Error Image ${i + 1} Status]:`, hfRes.status);
+                        console.error(`[HF API Error Image ${i + 1} Response]:`, hfErr);
+                        throw new Error(`Erro na API do Hugging Face para imagem ${i + 1}: ${hfErr}`);
                     }
-
-                    const falData = await falRes.json();
-                    const url = falData.images?.[0]?.url;
-                    if (!url) {
-                        throw new Error(`Sem URL na resposta do Fal.ai para imagem ${i + 1}`);
+                    const buffer = await hfRes.arrayBuffer();
+                    const nodeBuffer = Buffer.from(buffer);
+                    
+                    // Upload to R2
+                    const imageId = `story_${user.id}_${Date.now()}_${i}.jpg`;
+                    const r2Url = await uploadImage(nodeBuffer, imageId, 'image/jpeg');
+                    if (r2Url) {
+                        console.log(`[Full Story HF] Imagem ${i + 1} salva no R2: ${r2Url}`);
+                        return r2Url;
+                    } else {
+                        // Fallback local se falhar ou nao estiver configurado
+                        try {
+                            const savedImagesDir = path.join(__dirname, '..', 'saved_images');
+                            if (!fs.existsSync(savedImagesDir)) {
+                                fs.mkdirSync(savedImagesDir, { recursive: true });
+                            }
+                            const filePath = path.join(savedImagesDir, imageId);
+                            fs.writeFileSync(filePath, nodeBuffer);
+                            return `/saved_images/${imageId}`;
+                        } catch (err) {
+                            console.warn('[Full Story Warning] Falha ao salvar localmente. Usando Base64:', err.message);
+                            const base64 = nodeBuffer.toString('base64');
+                            return `data:image/jpeg;base64,${base64}`;
+                        }
                     }
-                    return url;
                 } else {
                     const ideogramRes = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
                         method: 'POST',
@@ -1587,44 +1603,28 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
 
         try {
             if (engine === 'flux') {
-                console.log(`[Custom Drawing] Gerando imagem com Fal.ai Flux Schnell...`);
-                const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
-                    method: 'POST',
+                console.log(`[Custom Drawing] Gerando imagem com Hugging Face (FLUX.1-schnell)...`);
+                const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || "";
+                if (!hfToken) {
+                    throw new Error("HUGGING_FACE_TOKEN/HF_TOKEN não configurado no servidor.");
+                }
+                const hfRes = await fetch("https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell", {
+                    method: "POST",
                     headers: {
-                        'Authorization': `Key ${process.env.FAL_KEY || "c143ca28-99d8-4bd2-8d56-82870b0d28cd:e0e10d34e1477969e0f15660c3093a0e"}`,
-                        'Content-Type': 'application/json'
+                        "Authorization": `Bearer ${hfToken}`,
+                        "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({
-                        prompt: finalPrompt,
-                        image_size: "square_hd",
-                        num_inference_steps: 4,
-                        enable_safety_checker: true
-                    })
+                    body: JSON.stringify({ inputs: finalPrompt })
                 });
-
-                console.log(`[Custom Drawing] Fal.ai status:`, falRes.status);
-                if (falRes.ok) {
-                    const falData = await falRes.json();
-                    const url = falData.images?.[0]?.url;
-                    if (url) {
-                        console.log(`[Custom Drawing] Fal.ai gerou URL: ${url}. Baixando bytes...`);
-                        const imgRes = await fetch(url);
-                        if (imgRes.ok) {
-                            const buffer = await imgRes.arrayBuffer();
-                            bytesBase64 = Buffer.from(buffer).toString('base64');
-                            success = true;
-                            console.log(`[Custom Drawing] Sucesso ao baixar e converter imagem do Fal.ai.`);
-                        } else {
-                            const errText = await imgRes.text().catch(() => '');
-                            lastError = `Erro ao baixar imagem da URL do Fal.ai: ${errText}`;
-                        }
-                    } else {
-                        lastError = `Fal.ai não retornou URL de imagem. Resposta: ${JSON.stringify(falData)}`;
-                    }
+                if (hfRes.ok) {
+                    const buffer = await hfRes.arrayBuffer();
+                    bytesBase64 = Buffer.from(buffer).toString('base64');
+                    success = true;
+                    console.log(`[Custom Drawing] Sucesso com Hugging Face FLUX.1-schnell.`);
                 } else {
-                    const errText = await falRes.text().catch(() => '');
-                    console.warn(`[Custom Drawing Warning] Fal.ai falhou com status ${falRes.status}:`, errText);
-                    lastError = `Fal.ai (Status ${falRes.status}): ${errText}`;
+                    const errText = await hfRes.text().catch(() => '');
+                    console.warn(`[Custom Drawing Warning] Hugging Face falhou com status ${hfRes.status}:`, errText);
+                    lastError = `Hugging Face (Status ${hfRes.status}): ${errText}`;
                 }
             } else {
                 console.log(`[Custom Drawing] Gerando imagem com Ideogram V4 Turbo...`);
