@@ -1588,7 +1588,8 @@ app.post('/api/auth/login', async (req, res) => {
                 plan: user.plan,
                 paginasRestantes: user.paginasRestantes,
                 myImages: user.myImages || [],
-                myStories: user.myStories || []
+                myStories: user.myStories || [],
+                myPaintings: user.myPaintings || []
             },
             token: sessionToken
         });
@@ -1624,7 +1625,8 @@ app.get('/api/auth/me', async (req, res) => {
                 plan: user.plan,
                 paginasRestantes: user.paginasRestantes,
                 myImages: user.myImages || [],
-                myStories: user.myStories || []
+                myStories: user.myStories || [],
+                myPaintings: user.myPaintings || []
             }
         });
     } catch(err) {
@@ -1673,6 +1675,57 @@ app.post('/api/user/upgrade', async (req, res) => {
     } catch(err) {
         console.error('Erro no upgrade de plano:', err);
         return res.status(500).json({ success: false, message: 'Erro ao processar upgrade de plano.' });
+    }
+});
+
+// Endpoint para salvar uma pintura online na galeria do usuário
+app.post('/api/user/save-painting', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { imageBase64, prompt } = req.body;
+        
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!imageBase64 || !prompt) {
+            return res.status(400).json({ success: false, message: 'Imagem e nome do desenho são obrigatórios.' });
+        }
+        
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+        
+        // Fazer upload da pintura (PNG) para o Cloudflare R2
+        const buffer = Buffer.from(imageBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+        const filename = `painting_${user.id}_${Date.now()}.png`;
+        const r2Url = await uploadImage(buffer, filename, 'image/png');
+        
+        if (!r2Url) {
+            return res.status(500).json({ success: false, message: 'Falha ao salvar imagem de pintura no R2.' });
+        }
+        
+        // Salvar metadados no perfil do usuário
+        if (!user.myPaintings) user.myPaintings = [];
+        user.myPaintings.push({
+            url: r2Url,
+            prompt: prompt,
+            date: Date.now()
+        });
+        
+        await saveUsers(users);
+        console.log(`[Save Painting] Pintura para "${prompt}" salva para "${user.email}". URL: ${r2Url}`);
+        
+        return res.json({
+            success: true,
+            imageUrl: r2Url,
+            myPaintings: user.myPaintings
+        });
+    } catch(err) {
+        console.error('Erro ao salvar pintura:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao salvar a pintura no seu perfil.' });
     }
 });
 
