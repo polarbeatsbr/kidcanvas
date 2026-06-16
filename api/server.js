@@ -511,7 +511,72 @@ app.post('/api/generate', async (req, res) => {
     }
 });
 
-// Endpoint para gerar história personalizada e ilustração SVG usando Gemini 2.0 Flash
+// Função auxiliar para gerar conteúdo usando o Gemini com fallbacks para evitar erros de cota e modelos indisponíveis
+async function generateGeminiContent(apiKey, prompt, responseMimeType = "application/json") {
+    const modelsToTry = [
+        'gemini-flash-latest',
+        'gemini-2.5-flash',
+        'gemini-2.5-flash-lite',
+        'gemini-3.1-flash-lite'
+    ];
+
+    let lastError = null;
+    let lastStatus = 500;
+
+    for (const model of modelsToTry) {
+        try {
+            console.log(`[Gemini Helper] Tentando gerar conteúdo com o modelo: ${model}...`);
+            const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            const response = await fetch(googleUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            role: "user",
+                            parts: [
+                                {
+                                    text: prompt
+                                }
+                            ]
+                        }
+                    ],
+                    generationConfig: {
+                        responseMimeType: responseMimeType
+                    }
+                })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (textResult) {
+                    console.log(`[Gemini Helper] Sucesso com o modelo: ${model}`);
+                    return { success: true, text: textResult, modelUsed: model };
+                }
+            } else {
+                const rawText = await response.text().catch(() => '');
+                console.warn(`[Gemini Helper] Falha no modelo ${model}. Status: ${response.status}. Resposta: ${rawText}`);
+                lastStatus = response.status;
+                try {
+                    const errJson = JSON.parse(rawText);
+                    lastError = errJson.error?.message || `Erro status ${response.status}`;
+                } catch(e) {
+                    lastError = rawText || `Erro status ${response.status}`;
+                }
+            }
+        } catch (err) {
+            console.error(`[Gemini Helper] Exceção no modelo ${model}:`, err.message);
+            lastError = err.message;
+        }
+    }
+
+    return { success: false, status: lastStatus, message: lastError || 'Todos os modelos do Gemini falharam.' };
+}
+
+// Endpoint para gerar história personalizada e ilustração SVG usando Gemini com Fallback
 app.post('/api/generate-story', async (req, res) => {
     try {
         const { childName, theme } = req.body;
@@ -585,56 +650,14 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
   "svg": "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 400 400\\">...</svg>"
 }`;
 
-        const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-        
-        const response = await fetch(googleUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contents: [
-                    {
-                        role: "user",
-                        parts: [
-                            {
-                                text: prompt
-                            }
-                        ]
-                    }
-                ],
-                generationConfig: {
-                    responseMimeType: "application/json"
-                }
-            })
-        });
-
-        if (!response.ok) {
-            const rawText = await response.text().catch(() => '');
-            console.error('[Google Story API Error Status]:', response.status);
-            console.error('[Google Story API Error Response]:', rawText);
-            let errMsg = 'Erro na API do Gemini 2.5 Flash.';
-            try {
-                const errJson = JSON.parse(rawText);
-                if (errJson.error?.message) {
-                    errMsg = errJson.error.message;
-                }
-            } catch(e) {}
-            return res.status(response.status).json({
+        const geminiResult = await generateGeminiContent(apiKey, prompt, "application/json");
+        if (!geminiResult.success) {
+            return res.status(geminiResult.status).json({
                 success: false,
-                message: errMsg
+                message: `Erro ao gerar a história no Gemini: ${geminiResult.message}`
             });
         }
-
-        const data = await response.json();
-        const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-        if (!textResult) {
-            return res.status(500).json({
-                success: false,
-                message: 'O Gemini 2.5 Flash não retornou nenhum texto.'
-            });
-        }
+        const textResult = geminiResult.text;
 
         let parsedResult;
         try {
@@ -822,49 +845,14 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
   ]
 }`;
 
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
-        
-        const geminiRes = await fetch(geminiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contents: [
-                    {
-                        role: "user",
-                        parts: [
-                            {
-                                text: storyPrompt
-                            }
-                        ]
-                    }
-                ],
-                generationConfig: {
-                    responseMimeType: "application/json"
-                }
-            })
-        });
-
-        if (!geminiRes.ok) {
-            const rawText = await geminiRes.text().catch(() => '');
-            console.error('[Gemini API Error Status]:', geminiRes.status);
-            console.error('[Gemini API Error Response]:', rawText);
-            return res.status(geminiRes.status).json({
+        const geminiResult = await generateGeminiContent(geminiKey, storyPrompt, "application/json");
+        if (!geminiResult.success) {
+            return res.status(geminiResult.status).json({
                 success: false,
-                message: 'Erro ao gerar o texto da história no Gemini 2.5 Flash.'
+                message: `Erro ao gerar o texto da história no Gemini: ${geminiResult.message}`
             });
         }
-
-        const geminiData = await geminiRes.json();
-        const textResult = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
-
-        if (!textResult) {
-            return res.status(500).json({
-                success: false,
-                message: 'O Gemini 2.5 Flash não retornou nenhum texto.'
-            });
-        }
+        const textResult = geminiResult.text;
 
         let parsedGemini;
         try {

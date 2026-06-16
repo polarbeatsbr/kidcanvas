@@ -30,3 +30,8 @@ C:\\Users\\foneo\\.gemini\antigravity\brain/
 # Markdown files in root
 *.md
 !README.md
+
+# Large backup and user-saved image folders
+public/pintai-biblioteca-backup/
+saved_images/
+
