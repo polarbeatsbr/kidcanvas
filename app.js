@@ -5328,6 +5328,16 @@ const paintCrayons = [
     { hex: '#ffffff', rgb: [255, 255, 255], name: 'Branco' }
 ];
 
+let paintHistory = [];
+let paintHistoryIndex = -1;
+const maxHistoryStates = 20;
+
+let paintBgCanvas = null;
+let paintBgCtx = null;
+let paintFgCanvas = null;
+let paintFgCtx = null;
+let paintBorderImage = null;
+
 function renderPintarOnlineView() {
     document.title = "Colorir Online — KidCanvas 🎨";
     setMetaDescription("Colore e pinte online usando lápis de cor, balde de tinta e glitter mágico de forma interativa.");
@@ -5353,13 +5363,35 @@ function renderPintarOnlineView() {
         };
     }
 
-    // Inicializar Canvas
+    // Inicializar Canvas Principal
     paintCanvas = document.getElementById('main-paint-canvas');
     pCtx = paintCanvas.getContext('2d');
     
-    // Configurar tamanho fixo para pintura de qualidade
     paintCanvas.width = 800;
     paintCanvas.height = 600;
+
+    // Inicializar Canvases Auxiliares
+    if (!paintBgCanvas) {
+        paintBgCanvas = document.createElement('canvas');
+        paintBgCanvas.width = 800;
+        paintBgCanvas.height = 600;
+        paintBgCtx = paintBgCanvas.getContext('2d');
+    }
+    if (!paintFgCanvas) {
+        paintFgCanvas = document.createElement('canvas');
+        paintFgCanvas.width = 800;
+        paintFgCanvas.height = 600;
+        paintFgCtx = paintFgCanvas.getContext('2d');
+    }
+
+    // Limpar camadas
+    paintBgCtx.clearRect(0, 0, 800, 600);
+    paintFgCtx.clearRect(0, 0, 800, 600);
+
+    // Limpar Histórico
+    paintHistory = [];
+    paintHistoryIndex = -1;
+    updateUndoRedoButtons();
 
     // Resetar estado de desenho
     isPaintDrawing = false;
@@ -5372,9 +5404,7 @@ function renderPintarOnlineView() {
     paintDrawingImage = new Image();
     paintDrawingImage.crossOrigin = "anonymous";
     paintDrawingImage.onload = () => {
-        pCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
-        
-        // Desenhar desenho centralizado no canvas de 800x600 preservando proporção
+        // Ajustar dimensões preservando proporção
         const aspect = paintDrawingImage.width / paintDrawingImage.height;
         let w = paintCanvas.width;
         let h = paintCanvas.height;
@@ -5389,19 +5419,24 @@ function renderPintarOnlineView() {
             x = (paintCanvas.width - w) / 2;
         }
 
-        // Desenhar fundo branco completo
-        pCtx.fillStyle = '#ffffff';
-        pCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
+        // Desenhar no background inicial
+        paintBgCtx.fillStyle = '#ffffff';
+        paintBgCtx.fillRect(0, 0, 800, 600);
+        paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
         
-        pCtx.drawImage(paintDrawingImage, x, y, w, h);
-        
-        // Limpar outlines para garantir que são pretos puros
-        cleanPaintCanvasOutline();
+        // Limpar outlines do desenho
+        cleanPaintCanvasOutlineDirect(paintBgCtx);
 
-        // Aplicar moldura clássica/premium por cima do contorno com multiply
-        applyBorderOverlay();
-
-        if (loader) loader.style.display = 'none';
+        // Carregar a Moldura (Border)
+        const isPremium = currentUser && currentUser.plan && currentUser.plan !== 'Grátis';
+        paintBorderImage = new Image();
+        paintBorderImage.crossOrigin = "anonymous";
+        paintBorderImage.onload = () => {
+            composePaintCanvas();
+            savePaintHistory();
+            if (loader) loader.style.display = 'none';
+        };
+        paintBorderImage.src = isPremium ? '/premium_border_template.png' : '/classic_border_template.png';
     };
     paintDrawingImage.src = '/api/proxy-image?url=' + encodeURIComponent(data.imgUrl);
 
@@ -5447,32 +5482,81 @@ function renderPintarOnlineView() {
     };
     paintCanvas.ontouchmove = (e) => {
         const touch = e.touches[0];
+        const rect = paintCanvas.getBoundingClientRect();
         const mouseEvent = new MouseEvent('mousemove', {
             clientX: touch.clientX,
             clientY: touch.clientY
         });
         paintCanvas.dispatchEvent(mouseEvent);
-        e.preventDefault();
     };
     paintCanvas.ontouchend = () => {
         const mouseEvent = new MouseEvent('mouseup', {});
         paintCanvas.dispatchEvent(mouseEvent);
     };
 
-    // Configurar Sliders e Ações
-    const brushSize = document.getElementById('paint-brush-size');
-    const brushSizeVal = document.getElementById('paint-brush-size-val');
-    if (brushSize && brushSizeVal) {
-        brushSize.oninput = () => {
-            brushSizeVal.textContent = brushSize.value + 'px';
+    // Configurar botões extras
+    const btnUndo = document.getElementById('paint-btn-undo');
+    if (btnUndo) btnUndo.onclick = undoPaint;
+
+    const btnRedo = document.getElementById('paint-btn-redo');
+    if (btnRedo) btnRedo.onclick = redoPaint;
+
+    const btnPrint = document.getElementById('paint-btn-print');
+    if (btnPrint) {
+        btnPrint.onclick = () => {
+            const dataUrl = paintCanvas.toDataURL('image/png');
+            printSavedImage(dataUrl);
         };
     }
 
-    const btnClear = document.getElementById('paint-btn-clear');
-    if (btnClear) {
-        btnClear.onclick = () => {
-            if (confirm('Deseja limpar toda a sua pintura e recomeçar? 🎨')) {
-                paintDrawingImage.onload();
+    const btnPDF = document.getElementById('paint-btn-pdf');
+    if (btnPDF) {
+        btnPDF.onclick = () => {
+            const dataUrl = paintCanvas.toDataURL('image/png');
+            downloadSavedDrawingPDF(dataUrl, window.currentPaintingData.name, btnPDF);
+        };
+    }
+
+    const btnWhatsApp = document.getElementById('paint-btn-whatsapp');
+    if (btnWhatsApp) {
+        btnWhatsApp.onclick = async () => {
+            if (!currentUser) {
+                showToast('Faça login ou crie uma conta grátis para compartilhar sua pintura por WhatsApp! 📲', 'info');
+                openAuthModal();
+                return;
+            }
+            
+            const oldText = btnWhatsApp.innerHTML;
+            btnWhatsApp.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Preparando...';
+            btnWhatsApp.disabled = true;
+            
+            try {
+                const dataUrl = paintCanvas.toDataURL('image/png');
+                const response = await fetch('/api/user/save-painting', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-session-token': sessionToken || ''
+                    },
+                    body: JSON.stringify({
+                        imageBase64: dataUrl,
+                        prompt: window.currentPaintingData.name
+                    })
+                });
+                
+                const result = await response.json();
+                if (result.success && result.imageUrl) {
+                    shareSavedDrawingOnWhatsApp(result.imageUrl, window.currentPaintingData.name);
+                    showToast('Compartilhando no WhatsApp! 📲', 'success');
+                } else {
+                    showToast('Erro ao preparar compartilhamento.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Erro ao enviar para o WhatsApp.', 'error');
+            } finally {
+                btnWhatsApp.innerHTML = oldText;
+                btnWhatsApp.disabled = false;
             }
         };
     }
@@ -5483,10 +5567,153 @@ function renderPintarOnlineView() {
             savePaintingToGallery();
         };
     }
+
+    const btnClear = document.getElementById('paint-btn-clear');
+    if (btnClear) {
+        btnClear.onclick = () => {
+            if (confirm('Tem certeza que quer limpar a sua pintura e começar de novo? 🎨')) {
+                paintBgCtx.clearRect(0, 0, 800, 600);
+                paintFgCtx.clearRect(0, 0, 800, 600);
+                
+                const aspect = paintDrawingImage.width / paintDrawingImage.height;
+                let w = paintCanvas.width;
+                let h = paintCanvas.height;
+                let x = 0;
+                let y = 0;
+
+                if (aspect > 4/3) {
+                    h = paintCanvas.width / aspect;
+                    y = (paintCanvas.height - h) / 2;
+                } else {
+                    w = paintCanvas.height * aspect;
+                    x = (paintCanvas.width - w) / 2;
+                }
+
+                paintBgCtx.fillStyle = '#ffffff';
+                paintBgCtx.fillRect(0, 0, 800, 600);
+                paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+                cleanPaintCanvasOutlineDirect(paintBgCtx);
+
+                composePaintCanvas();
+                savePaintHistory();
+                showToast('Tela limpa com sucesso! 🖍️', 'success');
+            }
+        };
+    }
 }
 
-function cleanPaintCanvasOutline() {
-    const imgData = pCtx.getImageData(0, 0, paintCanvas.width, paintCanvas.height);
+// Atalhos do teclado para Desfazer/Refazer
+document.addEventListener('keydown', (e) => {
+    const view = document.getElementById('view-pintar-online');
+    if (view && view.style.display === 'block') {
+        if (e.ctrlKey && e.key.toLowerCase() === 'z') {
+            e.preventDefault();
+            undoPaint();
+        } else if (e.ctrlKey && e.key.toLowerCase() === 'y') {
+            e.preventDefault();
+            redoPaint();
+        }
+    }
+});
+
+function composePaintCanvas() {
+    pCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+    
+    // Fundo branco
+    pCtx.fillStyle = '#ffffff';
+    pCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
+    
+    // Camada de fundo (Magic brush, Bucket, Glitter)
+    pCtx.drawImage(paintBgCanvas, 0, 0);
+    
+    // Desenho outline com Multiply
+    if (paintDrawingImage) {
+        const aspect = paintDrawingImage.width / paintDrawingImage.height;
+        let w = paintCanvas.width;
+        let h = paintCanvas.height;
+        let x = 0;
+        let y = 0;
+
+        if (aspect > 4/3) {
+            h = paintCanvas.width / aspect;
+            y = (paintCanvas.height - h) / 2;
+        } else {
+            w = paintCanvas.height * aspect;
+            x = (paintCanvas.width - w) / 2;
+        }
+        
+        pCtx.save();
+        pCtx.globalCompositeOperation = 'multiply';
+        pCtx.drawImage(paintDrawingImage, x, y, w, h);
+        pCtx.restore();
+    }
+    
+    // Camada de primeiro plano (Normal brush, stamps)
+    pCtx.drawImage(paintFgCanvas, 0, 0);
+    
+    // Moldura com Multiply
+    if (paintBorderImage && paintBorderImage.complete) {
+        pCtx.save();
+        pCtx.globalCompositeOperation = 'multiply';
+        pCtx.drawImage(paintBorderImage, 0, 0, paintCanvas.width, paintCanvas.height);
+        pCtx.restore();
+    }
+}
+
+function savePaintHistory() {
+    if (paintHistoryIndex < paintHistory.length - 1) {
+        paintHistory = paintHistory.slice(0, paintHistoryIndex + 1);
+    }
+    
+    const bgData = paintBgCtx.getImageData(0, 0, 800, 600);
+    const fgData = paintFgCtx.getImageData(0, 0, 800, 600);
+    
+    paintHistory.push({ bg: bgData, fg: fgData });
+    
+    if (paintHistory.length > maxHistoryStates) {
+        paintHistory.shift();
+    }
+    paintHistoryIndex = paintHistory.length - 1;
+    updateUndoRedoButtons();
+}
+
+function undoPaint() {
+    if (paintHistoryIndex > 0) {
+        paintHistoryIndex--;
+        const state = paintHistory[paintHistoryIndex];
+        paintBgCtx.putImageData(state.bg, 0, 0);
+        paintFgCtx.putImageData(state.fg, 0, 0);
+        composePaintCanvas();
+        updateUndoRedoButtons();
+    }
+}
+
+function redoPaint() {
+    if (paintHistoryIndex < paintHistory.length - 1) {
+        paintHistoryIndex++;
+        const state = paintHistory[paintHistoryIndex];
+        paintBgCtx.putImageData(state.bg, 0, 0);
+        paintFgCtx.putImageData(state.fg, 0, 0);
+        composePaintCanvas();
+        updateUndoRedoButtons();
+    }
+}
+
+function updateUndoRedoButtons() {
+    const btnUndo = document.getElementById('paint-btn-undo');
+    const btnRedo = document.getElementById('paint-btn-redo');
+    if (btnUndo) {
+        btnUndo.disabled = (paintHistoryIndex <= 0);
+        btnUndo.style.opacity = (paintHistoryIndex <= 0) ? '0.5' : '1';
+    }
+    if (btnRedo) {
+        btnRedo.disabled = (paintHistoryIndex >= paintHistory.length - 1);
+        btnRedo.style.opacity = (paintHistoryIndex >= paintHistory.length - 1) ? '0.5' : '1';
+    }
+}
+
+function cleanPaintCanvasOutlineDirect(ctx) {
+    const imgData = ctx.getImageData(0, 0, 800, 600);
     const data = imgData.data;
     for (let i = 0; i < data.length; i += 4) {
         const r = data[i];
@@ -5505,25 +5732,13 @@ function cleanPaintCanvasOutline() {
             data[i+3] = 255;
         }
     }
-    pCtx.putImageData(imgData, 0, 0);
-}
-
-function applyBorderOverlay() {
-    const isPremium = currentUser && currentUser.plan && currentUser.plan !== 'Grátis';
-    const borderImg = new Image();
-    borderImg.crossOrigin = "anonymous";
-    borderImg.onload = () => {
-        pCtx.save();
-        pCtx.globalCompositeOperation = 'multiply';
-        pCtx.drawImage(borderImg, 0, 0, paintCanvas.width, paintCanvas.height);
-        pCtx.restore();
-    };
-    borderImg.src = isPremium ? '/premium_border_template.png' : '/classic_border_template.png';
+    ctx.putImageData(imgData, 0, 0);
 }
 
 function setPaintTool(tool) {
     activePaintTool = tool;
     document.querySelectorAll('.paint-tool-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.paint-stamp-btn').forEach(btn => btn.classList.remove('active'));
 
     const sliderGroup = document.getElementById('paint-slider-group');
     
@@ -5536,6 +5751,9 @@ function setPaintTool(tool) {
     } else if (tool === 'brush') {
         document.getElementById('paint-tool-brush').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
+    } else if (tool === 'brush-magic') {
+        document.getElementById('paint-tool-brush-magic').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'flex';
     } else if (tool === 'eraser') {
         document.getElementById('paint-tool-eraser').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
@@ -5545,6 +5763,7 @@ function setPaintTool(tool) {
 // Configurar Toolbar de Pintura
 document.getElementById('paint-tool-bucket').onclick = () => setPaintTool('bucket');
 document.getElementById('paint-tool-glitter').onclick = () => setPaintTool('glitter');
+document.getElementById('paint-tool-brush-magic').onclick = () => setPaintTool('brush-magic');
 document.getElementById('paint-tool-brush').onclick = () => setPaintTool('brush');
 document.getElementById('paint-tool-eraser').onclick = () => setPaintTool('eraser');
 
@@ -5561,19 +5780,21 @@ document.querySelectorAll('.paint-stamp-btn').forEach(btn => {
     };
 });
 
-function getPaintMousePos(e) {
+function getPaintMousePos(evt) {
     const rect = paintCanvas.getBoundingClientRect();
-    const x = Math.round((e.clientX - rect.left) * (paintCanvas.width / rect.width));
-    const y = Math.round((e.clientY - rect.top) * (paintCanvas.height / rect.height));
-    return { x, y };
+    return {
+        x: (evt.clientX - rect.left) * (paintCanvas.width / rect.width),
+        y: (evt.clientY - rect.top) * (paintCanvas.height / rect.height)
+    };
 }
 
-function startPaintingDraw(e) {
-    const pos = getPaintMousePos(e);
+function startPaintingDraw(evt) {
+    const pos = getPaintMousePos(evt);
+    
     if (activePaintTool === 'bucket') {
-        executePaintFloodFill(pos.x, pos.y, false);
+        executePaintFloodFill(Math.round(pos.x), Math.round(pos.y), false);
     } else if (activePaintTool === 'glitter') {
-        executePaintFloodFill(pos.x, pos.y, true);
+        executePaintFloodFill(Math.round(pos.x), Math.round(pos.y), true);
     } else if (activePaintTool === 'stamp') {
         executePaintStamp(pos.x, pos.y);
     } else {
@@ -5583,34 +5804,59 @@ function startPaintingDraw(e) {
     }
 }
 
-function executePaintingDraw(e) {
+function executePaintingDraw(evt) {
     if (!isPaintDrawing) return;
-    const pos = getPaintMousePos(e);
-
-    pCtx.beginPath();
-    pCtx.moveTo(paintLastX, paintLastY);
-    pCtx.lineTo(pos.x, pos.y);
-
-    if (activePaintTool === 'brush') {
-        pCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
-    } else if (activePaintTool === 'eraser') {
-        pCtx.strokeStyle = '#ffffff';
-    }
-
+    const pos = getPaintMousePos(evt);
     const brushSizeInput = document.getElementById('paint-brush-size');
-    pCtx.lineWidth = brushSizeInput ? brushSizeInput.value : 8;
-    pCtx.lineCap = 'round';
-    pCtx.lineJoin = 'round';
-    pCtx.stroke();
+    const brushSizeVal = brushSizeInput ? brushSizeInput.value : 8;
+
+    if (activePaintTool === 'brush-magic') {
+        paintBgCtx.save();
+        paintBgCtx.beginPath();
+        paintBgCtx.moveTo(paintLastX, paintLastY);
+        paintBgCtx.lineTo(pos.x, pos.y);
+        paintBgCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        paintBgCtx.lineWidth = brushSizeVal;
+        paintBgCtx.lineCap = 'round';
+        paintBgCtx.lineJoin = 'round';
+        paintBgCtx.stroke();
+        paintBgCtx.restore();
+    } else if (activePaintTool === 'brush') {
+        paintFgCtx.save();
+        paintFgCtx.beginPath();
+        paintFgCtx.moveTo(paintLastX, paintLastY);
+        paintFgCtx.lineTo(pos.x, pos.y);
+        paintFgCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        paintFgCtx.lineWidth = brushSizeVal;
+        paintFgCtx.lineCap = 'round';
+        paintFgCtx.lineJoin = 'round';
+        paintFgCtx.stroke();
+        paintFgCtx.restore();
+    } else if (activePaintTool === 'eraser') {
+        [paintBgCtx, paintFgCtx].forEach(ctx => {
+            ctx.save();
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.moveTo(paintLastX, paintLastY);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.lineWidth = brushSizeVal;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+            ctx.restore();
+        });
+    }
 
     paintLastX = pos.x;
     paintLastY = pos.y;
+    
+    composePaintCanvas();
 }
 
 function stopPaintingDraw() {
     if (isPaintDrawing) {
         isPaintDrawing = false;
-        applyBorderOverlay();
+        savePaintHistory();
     }
 }
 
@@ -5619,34 +5865,40 @@ function executePaintStamp(x, y) {
     const sizeInput = document.getElementById('paint-brush-size');
     const size = sizeInput ? parseInt(sizeInput.value) * 2 : 32;
 
-    pCtx.font = `${size}px Arial, sans-serif`;
-    pCtx.textAlign = 'center';
-    pCtx.textBaseline = 'middle';
-    pCtx.fillText(stamp, x, y);
+    paintFgCtx.save();
+    paintFgCtx.font = `${size}px Arial, sans-serif`;
+    paintFgCtx.textAlign = 'center';
+    paintFgCtx.textBaseline = 'middle';
+    paintFgCtx.fillText(stamp, x, y);
+    paintFgCtx.restore();
 
-    applyBorderOverlay();
+    composePaintCanvas();
+    savePaintHistory();
 }
 
 function createGlitterPattern(colorRgb) {
-    const size = 32;
     const patCanvas = document.createElement('canvas');
-    patCanvas.width = size;
-    patCanvas.height = size;
+    patCanvas.width = 40;
+    patCanvas.height = 40;
     const patCtx = patCanvas.getContext('2d');
 
-    patCtx.fillStyle = `rgb(${colorRgb[0]}, ${colorRgb[1]}, ${colorRgb[2]})`;
-    patCtx.fillRect(0, 0, size, size);
+    // Preencher base colorida com textura mais clara
+    patCtx.fillStyle = `rgba(${colorRgb[0]}, ${colorRgb[1]}, ${colorRgb[2]}, 0.85)`;
+    patCtx.fillRect(0, 0, 40, 40);
 
-    for (let i = 0; i < 6; i++) {
-        const px = Math.random() * size;
-        const py = Math.random() * size;
-        const pr = Math.random() * 2 + 1;
-        
+    // Adicionar glitters circulares e estrelas
+    for (let i = 0; i < 24; i++) {
+        const px = Math.random() * 40;
+        const py = Math.random() * 40;
+        const radius = Math.random() * 1.8 + 0.5;
+
+        // Círculos de brilho coloridos
         patCtx.fillStyle = Math.random() > 0.5 ? '#ffffff' : '#ffd43b';
         patCtx.beginPath();
-        patCtx.arc(px, py, pr, 0, Math.PI * 2);
+        patCtx.arc(px, py, radius, 0, Math.PI * 2);
         patCtx.fill();
 
+        // Estrelinhas cruzadas para efeito mágico
         if (Math.random() > 0.7) {
             patCtx.strokeStyle = '#ffffff';
             patCtx.lineWidth = 0.5;
@@ -5678,9 +5930,8 @@ function executePaintFloodFill(startX, startY, isGlitter) {
     const fillB = selectedPaintColor[2];
     const fillA = 255;
 
-    if (startR === fillR && startG === fillG && startB === fillB && startA === fillA && !isGlitter) {
-        return;
-    }
+    const bgImgData = paintBgCtx.getImageData(0, 0, width, height);
+    const bgData = bgImgData.data;
 
     function isOutline(r, g, b, a) {
         return (r < 110 && g < 110 && b < 110 && a > 100);
@@ -5715,10 +5966,10 @@ function executePaintFloodFill(startX, startY, isGlitter) {
             maskData.data[mIdx+2] = 255;
             maskData.data[mIdx+3] = 255;
         } else {
-            data[idx] = fillR;
-            data[idx+1] = fillG;
-            data[idx+2] = fillB;
-            data[idx+3] = fillA;
+            bgData[idx] = fillR;
+            bgData[idx+1] = fillG;
+            bgData[idx+2] = fillB;
+            bgData[idx+3] = fillA;
         }
 
         const neighbors = [
@@ -5746,7 +5997,6 @@ function executePaintFloodFill(startX, startY, isGlitter) {
     if (isGlitter) {
         fCtx.putImageData(maskData, 0, 0);
 
-        pCtx.save();
         const tempCanvas = document.createElement('canvas');
         tempCanvas.width = width;
         tempCanvas.height = height;
@@ -5758,14 +6008,17 @@ function executePaintFloodFill(startX, startY, isGlitter) {
         tCtx.globalCompositeOperation = 'destination-in';
         tCtx.drawImage(fillMaskCanvas, 0, 0);
 
-        pCtx.drawImage(tempCanvas, 0, 0);
-        pCtx.restore();
+        paintBgCtx.save();
+        paintBgCtx.drawImage(tempCanvas, 0, 0);
+        paintBgCtx.restore();
     } else {
-        pCtx.putImageData(imgData, 0, 0);
+        paintBgCtx.putImageData(bgImgData, 0, 0);
     }
 
-    applyBorderOverlay();
+    composePaintCanvas();
+    savePaintHistory();
 }
+
 
 async function savePaintingToGallery() {
     if (!currentUser) {

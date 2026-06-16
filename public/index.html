@@ -1378,13 +1378,28 @@
                 <div class="paint-workspace-layout">
                     <!-- Barra de Ferramentas -->
                     <div class="paint-toolbar">
+                        <!-- Desfazer / Refazer -->
+                        <div style="display: flex; gap: 6px; width: 100%; justify-content: center; margin-bottom: 4px;">
+                            <button class="paint-tool-btn" id="paint-btn-undo" title="Desfazer (Ctrl+Z)" style="width: 34px; height: 34px; font-size: 1.05rem; border-radius: 8px;">
+                                <i class="fa-solid fa-arrow-rotate-left"></i>
+                            </button>
+                            <button class="paint-tool-btn" id="paint-btn-redo" title="Refazer (Ctrl+Y)" style="width: 34px; height: 34px; font-size: 1.05rem; border-radius: 8px;">
+                                <i class="fa-solid fa-arrow-rotate-right"></i>
+                            </button>
+                        </div>
+                        
+                        <hr style="width: 100%; border: none; border-top: 1px dashed #ccc; margin: 4px 0;">
+
                         <button class="paint-tool-btn active" id="paint-tool-bucket" title="Balde de Tinta">
                             <i class="fa-solid fa-fill-drip"></i>
                         </button>
                         <button class="paint-tool-btn" id="paint-tool-glitter" title="Glitter Mágico" style="color: #ff5e7e;">
                             <i class="fa-solid fa-wand-magic-sparkles"></i>
                         </button>
-                        <button class="paint-tool-btn" id="paint-tool-brush" title="Pincel Livre">
+                        <button class="paint-tool-btn" id="paint-tool-brush-magic" title="Pincel Mágico (Atrás da Linha)" style="color: var(--color-orange);">
+                            <i class="fa-solid fa-magic"></i>
+                        </button>
+                        <button class="paint-tool-btn" id="paint-tool-brush" title="Pincel Comum (Por Cima)">
                             <i class="fa-solid fa-paintbrush"></i>
                         </button>
                         <button class="paint-tool-btn" id="paint-tool-eraser" title="Borracha">
@@ -1430,8 +1445,11 @@
 
                             <div style="flex: 1;"></div>
 
-                            <div style="display: flex; gap: 10px;">
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                                 <button class="btn btn-secondary btn-sm" id="paint-btn-clear"><i class="fa-solid fa-trash-can"></i> Limpar Pintura</button>
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-print" style="background-color: var(--color-purple); border-color: var(--color-purple); color: white;" title="Imprimir Desenho"><i class="fa-solid fa-print"></i> Imprimir</button>
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-pdf" style="background-color: #e74c3c; border-color: #e74c3c; color: white;" title="Baixar PDF"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-whatsapp" style="background-color: #25d366; border-color: #25d366; color: white;" title="Enviar por WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
                                 <button class="btn btn-primary btn-sm" id="paint-btn-save" style="background-color: var(--color-green); border-color: var(--color-green); color: white;"><i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria</button>
                             </div>
                         </div>

@@ -13,6 +13,9 @@
     <!-- html2pdf.js for client-side A4 PDF download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         /* CSS Variables Matching KidCanvas Design System */
         :root {
@@ -1435,6 +1438,7 @@
         <div class="bottom-actions">
             <button class="btn-generate btn-bottom" style="background-color: var(--color-purple);" onclick="resetForm()">📖 Criar Outro Livro</button>
             <button class="btn-generate btn-bottom" style="background-color: var(--color-blue);" id="btnDownloadPDF" onclick="generatePDF()">📥 Baixar PDF A4</button>
+            <button class="btn-generate btn-bottom" style="background-color: #25d366; color: white;" id="btnShareWhatsApp" onclick="shareOnWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Enviar pelo WhatsApp</button>
             <button class="btn-generate btn-bottom" style="background-color: var(--color-green);" id="btnPrintFullBook">🖨️ Imprimir Livro Completo</button>
         </div>
     </div>
@@ -2569,7 +2573,8 @@
     async function downloadImage(imageUrl, characterName, pageNum) {
         const cleanName = characterName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         try {
-            const res = await fetch(imageUrl);
+            const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`;
+            const res = await fetch(proxiedUrl);
             const blob = await res.blob();
             const blobUrl = URL.createObjectURL(blob);
             
@@ -2591,7 +2596,8 @@
         const btnDownloadCover = document.getElementById('btnDownloadCover');
         btnDownloadCover.onclick = async () => {
             try {
-                const res = await fetch(coverUrl);
+                const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(coverUrl)}`;
+                const res = await fetch(proxiedUrl);
                 const blob = await res.blob();
                 const blobUrl = URL.createObjectURL(blob);
                 
@@ -2610,6 +2616,7 @@
         const btnPrintCover = document.getElementById('btnPrintCover');
         btnPrintCover.onclick = () => {
             const printWindow = window.open('', '_blank');
+            const proxiedCoverUrl = `/api/proxy-image?url=${encodeURIComponent(coverUrl)}`;
             printWindow.document.write(`
                 <html>
                 <head>
@@ -2645,7 +2652,18 @@
                     <div class="no-print">
                         <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir Capa 🖨</button>
                     </div>
-                    <img src="${coverUrl}">
+                    <img src="${proxiedCoverUrl}">
+                    <script>
+                        window.onload = function() {
+                            const img = document.querySelector('img');
+                            if (img.complete) {
+                                window.print();
+                            } else {
+                                img.onload = function() { window.print(); };
+                                img.onerror = function() { window.print(); };
+                            }
+                        };
+                    </script>
                 </body>
                 </html>
             `);
@@ -2657,6 +2675,7 @@
     function printSinglePage(index) {
         const page = generatedParagraphs[index];
         const printWindow = window.open('', '_blank');
+        const proxiedPageUrl = `/api/proxy-image?url=${encodeURIComponent(page.imageUrl)}`;
         printWindow.document.write(`
             <html>
             <head>
@@ -2705,9 +2724,20 @@
                     <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir Página ${index + 1} 🖨</button>
                 </div>
                 <div class="page-container">
-                    <img src="${page.imageUrl}">
+                    <img src="${proxiedPageUrl}">
                     <p>${page.text}</p>
                 </div>
+                <script>
+                    window.onload = function() {
+                        const img = document.querySelector('img');
+                        if (img.complete) {
+                            window.print();
+                        } else {
+                            img.onload = function() { window.print(); };
+                            img.onerror = function() { window.print(); };
+                        }
+                    };
+                </script>
             </body>
             </html>
         `);
@@ -2719,17 +2749,21 @@
         const btnPrintFullBook = document.getElementById('btnPrintFullBook');
         btnPrintFullBook.onclick = () => {
             const printWindow = window.open('', '_blank');
+            const proxiedCoverUrl = `/api/proxy-image?url=${encodeURIComponent(generatedCoverUrl)}`;
             
             // Build pages structure
-            const pagesHtml = generatedParagraphs.map((page, idx) => `
-                <div class="print-page">
-                    <div class="page-header">Página ${idx + 1}</div>
-                    <div class="image-container">
-                        <img src="${page.imageUrl}">
+            const pagesHtml = generatedParagraphs.map((page, idx) => {
+                const proxiedPageUrl = `/api/proxy-image?url=${encodeURIComponent(page.imageUrl)}`;
+                return `
+                    <div class="print-page">
+                        <div class="page-header">Página ${idx + 1}</div>
+                        <div class="image-container">
+                            <img src="${proxiedPageUrl}">
+                        </div>
+                        <p>${page.text}</p>
                     </div>
-                    <p>${page.text}</p>
-                </div>
-            `).join('<div style="page-break-after: always;"></div>');
+                `;
+            }).join('<div style="page-break-after: always;"></div>');
             
             printWindow.document.write(`
                 <html>
@@ -2812,18 +2846,79 @@
                     
                     <!-- Cover Page Print -->
                     <div class="book-cover-print">
-                        <img src="${generatedCoverUrl}">
+                        <img src="${proxiedCoverUrl}">
                     </div>
                     
                     <div style="page-break-after: always;"></div>
                     
                     <!-- Inner Pages -->
                     ${pagesHtml}
+                    
+                    <script>
+                        window.onload = function() {
+                            const images = Array.from(document.getElementsByTagName('img'));
+                            const promises = images.map(img => {
+                                return new Promise((resolve) => {
+                                    if (img.complete) {
+                                        resolve();
+                                    } else {
+                                        img.onload = resolve;
+                                        img.onerror = resolve;
+                                        setTimeout(resolve, 5000); // safety timeout
+                                    }
+                                });
+                            });
+                            Promise.all(promises).then(() => {
+                                window.print();
+                            });
+                        };
+                    </script>
                 </body>
                 </html>
             `);
             printWindow.document.close();
         };
+    }
+
+    // Wait for all images in container to load
+    function waitForImages(container) {
+        const images = Array.from(container.getElementsByTagName('img'));
+        const promises = images.map(img => {
+            return new Promise((resolve) => {
+                if (img.complete) {
+                    resolve();
+                } else {
+                    let resolved = false;
+                    const done = () => {
+                        if (!resolved) {
+                            resolved = true;
+                            resolve();
+                        }
+                    };
+                    img.addEventListener('load', done);
+                    img.addEventListener('error', done);
+                    setTimeout(done, 8000); // safety timeout
+                }
+            });
+        });
+        return Promise.all(promises);
+    }
+
+    // Share story link on WhatsApp
+    function shareOnWhatsApp() {
+        const rawCharName = document.getElementById('characterName').value.trim() || 'Criança';
+        const cleanCharName = capitalizeFirstLetter(rawCharName);
+        const title = `O Livro Mágico de ${cleanCharName}`;
+        const message = `Criei um livro de história mágica personalizada chamado "${title}" no KidCanvas! 🧙‍♂️✨\n\nVocê também pode criar histórias personalizadas com ilustrações lindas para seus filhos! Acesse: https://www.kidcanvas.com.br`;
+        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 
     // Client-side A4 PDF generation
@@ -2855,6 +2950,7 @@
         
         const rawCharName = document.getElementById('characterName').value.trim() || 'Crianca';
         const cleanCharName = capitalizeFirstLetter(rawCharName);
+        const proxiedCoverUrl = `/api/proxy-image?url=${encodeURIComponent(generatedCoverUrl)}`;
         
         coverPage.innerHTML = `
             <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 10mm 0;">
@@ -2863,7 +2959,7 @@
                     <p style="font-size: 16px; color: #5C4033; font-weight: bold; text-align: center; margin: 0;">Uma história criada especialmente para ${cleanCharName}</p>
                 </div>
                 <div style="width: 140mm; height: 140mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                    <img src="${generatedCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="${proxiedCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div style="text-align: center;">
                     <div style="font-size: 15px; font-weight: bold; color: #7B4FA6;">KidCanvas</div>
@@ -2886,13 +2982,15 @@
             pageDiv.style.boxSizing = 'border-box';
             pageDiv.style.padding = '20mm 20mm';
 
+            const proxiedPageUrl = `/api/proxy-image?url=${encodeURIComponent(page.imageUrl)}`;
+
             pageDiv.innerHTML = `
                 <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 5px; font-weight: bold; color: #7B4FA6; font-size: 16px; display: flex; justify-content: space-between;">
                     <span>O Livro Mágico de ${cleanCharName}</span>
                     <span>Página ${idx + 1}</span>
                 </div>
                 <div style="width: 130mm; height: 130mm; border: 3px solid #3D281A; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 15px 0;">
-                    <img src="${page.imageUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="${proxiedPageUrl}" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <p style="font-size: 16px; line-height: 1.6; text-align: justify; text-indent: 15px; margin: 0; color: #3D281A; max-width: 170mm; flex-grow: 1; display: flex; align-items: center;">${page.text}</p>
                 <div style="width: 100%; border-top: 1px solid #eee; padding-top: 5px; font-size: 11px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between;">
@@ -2902,6 +3000,9 @@
             `;
             tempContainer.appendChild(pageDiv);
         });
+
+        // Add container to DOM so html2pdf can render it correctly
+        document.body.appendChild(tempContainer);
 
         // Generate PDF
         const cleanCharNameLower = cleanCharName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -2918,14 +3019,18 @@
         btnPDF.textContent = "⏳ Gerando PDF...";
         btnPDF.disabled = true;
 
-        html2pdf().from(tempContainer).set(opt).save().then(() => {
-            btnPDF.textContent = oldText;
-            btnPDF.disabled = false;
-        }).catch(err => {
-            console.error("Erro ao gerar PDF:", err);
-            btnPDF.textContent = oldText;
-            btnPDF.disabled = false;
-            alert("Erro ao exportar PDF. Tente novamente.");
+        waitForImages(tempContainer).then(() => {
+            html2pdf().from(tempContainer).set(opt).save().then(() => {
+                document.body.removeChild(tempContainer);
+                btnPDF.textContent = oldText;
+                btnPDF.disabled = false;
+            }).catch(err => {
+                document.body.removeChild(tempContainer);
+                console.error("Erro ao gerar PDF:", err);
+                btnPDF.textContent = oldText;
+                btnPDF.disabled = false;
+                alert("Erro ao exportar PDF. Tente novamente.");
+            });
         });
     }
 </script>
