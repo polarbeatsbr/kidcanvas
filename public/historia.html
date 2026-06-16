@@ -1357,6 +1357,20 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label>⚡ Qualidade das Imagens</label>
+            <div class="style-radio-group">
+                <label class="style-radio-label active" id="labelQualityMedium">
+                    <input type="radio" name="imageQuality" value="medium" checked>
+                    Normal (1x 🪙)
+                </label>
+                <label class="style-radio-label" id="labelQualityHigh">
+                    <input type="radio" name="imageQuality" value="high">
+                    Ultra (2x 🌟)
+                </label>
+            </div>
+        </div>
+
         <!-- Disclaimer Box -->
         <div class="disclaimer-box" style="background-color: #F2F4F4; border: var(--border-thin); border-radius: var(--radius-sm); padding: 15px 20px; margin-bottom: 20px; font-family: var(--font-body); font-size: 0.95rem; color: var(--color-dark-light); line-height: 1.5; box-shadow: 0 4px 0 rgba(0,0,0,0.05);">
             <div style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px;">
@@ -2241,10 +2255,13 @@
 
     function updateGenerateButtonText() {
         const checkedRadio = document.querySelector('input[name="pageCount"]:checked');
-        const pageCount = checkedRadio ? checkedRadio.value : '4';
+        const pageCount = checkedRadio ? parseInt(checkedRadio.value, 10) : 4;
+        const qualityRadio = document.querySelector('input[name="imageQuality"]:checked');
+        const quality = qualityRadio ? qualityRadio.value : 'medium';
+        const cost = quality === 'high' ? pageCount * 2 : pageCount;
         const btnGenerate = document.getElementById('btnGenerate');
         if (btnGenerate) {
-            btnGenerate.textContent = `🧙‍♂️ Criar Livro (${pageCount} c.)`;
+            btnGenerate.textContent = `🧙‍♂️ Criar Livro (${cost} c.)`;
         }
     }
     updateGenerateButtonText();
@@ -2278,6 +2295,24 @@
                 radioBw.classList.add('active');
                 radioColor.classList.remove('active');
             }
+        });
+    });
+
+    // Quality toggle styling visual feedback
+    const radioQualityMedium = document.getElementById('labelQualityMedium');
+    const radioQualityHigh = document.getElementById('labelQualityHigh');
+    const inputQualityRadios = document.querySelectorAll('input[name="imageQuality"]');
+
+    inputQualityRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            if (radio.value === 'medium') {
+                radioQualityMedium.classList.add('active');
+                radioQualityHigh.classList.remove('active');
+            } else {
+                radioQualityHigh.classList.add('active');
+                radioQualityMedium.classList.remove('active');
+            }
+            updateGenerateButtonText();
         });
     });
 
@@ -2333,6 +2368,7 @@
         const styleType = document.querySelector('input[name="styleType"]:checked').value;
         const pageCount = parseInt(document.querySelector('input[name="pageCount"]:checked').value, 10);
         const bookLang = document.querySelector('input[name="bookLang"]:checked').value;
+        const imageQuality = document.querySelector('input[name="imageQuality"]:checked').value;
         const synopsis = storySynopsis.value.trim();
         
         let finalTheme = themeSelect.value;
@@ -2362,7 +2398,8 @@
             switchAuthTab('register');
             return;
         }
-        if (currentUser.paginasRestantes < pageCount) {
+        const cost = imageQuality === 'high' ? pageCount * 2 : pageCount;
+        if (currentUser.paginasRestantes < cost) {
             openCreditsModal('Seus créditos mágicos acabaram! Faça upgrade de plano para adicionar saldo.');
             return;
         }
@@ -2402,7 +2439,8 @@
                     styleType: styleType,
                     pageCount: pageCount,
                     synopsis: synopsis,
-                    bookLang: bookLang
+                    bookLang: bookLang,
+                    imageQuality: imageQuality
                 })
             });
             

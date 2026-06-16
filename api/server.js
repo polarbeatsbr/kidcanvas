@@ -662,10 +662,10 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
     }
 });
 
-// Endpoint para gerar livro completo: Capa + N Páginas ilustradas (Gemini + N+1 chamadas Ideogram em paralelo)
+// Endpoint para gerar livro completo: Capa + N Páginas ilustradas (Gemini + N+1 chamadas em paralelo)
 app.post('/api/generate-full-story', async (req, res) => {
     try {
-        const { characterName, themes, styleType, pageCount, synopsis, bookLang } = req.body;
+        const { characterName, themes, styleType, pageCount, synopsis, bookLang, imageQuality } = req.body;
         if (!characterName || !themes || !Array.isArray(themes) || themes.length === 0) {
             return res.status(400).json({
                 success: false,
@@ -727,10 +727,13 @@ app.post('/api/generate-full-story', async (req, res) => {
             });
         }
 
-        if (user.paginasRestantes < numPages) {
+        const engine = imageQuality === 'medium' ? 'flux' : 'ideogram';
+        const cost = engine === 'flux' ? numPages : numPages * 2;
+
+        if (user.paginasRestantes < cost) {
             return res.status(400).json({
                 success: false,
-                message: `Saldo insuficiente! Esta história requer ${numPages} páginas, mas você possui apenas ${user.paginasRestantes} página(s) de saldo.`
+                message: `Saldo insuficiente! Esta história requer ${cost} páginas de saldo, mas você possui apenas ${user.paginasRestantes} página(s) de saldo.`
             });
         }
 
@@ -879,8 +882,8 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             });
         }
 
-        // 3. Chamar a API do Ideogram para gerar as N+1 imagens em paralelo com velocidade TURBO
-        console.log(`[Full Story V4] Iniciando geração concorrente de ${numPages + 1} imagens no Ideogram (Capa + ${numPages} páginas)...`);
+        // 3. Chamar a API de geração de imagens correspondente em paralelo
+        console.log(`[Full Story V4] Iniciando geração concorrente de ${numPages + 1} imagens via ${engine.toUpperCase()}...`);
         const ideogramKey = process.env.IDEOGRAM_API_KEY || "RK-CWKSVJ9Jet7vJwHOMmfsYVNHBmGA8jKujDMtQcI5snVW3ThAW_H_Zf_jYjU8be7mYXSOFdO7xLvkBgI7rcQ";
 
         // Preparar lista de prompts: Capa em primeiro lugar, depois as N páginas
@@ -892,36 +895,67 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
 
         const imageGenerationPromises = promptItems.map(async (item, i) => {
             try {
-                console.log(`[Full Story V4] Gerando imagem ${i + 1}/${numPages + 1} (${item.type === 'cover' ? 'Capa' : 'Pág. ' + (item.index + 1)}) com prompt: "${item.prompt}"...`);
-                const ideogramRes = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
-                    method: 'POST',
-                    headers: {
-                        'Api-Key': ideogramKey,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        text_prompt: item.prompt,
-                        resolution: "2048x2048",
-                        rendering_speed: "TURBO",
-                        num_images: 1
-                    })
-                });
+                console.log(`[Full Story V4] Gerando imagem ${i + 1}/${numPages + 1} (${item.type === 'cover' ? 'Capa' : 'Pág. ' + (item.index + 1)}) usando ${engine.toUpperCase()}...`);
+                
+                if (engine === 'flux') {
+                    const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Key ${process.env.FAL_KEY || "c143ca28-99d8-4bd2-8d56-82870b0d28cd:e0e10d34e1477969e0f15660c3093a0e"}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            prompt: item.prompt,
+                            image_size: "square_hd",
+                            num_inference_steps: 4,
+                            enable_safety_checker: true
+                        })
+                    });
 
-                if (!ideogramRes.ok) {
-                    const rawText = await ideogramRes.text().catch(() => '');
-                    console.error(`[Ideogram API Error Image ${i + 1} Status]:`, ideogramRes.status);
-                    console.error(`[Ideogram API Error Image ${i + 1} Response]:`, rawText);
-                    throw new Error(`Erro na API do Ideogram para imagem ${i + 1}`);
-                }
+                    if (!falRes.ok) {
+                        const rawText = await falRes.text().catch(() => '');
+                        console.error(`[Fal.ai API Error Image ${i + 1} Status]:`, falRes.status);
+                        console.error(`[Fal.ai API Error Image ${i + 1} Response]:`, rawText);
+                        throw new Error(`Erro na API do Fal.ai para imagem ${i + 1}`);
+                    }
 
-                const ideogramData = await ideogramRes.json();
-                const url = ideogramData.data?.[0]?.url;
-                if (!url) {
-                    throw new Error(`Sem URL na resposta do Ideogram para imagem ${i + 1}`);
+                    const falData = await falRes.json();
+                    const url = falData.images?.[0]?.url;
+                    if (!url) {
+                        throw new Error(`Sem URL na resposta do Fal.ai para imagem ${i + 1}`);
+                    }
+                    return url;
+                } else {
+                    const ideogramRes = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
+                        method: 'POST',
+                        headers: {
+                            'Api-Key': ideogramKey,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            text_prompt: item.prompt,
+                            resolution: "2048x2048",
+                            rendering_speed: "TURBO",
+                            num_images: 1
+                        })
+                    });
+
+                    if (!ideogramRes.ok) {
+                        const rawText = await ideogramRes.text().catch(() => '');
+                        console.error(`[Ideogram API Error Image ${i + 1} Status]:`, ideogramRes.status);
+                        console.error(`[Ideogram API Error Image ${i + 1} Response]:`, rawText);
+                        throw new Error(`Erro na API do Ideogram para imagem ${i + 1}`);
+                    }
+
+                    const ideogramData = await ideogramRes.json();
+                    const url = ideogramData.data?.[0]?.url;
+                    if (!url) {
+                        throw new Error(`Sem URL na resposta do Ideogram para imagem ${i + 1}`);
+                    }
+                    return url;
                 }
-                return url;
             } catch (err) {
-                console.error(`Erro ao gerar imagem ${i + 1}:`, err.message);
+                console.error(`Erro ao gerar imagem ${i + 1} com ${engine}:`, err.message);
                 throw err;
             }
         });
@@ -946,7 +980,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
         });
 
         // Deduce user balance and save
-        user.paginasRestantes -= numPages;
+        user.paginasRestantes -= cost;
         await saveUsers(users);
 
         return res.json({
