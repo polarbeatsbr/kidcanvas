@@ -267,8 +267,74 @@ async function uploadImage(buffer, filename, contentType = 'image/jpeg') {
     return null;
 }
 
+
+// Caminho do public_paintings local
+const LOCAL_PUBLIC_PAINTINGS_FILE = path.join(__dirname, '..', 'public_paintings.json');
+
+async function loadPublicPaintings() {
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Lendo public_paintings.json do Cloudflare R2...`);
+            const command = new GetObjectCommand({
+                Bucket: bucketName,
+                Key: 'public_paintings.json',
+            });
+            const response = await s3Client.send(command);
+            const dataStr = await streamToString(response.Body);
+            try {
+                fs.writeFileSync(LOCAL_PUBLIC_PAINTINGS_FILE, dataStr, 'utf8');
+            } catch(e) {}
+            return JSON.parse(dataStr);
+        } catch (err) {
+            if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || err.message.includes('NoSuchKey')) {
+                print('[R2DB] Arquivo public_paintings.json não existe no bucket R2. Retornando vazio.');
+                return [];
+            }
+            console.error('[R2DB] Erro ao carregar public_paintings do R2 (usando fallback local):', err.message);
+        }
+    }
+    if (fs.existsSync(LOCAL_PUBLIC_PAINTINGS_FILE)) {
+        try {
+            const dataStr = fs.readFileSync(LOCAL_PUBLIC_PAINTINGS_FILE, 'utf8');
+            return JSON.parse(dataStr);
+        } catch (e) {
+            console.error('[R2DB] Erro ao ler public_paintings.json local:', e.message);
+        }
+    }
+    return [];
+}
+
+async function savePublicPaintings(paintings) {
+    const dataStr = JSON.stringify(paintings, null, 2);
+    try {
+        fs.writeFileSync(LOCAL_PUBLIC_PAINTINGS_FILE, dataStr, 'utf8');
+        console.log('[R2DB] Backup local de public_paintings.json gravado com sucesso.');
+    } catch (e) {
+        console.error('[R2DB] Falha ao gravar cópia local de public_paintings:', e.message);
+    }
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Enviando public_paintings.json atualizado para o Cloudflare R2...`);
+            const command = new PutObjectCommand({
+                Bucket: bucketName,
+                Key: 'public_paintings.json',
+                Body: dataStr,
+                ContentType: 'application/json',
+            });
+            await s3Client.send(command);
+            console.log('[R2DB] Banco de dados public_paintings.json persistido no R2.');
+            return true;
+        } catch (err) {
+            console.error('[R2DB] Falha crítica ao persistir public_paintings no R2:', err.message);
+        }
+    }
+    return false;
+}
+
 module.exports = {
     loadUsers,
+    loadPublicPaintings,
+    savePublicPaintings,
     saveUsers,
     loadWaitlist,
     saveWaitlist,

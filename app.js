@@ -436,8 +436,15 @@ function switchAuthTab(tab) {
     const tabRegister = document.getElementById('tabRegister');
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    const tabs = document.getElementById('authTabsContainer');
+    const recoveryTitle = document.getElementById('recoveryTitle');
     
     if (!tabLogin || !tabRegister || !loginForm || !registerForm) return;
+    
+    if (forgotPasswordForm) forgotPasswordForm.style.display = 'none';
+    if (tabs) tabs.style.display = 'flex';
+    if (recoveryTitle) recoveryTitle.style.display = 'none';
     
     if (tab === 'login') {
         tabLogin.style.color = 'var(--color-purple)';
@@ -455,6 +462,137 @@ function switchAuthTab(tab) {
         registerForm.style.display = 'block';
     }
 }
+
+function togglePasswordVisibility(inputId, element) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    const icon = element.querySelector('i');
+    if (input.type === 'password') {
+        input.type = 'text';
+        if (icon) icon.className = 'fa-solid fa-eye-slash';
+    } else {
+        input.type = 'password';
+        if (icon) icon.className = 'fa-solid fa-eye';
+    }
+}
+
+function showForgotPasswordForm() {
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const forgotForm = document.getElementById('forgotPasswordForm');
+    const tabs = document.getElementById('authTabsContainer');
+    const recoveryTitle = document.getElementById('recoveryTitle');
+    
+    if (loginForm) loginForm.style.display = 'none';
+    if (registerForm) registerForm.style.display = 'none';
+    if (forgotForm) forgotForm.style.display = 'block';
+    if (tabs) tabs.style.display = 'none';
+    if (recoveryTitle) recoveryTitle.style.display = 'block';
+}
+
+function showLoginFormFromForgot() {
+    const forgotForm = document.getElementById('forgotPasswordForm');
+    const loginForm = document.getElementById('loginForm');
+    const tabs = document.getElementById('authTabsContainer');
+    const recoveryTitle = document.getElementById('recoveryTitle');
+    
+    if (forgotForm) forgotForm.style.display = 'none';
+    if (loginForm) loginForm.style.display = 'block';
+    if (tabs) tabs.style.display = 'flex';
+    if (recoveryTitle) recoveryTitle.style.display = 'none';
+    
+    switchAuthTab('login');
+}
+
+async function handleForgotPasswordSubmit(event) {
+    event.preventDefault();
+    const email = document.getElementById('forgotEmail').value.trim();
+    if (!email) return;
+    
+    try {
+        const res = await fetch('/api/auth/forgot-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+            let successMsg = 'E-mail de recuperação enviado com sucesso!';
+            if (data.mockLink) {
+                successMsg += `<br><br><strong>Link de teste gerado:</strong><br><a href="${data.mockLink}" style="color: var(--color-purple); font-weight: bold; word-break: break-all;">${data.mockLink}</a>`;
+                
+                const forgotForm = document.getElementById('forgotPasswordForm');
+                if (forgotForm) {
+                    forgotForm.innerHTML = `
+                        <div style="background-color: var(--color-purple-light); border: 2px dashed var(--color-purple); border-radius: var(--radius-sm); padding: 15px; margin-bottom: 20px; text-align: left;">
+                            <p style="font-size: 0.95rem; color: var(--color-dark); margin-bottom: 10px; line-height: 1.4;">✨ <strong>Ambiente de Testes:</strong> Como não temos um servidor SMTP real configurado, clique no link abaixo para redefinir sua senha agora:</p>
+                            <a href="${data.mockLink}" style="color: var(--color-purple); font-weight: bold; word-break: break-all; display: block; font-size: 0.95rem;">${data.mockLink}</a>
+                        </div>
+                        <button class="btn btn-secondary" onclick="location.reload()" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Recarregar Página 🔄</button>
+                    `;
+                    return;
+                }
+            }
+            showToast(successMsg, 'success', 8000);
+        } else {
+            showToast(`Erro: ${data.message}`, 'error');
+        }
+    } catch(err) {
+        console.error('Erro ao solicitar recuperação de senha:', err);
+        showToast('Erro ao conectar ao servidor para recuperar senha.', 'error');
+    }
+}
+
+async function handleResetPasswordSubmit(event) {
+    event.preventDefault();
+    const newPassword = document.getElementById('resetNewPassword').value;
+    if (!newPassword || newPassword.length < 4) {
+        showToast('A senha precisa ter no mínimo 4 caracteres.', 'warning');
+        return;
+    }
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    if (!token) {
+        showToast('Token de redefinição ausente na URL.', 'error');
+        return;
+    }
+    
+    try {
+        const res = await fetch('/api/auth/reset-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token, newPassword })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+            showToast('Senha redefinida com sucesso! Redirecionando para login...', 'success');
+            setTimeout(() => {
+                window.history.replaceState({}, document.title, window.location.pathname);
+                navigate('/');
+                openAuthModal();
+            }, 2000);
+        } else {
+            showToast(`Erro ao redefinir: ${data.message}`, 'error');
+        }
+    } catch(err) {
+        console.error('Erro ao redefinir senha:', err);
+        showToast('Erro ao conectar ao servidor para redefinir senha.', 'error');
+    }
+}
+
+window.togglePasswordVisibility = togglePasswordVisibility;
+window.showForgotPasswordForm = showForgotPasswordForm;
+window.showLoginFormFromForgot = showLoginFormFromForgot;
+window.handleForgotPasswordSubmit = handleForgotPasswordSubmit;
+window.handleResetPasswordSubmit = handleResetPasswordSubmit;
+
+function renderResetPasswordView() {
+    document.title = "Redefinir Senha — KidCanvas 🔒";
+    const view = document.getElementById('view-reset-password');
+    if (view) view.style.display = 'block';
+}
+window.renderResetPasswordView = renderResetPasswordView;
 
 async function handleLoginSubmit(event) {
     event.preventDefault();
@@ -836,6 +974,8 @@ function navigate(path, pushState = true) {
     // Roteamento
     if (cleanPath === '/' || cleanPath === '/home' || cleanPath === '') {
         renderHomeView();
+    } else if (cleanPath === '/reset-password') {
+        renderResetPasswordView();
     } else if (cleanPath === '/categorias') {
         renderCategoriasView();
     } else if (cleanPath === '/top50') {
@@ -854,6 +994,8 @@ function navigate(path, pushState = true) {
         renderReportarBugView();
     } else if (cleanPath === '/minhas-criacoes') {
         renderMinhasCriacoesView();
+    } else if (cleanPath === '/hall-da-fama') {
+        renderHallDaFamaView();
     } else if (cleanPath === '/pintar-online') {
         renderPintarOnlineView();
     } else if (cleanPath.startsWith('/categoria/')) {
@@ -5397,6 +5539,10 @@ function renderPintarOnlineView() {
     isPaintDrawing = false;
     setPaintTool('bucket');
 
+    // Resetar checkbox público
+    const chkPublic = document.getElementById('paint-chk-public');
+    if (chkPublic) chkPublic.checked = false;
+
     // Carregar imagem de desenho
     const loader = document.getElementById('paint-canvas-loader');
     if (loader) loader.style.display = 'flex';
@@ -5532,6 +5678,9 @@ function renderPintarOnlineView() {
             
             try {
                 const dataUrl = paintCanvas.toDataURL('image/png');
+                const chkPublic = document.getElementById('paint-chk-public');
+                const isPublic = chkPublic ? chkPublic.checked : false;
+
                 const response = await fetch('/api/user/save-painting', {
                     method: 'POST',
                     headers: {
@@ -5540,7 +5689,8 @@ function renderPintarOnlineView() {
                     },
                     body: JSON.stringify({
                         imageBase64: dataUrl,
-                        prompt: window.currentPaintingData.name
+                        prompt: window.currentPaintingData.name,
+                        isPublic: isPublic
                     })
                 });
                 
@@ -5757,6 +5907,9 @@ function setPaintTool(tool) {
     } else if (tool === 'eraser') {
         document.getElementById('paint-tool-eraser').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
+    } else if (tool === 'text') {
+        document.getElementById('paint-tool-text').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'flex';
     }
 }
 
@@ -5766,6 +5919,7 @@ document.getElementById('paint-tool-glitter').onclick = () => setPaintTool('glit
 document.getElementById('paint-tool-brush-magic').onclick = () => setPaintTool('brush-magic');
 document.getElementById('paint-tool-brush').onclick = () => setPaintTool('brush');
 document.getElementById('paint-tool-eraser').onclick = () => setPaintTool('eraser');
+document.getElementById('paint-tool-text').onclick = () => setPaintTool('text');
 
 // Configurar carimbos
 document.querySelectorAll('.paint-stamp-btn').forEach(btn => {
@@ -5797,6 +5951,8 @@ function startPaintingDraw(evt) {
         executePaintFloodFill(Math.round(pos.x), Math.round(pos.y), true);
     } else if (activePaintTool === 'stamp') {
         executePaintStamp(pos.x, pos.y);
+    } else if (activePaintTool === 'text') {
+        executePaintText(pos.x, pos.y);
     } else {
         isPaintDrawing = true;
         paintLastX = pos.x;
@@ -5870,6 +6026,35 @@ function executePaintStamp(x, y) {
     paintFgCtx.textAlign = 'center';
     paintFgCtx.textBaseline = 'middle';
     paintFgCtx.fillText(stamp, x, y);
+    paintFgCtx.restore();
+
+    composePaintCanvas();
+    savePaintHistory();
+}
+
+function executePaintText(x, y) {
+    const text = prompt('Escreva o texto que você quer colocar no desenho:');
+    if (!text || text.trim() === '') return;
+
+    const sizeInput = document.getElementById('paint-brush-size');
+    const fontSize = sizeInput ? parseInt(sizeInput.value) * 1.5 + 16 : 28;
+
+    paintFgCtx.save();
+    paintFgCtx.font = `bold ${fontSize}px Fredoka, Quicksand, "Arial Black", sans-serif`;
+    
+    // Contorno branco para legibilidade premium
+    paintFgCtx.strokeStyle = '#ffffff';
+    paintFgCtx.lineWidth = 5;
+    paintFgCtx.lineJoin = 'round';
+    paintFgCtx.miterLimit = 2;
+    paintFgCtx.textAlign = 'center';
+    paintFgCtx.textBaseline = 'middle';
+    paintFgCtx.strokeText(text, x, y);
+
+    // Texto preenchido
+    paintFgCtx.fillStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+    paintFgCtx.fillText(text, x, y);
+    
     paintFgCtx.restore();
 
     composePaintCanvas();
@@ -6018,6 +6203,62 @@ function executePaintFloodFill(startX, startY, isGlitter) {
     composePaintCanvas();
     savePaintHistory();
 }
+
+async function renderHallDaFamaView() {
+    document.title = "Hall da Fama 📸 — KidCanvas";
+    setMetaDescription("Conheça as incríveis obras de arte coloridas pelas crianças no KidCanvas!");
+
+    // Ocultar todas as views e exibir o Hall da Fama
+    document.querySelectorAll('.page-view').forEach(view => view.style.display = 'none');
+    const hallView = document.getElementById('view-hall-da-fama');
+    if (hallView) hallView.style.display = 'block';
+
+    const grid = document.getElementById('public-paintings-grid');
+    if (!grid) return;
+    
+    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; font-weight: bold; color: var(--color-dark-light);"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Carregando as obras de arte...</div>';
+
+    try {
+        const response = await fetch('/api/paintings/public');
+        const result = await response.json();
+        
+        if (result.success && result.paintings && result.paintings.length > 0) {
+            grid.innerHTML = '';
+            result.paintings.forEach(dw => {
+                const card = document.createElement('div');
+                card.className = 'example-card';
+                card.style.background = 'white';
+                card.style.border = 'var(--border-medium)';
+                card.style.borderRadius = 'var(--radius-sm)';
+                card.style.padding = '15px';
+                card.style.boxShadow = 'var(--shadow-cartoon)';
+                card.style.textAlign = 'left';
+                
+                const timeStr = new Date(dw.date).toLocaleDateString('pt-BR');
+                
+                card.innerHTML = `
+                    <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 12px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <img src="${dw.url}" alt="${dw.prompt}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
+                    </div>
+                    <span style="font-size: 0.85rem; color: var(--color-orange); font-weight: 700; text-transform: uppercase;">🎨 Artista: ${dw.userName || 'Pequeno Artista'}</span>
+                    <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin-top: 2px; margin-bottom: 4px;">${dw.prompt}</h4>
+                    <p style="font-size: 0.85rem; color: var(--color-dark-light); margin-bottom: 12px;">Colorido em ${timeStr}</p>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 6px;"><i class="fa-solid fa-print"></i> Imprimir</button>
+                        <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 6px; background-color: #25d366; border-color: #25d366; color: white;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        } else {
+            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-dark-light); font-weight: 500;">Nenhuma pintura compartilhada publicamente ainda. Seja o primeiro a colorir e compartilhar! 🏆</div>';
+        }
+    } catch (err) {
+        console.error(err);
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-red); font-weight: bold;">Erro ao carregar o Hall da Fama. Tente novamente mais tarde.</div>';
+    }
+}
+window.renderHallDaFamaView = renderHallDaFamaView;
 
 
 async function savePaintingToGallery() {

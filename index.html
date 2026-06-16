@@ -99,6 +99,7 @@
                         <li><a href="/gerar-desenho" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho</a></li>
                         <li><a href="/historias-magicas" class="nav-link"><i class="fa-solid fa-book-open"></i> Histórias Mágicas</a></li>
                         <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
+                        <li><a href="/hall-da-fama" class="nav-link"><i class="fa-solid fa-camera"></i> Hall da Fama</a></li>
                     </ul>
                 </nav>
                 
@@ -1358,6 +1359,29 @@
         </section>
 
         <!-- ==============================================
+             TELA DO HALL DA FAMA (GALERIA PÚBLICA)
+             ============================================== -->
+        <section id="view-hall-da-fama" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Hall da Fama 📸</span>
+                </div>
+
+                <div class="section-title-wrapper align-center" style="margin-bottom: 30px; text-align: center;">
+                    <h1 class="page-title" style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.5rem; margin-bottom: 10px;">Hall da Fama 🏆</h1>
+                    <p class="section-subtitle" style="font-size: 1.15rem; color: var(--color-dark-light); font-weight: 500;">Veja as pinturas mais coloridas e artísticas criadas pelas nossas crianças!</p>
+                </div>
+
+                <!-- Grid de Pinturas Públicas -->
+                <div class="drawings-grid" id="public-paintings-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <!-- Preenchido dinamicamente via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
              7. TELA DE PINTAR ONLINE
              ============================================== -->
         <section id="view-pintar-online" class="page-view" style="display: none;">
@@ -1405,14 +1429,24 @@
                         <button class="paint-tool-btn" id="paint-tool-eraser" title="Borracha">
                             <i class="fa-solid fa-eraser"></i>
                         </button>
+                        <button class="paint-tool-btn" id="paint-tool-text" title="Escrever Texto" style="color: var(--color-purple);">
+                            <i class="fa-solid fa-font"></i>
+                        </button>
                         <hr style="width: 100%; border: none; border-top: 1px dashed #ccc; margin: 4px 0;">
                         
                         <!-- Carimbos -->
                         <div style="font-size: 0.75rem; font-weight: bold; color: var(--color-dark-light); margin-bottom: 4px; text-transform: uppercase;">Selos</div>
-                        <button class="paint-tool-btn paint-stamp-btn" data-stamp="⭐" title="Estrela">⭐</button>
-                        <button class="paint-tool-btn paint-stamp-btn" data-stamp="❤️" title="Coração">❤️</button>
-                        <button class="paint-tool-btn paint-stamp-btn" data-stamp="🌈" title="Arco-íris">🌈</button>
-                        <button class="paint-tool-btn paint-stamp-btn" data-stamp="🎉" title="Confete">🎉</button>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: 100%;">
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="⭐" title="Estrela" style="width: 32px; height: 32px; font-size: 1.05rem; border-radius: 8px; padding: 0;">⭐</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="❤️" title="Coração" style="width: 32px; height: 32px; font-size: 1.05rem; border-radius: 8px; padding: 0;">❤️</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🌈" title="Arco-íris" style="width: 32px; height: 32px; font-size: 1.05rem; border-radius: 8px; padding: 0;">🌈</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🎉" title="Confete" style="width: 32px; height: 32px; font-size: 1.05rem; border-radius: 8px; padding: 0;">🎉</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="✨" title="Brilho" style="width: 32px; height: 32px; font-size: 1.05rem; border-radius: 8px; padding: 0;">✨</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="😎" title="Óculos" style="width: 32px; height: 32px; font-size: 1.05rem; border-radius: 8px; padding: 0;">😎</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="👑" title="Coroa" style="width: 32px; height: 32px; font-size: 1.05rem; border-radius: 8px; padding: 0;">👑</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🦋" title="Borboleta" style="width: 32px; height: 32px; font-size: 1.05rem; border-radius: 8px; padding: 0;">🦋</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🐶" title="Cachorrinho" style="width: 32px; height: 32px; font-size: 1.05rem; border-radius: 8px; padding: 0; grid-column: span 4; width: 100%;">🐶 Cachorrinho</button>
+                        </div>
                     </div>
 
                     <!-- Canvas e Painéis -->
@@ -1443,6 +1477,10 @@
                                 <span id="paint-brush-size-val" style="font-weight:700; font-size:0.9rem;">8px</span>
                             </div>
 
+                            <div style="display: flex; align-items: center; gap: 8px; margin-right: 15px;">
+                                <input type="checkbox" id="paint-chk-public" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--color-purple);">
+                                <label for="paint-chk-public" style="font-weight: 700; font-size: 0.95rem; color: var(--color-dark); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-camera" style="color: var(--color-purple);"></i> Compartilhar no Hall da Fama (Público)</label>
+                            </div>
                             <div style="flex: 1;"></div>
 
                             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -1454,6 +1492,28 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tela de Redefinição de Senha -->
+        <section id="view-reset-password" class="page-view" style="display: none;">
+            <div class="container" style="max-width: 480px; margin-top: 50px; margin-bottom: 50px;">
+                <div style="background-color: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 30px; box-shadow: var(--shadow-cartoon); text-align: center;">
+                    <span style="font-size: 3.5rem; display: block; margin-bottom: 15px;">🔒</span>
+                    <h2 style="font-family: var(--font-heading); color: var(--color-purple); margin-bottom: 10px;">Definir Nova Senha</h2>
+                    <p style="color: var(--color-dark-light); font-size: 1rem; margin-bottom: 25px; line-height: 1.4;">Crie uma nova senha de acesso para a sua conta.</p>
+                    
+                    <form id="resetPasswordForm" onsubmit="handleResetPasswordSubmit(event)">
+                        <div style="margin-bottom: 20px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                            <label style="font-weight: 700; color: var(--color-dark);">Nova Senha</label>
+                            <div style="position: relative; width: 100%;">
+                                <input type="password" id="resetNewPassword" placeholder="Crie uma nova senha..." required style="padding: 10px; padding-right: 40px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
+                                <span onclick="togglePasswordVisibility('resetNewPassword', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--color-dark-light); font-size: 1.1rem; z-index: 10;"><i class="fa-solid fa-eye"></i></span>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" type="submit" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Salvar Nova Senha 💾</button>
+                    </form>
                 </div>
             </div>
         </section>
@@ -1517,20 +1577,27 @@
             <button class="btn-close-modal" onclick="closeAuthModal()">✕</button>
             
             <div id="authSection" style="margin-bottom: 20px;">
-                <div style="display: flex; border-bottom: var(--border-thin); margin-bottom: 20px;">
+                <div id="authTabsContainer" style="display: flex; border-bottom: var(--border-thin); margin-bottom: 20px;">
                     <button id="tabLogin" onclick="switchAuthTab('login')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-purple); border-bottom: 4px solid var(--color-purple);">🔑 Entrar</button>
                     <button id="tabRegister" onclick="switchAuthTab('register')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-dark-light); border-bottom: 4px solid transparent;">📝 Cadastrar</button>
                 </div>
+                <h3 id="recoveryTitle" style="font-family: var(--font-heading); font-size: 1.5rem; text-align: center; color: var(--color-purple); margin-bottom: 20px; display: none;">🔑 Recuperar Senha</h3>
                 
                 <!-- Formulário de Login -->
                 <form id="loginForm" onsubmit="handleLoginSubmit(event)">
                     <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
                         <label style="font-weight: 700; color: var(--color-dark);">E-mail</label>
-                        <input type="email" id="loginEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                        <input type="email" id="loginEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
                     </div>
                     <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
                         <label style="font-weight: 700; color: var(--color-dark);">Senha</label>
-                        <input type="password" id="loginPassword" placeholder="Sua senha..." required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                        <div style="position: relative; width: 100%;">
+                            <input type="password" id="loginPassword" placeholder="Sua senha..." required style="padding: 10px; padding-right: 40px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
+                            <span onclick="togglePasswordVisibility('loginPassword', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--color-dark-light); font-size: 1.1rem; z-index: 10;"><i class="fa-solid fa-eye"></i></span>
+                        </div>
+                        <div style="text-align: right; margin-top: 4px;">
+                            <a href="#" onclick="showForgotPasswordForm(); return false;" style="font-size: 0.85rem; color: var(--color-purple); text-decoration: none; font-weight: 600;">Esqueceu sua senha?</a>
+                        </div>
                     </div>
                     <button class="btn btn-secondary" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Entrar na Minha Conta 🚪</button>
                 </form>
@@ -1539,17 +1606,33 @@
                 <form id="registerForm" onsubmit="handleRegisterSubmit(event)" style="display: none;">
                     <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
                         <label style="font-weight: 700; color: var(--color-dark);">Nome do Responsável (ou Escritor)</label>
-                        <input type="text" id="regName" placeholder="Ex: Joãozinho, Maria..." required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                        <input type="text" id="regName" placeholder="Ex: Joãozinho, Maria..." required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
                     </div>
                     <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
                         <label style="font-weight: 700; color: var(--color-dark);">E-mail</label>
-                        <input type="email" id="regEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                        <input type="email" id="regEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
                     </div>
                     <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
                         <label style="font-weight: 700; color: var(--color-dark);">Senha</label>
-                        <input type="password" id="regPassword" placeholder="Crie uma senha..." required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body);">
+                        <div style="position: relative; width: 100%;">
+                            <input type="password" id="regPassword" placeholder="Crie uma senha..." required style="padding: 10px; padding-right: 40px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
+                            <span onclick="togglePasswordVisibility('regPassword', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--color-dark-light); font-size: 1.1rem; z-index: 10;"><i class="fa-solid fa-eye"></i></span>
+                        </div>
                     </div>
                     <button class="btn btn-secondary" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Criar Minha Conta Grátis 🎁</button>
+                </form>
+
+                <!-- Formulário de Recuperação de Senha -->
+                <form id="forgotPasswordForm" onsubmit="handleForgotPasswordSubmit(event)" style="display: none;">
+                    <p style="font-size: 0.95rem; color: var(--color-dark-light); margin-bottom: 15px; text-align: left; line-height: 1.4;">Digite seu e-mail de cadastro e enviaremos um link para você redefinir sua senha.</p>
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">E-mail</label>
+                        <input type="email" id="forgotEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
+                    </div>
+                    <button class="btn btn-secondary" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Recuperar Minha Senha 🔑</button>
+                    <div style="text-align: center; margin-top: 15px;">
+                        <a href="#" onclick="showLoginFormFromForgot(); return false;" style="font-size: 0.9rem; color: var(--color-purple); text-decoration: none; font-weight: 600;">Voltar para o Login</a>
+                    </div>
                 </form>
                 
                 <!-- Separador e Botão Google -->

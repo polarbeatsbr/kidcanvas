@@ -1599,6 +1599,76 @@ app.post('/api/auth/login', async (req, res) => {
     }
 });
 
+// Endpoint de Esqueci Minha Senha
+app.post('/api/auth/forgot-password', async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            return res.status(400).json({ success: false, message: 'E-mail é obrigatório.' });
+        }
+        
+        const cleanEmail = email.trim().toLowerCase();
+        const users = await loadUsers();
+        
+        const user = users.find(u => u.email === cleanEmail);
+        if (!user) {
+            return res.status(400).json({ success: false, message: 'E-mail não cadastrado.' });
+        }
+        
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hora
+        
+        await saveUsers(users);
+        
+        // Em desenvolvimento/ambiente local, retornamos o link no corpo para facilitar testes
+        const mockLink = `${req.protocol}://${req.get('host')}/reset-password?token=${resetToken}`;
+        console.log(`[Recuperação de Senha] Link gerado para ${cleanEmail}: ${mockLink}`);
+        
+        return res.json({
+            success: true,
+            message: 'Um link de recuperação foi gerado.',
+            mockLink: mockLink
+        });
+    } catch(err) {
+        console.error('Erro ao solicitar recuperação de senha:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno no servidor ao processar solicitação.' });
+    }
+});
+
+// Endpoint de Redefinição de Senha
+app.post('/api/auth/reset-password', async (req, res) => {
+    try {
+        const { token, newPassword } = req.body;
+        if (!token || !newPassword) {
+            return res.status(400).json({ success: false, message: 'Token e nova senha são obrigatórios.' });
+        }
+        
+        const users = await loadUsers();
+        
+        const user = users.find(u => u.resetPasswordToken === token && u.resetPasswordExpires > Date.now());
+        if (!user) {
+            return res.status(400).json({ success: false, message: 'Token inválido ou expirado.' });
+        }
+        
+        // Atualizar senha
+        user.passwordHash = hashPassword(newPassword);
+        // Limpar token
+        delete user.resetPasswordToken;
+        delete user.resetPasswordExpires;
+        
+        await saveUsers(users);
+        
+        return res.json({
+            success: true,
+            message: 'Senha atualizada com sucesso! Agora você já pode fazer login.'
+        });
+    } catch(err) {
+        console.error('Erro ao redefinir senha:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno no servidor ao redefinir a senha.' });
+    }
+});
+
 // Endpoint para pegar perfil logado
 app.get('/api/auth/me', async (req, res) => {
     try {
@@ -1712,7 +1782,7 @@ app.get('/api/proxy-image', async (req, res) => {
 app.post('/api/user/save-painting', async (req, res) => {
     try {
         const token = req.headers['x-session-token'];
-        const { imageBase64, prompt } = req.body;
+        const { imageBase64, prompt, isPublic } = req.body;
         
         if (!token) {
             return res.status(401).json({ success: false, message: 'Não autorizado.' });
@@ -1739,15 +1809,34 @@ app.post('/api/user/save-painting', async (req, res) => {
         
         // Salvar metadados no perfil do usuário
         if (!user.myPaintings) user.myPaintings = [];
-        user.myPaintings.push({
+        const paintingItem = {
             url: r2Url,
             prompt: prompt,
-            date: Date.now()
-        });
+            date: Date.now(),
+            isPublic: !!isPublic
+        };
+        user.myPaintings.push(paintingItem);
         
         await saveUsers(users);
-        console.log(`[Save Painting] Pintura para "${prompt}" salva para "${user.email}". URL: ${r2Url}`);
+        console.log(`[Save Painting] Pintura para "${prompt}" salva para "${user.email}". URL: ${r2Url} (Public: ${isPublic})`);
         
+        // Se for público, salvar na lista do Hall da Fama
+        if (isPublic) {
+            const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
+            const publicPaintings = await loadPublicPaintings();
+            publicPaintings.push({
+                url: r2Url,
+                prompt: prompt,
+                date: Date.now(),
+                userEmail: user.email,
+                userName: user.email.split('@')[0]
+            });
+            if (publicPaintings.length > 200) {
+                publicPaintings.shift();
+            }
+            await savePublicPaintings(publicPaintings);
+        }
+
         return res.json({
             success: true,
             imageUrl: r2Url,
@@ -1758,6 +1847,20 @@ app.post('/api/user/save-painting', async (req, res) => {
         return res.status(500).json({ success: false, message: 'Erro ao salvar a pintura no seu perfil.' });
     }
 });
+
+// Endpoint para listar pinturas públicas (Hall da Fama)
+app.get('/api/paintings/public', async (req, res) => {
+    try {
+        const { loadPublicPaintings } = require('./r2db');
+        const publicPaintings = await loadPublicPaintings();
+        const sorted = [...publicPaintings].reverse();
+        return res.json({ success: true, paintings: sorted });
+    } catch(err) {
+        console.error('Erro ao carregar pinturas públicas:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao carregar o Hall da Fama.' });
+    }
+});
+
 
 // Endpoint para gerar desenho para colorir personalizado (consome 1 ou 2 créditos)
 app.post('/api/generate-custom-drawing', async (req, res) => {

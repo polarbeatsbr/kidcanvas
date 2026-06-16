@@ -1456,20 +1456,27 @@
         
         <!-- Tabbed Auth container (Visible only if not logged in) -->
         <div id="authSection" style="margin-bottom: 20px;">
-            <div style="display: flex; border-bottom: var(--border-thin); margin-bottom: 20px;">
+            <div id="authTabsContainer" style="display: flex; border-bottom: var(--border-thin); margin-bottom: 20px;">
                 <button id="tabLogin" onclick="switchAuthTab('login')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-purple); border-bottom: 4px solid var(--color-purple);">🔑 Entrar</button>
                 <button id="tabRegister" onclick="switchAuthTab('register')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-dark-light); border-bottom: 4px solid transparent;">📝 Cadastrar</button>
             </div>
+            <h3 id="recoveryTitle" style="font-family: var(--font-heading); font-size: 1.5rem; text-align: center; color: var(--color-purple); margin-bottom: 20px; display: none;">🔑 Recuperar Senha</h3>
             
             <!-- Login Form -->
             <form id="loginForm" onsubmit="handleLoginSubmit(event)">
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label style="font-size: 1rem; margin-bottom: 5px;">E-mail</label>
-                    <input type="email" id="loginEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem;">
+                    <input type="email" id="loginEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; width: 100%; box-sizing: border-box;">
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label style="font-size: 1rem; margin-bottom: 5px;">Senha</label>
-                    <input type="password" id="loginPassword" placeholder="Sua senha..." required style="padding: 10px; font-size: 1rem;">
+                    <div style="position: relative; width: 100%;">
+                        <input type="password" id="loginPassword" placeholder="Sua senha..." required style="padding: 10px; padding-right: 40px; font-size: 1rem; width: 100%; box-sizing: border-box;">
+                        <span onclick="togglePasswordVisibility('loginPassword', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--color-dark-light); font-size: 1.1rem; z-index: 10;"><i class="fa-solid fa-eye"></i></span>
+                    </div>
+                    <div style="text-align: right; margin-top: 4px;">
+                        <a href="#" onclick="showForgotPasswordForm(); return false;" style="font-size: 0.85rem; color: var(--color-purple); text-decoration: none; font-weight: 600;">Esqueceu sua senha?</a>
+                    </div>
                 </div>
                 <button class="btn-generate" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px;">Entrar na Minha Conta 🚪</button>
             </form>
@@ -1478,17 +1485,33 @@
             <form id="registerForm" onsubmit="handleRegisterSubmit(event)" style="display: none;">
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label style="font-size: 1rem; margin-bottom: 5px;">Nome do Escritor (ou Responsável)</label>
-                    <input type="text" id="regNameReal" placeholder="Ex: Joãozinho, Maria..." required style="padding: 10px; font-size: 1rem;">
+                    <input type="text" id="regNameReal" placeholder="Ex: Joãozinho, Maria..." required style="padding: 10px; font-size: 1rem; width: 100%; box-sizing: border-box;">
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label style="font-size: 1rem; margin-bottom: 5px;">E-mail</label>
-                    <input type="email" id="regEmailReal" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem;">
+                    <input type="email" id="regEmailReal" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; width: 100%; box-sizing: border-box;">
                 </div>
                 <div class="form-group" style="margin-bottom: 15px;">
                     <label style="font-size: 1rem; margin-bottom: 5px;">Senha</label>
-                    <input type="password" id="regPasswordReal" placeholder="Crie uma senha..." required style="padding: 10px; font-size: 1rem;">
+                    <div style="position: relative; width: 100%;">
+                        <input type="password" id="regPasswordReal" placeholder="Crie uma senha..." required style="padding: 10px; padding-right: 40px; font-size: 1rem; width: 100%; box-sizing: border-box;">
+                        <span onclick="togglePasswordVisibility('regPasswordReal', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--color-dark-light); font-size: 1.1rem; z-index: 10;"><i class="fa-solid fa-eye"></i></span>
+                    </div>
                 </div>
                 <button class="btn-generate" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px;">Criar Minha Conta Grátis 🎁</button>
+            </form>
+
+            <!-- Forgot Password Form -->
+            <form id="forgotPasswordForm" onsubmit="handleForgotPasswordSubmit(event)" style="display: none;">
+                <p style="font-size: 0.95rem; color: var(--color-dark-light); margin-bottom: 15px; text-align: left; line-height: 1.4;">Digite seu e-mail de cadastro e enviaremos um link para você redefinir sua senha.</p>
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label style="font-size: 1rem; margin-bottom: 5px;">E-mail</label>
+                    <input type="email" id="forgotEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; width: 100%; box-sizing: border-box;">
+                </div>
+                <button class="btn-generate" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px; width: 100%;">Recuperar Minha Senha 🔑</button>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="#" onclick="showLoginFormFromForgot(); return false;" style="font-size: 0.9rem; color: var(--color-purple); text-decoration: none; font-weight: 600;">Voltar para o Login</a>
+                </div>
             </form>
             
             <!-- Separador e Botão Google -->
@@ -2007,6 +2030,13 @@
         const tabRegister = document.getElementById('tabRegister');
         const loginForm = document.getElementById('loginForm');
         const registerForm = document.getElementById('registerForm');
+        const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+        const tabs = document.getElementById('authTabsContainer');
+        const recoveryTitle = document.getElementById('recoveryTitle');
+        
+        if (forgotPasswordForm) forgotPasswordForm.style.display = 'none';
+        if (tabs) tabs.style.display = 'flex';
+        if (recoveryTitle) recoveryTitle.style.display = 'none';
         
         if (tab === 'login') {
             tabLogin.style.color = 'var(--color-purple)';
@@ -2024,6 +2054,97 @@
             registerForm.style.display = 'block';
         }
     }
+
+    // Toggle Password Visibility
+    function togglePasswordVisibility(inputId, element) {
+        const input = document.getElementById(inputId);
+        if (!input) return;
+        const icon = element.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            if (icon) icon.className = 'fa-solid fa-eye-slash';
+        } else {
+            input.type = 'password';
+            if (icon) icon.className = 'fa-solid fa-eye';
+        }
+    }
+
+    // Show Forgot Password Form
+    function showForgotPasswordForm() {
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const forgotForm = document.getElementById('forgotPasswordForm');
+        const tabs = document.getElementById('authTabsContainer');
+        const recoveryTitle = document.getElementById('recoveryTitle');
+        
+        if (loginForm) loginForm.style.display = 'none';
+        if (registerForm) registerForm.style.display = 'none';
+        if (forgotForm) forgotForm.style.display = 'block';
+        if (tabs) tabs.style.display = 'none';
+        if (recoveryTitle) recoveryTitle.style.display = 'block';
+    }
+
+    // Show Login Form From Forgot Password
+    function showLoginFormFromForgot() {
+        const forgotForm = document.getElementById('forgotPasswordForm');
+        const loginForm = document.getElementById('loginForm');
+        const tabs = document.getElementById('authTabsContainer');
+        const recoveryTitle = document.getElementById('recoveryTitle');
+        
+        if (forgotForm) forgotForm.style.display = 'none';
+        if (loginForm) loginForm.style.display = 'block';
+        if (tabs) tabs.style.display = 'flex';
+        if (recoveryTitle) recoveryTitle.style.display = 'none';
+        
+        switchAuthTab('login');
+    }
+
+    // Handle Forgot Password Submit
+    async function handleForgotPasswordSubmit(event) {
+        event.preventDefault();
+        const email = document.getElementById('forgotEmail').value.trim();
+        if (!email) return;
+        
+        try {
+            const res = await fetch('/api/auth/forgot-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+                let successMsg = 'E-mail de recuperação enviado com sucesso!';
+                if (data.mockLink) {
+                    successMsg += `<br><br><strong>Link de teste gerado:</strong><br><a href="${data.mockLink}" style="color: var(--color-purple); font-weight: bold; word-break: break-all;">${data.mockLink}</a>`;
+                    
+                    const forgotForm = document.getElementById('forgotPasswordForm');
+                    if (forgotForm) {
+                        forgotForm.innerHTML = `
+                            <div style="background-color: var(--color-purple-light); border: 2px dashed var(--color-purple); border-radius: var(--radius-sm); padding: 15px; margin-bottom: 20px; text-align: left;">
+                                <p style="font-size: 0.95rem; color: var(--color-dark); margin-bottom: 10px; line-height: 1.4;">✨ <strong>Ambiente de Testes:</strong> Como não temos um servidor SMTP real configurado, clique no link abaixo para redefinir sua senha agora:</p>
+                                <a href="${data.mockLink}" style="color: var(--color-purple); font-weight: bold; word-break: break-all; display: block; font-size: 0.95rem;">${data.mockLink}</a>
+                            </div>
+                            <button class="btn-generate" onclick="location.reload()" style="font-size: 1.1rem; padding: 12px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Recarregar Página 🔄</button>
+                        `;
+                        return;
+                    }
+                }
+                alert(successMsg);
+            } else {
+                alert(`Erro: ${data.message}`);
+            }
+        } catch(err) {
+            console.error('Erro ao solicitar recuperação de senha:', err);
+            alert('Erro ao conectar ao servidor para recuperar senha.');
+        }
+    }
+
+    // Expose functions globally for historia.html
+    window.togglePasswordVisibility = togglePasswordVisibility;
+    window.showForgotPasswordForm = showForgotPasswordForm;
+    window.showLoginFormFromForgot = showLoginFormFromForgot;
+    window.handleForgotPasswordSubmit = handleForgotPasswordSubmit;
+    window.switchAuthTab = switchAuthTab;
 
     // Handle Login
     async function handleLoginSubmit(event) {

@@ -46,6 +46,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/hall-da-fama",
+      "destination": "/index.html"
+    },
+    {
       "source": "/gerar-desenho",
       "destination": "/index.html"
     },
