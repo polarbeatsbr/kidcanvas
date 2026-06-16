@@ -50,6 +50,7 @@ let categoryPaginationState = {
     limit: 24,
     showTrendingFirstN: 0
 };
+let scrollPositions = {};
 
 // --- LISTA DE CATEGORIAS DISPONÍVEIS PARA VISITANTES ---
 const FREE_CATEGORIES = ['animais-selvagens', 'dinossauros', 'fantasia', 'flores-e-natureza', 'veiculos'];
@@ -783,6 +784,12 @@ function navigate(path, pushState = true) {
         cleanPath = cleanPath.slice(0, -1);
     }
     
+    // Salvar posição de scroll antes de navegar
+    const oldPath = window.location.pathname;
+    if (oldPath.startsWith('/categoria/')) {
+        scrollPositions[oldPath] = window.scrollY;
+    }
+    
     // Fechar dropdowns de navegação (perfil e hambúrguer mobile) ao navegar
     const profileDropdownMenu = document.getElementById('profile-dropdown-menu');
     if (profileDropdownMenu) {
@@ -806,8 +813,25 @@ function navigate(path, pushState = true) {
     // Fechar dropdowns de sugestão de busca abertos
     closeAllSuggestions();
     
-    // Scroll para o topo
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Restaurar scroll se estiver voltando para a categoria
+    let restored = false;
+    if (cleanPath.startsWith('/categoria/')) {
+        const catSlug = cleanPath.replace('/categoria/', '');
+        const oldParts = oldPath.split('/').filter(Boolean);
+        const cameFromDrawingInSameCategory = oldParts.length === 2 && oldParts[0] === catSlug && CATEGORIES_DATA[catSlug];
+        
+        if ((cameFromDrawingInSameCategory || !pushState) && scrollPositions[cleanPath] !== undefined) {
+            const savedScroll = scrollPositions[cleanPath];
+            setTimeout(() => {
+                window.scrollTo({ top: savedScroll, behavior: 'instant' });
+            }, 50);
+            restored = true;
+        }
+    }
+    
+    if (!restored) {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+    }
     
     // Roteamento
     if (cleanPath === '/' || cleanPath === '/home' || cleanPath === '') {
