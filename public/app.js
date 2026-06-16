@@ -2050,8 +2050,8 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
     initRatingSystem(categorySlug, drawingSlug);
     
     // Configurar Cadeados e Permissões dos Idiomas
-    const hasEn = currentUser && ['Família', 'Professor', 'Colégio'].includes(currentUser.plan);
-    const hasEs = currentUser && ['Colégio'].includes(currentUser.plan);
+    const hasEn = currentUser && ['Família', 'Professor', 'Colégio', 'Premium', 'Ultra'].includes(currentUser.plan);
+    const hasEs = currentUser && ['Colégio', 'Premium', 'Ultra'].includes(currentUser.plan);
     
     const lockEn = document.getElementById('lock-en');
     const lockEs = document.getElementById('lock-es');
@@ -3275,8 +3275,8 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         const lockEnIcon = document.getElementById('book-lang-lock-en');
         const lockEsIcon = document.getElementById('book-lang-lock-es');
         
-        const hasEn = ['Professor', 'Colégio'].includes(plan);
-        const hasEs = ['Colégio'].includes(plan);
+        const hasEn = ['Professor', 'Colégio', 'Premium', 'Ultra'].includes(plan);
+        const hasEs = ['Colégio', 'Premium', 'Ultra'].includes(plan);
         
         if (lockEnIcon) lockEnIcon.style.display = hasEn ? 'none' : 'inline-block';
         if (lockEsIcon) lockEsIcon.style.display = hasEs ? 'none' : 'inline-block';
@@ -3373,10 +3373,13 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
 
     function updateGenerateButtonText() {
         const checkedRadio = document.querySelector('input[name="pageCount"]:checked');
-        const pageCount = checkedRadio ? checkedRadio.value : '4';
+        const pageCount = checkedRadio ? parseInt(checkedRadio.value, 10) : 4;
+        const checkedQuality = document.querySelector('input[name="imageQuality"]:checked');
+        const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
+        const cost = imageQuality === 'high' ? pageCount * 2 : pageCount;
         const btnGenerate = document.getElementById('btnGenerate');
         if (btnGenerate) {
-            btnGenerate.textContent = `🧙‍♂️ Criar Livro (${pageCount} c.)`;
+            btnGenerate.textContent = `🧙‍♂️ Criar Livro (${cost} c.)`;
         }
     }
     updateGenerateButtonText();
@@ -3412,6 +3415,26 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             }
         });
     });
+
+    // Story image quality toggle styling visual feedback and cost updates
+    const qualityRadioMedium = document.getElementById('labelQualityMedium');
+    const qualityRadioHigh = document.getElementById('labelQualityHigh');
+    const inputQualityRadios = document.querySelectorAll('input[name="imageQuality"]');
+
+    if (inputQualityRadios.length > 0) {
+        inputQualityRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === 'high') {
+                    if (qualityRadioHigh) qualityRadioHigh.classList.add('active');
+                    if (qualityRadioMedium) qualityRadioMedium.classList.remove('active');
+                } else {
+                    if (qualityRadioMedium) qualityRadioMedium.classList.add('active');
+                    if (qualityRadioHigh) qualityRadioHigh.classList.remove('active');
+                }
+                updateGenerateButtonText();
+            });
+        });
+    }
 
     // Custom drawing style toggle styling visual feedback
     const customDrawingRadioColor = document.getElementById('customDrawingLabelColor');
@@ -3511,6 +3534,9 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         const pageCount = parseInt(document.querySelector('input[name="pageCount"]:checked').value, 10);
         const bookLang = document.querySelector('input[name="bookLang"]:checked').value;
         const synopsis = storySynopsis.value.trim();
+        const checkedQuality = document.querySelector('input[name="imageQuality"]:checked');
+        const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
+        const cost = imageQuality === 'high' ? pageCount * 2 : pageCount;
         
         let finalTheme = themeSelect.value;
         if (finalTheme === 'custom') {
@@ -3539,7 +3565,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             switchAuthTab('register');
             return;
         }
-        if (currentUser.paginasRestantes < pageCount) {
+        if (currentUser.paginasRestantes < cost) {
             openCreditsModal('Seus créditos mágicos acabaram! Faça upgrade de plano para adicionar saldo.');
             return;
         }
@@ -3579,7 +3605,8 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
                     styleType: styleType,
                     pageCount: pageCount,
                     synopsis: synopsis,
-                    bookLang: bookLang
+                    bookLang: bookLang,
+                    imageQuality: imageQuality
                 })
             });
             

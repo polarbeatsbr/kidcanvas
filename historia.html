@@ -1906,8 +1906,8 @@
         const lockEnIcon = document.getElementById('book-lang-lock-en');
         const lockEsIcon = document.getElementById('book-lang-lock-es');
         
-        const hasEn = ['Professor', 'Colégio'].includes(plan);
-        const hasEs = ['Colégio'].includes(plan);
+        const hasEn = ['Professor', 'Colégio', 'Premium', 'Ultra'].includes(plan);
+        const hasEs = ['Colégio', 'Premium', 'Ultra'].includes(plan);
         
         if (lockEnIcon) lockEnIcon.style.display = hasEn ? 'none' : 'inline-block';
         if (lockEsIcon) lockEsIcon.style.display = hasEs ? 'none' : 'inline-block';

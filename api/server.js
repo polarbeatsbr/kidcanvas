@@ -714,13 +714,13 @@ app.post('/api/generate-full-story', async (req, res) => {
 
         // Validar permissão de idioma do livro com base no plano do usuário
         const userPlan = user.plan;
-        if (bookLang === 'en' && !['Professor', 'Colégio'].includes(userPlan)) {
+        if (bookLang === 'en' && !['Professor', 'Colégio', 'Premium', 'Ultra'].includes(userPlan)) {
             return res.status(400).json({
                 success: false,
                 message: `O plano ${userPlan} não permite criar livros em inglês. Faça upgrade para o plano Professor ou Colégio!`
             });
         }
-        if (bookLang === 'es' && !['Colégio'].includes(userPlan)) {
+        if (bookLang === 'es' && !['Colégio', 'Premium', 'Ultra'].includes(userPlan)) {
             return res.status(400).json({
                 success: false,
                 message: `O plano ${userPlan} não permite criar livros em espanhol. Faça upgrade para o plano Colégio!`
