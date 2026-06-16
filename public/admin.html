@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <style>
         :root {
             --bg-main: #070a13;
@@ -711,6 +713,14 @@
                 </div>
                 <button type="submit" class="btn-submit">Acessar Painel</button>
             </form>
+            <div style="margin: 20px 0 10px 0; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                <hr style="flex-grow:1; border:none; border-top:1px solid rgba(255,255,255,0.15);">
+                <span style="font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; font-weight:600;">ou</span>
+                <hr style="flex-grow:1; border:none; border-top:1px solid rgba(255,255,255,0.15);">
+            </div>
+            <div style="display:flex; justify-content:center; width:100%; margin-top:10px;">
+                <div id="google-signin-btn-admin"></div>
+            </div>
             <div id="login-error" class="login-error">Credenciais incorretas ou acesso não autorizado.</div>
         </div>
     </div>
@@ -1612,6 +1622,76 @@
                 alert('Falha de conexão com o servidor.');
             }
         });
+
+        // --- GOOGLE SIGN IN FOR ADMIN ---
+        async function initGoogleSignIn() {
+            try {
+                const configRes = await fetch('/api/config');
+                const config = await configRes.json();
+                
+                if (window.google && window.google.accounts && window.google.accounts.id) {
+                    google.accounts.id.initialize({
+                        client_id: config.googleClientId,
+                        callback: handleGoogleCredentialResponse
+                    });
+                    
+                    const adminGoogleBtn = document.getElementById('google-signin-btn-admin');
+                    if (adminGoogleBtn) {
+                        google.accounts.id.renderButton(adminGoogleBtn, {
+                            theme: "outline",
+                            size: "large",
+                            shape: "pill",
+                            text: "signin_with",
+                            width: 340
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error("[Google Auth Admin] Error initializing Google Sign-In:", err);
+            }
+        }
+
+        async function handleGoogleCredentialResponse(response) {
+            const errorEl = document.getElementById('login-error');
+            errorEl.style.display = 'none';
+            try {
+                const res = await fetch('/api/auth/google', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ credential: response.credential })
+                });
+                const data = await res.json();
+                
+                const adminEmails = ['foneoliver@gmail.com'];
+                
+                if (res.ok && data.success && adminEmails.includes(data.user.email.toLowerCase())) {
+                    adminToken = data.token;
+                    localStorage.setItem('kidcanvas_admin_token', adminToken);
+                    localStorage.setItem('kidcanvas_session_token', adminToken); // sync with main site!
+                    hideLoginGate();
+                    document.getElementById('admin-name').textContent = data.user.name;
+                    document.getElementById('admin-email').textContent = data.user.email;
+                    document.getElementById('admin-avatar-char').textContent = data.user.name.charAt(0).toUpperCase();
+                    loadDashboardData();
+                } else {
+                    errorEl.textContent = 'Acesso negado: Este e-mail do Google não possui privilégios de Administrador.';
+                    errorEl.style.display = 'block';
+                }
+            } catch (err) {
+                console.error('Erro no Google Sign-In Admin:', err);
+                errorEl.textContent = 'Erro de servidor ao processar Google Sign-In.';
+                errorEl.style.display = 'block';
+            }
+        }
+
+        function checkGsiLoaded() {
+            if (window.google && window.google.accounts && window.google.accounts.id) {
+                initGoogleSignIn();
+            } else {
+                setTimeout(checkGsiLoaded, 100);
+            }
+        }
+        checkGsiLoaded();
     </script>
 </body>
 </html>
