@@ -5527,15 +5527,15 @@ function renderPintarOnlineView() {
     setPaintTool('bucket');
 
     // Resetar checkbox público e botão de salvar
-    const chkPublic = document.getElementById('paint-chk-public');
-    const btnSave = document.getElementById('paint-btn-save');
-    if (chkPublic) {
-        chkPublic.checked = false;
-        if (btnSave) {
-            btnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
-            btnSave.style.backgroundColor = 'var(--color-green)';
-            btnSave.style.borderColor = 'var(--color-green)';
-            btnSave.classList.remove('pulse-button');
+    const resetChkPublic = document.getElementById('paint-chk-public');
+    const resetBtnSave = document.getElementById('paint-btn-save');
+    if (resetChkPublic) {
+        resetChkPublic.checked = false;
+        if (resetBtnSave) {
+            resetBtnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
+            resetBtnSave.style.backgroundColor = 'var(--color-green)';
+            resetBtnSave.style.borderColor = 'var(--color-green)';
+            resetBtnSave.classList.remove('pulse-button');
         }
     }
 
