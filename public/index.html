@@ -1496,12 +1496,10 @@
                             <button class="paint-tool-btn paint-stamp-btn" data-stamp="⭐" title="Estrela" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">⭐</button>
                             <button class="paint-tool-btn paint-stamp-btn" data-stamp="❤️" title="Coração" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">❤️</button>
                             <button class="paint-tool-btn paint-stamp-btn" data-stamp="🌈" title="Arco-íris" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">🌈</button>
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🎉" title="Confete" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">🎉</button>
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="✨" title="Brilho" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">✨</button>
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="😎" title="Óculos" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">😎</button>
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="👑" title="Coroa" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">👑</button>
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🦋" title="Borboleta" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">🦋</button>
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🐶" title="Cachorrinho" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0; grid-column: span 2;">🐶</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🐶" title="Cachorrinho" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">🐶</button>
+                            <button class="paint-tool-btn" onclick="openStickerConsoleModal()" title="Todos os Adesivos" style="width: 100%; height: 36px; font-size: 0.75rem; border-radius: 8px; padding: 0; grid-column: span 2; font-weight: bold; background-color: var(--color-purple); border: 2px solid var(--color-dark); color: white; display: flex; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 2px 0 var(--color-dark); cursor: pointer; transition: all 0.2s ease;">
+                                <i class="fa-solid fa-gift"></i> + Adesivos
+                            </button>
                         </div>
                         
                         <hr style="width: 100%; border: none; border-top: 1px dashed #ccc; margin: 4px 0;">
@@ -1826,7 +1824,122 @@
         </div>
     </div>
 
+    <!-- Modal de Diálogo Customizado (Alert / Confirm) -->
+    <div id="custom-dialog-modal" class="modal-overlay" style="z-index: 10005;">
+        <div class="modal-box" style="max-width: 450px; text-align: center; padding: 30px 20px; border: var(--border-medium); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon);">
+            <span id="custom-dialog-icon" style="font-size: 3.5rem; display: block; margin-bottom: 15px; animation: bounce-slow 2s infinite;">🎨</span>
+            <h3 id="custom-dialog-title" style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--color-dark); margin-top: 0; margin-bottom: 12px;">Título</h3>
+            <p id="custom-dialog-message" style="font-size: 1.05rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 25px; font-family: var(--font-body); padding: 0 10px;">Mensagem explicativa aqui.</p>
+            
+            <div style="display: flex; gap: 12px; justify-content: center; width: 100%; max-width: 320px; margin: 0 auto;">
+                <button class="btn btn-secondary" id="custom-dialog-btn-cancel" style="flex: 1; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); font-weight: bold; background-color: #f5f5f5; border: 2px solid var(--color-dark); color: var(--color-dark); cursor: pointer;">Cancelar ❌</button>
+                <button class="btn btn-primary" id="custom-dialog-btn-confirm" style="flex: 1; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">Confirmar ✅</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal do Console de Adesivos -->
+    <div id="sticker-console-modal" class="modal-overlay" style="z-index: 10002;">
+        <div class="modal-box" style="max-width: 680px; width: 90%; background-color: #fffdf6; border: var(--border-medium); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon); padding: 25px;">
+            <button class="btn-close-modal" onclick="closeStickerConsoleModal()" style="font-size: 2rem;">&times;</button>
+            
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-purple); margin-top: 0; margin-bottom: 5px; display: flex; align-items: center; gap: 8px;">
+                Console de Adesivos 🎁
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--color-dark-light); margin-top: 0; margin-bottom: 20px;">Escolha figuras incríveis para colar no seu desenho! Ganhe estrelas para liberar selos secretos 🏆</p>
+            
+            <!-- Abas de Categoria -->
+            <div class="sticker-tabs-container" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; border-bottom: 2px dashed #e2e2e2; margin-bottom: 15px;">
+                <button class="sticker-tab-btn active" onclick="switchStickerTab('top')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">⭐️ Favoritos</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('acessorios')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">😎 Acessórios</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('emocoes')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">😊 Emoções</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('magicos')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">✨ Mágicos</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('animais')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🐶 Animais</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('festa')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🎉 Festa</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('aventura')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🚀 Aventura</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('desbloqueaveis')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap; display: flex; align-items: center; gap: 4px;">🏆 Selos (<span id="unlocked-badge-count">1/5</span>)</button>
+            </div>
+            
+            <!-- Container de Exibição dos Stickers -->
+            <div id="sticker-grid-content" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 10px; max-height: 300px; overflow-y: auto; padding: 5px;">
+                <!-- Injetado dinamicamente via JS -->
+            </div>
+        </div>
+    </div>
+
     <style>
+        .sticker-tab-btn {
+            transition: all 0.2s ease;
+            outline: none;
+        }
+        .sticker-tab-btn.active {
+            background-color: var(--color-purple) !important;
+            color: white !important;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 0 var(--color-dark) !important;
+        }
+        .sticker-grid-item {
+            width: 100%;
+            aspect-ratio: 1;
+            font-size: 2rem;
+            border-radius: 12px;
+            border: 2px solid var(--color-dark);
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 0 var(--color-dark);
+        }
+        .sticker-grid-item:hover {
+            transform: scale(1.08) translateY(-2px);
+            background-color: #fdf5e6;
+        }
+        .sticker-grid-item:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+        .sticker-badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid var(--color-dark);
+            background: white;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 0 var(--color-dark);
+        }
+        .sticker-badge-item.locked {
+            background-color: #eceff1;
+            border-color: #90a4ae;
+            cursor: not-allowed;
+            box-shadow: none;
+            opacity: 0.7;
+        }
+        .sticker-badge-item.locked:hover {
+            transform: none;
+            background-color: #eceff1;
+        }
+        .sticker-badge-icon {
+            font-size: 2.2rem;
+        }
+        .sticker-badge-name {
+            font-size: 0.85rem;
+            color: var(--color-dark);
+            font-family: var(--font-heading);
+        }
+        .sticker-badge-requirement {
+            font-size: 0.7rem;
+            color: #78909c;
+            font-style: italic;
+        }
         @keyframes rotate-slow {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }

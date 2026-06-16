@@ -5733,41 +5733,46 @@ function renderPintarOnlineView() {
     const btnClear = document.getElementById('paint-btn-clear');
     if (btnClear) {
         btnClear.onclick = () => {
-            if (confirm('Tem certeza que quer limpar a sua pintura e começar de novo? 🎨')) {
-                paintBgCtx.clearRect(0, 0, 800, 600);
-                paintFgCtx.clearRect(0, 0, 800, 600);
-                
-                if (window.currentPaintingData && window.currentPaintingData.imgUrl === 'blank') {
-                    paintBgCtx.fillStyle = '#ffffff';
-                    paintBgCtx.fillRect(0, 0, 800, 600);
-                } else if (paintDrawingImage) {
-                    const aspect = paintDrawingImage.width / paintDrawingImage.height;
-                    let w = paintCanvas.width;
-                    let h = paintCanvas.height;
-                    let x = 0;
-                    let y = 0;
+            showCustomConfirm(
+                'Limpar Pintura? 🎨',
+                'Tem certeza que quer limpar a sua pintura e começar de novo? 🎨',
+                () => {
+                    paintBgCtx.clearRect(0, 0, 800, 600);
+                    paintFgCtx.clearRect(0, 0, 800, 600);
+                    
+                    if (window.currentPaintingData && window.currentPaintingData.imgUrl === 'blank') {
+                        paintBgCtx.fillStyle = '#ffffff';
+                        paintBgCtx.fillRect(0, 0, 800, 600);
+                    } else if (paintDrawingImage) {
+                        const aspect = paintDrawingImage.width / paintDrawingImage.height;
+                        let w = paintCanvas.width;
+                        let h = paintCanvas.height;
+                        let x = 0;
+                        let y = 0;
 
-                    if (aspect > 4/3) {
-                        h = paintCanvas.width / aspect;
-                        y = (paintCanvas.height - h) / 2;
+                        if (aspect > 4/3) {
+                            h = paintCanvas.width / aspect;
+                            y = (paintCanvas.height - h) / 2;
+                        } else {
+                            w = paintCanvas.height * aspect;
+                            x = (paintCanvas.width - w) / 2;
+                        }
+
+                        paintBgCtx.fillStyle = '#ffffff';
+                        paintBgCtx.fillRect(0, 0, 800, 600);
+                        paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+                        
+                        cleanPaintCanvasOutlineDirect(paintBgCtx);
                     } else {
-                        w = paintCanvas.height * aspect;
-                        x = (paintCanvas.width - w) / 2;
+                        paintBgCtx.fillStyle = '#ffffff';
+                        paintBgCtx.fillRect(0, 0, 800, 600);
                     }
 
-                    paintBgCtx.fillStyle = '#ffffff';
-                    paintBgCtx.fillRect(0, 0, 800, 600);
-                    paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
-                    cleanPaintCanvasOutlineDirect(paintBgCtx);
-                } else {
-                    paintBgCtx.fillStyle = '#ffffff';
-                    paintBgCtx.fillRect(0, 0, 800, 600);
+                    composePaintCanvas();
+                    savePaintHistory();
+                    showToast('Tela limpa com sucesso! 🖍️', 'success');
                 }
-
-                composePaintCanvas();
-                savePaintHistory();
-                showToast('Tela limpa com sucesso! 🖍️', 'success');
-            }
+            );
         };
     }
 }
@@ -6687,77 +6692,93 @@ async function renderHallDaFamaView() {
 window.renderHallDaFamaView = renderHallDaFamaView;
 
 async function approvePublicPainting(url) {
-    if (!confirm('Deseja aprovar esta pintura para exibição pública? 🎨')) return;
-    try {
-        const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
-        const response = await fetch('/api/paintings/approve', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-session-token': sessionToken
-            },
-            body: JSON.stringify({ url })
-        });
-        const res = await response.json();
-        if (res.success) {
-            showToast('Pintura aprovada com sucesso! 🎉', 'success');
-            renderHallDaFamaView();
-        } else {
-            showToast(res.message || 'Erro ao aprovar.', 'error');
+    showCustomConfirm(
+        'Aprovar Pintura? ✅',
+        'Deseja aprovar esta pintura para exibição pública no Hall da Fama?',
+        async () => {
+            try {
+                const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
+                const response = await fetch('/api/paintings/approve', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-session-token': sessionToken
+                    },
+                    body: JSON.stringify({ url })
+                });
+                const res = await response.json();
+                if (res.success) {
+                    showToast('Pintura aprovada com sucesso! 🎉', 'success');
+                    renderHallDaFamaView();
+                } else {
+                    showToast(res.message || 'Erro ao aprovar.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Erro ao aprovar pintura.', 'error');
+            }
         }
-    } catch (err) {
-        console.error(err);
-        showToast('Erro ao aprovar pintura.', 'error');
-    }
+    );
 }
 window.approvePublicPainting = approvePublicPainting;
 
 async function deletePublicPainting(url) {
-    if (!confirm('Deseja realmente excluir esta pintura permanentemente? 🚨')) return;
-    try {
-        const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
-        const response = await fetch('/api/paintings/delete', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-session-token': sessionToken
-            },
-            body: JSON.stringify({ url })
-        });
-        const res = await response.json();
-        if (res.success) {
-            showToast('Pintura excluída com sucesso! 🗑️', 'success');
-            renderHallDaFamaView();
-        } else {
-            showToast(res.message || 'Erro ao excluir.', 'error');
+    showCustomConfirm(
+        'Excluir Pintura? 🚨',
+        'Deseja realmente excluir esta pintura permanentemente?',
+        async () => {
+            try {
+                const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
+                const response = await fetch('/api/paintings/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-session-token': sessionToken
+                    },
+                    body: JSON.stringify({ url })
+                });
+                const res = await response.json();
+                if (res.success) {
+                    showToast('Pintura excluída com sucesso! 🗑️', 'success');
+                    renderHallDaFamaView();
+                } else {
+                    showToast(res.message || 'Erro ao excluir.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Erro ao excluir pintura.', 'error');
+            }
         }
-    } catch (err) {
-        console.error(err);
-        showToast('Erro ao excluir pintura.', 'error');
-    }
+    );
 }
 window.deletePublicPainting = deletePublicPainting;
 
 async function reportPublicPainting(e, url) {
     if (e) e.preventDefault();
-    if (!confirm('Deseja mesmo denunciar esta imagem? Ela será revisada pela nossa equipe e ocultada se violar as regras. 🚩')) return;
-    try {
-        const response = await fetch('/api/paintings/report', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ url })
-        });
-        const res = await response.json();
-        if (res.success) {
-            showToast('Obrigado pela denúncia! A imagem será revisada. 🚩', 'success');
-            renderHallDaFamaView();
-        } else {
-            showToast(res.message || 'Erro ao denunciar.', 'error');
+    showCustomConfirm(
+        'Denunciar Imagem? 🚩',
+        'Deseja mesmo denunciar esta imagem? Ela será revisada pela nossa equipe e ocultada se violar as regras.',
+        async () => {
+            try {
+                const response = await fetch('/api/paintings/report', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url })
+                });
+                const res = await response.json();
+                if (res.success) {
+                    showToast('Obrigado pela denúncia! A imagem será revisada. 🚩', 'success');
+                    renderHallDaFamaView();
+                } else {
+                    showToast(res.message || 'Erro ao denunciar.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Erro ao denunciar imagem.', 'error');
+            }
         }
-    } catch (err) {
-        console.error(err);
-        showToast('Erro ao denunciar imagem.', 'error');
-    }
+    );
+}
 }
 window.reportPublicPainting = reportPublicPainting;
 
@@ -6981,4 +7002,223 @@ function startFreeHandDrawing(e) {
 window.renderPintarOnlineView = renderPintarOnlineView;
 window.closeCertificateModal = closeCertificateModal;
 window.startFreeHandDrawing = startFreeHandDrawing;
+
+// ==============================================
+// STICKER CONSOLE & CUSTOM DIALOG SYSTEM
+// ==============================================
+
+const stickerCategories = {
+    top: ['😎', '🧢', '👑', '🎭', '🌈', '⭐', '❤️', '🎈', '🦋', '🐶', '🐱', '☀️', '🌙', '🚀', '🏆'],
+    acessorios: ['😎', '❤️', '🧢', '👑', '🎀', '🤠', '🏴‍☠️', '🎩', '👔', '💡', '👓', '🕶️', '👑', '👒', '🎒'],
+    emocoes: ['😀', '😍', '🤪', '🧔', '🥸', '👅', '😊', '🤩', '🧐', '😂', '🥳', '🦁', '🐼', '🦊'],
+    magicos: ['🪄', '⭐', '✨', '🌈', '☁️', '🌙', '☀️', '🧚', '🧪', '🔮', '🦄', '🧞', '🧜', '🪐', '☄️'],
+    animais: ['🐶', '🐱', '🐰', '🦋', '🐞', '🐝', '🦕', '🦄', '🐉', '🐟', '🦁', '🐯', '🐸', '🐵', '🐔'],
+    festa: ['🎈', '🎁', '🎂', '🎉', '🎊', '🎆', '🏆', '🏅', '🍭', '🍬', '🍕', '🍩', '🍦', '🥤', '🍿'],
+    aventura: ['🚀', '🛸', '🏴‍☠️', '🗺️', '⚔️', '🛡️', '🔭', '🎒', '⛺', '🧭', '🏎️', '✈️', '⛵', '🦖', '🌋']
+};
+
+const unlockableBadges = [
+    { name: 'Artista Iniciante', emoji: '🎨', stars: 0 },
+    { name: 'Artista Criativo', emoji: '🌟', stars: 10 },
+    { name: 'Super Colorista', emoji: '✨', stars: 30 },
+    { name: 'Mestre das Cores', emoji: '🔥', stars: 50 },
+    { name: 'Lenda do KidCanvas', emoji: '👑', stars: 100 }
+];
+
+let activeStickerTab = 'top';
+
+function getUserTotalStars() {
+    if (!currentUser) return 0;
+    const paintings = currentUser.myPaintings || [];
+    return paintings.reduce((sum, p) => sum + (p.stars || p.likes || 0), 0);
+}
+
+function openStickerConsoleModal() {
+    const modal = document.getElementById('sticker-console-modal');
+    if (!modal) return;
+    
+    // Calcular estrelas e desbloqueados
+    const stars = getUserTotalStars();
+    let unlockedCount = 0;
+    unlockableBadges.forEach(b => {
+        if (stars >= b.stars) unlockedCount++;
+    });
+    
+    const badgeCountSpan = document.getElementById('unlocked-badge-count');
+    if (badgeCountSpan) {
+        badgeCountSpan.textContent = `${unlockedCount}/5`;
+    }
+    
+    modal.classList.add('open');
+    switchStickerTab(activeStickerTab);
+}
+window.openStickerConsoleModal = openStickerConsoleModal;
+
+function closeStickerConsoleModal() {
+    const modal = document.getElementById('sticker-console-modal');
+    if (modal) {
+        modal.classList.remove('open');
+    }
+}
+window.closeStickerConsoleModal = closeStickerConsoleModal;
+
+function switchStickerTab(tab) {
+    activeStickerTab = tab;
+    
+    // Atualizar botões de aba
+    const container = document.querySelector('.sticker-tabs-container');
+    if (container) {
+        container.querySelectorAll('.sticker-tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        const btns = container.querySelectorAll('.sticker-tab-btn');
+        const tabNames = ['top', 'acessorios', 'emocoes', 'magicos', 'animais', 'festa', 'aventura', 'desbloqueaveis'];
+        const idx = tabNames.indexOf(tab);
+        if (idx !== -1 && btns[idx]) {
+            btns[idx].classList.add('active');
+        }
+    }
+    
+    // Renderizar conteúdo
+    const grid = document.getElementById('sticker-grid-content');
+    if (!grid) return;
+    grid.innerHTML = '';
+    
+    if (tab === 'desbloqueaveis') {
+        const stars = getUserTotalStars();
+        unlockableBadges.forEach(badge => {
+            const isUnlocked = stars >= badge.stars;
+            const item = document.createElement('div');
+            item.className = 'sticker-badge-item' + (isUnlocked ? '' : ' locked');
+            
+            if (isUnlocked) {
+                item.innerHTML = `
+                    <span class="sticker-badge-icon">${badge.emoji}</span>
+                    <span class="sticker-badge-name">${badge.name}</span>
+                    <span class="sticker-badge-requirement" style="color: #2e7d32; font-size: 0.75rem;">Desbloqueado! 🔓</span>
+                `;
+                item.onclick = () => {
+                    selectConsoleSticker(`${badge.emoji} ${badge.name}`);
+                };
+            } else {
+                item.innerHTML = `
+                    <span class="sticker-badge-icon" style="filter: grayscale(1); opacity: 0.5;">🔒</span>
+                    <span class="sticker-badge-name" style="color: #90a4ae;">Bloqueado</span>
+                    <span class="sticker-badge-requirement" style="font-size: 0.75rem;">Precisa de ${badge.stars} ⭐</span>
+                `;
+                item.onclick = () => {
+                    showCustomAlert('Adesivo Bloqueado! 🔒', `Esta insígnia especial será liberada quando suas pinturas no Hall da Fama acumularem ${badge.stars} estrelas! Continue colorindo e compartilhando! 🎨`);
+                };
+            }
+            grid.appendChild(item);
+        });
+    } else {
+        const stickers = stickerCategories[tab] || [];
+        stickers.forEach(emoji => {
+            const item = document.createElement('div');
+            item.className = 'sticker-grid-item';
+            item.textContent = emoji;
+            item.onclick = () => {
+                selectConsoleSticker(emoji);
+            };
+            grid.appendChild(item);
+        });
+    }
+}
+window.switchStickerTab = switchStickerTab;
+
+function selectConsoleSticker(emoji) {
+    setPaintTool('stamp');
+    window.selectedPaintStamp = emoji;
+    updatePaintCursor('stamp', emoji);
+    closeStickerConsoleModal();
+    
+    // Remover classe active de todos os botões de carimbo rápidos do sidebar
+    document.querySelectorAll('.paint-stamp-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // Mostrar feedback
+    showToast(`Carimbo ${emoji} selecionado! Toque no desenho para colar. ✨`, 'success');
+}
+
+// Dialog Modals Customizados
+function showCustomAlert(title, message, callback) {
+    const modal = document.getElementById('custom-dialog-modal');
+    if (!modal) {
+        alert(message);
+        if (callback) callback();
+        return;
+    }
+    
+    document.getElementById('custom-dialog-icon').textContent = '🎨';
+    document.getElementById('custom-dialog-title').textContent = title;
+    document.getElementById('custom-dialog-message').textContent = message;
+    
+    const btnCancel = document.getElementById('custom-dialog-btn-cancel');
+    const btnConfirm = document.getElementById('custom-dialog-btn-confirm');
+    
+    if (btnCancel) btnCancel.style.display = 'none';
+    if (btnConfirm) {
+        btnConfirm.textContent = 'Ok ✅';
+        btnConfirm.style.width = '100%';
+        btnConfirm.onclick = () => {
+            modal.classList.remove('open');
+            if (callback) callback();
+        };
+    }
+    
+    modal.classList.add('open');
+}
+window.showCustomAlert = showCustomAlert;
+
+function showCustomConfirm(title, message, onConfirm, onCancel) {
+    const modal = document.getElementById('custom-dialog-modal');
+    if (!modal) {
+        const ok = confirm(message);
+        if (ok) {
+            if (onConfirm) onConfirm();
+        } else {
+            if (onCancel) onCancel();
+        }
+        return;
+    }
+    
+    let icon = '🎨';
+    const msgLower = message.toLowerCase();
+    if (msgLower.includes('limpar') || msgLower.includes('excluir') || msgLower.includes('deletar')) {
+        icon = '🗑️';
+    } else if (msgLower.includes('aprovar')) {
+        icon = '✅';
+    } else if (msgLower.includes('denunciar')) {
+        icon = '⚠️';
+    }
+    
+    document.getElementById('custom-dialog-icon').textContent = icon;
+    document.getElementById('custom-dialog-title').textContent = title;
+    document.getElementById('custom-dialog-message').textContent = message;
+    
+    const btnCancel = document.getElementById('custom-dialog-btn-cancel');
+    const btnConfirm = document.getElementById('custom-dialog-btn-confirm');
+    
+    if (btnCancel) {
+        btnCancel.style.display = 'block';
+        btnCancel.textContent = 'Cancelar ❌';
+        btnCancel.onclick = () => {
+            modal.classList.remove('open');
+            if (onCancel) onCancel();
+        };
+    }
+    
+    if (btnConfirm) {
+        btnConfirm.textContent = 'Confirmar ✅';
+        btnConfirm.style.width = 'auto';
+        btnConfirm.onclick = () => {
+            modal.classList.remove('open');
+            if (onConfirm) onConfirm();
+        };
+    }
+    
+    modal.classList.add('open');
+}
+window.showCustomConfirm = showCustomConfirm;
+
 
