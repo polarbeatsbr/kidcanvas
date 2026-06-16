@@ -10,24 +10,21 @@ const CATEGORIES_DATA = {
     'animais-do-mar': { name: 'Animais do Mar', emoji: '🦈', desc: 'Desenhos de Animais do Mar para colorir e imprimir grátis! Baixe imagens de peixes coloridos, baleias, golfinhos e tubarões divertidos do oceano.' },
     'animais-domesticos': { name: 'Animais Domésticos', emoji: '🐱', desc: 'Desenhos de Animais Domésticos para colorir e imprimir grátis! Baixe fotos de gatinhos, cachorrinhos, coelhos e outros amiguinhos para pintar.' },
     'dinossauros': { name: 'Dinossauros', emoji: '🦖', desc: 'Desenhos de Dinossauros para colorir e imprimir grátis! Divirta-se pintando o T-Rex, Tricerátops, Velociraptores e outros gigantes pré-históricos.' },
-    'contos-de-fada': { name: 'Contos de Fada', emoji: '👑', desc: 'Desenhos de Contos de Fada para colorir e imprimir grátis! Pinte castelos mágicos, princesas lindas, fadas e dragões encantados com as crianças.' },
     'espaco': { name: 'Espaço Sideral', emoji: '🚀', desc: 'Desenhos do Espaço Sideral para colorir e imprimir grátis! Viaje pintando foguetes, astronautas, planetas distantes e alienígenas amigáveis.' },
-    'natureza': { name: 'Natureza e Flores', emoji: '🌻', desc: 'Desenhos de Natureza e Flores para colorir e imprimir grátis! Baixe imagens de flores sorridentes, borboletas lindas, lagos e florestas encantadoras.' },
     'veiculos': { name: 'Veículos e Carros', emoji: '🚗', desc: 'Desenhos de Veículos e Carros para colorir e imprimir grátis! Pinte carros velozes, aviões no céu, trens nos trilhos e caminhões de bombeiro.' },
     'comidas-e-doces': { name: 'Comidas e Doces', emoji: '🍩', desc: 'Desenhos de Comidas e Doces para colorir e imprimir grátis! Baixe desenhos de sorvetes gostosos, bolos de aniversário e frutas felizes para pintar.' },
-    'cotidiano': { name: 'Cotidiano', emoji: '🧸', desc: 'Desenhos do Cotidiano para colorir e imprimir grátis! Pinte brinquedos, parquinhos infantis, atividades divertidas e momentos do dia a dia das crianças.' },
     'fantasia': { name: 'Fantasia', emoji: '🦄', desc: 'Desenhos de Fantasia para colorir e imprimir grátis! Entre no mundo da imaginação com unicórnios mágicos, sereias cantoras e monstros fofos.' },
     'profissoes': { name: 'Profissões', emoji: '👩‍🚒', desc: 'Desenhos de Profissões para colorir e imprimir grátis! Inspire-se colorindo bombeiros corajosos, médicos atenciosos, professores e muito mais.' },
     'unicornios': { name: 'Unicórnios', emoji: '🦄', desc: 'Desenhos de Unicórnios para colorir e imprimir grátis! Lindas imagens de unicórnios mágicos com asas brilhantes, nuvens fofas e arco-íris encantados.' },
-    'festa-junina': { name: 'Festa Junina', emoji: '🤠', desc: 'Desenhos de Festa Junina para colorir e imprimir grátis! Celebre pintando fogueiras, pipoca, bandeirinhas coloridas e toda a alegria das festas caipiras.' },
-    'datas-comemorativas': { name: 'Datas Comemorativas', emoji: '🎄', desc: 'Desenhos de Datas Comemorativas para colorir e imprimir grátis! Encontre ilustrações especiais para o Natal, Páscoa, Dia das Crianças e datas festivas.' },
     'alfabeto-e-numeros': { name: 'Alfabeto e Números', emoji: '🔤', desc: 'Desenhos do Alfabeto e Números para colorir e imprimir grátis! Letras de A a Z e números de 0 a 9 grandes e vazados para pintar, brincar e aprender.' },
-    'futebol': { name: 'Futebol', emoji: '⚽', desc: 'Desenhos de Futebol para colorir e imprimir grátis! Baixe imagens de bolas de futebol, traves, jogadores animados e viva a emoção do esporte.' },
     'princesas': { name: 'Princesas', emoji: '👸', desc: 'Desenhos de Princesas para colorir e imprimir grátis! Imagens de princesas fofas com vestidos bonitos e tiaras brilhantes em reinos mágicos.' },
     'super-herois': { name: 'Super-Heróis', emoji: '🦸', desc: 'Desenhos de Super-Heróis para colorir e imprimir grátis! Baixe ilustrações de super-heróis e super-heroínas corajosos em aventuras incríveis.' },
-    'frutas-e-legumes': { name: 'Frutas e Legumes', emoji: '🍎', desc: 'Desenhos de Frutas e Legumes para colorir e imprimir grátis! Desenhos de frutinhas felizes, vegetais saudáveis e comidinhas divertidas para pintar.' },
-    'flores': { name: 'Flores', emoji: '🌸', desc: 'Desenhos de Flores para colorir e imprimir grátis! Baixe imagens de flores lindas, jardins floridos, girassóis e rosas encantadoras para pintar.' },
-    'paper-doll': { name: 'Bonecas de Papel', emoji: '✂️', desc: 'Desenhos de Bonecas de Papel para colorir e imprimir grátis! Pinte e recorte bonecas de papel fofas com roupas estilosas e acessórios divertidos.' }
+    'flores-e-natureza': { name: 'Flores e Natureza', emoji: '🌸', desc: 'Desenhos de Flores e Natureza para colorir e imprimir grátis! Pinte flores lindas, jardins coloridos, árvores, florestas e borboletas encantadoras.' },
+    'halloween': { name: 'Halloween', emoji: '🎃', desc: 'Desenhos de Halloween para colorir e imprimir grátis! Divirta-se pintando abóboras assustadoras, bruxinhas fofas, fantasmas e morcegos divertidos.' },
+    'natal': { name: 'Natal', emoji: '🎄', desc: 'Desenhos de Natal para colorir e imprimir grátis! Baixe imagens de Papai Noel, árvores de Natal decoradas, bonecos de neve e renas fofas.' },
+    'mandalas': { name: 'Mandalas', emoji: '🌀', desc: 'Desenhos de Mandalas para colorir e imprimir grátis! Encontre mandalas geométricas, florais e simples, perfeitas para relaxar e pintar.' },
+    'folclore-brasileiro': { name: 'Folclore Brasileiro', emoji: '🏹', desc: 'Desenhos do Folclore Brasileiro para colorir e imprimir grátis! Encontre o Saci-Pererê, Curupira, Iara, Boto Cor-de-Rosa e outros personagens das lendas brasileiras.' },
+    'esportes': { name: 'Esportes', emoji: '🏆', desc: 'Desenhos de Esportes para colorir e imprimir grátis! Baixe imagens de futebol, basquete, natação, ginástica e muitas outras modalidades divertidas.' }
 };
 
 const POPULAR_SUGGESTIONS = ['unicórnio', 'dinossauro', 'borboleta', 'leão', 'golfinho'];
@@ -41,7 +38,7 @@ let lastSelectedPhrase = "";
 let currentDrawingPhrase = "";
 
 // --- LISTA DE CATEGORIAS DISPONÍVEIS PARA VISITANTES ---
-const FREE_CATEGORIES = ['animais-selvagens', 'dinossauros', 'fantasia', 'natureza', 'veiculos'];
+const FREE_CATEGORIES = ['animais-selvagens', 'dinossauros', 'fantasia', 'flores-e-natureza', 'veiculos'];
 
 // --- DICIONÁRIO DE TRADUÇÃO DE INGLÊS PARA ESPANHOL ---
 const EN_TO_ES_DICT = {
@@ -1508,6 +1505,7 @@ function getPhrasePoolKeyForDrawing(drawing) {
         'espaco': 'espaco',
         'natureza': 'natureza',
         'flores': 'natureza',
+        'flores-e-natureza': 'natureza',
         'veiculos': 'veiculos',
         'comidas-e-doces': 'comidas-e-doces',
         'frutas-e-legumes': 'comidas-e-doces',
@@ -1518,7 +1516,12 @@ function getPhrasePoolKeyForDrawing(drawing) {
         'profissoes': 'profissoes',
         'super-herois': 'fantasia',
         'alfabeto-e-numeros': 'cotidiano',
-        'paper-doll': 'cotidiano'
+        'paper-doll': 'cotidiano',
+        'halloween': 'cotidiano',
+        'natal': 'cotidiano',
+        'mandalas': 'cotidiano',
+        'folclore-brasileiro': 'fantasia',
+        'esportes': 'cotidiano'
     };
     
     return categoryMapping[drawing.category] || 'cotidiano';
@@ -2695,7 +2698,7 @@ function getCuriosityForDrawing(drawing) {
     if (cat === 'espaco') {
         return "O universo é infinito e cheio de mistérios, com bilhões de estrelas, planetas e galáxias brilhantes!";
     }
-    if (cat === 'natureza' || cat === 'flores') {
+    if (cat === 'natureza' || cat === 'flores' || cat === 'flores-e-natureza') {
         return "A natureza nos dá o ar que respiramos, a água limpa e flores coloridas. Cuidar das plantas é cuidar da nossa vida!";
     }
     if (cat === 'veiculos') {
@@ -2712,6 +2715,21 @@ function getCuriosityForDrawing(drawing) {
     }
     if (cat === 'profissoes') {
         return "Cada profissão tem ferramentas especiais e ajuda a tornar o nosso dia a dia mais seguro, saudável e divertido!";
+    }
+    if (cat === 'halloween') {
+        return "O Halloween é uma festa divertida onde as pessoas se fantasiam e as crianças pedem doces ou travessuras!";
+    }
+    if (cat === 'natal') {
+        return "O Natal é uma época mágica cheia de amor, união, luzes brilhantes e troca de presentes com quem amamos!";
+    }
+    if (cat === 'mandalas') {
+        return "Colorir mandalas é uma atividade super relaxante que ajuda a acalmar a mente e a focar a nossa atenção!";
+    }
+    if (cat === 'folclore-brasileiro') {
+        return "O folclore brasileiro é cheio de lendas e seres mágicos que protegem a floresta e os animais!";
+    }
+    if (cat === 'esportes') {
+        return "Praticar esportes faz muito bem para a saúde, nos dá energia e ajuda a fazer novos amigos!";
     }
 
     // Fallback geral de desenho / pintura
