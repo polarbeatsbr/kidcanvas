@@ -1064,7 +1064,7 @@
 
     <script>
         // --- GLOBAL CONFIG & VARIABLES ---
-        let adminToken = localStorage.getItem('kidcanvas_admin_token') || '';
+        let adminToken = localStorage.getItem('kidcanvas_admin_token') || localStorage.getItem('kidcanvas_session_token') || '';
         let statsData = null;
         let usersData = [];
         let conversionChart = null;
@@ -1101,6 +1101,7 @@
                 const adminEmails = ['foneoliver@gmail.com'];
                 
                 if (res.ok && data.success && adminEmails.includes(data.user.email.toLowerCase())) {
+                    localStorage.setItem('kidcanvas_admin_token', adminToken);
                     hideLoginGate();
                     // Atualiza perfil na barra lateral
                     document.getElementById('admin-name').textContent = data.user.name;
@@ -1159,6 +1160,7 @@
         // --- LOGOUT ---
         document.getElementById('btn-logout').addEventListener('click', () => {
             localStorage.removeItem('kidcanvas_admin_token');
+            localStorage.removeItem('kidcanvas_session_token');
             adminToken = '';
             showLoginGate();
         });
