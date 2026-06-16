@@ -295,7 +295,33 @@ function updateHeaderAuthDisplay() {
             generatorLoginGate.style.display = 'block';
         }
     }
+    
+    if (typeof window.updateGenerateButtonText === 'function') {
+        window.updateGenerateButtonText();
+    }
+    if (typeof window.updateCustomDrawingSubmitButtonText === 'function') {
+        window.updateCustomDrawingSubmitButtonText();
+    }
 }
+
+function updateCustomDrawingSubmitButtonText() {
+    const submitBtn = document.getElementById('btn-submit-custom-drawing');
+    if (!submitBtn) return;
+    
+    if (!currentUser) {
+        submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Faça login para gerar';
+        return;
+    }
+    
+    const checkedQuality = document.querySelector('input[name="customDrawingQuality"]:checked');
+    const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
+    if (imageQuality === 'high') {
+        submitBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (2 créditos mágicos)';
+    } else {
+        submitBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 crédito mágico)';
+    }
+}
+window.updateCustomDrawingSubmitButtonText = updateCustomDrawingSubmitButtonText;
 
 async function initGoogleSignIn() {
     try {
@@ -2772,9 +2798,8 @@ function renderGerarDesenhoView() {
     if (customDrawingRadioMedium) customDrawingRadioMedium.classList.add('active');
     if (customDrawingRadioHigh) customDrawingRadioHigh.classList.remove('active');
     
-    const submitBtn = document.getElementById('btn-submit-custom-drawing');
-    if (submitBtn) {
-        submitBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 c.)';
+    if (typeof window.updateCustomDrawingSubmitButtonText === 'function') {
+        window.updateCustomDrawingSubmitButtonText();
     }
     
     if (loginGate) {
@@ -2792,7 +2817,7 @@ function renderHistoriasMagicasView() {
     }
     
     document.title = "Criador de Histórias Mágicas — KidCanvas 🧙‍♂️";
-    setMetaDescription("Crie e ilustre livrinhos infantis completos consumindo o saldo do seu plano no KidCanvas!");
+    setMetaDescription("Crie e ilustre histórias ilustradas personalizadas consumindo seus créditos mágicos no KidCanvas!");
     
     if (typeof resetForm === 'function') {
         resetForm();
@@ -3164,6 +3189,36 @@ async function handleWaitlistSubmit(event) {
 
 window.handleWaitlistSubmit = handleWaitlistSubmit;
 
+async function handlePlansInterestSubmit(event) {
+    event.preventDefault();
+    const emailInput = document.getElementById('interest-email');
+    if (!emailInput) return;
+    const email = emailInput.value.trim();
+    if (!email) return;
+    
+    try {
+        const response = await fetch('/api/waitlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        });
+        const data = await response.json();
+        if (response.ok && data.success) {
+            const form = document.getElementById('plans-interest-form');
+            if (form) form.style.display = 'none';
+            const msg = document.getElementById('interest-success-msg');
+            if (msg) msg.style.display = 'block';
+            emailInput.value = '';
+        } else {
+            showToast(data.message || 'Erro ao cadastrar na lista de espera.', 'error');
+        }
+    } catch(err) {
+        console.error('[Plans Waitlist Submit Error]:', err);
+        showToast('Erro ao conectar com o servidor.', 'error');
+    }
+}
+window.handlePlansInterestSubmit = handlePlansInterestSubmit;
+
 
 /* === HISTORIAS MAGICAS CUSTOM LOGIC === */
 
@@ -3242,21 +3297,21 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         const story = PRELOADED_STORIES[storyKey];
         if (!story) return;
 
-        viewerModalTitle.textContent = `✨ O Livro Mágico de ${story.characterName}`;
+        viewerModalTitle.textContent = `✨ A História Mágica de ${story.characterName}`;
         
         let html = `
             <div class="cover-page-card" style="margin-top: 10px;">
                 <div class="cover-header">
-                    <h2 class="cover-title">O Livro Mágico de ${story.characterName}</h2>
+                    <h2 class="cover-title">A História Mágica de ${story.characterName}</h2>
                     <div class="cover-subtitle">Uma história criada especialmente para ${story.characterName}</div>
                 </div>
                 <div class="cover-art-frame">
-                    <img src="${story.coverUrl}" alt="Capa do Livro Mágico">
+                    <img src="${story.coverUrl}" alt="Capa da História Mágica">
                 </div>
             </div>
             
             <div style="margin-top: 30px; margin-bottom: 20px;">
-                <h4 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-orange); text-align: center; margin-bottom: 25px;">📖 Páginas do Livro</h4>
+                <h4 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-orange); text-align: center; margin-bottom: 25px;">📖 Páginas da História</h4>
             </div>
         `;
 
@@ -3492,16 +3547,26 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
     
 
     function updateGenerateButtonText() {
+        const btnGenerate = document.getElementById('btnGenerate');
+        if (!btnGenerate) return;
+        
+        if (!currentUser) {
+            btnGenerate.textContent = `🔑 Faça login para gerar`;
+            btnGenerate.disabled = false;
+            return;
+        }
+        
         const checkedRadio = document.querySelector('input[name="pageCount"]:checked');
         const pageCount = checkedRadio ? parseInt(checkedRadio.value, 10) : 4;
         const checkedQuality = document.querySelector('input[name="imageQuality"]:checked');
         const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
         const cost = imageQuality === 'high' ? pageCount * 2 : pageCount;
-        const btnGenerate = document.getElementById('btnGenerate');
-        if (btnGenerate) {
-            btnGenerate.textContent = `🧙‍♂️ Criar Livro (${cost} c.)`;
-        }
+        
+        btnGenerate.textContent = `🧙‍♂️ Criar História Ilustrada (${cost} créditos mágicos)`;
+        const chkCiente = document.getElementById('chkCiente');
+        btnGenerate.disabled = chkCiente ? !chkCiente.checked : false;
     }
+    window.updateGenerateButtonText = updateGenerateButtonText;
     updateGenerateButtonText();
 
     // -------------------------------------------------------------
@@ -3587,15 +3652,12 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
                 if (radio.value === 'high') {
                     if (customDrawingRadioHigh) customDrawingRadioHigh.classList.add('active');
                     if (customDrawingRadioMedium) customDrawingRadioMedium.classList.remove('active');
-                    if (submitBtnCustomDrawing) {
-                        submitBtnCustomDrawing.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (2 c.)';
-                    }
                 } else {
                     if (customDrawingRadioMedium) customDrawingRadioMedium.classList.add('active');
                     if (customDrawingRadioHigh) customDrawingRadioHigh.classList.remove('active');
-                    if (submitBtnCustomDrawing) {
-                        submitBtnCustomDrawing.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 c.)';
-                    }
+                }
+                if (typeof window.updateCustomDrawingSubmitButtonText === 'function') {
+                    window.updateCustomDrawingSubmitButtonText();
                 }
             });
         });
@@ -3660,7 +3722,11 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
 
     if (chkCiente && btnGenerate) {
         chkCiente.addEventListener('change', () => {
-            btnGenerate.disabled = !chkCiente.checked;
+            if (!currentUser) {
+                btnGenerate.disabled = false;
+            } else {
+                btnGenerate.disabled = !chkCiente.checked;
+            }
         });
     }
     let generatedParagraphs = []; // Global reference to paragraphs
@@ -3754,7 +3820,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             clearInterval(loadInt);
             
             if (!response.ok || !result.success) {
-                throw new Error(result.message || "Ocorreu um erro ao gerar o livro completo.");
+                throw new Error(result.message || "Ocorreu um erro ao gerar a história ilustrada.");
             }
             
             // 3. Sincronizar dados do usuário atualizados do servidor
@@ -3764,8 +3830,8 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             generatedParagraphs = result.paragraphs;
             generatedCoverUrl = result.coverUrl;
             
-            document.getElementById('bookTitle').textContent = `✨ O Livro Mágico de ${characterName}`;
-            document.getElementById('coverTitle').textContent = `O Livro Mágico de ${characterName}`;
+            document.getElementById('bookTitle').textContent = `✨ A História Mágica de ${characterName}`;
+            document.getElementById('coverTitle').textContent = `A História Mágica de ${characterName}`;
             document.getElementById('coverSubtitle').textContent = `Uma história criada especialmente para ${characterName}`;
             document.getElementById('coverImage').src = result.coverUrl;
             
@@ -3813,7 +3879,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             console.error(err);
             document.getElementById('loadingCard').style.display = 'none';
             document.getElementById('formCard').style.display = 'block';
-            showError(`Erro ao gerar livro: ${err.message}`);
+            showError(`Erro ao gerar história: ${err.message}`);
             if (err.message && (err.message.includes('Sessão inválida') || err.message.includes('Sessão expirada') || err.message.includes('Faça login novamente'))) {
                 setTimeout(() => {
                     handleHeaderLogout();
@@ -3876,7 +3942,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             
             const a = document.createElement('a');
             a.href = blobUrl;
-            a.download = `livro-${cleanName}-pagina-${pageNum}.png`;
+            a.download = `historia-${cleanName}-pagina-${pageNum}.png`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -3898,7 +3964,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
                 
                 const a = document.createElement('a');
                 a.href = blobUrl;
-                a.download = `livro-${cleanName}-capa.png`;
+                a.download = `historia-${cleanName}-capa.png`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -3914,7 +3980,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             printWindow.document.write(`
                 <html>
                 <head>
-                    <title>Capa - O Livro Mágico de ${characterName}</title>
+                    <title>Capa - A História Mágica de ${characterName}</title>
                     <style>
                         body {
                             font-family: sans-serif;
@@ -3961,7 +4027,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         printWindow.document.write(`
             <html>
             <head>
-                <title>Página ${index + 1} - Livro Mágico</title>
+                <title>Página ${index + 1} - História Mágica</title>
                 <style>
                     body {
                         font-family: sans-serif;
@@ -4035,7 +4101,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
             printWindow.document.write(`
                 <html>
                 <head>
-                    <title>O Livro Mágico de ${characterName}</title>
+                    <title>A História Mágica de ${characterName}</title>
                     <style>
                         body {
                             font-family: sans-serif;
@@ -4108,7 +4174,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
                 </head>
                 <body>
                     <div class="no-print">
-                        <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir Livro Completo 🖨</button>
+                        <button onclick="window.print()" style="padding: 10px 25px; font-size: 1.1rem; cursor: pointer; background: #2ECC71; color: white; border: none; border-radius: 5px; font-weight: bold;">Imprimir História Completa 🖨</button>
                     </div>
                     
                     <!-- Cover Page Print -->
@@ -4130,7 +4196,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
     // Client-side A4 PDF generation
     function generatePDF() {
         if (!generatedCoverUrl || !generatedParagraphs || generatedParagraphs.length === 0) {
-            alert("Nenhum livro gerado para exportação.");
+            alert("Nenhuma história gerada para exportação.");
             return;
         }
         const characterName = document.getElementById('characterName').value.trim() || 'Crianca';
@@ -4166,7 +4232,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         coverPage.innerHTML = `
             <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 10mm 0;">
                 <div>
-                    <h1 style="font-size: 30px; color: #7B4FA6; margin-bottom: 5px; font-family: 'Fredoka', sans-serif; text-align: center;">O Livro Mágico de ${cleanCharName}</h1>
+                    <h1 style="font-size: 30px; color: #7B4FA6; margin-bottom: 5px; font-family: 'Fredoka', sans-serif; text-align: center;">A História Mágica de ${cleanCharName}</h1>
                     <p style="font-size: 16px; color: #5C4033; font-weight: bold; text-align: center; margin: 0;">Uma história criada especialmente para ${cleanCharName}</p>
                 </div>
                 <div style="width: 140mm; height: 140mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
@@ -4195,7 +4261,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
 
             pageDiv.innerHTML = `
                 <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 5px; font-weight: bold; color: #7B4FA6; font-size: 16px; display: flex; justify-content: space-between;">
-                    <span>O Livro Mágico de ${cleanCharName}</span>
+                    <span>A História Mágica de ${cleanCharName}</span>
                     <span>Página ${idx + 1}</span>
                 </div>
                 <div style="width: 130mm; height: 130mm; border: 3px solid #3D281A; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 15px 0;">
@@ -4213,7 +4279,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
         const cleanCharNameLower = cleanCharName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
         const opt = {
             margin: 0,
-            filename: `livro-${cleanCharNameLower}.pdf`,
+            filename: `historia-${cleanCharNameLower}.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: { scale: 2, useCORS: true, logging: false },
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -4336,7 +4402,7 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
     }
 
     function shareStoryOnWhatsApp(title) {
-        const message = `Criei um livro mágico personalizado chamado "${title}" no KidCanvas! 📖✨\n\nVocê também pode criar histórias personalizadas com ilustrações lindas para seus filhos! Acesse: https://www.kidcanvas.com.br`;
+        const message = `Criei uma história mágica personalizada chamada "${title}" no KidCanvas! 🧙‍♂️✨\n\nVocê também pode criar histórias personalizadas com ilustrações lindas para seus filhos! Acesse: https://www.kidcanvas.com.br`;
         const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
         
         const a = document.createElement('a');
@@ -4474,8 +4540,8 @@ function renderMinhasCriacoesView() {
             storiesContainer.innerHTML = `
                 <div style="text-align: center; padding: 40px; background: white; border: 2px dashed var(--color-dark); border-radius: var(--radius-sm);">
                     <span style="font-size: 3rem;">📖</span>
-                    <h4 style="font-size: 1.3rem; margin-top:10px;">Você ainda não criou livros mágicos!</h4>
-                    <p style="color: var(--color-dark-light); font-size: 0.95rem;">Vá em 'Crie seu Livro' para iniciar histórias personalizadas.</p>
+                    <h4 style="font-size: 1.3rem; margin-top:10px;">Você ainda não criou histórias mágicas!</h4>
+                    <p style="color: var(--color-dark-light); font-size: 0.95rem;">Vá em 'Histórias Mágicas' para iniciar histórias personalizadas.</p>
                 </div>
             `;
         } else {
@@ -4489,7 +4555,7 @@ function renderMinhasCriacoesView() {
                         <img src="${st.coverUrl}" alt="${st.title}" loading="lazy">
                     </div>
                     <div class="card-bottom-info">
-                        <span class="drawing-card-category">Livro Mágico 📖</span>
+                        <span class="drawing-card-category">História Mágica 📖</span>
                         <h4 class="drawing-card-title">${st.title}</h4>
                     </div>
                     <div class="card-bottom" style="display: flex; gap: 8px;">
@@ -4830,12 +4896,12 @@ function openSavedStoryViewer(storyIdx) {
                 <div class="cover-subtitle">Uma história personalizada salva na sua conta</div>
             </div>
             <div class="cover-art-frame">
-                <img src="${story.coverUrl}" alt="Capa do Livro Mágico">
+                <img src="${story.coverUrl}" alt="Capa da História Mágica">
             </div>
         </div>
         
         <div style="margin-top: 30px; margin-bottom: 20px;">
-            <h4 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-orange); text-align: center; margin-bottom: 25px;">📖 Páginas do Livro</h4>
+            <h4 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-orange); text-align: center; margin-bottom: 25px;">📖 Páginas da História</h4>
         </div>
     `;
 
@@ -4863,7 +4929,7 @@ function openSavedStoryViewer(storyIdx) {
 
     html += `
         <div style="text-align: center; margin-top: 40px; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
-            <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 12px 30px;" onclick="closeViewer()">Fechar Livro</button>
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 12px 30px;" onclick="closeViewer()">Fechar História</button>
         </div>
     `;
 
