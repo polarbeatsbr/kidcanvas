@@ -24,7 +24,10 @@ const CATEGORIES_DATA = {
     'natal': { name: 'Natal', emoji: '🎄', desc: 'Desenhos de Natal para colorir e imprimir grátis! Baixe imagens de Papai Noel, árvores de Natal decoradas, bonecos de neve e renas fofas.' },
     'mandalas': { name: 'Mandalas', emoji: '🌀', desc: 'Desenhos de Mandalas para colorir e imprimir grátis! Encontre mandalas geométricas, florais e simples, perfeitas para relaxar e pintar.' },
     'folclore-brasileiro': { name: 'Folclore Brasileiro', emoji: '🏹', desc: 'Desenhos do Folclore Brasileiro para colorir e imprimir grátis! Encontre o Saci-Pererê, Curupira, Iara, Boto Cor-de-Rosa e outros personagens das lendas brasileiras.' },
-    'esportes': { name: 'Esportes', emoji: '🏆', desc: 'Desenhos de Esportes para colorir e imprimir grátis! Baixe imagens de futebol, basquete, natação, ginástica e muitas outras modalidades divertidas.' }
+    'esportes': { name: 'Esportes', emoji: '🏆', desc: 'Desenhos de Esportes para colorir e imprimir grátis! Baixe imagens de futebol, basquete, natação, ginástica e muitas outras modalidades divertidas.' },
+    'robos': { name: 'Robôs', emoji: '🤖', desc: 'Desenhos de robôs fofos e inteligentes para colorir grátis! Baixe imagens de robôs astronautas, brinquedos e robôs amigos.' },
+    'copa-do-mundo': { name: 'Copa do Mundo', emoji: '⚽', desc: 'Desenhos da Copa do Mundo para colorir grátis! Encontre jogadores com camisas de seleções, grandes estádios e a taça dos campeões.' },
+    'monstros': { name: 'Monstros Infantil', emoji: '👾', desc: 'Desenhos de monstros infantis fofos para colorir e imprimir grátis! Encontre monstrinhos peludos, múmias fofas e zumbis amigáveis.' }
 };
 
 const POPULAR_SUGGESTIONS = ['unicórnio', 'dinossauro', 'borboleta', 'leão', 'golfinho'];
@@ -3021,6 +3024,16 @@ function renderReportarBugView() {
     if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Relato 🐛';
+    }
+
+    // Setup character counter
+    const bugMessage = document.getElementById('bugMessage');
+    const charCounter = document.getElementById('bugMessageCharCount');
+    if (bugMessage && charCounter) {
+        charCounter.textContent = `${bugMessage.value.length} / 300 caracteres`;
+        bugMessage.oninput = () => {
+            charCounter.textContent = `${bugMessage.value.length} / 300 caracteres`;
+        };
     }
 }
 window.renderReportarBugView = renderReportarBugView;

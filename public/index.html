@@ -91,6 +91,9 @@
                                 <li><a href="/categoria/mandalas" class="dropdown-item">🌀 Mandalas</a></li>
                                 <li><a href="/categoria/folclore-brasileiro" class="dropdown-item">🏹 Folclore Brasileiro</a></li>
                                 <li><a href="/categoria/esportes" class="dropdown-item">🏆 Esportes</a></li>
+                                <li><a href="/categoria/robos" class="dropdown-item">🤖 Robôs</a></li>
+                                <li><a href="/categoria/copa-do-mundo" class="dropdown-item">⚽ Copa do Mundo</a></li>
+                                <li><a href="/categoria/monstros" class="dropdown-item">👾 Monstros Infantil</a></li>
                             </ul>
                         </li>
                         <li class="nav-dropdown">
@@ -862,7 +865,8 @@
                         
                         <div class="form-group" style="margin-bottom: 25px;">
                             <label for="bugMessage" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--color-dark); margin-bottom: 8px; display: block;">📝 Descrição do Problema</label>
-                            <textarea id="bugMessage" placeholder="Descreva em detalhes o que aconteceu, se apareceu alguma mensagem de erro ou falha visual..." required style="width: 100%; min-height: 120px; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); border: var(--border-thin); font-family: var(--font-body); resize: vertical;"></textarea>
+                            <textarea id="bugMessage" maxlength="300" placeholder="Descreva em detalhes o que aconteceu, se apareceu alguma mensagem de erro ou falha visual..." required style="width: 100%; min-height: 120px; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); border: var(--border-thin); font-family: var(--font-body); resize: vertical;"></textarea>
+                            <div style="text-align: right; font-size: 0.85rem; color: var(--color-dark-light); margin-top: 4px;" id="bugMessageCharCount">0 / 300 caracteres</div>
                         </div>
                         
                         <button class="btn btn-secondary" type="submit" id="btn-submit-bug" style="font-size: 1.2rem; padding: 15px; width: 100%; border-radius: var(--radius-sm); font-weight: 700; justify-content: center; gap: 8px; background-color: #e74c3c; border-color: #e74c3c; color: white;">
