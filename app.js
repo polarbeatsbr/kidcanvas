@@ -5526,9 +5526,18 @@ function renderPintarOnlineView() {
     isPaintDrawing = false;
     setPaintTool('bucket');
 
-    // Resetar checkbox público
+    // Resetar checkbox público e botão de salvar
     const chkPublic = document.getElementById('paint-chk-public');
-    if (chkPublic) chkPublic.checked = false;
+    const btnSave = document.getElementById('paint-btn-save');
+    if (chkPublic) {
+        chkPublic.checked = false;
+        if (btnSave) {
+            btnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
+            btnSave.style.backgroundColor = 'var(--color-green)';
+            btnSave.style.borderColor = 'var(--color-green)';
+            btnSave.classList.remove('pulse-button');
+        }
+    }
 
     // Carregar imagem de desenho
     const loader = document.getElementById('paint-canvas-loader');
@@ -5727,6 +5736,23 @@ function renderPintarOnlineView() {
     if (btnSave) {
         btnSave.onclick = () => {
             savePaintingToGallery();
+        };
+    }
+
+    const chkPublic = document.getElementById('paint-chk-public');
+    if (chkPublic && btnSave) {
+        chkPublic.onchange = () => {
+            if (chkPublic.checked) {
+                btnSave.innerHTML = '<i class="fa-solid fa-rocket"></i> Compartilhar no Hall da Fama!';
+                btnSave.style.backgroundColor = 'var(--color-purple)';
+                btnSave.style.borderColor = 'var(--color-purple)';
+                btnSave.classList.add('pulse-button');
+            } else {
+                btnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
+                btnSave.style.backgroundColor = 'var(--color-green)';
+                btnSave.style.borderColor = 'var(--color-green)';
+                btnSave.classList.remove('pulse-button');
+            }
         };
     }
 
