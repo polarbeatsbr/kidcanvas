@@ -1,6 +1,7 @@
 node_modules/
 /pintai-biblioteca/
 /public/pintai-biblioteca/
+!/public/pintai-biblioteca/exemplos/
 .env
 __pycache__/
 _logs/

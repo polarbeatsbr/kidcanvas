@@ -2619,15 +2619,36 @@ if (globalSearchInput) {
 function triggerDrawingDownload(drawing) {
     showToast('Iniciando download em alta qualidade... 🖨️', 'success');
     
-    const link = document.createElement('a');
-    link.href = drawing.url;
+    const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(drawing.url)}`;
     
-    const fileName = `kidcanvas_${drawing.category}_${drawing.slug}.png`;
-    link.download = fileName;
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    fetch(proxiedUrl)
+        .then(response => {
+            if (!response.ok) throw new Error('Proxy failed');
+            return response.blob();
+        })
+        .then(blob => {
+            const blobUrl = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            
+            const fileName = `kidcanvas_${drawing.category}_${drawing.slug}.png`;
+            link.download = fileName;
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            URL.revokeObjectURL(blobUrl);
+        })
+        .catch(err => {
+            console.error('Erro no download via proxy, tentando fallback:', err);
+            const link = document.createElement('a');
+            link.href = drawing.url;
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
 }
 
 // Notificação Toast estilo cartoon
@@ -3172,7 +3193,8 @@ function setupCustomDrawingActionListeners(imageUrl) {
         downloadBtn.onclick = async () => {
             try {
                 const cleanPrompt = promptText.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
-                const res = await fetch(imageUrl);
+                const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`;
+                const res = await fetch(proxiedUrl);
                 const blob = await res.blob();
                 const blobUrl = URL.createObjectURL(blob);
                 
@@ -3196,6 +3218,7 @@ function setupCustomDrawingActionListeners(imageUrl) {
                 const a = document.createElement('a');
                 a.href = imageUrl;
                 a.download = `desenho-magico-kidcanvas.jpg`;
+                a.target = '_blank';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
@@ -4428,12 +4451,14 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         tempContainer.style.padding = '20mm 20mm';
         document.body.appendChild(tempContainer);
 
+        const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`;
+
         tempContainer.innerHTML = `
             <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
                 Desenho Mágico — KidCanvas
             </div>
             <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                <img src="${imageUrl}" style="width: 100%; height: 100%; object-fit: contain;">
+                <img src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
                 <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
@@ -4758,12 +4783,14 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
     tempContainer.style.padding = '20mm 20mm';
     document.body.appendChild(tempContainer);
 
+    const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`;
+
     tempContainer.innerHTML = `
         <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
             Desenho Mágico — KidCanvas
         </div>
         <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-            <img src="${imageUrl}" style="width: 100%; height: 100%; object-fit: contain;">
+            <img src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
             <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>

@@ -1173,6 +1173,31 @@ function loadCreationDates() {
     }
 }
 
+// Proxy endpoint to stream cross-origin images (solves CORS and direct download issues)
+app.get('/api/proxy-image', async (req, res) => {
+    const imageUrl = req.query.url;
+    if (!imageUrl) {
+        return res.status(400).send('Falta o parâmetro url');
+    }
+
+    try {
+        const response = await fetch(imageUrl);
+        if (!response.ok) {
+            return res.status(response.status).send('Erro ao buscar a imagem');
+        }
+
+        const contentType = response.headers.get('content-type');
+        res.setHeader('Content-Type', contentType || 'image/png');
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        
+        const buffer = await response.arrayBuffer();
+        res.send(Buffer.from(buffer));
+    } catch (error) {
+        console.error('Erro no proxy de imagem:', error);
+        res.status(500).send('Erro interno ao buscar a imagem');
+    }
+});
+
 const DRAWINGS_JSON_FILE = path.join(__dirname, '..', 'drawings.json');
 
 // Rota para listar os desenhos processados na pasta 'pintai-biblioteca' divididos por categoria e tier
