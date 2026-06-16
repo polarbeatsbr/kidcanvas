@@ -6033,9 +6033,6 @@ function setPaintTool(tool) {
     document.querySelectorAll('.paint-stamp-btn').forEach(btn => btn.classList.remove('active'));
 
     const sliderGroup = document.getElementById('paint-slider-group');
-    const textGroup = document.getElementById('paint-text-input-group');
-    
-    if (textGroup) textGroup.style.display = 'none';
     
     if (tool === 'bucket') {
         document.getElementById('paint-tool-bucket').classList.add('active');
@@ -6055,7 +6052,6 @@ function setPaintTool(tool) {
     } else if (tool === 'text') {
         document.getElementById('paint-tool-text').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
-        if (textGroup) textGroup.style.display = 'flex';
     }
     
     updatePaintCursor(tool);
