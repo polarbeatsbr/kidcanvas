@@ -9,7 +9,7 @@ const stripe = process.env.STRIPE_SECRET_KEY ? require('stripe')(process.env.STR
 
 
 // Analytics helpers & Admin configuration
-const ADMIN_EMAILS = ['foneoliver@gmail.com', 'marcofariaddos@gmail.com', 'sergio0014ortiz@hotmail.com'];
+const ADMIN_EMAILS = ['foneoliver@gmail.com'];
 
 async function trackEvent(type, data) {
     try {
@@ -1548,7 +1548,7 @@ app.get('/api/auth/google/callback', async (req, res) => {
         if (!user) {
             let userPlan = 'Grátis';
             let userCredits = 4;
-            if (email === 'foneoliver@gmail.com' || email === 'marcofariaddos@gmail.com' || email === 'sergio0014ortiz@hotmail.com') {
+            if (email === 'foneoliver@gmail.com') {
                 userPlan = 'Ultra';
                 userCredits = 400;
             }
@@ -1572,8 +1572,8 @@ app.get('/api/auth/google/callback', async (req, res) => {
             if (photo) user.photo = photo;
             user.token = sessionToken;
             user.tokenExpiry = tokenExpiry;
-            // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com, foneoliver@gmail.com or sergio0014ortiz@hotmail.com
-            const ultraEmails = ['marcofariaddos@gmail.com', 'foneoliver@gmail.com', 'sergio0014ortiz@hotmail.com'];
+            // Force Ultra plan upgrade on login if they are foneoliver@gmail.com
+            const ultraEmails = ['foneoliver@gmail.com'];
             if (ultraEmails.includes(email.toLowerCase()) && user.plan !== 'Ultra') {
                 user.plan = 'Ultra';
                 user.paginasRestantes = 400;
@@ -1638,7 +1638,7 @@ app.post('/api/auth/google', async (req, res) => {
             // Criar novo usuário
             let userPlan = 'Grátis';
             let userCredits = 4;
-            if (email === 'foneoliver@gmail.com' || email === 'marcofariaddos@gmail.com' || email === 'sergio0014ortiz@hotmail.com') {
+            if (email === 'foneoliver@gmail.com') {
                 userPlan = 'Ultra';
                 userCredits = 400;
             }
@@ -1670,8 +1670,8 @@ app.post('/api/auth/google', async (req, res) => {
             if (!user.createdAt) {
                 user.createdAt = new Date().toISOString();
             }
-            // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com, foneoliver@gmail.com or sergio0014ortiz@hotmail.com
-            const ultraEmails = ['marcofariaddos@gmail.com', 'foneoliver@gmail.com', 'sergio0014ortiz@hotmail.com'];
+            // Force Ultra plan upgrade on login if they are foneoliver@gmail.com
+            const ultraEmails = ['foneoliver@gmail.com'];
             if (ultraEmails.includes(email.toLowerCase()) && user.plan !== 'Ultra') {
                 user.plan = 'Ultra';
                 user.paginasRestantes = 400;
@@ -1721,7 +1721,7 @@ app.post('/api/auth/signup', async (req, res) => {
         const sessionToken = crypto.randomBytes(16).toString('hex');
         let userPlan = 'Grátis';
         let userCredits = 4;
-        if (cleanEmail === 'foneoliver@gmail.com' || cleanEmail === 'marcofariaddos@gmail.com' || cleanEmail === 'sergio0014ortiz@hotmail.com') {
+        if (cleanEmail === 'foneoliver@gmail.com') {
             userPlan = 'Ultra';
             userCredits = 400;
         }
@@ -1992,7 +1992,7 @@ app.get('/api/proxy-image', async (req, res) => {
 app.post('/api/user/save-painting', async (req, res) => {
     try {
         const token = req.headers['x-session-token'];
-        const { imageBase64, prompt, isPublic } = req.body;
+        const { imageBase64, prompt, isPublic, category, creatorName } = req.body;
         
         if (!token) {
             return res.status(401).json({ success: false, message: 'Não autorizado.' });
@@ -2023,14 +2023,15 @@ app.post('/api/user/save-painting', async (req, res) => {
             url: r2Url,
             prompt: prompt,
             date: Date.now(),
-            isPublic: !!isPublic
+            isPublic: !!isPublic,
+            category: category || (prompt === 'Desenho Livre' ? 'Mão Livre' : 'Colorir')
         };
         user.myPaintings.push(paintingItem);
         
         await saveUsers(users);
         console.log(`[Save Painting] Pintura para "${prompt}" salva para "${user.email}". URL: ${r2Url} (Public: ${isPublic})`);
         
-        // Se for público, salvar na lista do Hall da Fama
+        // Se for público, salvar na lista do Hall da Fama como pendente (isApproved: false)
         if (isPublic) {
             const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
             const publicPaintings = await loadPublicPaintings();
@@ -2039,9 +2040,16 @@ app.post('/api/user/save-painting', async (req, res) => {
                 prompt: prompt,
                 date: Date.now(),
                 userEmail: user.email,
-                userName: user.email.split('@')[0]
+                userName: creatorName || user.name || user.email.split('@')[0],
+                creatorName: creatorName || user.name || user.email.split('@')[0],
+                category: category || (prompt === 'Desenho Livre' ? 'Mão Livre' : 'Colorir'),
+                stars: 0,
+                likes: 0,
+                isApproved: false,
+                reports: 0,
+                votedBy: []
             });
-            if (publicPaintings.length > 200) {
+            if (publicPaintings.length > 500) {
                 publicPaintings.shift();
             }
             await savePublicPaintings(publicPaintings);
@@ -2058,12 +2066,13 @@ app.post('/api/user/save-painting', async (req, res) => {
     }
 });
 
-// Endpoint para listar pinturas públicas (Hall da Fama)
+// Endpoint para listar pinturas públicas (Hall da Fama - apenas aprovadas e não muito denunciadas)
 app.get('/api/paintings/public', async (req, res) => {
     try {
         const { loadPublicPaintings } = require('./r2db');
         const publicPaintings = await loadPublicPaintings();
-        const sorted = [...publicPaintings].reverse();
+        const approved = publicPaintings.filter(p => p.isApproved === true && (!p.reports || p.reports < 3));
+        const sorted = [...approved].reverse();
         return res.json({ success: true, paintings: sorted });
     } catch(err) {
         console.error('Erro ao carregar pinturas públicas:', err);
@@ -2071,7 +2080,7 @@ app.get('/api/paintings/public', async (req, res) => {
     }
 });
 
-// Endpoint para curtir uma pintura no Hall da Fama (incrementar curtidas)
+// Endpoint para curtir/votar em uma pintura no Hall da Fama (proteção 1 voto por conta ou 1 por IP/dia)
 app.post('/api/paintings/like', async (req, res) => {
     try {
         const { url } = req.body;
@@ -2079,20 +2088,181 @@ app.post('/api/paintings/like', async (req, res) => {
             return res.status(400).json({ success: false, message: 'URL da pintura é obrigatória.' });
         }
         
+        const token = req.headers['x-session-token'];
+        let currentUserObj = null;
+        if (token) {
+            const users = await loadUsers();
+            currentUserObj = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        }
+
+        // Obter IP do cliente
+        const forwarded = req.headers['x-forwarded-for'];
+        const ip = forwarded ? forwarded.split(',')[0].trim() : (req.ip || req.socket.remoteAddress);
+        const today = new Date().toISOString().split('T')[0];
+
         const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
         const publicPaintings = await loadPublicPaintings();
         const item = publicPaintings.find(p => p.url === url);
         
         if (item) {
-            item.likes = (item.likes || 0) + 1;
+            item.votedBy = item.votedBy || [];
+            
+            // Verificar proteção de votos
+            if (currentUserObj) {
+                // 1 voto por conta
+                const alreadyVoted = item.votedBy.some(v => v.userId === currentUserObj.id || v.userEmail === currentUserObj.email);
+                if (alreadyVoted) {
+                    return res.status(400).json({ success: false, message: 'Você já deu uma estrelinha para esta pintura! 🌟' });
+                }
+            } else {
+                // 1 voto por IP/dispositivo por dia para visitantes
+                const alreadyVotedToday = item.votedBy.some(v => v.ip === ip && v.date === today);
+                if (alreadyVotedToday) {
+                    return res.status(400).json({ success: false, message: 'Seu dispositivo já deu uma estrelinha hoje! Tente amanhã. 🌟' });
+                }
+            }
+
+            // Registrar voto
+            item.votedBy.push({
+                userId: currentUserObj ? currentUserObj.id : null,
+                userEmail: currentUserObj ? currentUserObj.email : null,
+                ip: ip,
+                date: today
+            });
+
+            item.stars = (item.stars || 0) + 1;
+            item.likes = item.stars; // compatibilidade
+            
             await savePublicPaintings(publicPaintings);
-            return res.json({ success: true, likes: item.likes });
+            return res.json({ success: true, stars: item.stars });
         } else {
             return res.status(404).json({ success: false, message: 'Pintura não encontrada.' });
         }
     } catch(err) {
         console.error('Erro ao curtir pintura:', err);
         return res.status(500).json({ success: false, message: 'Erro ao registrar curtida.' });
+    }
+});
+
+// Endpoint para denunciar uma pintura pública
+app.post('/api/paintings/report', async (req, res) => {
+    try {
+        const { url } = req.body;
+        if (!url) {
+            return res.status(400).json({ success: false, message: 'URL da pintura é obrigatória.' });
+        }
+
+        const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
+        const publicPaintings = await loadPublicPaintings();
+        const item = publicPaintings.find(p => p.url === url);
+
+        if (item) {
+            item.reports = (item.reports || 0) + 1;
+            console.log(`[Moderation] Pintura denunciada: ${url} (Total denúncias: ${item.reports})`);
+            
+            // Ocultar automaticamente se houver 3 ou mais denúncias
+            if (item.reports >= 3) {
+                item.isApproved = false;
+                console.log(`[Moderation] Pintura suspensa automaticamente por excesso de denúncias: ${url}`);
+            }
+
+            await savePublicPaintings(publicPaintings);
+            return res.json({ success: true, message: 'Pintura denunciada com sucesso. Nossa equipe irá revisar.' });
+        } else {
+            return res.status(404).json({ success: false, message: 'Pintura não encontrada.' });
+        }
+    } catch (err) {
+        console.error('Erro ao denunciar pintura:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao registrar denúncia.' });
+    }
+});
+
+// Helper para verificar se o usuário é o administrador
+async function checkIsAdmin(token) {
+    if (!token) return false;
+    const users = await loadUsers();
+    const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+    return user && user.email === 'foneoliver@gmail.com';
+}
+
+// Endpoint para listar pinturas pendentes de aprovação (apenas para Admin)
+app.get('/api/paintings/pending', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const isAdmin = await checkIsAdmin(token);
+        if (!isAdmin) {
+            return res.status(403).json({ success: false, message: 'Acesso negado. Apenas administradores podem moderar.' });
+        }
+
+        const { loadPublicPaintings } = require('./r2db');
+        const publicPaintings = await loadPublicPaintings();
+        const pending = publicPaintings.filter(p => p.isApproved !== true);
+        return res.json({ success: true, paintings: pending.reverse() });
+    } catch (err) {
+        console.error('Erro ao listar pendentes:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao carregar lista de moderação.' });
+    }
+});
+
+// Endpoint para aprovar uma pintura pública (apenas para Admin)
+app.post('/api/paintings/approve', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const isAdmin = await checkIsAdmin(token);
+        if (!isAdmin) {
+            return res.status(403).json({ success: false, message: 'Acesso negado.' });
+        }
+
+        const { url } = req.body;
+        if (!url) {
+            return res.status(400).json({ success: false, message: 'URL é obrigatória.' });
+        }
+
+        const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
+        const publicPaintings = await loadPublicPaintings();
+        const item = publicPaintings.find(p => p.url === url);
+
+        if (item) {
+            item.isApproved = true;
+            await savePublicPaintings(publicPaintings);
+            return res.json({ success: true, message: 'Pintura aprovada com sucesso!' });
+        } else {
+            return res.status(404).json({ success: false, message: 'Pintura não encontrada.' });
+        }
+    } catch (err) {
+        console.error('Erro ao aprovar pintura:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao aprovar pintura.' });
+    }
+});
+
+// Endpoint para excluir/rejeitar uma pintura pública (apenas para Admin)
+app.post('/api/paintings/delete', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const isAdmin = await checkIsAdmin(token);
+        if (!isAdmin) {
+            return res.status(403).json({ success: false, message: 'Acesso negado.' });
+        }
+
+        const { url } = req.body;
+        if (!url) {
+            return res.status(400).json({ success: false, message: 'URL é obrigatória.' });
+        }
+
+        const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
+        const publicPaintings = await loadPublicPaintings();
+        const index = publicPaintings.findIndex(p => p.url === url);
+
+        if (index !== -1) {
+            publicPaintings.splice(index, 1);
+            await savePublicPaintings(publicPaintings);
+            return res.json({ success: true, message: 'Pintura removida com sucesso!' });
+        } else {
+            return res.status(404).json({ success: false, message: 'Pintura não encontrada.' });
+        }
+    } catch (err) {
+        console.error('Erro ao deletar pintura:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao remover pintura.' });
     }
 });
 

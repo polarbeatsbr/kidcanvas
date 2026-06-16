@@ -4298,3 +4298,120 @@ button, input, select, textarea {
         display: none !important;
     }
 }
+
+/* --- HALL DA FAMA ENHANCEMENTS --- */
+.badge-star {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid;
+    margin-top: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.badge-criativo {
+    background-color: #e8f5e9;
+    border-color: #a5d6a7;
+    color: #2e7d32;
+}
+.badge-destaque {
+    background-color: #fff3e0;
+    border-color: #ffcc80;
+    color: #ef6c00;
+}
+.badge-lenda {
+    background-color: #fffde7;
+    border-color: #fff59d;
+    color: #f57f17;
+    animation: badge-pulse 2s infinite;
+}
+@keyframes badge-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.badge-mao-livre {
+    background-color: #ff9f43;
+}
+.badge-colorir {
+    background-color: #10ac84;
+}
+
+/* Tab filter button states */
+.filter-tab.active {
+    background-color: var(--color-purple) !important;
+    border-color: var(--color-purple) !important;
+    color: white !important;
+}
+
+/* Sidebar Rankings */
+.ranking-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    background: #faf8f5;
+    border: 1px solid #f1ece4;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ranking-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+.ranking-position {
+    font-size: 1.25rem;
+    font-weight: bold;
+    min-width: 24px;
+    text-align: center;
+}
+.ranking-thumb {
+    width: 48px;
+    height: 36px;
+    border-radius: 4px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+.ranking-info {
+    flex: 1;
+    min-width: 0;
+}
+.ranking-title {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-dark);
+}
+.ranking-creator {
+    font-size: 0.75rem;
+    color: var(--color-dark-light);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ranking-stars {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--color-orange);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+/* Responsive sidebar */
+@media (max-width: 991px) {
+    .hall-fame-layout {
+        flex-direction: column;
+    }
+    .hall-rankings-sidebar {
+        width: 100%;
+    }
+}

@@ -1098,7 +1098,7 @@
                 const data = await res.json();
                 
                 // Lista de administradores autorizados
-                const adminEmails = ['foneoliver@gmail.com', 'marcofariaddos@gmail.com', 'sergio0014ortiz@hotmail.com'];
+                const adminEmails = ['foneoliver@gmail.com'];
                 
                 if (res.ok && data.success && adminEmails.includes(data.user.email.toLowerCase())) {
                     hideLoginGate();
@@ -1135,7 +1135,7 @@
                 });
                 const data = await res.json();
 
-                const adminEmails = ['foneoliver@gmail.com', 'marcofariaddos@gmail.com', 'sergio0014ortiz@hotmail.com'];
+                const adminEmails = ['foneoliver@gmail.com'];
 
                 if (res.ok && data.success && adminEmails.includes(data.user.email.toLowerCase())) {
                     adminToken = data.token;

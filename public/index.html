@@ -97,6 +97,7 @@
                             </ul>
                         </li>
                         <li><a href="/gerar-desenho" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho</a></li>
+                        <li><a href="/pintar-online" onclick="startFreeHandDrawing(event); return false;" class="nav-link" id="nav-free-paint"><i class="fa-solid fa-paintbrush"></i> Pintura Livre</a></li>
                         <li><a href="/historias-magicas" class="nav-link"><i class="fa-solid fa-book-open"></i> Histórias Mágicas</a></li>
                         <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
                         <li><a href="/hall-da-fama" class="nav-link"><i class="fa-solid fa-camera"></i> Hall da Fama</a></li>
@@ -1366,17 +1367,73 @@
                 <div class="breadcrumbs">
                     <a href="/"><i class="fa-solid fa-house"></i> Home</a>
                     <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
-                    <span class="current">Hall da Fama 📸</span>
+                    <span class="current">Hall da Fama 🏆</span>
                 </div>
 
                 <div class="section-title-wrapper align-center" style="margin-bottom: 30px; text-align: center;">
                     <h1 class="page-title" style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.5rem; margin-bottom: 10px;">Hall da Fama 🏆</h1>
-                    <p class="section-subtitle" style="font-size: 1.15rem; color: var(--color-dark-light); font-weight: 500;">Veja as criações mágicas compartilhadas pelos usuários do KidCanvas.</p>
+                    <p class="section-subtitle" style="font-size: 1.15rem; color: var(--color-dark-light); font-weight: 500;">Veja as criações mais votadas da comunidade KidCanvas.</p>
                 </div>
 
-                <!-- Grid de Pinturas Públicas -->
-                <div class="drawings-grid" id="public-paintings-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin-top: 20px;">
-                    <!-- Preenchido dinamicamente via JS -->
+                <!-- Painel de Moderação para Administrador -->
+                <div id="view-hall-da-fama-admin" style="display: none; background: #fff5f5; border: 3px solid #ff8080; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: var(--shadow-cartoon);">
+                    <h3 style="font-family: var(--font-heading); color: #c0392b; margin-top: 0; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-user-shield"></i> Painel de Moderação 👑 <span style="font-size: 0.8rem; background: #e74c3c; color: white; padding: 2px 8px; border-radius: 10px;" id="admin-pending-count">0 pendentes</span>
+                    </h3>
+                    <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">Aprove ou exclua as criações públicas enviadas pelos usuários antes que elas apareçam para todos.</p>
+                    <div id="admin-pending-grid" class="drawings-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px;">
+                        <!-- Pinturas pendentes via JS -->
+                    </div>
+                </div>
+
+                <!-- Filtros de Categorias -->
+                <div class="hall-filters-wrapper" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;">
+                    <button class="btn btn-primary filter-tab active" data-category="all" style="font-size: 0.95rem; padding: 8px 16px; border-radius: 20px; font-weight: 700;">Todos</button>
+                    <button class="btn btn-secondary filter-tab" data-category="Colorir" style="font-size: 0.95rem; padding: 8px 16px; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-paint-roller"></i> Categoria: Colorir</button>
+                    <button class="btn btn-secondary filter-tab" data-category="Mão Livre" style="font-size: 0.95rem; padding: 8px 16px; border-radius: 20px; font-weight: 700;"><i class="fa-solid fa-paintbrush"></i> Categoria: Mão Livre</button>
+                </div>
+
+                <!-- Layout Principal: Galeria + Rankings -->
+                <div class="hall-fame-layout" style="display: flex; gap: 30px; align-items: flex-start; flex-wrap: wrap;">
+                    
+                    <!-- Lado Esquerdo: Grid de Pinturas -->
+                    <div class="hall-paintings-section" style="flex: 3; min-width: 300px; width: 100%;">
+                        <!-- Mensagem Vazia -->
+                        <div id="hall-empty-state" style="display: none; text-align: center; padding: 45px 20px; background: #faf9f6; border: 3px dashed #ddd; border-radius: 12px; margin-top: 10px;">
+                            <span style="font-size: 3.5rem; display: block; margin-bottom: 12px;">🎨</span>
+                            <p style="font-family: var(--font-heading); font-size: 1.35rem; color: var(--color-purple); margin-bottom: 8px; font-weight: bold;">O Hall da Fama está esperando a primeira obra.</p>
+                            <p style="font-size: 1.05rem; color: var(--color-dark-light); max-width: 480px; margin: 0 auto; line-height: 1.4;">Pinte, compartilhe e brilhe por aqui!</p>
+                        </div>
+                        
+                        <div class="drawings-grid" id="public-paintings-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+                            <!-- Preenchido dinamicamente via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Lado Direito: Sidebar de Rankings -->
+                    <div class="hall-rankings-sidebar" style="flex: 1; min-width: 280px; width: 100%; display: flex; flex-direction: column; gap: 25px;">
+                        
+                        <!-- Ranking da Semana -->
+                        <div class="ranking-panel-card" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 18px; box-shadow: var(--shadow-cartoon);">
+                            <h3 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 1.25rem; margin-top: 0; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; border-bottom: 2px dashed #f0f0f0; padding-bottom: 8px;">
+                                <i class="fa-solid fa-calendar-week" style="color: var(--color-orange);"></i> Ranking da Semana
+                            </h3>
+                            <div id="ranking-week-list" style="display: flex; flex-direction: column; gap: 12px;">
+                                <!-- Preenchido via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Ranking do Mês -->
+                        <div class="ranking-panel-card" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 18px; box-shadow: var(--shadow-cartoon);">
+                            <h3 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 1.25rem; margin-top: 0; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; border-bottom: 2px dashed #f0f0f0; padding-bottom: 8px;">
+                                <i class="fa-solid fa-calendar-days" style="color: var(--color-green);"></i> Ranking do Mês
+                            </h3>
+                            <div id="ranking-month-list" style="display: flex; flex-direction: column; gap: 12px;">
+                                <!-- Preenchido via JS -->
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </section>

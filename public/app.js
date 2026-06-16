@@ -5557,32 +5557,13 @@ function renderPintarOnlineView() {
     const loader = document.getElementById('paint-canvas-loader');
     if (loader) loader.style.display = 'flex';
 
-    paintDrawingImage = new Image();
-    paintDrawingImage.crossOrigin = "anonymous";
-    paintDrawingImage.onload = () => {
-        // Ajustar dimensões preservando proporção
-        const aspect = paintDrawingImage.width / paintDrawingImage.height;
-        let w = paintCanvas.width;
-        let h = paintCanvas.height;
-        let x = 0;
-        let y = 0;
-
-        if (aspect > 4/3) {
-            h = paintCanvas.width / aspect;
-            y = (paintCanvas.height - h) / 2;
-        } else {
-            w = paintCanvas.height * aspect;
-            x = (paintCanvas.width - w) / 2;
-        }
-
-        // Desenhar no background inicial
+    if (data.imgUrl === 'blank') {
+        paintDrawingImage = null;
+        
+        // Desenhar no background inicial branco
         paintBgCtx.fillStyle = '#ffffff';
         paintBgCtx.fillRect(0, 0, 800, 600);
-        paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
         
-        // Limpar outlines do desenho
-        cleanPaintCanvasOutlineDirect(paintBgCtx);
-
         // Carregar a Moldura (Border)
         const isPremium = currentUser && currentUser.plan && currentUser.plan !== 'Grátis';
         paintBorderImage = new Image();
@@ -5593,8 +5574,46 @@ function renderPintarOnlineView() {
             if (loader) loader.style.display = 'none';
         };
         paintBorderImage.src = isPremium ? '/premium_border_template.png' : '/classic_border_template.png';
-    };
-    paintDrawingImage.src = '/api/proxy-image?url=' + encodeURIComponent(data.imgUrl);
+    } else {
+        paintDrawingImage = new Image();
+        paintDrawingImage.crossOrigin = "anonymous";
+        paintDrawingImage.onload = () => {
+            // Ajustar dimensões preservando proporção
+            const aspect = paintDrawingImage.width / paintDrawingImage.height;
+            let w = paintCanvas.width;
+            let h = paintCanvas.height;
+            let x = 0;
+            let y = 0;
+
+            if (aspect > 4/3) {
+                h = paintCanvas.width / aspect;
+                y = (paintCanvas.height - h) / 2;
+            } else {
+                w = paintCanvas.height * aspect;
+                x = (paintCanvas.width - w) / 2;
+            }
+
+            // Desenhar no background inicial
+            paintBgCtx.fillStyle = '#ffffff';
+            paintBgCtx.fillRect(0, 0, 800, 600);
+            paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+            
+            // Limpar outlines do desenho
+            cleanPaintCanvasOutlineDirect(paintBgCtx);
+
+            // Carregar a Moldura (Border)
+            const isPremium = currentUser && currentUser.plan && currentUser.plan !== 'Grátis';
+            paintBorderImage = new Image();
+            paintBorderImage.crossOrigin = "anonymous";
+            paintBorderImage.onload = () => {
+                composePaintCanvas();
+                savePaintHistory();
+                if (loader) loader.style.display = 'none';
+            };
+            paintBorderImage.src = isPremium ? '/premium_border_template.png' : '/classic_border_template.png';
+        };
+        paintDrawingImage.src = '/api/proxy-image?url=' + encodeURIComponent(data.imgUrl);
+    }
 
     // Configurar Paleta
     const colorsGrid = document.getElementById('paint-colors-grid');
@@ -5735,24 +5754,32 @@ function renderPintarOnlineView() {
                 paintBgCtx.clearRect(0, 0, 800, 600);
                 paintFgCtx.clearRect(0, 0, 800, 600);
                 
-                const aspect = paintDrawingImage.width / paintDrawingImage.height;
-                let w = paintCanvas.width;
-                let h = paintCanvas.height;
-                let x = 0;
-                let y = 0;
+                if (window.currentPaintingData && window.currentPaintingData.imgUrl === 'blank') {
+                    paintBgCtx.fillStyle = '#ffffff';
+                    paintBgCtx.fillRect(0, 0, 800, 600);
+                } else if (paintDrawingImage) {
+                    const aspect = paintDrawingImage.width / paintDrawingImage.height;
+                    let w = paintCanvas.width;
+                    let h = paintCanvas.height;
+                    let x = 0;
+                    let y = 0;
 
-                if (aspect > 4/3) {
-                    h = paintCanvas.width / aspect;
-                    y = (paintCanvas.height - h) / 2;
+                    if (aspect > 4/3) {
+                        h = paintCanvas.width / aspect;
+                        y = (paintCanvas.height - h) / 2;
+                    } else {
+                        w = paintCanvas.height * aspect;
+                        x = (paintCanvas.width - w) / 2;
+                    }
+
+                    paintBgCtx.fillStyle = '#ffffff';
+                    paintBgCtx.fillRect(0, 0, 800, 600);
+                    paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+                    cleanPaintCanvasOutlineDirect(paintBgCtx);
                 } else {
-                    w = paintCanvas.height * aspect;
-                    x = (paintCanvas.width - w) / 2;
+                    paintBgCtx.fillStyle = '#ffffff';
+                    paintBgCtx.fillRect(0, 0, 800, 600);
                 }
-
-                paintBgCtx.fillStyle = '#ffffff';
-                paintBgCtx.fillRect(0, 0, 800, 600);
-                paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
-                cleanPaintCanvasOutlineDirect(paintBgCtx);
 
                 composePaintCanvas();
                 savePaintHistory();
@@ -6214,72 +6241,346 @@ function executePaintFloodFill(startX, startY, isGlitter) {
     savePaintHistory();
 }
 
+function renderStarsBadgeHtml(stars) {
+    if (stars >= 100) {
+        return `<span class="badge-star badge-lenda" title="👑 Lenda do KidCanvas (100+ estrelas)"><i class="fa-solid fa-crown"></i> Lenda do KidCanvas</span>`;
+    } else if (stars >= 50) {
+        return `<span class="badge-star badge-destaque" title="✨ Pintura Destaque (50+ estrelas)"><i class="fa-solid fa-wand-magic-sparkles"></i> Pintura Destaque</span>`;
+    } else if (stars >= 10) {
+        return `<span class="badge-star badge-criativo" title="🎨 Artista Criativo (10+ estrelas)"><i class="fa-solid fa-palette"></i> Artista Criativo</span>`;
+    }
+    return '';
+}
+window.renderStarsBadgeHtml = renderStarsBadgeHtml;
+
+function renderRankingList(paintings, elementId) {
+    const listEl = document.getElementById(elementId);
+    if (!listEl) return;
+    
+    if (paintings.length === 0) {
+        listEl.innerHTML = '<div style="font-size: 0.85rem; color: var(--color-dark-light); text-align: center; padding: 10px;">Sem votos acumulados ainda.</div>';
+        return;
+    }
+
+    listEl.innerHTML = '';
+    paintings.forEach((p, idx) => {
+        const medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : `#${idx + 1}`));
+        const itemEl = document.createElement('div');
+        itemEl.className = 'ranking-item';
+        itemEl.style.cursor = 'pointer';
+        itemEl.onclick = () => {
+            window.open(p.url, '_blank');
+        };
+        itemEl.innerHTML = `
+            <span class="ranking-position">${medal}</span>
+            <img class="ranking-thumb" src="${p.url}" alt="${p.prompt}">
+            <div class="ranking-info">
+                <h4 class="ranking-title">${p.prompt}</h4>
+                <p class="ranking-creator">Por: ${p.creatorName || p.userName || 'Artista'}</p>
+            </div>
+            <span class="ranking-stars">⭐ ${p.stars || 0}</span>
+        `;
+        listEl.appendChild(itemEl);
+    });
+}
+window.renderRankingList = renderRankingList;
+
+async function loadPendingPaintingsAdmin() {
+    const pendingGrid = document.getElementById('admin-pending-grid');
+    const pendingCount = document.getElementById('admin-pending-count');
+    if (!pendingGrid) return;
+
+    try {
+        const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
+        const response = await fetch('/api/paintings/pending', {
+            headers: {
+                'x-session-token': sessionToken
+            }
+        });
+        const result = await response.json();
+        
+        if (result.success && result.paintings && result.paintings.length > 0) {
+            if (pendingCount) pendingCount.textContent = `${result.paintings.length} pendentes`;
+            pendingGrid.innerHTML = '';
+            
+            result.paintings.forEach(dw => {
+                const card = document.createElement('div');
+                card.className = 'example-card';
+                card.style.background = '#fff';
+                card.style.border = '2px solid #ffcccc';
+                card.style.borderRadius = 'var(--radius-sm)';
+                card.style.padding = '10px';
+                card.style.display = 'flex';
+                card.style.flexDirection = 'column';
+                card.style.gap = '6px';
+                
+                card.innerHTML = `
+                    <div style="aspect-ratio: 4/3; background: #fafafa; border-radius: 4px; overflow: hidden;">
+                        <img src="${dw.url}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
+                    </div>
+                    <div style="font-size: 0.8rem; line-height: 1.3;">
+                        <strong>Título:</strong> ${dw.prompt}<br>
+                        <strong>Criador:</strong> ${dw.creatorName || dw.userName || 'Artista'}<br>
+                        <strong>Email:</strong> ${dw.userEmail || 'Desconhecido'}<br>
+                        <strong>Categoria:</strong> ${dw.category || 'Colorir'}
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: auto;">
+                        <button class="btn btn-sm btn-success" onclick="approvePublicPainting('${dw.url}')" style="flex: 1; font-size: 0.75rem; padding: 4px; background-color: #2ecc71; border-color: #2ecc71; color: white; cursor: pointer;">Aprovar ✅</button>
+                        <button class="btn btn-sm btn-danger" onclick="deletePublicPainting('${dw.url}')" style="flex: 1; font-size: 0.75rem; padding: 4px; background-color: #e74c3c; border-color: #e74c3c; color: white; cursor: pointer;">Deletar ❌</button>
+                    </div>
+                `;
+                pendingGrid.appendChild(card);
+            });
+        } else {
+            if (pendingCount) pendingCount.textContent = `0 pendentes`;
+            pendingGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px; color: #777; font-size: 0.95rem;"><i class="fa-solid fa-check-double" style="color: #2ecc71;"></i> Nenhuma obra pendente de aprovação!</div>';
+        }
+    } catch (err) {
+        console.error(err);
+        pendingGrid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 20px; color: red;">Erro ao carregar pendentes.</div>';
+    }
+}
+window.loadPendingPaintingsAdmin = loadPendingPaintingsAdmin;
+
 async function renderHallDaFamaView() {
-    document.title = "Hall da Fama 📸 — KidCanvas";
-    setMetaDescription("Conheça as incríveis obras de arte coloridas pelas crianças no KidCanvas!");
+    document.title = "Hall da Fama 🏆 — KidCanvas";
+    setMetaDescription("Veja as criações mais votadas da comunidade KidCanvas.");
 
     // Ocultar todas as views e exibir o Hall da Fama
     document.querySelectorAll('.page-view').forEach(view => view.style.display = 'none');
     const hallView = document.getElementById('view-hall-da-fama');
     if (hallView) hallView.style.display = 'block';
 
+    // Configurar abas de filtro
+    const filterTabs = document.querySelectorAll('.hall-filters-wrapper .filter-tab');
+    
+    if (!window.activeHallCategory) {
+        window.activeHallCategory = 'all';
+    }
+
+    filterTabs.forEach(tab => {
+        const cat = tab.getAttribute('data-category');
+        if (cat === window.activeHallCategory) {
+            tab.className = 'btn filter-tab active';
+        } else {
+            tab.className = 'btn filter-tab btn-secondary';
+        }
+
+        tab.onclick = () => {
+            window.activeHallCategory = cat;
+            renderHallDaFamaView();
+        };
+    });
+
     const grid = document.getElementById('public-paintings-grid');
     if (!grid) return;
     
-    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; font-weight: bold; color: var(--color-dark-light);"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Carregando as obras de arte...</div>';
+    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; font-weight: bold; color: var(--color-dark-light);"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Carregando as criações mágicas...</div>';
+
+    const emptyState = document.getElementById('hall-empty-state');
+    if (emptyState) emptyState.style.display = 'none';
 
     try {
         const response = await fetch('/api/paintings/public');
         const result = await response.json();
         
-        if (result.success && result.paintings && result.paintings.length > 0) {
-            grid.innerHTML = '';
-            result.paintings.forEach(dw => {
-                const card = document.createElement('div');
-                card.className = 'example-card';
-                card.style.background = 'white';
-                card.style.border = 'var(--border-medium)';
-                card.style.borderRadius = 'var(--radius-sm)';
-                card.style.padding = '15px';
-                card.style.boxShadow = 'var(--shadow-cartoon)';
-                card.style.textAlign = 'left';
-                
-                const timeStr = new Date(dw.date).toLocaleDateString('pt-BR');
-                
-                const likedKey = 'liked_painting_' + btoa(dw.url).replace(/=/g, '');
-                const hasLiked = localStorage.getItem(likedKey);
-                const btnStyle = hasLiked 
-                    ? 'background-color: #fff3cd; border-color: #ffe082; color: #ffb300;' 
-                    : 'background-color: #ffffff; color: var(--color-dark);';
+        if (result.success && result.paintings) {
+            const allPaintings = result.paintings;
 
-                card.innerHTML = `
-                    <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 12px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
-                        <img src="${dw.url}" alt="${dw.prompt}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
-                    </div>
-                    <span style="font-size: 0.85rem; color: var(--color-orange); font-weight: 700; text-transform: uppercase;">🎨 Artista: ${dw.userName || 'Pequeno Artista'}</span>
-                    <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin-top: 2px; margin-bottom: 4px;">${dw.prompt}</h4>
-                    <p style="font-size: 0.85rem; color: var(--color-dark-light); margin-bottom: 12px;">Colorido em ${timeStr}</p>
-                    <div style="display: flex; flex-direction: column; gap: 8px;">
-                        <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${dw.url}', this)" style="justify-content: center; font-size: 0.9rem; padding: 8px 12px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;">
-                            ⭐ <span class="like-count">${dw.likes || 0}</span> Estrelinhas
-                        </button>
-                        <div style="display: flex; gap: 8px; width: 100%;">
-                            <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 6px;"><i class="fa-solid fa-print"></i> Imprimir</button>
-                            <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 6px; background-color: #25d366; border-color: #25d366; color: white;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            // Filtrar por categoria ativa
+            let filtered = allPaintings;
+            if (window.activeHallCategory !== 'all') {
+                filtered = allPaintings.filter(p => p.category === window.activeHallCategory);
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                if (emptyState) {
+                    emptyState.style.display = 'block';
+                    const emptyTitle = emptyState.querySelector('p:nth-child(2)');
+                    const emptySub = emptyState.querySelector('p:nth-child(3)');
+                    if (window.activeHallCategory === 'Mão Livre') {
+                        if (emptyTitle) emptyTitle.textContent = 'Nenhuma pintura Mão Livre por aqui ainda.';
+                        if (emptySub) emptySub.textContent = 'Pinte um desenho do zero e compartilhe no Hall da Fama!';
+                    } else if (window.activeHallCategory === 'Colorir') {
+                        if (emptyTitle) emptyTitle.textContent = 'Nenhuma obra de Colorir por aqui ainda.';
+                        if (emptySub) emptySub.textContent = 'Escolha um desenho legal, pinte e publique aqui!';
+                    } else {
+                        if (emptyTitle) emptyTitle.textContent = 'O Hall da Fama está esperando a primeira obra.';
+                        if (emptySub) emptySub.textContent = 'Pinte, compartilhe e brilhe por aqui!';
+                    }
+                }
+            } else {
+                if (emptyState) emptyState.style.display = 'none';
+                grid.innerHTML = '';
+                
+                filtered.forEach(dw => {
+                    const card = document.createElement('div');
+                    card.className = 'example-card';
+                    card.style.background = 'white';
+                    card.style.border = 'var(--border-medium)';
+                    card.style.borderRadius = 'var(--radius-sm)';
+                    card.style.padding = '15px';
+                    card.style.boxShadow = 'var(--shadow-cartoon)';
+                    card.style.textAlign = 'left';
+                    card.style.display = 'flex';
+                    card.style.flexDirection = 'column';
+                    card.style.gap = '8px';
+                    card.style.position = 'relative';
+
+                    const timeStr = new Date(dw.date).toLocaleDateString('pt-BR');
+                    const starsCount = dw.stars || dw.likes || 0;
+                    
+                    const likedKey = 'liked_painting_' + btoa(dw.url).replace(/=/g, '');
+                    const hasLiked = localStorage.getItem(likedKey);
+                    const btnStyle = hasLiked 
+                        ? 'background-color: #fff3cd; border-color: #ffe082; color: #ffb300;' 
+                        : 'background-color: #ffffff; color: var(--color-dark);';
+
+                    const catBadgeColor = dw.category === 'Mão Livre' ? 'background: #ff9f43;' : 'background: #10ac84;';
+
+                    card.innerHTML = `
+                        <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
+                            <img src="${dw.url}" alt="${dw.prompt}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
+                            <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
+                                ${dw.category || 'Colorir'}
+                            </span>
                         </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700;">👤 Por: <strong>${dw.creatorName || dw.userName || 'Artista'}</strong></span>
+                            <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0;">${dw.prompt}</h4>
+                            <p style="font-size: 0.75rem; color: var(--color-dark-light); margin: 0;">Publicado em ${timeStr}</p>
+                            
+                            <!-- Selo Automático -->
+                            <div style="margin-top: 4px; min-height: 20px;">
+                                ${renderStarsBadgeHtml(starsCount)}
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 8px; border-top: 1px dashed #f0f0f0;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                <span style="font-weight: 800; color: var(--color-orange); font-size: 1.05rem;">⭐ <span class="like-count">${starsCount}</span></span>
+                                <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${dw.url}', this)" style="font-size: 0.8rem; padding: 4px 10px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;">
+                                    ⭐ Dar estrelinha
+                                </button>
+                            </div>
+                            <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
+                                <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px;" title="Imprimir"><i class="fa-solid fa-print"></i></button>
+                                <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px; background-color: #25d366; border-color: #25d366; color: white;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+                                <a href="#" onclick="reportPublicPainting(event, '${dw.url}')" style="color: #e74c3c; font-size: 0.7rem; font-weight: bold; text-decoration: none; padding: 4px; display: inline-flex; align-items: center; gap: 2px;" title="Denunciar esta pintura"><i class="fa-solid fa-flag"></i> Denunciar</a>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+
+            // Renderizar Rankings
+            const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+            const weekPaintings = allPaintings.filter(p => p.date >= oneWeekAgo);
+            weekPaintings.sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+            renderRankingList(weekPaintings.slice(0, 5), 'ranking-week-list');
+
+            const oneMonthAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
+            const monthPaintings = allPaintings.filter(p => p.date >= oneMonthAgo);
+            monthPaintings.sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+            renderRankingList(monthPaintings.slice(0, 5), 'ranking-month-list');
         } else {
-            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-dark-light); font-weight: 500; font-size: 1.1rem; line-height: 1.6;">🏆 O Hall da Fama está esperando seu talento.<br>Compartilhe sua pintura e seja o primeiro destaque!</div>';
+            grid.innerHTML = '';
+            if (emptyState) emptyState.style.display = 'block';
         }
     } catch (err) {
         console.error(err);
         grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-red); font-weight: bold;">Erro ao carregar o Hall da Fama. Tente novamente mais tarde.</div>';
     }
+
+    // Moderação - Apenas para o Admin foneoliver@gmail.com
+    const adminPanel = document.getElementById('view-hall-da-fama-admin');
+    if (adminPanel) {
+        if (currentUser && currentUser.email === 'foneoliver@gmail.com') {
+            adminPanel.style.display = 'block';
+            loadPendingPaintingsAdmin();
+        } else {
+            adminPanel.style.display = 'none';
+        }
+    }
 }
 window.renderHallDaFamaView = renderHallDaFamaView;
+
+async function approvePublicPainting(url) {
+    if (!confirm('Deseja aprovar esta pintura para exibição pública? 🎨')) return;
+    try {
+        const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
+        const response = await fetch('/api/paintings/approve', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': sessionToken
+            },
+            body: JSON.stringify({ url })
+        });
+        const res = await response.json();
+        if (res.success) {
+            showToast('Pintura aprovada com sucesso! 🎉', 'success');
+            renderHallDaFamaView();
+        } else {
+            showToast(res.message || 'Erro ao aprovar.', 'error');
+        }
+    } catch (err) {
+        console.error(err);
+        showToast('Erro ao aprovar pintura.', 'error');
+    }
+}
+window.approvePublicPainting = approvePublicPainting;
+
+async function deletePublicPainting(url) {
+    if (!confirm('Deseja realmente excluir esta pintura permanentemente? 🚨')) return;
+    try {
+        const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
+        const response = await fetch('/api/paintings/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': sessionToken
+            },
+            body: JSON.stringify({ url })
+        });
+        const res = await response.json();
+        if (res.success) {
+            showToast('Pintura excluída com sucesso! 🗑️', 'success');
+            renderHallDaFamaView();
+        } else {
+            showToast(res.message || 'Erro ao excluir.', 'error');
+        }
+    } catch (err) {
+        console.error(err);
+        showToast('Erro ao excluir pintura.', 'error');
+    }
+}
+window.deletePublicPainting = deletePublicPainting;
+
+async function reportPublicPainting(e, url) {
+    if (e) e.preventDefault();
+    if (!confirm('Deseja mesmo denunciar esta imagem? Ela será revisada pela nossa equipe e ocultada se violar as regras. 🚩')) return;
+    try {
+        const response = await fetch('/api/paintings/report', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url })
+        });
+        const res = await response.json();
+        if (res.success) {
+            showToast('Obrigado pela denúncia! A imagem será revisada. 🚩', 'success');
+            renderHallDaFamaView();
+        } else {
+            showToast(res.message || 'Erro ao denunciar.', 'error');
+        }
+    } catch (err) {
+        console.error(err);
+        showToast('Erro ao denunciar imagem.', 'error');
+    }
+}
+window.reportPublicPainting = reportPublicPainting;
 
 async function likePublicPainting(url, btn) {
     const likedKey = 'liked_painting_' + btoa(url).replace(/=/g, '');
@@ -6290,21 +6591,31 @@ async function likePublicPainting(url, btn) {
 
     try {
         btn.style.pointerEvents = 'none';
+        const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
         const response = await fetch('/api/paintings/like', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'x-session-token': sessionToken || ''
+            },
             body: JSON.stringify({ url })
         });
         const result = await response.json();
-        if (result.success) {
+        if (response.ok && result.success) {
             const countSpan = btn.querySelector('.like-count');
-            if (countSpan) countSpan.textContent = result.likes;
+            if (countSpan) countSpan.textContent = result.stars;
             
             localStorage.setItem(likedKey, 'true');
             btn.style.backgroundColor = '#fff3cd';
             btn.style.borderColor = '#ffe082';
             btn.style.color = '#ffb300';
-            showToast('Obrigado por curtir! ⭐✨', 'success');
+            showToast('Obrigado por votar! ⭐ Dar estrelinha computado!', 'success');
+            
+            setTimeout(() => {
+                renderHallDaFamaView();
+            }, 1000);
+        } else {
+            showToast(result.message || 'Erro ao registrar voto.', 'error');
         }
     } catch (err) {
         console.error(err);
@@ -6325,11 +6636,24 @@ async function savePaintingToGallery() {
     const data = window.currentPaintingData;
     if (!data) return;
 
+    const chkPublic = document.getElementById('paint-chk-public');
+    const isPublic = chkPublic ? chkPublic.checked : false;
+
+    let creatorName = '';
+    if (isPublic) {
+        creatorName = prompt('Qual o nome ou apelido do pequeno artista que criou esta pintura?', currentUser.name || currentUser.email.split('@')[0]);
+        if (creatorName === null) {
+            return; // Cancelado pelo usuário
+        }
+        creatorName = creatorName.trim() || currentUser.name || currentUser.email.split('@')[0];
+    }
+
     showToast('Salvando sua pintura na nuvem... ⏳', 'info');
 
     try {
         const imageBase64 = paintCanvas.toDataURL('image/png');
         const sessionToken = localStorage.getItem('sessionToken') || currentUser.token;
+        const category = data.imgUrl === 'blank' ? 'Mão Livre' : 'Colorir';
 
         const response = await fetch('/api/user/save-painting', {
             method: 'POST',
@@ -6339,7 +6663,10 @@ async function savePaintingToGallery() {
             },
             body: JSON.stringify({
                 imageBase64: imageBase64,
-                prompt: data.name
+                prompt: data.name,
+                isPublic: isPublic,
+                category: category,
+                creatorName: creatorName
             })
         });
 
@@ -6347,7 +6674,11 @@ async function savePaintingToGallery() {
 
         if (response.ok && resData.success) {
             currentUser.myPaintings = resData.myPaintings;
-            showToast('Pintura salva com sucesso na sua galeria! 🎉', 'success');
+            if (isPublic) {
+                showToast('Pintura enviada para o Hall da Fama! Ela passará por moderação antes de aparecer publicamente. 🎉', 'success');
+            } else {
+                showToast('Pintura salva com sucesso na sua galeria! 🎉', 'success');
+            }
             openCertificateModal(data.name);
         } else {
             showToast(resData.message || 'Erro ao salvar pintura.', 'error');
@@ -6458,6 +6789,17 @@ function renderCertificate(childName, drawingName) {
     cCtx.stroke();
 }
 
+function startFreeHandDrawing(e) {
+    if (e) e.preventDefault();
+    window.currentPaintingData = {
+        imgUrl: 'blank',
+        name: 'Desenho Livre',
+        backUrl: '/'
+    };
+    navigate('/pintar-online');
+}
+
 window.renderPintarOnlineView = renderPintarOnlineView;
 window.closeCertificateModal = closeCertificateModal;
+window.startFreeHandDrawing = startFreeHandDrawing;
 
