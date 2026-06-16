@@ -5480,15 +5480,7 @@ let paintFgCanvas = null;
 let paintFgCtx = null;
 let paintBorderImage = null;
 
-let paintHistory = [];
-let paintHistoryIndex = -1;
-const maxHistoryStates = 20;
 
-let paintBgCanvas = null;
-let paintBgCtx = null;
-let paintFgCanvas = null;
-let paintFgCtx = null;
-let paintBorderImage = null;
 
 function renderPintarOnlineView() {
     document.title = "Colorir Online — KidCanvas 🎨";

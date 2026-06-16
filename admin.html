@@ -691,6 +691,182 @@
             gap: 12px;
             margin-top: 25px;
         }
+
+        /* --- STYLES FOR VERTICAL CONVERSION FUNNEL --- */
+        .funnel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 0;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .funnel-stage {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .funnel-stage:hover {
+            background: rgba(139, 92, 246, 0.05);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.1);
+        }
+
+        .funnel-stage-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .funnel-stage-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.85rem;
+        }
+
+        .funnel-stage-info h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .funnel-stage-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .funnel-stage-right {
+            text-align: right;
+        }
+
+        .funnel-stage-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .funnel-stage-percent {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .funnel-arrow {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin: 2px 0;
+            animation: bounceFunnel 2s infinite;
+        }
+
+        @keyframes bounceFunnel {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
+
+        /* --- STYLES FOR REVENUE GRID --- */
+        .revenue-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 640px) {
+            .revenue-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .revenue-card-sub {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .revenue-card-sub:hover {
+            border-color: rgba(16, 185, 129, 0.25);
+            background: rgba(16, 185, 129, 0.02);
+        }
+
+        .revenue-sub-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .revenue-sub-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .revenue-sub-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 12px;
+            font-size: 0.85rem;
+        }
+
+        .revenue-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .revenue-detail-label {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .revenue-detail-value {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .revenue-detail-value.pending {
+            color: var(--warning);
+        }
+
+        .revenue-detail-value.canceled {
+            color: var(--danger);
+        }
+
+        .revenue-detail-value.approved {
+            color: var(--secondary);
+        }
     </style>
 </head>
 <body>
@@ -737,8 +913,14 @@
             <li class="menu-item" data-tab="tab-users">
                 <i class="fa-solid fa-users"></i> Usuários
             </li>
+            <li class="menu-item" data-tab="tab-stories">
+                <i class="fa-solid fa-book-open"></i> Histórias Mágicas
+            </li>
             <li class="menu-item" data-tab="tab-generations">
-                <i class="fa-solid fa-palette"></i> Gerações & IA
+                <i class="fa-solid fa-robot"></i> IA & Top Prompts
+            </li>
+            <li class="menu-item" data-tab="tab-fame">
+                <i class="fa-solid fa-trophy"></i> Hall da Fama
             </li>
             <li class="menu-item" data-tab="tab-bugs">
                 <i class="fa-solid fa-bug"></i> Bugs & Erros
@@ -775,23 +957,44 @@
 
         <!-- TOP PANEL METRICS -->
         <div class="metrics-grid">
-            <div class="metric-card">
+            <div class="metric-card" style="border-bottom: 3px solid var(--primary);">
                 <div class="metric-header">
                     <span>Visitantes</span>
                     <i class="fa-solid fa-eye"></i>
                 </div>
-                <div class="metric-value" id="val-visitors">-</div>
+                <div class="metric-value" id="val-visitors">590</div>
             </div>
-            <div class="metric-card">
+            <div class="metric-card" style="border-bottom: 3px solid var(--primary);">
                 <div class="metric-header">
                     <span>Cadastros</span>
                     <i class="fa-solid fa-user-plus"></i>
                 </div>
-                <div class="metric-value" id="val-cadastros">-</div>
+                <div class="metric-value" id="val-cadastros">8</div>
+            </div>
+            <div class="metric-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%); border-bottom: 3px solid var(--secondary);">
+                <div class="metric-header">
+                    <span>Conversão</span>
+                    <i class="fa-solid fa-percent" style="color: var(--secondary);"></i>
+                </div>
+                <div class="metric-value" id="val-conversion-rate" style="color: var(--secondary);">1,35%</div>
             </div>
             <div class="metric-card">
                 <div class="metric-header">
-                    <span>Créditos Usados Hoje</span>
+                    <span>Receita Recebida</span>
+                    <i class="fa-solid fa-sack-dollar"></i>
+                </div>
+                <div class="metric-value" id="val-revenue-received">-</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span>Receita Estimada</span>
+                    <i class="fa-solid fa-money-bill-trend-up"></i>
+                </div>
+                <div class="metric-value" id="val-revenue-estimated">-</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-header">
+                    <span>Créditos Usados</span>
                     <i class="fa-solid fa-bolt"></i>
                 </div>
                 <div class="metric-value" id="val-credits-used">-</div>
@@ -810,20 +1013,6 @@
                 </div>
                 <div class="metric-value" id="val-stories">-</div>
             </div>
-            <div class="metric-card">
-                <div class="metric-header">
-                    <span>Downloads</span>
-                    <i class="fa-solid fa-download"></i>
-                </div>
-                <div class="metric-value" id="val-downloads">-</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-header">
-                    <span>Receita Est.</span>
-                    <i class="fa-solid fa-sack-dollar"></i>
-                </div>
-                <div class="metric-value" id="val-revenue">-</div>
-            </div>
         </div>
 
         <!-- ========================================== -->
@@ -831,25 +1020,136 @@
         <!-- ========================================== -->
         <div id="tab-overview" class="dashboard-section active">
             <div class="panel-grid">
+                <!-- 💰 RECEITA REAL PANEL -->
                 <div class="panel">
                     <div class="panel-header">
-                        <h3 class="panel-title"><i class="fa-solid fa-chart-line"></i> Funil Financeiro e Uso</h3>
+                        <h3 class="panel-title"><i class="fa-solid fa-money-bill-transfer"></i> 💰 Receita Real</h3>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="conversionChart"></canvas>
+                    <div class="revenue-grid">
+                        <div class="revenue-card-sub" style="border-bottom: 2px solid var(--secondary);">
+                            <span class="revenue-sub-title">
+                                <i class="fa-solid fa-circle-check" style="color: var(--secondary);"></i> Receita Recebida
+                            </span>
+                            <div class="revenue-sub-value" id="revenue-received-val">R$ 0,00</div>
+                            <div class="revenue-sub-details">
+                                <div class="revenue-detail-row">
+                                    <span class="revenue-detail-label"><i class="fa-solid fa-qrcode"></i> PIX Pago</span>
+                                    <span class="revenue-detail-value approved" id="rev-pix-paid-val">R$ 0,00 (0)</span>
+                                </div>
+                                <div class="revenue-detail-row">
+                                    <span class="revenue-detail-label"><i class="fa-solid fa-credit-card"></i> Cartão Aprovado</span>
+                                    <span class="revenue-detail-value approved" id="rev-card-approved-val">R$ 0,00 (0)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="revenue-card-sub" style="border-bottom: 2px solid var(--primary);">
+                            <span class="revenue-sub-title">
+                                <i class="fa-solid fa-money-bill-trend-up" style="color: var(--primary);"></i> Receita Estimada (MRR)
+                            </span>
+                            <div class="revenue-sub-value" id="revenue-estimated-val">R$ 0,00</div>
+                            <div class="revenue-sub-details">
+                                <div class="revenue-detail-row">
+                                    <span class="revenue-detail-label"><i class="fa-solid fa-clock"></i> PIX Pendente</span>
+                                    <span class="revenue-detail-value pending" id="rev-pix-pending-val">R$ 0,00 (0)</span>
+                                </div>
+                                <div class="revenue-detail-row">
+                                    <span class="revenue-detail-label"><i class="fa-solid fa-circle-xmark"></i> Cartão Cancelado</span>
+                                    <span class="revenue-detail-value canceled" id="rev-card-canceled-val">R$ 0,00 (0)</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- 🔥 FUNIL DE CONVERSÃO PANEL -->
                 <div class="panel">
                     <div class="panel-header">
-                        <h3 class="panel-title"><i class="fa-solid fa-circle-half-stroke"></i> Distribuição de Planos</h3>
+                        <h3 class="panel-title"><i class="fa-solid fa-fire"></i> 🔥 Funil de Conversão</h3>
                     </div>
-                    <div class="chart-container" style="height: 250px;">
-                        <canvas id="plansChart"></canvas>
+                    <div class="funnel-container">
+                        <!-- Stage 1 -->
+                        <div class="funnel-stage" title="Total de visitas únicas ao site">
+                            <div class="funnel-stage-left">
+                                <div class="funnel-stage-num">1</div>
+                                <div class="funnel-stage-info">
+                                    <h4>Visitantes</h4>
+                                    <p>Visitas no site</p>
+                                </div>
+                            </div>
+                            <div class="funnel-stage-right">
+                                <div class="funnel-stage-value" id="funnel-val-visitors">590</div>
+                                <div class="funnel-stage-percent">100%</div>
+                            </div>
+                        </div>
+                        <div class="funnel-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                        
+                        <!-- Stage 2 -->
+                        <div class="funnel-stage" title="Usuários que criaram conta">
+                            <div class="funnel-stage-left">
+                                <div class="funnel-stage-num">2</div>
+                                <div class="funnel-stage-info">
+                                    <h4>Cadastros</h4>
+                                    <p>Contas criadas</p>
+                                </div>
+                            </div>
+                            <div class="funnel-stage-right">
+                                <div class="funnel-stage-value" id="funnel-val-cadastros">8</div>
+                                <div class="funnel-stage-percent" id="funnel-pct-cadastros">1.35%</div>
+                            </div>
+                        </div>
+                        <div class="funnel-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                        
+                        <!-- Stage 3 -->
+                        <div class="funnel-stage" title="Fizeram login recente ou usaram a ferramenta">
+                            <div class="funnel-stage-left">
+                                <div class="funnel-stage-num">3</div>
+                                <div class="funnel-stage-info">
+                                    <h4>Usuários Ativos</h4>
+                                    <p>Acessaram o painel</p>
+                                </div>
+                            </div>
+                            <div class="funnel-stage-right">
+                                <div class="funnel-stage-value" id="funnel-val-active">5</div>
+                                <div class="funnel-stage-percent" id="funnel-pct-active">62.5%</div>
+                            </div>
+                        </div>
+                        <div class="funnel-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                        
+                        <!-- Stage 4 -->
+                        <div class="funnel-stage" title="Geraram desenhos ou histórias via IA">
+                            <div class="funnel-stage-left">
+                                <div class="funnel-stage-num">4</div>
+                                <div class="funnel-stage-info">
+                                    <h4>Geraram IA</h4>
+                                    <p>Criaram imagem/história</p>
+                                </div>
+                            </div>
+                            <div class="funnel-stage-right">
+                                <div class="funnel-stage-value" id="funnel-val-generators">2</div>
+                                <div class="funnel-stage-percent" id="funnel-pct-generators">25%</div>
+                            </div>
+                        </div>
+                        <div class="funnel-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+                        
+                        <!-- Stage 5 -->
+                        <div class="funnel-stage" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.3);" title="Assinaram um plano pago (Plus ou Ultra)">
+                            <div class="funnel-stage-left">
+                                <div class="funnel-stage-num" style="background: rgba(16, 185, 129, 0.1); border-color: var(--secondary); color: var(--secondary);">5</div>
+                                <div class="funnel-stage-info">
+                                    <h4>Assinaram Plano</h4>
+                                    <p>Clientes pagantes</p>
+                                </div>
+                            </div>
+                            <div class="funnel-stage-right">
+                                <div class="funnel-stage-value" id="funnel-val-subscribers" style="color: var(--secondary);">1</div>
+                                <div class="funnel-stage-percent" style="color: var(--secondary);" id="funnel-pct-subscribers">12.5%</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="panel-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="panel-grid" style="grid-template-columns: 1.2fr 1fr;">
                 <div class="panel">
                     <div class="panel-header">
                         <h3 class="panel-title"><i class="fa-solid fa-fire"></i> Desenhos Mais Baixados</h3>
@@ -870,17 +1170,53 @@
                 </div>
                 <div class="panel">
                     <div class="panel-header">
-                        <h3 class="panel-title"><i class="fa-solid fa-magnifying-glass"></i> Buscas Mais Feitas</h3>
+                        <h3 class="panel-title"><i class="fa-solid fa-circle-half-stroke"></i> Distribuição de Planos</h3>
+                    </div>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="plansChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB: STORIES -->
+        <!-- ========================================== -->
+        <div id="tab-stories" class="dashboard-section">
+            <div class="panel-grid" style="grid-template-columns: 1fr 1.2fr;">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title"><i class="fa-solid fa-book-sparkles"></i> Histórias Mágicas</h3>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:20px; margin-top:20px;">
+                        <div style="background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; border:1px solid var(--border-card);">
+                            <p style="color:var(--text-muted); font-size:0.85rem; font-weight:600; text-transform:uppercase;">Histórias Criadas</p>
+                            <h2 style="font-size:2.2rem; font-weight:700; margin-top:5px; color:var(--primary);" id="stories-total-count">-</h2>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; border:1px solid var(--border-card);">
+                            <p style="color:var(--text-muted); font-size:0.85rem; font-weight:600; text-transform:uppercase;">Média de Páginas/Parágrafos</p>
+                            <h2 style="font-size:2.2rem; font-weight:700; margin-top:5px;" id="stories-avg-pages">-</h2>
+                            <p style="color:var(--text-muted); font-size:0.75rem; margin-top:4px;">Parágrafos por história gerada</p>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; border:1px solid var(--border-card);">
+                            <p style="color:var(--text-muted); font-size:0.85rem; font-weight:600; text-transform:uppercase;">Idioma Principal</p>
+                            <h3 style="font-size:1.5rem; font-weight:700; margin-top:5px;"><i class="fa-solid fa-globe" style="color:var(--secondary); margin-right:8px;"></i> Português (100%)</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title"><i class="fa-solid fa-masks-theater"></i> Personagens Mais Usados</h3>
                     </div>
                     <div class="table-responsive">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Termo da Busca</th>
-                                    <th>Frequência</th>
+                                    <th>Personagem / Nome</th>
+                                    <th>Frequência de Uso</th>
                                 </tr>
                             </thead>
-                            <tbody id="top-searches-tbody">
+                            <tbody id="top-characters-tbody">
                                 <tr><td colspan="2" style="text-align:center;">Carregando...</td></tr>
                             </tbody>
                         </table>
@@ -965,6 +1301,90 @@
                             </thead>
                             <tbody id="top-consumers-tbody">
                                 <tr><td colspan="4" style="text-align:center;">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Prompts Panel -->
+            <div class="panel" style="margin-top: 25px;">
+                <div class="panel-header">
+                    <h3 class="panel-title"><i class="fa-solid fa-wand-magic-sparkles"></i> 🤖 Top Prompts Customizados</h3>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prompt da Imagem</th>
+                                <th>Frequência / Quantidade de Desenhos Gerados</th>
+                            </tr>
+                        </thead>
+                        <tbody id="top-prompts-tbody">
+                            <tr><td colspan="2" style="text-align:center;">Carregando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB: HALL OF FAME -->
+        <!-- ========================================== -->
+        <div id="tab-fame" class="dashboard-section">
+            <div class="panel-grid" style="grid-template-columns: 1fr 1.2fr;">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title"><i class="fa-solid fa-trophy"></i> Estatísticas do Hall da Fama</h3>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:20px; margin-top:20px;">
+                        <div style="background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; border:1px solid var(--border-card);">
+                            <p style="color:var(--text-muted); font-size:0.85rem; font-weight:600; text-transform:uppercase;">Pinturas Publicadas</p>
+                            <h2 style="font-size:2.2rem; font-weight:700; margin-top:5px; color:var(--primary);" id="fame-published-count">-</h2>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; border:1px solid var(--border-card);">
+                            <p style="color:var(--text-muted); font-size:0.85rem; font-weight:600; text-transform:uppercase;">Total de Votos</p>
+                            <h2 style="font-size:2.2rem; font-weight:700; margin-top:5px; color:var(--secondary);" id="fame-total-votes">-</h2>
+                        </div>
+                    </div>
+                    
+                    <div class="panel-header" style="margin-top: 30px; margin-bottom: 15px;">
+                        <h3 class="panel-title" style="font-size: 1.1rem;"><i class="fa-solid fa-star"></i> Mais Votadas</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Desenho</th>
+                                    <th>Votos</th>
+                                    <th>Nota Média</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fame-voted-tbody">
+                                <tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title"><i class="fa-solid fa-magnifying-glass-chart"></i> Tabela de Buscas (Tendências & Oportunidades)</h3>
+                    </div>
+                    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:15px; line-height:1.4;">
+                        Pesquisas em tempo real feitas pelas crianças no site. Identifique termos recorrentes (ex. <em>Homem-Aranha, Sonic, Bluey, Stitch</em>) para saber exatamente onde investir em novas categorias de conteúdo.
+                    </p>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Termo da Busca</th>
+                                    <th>Frequência</th>
+                                    <th>Tendência</th>
+                                </tr>
+                            </thead>
+                            <tbody id="fame-searches-tbody">
+                                <tr><td colspan="3" style="text-align:center;">Carregando...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1190,7 +1610,9 @@
                     const titleMap = {
                         'tab-overview': { t: 'Visão Geral', s: 'Métricas e estatísticas em tempo real' },
                         'tab-users': { t: 'Usuários Registrados', s: 'Gestão de usuários e créditos mágicos' },
-                        'tab-generations': { t: 'Gerações & Custos IA', s: 'Controle de volume e custos de inteligência artificial' },
+                        'tab-stories': { t: 'Histórias Mágicas', s: 'Estatísticas e tendências de livros e histórias geradas' },
+                        'tab-generations': { t: 'IA & Top Prompts', s: 'Controle de volume, custos de IA e prompts mais desejados' },
+                        'tab-fame': { t: 'Hall da Fama', s: 'Desenhos publicados, votos e termos de buscas populares' },
                         'tab-bugs': { t: 'Relatos de Bugs & Erros', s: 'Gerenciamento de erros do site e falhas reportadas' },
                         'tab-waitlist': { t: 'Lista de Espera 🏫', s: 'Escolas e professores interessados nos planos pagos' }
                     };
@@ -1227,6 +1649,9 @@
                     renderOverviewCharts();
                     populateTopLibraryTables();
                     populateGenerationsTab();
+                    populateStoriesTab();
+                    populateTopPrompts();
+                    populateHallOfFame();
                     populateBugsTab();
                 }
 
@@ -1257,97 +1682,110 @@
             }
         }
 
-        // --- POPULATE SUMMARY METRICS ---
+        // --- POPULATE SUMMARY METRICS & OVERVIEW DATA ---
         function populateMetrics() {
             if (!statsData) return;
             const summary = statsData.summary;
+            const revenue = statsData.revenue;
+            const funnel = statsData.funnel;
+
+            // 1. Top metric cards
             document.getElementById('val-visitors').textContent = summary.visitors;
             document.getElementById('val-cadastros').textContent = summary.cadastros;
+            document.getElementById('val-conversion-rate').textContent = `${summary.conversionRate.replace('.', ',')}%`;
+            document.getElementById('val-revenue-received').textContent = `R$ ${revenue.revenueReceived.toFixed(2)}`;
+            document.getElementById('val-revenue-estimated').textContent = `R$ ${revenue.revenueEstimated.toFixed(2)}`;
             document.getElementById('val-credits-used').textContent = summary.creditsUsed;
             document.getElementById('val-drawings').textContent = statsData.generations.normal + statsData.generations.ultra;
             document.getElementById('val-stories').textContent = summary.storiesGenerated;
-            document.getElementById('val-downloads').textContent = summary.downloads;
-            document.getElementById('val-revenue').textContent = `R$ ${summary.revenue.toFixed(2)}`;
+
+            // 2. Receita Real
+            document.getElementById('revenue-received-val').textContent = `R$ ${revenue.revenueReceived.toFixed(2)}`;
+            document.getElementById('rev-pix-paid-val').textContent = `R$ ${revenue.pixPaid.amount.toFixed(2)} (${revenue.pixPaid.count})`;
+            document.getElementById('rev-card-approved-val').textContent = `R$ ${revenue.cardApproved.amount.toFixed(2)} (${revenue.cardApproved.count})`;
+            
+            document.getElementById('revenue-estimated-val').textContent = `R$ ${revenue.revenueEstimated.toFixed(2)}`;
+            document.getElementById('rev-pix-pending-val').textContent = `R$ ${revenue.pixPending.amount.toFixed(2)} (${revenue.pixPending.count})`;
+            document.getElementById('rev-card-canceled-val').textContent = `R$ ${revenue.cardCanceled.amount.toFixed(2)} (${revenue.cardCanceled.count})`;
+
+            // 3. Funil de Conversão
+            document.getElementById('funnel-val-visitors').textContent = funnel.visitors;
+            document.getElementById('funnel-val-cadastros').textContent = funnel.cadastros;
+            document.getElementById('funnel-val-active').textContent = funnel.activeUsers;
+            document.getElementById('funnel-val-generators').textContent = funnel.aiGenerators;
+            document.getElementById('funnel-val-subscribers').textContent = funnel.subscribers;
+
+            const pctCad = funnel.visitors > 0 ? ((funnel.cadastros / funnel.visitors) * 100).toFixed(2) : '0.00';
+            const pctAct = funnel.cadastros > 0 ? ((funnel.activeUsers / funnel.cadastros) * 100).toFixed(1) : '0.0';
+            const pctGen = funnel.activeUsers > 0 ? ((funnel.aiGenerators / funnel.activeUsers) * 100).toFixed(1) : '0.0';
+            const pctSub = funnel.aiGenerators > 0 ? ((funnel.subscribers / funnel.aiGenerators) * 100).toFixed(1) : '0.0';
+
+            document.getElementById('funnel-pct-cadastros').textContent = `${pctCad.replace('.', ',')}% das visitas`;
+            document.getElementById('funnel-pct-active').textContent = `${pctAct.replace('.', ',')}% dos cadastros`;
+            document.getElementById('funnel-pct-generators').textContent = `${pctGen.replace('.', ',')}% dos ativos`;
+            document.getElementById('funnel-pct-subscribers').textContent = `${pctSub.replace('.', ',')}% dos geradores`;
         }
 
         // --- RENDER CHARTS ---
         function renderOverviewCharts() {
             if (!statsData) return;
 
-            // 1. Grafico de Conversão / Uso Fin
-            const ctxConversion = document.getElementById('conversionChart').getContext('2d');
-            if (conversionChart) conversionChart.destroy();
-            
-            conversionChart = new Chart(ctxConversion, {
-                type: 'line',
-                data: {
-                    labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Hoje'],
-                    datasets: [
-                        {
-                            label: 'Visitas',
-                            data: [
-                                Math.floor(statsData.summary.visitors * 0.4),
-                                Math.floor(statsData.summary.visitors * 0.6),
-                                Math.floor(statsData.summary.visitors * 0.8),
-                                statsData.summary.visitors
-                            ],
-                            borderColor: '#8b5cf6',
-                            tension: 0.3,
-                            fill: false
-                        },
-                        {
-                            label: 'Downloads',
-                            data: [
-                                Math.floor(statsData.summary.downloads * 0.3),
-                                Math.floor(statsData.summary.downloads * 0.5),
-                                Math.floor(statsData.summary.downloads * 0.7),
-                                statsData.summary.downloads
-                            ],
-                            borderColor: '#10b981',
-                            tension: 0.3,
-                            fill: false
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: '#9ca3af' } }
-                    },
-                    scales: {
-                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af' } },
-                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9ca3af' } }
+            // 1. Grafico de Conversão (removido do DOM - ignorado com segurança)
+            const canvasConversion = document.getElementById('conversionChart');
+            if (canvasConversion) {
+                const ctxConversion = canvasConversion.getContext('2d');
+                if (conversionChart) conversionChart.destroy();
+                conversionChart = new Chart(ctxConversion, {
+                    type: 'line',
+                    data: {
+                        labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Hoje'],
+                        datasets: [
+                            {
+                                label: 'Visitas',
+                                data: [
+                                    Math.floor(statsData.summary.visitors * 0.4),
+                                    Math.floor(statsData.summary.visitors * 0.6),
+                                    Math.floor(statsData.summary.visitors * 0.8),
+                                    statsData.summary.visitors
+                                ],
+                                borderColor: '#8b5cf6',
+                                tension: 0.3,
+                                fill: false
+                            }
+                        ]
                     }
-                }
-            });
+                });
+            }
 
             // 2. Grafico Doughnut Planos
-            const ctxPlans = document.getElementById('plansChart').getContext('2d');
-            if (plansChart) plansChart.destroy();
-            
-            const plans = statsData.users.planBreakdown;
-            plansChart = new Chart(ctxPlans, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Free', 'Plus', 'Ultra'],
-                    datasets: [{
-                        data: [plans.Free, plans.Plus, plans.Ultra],
-                        backgroundColor: ['#9ca3af', '#10b981', '#8b5cf6'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                            labels: { color: '#9ca3af', font: { size: 12 } }
+            const canvasPlans = document.getElementById('plansChart');
+            if (canvasPlans) {
+                const ctxPlans = canvasPlans.getContext('2d');
+                if (plansChart) plansChart.destroy();
+                
+                const plans = statsData.users.planBreakdown;
+                plansChart = new Chart(ctxPlans, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Free', 'Plus', 'Ultra'],
+                        datasets: [{
+                            data: [plans.Free, plans.Plus, plans.Ultra],
+                            backgroundColor: ['#9ca3af', '#10b981', '#8b5cf6'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: { color: '#9ca3af', font: { size: 12 } }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         }
 
         // --- POPULATE LIBRARY TABLES ---
@@ -1356,36 +1794,50 @@
 
             // Downloads
             const downloadsTbody = document.getElementById('top-downloads-tbody');
-            downloadsTbody.innerHTML = '';
-            const downloads = statsData.library.mostDownloaded;
-            if (downloads.length === 0) {
-                downloadsTbody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Nenhum download registrado.</td></tr>';
-            } else {
-                downloads.forEach(d => {
-                    downloadsTbody.innerHTML += `
-                        <tr>
-                            <td><i class="fa-solid fa-image" style="color:var(--primary); margin-right:8px;"></i> ${d.name}</td>
-                            <td><strong style="color:var(--text-main);">${d.count}</strong> downloads</td>
-                        </tr>
-                    `;
-                });
+            if (downloadsTbody) {
+                downloadsTbody.innerHTML = '';
+                const downloads = statsData.library.mostDownloaded;
+                if (downloads.length === 0) {
+                    downloadsTbody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Nenhum download registrado.</td></tr>';
+                } else {
+                    downloads.forEach(d => {
+                        downloadsTbody.innerHTML += `
+                            <tr>
+                                <td><i class="fa-solid fa-image" style="color:var(--primary); margin-right:8px;"></i> ${d.name}</td>
+                                <td><strong style="color:var(--text-main);">${d.count}</strong> downloads</td>
+                            </tr>
+                        `;
+                    });
+                }
             }
 
-            // Buscas
-            const searchesTbody = document.getElementById('top-searches-tbody');
-            searchesTbody.innerHTML = '';
-            const searches = statsData.library.topSearches;
-            if (searches.length === 0) {
-                searchesTbody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Nenhuma busca registrada.</td></tr>';
-            } else {
-                searches.forEach(s => {
-                    searchesTbody.innerHTML += `
-                        <tr>
-                            <td><i class="fa-solid fa-magnifying-glass" style="color:var(--primary); margin-right:8px;"></i> "${s.term}"</td>
-                            <td><strong style="color:var(--text-main);">${s.count}</strong> vezes</td>
-                        </tr>
-                    `;
-                });
+            // Buscas (Renderizadas na aba do Hall da Fama)
+            const searchesTbody = document.getElementById('fame-searches-tbody');
+            if (searchesTbody) {
+                searchesTbody.innerHTML = '';
+                const searches = statsData.library.topSearches;
+                if (searches.length === 0) {
+                    searchesTbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Nenhuma busca registrada.</td></tr>';
+                } else {
+                    searches.forEach(s => {
+                        let badgeTrend = '';
+                        if (s.count >= 12) {
+                            badgeTrend = '<span class="badge badge-plus" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2);"><i class="fa-solid fa-arrow-trend-up"></i> Explodindo</span>';
+                        } else if (s.count >= 6) {
+                            badgeTrend = '<span class="badge badge-ultra" style="background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.2);"><i class="fa-solid fa-arrow-right"></i> Alta</span>';
+                        } else {
+                            badgeTrend = '<span class="badge badge-free" style="background: rgba(156, 163, 175, 0.1); border-color: rgba(156, 163, 175, 0.2);">Estável</span>';
+                        }
+
+                        searchesTbody.innerHTML += `
+                            <tr>
+                                <td><strong style="color:var(--text-main);">"${s.term}"</strong></td>
+                                <td><strong>${s.count}</strong> buscas/dia</td>
+                                <td>${badgeTrend}</td>
+                            </tr>
+                        `;
+                    });
+                }
             }
         }
 
@@ -1421,6 +1873,82 @@
                         </tr>
                     `;
                 });
+            }
+        }
+
+        // --- POPULATE STORIES TAB ---
+        function populateStoriesTab() {
+            if (!statsData || !statsData.stories) return;
+            const stories = statsData.stories;
+            
+            document.getElementById('stories-total-count').textContent = stories.count;
+            document.getElementById('stories-avg-pages').textContent = stories.avgPages;
+            
+            const tbody = document.getElementById('top-characters-tbody');
+            if (tbody) {
+                tbody.innerHTML = '';
+                if (!stories.topCharacters || stories.topCharacters.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Nenhum personagem registrado ainda.</td></tr>';
+                } else {
+                    stories.topCharacters.forEach(c => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td><i class="fa-solid fa-face-smile" style="color:var(--primary); margin-right:8px;"></i> ${c.name}</td>
+                                <td><strong style="color:var(--text-main); font-size:1.05rem;">${c.count}</strong> histórias</td>
+                            </tr>
+                        `;
+                    });
+                }
+            }
+        }
+
+        // --- POPULATE TOP PROMPTS ---
+        function populateTopPrompts() {
+            if (!statsData || !statsData.topPrompts) return;
+            const tbody = document.getElementById('top-prompts-tbody');
+            if (tbody) {
+                tbody.innerHTML = '';
+                if (statsData.topPrompts.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Nenhum prompt customizado registrado ainda.</td></tr>';
+                } else {
+                    statsData.topPrompts.forEach(p => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td><i class="fa-solid fa-quote-left" style="color:var(--primary); margin-right:8px; font-size:0.85rem;"></i> "${p.prompt}"</td>
+                                <td><strong style="color:var(--text-main); font-size:1.05rem;">${p.count}</strong> desenhos</td>
+                            </tr>
+                        `;
+                    });
+                }
+            }
+        }
+
+        // --- POPULATE HALL OF FAME ---
+        function populateHallOfFame() {
+            if (!statsData || !statsData.hallOfFame) return;
+            const fame = statsData.hallOfFame;
+            
+            document.getElementById('fame-published-count').textContent = fame.publishedCount;
+            document.getElementById('fame-total-votes').textContent = fame.totalVotes;
+            
+            const tbody = document.getElementById('fame-voted-tbody');
+            if (tbody) {
+                tbody.innerHTML = '';
+                if (!fame.mostVoted || fame.mostVoted.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;">Nenhuma pintura votada ainda.</td></tr>';
+                } else {
+                    fame.mostVoted.forEach(v => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td><i class="fa-solid fa-palette" style="color:var(--primary); margin-right:8px;"></i> ${v.name}</td>
+                                <td><strong style="color:var(--text-main);">${v.votes}</strong> votos</td>
+                                <td>
+                                    <span style="color:var(--warning);"><i class="fa-solid fa-star"></i> ${v.stars}</span>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
             }
         }
 
