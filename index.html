@@ -1533,6 +1533,21 @@
                                 <span id="paint-brush-size-val" style="font-weight:700; font-size:0.9rem;">8px</span>
                             </div>
 
+                            <!-- Grupo de Entrada de Texto -->
+                            <div class="paint-text-group" id="paint-text-input-group" style="display: none; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                <span style="font-weight: 700; font-size: 0.9rem;">Texto:</span>
+                                <input type="text" id="paint-text-value" placeholder="Digite seu nome ou texto..." maxlength="25" style="padding: 6px 10px; border-radius: 8px; border: 2px solid var(--color-dark); font-size: 0.9rem; outline: none; width: 180px; font-family: var(--font-body);">
+                                
+                                <span style="font-weight: 700; font-size: 0.9rem; margin-left: 5px;">Letra:</span>
+                                <select id="paint-text-font" style="padding: 6px 10px; border-radius: 8px; border: 2px solid var(--color-dark); font-size: 0.9rem; outline: none; cursor: pointer; background: white; font-family: var(--font-body); font-weight: bold;">
+                                    <option value="Fredoka" style="font-family: Fredoka, sans-serif;">Divertida</option>
+                                    <option value="'Arial Black'" style="font-family: 'Arial Black', sans-serif;">Forte</option>
+                                    <option value="Comic Sans MS" style="font-family: 'Comic Sans MS', sans-serif;">Gibi</option>
+                                    <option value="Courier New" style="font-family: 'Courier New', monospace;">Máquina</option>
+                                    <option value="Georgia" style="font-family: Georgia, serif;">Clássica</option>
+                                </select>
+                            </div>
+
                             <div style="display: flex; align-items: center; gap: 8px; margin-right: 15px;">
                                 <input type="checkbox" id="paint-chk-public" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--color-purple);">
                                 <label for="paint-chk-public" style="font-weight: 700; font-size: 0.95rem; color: var(--color-dark); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-camera" style="color: var(--color-purple);"></i> Compartilhar no Hall da Fama (Público)</label>

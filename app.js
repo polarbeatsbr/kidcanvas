@@ -5899,12 +5899,143 @@ function cleanPaintCanvasOutlineDirect(ctx) {
     ctx.putImageData(imgData, 0, 0);
 }
 
+// Cursor Customizado e Magic Brush Mask Variables
+let magicBrushMaskCanvas = null;
+let magicBrushMaskCtx = null;
+let magicBrushTempCanvas = null;
+let magicBrushTempCtx = null;
+
+function updatePaintCursor(tool, stamp) {
+    if (!paintCanvas) return;
+    if (tool === 'bucket') {
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🪣</text></svg>") 4 22, auto';
+    } else if (tool === 'glitter') {
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>✨</text></svg>") 11 11, auto';
+    } else if (tool === 'brush-magic') {
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🪄</text></svg>") 4 22, auto';
+    } else if (tool === 'brush') {
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🖌️</text></svg>") 4 22, auto';
+    } else if (tool === 'eraser') {
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🧽</text></svg>") 11 11, auto';
+    } else if (tool === 'text') {
+        paintCanvas.style.cursor = 'text';
+    } else if (tool === 'stamp') {
+        const activeStamp = stamp || window.selectedPaintStamp || '⭐';
+        paintCanvas.style.cursor = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:22px'><text y='22'>${activeStamp}</text></svg>") 11 11, auto`;
+    } else {
+        paintCanvas.style.cursor = 'default';
+    }
+}
+
+function initMagicBrushMask(startX, startY) {
+    const width = paintCanvas.width;
+    const height = paintCanvas.height;
+    
+    if (!magicBrushMaskCanvas) {
+        magicBrushMaskCanvas = document.createElement('canvas');
+    }
+    magicBrushMaskCanvas.width = width;
+    magicBrushMaskCanvas.height = height;
+    magicBrushMaskCtx = magicBrushMaskCanvas.getContext('2d');
+    
+    // Limpar máscara
+    magicBrushMaskCtx.clearRect(0, 0, width, height);
+    
+    if (!paintDrawingImage) {
+        // Modo mão livre: sem restrição (máscara total)
+        magicBrushMaskCtx.fillStyle = '#ffffff';
+        magicBrushMaskCtx.fillRect(0, 0, width, height);
+        return;
+    }
+    
+    // Desenhar contornos limpos em um canvas auxiliar
+    const outlineCanvas = document.createElement('canvas');
+    outlineCanvas.width = width;
+    outlineCanvas.height = height;
+    const oCtx = outlineCanvas.getContext('2d');
+    oCtx.fillStyle = '#ffffff';
+    oCtx.fillRect(0, 0, width, height);
+    
+    const aspect = paintDrawingImage.width / paintDrawingImage.height;
+    let w = width;
+    let h = height;
+    let x = 0;
+    let y = 0;
+    if (aspect > 4/3) {
+        h = width / aspect;
+        y = (height - h) / 2;
+    } else {
+        w = height * aspect;
+        x = (width - w) / 2;
+    }
+    oCtx.drawImage(paintDrawingImage, x, y, w, h);
+    
+    const oImgData = oCtx.getImageData(0, 0, width, height);
+    const oData = oImgData.data;
+    
+    function isOutlinePixel(r, g, b, a) {
+        return (r < 110 && g < 110 && b < 110 && a > 100);
+    }
+    
+    const startIdx = (startY * width + startX) * 4;
+    if (isOutlinePixel(oData[startIdx], oData[startIdx+1], oData[startIdx+2], oData[startIdx+3])) {
+        // Se clicar no preto, não mascara para não bloquear o desenho
+        magicBrushMaskCtx.fillStyle = '#ffffff';
+        magicBrushMaskCtx.fillRect(0, 0, width, height);
+        return;
+    }
+    
+    // Flood fill para achar a área fechada
+    const stack = [[startX, startY]];
+    const visited = new Uint8Array(width * height);
+    visited[startY * width + startX] = 1;
+    
+    const maskImgData = magicBrushMaskCtx.createImageData(width, height);
+    const maskData = maskImgData.data;
+    
+    while (stack.length > 0) {
+        const [cx, cy] = stack.pop();
+        const idx = cy * width + cx;
+        const idx4 = idx * 4;
+        
+        maskData[idx4] = 255;
+        maskData[idx4+1] = 255;
+        maskData[idx4+2] = 255;
+        maskData[idx4+3] = 255;
+        
+        const neighbors = [
+            [cx + 1, cy],
+            [cx - 1, cy],
+            [cx, cy + 1],
+            [cx, cy - 1]
+        ];
+        
+        for (const [nx, ny] of neighbors) {
+            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                const nIdx = ny * width + nx;
+                if (!visited[nIdx]) {
+                    visited[nIdx] = 1;
+                    const pIdx = nIdx * 4;
+                    if (!isOutlinePixel(oData[pIdx], oData[pIdx+1], oData[pIdx+2], oData[pIdx+3])) {
+                        stack.push([nx, ny]);
+                    }
+                }
+            }
+        }
+    }
+    
+    magicBrushMaskCtx.putImageData(maskImgData, 0, 0);
+}
+
 function setPaintTool(tool) {
     activePaintTool = tool;
     document.querySelectorAll('.paint-tool-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.paint-stamp-btn').forEach(btn => btn.classList.remove('active'));
 
     const sliderGroup = document.getElementById('paint-slider-group');
+    const textGroup = document.getElementById('paint-text-input-group');
+    
+    if (textGroup) textGroup.style.display = 'none';
     
     if (tool === 'bucket') {
         document.getElementById('paint-tool-bucket').classList.add('active');
@@ -5924,7 +6055,10 @@ function setPaintTool(tool) {
     } else if (tool === 'text') {
         document.getElementById('paint-tool-text').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
+        if (textGroup) textGroup.style.display = 'flex';
     }
+    
+    updatePaintCursor(tool);
 }
 
 // Configurar Toolbar de Pintura
@@ -5945,6 +6079,8 @@ document.querySelectorAll('.paint-stamp-btn').forEach(btn => {
         
         const sliderGroup = document.getElementById('paint-slider-group');
         if (sliderGroup) sliderGroup.style.display = 'flex';
+        
+        updatePaintCursor('stamp', window.selectedPaintStamp);
     };
 });
 
@@ -5971,6 +6107,10 @@ function startPaintingDraw(evt) {
         isPaintDrawing = true;
         paintLastX = pos.x;
         paintLastY = pos.y;
+        
+        if (activePaintTool === 'brush-magic') {
+            initMagicBrushMask(Math.round(pos.x), Math.round(pos.y));
+        }
     }
 }
 
@@ -5981,15 +6121,39 @@ function executePaintingDraw(evt) {
     const brushSizeVal = brushSizeInput ? brushSizeInput.value : 8;
 
     if (activePaintTool === 'brush-magic') {
+        if (!magicBrushTempCanvas) {
+            magicBrushTempCanvas = document.createElement('canvas');
+        }
+        magicBrushTempCanvas.width = paintCanvas.width;
+        magicBrushTempCanvas.height = paintCanvas.height;
+        magicBrushTempCtx = magicBrushTempCanvas.getContext('2d');
+        
+        // Limpar canvas temporário
+        magicBrushTempCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+        
+        // Desenhar traço no canvas temporário
+        magicBrushTempCtx.save();
+        magicBrushTempCtx.beginPath();
+        magicBrushTempCtx.moveTo(paintLastX, paintLastY);
+        magicBrushTempCtx.lineTo(pos.x, pos.y);
+        magicBrushTempCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        magicBrushTempCtx.lineWidth = brushSizeVal;
+        magicBrushTempCtx.lineCap = 'round';
+        magicBrushTempCtx.lineJoin = 'round';
+        magicBrushTempCtx.stroke();
+        magicBrushTempCtx.restore();
+        
+        // Aplicar máscara do flood fill
+        if (magicBrushMaskCanvas) {
+            magicBrushTempCtx.save();
+            magicBrushTempCtx.globalCompositeOperation = 'destination-in';
+            magicBrushTempCtx.drawImage(magicBrushMaskCanvas, 0, 0);
+            magicBrushTempCtx.restore();
+        }
+        
+        // Desenhar o traço mascarado no canvas de fundo real
         paintBgCtx.save();
-        paintBgCtx.beginPath();
-        paintBgCtx.moveTo(paintLastX, paintLastY);
-        paintBgCtx.lineTo(pos.x, pos.y);
-        paintBgCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
-        paintBgCtx.lineWidth = brushSizeVal;
-        paintBgCtx.lineCap = 'round';
-        paintBgCtx.lineJoin = 'round';
-        paintBgCtx.stroke();
+        paintBgCtx.drawImage(magicBrushTempCanvas, 0, 0);
         paintBgCtx.restore();
     } else if (activePaintTool === 'brush') {
         paintFgCtx.save();
@@ -6027,6 +6191,9 @@ function stopPaintingDraw() {
     if (isPaintDrawing) {
         isPaintDrawing = false;
         savePaintHistory();
+        // Resetar máscaras do pincel mágico
+        magicBrushMaskCanvas = null;
+        magicBrushMaskCtx = null;
     }
 }
 
@@ -6047,14 +6214,40 @@ function executePaintStamp(x, y) {
 }
 
 function executePaintText(x, y) {
-    const text = prompt('Escreva o texto que você quer colocar no desenho:');
-    if (!text || text.trim() === '') return;
+    const textInput = document.getElementById('paint-text-value');
+    const text = textInput ? textInput.value.trim() : '';
+    
+    if (!text) {
+        if (textInput) {
+            textInput.focus();
+            textInput.style.borderColor = 'var(--color-orange)';
+            setTimeout(() => {
+                textInput.style.borderColor = 'var(--color-dark)';
+            }, 1000);
+        }
+        return;
+    }
+
+    const fontSelect = document.getElementById('paint-text-font');
+    const selectedFont = fontSelect ? fontSelect.value : 'Fredoka';
 
     const sizeInput = document.getElementById('paint-brush-size');
     const fontSize = sizeInput ? parseInt(sizeInput.value) * 1.5 + 16 : 28;
 
     paintFgCtx.save();
-    paintFgCtx.font = `bold ${fontSize}px Fredoka, Quicksand, "Arial Black", sans-serif`;
+    
+    let fontStr = `bold ${fontSize}px Fredoka, sans-serif`;
+    if (selectedFont === '\'Arial Black\'') {
+        fontStr = `bold ${fontSize}px 'Arial Black', sans-serif`;
+    } else if (selectedFont === 'Georgia') {
+        fontStr = `bold ${fontSize}px Georgia, serif`;
+    } else if (selectedFont === 'Comic Sans MS') {
+        fontStr = `bold ${fontSize}px "Comic Sans MS", cursive, sans-serif`;
+    } else if (selectedFont === 'Courier New') {
+        fontStr = `bold ${fontSize}px "Courier New", Courier, monospace`;
+    }
+    
+    paintFgCtx.font = fontStr;
     
     // Contorno branco para legibilidade premium
     paintFgCtx.strokeStyle = '#ffffff';
