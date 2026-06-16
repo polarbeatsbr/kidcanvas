@@ -1214,7 +1214,8 @@
                 <span class="user-info-balance" id="userBalanceDisplay">Saldo: 0 páginas</span>
             </div>
         </div>
-        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <a href="mailto:contato@kidcanvas.com.br?subject=Reportar%20Bug%20-%20KidCanvas" class="btn-upgrade-top" style="background-color: #fce4e4; color: #e74c3c; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; border-color: #fbc2c2; text-shadow: none;"><i class="fa-solid fa-bug"></i> Bug</a>
             <button class="btn-upgrade-top" id="btnAuthNav" onclick="openPlansModal()">🔑 Entrar / Cadastrar</button>
             <button class="btn-upgrade-top" id="btnPlansNav" onclick="openPlansModal()" style="display: none;">⚙️ Planos</button>
             <button class="btn-upgrade-top" id="btnLogoutNav" onclick="handleLogout()" style="display: none; background-color: var(--color-red); color: white;">🚪 Sair</button>
@@ -1372,15 +1373,18 @@
         </div>
 
         <!-- Disclaimer Box -->
-        <div class="disclaimer-box" style="background-color: #F2F4F4; border: var(--border-thin); border-radius: var(--radius-sm); padding: 15px 20px; margin-bottom: 20px; font-family: var(--font-body); font-size: 0.95rem; color: var(--color-dark-light); line-height: 1.5; box-shadow: 0 4px 0 rgba(0,0,0,0.05);">
+        <div class="disclaimer-box" style="background-color: #fffdf5; border: 1px dashed #d5c3af; border-radius: var(--radius-sm); padding: 15px 20px; margin-bottom: 20px; font-family: var(--font-body); font-size: 0.95rem; color: var(--color-dark-light); line-height: 1.5; box-shadow: 0 4px 0 rgba(0,0,0,0.05);">
             <div style="margin-bottom: 12px; display: flex; align-items: flex-start; gap: 8px;">
-                <span style="font-size: 1.1rem;">ℹ️</span>
-                <span>Este livro é criado por Inteligência Artificial. História e ilustrações são geradas automaticamente e podem conter pequenos erros de ortografia, contexto ou ilustração. Ao continuar você está ciente disso.</span>
+                <span style="font-size: 1.1rem;">👵</span>
+                <span><strong>Aviso da Vovó Sônia:</strong> Como as histórias, ilustrações e textos são gerados por Inteligência Artificial, nos damos ao direito de que eventualmente ocorram pequenas falhas em imagens ou erros ortográficos, apesar de raro. Ao continuar você está ciente disso.</span>
             </div>
-            <label style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--color-dark); cursor: pointer; margin-bottom: 0; user-select: none;">
-                <input type="checkbox" id="chkCiente" style="width: 18px; height: 18px; accent-color: var(--color-purple); cursor: pointer;">
-                ✓ Estou ciente
-            </label>
+            <div style="margin-bottom: 12px; border-top: 1px dashed #e6d8c3; padding-top: 8px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <label style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--color-dark); cursor: pointer; margin-bottom: 0; user-select: none;">
+                    <input type="checkbox" id="chkCiente" style="width: 18px; height: 18px; accent-color: var(--color-purple); cursor: pointer;">
+                    ✓ Estou ciente
+                </label>
+                <span>🐛 Viu algum problema? <a href="mailto:contato@kidcanvas.com.br?subject=Reportar%20Bug%20-%20KidCanvas" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">Reportar Bug</a></span>
+            </div>
         </div>
 
         <button class="btn-generate" id="btnGenerate" disabled>🧙‍♂️ Criar Livro (4 c.)</button>
@@ -1433,6 +1437,11 @@
             <button class="btn-generate btn-bottom" style="background-color: var(--color-blue);" id="btnDownloadPDF" onclick="generatePDF()">📥 Baixar PDF A4</button>
             <button class="btn-generate btn-bottom" style="background-color: var(--color-green);" id="btnPrintFullBook">🖨️ Imprimir Livro Completo</button>
         </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 20px; font-size: 0.95rem; color: var(--color-dark-light); font-family: var(--font-body);">
+        <a href="mailto:contato@kidcanvas.com.br?subject=Reportar%20Bug%20-%20KidCanvas" style="color: #e74c3c; text-decoration: none; font-weight: bold;"><i class="fa-solid fa-bug"></i> Reportar Bug</a> | 
+        <span>Fale Conosco: <a href="mailto:contato@kidcanvas.com.br" style="color: var(--color-purple); text-decoration: none;">contato@kidcanvas.com.br</a></span>
     </div>
 </div>
 
