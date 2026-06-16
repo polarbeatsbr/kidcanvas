@@ -6805,7 +6805,6 @@ async function reportPublicPainting(e, url) {
         }
     );
 }
-}
 window.reportPublicPainting = reportPublicPainting;
 
 async function likePublicPainting(url, btn) {
