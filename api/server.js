@@ -2085,6 +2085,71 @@ app.post('/api/user/save-painting', async (req, res) => {
     }
 });
 
+// Endpoint para obter perfil público de um criador do Hall da Fama
+app.get('/api/user/public-profile', async (req, res) => {
+    try {
+        const { name, userEmail } = req.query;
+        if (!name) {
+            return res.status(400).json({ success: false, message: 'Nome do criador é obrigatório.' });
+        }
+
+        const { loadPublicPaintings } = require('./r2db');
+        const publicPaintings = await loadPublicPaintings();
+        const users = await loadUsers();
+
+        // 1. Tentar encontrar a associação de email pelo banco de pinturas públicas
+        let email = userEmail || '';
+        if (!email) {
+            const matchPainting = publicPaintings.find(p => p.creatorName && p.creatorName.toLowerCase() === name.toLowerCase());
+            if (matchPainting) {
+                email = matchPainting.userEmail;
+            }
+        }
+
+        // 2. Tentar buscar o usuário pelo email encontrado, ou pelo próprio nome direto
+        let user = null;
+        if (email) {
+            user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+        } else {
+            user = users.find(u => u.name && u.name.toLowerCase() === name.toLowerCase());
+        }
+
+        let totalStars = 0;
+        let publishedCount = 0;
+        let totalCreations = 0;
+
+        if (user) {
+            // Filtrar criações aprovadas deste usuário
+            const userApproved = publicPaintings.filter(p => p.userEmail && p.userEmail.toLowerCase() === user.email.toLowerCase() && p.isApproved === true && (!p.reports || p.reports < 3));
+            totalStars = userApproved.reduce((sum, p) => sum + (p.stars || p.likes || 0), 0);
+            publishedCount = userApproved.length;
+            
+            // Obras criadas: soma de gerados em myImages, histórias em myStories e pinturas em myPaintings
+            totalCreations = (user.myImages || []).length + (user.myStories || []).length + (user.myPaintings || []).length;
+        } else {
+            // Fallback caso usuário não seja encontrado na base (ex: pintura legada ou de visitante)
+            const creatorApproved = publicPaintings.filter(p => p.creatorName && p.creatorName.toLowerCase() === name.toLowerCase() && p.isApproved === true && (!p.reports || p.reports < 3));
+            totalStars = creatorApproved.reduce((sum, p) => sum + (p.stars || p.likes || 0), 0);
+            publishedCount = creatorApproved.length;
+            totalCreations = publishedCount; // Fallback
+        }
+
+        // Retornar os dados consolidados do perfil público
+        return res.json({
+            success: true,
+            profile: {
+                name: user ? (user.name || name) : name,
+                stars: totalStars,
+                publishedCount: publishedCount,
+                createdCount: totalCreations
+            }
+        });
+    } catch(err) {
+        console.error('Erro ao buscar perfil público:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao buscar dados do perfil.' });
+    }
+});
+
 // Endpoint para listar pinturas públicas (Hall da Fama - apenas aprovadas e não muito denunciadas)
 app.get('/api/paintings/public', async (req, res) => {
     try {

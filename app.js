@@ -119,6 +119,7 @@ async function syncUserProfile() {
         if (res.ok && data.success) {
             currentUser = data.user;
             updateHeaderAuthDisplay();
+            checkNewAchievements();
         } else {
             sessionToken = null;
             currentUser = null;
@@ -6452,12 +6453,14 @@ function executePaintFloodFill(startX, startY, isGlitter) {
 }
 
 function renderStarsBadgeHtml(stars) {
-    if (stars >= 100) {
-        return `<span class="badge-star badge-lenda" title="👑 Lenda do KidCanvas (100+ estrelas)"><i class="fa-solid fa-crown"></i> Lenda do KidCanvas</span>`;
+    if (stars >= 180) {
+        return `<span class="badge-star badge-lenda" title="👑 Lenda do KidCanvas (180+ estrelas)"><i class="fa-solid fa-crown"></i> Lenda do KidCanvas</span>`;
     } else if (stars >= 50) {
-        return `<span class="badge-star badge-destaque" title="✨ Pintura Destaque (50+ estrelas)"><i class="fa-solid fa-wand-magic-sparkles"></i> Pintura Destaque</span>`;
+        return `<span class="badge-star badge-destaque" style="background-color: #f3e5f5; border-color: #d1c4e9; color: #673ab7;" title="🚀 Explorador Mágico (50+ estrelas)"><i class="fa-solid fa-rocket"></i> Explorador Mágico</span>`;
+    } else if (stars >= 30) {
+        return `<span class="badge-star badge-mestre" style="background-color: #fff3e0; border-color: #ffe0b2; color: #e65100;" title="🦄 Mestre da Imaginação (30+ estrelas)"><i class="fa-solid fa-wand-magic-sparkles"></i> Mestre da Imaginação</span>`;
     } else if (stars >= 10) {
-        return `<span class="badge-star badge-criativo" title="🎨 Artista Criativo (10+ estrelas)"><i class="fa-solid fa-palette"></i> Artista Criativo</span>`;
+        return `<span class="badge-star badge-criativo" style="background-color: #e8f5e9; border-color: #c8e6c9; color: #2e7d32;" title="🌈 Colorista Criativo (10+ estrelas)"><i class="fa-solid fa-palette"></i> Colorista Criativo</span>`;
     }
     return '';
 }
@@ -6486,7 +6489,7 @@ function renderRankingList(paintings, elementId) {
             <img class="ranking-thumb" src="${p.url}" alt="${p.prompt}">
             <div class="ranking-info">
                 <h4 class="ranking-title">${p.prompt}</h4>
-                <p class="ranking-creator">Por: ${p.creatorName || p.userName || 'Artista'}</p>
+                <p class="ranking-creator">Por: <strong style="color: var(--color-purple); text-decoration: underline;" onclick="event.stopPropagation(); openPublicProfile('${(p.creatorName || p.userName || 'Artista').replace(/'/g, "\\'")}', '${(p.userEmail || '').replace(/'/g, "\\'")}')">${p.creatorName || p.userName || 'Artista'}</strong></p>
             </div>
             <span class="ranking-stars">⭐ ${p.stars || 0}</span>
         `;
@@ -6657,7 +6660,7 @@ async function renderHallDaFamaView() {
                             </span>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 2px;">
-                            <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700;">👤 Por: <strong>${dw.creatorName || dw.userName || 'Artista'}</strong></span>
+                            <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700;">👤 Por: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
                             <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0;">${dw.prompt}</h4>
                             <p style="font-size: 0.75rem; color: var(--color-dark-light); margin: 0;">Publicado em ${timeStr}</p>
                             
@@ -6899,6 +6902,7 @@ async function savePaintingToGallery() {
 
         if (response.ok && resData.success) {
             currentUser.myPaintings = resData.myPaintings;
+            checkNewAchievements();
             if (isPublic) {
                 showToast('Pintura enviada para o Hall da Fama! Ela passará por moderação antes de aparecer publicamente. 🎉', 'success');
             } else {
@@ -7044,10 +7048,10 @@ const stickerCategories = {
 
 const unlockableBadges = [
     { name: 'Artista Iniciante', emoji: '🎨', stars: 0 },
-    { name: 'Artista Criativo', emoji: '🌟', stars: 10 },
-    { name: 'Super Colorista', emoji: '✨', stars: 30 },
-    { name: 'Mestre das Cores', emoji: '🔥', stars: 50 },
-    { name: 'Lenda do KidCanvas', emoji: '👑', stars: 100 }
+    { name: 'Colorista Criativo', emoji: '🌈', stars: 10 },
+    { name: 'Mestre da Imaginação', emoji: '🦄', stars: 30 },
+    { name: 'Explorador Mágico', emoji: '🚀', stars: 50 },
+    { name: 'Lenda do KidCanvas', emoji: '👑', stars: 180 }
 ];
 
 let activeStickerTab = 'top';
@@ -7245,5 +7249,147 @@ function showCustomConfirm(title, message, onConfirm, onCancel) {
     modal.classList.add('open');
 }
 window.showCustomConfirm = showCustomConfirm;
+
+
+// --- SISTEMA DE CONQUISTAS E PERFIL PÚBLICO ---
+
+function checkNewAchievements() {
+    if (!currentUser) return;
+    const stars = getUserTotalStars();
+    const checkedKey = 'checked_stars_' + currentUser.id;
+    
+    // Inicializar na primeira verificação sem disparar modal retroativo
+    if (localStorage.getItem(checkedKey) === null) {
+        localStorage.setItem(checkedKey, (stars === 0 ? -1 : stars).toString());
+        return;
+    }
+    
+    const lastCheckedStars = parseInt(localStorage.getItem(checkedKey) || '0', 10);
+    
+    const newlyUnlocked = [];
+    unlockableBadges.forEach(badge => {
+        if (stars >= badge.stars && lastCheckedStars < badge.stars) {
+            newlyUnlocked.push(badge);
+        }
+    });
+
+    localStorage.setItem(checkedKey, stars.toString());
+
+    if (newlyUnlocked.length > 0) {
+        // Exibe o maior selo desbloqueado nesta rodada
+        const highestBadge = newlyUnlocked[newlyUnlocked.length - 1];
+        showAchievementModal(highestBadge);
+    }
+}
+window.checkNewAchievements = checkNewAchievements;
+
+function showAchievementModal(badge) {
+    const modal = document.getElementById('achievementModal');
+    if (!modal) return;
+
+    const emojiEl = document.getElementById('achievement-modal-emoji');
+    const nameEl = document.getElementById('achievement-modal-badge-name');
+
+    if (emojiEl) emojiEl.textContent = badge.emoji;
+    if (nameEl) nameEl.textContent = badge.name;
+
+    modal.classList.add('open');
+
+    // Disparar efeito de confetes
+    if (typeof confetti === 'function') {
+        const duration = 3 * 1000;
+        const end = Date.now() + duration;
+
+        (function frame() {
+            confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#bb0000', '#ffffff', '#ffb300', '#7B4FA6']
+            });
+            confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#bb0000', '#ffffff', '#ffb300', '#7B4FA6']
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+    }
+}
+window.showAchievementModal = showAchievementModal;
+
+function closeAchievementModal() {
+    const modal = document.getElementById('achievementModal');
+    if (modal) modal.classList.remove('open');
+}
+window.closeAchievementModal = closeAchievementModal;
+
+async function openPublicProfile(name, userEmail = '') {
+    const modal = document.getElementById('publicProfileModal');
+    if (!modal) return;
+
+    // Carregar estado de visualização limpo/loading
+    document.getElementById('profile-modal-name').textContent = name;
+    document.getElementById('profile-modal-stars-text').textContent = 'Carregando...';
+    document.getElementById('profile-modal-paintings').textContent = '...';
+    document.getElementById('profile-modal-creations').textContent = '...';
+    document.getElementById('profile-modal-badges').textContent = '...';
+    document.getElementById('profile-modal-badges-grid').innerHTML = '';
+
+    modal.classList.add('open');
+
+    try {
+        const url = `/api/user/public-profile?name=${encodeURIComponent(name)}&userEmail=${encodeURIComponent(userEmail)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        
+        if (data.success && data.profile) {
+            const profile = data.profile;
+            document.getElementById('profile-modal-name').textContent = profile.name;
+            document.getElementById('profile-modal-stars-text').textContent = `${profile.stars} estrelas`;
+            document.getElementById('profile-modal-paintings').textContent = profile.publishedCount;
+            document.getElementById('profile-modal-creations').textContent = profile.createdCount;
+            
+            // Renderizar grade de selos/conquistas
+            let unlockedCount = 0;
+            const gridHtml = unlockableBadges.map(badge => {
+                const isUnlocked = profile.stars >= badge.stars;
+                if (isUnlocked) unlockedCount++;
+                const opacity = isUnlocked ? '1' : '0.25';
+                const filter = isUnlocked ? 'none' : 'grayscale(1)';
+                const titleText = isUnlocked ? badge.name : `Bloqueado - Precisa de ${badge.stars} ⭐`;
+                return `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px 6px; border: var(--border-thin); border-radius: var(--radius-sm); background: ${isUnlocked ? '#fffde7' : '#fdfdfd'}; border-color: ${isUnlocked ? '#fff59d' : '#e2e8f0'}; flex: 1; max-width: 70px; min-width: 65px; cursor: pointer; transition: transform 0.2s;" title="${titleText}">
+                        <span style="font-size: 1.8rem; filter: ${filter}; opacity: ${opacity};">${badge.emoji}</span>
+                        <span style="font-size: 0.65rem; font-weight: 700; text-align: center; color: ${isUnlocked ? 'var(--color-dark)' : '#a0aec0'}; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">${badge.name}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('profile-modal-badges').textContent = `${unlockedCount}/5`;
+            document.getElementById('profile-modal-badges-grid').innerHTML = gridHtml;
+        } else {
+            showToast('Erro ao carregar dados do perfil.', 'error');
+            closePublicProfileModal();
+        }
+    } catch(err) {
+        console.error(err);
+        showToast('Erro ao buscar dados no servidor.', 'error');
+        closePublicProfileModal();
+    }
+}
+window.openPublicProfile = openPublicProfile;
+
+function closePublicProfileModal() {
+    const modal = document.getElementById('publicProfileModal');
+    if (modal) modal.classList.remove('open');
+}
+window.closePublicProfileModal = closePublicProfileModal;
 
 

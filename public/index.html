@@ -32,6 +32,7 @@
 
     <!-- HTML2PDF Library for Book Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <!-- CSS Customizado -->
     <link rel="stylesheet" href="/style.css?v=8.1">
@@ -1744,6 +1745,62 @@
             </p>
             <button class="btn btn-primary btn-large" onclick="closeWelcomeModal()" style="font-size: 1.15rem; padding: 14px 28px; width: 100%; display: inline-flex; justify-content: center; border-radius: var(--radius-sm); font-weight: 700;">
                 Começar a criar! 🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Conquista Desbloqueada (Selos) -->
+    <div id="achievementModal" class="modal-overlay">
+        <div class="modal-box animate-zoom-in" style="text-align: center; max-width: 420px; padding: 40px 30px; border: var(--border-medium); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon); background-color: #fffdf5; position: relative;">
+            <button class="btn-close-modal" onclick="closeAchievementModal()">&times;</button>
+            <span id="achievement-modal-emoji" style="font-size: 5rem; display: block; margin-bottom: 20px; animation: bounce-slow 2s infinite;">🌈</span>
+            <h3 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-purple); margin-bottom: 12px; line-height: 1.2;">Parabéns!</h3>
+            <p style="font-size: 1.25rem; color: var(--color-dark); font-weight: 700; margin-bottom: 15px;">
+                Você desbloqueou <span id="achievement-modal-badge-name" style="color: var(--color-purple);">Colorista Criativo</span>! 🎉
+            </p>
+            <p style="font-size: 1rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 30px;">
+                Esse selo fofo agora está liberado para você colar como adesivo nas suas pinturas! Continue brilhando! ⭐
+            </p>
+            <button class="btn btn-primary btn-large" onclick="closeAchievementModal()" style="font-size: 1.15rem; padding: 14px 28px; width: 100%; display: inline-flex; justify-content: center; border-radius: var(--radius-sm); font-weight: 700;">
+                Eba! Colecionar! 🚀
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Perfil Público (Dados do Criador) -->
+    <div id="publicProfileModal" class="modal-overlay">
+        <div class="modal-box animate-zoom-in" style="text-align: center; max-width: 420px; padding: 35px 25px; border: var(--border-medium); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon); background-color: #fffdf5; position: relative;">
+            <button class="btn-close-modal" onclick="closePublicProfileModal()">&times;</button>
+            <span style="font-size: 3.5rem; display: block; margin-bottom: 15px; animation: bounce-slow 2s infinite;">👤</span>
+            <h3 id="profile-modal-name" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-purple); margin-bottom: 5px;">Sebastian</h3>
+            
+            <div style="margin-bottom: 25px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: rgba(255, 179, 0, 0.1); padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255, 179, 0, 0.3);">
+                <span style="font-size: 1.15rem; color: var(--color-orange); letter-spacing: 2px;">⭐⭐⭐⭐⭐</span>
+                <span id="profile-modal-stars-text" style="font-size: 1.1rem; font-weight: 800; color: var(--color-dark);">42 estrelas</span>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px; text-align: left; background: white; border: var(--border-thin); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 25px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; align-items: center; gap: 10px; font-size: 1.05rem; font-weight: 700; color: var(--color-dark);">
+                    <span style="font-size: 1.3rem;">🏆</span> Pinturas publicadas: <span id="profile-modal-paintings" style="color: var(--color-purple); margin-left: auto; font-size: 1.25rem;">8</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; font-size: 1.05rem; font-weight: 700; color: var(--color-dark);">
+                    <span style="font-size: 1.3rem;">🎨</span> Obras criadas: <span id="profile-modal-creations" style="color: var(--color-purple); margin-left: auto; font-size: 1.25rem;">27</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px; font-size: 1.05rem; font-weight: 700; color: var(--color-dark);">
+                    <span style="font-size: 1.3rem;">🎁</span> Selos desbloqueados: <span id="profile-modal-badges" style="color: var(--color-purple); margin-left: auto; font-size: 1.25rem;">3/5</span>
+                </div>
+            </div>
+
+            <!-- Grade de Selos no Perfil -->
+            <div style="text-align: left; margin-bottom: 25px;">
+                <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin-bottom: 12px; text-align: center; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 6px;">Coleção de Selos:</h4>
+                <div id="profile-modal-badges-grid" style="display: flex; justify-content: space-around; align-items: center; gap: 10px;">
+                    <!-- Emojis dos selos com opacidade dependendo do desbloqueio -->
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="closePublicProfileModal()" style="font-size: 1.1rem; padding: 12px 24px; width: 100%; border-radius: var(--radius-sm); font-weight: 700; box-shadow: var(--shadow-button-primary);">
+                Fechar Perfil
             </button>
         </div>
     </div>
