@@ -511,31 +511,47 @@ app.post('/api/generate', async (req, res) => {
     }
 });
 
-app.get('/api/test-hf', async (req, res) => {
-    try {
-        const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || "";
-        const testRes = await fetch("https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${hfToken}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ inputs: "a cute baby lion coloring page" })
+app.get('/api/test-hf', (req, res) => {
+    const https = require('https');
+    const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || "";
+    
+    const url = new URL("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell");
+    const options = {
+        hostname: url.hostname,
+        path: url.pathname + url.search,
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${hfToken}`,
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const request = https.request(options, (response) => {
+        let data = '';
+        response.on('data', (chunk) => {
+            data += chunk;
         });
-        const text = await testRes.text().catch(() => '');
-        return res.json({
-            success: true,
-            status: testRes.status,
-            body: text,
-            tokenExists: !!hfToken
+        response.on('end', () => {
+            res.json({
+                success: true,
+                status: response.statusCode,
+                body: data,
+                tokenExists: !!hfToken
+            });
         });
-    } catch (err) {
-        return res.status(500).json({
+    });
+
+    request.on('error', (err) => {
+        res.status(500).json({
             success: false,
             error: err.message,
+            code: err.code,
             stack: err.stack
         });
-    }
+    });
+
+    request.write(JSON.stringify({ inputs: "a cute baby lion coloring page" }));
+    request.end();
 });
 
 // Função auxiliar para gerar conteúdo usando o Gemini com fallbacks para evitar erros de cota e modelos indisponíveis
@@ -952,7 +968,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
                     if (!hfToken) {
                         throw new Error("HUGGING_FACE_TOKEN/HF_TOKEN não configurado no servidor.");
                     }
-                    const hfRes = await fetch("https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell", {
+                    const hfRes = await fetch("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell", {
                         method: "POST",
                         headers: {
                             "Authorization": `Bearer ${hfToken}`,
