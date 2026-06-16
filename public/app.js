@@ -92,22 +92,7 @@ function getSpanishWord(englishWord) {
 
 // --- VERIFICAÇÃO DE ACESSO A DESENHOS POR PLANO ---
 function isDrawingAccessible(dw) {
-    if (!currentUser) {
-        // Visitante deslogado: só 5 categorias e index <= 2000
-        return FREE_CATEGORIES.includes(dw.category) && dw.index <= 2000;
-    }
-    const plan = currentUser.plan;
-    const idx = dw.index;
-    if (plan === 'Grátis') {
-        return idx <= 2000;
-    } else if (plan === 'Família') {
-        return idx <= 5000;
-    } else if (plan === 'Professor') {
-        return idx <= 7000;
-    } else if (plan === 'Colégio') {
-        return true;
-    }
-    return idx <= 2000; // fallback
+    return true;
 }
 
 function getRequiredPlanForDrawing(dw) {
