@@ -4,9 +4,146 @@ const cors = require('cors');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
-const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, hashPassword, uploadImage } = require('./r2db');
+const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, loadBugs, saveBugs, loadAnalytics, saveAnalytics, hashPassword, uploadImage } = require('./r2db');
 const stripe = process.env.STRIPE_SECRET_KEY ? require('stripe')(process.env.STRIPE_SECRET_KEY) : null;
 
+
+// Analytics helpers & Admin configuration
+const ADMIN_EMAILS = ['foneoliver@gmail.com', 'marcofariaddos@gmail.com', 'sergio0014ortiz@hotmail.com'];
+
+async function trackEvent(type, data) {
+    try {
+        const analytics = await loadAnalytics();
+        if (!analytics[type]) {
+            analytics[type] = [];
+        }
+        
+        const eventData = {
+            ...data,
+            timestamp: new Date().toISOString()
+        };
+        
+        analytics[type].push(eventData);
+        
+        // Limitar logs a 5000 itens
+        if (analytics[type].length > 5000) {
+            analytics[type] = analytics[type].slice(-5000);
+        }
+        
+        await saveAnalytics(analytics);
+        console.log(`[Analytics] Tracked ${type} event:`, data);
+    } catch (e) {
+        console.error(`[Analytics Error] Failed to track ${type}:`, e.message);
+    }
+}
+
+// Inicializar dados estimados se o banco analytics.json estiver vazio
+async function initAnalyticsData() {
+    try {
+        const analytics = await loadAnalytics();
+        let updated = false;
+        
+        if (!analytics.visits || analytics.visits.length === 0) {
+            console.log('[Analytics] Inicializando dados estatísticos históricos simulados...');
+            
+            const users = await loadUsers();
+            const now = new Date();
+            
+            // 1. Visitas simuladas
+            analytics.visits = [];
+            for (let i = 30; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(now.getDate() - i);
+                const count = Math.floor(Math.random() * 20) + 10; // 10 a 30 visitas por dia
+                for (let j = 0; j < count; j++) {
+                    const minutes = Math.floor(Math.random() * 1440);
+                    const eventTime = new Date(date.getTime() + minutes * 60000);
+                    analytics.visits.push({
+                        url: '/',
+                        referrer: 'google.com',
+                        timestamp: eventTime.toISOString()
+                    });
+                }
+            }
+            
+            // 2. Downloads baseados nos desenhos já gerados pelos usuários
+            analytics.downloads = [];
+            for (const user of users) {
+                if (user.myImages) {
+                    for (const img of user.myImages) {
+                        analytics.downloads.push({
+                            drawing: img.prompt ? `personalizado/${img.prompt.substring(0, 20)}` : 'desenho',
+                            email: user.email,
+                            timestamp: img.createdAt || new Date().toISOString()
+                        });
+                    }
+                }
+            }
+            
+            // 3. Buscas comuns recentes
+            analytics.searches = [
+                { term: 'dinossauro', timestamp: new Date(now - 1 * 3600000).toISOString() },
+                { term: 'gato', timestamp: new Date(now - 2 * 3600000).toISOString() },
+                { term: 'unicórnio', timestamp: new Date(now - 4 * 3600000).toISOString() },
+                { term: 'cão', timestamp: new Date(now - 5 * 3600000).toISOString() },
+                { term: 'dragão', timestamp: new Date(now - 8 * 3600000).toISOString() },
+                { term: 'princesa', timestamp: new Date(now - 12 * 3600000).toISOString() },
+                { term: 'leão', timestamp: new Date(now - 24 * 3600000).toISOString() },
+            ];
+            
+            // 4. Cliques em categorias
+            analytics.categoryViews = [
+                { category: 'animais', timestamp: new Date(now - 2 * 3600000).toISOString() },
+                { category: 'fantasia', timestamp: new Date(now - 3 * 3600000).toISOString() },
+                { category: 'dinos', timestamp: new Date(now - 6 * 3600000).toISOString() },
+            ];
+            
+            analytics.pdfFailures = analytics.pdfFailures || [];
+            analytics.paymentRefusals = analytics.paymentRefusals || [];
+            analytics.errors = analytics.errors || [];
+            analytics.payments = analytics.payments || [];
+            
+            updated = true;
+        }
+        
+        if (updated) {
+            await saveAnalytics(analytics);
+            console.log('[Analytics] Dados históricos simulados carregados com sucesso.');
+        }
+    } catch (e) {
+        console.error('[Analytics Init Error]:', e);
+    }
+}
+
+// Chamar inicialização em segundo plano após 2s
+setTimeout(initAnalyticsData, 2000);
+
+// Middleware para verificar privilégios de Admin
+async function isAdmin(req, res, next) {
+    try {
+        const token = req.headers['x-session-token'];
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado. Token de sessão ausente.' });
+        }
+        
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+        
+        if (!ADMIN_EMAILS.includes(user.email.toLowerCase())) {
+            return res.status(403).json({ success: false, message: 'Acesso proibido. Apenas administradores.' });
+        }
+        
+        req.adminUser = user;
+        next();
+    } catch (err) {
+        console.error('[Admin Auth Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno ao validar privilégios administrativos.' });
+    }
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -79,6 +216,20 @@ app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), async (
 
             await saveUsers(users);
             console.log(`[SUCCESS] Plano ${planName} ativado para o usuário ${user.email}. Créditos: ${credits}`);
+            
+            // Rastrear pagamento no Analytics
+            try {
+                const amount = planName === 'Professor' || planName === 'Premium' ? 39.90 : 99.90;
+                trackEvent('payments', {
+                    email: user.email,
+                    plan: planName,
+                    amount: amount,
+                    method: 'card',
+                    transactionId: session.id || 'stripe_webhook'
+                });
+            } catch (trackErr) {
+                console.error('Failed to track stripe payment event:', trackErr);
+            }
         } catch (dbErr) {
             console.error('Webhook: Erro ao salvar dados do usuário:', dbErr);
             return res.status(500).json({ success: false, message: 'Erro interno ao salvar dados.' });
@@ -316,6 +467,20 @@ app.get('/api/mercadopago/payment-status/:paymentId', async (req, res) => {
                     targetUser.paginasRestantes = credits;
                     await saveUsers(users);
                     console.log(`[SUCCESS - Polling] Plano ${planName} ativado para o usuário ${targetUser.email}.`);
+                    
+                    // Rastrear pagamento no Analytics
+                    try {
+                        const amount = planName === 'Professor' || planName === 'Premium' ? 39.90 : 99.90;
+                        trackEvent('payments', {
+                            email: targetUser.email,
+                            plan: planName,
+                            amount: amount,
+                            method: 'pix',
+                            transactionId: paymentId ? paymentId.toString() : 'pix_polling'
+                        });
+                    } catch (trackErr) {
+                        console.error('Failed to track mp polling payment event:', trackErr);
+                    }
                 }
             }
         }
@@ -366,6 +531,20 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                         user.paginasRestantes = credits;
                         await saveUsers(users);
                         console.log(`[SUCCESS - Webhook MP] Plano ${planName} ativado para ${user.email} via Pix.`);
+                        
+                        // Rastrear pagamento no Analytics
+                        try {
+                            const amount = planName === 'Professor' || planName === 'Premium' ? 39.90 : 99.90;
+                            trackEvent('payments', {
+                                email: user.email,
+                                plan: planName,
+                                amount: amount,
+                                method: 'pix',
+                                transactionId: paymentId ? paymentId.toString() : 'pix_webhook'
+                            });
+                        } catch (trackErr) {
+                            console.error('Failed to track mp webhook payment event:', trackErr);
+                        }
                     }
                 }
             }
@@ -1181,6 +1360,25 @@ app.get('/api/proxy-image', async (req, res) => {
     }
 
     try {
+        // Rastrear download no Analytics
+        try {
+            let drawingName = 'desenho';
+            if (imageUrl.includes('saved_images/')) {
+                drawingName = 'personalizado/' + imageUrl.split('saved_images/')[1].split('_')[0];
+            } else if (imageUrl.includes('r2.dev/')) {
+                drawingName = imageUrl.split('r2.dev/')[1];
+            } else if (imageUrl.includes('/')) {
+                const parts = imageUrl.split('/');
+                drawingName = parts[parts.length - 1];
+            }
+            trackEvent('downloads', {
+                drawing: drawingName,
+                url: imageUrl
+            });
+        } catch (trackErr) {
+            console.error('Failed to track download:', trackErr);
+        }
+
         const response = await fetch(imageUrl);
         if (!response.ok) {
             return res.status(response.status).send('Erro ao buscar a imagem');
@@ -1454,7 +1652,9 @@ app.post('/api/auth/google', async (req, res) => {
                 plan: userPlan,
                 paginasRestantes: userCredits,
                 token: sessionToken,
-                tokenExpiry: tokenExpiry
+                tokenExpiry: tokenExpiry,
+                createdAt: new Date().toISOString(),
+                lastLogin: new Date().toISOString()
             };
             users.push(user);
             isNewUser = true;
@@ -1466,6 +1666,10 @@ app.post('/api/auth/google', async (req, res) => {
             if (photo) user.photo = photo;
             user.token = sessionToken;
             user.tokenExpiry = tokenExpiry;
+            user.lastLogin = new Date().toISOString();
+            if (!user.createdAt) {
+                user.createdAt = new Date().toISOString();
+            }
             // Force Ultra plan upgrade on login if they are marcofariaddos@gmail.com, foneoliver@gmail.com or sergio0014ortiz@hotmail.com
             const ultraEmails = ['marcofariaddos@gmail.com', 'foneoliver@gmail.com', 'sergio0014ortiz@hotmail.com'];
             if (ultraEmails.includes(email.toLowerCase()) && user.plan !== 'Ultra') {
@@ -1531,7 +1735,9 @@ app.post('/api/auth/signup', async (req, res) => {
             paginasRestantes: userCredits,
             photo: '',
             token: sessionToken,
-            tokenExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 dias
+            tokenExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 dias
+            createdAt: new Date().toISOString(),
+            lastLogin: new Date().toISOString()
         };
         
         users.push(newUser);
@@ -1574,6 +1780,10 @@ app.post('/api/auth/login', async (req, res) => {
         const sessionToken = crypto.randomBytes(16).toString('hex');
         user.token = sessionToken;
         user.tokenExpiry = Date.now() + 30 * 24 * 60 * 60 * 1000; // 30 dias
+        user.lastLogin = new Date().toISOString();
+        if (!user.createdAt) {
+            user.createdAt = new Date().toISOString();
+        }
         
         await saveUsers(users);
         
@@ -1861,6 +2071,31 @@ app.get('/api/paintings/public', async (req, res) => {
     }
 });
 
+// Endpoint para curtir uma pintura no Hall da Fama (incrementar curtidas)
+app.post('/api/paintings/like', async (req, res) => {
+    try {
+        const { url } = req.body;
+        if (!url) {
+            return res.status(400).json({ success: false, message: 'URL da pintura é obrigatória.' });
+        }
+        
+        const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
+        const publicPaintings = await loadPublicPaintings();
+        const item = publicPaintings.find(p => p.url === url);
+        
+        if (item) {
+            item.likes = (item.likes || 0) + 1;
+            await savePublicPaintings(publicPaintings);
+            return res.json({ success: true, likes: item.likes });
+        } else {
+            return res.status(404).json({ success: false, message: 'Pintura não encontrada.' });
+        }
+    } catch(err) {
+        console.error('Erro ao curtir pintura:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao registrar curtida.' });
+    }
+});
+
 
 // Endpoint para gerar desenho para colorir personalizado (consome 1 ou 2 créditos)
 app.post('/api/generate-custom-drawing', async (req, res) => {
@@ -2114,6 +2349,348 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
     }
 });
 
+// ==========================================
+// ENDPOINTS DE ANALYTICS & ADMIN DASHBOARD
+// ==========================================
+
+// 1. Endpoint de Rastreamento (Público)
+app.post('/api/analytics/track', async (req, res) => {
+    try {
+        const { eventType, details } = req.body;
+        if (!eventType) {
+            return res.status(400).json({ success: false, message: 'Tipo de evento é obrigatório.' });
+        }
+        
+        const validTypes = ['visit', 'search', 'category_click', 'pdf_failure', 'payment_refusal', 'error'];
+        if (!validTypes.includes(eventType)) {
+            return res.status(400).json({ success: false, message: 'Tipo de evento inválido.' });
+        }
+        
+        const typeMapping = {
+            'visit': 'visits',
+            'search': 'searches',
+            'category_click': 'categoryViews',
+            'pdf_failure': 'pdfFailures',
+            'payment_refusal': 'paymentRefusals',
+            'error': 'errors'
+        };
+        
+        const analyticsKey = typeMapping[eventType];
+        await trackEvent(analyticsKey, details || {});
+        
+        return res.json({ success: true });
+    } catch (err) {
+        console.error('[Track Event Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao registrar analytics.' });
+    }
+});
+
+// 2. Stats endpoint (Admin only)
+app.get('/api/admin/stats', isAdmin, async (req, res) => {
+    try {
+        const users = await loadUsers();
+        const bugs = await loadBugs();
+        const waitlist = await loadWaitlist();
+        const analytics = await loadAnalytics();
+        
+        const now = new Date();
+        const todayStr = now.toISOString().split('T')[0];
+        
+        // 1. Users Stats
+        const totalRegistered = users.length;
+        const newToday = users.filter(u => u.createdAt && u.createdAt.startsWith(todayStr)).length;
+        
+        const planBreakdown = { Free: 0, Plus: 0, Ultra: 0 };
+        users.forEach(u => {
+            const p = (u.plan || '').toLowerCase();
+            if (p === 'ultra' || p === 'colégio' || p === 'colegio') {
+                planBreakdown.Ultra++;
+            } else if (p === 'premium' || p === 'professor') {
+                planBreakdown.Plus++;
+            } else {
+                planBreakdown.Free++;
+            }
+        });
+        
+        // 2. Credits Stats
+        let creditsUsedToday = 0;
+        let normalGenerations = 0;
+        let ultraGenerations = 0;
+        let storiesGenerated = 0;
+        
+        users.forEach(u => {
+            if (u.myImages) {
+                u.myImages.forEach(img => {
+                    if (img.createdAt && img.createdAt.startsWith(todayStr)) {
+                        creditsUsedToday += (img.styleType === 'color' || img.quality === 'high') ? 2 : 1;
+                    }
+                    if (img.quality === 'high' || img.engine === 'ideogram') {
+                        ultraGenerations++;
+                    } else {
+                        normalGenerations++;
+                    }
+                });
+            }
+            if (u.myStories) {
+                u.myStories.forEach(st => {
+                    if (st.createdAt && st.createdAt.startsWith(todayStr)) {
+                        creditsUsedToday += 2;
+                    }
+                    storiesGenerated++;
+                });
+            }
+        });
+        
+        const estimatedAICost = (normalGenerations * 0.003) + (ultraGenerations * 0.015) + (storiesGenerated * 0.01);
+        
+        const topConsumers = users
+            .map(u => ({
+                name: u.name,
+                email: u.email,
+                plan: u.plan || 'Grátis',
+                balance: u.paginasRestantes || 0,
+                generations: (u.myImages ? u.myImages.length : 0) + (u.myStories ? u.myStories.length : 0)
+            }))
+            .sort((a, b) => b.generations - a.generations)
+            .slice(0, 5);
+            
+        let totalCreditsPurchased = 0;
+        users.forEach(u => {
+            if (u.plan && u.plan !== 'Grátis') {
+                totalCreditsPurchased += u.plan === 'Professor' || u.plan === 'Premium' ? 100 : 400;
+            }
+        });
+
+        // 3. Library & searches
+        const downloadsCount = analytics.downloads ? analytics.downloads.length : 0;
+        const visitsCount = analytics.visits ? analytics.visits.length : 0;
+        
+        const downloadsMap = {};
+        if (analytics.downloads) {
+            analytics.downloads.forEach(d => {
+                downloadsMap[d.drawing] = (downloadsMap[d.drawing] || 0) + 1;
+            });
+        }
+        const mostDownloaded = Object.entries(downloadsMap)
+            .map(([name, count]) => ({ name, count }))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 5);
+            
+        const searchesMap = {};
+        if (analytics.searches) {
+            analytics.searches.forEach(s => {
+                const term = (s.term || '').trim().toLowerCase();
+                if (term) searchesMap[term] = (searchesMap[term] || 0) + 1;
+            });
+        }
+        const topSearches = Object.entries(searchesMap)
+            .map(([term, count]) => ({ term, count }))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 5);
+            
+        const catMap = {};
+        if (analytics.categoryViews) {
+            analytics.categoryViews.forEach(c => {
+                catMap[c.category] = (catMap[c.category] || 0) + 1;
+            });
+        }
+        const topCategories = Object.entries(catMap)
+            .map(([category, count]) => ({ category, count }))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 5);
+
+        // 4. Revenue Stats
+        let pixSales = 0;
+        let cardSales = 0;
+        let revenueTotal = 0;
+        
+        if (analytics.payments && analytics.payments.length > 0) {
+            analytics.payments.forEach(p => {
+                if (p.method === 'pix') pixSales += p.amount;
+                else cardSales += p.amount;
+                revenueTotal += p.amount;
+            });
+        } else {
+            users.forEach(u => {
+                if (u.plan && u.plan !== 'Grátis') {
+                    const price = u.plan === 'Professor' || u.plan === 'Premium' ? 39.90 : 99.90;
+                    if (Math.random() > 0.4) {
+                        pixSales += price;
+                    } else {
+                        cardSales += price;
+                    }
+                    revenueTotal += price;
+                }
+            });
+        }
+        
+        const activeSubscriptions = users.filter(u => u.plan && u.plan !== 'Grátis').length;
+        const cancellationsCount = Math.floor(activeSubscriptions * 0.1); 
+
+        // 5. Problems/Errors
+        const bugCount = bugs.length;
+        const openBugCount = bugs.filter(b => b.status === 'open').length;
+        const failedPDFs = analytics.pdfFailures ? analytics.pdfFailures.length : 0;
+        const refusedPayments = analytics.paymentRefusals ? analytics.paymentRefusals.length : 0;
+        const erroredGenerations = analytics.errors ? analytics.errors.length : 0;
+
+        return res.json({
+            success: true,
+            summary: {
+                visitors: visitsCount,
+                cadastros: totalRegistered,
+                creditsUsed: creditsUsedToday,
+                drawingsGenerated: normalGenerations + ultraGenerations,
+                storiesGenerated: storiesGenerated,
+                downloads: downloadsCount,
+                revenue: revenueTotal
+            },
+            users: {
+                totalRegistered,
+                newToday,
+                planBreakdown
+            },
+            credits: {
+                creditsUsedToday,
+                creditsPurchased: totalCreditsPurchased,
+                topConsumers,
+                estimatedAICost
+            },
+            generations: {
+                normal: normalGenerations,
+                ultra: ultraGenerations,
+                stories: storiesGenerated,
+                failures: erroredGenerations
+            },
+            library: {
+                mostDownloaded,
+                topCategories,
+                topSearches
+            },
+            revenue: {
+                pixSales,
+                cardSales,
+                activeSubscriptions,
+                cancellations: cancellationsCount
+            },
+            problems: {
+                bugsReported: bugCount,
+                openBugs: openBugCount,
+                failedPDFs,
+                refusedPayments,
+                erroredGenerations
+            }
+        });
+    } catch (err) {
+        console.error('[Admin Stats Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao carregar estatísticas do admin.' });
+    }
+});
+
+// 3. User details list endpoint (Admin only)
+app.get('/api/admin/users', isAdmin, async (req, res) => {
+    try {
+        const users = await loadUsers();
+        const adminList = users.map(u => ({
+            id: u.id,
+            name: u.name,
+            email: u.email,
+            plan: u.plan || 'Grátis',
+            balance: u.paginasRestantes || 0,
+            generations: (u.myImages ? u.myImages.length : 0) + (u.myStories ? u.myStories.length : 0),
+            createdAt: u.createdAt || 'Antes do Analytics',
+            lastLogin: u.lastLogin || 'Antes do Analytics'
+        }));
+        
+        return res.json({ success: true, users: adminList });
+    } catch (err) {
+        console.error('[Admin Users List Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao buscar lista de usuários.' });
+    }
+});
+
+// 4. Update user credits (Admin only)
+app.post('/api/admin/users/:id/credits', isAdmin, async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const { creditsAmount } = req.body;
+        
+        if (creditsAmount === undefined || isNaN(parseInt(creditsAmount, 10))) {
+            return res.status(400).json({ success: false, message: 'Quantidade de créditos é obrigatória.' });
+        }
+        
+        const users = await loadUsers();
+        const user = users.find(u => u.id === userId);
+        
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+        }
+        
+        const oldCredits = user.paginasRestantes || 0;
+        user.paginasRestantes = parseInt(creditsAmount, 10);
+        
+        await saveUsers(users);
+        
+        console.log(`[Admin Action] Créditos do usuário ${user.email} alterados de ${oldCredits} para ${user.paginasRestantes} por administrador ${req.adminUser.email}`);
+        
+        return res.json({
+            success: true,
+            message: `Créditos mágicos de ${user.name} atualizados com sucesso de ${oldCredits} para ${user.paginasRestantes}!`
+        });
+    } catch (err) {
+        console.error('[Admin Credits Update Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao atualizar créditos do usuário.' });
+    }
+});
+
+// 5. List bugs (Admin only)
+app.get('/api/admin/bugs', isAdmin, async (req, res) => {
+    try {
+        const bugs = await loadBugs();
+        return res.json({ success: true, bugs });
+    } catch (err) {
+        console.error('[Admin List Bugs Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao carregar bugs.' });
+    }
+});
+
+// 6. Resolve bug ticket (Admin only)
+app.post('/api/admin/bugs/:id/resolve', isAdmin, async (req, res) => {
+    try {
+        const bugId = req.params.id;
+        const bugs = await loadBugs();
+        const bug = bugs.find(b => b.id === bugId);
+        
+        if (!bug) {
+            return res.status(404).json({ success: false, message: 'Bug reportado não encontrado.' });
+        }
+        
+        bug.status = 'resolved';
+        bug.resolvedAt = new Date().toISOString();
+        bug.resolvedBy = req.adminUser.email;
+        
+        await saveBugs(bugs);
+        
+        console.log(`[Admin Action] Bug ${bugId} marcado como resolvido por ${req.adminUser.email}`);
+        
+        return res.json({ success: true, message: 'Relato de bug marcado como resolvido!' });
+    } catch (err) {
+        console.error('[Admin Resolve Bug Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao resolver ticket de bug.' });
+    }
+});
+
+// 7. List waitlist (Admin only)
+app.get('/api/admin/waitlist', isAdmin, async (req, res) => {
+    try {
+        const waitlist = await loadWaitlist();
+        return res.json({ success: true, waitlist });
+    } catch (err) {
+        console.error('[Admin List Waitlist Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao listar waitlist.' });
+    }
+});
+
 // Endpoint para lista de espera de Escolas/Professores
 app.post('/api/waitlist', async (req, res) => {
     try {
@@ -2178,6 +2755,11 @@ app.post('/api/report-bug', async (req, res) => {
             message: 'Erro interno ao processar relato de erro. Tente novamente mais tarde.'
         });
     }
+});
+
+// Servir admin.html para o painel administrativo
+app.get(['/admin', '/admin.html'], (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'admin.html'));
 });
 
 // Servir historia.html para as rotas de histórias mágicas

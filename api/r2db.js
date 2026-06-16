@@ -287,7 +287,7 @@ async function loadPublicPaintings() {
             return JSON.parse(dataStr);
         } catch (err) {
             if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || err.message.includes('NoSuchKey')) {
-                print('[R2DB] Arquivo public_paintings.json não existe no bucket R2. Retornando vazio.');
+                console.log('[R2DB] Arquivo public_paintings.json não existe no bucket R2. Retornando vazio.');
                 return [];
             }
             console.error('[R2DB] Erro ao carregar public_paintings do R2 (usando fallback local):', err.message);
@@ -331,6 +331,69 @@ async function savePublicPaintings(paintings) {
     return false;
 }
 
+// Caminho do analytics local
+const LOCAL_ANALYTICS_FILE = path.join(__dirname, '..', 'analytics.json');
+
+async function loadAnalytics() {
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Lendo analytics.json do Cloudflare R2...`);
+            const command = new GetObjectCommand({
+                Bucket: bucketName,
+                Key: 'analytics.json',
+            });
+            const response = await s3Client.send(command);
+            const dataStr = await streamToString(response.Body);
+            try {
+                fs.writeFileSync(LOCAL_ANALYTICS_FILE, dataStr, 'utf8');
+            } catch(e) {}
+            return JSON.parse(dataStr);
+        } catch (err) {
+            if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || err.message.includes('NoSuchKey')) {
+                console.log('[R2DB] Arquivo analytics.json não existe no bucket R2. Retornando vazio.');
+                return { visits: [], downloads: [], searches: [], categoryViews: [], pdfFailures: [], paymentRefusals: [], errors: [], payments: [] };
+            }
+            console.error('[R2DB] Erro ao carregar analytics do R2 (usando fallback local):', err.message);
+        }
+    }
+    if (fs.existsSync(LOCAL_ANALYTICS_FILE)) {
+        try {
+            const dataStr = fs.readFileSync(LOCAL_ANALYTICS_FILE, 'utf8');
+            return JSON.parse(dataStr);
+        } catch (e) {
+            console.error('[R2DB] Erro ao ler analytics.json local:', e.message);
+        }
+    }
+    return { visits: [], downloads: [], searches: [], categoryViews: [], pdfFailures: [], paymentRefusals: [], errors: [], payments: [] };
+}
+
+async function saveAnalytics(analytics) {
+    const dataStr = JSON.stringify(analytics, null, 2);
+    try {
+        fs.writeFileSync(LOCAL_ANALYTICS_FILE, dataStr, 'utf8');
+        console.log('[R2DB] Backup local de analytics.json gravado com sucesso.');
+    } catch (e) {
+        console.error('[R2DB] Falha ao gravar cópia local de analytics:', e.message);
+    }
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Enviando analytics.json atualizado para o Cloudflare R2...`);
+            const command = new PutObjectCommand({
+                Bucket: bucketName,
+                Key: 'analytics.json',
+                Body: dataStr,
+                ContentType: 'application/json',
+            });
+            await s3Client.send(command);
+            console.log('[R2DB] Banco de dados analytics.json persistido no R2.');
+            return true;
+        } catch (err) {
+            console.error('[R2DB] Falha crítica ao persistir analytics no R2:', err.message);
+        }
+    }
+    return false;
+}
+
 module.exports = {
     loadUsers,
     loadPublicPaintings,
@@ -340,6 +403,8 @@ module.exports = {
     saveWaitlist,
     loadBugs,
     saveBugs,
+    loadAnalytics,
+    saveAnalytics,
     hashPassword,
     uploadImage
 };

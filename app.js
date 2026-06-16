@@ -5480,6 +5480,16 @@ let paintFgCanvas = null;
 let paintFgCtx = null;
 let paintBorderImage = null;
 
+let paintHistory = [];
+let paintHistoryIndex = -1;
+const maxHistoryStates = 20;
+
+let paintBgCanvas = null;
+let paintBgCtx = null;
+let paintFgCanvas = null;
+let paintFgCtx = null;
+let paintBorderImage = null;
+
 function renderPintarOnlineView() {
     document.title = "Colorir Online — KidCanvas 🎨";
     setMetaDescription("Colore e pinte online usando lápis de cor, balde de tinta e glitter mágico de forma interativa.");
@@ -6236,6 +6246,12 @@ async function renderHallDaFamaView() {
                 
                 const timeStr = new Date(dw.date).toLocaleDateString('pt-BR');
                 
+                const likedKey = 'liked_painting_' + btoa(dw.url).replace(/=/g, '');
+                const hasLiked = localStorage.getItem(likedKey);
+                const btnStyle = hasLiked 
+                    ? 'background-color: #fff3cd; border-color: #ffe082; color: #ffb300;' 
+                    : 'background-color: #ffffff; color: var(--color-dark);';
+
                 card.innerHTML = `
                     <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 12px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
                         <img src="${dw.url}" alt="${dw.prompt}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
@@ -6243,15 +6259,20 @@ async function renderHallDaFamaView() {
                     <span style="font-size: 0.85rem; color: var(--color-orange); font-weight: 700; text-transform: uppercase;">🎨 Artista: ${dw.userName || 'Pequeno Artista'}</span>
                     <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin-top: 2px; margin-bottom: 4px;">${dw.prompt}</h4>
                     <p style="font-size: 0.85rem; color: var(--color-dark-light); margin-bottom: 12px;">Colorido em ${timeStr}</p>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 6px;"><i class="fa-solid fa-print"></i> Imprimir</button>
-                        <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 6px; background-color: #25d366; border-color: #25d366; color: white;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${dw.url}', this)" style="justify-content: center; font-size: 0.9rem; padding: 8px 12px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;">
+                            ⭐ <span class="like-count">${dw.likes || 0}</span> Estrelinhas
+                        </button>
+                        <div style="display: flex; gap: 8px; width: 100%;">
+                            <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 6px;"><i class="fa-solid fa-print"></i> Imprimir</button>
+                            <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.8rem; padding: 6px; background-color: #25d366; border-color: #25d366; color: white;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                        </div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         } else {
-            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-dark-light); font-weight: 500;">Nenhuma pintura compartilhada publicamente ainda. Seja o primeiro a colorir e compartilhar! 🏆</div>';
+            grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-dark-light); font-weight: 500; font-size: 1.1rem; line-height: 1.6;">🏆 O Hall da Fama está esperando seu talento.<br>Compartilhe sua pintura e seja o primeiro destaque!</div>';
         }
     } catch (err) {
         console.error(err);
@@ -6259,6 +6280,39 @@ async function renderHallDaFamaView() {
     }
 }
 window.renderHallDaFamaView = renderHallDaFamaView;
+
+async function likePublicPainting(url, btn) {
+    const likedKey = 'liked_painting_' + btoa(url).replace(/=/g, '');
+    if (localStorage.getItem(likedKey)) {
+        showToast('Você já deu estrelinhas para esta pintura! ⭐', 'info');
+        return;
+    }
+
+    try {
+        btn.style.pointerEvents = 'none';
+        const response = await fetch('/api/paintings/like', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url })
+        });
+        const result = await response.json();
+        if (result.success) {
+            const countSpan = btn.querySelector('.like-count');
+            if (countSpan) countSpan.textContent = result.likes;
+            
+            localStorage.setItem(likedKey, 'true');
+            btn.style.backgroundColor = '#fff3cd';
+            btn.style.borderColor = '#ffe082';
+            btn.style.color = '#ffb300';
+            showToast('Obrigado por curtir! ⭐✨', 'success');
+        }
+    } catch (err) {
+        console.error(err);
+    } finally {
+        btn.style.pointerEvents = 'auto';
+    }
+}
+window.likePublicPainting = likePublicPainting;
 
 
 async function savePaintingToGallery() {

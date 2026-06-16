@@ -7,6 +7,7 @@ const filesToCopy = [
     'hero_mascots.jpg',
     'index.html',
     'historia.html',
+    'admin.html',
     'drawings.json',
     'creation_dates.json',
     'examples_metadata.json',
