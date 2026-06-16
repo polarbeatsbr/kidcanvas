@@ -822,7 +822,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
   ]
 }`;
 
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`;
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${geminiKey}`;
         
         const geminiRes = await fetch(geminiUrl, {
             method: 'POST',
