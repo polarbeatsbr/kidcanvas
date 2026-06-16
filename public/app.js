@@ -854,6 +854,8 @@ function navigate(path, pushState = true) {
         renderReportarBugView();
     } else if (cleanPath === '/minhas-criacoes') {
         renderMinhasCriacoesView();
+    } else if (cleanPath === '/pintar-online') {
+        renderPintarOnlineView();
     } else if (cleanPath.startsWith('/categoria/')) {
         const categorySlug = cleanPath.replace('/categoria/', '');
         if (!currentUser && !FREE_CATEGORIES.includes(categorySlug)) {
@@ -2189,6 +2191,21 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
         triggerDrawingDownload(drawing);
     });
     
+    // Configurar botão de colorir online
+    const btnColorOnline = document.getElementById('btn-color-online-drawing');
+    if (btnColorOnline) {
+        const newColorBtn = btnColorOnline.cloneNode(true);
+        btnColorOnline.parentNode.replaceChild(newColorBtn, btnColorOnline);
+        newColorBtn.addEventListener('click', () => {
+            window.currentPaintingData = {
+                imgUrl: drawing.url,
+                name: drawing.title || drawing.pt || 'Desenho',
+                backUrl: `/${categorySlug}/${drawingSlug}`
+            };
+            navigate('/pintar-online');
+        });
+    }
+    
     // Renderizar desenhos relacionados (mesma categoria, limitados a 4)
     const relatedGrid = document.getElementById('related-drawings-grid');
     if (relatedGrid) {
@@ -3458,8 +3475,10 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                 <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 12px 30px;" onclick="scrollToFormAndClose()">✨ Criar a sua história agora! ✨</button>
                 <button class="btn-generate btn-bottom" style="background-color: var(--color-blue); display: inline-block; width: auto; padding: 12px 30px;" id="btnDownloadPreloadedPDF" onclick="generatePreloadedPDF('${storyKey}')">📥 Baixar PDF A4</button>
                 <button class="btn-generate btn-bottom" style="background-color: #25d366; display: inline-block; width: auto; padding: 12px 30px;" onclick="sharePreloadedStoryOnWhatsApp('${storyKey}')"><i class="fa-brands fa-whatsapp"></i> Enviar pelo WhatsApp</button>
+                <button class="btn-generate btn-bottom" style="background-color: var(--color-orange); display: inline-block; width: auto; padding: 12px 30px;" onclick="printPreloadedStory('${storyKey}')"><i class="fa-solid fa-print"></i> Imprimir Livro</button>
             </div>
         `;
+
 
         viewerContent.innerHTML = html;
         viewerModal.classList.add('open');
@@ -4336,6 +4355,8 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         tempContainer.style.fontFamily = 'sans-serif';
         document.body.appendChild(tempContainer);
 
+        const proxiedCoverUrl = `/api/proxy-image?url=${encodeURIComponent(coverUrl)}`;
+
         // 1. Cover Page
         const coverPage = document.createElement('div');
         coverPage.style.width = '210mm';
@@ -4356,7 +4377,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                     <p style="font-size: 16px; color: #5C4033; font-weight: bold; text-align: center; margin: 0;">Uma história criada especialmente para ${cleanCharName}</p>
                 </div>
                 <div style="width: 140mm; height: 140mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                    <img src="${coverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="${proxiedCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div style="text-align: center;">
                     <div style="font-size: 15px; font-weight: bold; color: #7B4FA6;">KidCanvas</div>
@@ -4379,13 +4400,15 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
             pageDiv.style.boxSizing = 'border-box';
             pageDiv.style.padding = '20mm 20mm';
 
+            const proxiedImageUrl = `/api/proxy-image?url=${encodeURIComponent(page.imageUrl)}`;
+
             pageDiv.innerHTML = `
                 <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 5px; font-weight: bold; color: #7B4FA6; font-size: 16px; display: flex; justify-content: space-between;">
                     <span>A História Mágica de ${cleanCharName}</span>
                     <span>Página ${idx + 1}</span>
                 </div>
                 <div style="width: 130mm; height: 130mm; border: 3px solid #3D281A; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 15px 0;">
-                    <img src="${page.imageUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="${proxiedImageUrl}" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <p style="font-size: 16px; line-height: 1.6; text-align: justify; text-indent: 15px; margin: 0; color: #3D281A; max-width: 170mm; flex-grow: 1; display: flex; align-items: center;">${page.text}</p>
                 <div style="width: 100%; border-top: 1px solid #eee; padding-top: 5px; font-size: 11px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between;">
@@ -4689,12 +4712,49 @@ function renderMinhasCriacoesView() {
             storiesContainer.appendChild(grid);
         }
     }
+
+    // 3. Renderizar Pinturas
+    const paintingsGrid = document.getElementById('my-paintings-grid');
+    if (paintingsGrid) {
+        paintingsGrid.innerHTML = '';
+        const paintings = currentUser.myPaintings || [];
+
+        if (paintings.length === 0) {
+            paintingsGrid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; background: white; border: 2px dashed var(--color-dark); border-radius: var(--radius-sm);">
+                    <span style="font-size: 3rem;">🎨</span>
+                    <h4 style="font-size: 1.3rem; margin-top:10px;">Você ainda não salvou pinturas!</h4>
+                    <p style="color: var(--color-dark-light); font-size: 0.95rem;">Abra qualquer desenho e clique em "Colorir no Site" para começar.</p>
+                </div>
+            `;
+        } else {
+            paintings.forEach(pt => {
+                const card = document.createElement('div');
+                card.className = 'drawing-card';
+                card.innerHTML = `
+                    <div class="card-img-wrapper" onclick="openImageLightbox('${pt.url}', '${pt.prompt}')" style="cursor: pointer; transition: transform 0.2s ease;">
+                        <img src="${pt.url}" alt="${pt.prompt}" loading="lazy" style="transition: transform 0.2s ease; transform-origin: center;">
+                    </div>
+                    <div class="card-bottom-info">
+                        <span class="drawing-card-category">Minha Pintura 🎨</span>
+                        <h4 class="drawing-card-title" style="font-size: 0.85rem; line-height: 1.2; max-height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${pt.prompt}</h4>
+                    </div>
+                    <div class="card-bottom" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <button class="btn btn-secondary btn-sm" onclick="downloadSavedImage('${pt.url}', '${pt.prompt}')" style="justify-content: center; padding: 6px 10px; font-size: 0.85rem;"><i class="fa-solid fa-download"></i> Salvar</button>
+                        <button class="btn btn-primary btn-sm" onclick="printSavedImage('${pt.url}')" style="justify-content: center; padding: 6px 10px; font-size: 0.85rem; background-color: var(--color-purple);"><i class="fa-solid fa-print"></i> Imprimir</button>
+                    </div>
+                `;
+                paintingsGrid.appendChild(card);
+            });
+        }
+    }
 }
 
 async function downloadSavedImage(url, prompt) {
     const cleanPrompt = prompt.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
     try {
-        const res = await fetch(url);
+        const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(url)}`;
+        const res = await fetch(proxiedUrl);
         const blob = await res.blob();
         const blobUrl = URL.createObjectURL(blob);
         
@@ -4716,11 +4776,99 @@ async function downloadSavedImage(url, prompt) {
         const a = document.createElement('a');
         a.href = url;
         a.download = `kidcanvas-${cleanPrompt}.jpg`;
+        a.target = '_blank';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
     }
 }
+
+function printStoryObj(story) {
+    const printWindow = window.open('', '_blank');
+    let html = `
+        <html>
+        <head>
+            <title>Imprimir Livro Mágico — ${story.title}</title>
+            <style>
+                body { font-family: sans-serif; color: #3D281A; margin: 0; padding: 20px; }
+                .page { page-break-after: always; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; box-sizing: border-box; padding: 40px; text-align: center; }
+                .cover { justify-content: center; }
+                .cover img { max-width: 80%; max-height: 60vh; object-fit: contain; border: 4px solid #3d281a; border-radius: 15px; margin: 20px 0; }
+                .inner img { max-width: 80%; max-height: 50vh; object-fit: contain; border: 3px solid #3d281a; border-radius: 15px; margin: 15px 0; }
+                p { font-size: 1.2rem; line-height: 1.6; max-width: 800px; margin-top: 20px; }
+                h1 { font-size: 2.5rem; color: #7B4FA6; }
+                @media print {
+                    body { padding: 0; }
+                    .page { height: 100vh; padding: 20mm; }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="page cover">
+                <h1>${story.title}</h1>
+                <img src="${story.coverUrl}">
+                <p>Criado em www.kidcanvas.com.br</p>
+            </div>
+    `;
+    
+    story.paragraphs.forEach((page, idx) => {
+        html += `
+            <div class="page inner">
+                <h2>Página ${idx + 1}</h2>
+                <img src="${page.imageUrl}">
+                <p>${page.text}</p>
+            </div>
+        `;
+    });
+    
+    html += `
+            <script>
+                window.onload = function() {
+                    window.print();
+                    window.close();
+                };
+            </script>
+        </body>
+        </html>
+    `;
+    
+    printWindow.document.write(html);
+    printWindow.document.close();
+}
+
+function printSavedStory(storyIdx) {
+    if (!currentUser || !currentUser.myStories || !currentUser.myStories[storyIdx]) return;
+    const story = currentUser.myStories[storyIdx];
+    printStoryObj(story);
+}
+
+function printPreloadedStory(storyKey) {
+    const story = PRELOADED_STORIES[storyKey];
+    if (!story) return;
+    printStoryObj({
+        title: `A História Mágica de ${story.characterName}`,
+        coverUrl: story.coverUrl,
+        paragraphs: story.paragraphs
+    });
+}
+
+function downloadSavedStoryPDF(storyIdx) {
+    if (!currentUser || !currentUser.myStories || !currentUser.myStories[storyIdx]) return;
+    const story = currentUser.myStories[storyIdx];
+    generatePDFFromData(story.title, story.coverUrl, story.paragraphs, 'btnDownloadSavedStoryPDF');
+}
+
+function shareSavedStoryOnWhatsApp(storyIdx) {
+    if (!currentUser || !currentUser.myStories || !currentUser.myStories[storyIdx]) return;
+    const story = currentUser.myStories[storyIdx];
+    shareStoryOnWhatsApp(story.title);
+}
+
+window.printSavedStory = printSavedStory;
+window.printPreloadedStory = printPreloadedStory;
+window.downloadSavedStoryPDF = downloadSavedStoryPDF;
+window.shareSavedStoryOnWhatsApp = shareSavedStoryOnWhatsApp;
+
 
 function printSavedImage(url) {
     const printWindow = window.open('', '_blank');
@@ -4956,7 +5104,56 @@ function openImageLightbox(imageUrl, altText) {
     closeBtn.onmouseleave = () => closeBtn.style.transform = 'scale(1)';
 
     // Assemble lightbox
+    const btnContainer = document.createElement('div');
+    Object.assign(btnContainer.style, {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '15px',
+        gap: '10px',
+        zIndex: '100000',
+        position: 'relative'
+    });
+
+    const printBtn = document.createElement('button');
+    printBtn.innerHTML = '<i class="fa-solid fa-print"></i> Imprimir';
+    Object.assign(printBtn.style, {
+        padding: '8px 16px',
+        backgroundColor: '#7950f2',
+        color: '#ffffff',
+        border: 'none',
+        borderRadius: '8px',
+        fontWeight: 'bold',
+        fontFamily: 'Quicksand, sans-serif',
+        cursor: 'pointer'
+    });
+    printBtn.onclick = () => printSavedImage(imageUrl);
+
+    const colorBtn = document.createElement('button');
+    colorBtn.innerHTML = '<i class="fa-solid fa-paintbrush"></i> Colorir no Site';
+    Object.assign(colorBtn.style, {
+        padding: '8px 16px',
+        backgroundColor: '#ff5e7e',
+        color: '#ffffff',
+        border: 'none',
+        borderRadius: '8px',
+        fontWeight: 'bold',
+        fontFamily: 'Quicksand, sans-serif',
+        cursor: 'pointer'
+    });
+    colorBtn.onclick = () => {
+        closeLightbox();
+        window.currentPaintingData = {
+            imgUrl: imageUrl,
+            name: altText || 'Desenho',
+            backUrl: window.location.pathname
+        };
+        navigate('/pintar-online');
+    };
+
+    btnContainer.appendChild(printBtn);
+    btnContainer.appendChild(colorBtn);
     container.appendChild(img);
+    container.appendChild(btnContainer);
     container.appendChild(closeBtn);
     lightbox.appendChild(container);
     document.body.appendChild(lightbox);
@@ -5053,9 +5250,13 @@ function openSavedStoryViewer(storyIdx) {
 
     html += `
         <div style="text-align: center; margin-top: 40px; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-blue); display: inline-block; width: auto; padding: 12px 30px;" id="btnDownloadSavedStoryPDF" onclick="downloadSavedStoryPDF(${storyIdx})">📥 Baixar PDF A4</button>
+            <button class="btn-generate btn-bottom" style="background-color: #25d366; display: inline-block; width: auto; padding: 12px 30px;" onclick="shareSavedStoryOnWhatsApp(${storyIdx})"><i class="fa-brands fa-whatsapp"></i> Enviar pelo WhatsApp</button>
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-orange); display: inline-block; width: auto; padding: 12px 30px;" onclick="printSavedStory(${storyIdx})"><i class="fa-solid fa-print"></i> Imprimir Livro</button>
             <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 12px 30px;" onclick="closeViewer()">Fechar História</button>
         </div>
     `;
+
 
     viewerContent.innerHTML = html;
     viewerModal.classList.add('open');
@@ -5064,25 +5265,33 @@ function openSavedStoryViewer(storyIdx) {
 function switchCreationsTab(tab) {
     const tabDrawings = document.getElementById('tab-my-drawings');
     const tabStories = document.getElementById('tab-my-stories');
+    const tabPaintings = document.getElementById('tab-my-paintings');
     const gridDrawings = document.getElementById('my-drawings-grid');
     const containerStories = document.getElementById('my-stories-container');
-    
-    if (!tabDrawings || !tabStories || !gridDrawings || !containerStories) return;
-    
+    const gridPaintings = document.getElementById('my-paintings-grid');
+
+    if (!tabDrawings || !tabStories || !tabPaintings || !gridDrawings || !containerStories || !gridPaintings) return;
+
+    [tabDrawings, tabStories, tabPaintings].forEach(t => {
+        t.style.color = 'var(--color-dark-light)';
+        t.style.borderBottomColor = 'transparent';
+    });
+    [gridDrawings, containerStories, gridPaintings].forEach(g => {
+        g.style.display = 'none';
+    });
+
     if (tab === 'drawings') {
         tabDrawings.style.color = 'var(--color-purple)';
         tabDrawings.style.borderBottomColor = 'var(--color-purple)';
-        tabStories.style.color = 'var(--color-dark-light)';
-        tabStories.style.borderBottomColor = 'transparent';
         gridDrawings.style.display = 'grid';
-        containerStories.style.display = 'none';
-    } else {
+    } else if (tab === 'stories') {
         tabStories.style.color = 'var(--color-purple)';
         tabStories.style.borderBottomColor = 'var(--color-purple)';
-        tabDrawings.style.color = 'var(--color-dark-light)';
-        tabDrawings.style.borderBottomColor = 'transparent';
-        gridDrawings.style.display = 'none';
         containerStories.style.display = 'block';
+    } else if (tab === 'paintings') {
+        tabPaintings.style.color = 'var(--color-purple)';
+        tabPaintings.style.borderBottomColor = 'var(--color-purple)';
+        gridPaintings.style.display = 'grid';
     }
 }
 
@@ -5091,4 +5300,616 @@ window.downloadSavedImage = downloadSavedImage;
 window.printSavedImage = printSavedImage;
 window.openSavedStoryViewer = openSavedStoryViewer;
 window.switchCreationsTab = switchCreationsTab;
+
+// === PINTAR ONLINE LOGIC ===
+let paintCanvas = null;
+let pCtx = null;
+let selectedPaintColor = [255, 94, 126]; // Pink
+let activePaintTool = 'bucket'; // 'bucket', 'glitter', 'brush', 'eraser'
+let isPaintDrawing = false;
+let paintLastX = 0;
+let paintLastY = 0;
+let paintDrawingImage = null;
+
+// Crayons Paleta (RGB)
+const paintCrayons = [
+    { hex: '#ff5e7e', rgb: [255, 94, 126], name: 'Rosa' },
+    { hex: '#ff8138', rgb: [255, 129, 56], name: 'Laranja' },
+    { hex: '#ffd43b', rgb: [255, 212, 59], name: 'Amarelo' },
+    { hex: '#40c057', rgb: [64, 192, 87], name: 'Verde' },
+    { hex: '#12b886', rgb: [18, 184, 134], name: 'Menta' },
+    { hex: '#22b8cf', rgb: [34, 184, 207], name: 'Ciano' },
+    { hex: '#4dabf7', rgb: [77, 171, 247], name: 'Azul' },
+    { hex: '#7950f2', rgb: [121, 80, 242], name: 'Roxo' },
+    { hex: '#e64980', rgb: [230, 73, 128], name: 'Pink' },
+    { hex: '#a61e4d', rgb: [166, 30, 77], name: 'Bordô' },
+    { hex: '#868e96', rgb: [134, 142, 150], name: 'Cinza' },
+    { hex: '#212529', rgb: [33, 37, 41], name: 'Preto' },
+    { hex: '#ffffff', rgb: [255, 255, 255], name: 'Branco' }
+];
+
+function renderPintarOnlineView() {
+    document.title = "Colorir Online — KidCanvas 🎨";
+    setMetaDescription("Colore e pinte online usando lápis de cor, balde de tinta e glitter mágico de forma interativa.");
+
+    const view = document.getElementById('view-pintar-online');
+    if (view) {
+        view.style.display = 'block';
+    }
+
+    const data = window.currentPaintingData;
+    if (!data || !data.imgUrl) {
+        navigate('/');
+        return;
+    }
+
+    // Configurar botão de voltar
+    const backBtn = document.getElementById('paint-breadcrumbs-back');
+    if (backBtn) {
+        backBtn.textContent = data.name;
+        backBtn.onclick = (e) => {
+            e.preventDefault();
+            navigate(data.backUrl);
+        };
+    }
+
+    // Inicializar Canvas
+    paintCanvas = document.getElementById('main-paint-canvas');
+    pCtx = paintCanvas.getContext('2d');
+    
+    // Configurar tamanho fixo para pintura de qualidade
+    paintCanvas.width = 800;
+    paintCanvas.height = 600;
+
+    // Resetar estado de desenho
+    isPaintDrawing = false;
+    setPaintTool('bucket');
+
+    // Carregar imagem de desenho
+    const loader = document.getElementById('paint-canvas-loader');
+    if (loader) loader.style.display = 'flex';
+
+    paintDrawingImage = new Image();
+    paintDrawingImage.crossOrigin = "anonymous";
+    paintDrawingImage.onload = () => {
+        pCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+        
+        // Desenhar desenho centralizado no canvas de 800x600 preservando proporção
+        const aspect = paintDrawingImage.width / paintDrawingImage.height;
+        let w = paintCanvas.width;
+        let h = paintCanvas.height;
+        let x = 0;
+        let y = 0;
+
+        if (aspect > 4/3) {
+            h = paintCanvas.width / aspect;
+            y = (paintCanvas.height - h) / 2;
+        } else {
+            w = paintCanvas.height * aspect;
+            x = (paintCanvas.width - w) / 2;
+        }
+
+        // Desenhar fundo branco completo
+        pCtx.fillStyle = '#ffffff';
+        pCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
+        
+        pCtx.drawImage(paintDrawingImage, x, y, w, h);
+        
+        // Limpar outlines para garantir que são pretos puros
+        cleanPaintCanvasOutline();
+
+        // Aplicar moldura clássica/premium por cima do contorno com multiply
+        applyBorderOverlay();
+
+        if (loader) loader.style.display = 'none';
+    };
+    paintDrawingImage.src = '/api/proxy-image?url=' + encodeURIComponent(data.imgUrl);
+
+    // Configurar Paleta
+    const colorsGrid = document.getElementById('paint-colors-grid');
+    if (colorsGrid) {
+        colorsGrid.innerHTML = '';
+        paintCrayons.forEach((crayon, index) => {
+            const div = document.createElement('div');
+            div.className = 'color-crayon' + (index === 0 ? ' selected' : '');
+            div.style.backgroundColor = crayon.hex;
+            div.style.width = '36px';
+            div.style.height = '36px';
+            div.style.borderRadius = '50%';
+            div.style.border = '3px solid white';
+            div.style.cursor = 'pointer';
+            div.style.boxShadow = '0 2px 5px rgba(0,0,0,0.15)';
+            div.style.transition = 'all 0.2s ease';
+            
+            div.addEventListener('click', () => {
+                document.querySelectorAll('#paint-colors-grid .color-crayon').forEach(c => c.classList.remove('selected'));
+                div.classList.add('selected');
+                selectedPaintColor = crayon.rgb;
+            });
+            colorsGrid.appendChild(div);
+        });
+    }
+
+    // Configurar Eventos do Canvas
+    paintCanvas.onmousedown = startPaintingDraw;
+    paintCanvas.onmousemove = executePaintingDraw;
+    paintCanvas.onmouseup = stopPaintingDraw;
+    paintCanvas.onmouseleave = stopPaintingDraw;
+
+    // Touch support
+    paintCanvas.ontouchstart = (e) => {
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousedown', {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        paintCanvas.dispatchEvent(mouseEvent);
+    };
+    paintCanvas.ontouchmove = (e) => {
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousemove', {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        paintCanvas.dispatchEvent(mouseEvent);
+        e.preventDefault();
+    };
+    paintCanvas.ontouchend = () => {
+        const mouseEvent = new MouseEvent('mouseup', {});
+        paintCanvas.dispatchEvent(mouseEvent);
+    };
+
+    // Configurar Sliders e Ações
+    const brushSize = document.getElementById('paint-brush-size');
+    const brushSizeVal = document.getElementById('paint-brush-size-val');
+    if (brushSize && brushSizeVal) {
+        brushSize.oninput = () => {
+            brushSizeVal.textContent = brushSize.value + 'px';
+        };
+    }
+
+    const btnClear = document.getElementById('paint-btn-clear');
+    if (btnClear) {
+        btnClear.onclick = () => {
+            if (confirm('Deseja limpar toda a sua pintura e recomeçar? 🎨')) {
+                paintDrawingImage.onload();
+            }
+        };
+    }
+
+    const btnSave = document.getElementById('paint-btn-save');
+    if (btnSave) {
+        btnSave.onclick = () => {
+            savePaintingToGallery();
+        };
+    }
+}
+
+function cleanPaintCanvasOutline() {
+    const imgData = pCtx.getImageData(0, 0, paintCanvas.width, paintCanvas.height);
+    const data = imgData.data;
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i+1];
+        const b = data[i+2];
+        const a = data[i+3];
+        if (r > 210 && g > 210 && b > 210) {
+            data[i] = 255;
+            data[i+1] = 255;
+            data[i+2] = 255;
+            data[i+3] = 255;
+        } else if (r < 90 && g < 90 && b < 90 && a > 150) {
+            data[i] = 0;
+            data[i+1] = 0;
+            data[i+2] = 0;
+            data[i+3] = 255;
+        }
+    }
+    pCtx.putImageData(imgData, 0, 0);
+}
+
+function applyBorderOverlay() {
+    const isPremium = currentUser && currentUser.plan && currentUser.plan !== 'Grátis';
+    const borderImg = new Image();
+    borderImg.crossOrigin = "anonymous";
+    borderImg.onload = () => {
+        pCtx.save();
+        pCtx.globalCompositeOperation = 'multiply';
+        pCtx.drawImage(borderImg, 0, 0, paintCanvas.width, paintCanvas.height);
+        pCtx.restore();
+    };
+    borderImg.src = isPremium ? '/premium_border_template.png' : '/classic_border_template.png';
+}
+
+function setPaintTool(tool) {
+    activePaintTool = tool;
+    document.querySelectorAll('.paint-tool-btn').forEach(btn => btn.classList.remove('active'));
+
+    const sliderGroup = document.getElementById('paint-slider-group');
+    
+    if (tool === 'bucket') {
+        document.getElementById('paint-tool-bucket').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'none';
+    } else if (tool === 'glitter') {
+        document.getElementById('paint-tool-glitter').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'none';
+    } else if (tool === 'brush') {
+        document.getElementById('paint-tool-brush').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'flex';
+    } else if (tool === 'eraser') {
+        document.getElementById('paint-tool-eraser').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'flex';
+    }
+}
+
+// Configurar Toolbar de Pintura
+document.getElementById('paint-tool-bucket').onclick = () => setPaintTool('bucket');
+document.getElementById('paint-tool-glitter').onclick = () => setPaintTool('glitter');
+document.getElementById('paint-tool-brush').onclick = () => setPaintTool('brush');
+document.getElementById('paint-tool-eraser').onclick = () => setPaintTool('eraser');
+
+// Configurar carimbos
+document.querySelectorAll('.paint-stamp-btn').forEach(btn => {
+    btn.onclick = () => {
+        setPaintTool('stamp');
+        document.querySelectorAll('.paint-stamp-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        window.selectedPaintStamp = btn.getAttribute('data-stamp');
+        
+        const sliderGroup = document.getElementById('paint-slider-group');
+        if (sliderGroup) sliderGroup.style.display = 'flex';
+    };
+});
+
+function getPaintMousePos(e) {
+    const rect = paintCanvas.getBoundingClientRect();
+    const x = Math.round((e.clientX - rect.left) * (paintCanvas.width / rect.width));
+    const y = Math.round((e.clientY - rect.top) * (paintCanvas.height / rect.height));
+    return { x, y };
+}
+
+function startPaintingDraw(e) {
+    const pos = getPaintMousePos(e);
+    if (activePaintTool === 'bucket') {
+        executePaintFloodFill(pos.x, pos.y, false);
+    } else if (activePaintTool === 'glitter') {
+        executePaintFloodFill(pos.x, pos.y, true);
+    } else if (activePaintTool === 'stamp') {
+        executePaintStamp(pos.x, pos.y);
+    } else {
+        isPaintDrawing = true;
+        paintLastX = pos.x;
+        paintLastY = pos.y;
+    }
+}
+
+function executePaintingDraw(e) {
+    if (!isPaintDrawing) return;
+    const pos = getPaintMousePos(e);
+
+    pCtx.beginPath();
+    pCtx.moveTo(paintLastX, paintLastY);
+    pCtx.lineTo(pos.x, pos.y);
+
+    if (activePaintTool === 'brush') {
+        pCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+    } else if (activePaintTool === 'eraser') {
+        pCtx.strokeStyle = '#ffffff';
+    }
+
+    const brushSizeInput = document.getElementById('paint-brush-size');
+    pCtx.lineWidth = brushSizeInput ? brushSizeInput.value : 8;
+    pCtx.lineCap = 'round';
+    pCtx.lineJoin = 'round';
+    pCtx.stroke();
+
+    paintLastX = pos.x;
+    paintLastY = pos.y;
+}
+
+function stopPaintingDraw() {
+    if (isPaintDrawing) {
+        isPaintDrawing = false;
+        applyBorderOverlay();
+    }
+}
+
+function executePaintStamp(x, y) {
+    const stamp = window.selectedPaintStamp || '⭐';
+    const sizeInput = document.getElementById('paint-brush-size');
+    const size = sizeInput ? parseInt(sizeInput.value) * 2 : 32;
+
+    pCtx.font = `${size}px Arial, sans-serif`;
+    pCtx.textAlign = 'center';
+    pCtx.textBaseline = 'middle';
+    pCtx.fillText(stamp, x, y);
+
+    applyBorderOverlay();
+}
+
+function createGlitterPattern(colorRgb) {
+    const size = 32;
+    const patCanvas = document.createElement('canvas');
+    patCanvas.width = size;
+    patCanvas.height = size;
+    const patCtx = patCanvas.getContext('2d');
+
+    patCtx.fillStyle = `rgb(${colorRgb[0]}, ${colorRgb[1]}, ${colorRgb[2]})`;
+    patCtx.fillRect(0, 0, size, size);
+
+    for (let i = 0; i < 6; i++) {
+        const px = Math.random() * size;
+        const py = Math.random() * size;
+        const pr = Math.random() * 2 + 1;
+        
+        patCtx.fillStyle = Math.random() > 0.5 ? '#ffffff' : '#ffd43b';
+        patCtx.beginPath();
+        patCtx.arc(px, py, pr, 0, Math.PI * 2);
+        patCtx.fill();
+
+        if (Math.random() > 0.7) {
+            patCtx.strokeStyle = '#ffffff';
+            patCtx.lineWidth = 0.5;
+            patCtx.beginPath();
+            patCtx.moveTo(px - 3, py);
+            patCtx.lineTo(px + 3, py);
+            patCtx.moveTo(px, py - 3);
+            patCtx.lineTo(px, py + 3);
+            patCtx.stroke();
+        }
+    }
+    return pCtx.createPattern(patCanvas, 'repeat');
+}
+
+function executePaintFloodFill(startX, startY, isGlitter) {
+    const imgData = pCtx.getImageData(0, 0, paintCanvas.width, paintCanvas.height);
+    const data = imgData.data;
+    const width = paintCanvas.width;
+    const height = paintCanvas.height;
+
+    const startIdx = (startY * width + startX) * 4;
+    const startR = data[startIdx];
+    const startG = data[startIdx+1];
+    const startB = data[startIdx+2];
+    const startA = data[startIdx+3];
+
+    const fillR = selectedPaintColor[0];
+    const fillG = selectedPaintColor[1];
+    const fillB = selectedPaintColor[2];
+    const fillA = 255;
+
+    if (startR === fillR && startG === fillG && startB === fillB && startA === fillA && !isGlitter) {
+        return;
+    }
+
+    function isOutline(r, g, b, a) {
+        return (r < 110 && g < 110 && b < 110 && a > 100);
+    }
+
+    if (isOutline(startR, startG, startB, startA)) {
+        return;
+    }
+
+    const stack = [[startX, startY]];
+    const visited = new Uint8Array(width * height);
+    visited[startY * width + startX] = 1;
+
+    const fillMaskCanvas = isGlitter ? document.createElement('canvas') : null;
+    const fCtx = isGlitter ? fillMaskCanvas.getContext('2d') : null;
+    let maskData = null;
+    
+    if (isGlitter) {
+        fillMaskCanvas.width = width;
+        fillMaskCanvas.height = height;
+        maskData = fCtx.createImageData(width, height);
+    }
+
+    while (stack.length > 0) {
+        const [cx, cy] = stack.pop();
+        const idx = (cy * width + cx) * 4;
+
+        if (isGlitter) {
+            const mIdx = (cy * width + cx) * 4;
+            maskData.data[mIdx] = 255;
+            maskData.data[mIdx+1] = 255;
+            maskData.data[mIdx+2] = 255;
+            maskData.data[mIdx+3] = 255;
+        } else {
+            data[idx] = fillR;
+            data[idx+1] = fillG;
+            data[idx+2] = fillB;
+            data[idx+3] = fillA;
+        }
+
+        const neighbors = [
+            [cx + 1, cy],
+            [cx - 1, cy],
+            [cx, cy + 1],
+            [cx, cy - 1]
+        ];
+
+        for (const [nx, ny] of neighbors) {
+            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                const nIdx = ny * width + nx;
+                if (!visited[nIdx]) {
+                    visited[nIdx] = 1;
+                    const pIdx = nIdx * 4;
+
+                    if (!isOutline(data[pIdx], data[pIdx+1], data[pIdx+2], data[pIdx+3])) {
+                        stack.push([nx, ny]);
+                    }
+                }
+            }
+        }
+    }
+
+    if (isGlitter) {
+        fCtx.putImageData(maskData, 0, 0);
+
+        pCtx.save();
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = width;
+        tempCanvas.height = height;
+        const tCtx = tempCanvas.getContext('2d');
+
+        tCtx.fillStyle = createGlitterPattern(selectedPaintColor);
+        tCtx.fillRect(0, 0, width, height);
+
+        tCtx.globalCompositeOperation = 'destination-in';
+        tCtx.drawImage(fillMaskCanvas, 0, 0);
+
+        pCtx.drawImage(tempCanvas, 0, 0);
+        pCtx.restore();
+    } else {
+        pCtx.putImageData(imgData, 0, 0);
+    }
+
+    applyBorderOverlay();
+}
+
+async function savePaintingToGallery() {
+    if (!currentUser) {
+        showToast('Faça login ou crie uma conta grátis para salvar suas pinturas! 🎨', 'info');
+        openAuthModal();
+        return;
+    }
+
+    const data = window.currentPaintingData;
+    if (!data) return;
+
+    showToast('Salvando sua pintura na nuvem... ⏳', 'info');
+
+    try {
+        const imageBase64 = paintCanvas.toDataURL('image/png');
+        const sessionToken = localStorage.getItem('sessionToken') || currentUser.token;
+
+        const response = await fetch('/api/user/save-painting', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': sessionToken
+            },
+            body: JSON.stringify({
+                imageBase64: imageBase64,
+                prompt: data.name
+            })
+        });
+
+        const resData = await response.json();
+
+        if (response.ok && resData.success) {
+            currentUser.myPaintings = resData.myPaintings;
+            showToast('Pintura salva com sucesso na sua galeria! 🎉', 'success');
+            openCertificateModal(data.name);
+        } else {
+            showToast(resData.message || 'Erro ao salvar pintura.', 'error');
+        }
+    } catch(err) {
+        console.error(err);
+        showToast('Erro ao se conectar ao servidor.', 'error');
+    }
+}
+
+function openCertificateModal(drawingName) {
+    const modal = document.getElementById('certificateModal');
+    if (!modal) return;
+
+    document.getElementById('certificate-congrats-text').textContent = `Você coloriu o desenho "${drawingName}" com muito brilho!`;
+    document.getElementById('certificate-child-name').value = currentUser.name || '';
+    
+    renderCertificate(currentUser.name || '', drawingName);
+
+    modal.style.display = 'flex';
+
+    const btnDownloadCert = document.getElementById('btn-download-certificate');
+    btnDownloadCert.onclick = () => {
+        const nameInput = document.getElementById('certificate-child-name').value.trim();
+        renderCertificate(nameInput || 'Pequeno Artista', drawingName);
+
+        const certCanvas = document.getElementById('certificate-render-canvas');
+        const link = document.createElement('a');
+        link.download = `certificado-artista-${nameInput || 'artista'}.png`;
+        link.href = certCanvas.toDataURL('image/png');
+        link.click();
+        
+        showToast('Certificado baixado com sucesso! 🎓', 'success');
+        closeCertificateModal();
+        navigate('/minhas-criacoes');
+        switchCreationsTab('paintings');
+    };
+}
+
+function closeCertificateModal() {
+    const modal = document.getElementById('certificateModal');
+    if (modal) modal.style.display = 'none';
+}
+
+function renderCertificate(childName, drawingName) {
+    const certCanvas = document.getElementById('certificate-render-canvas');
+    const cCtx = certCanvas.getContext('2d');
+    const w = certCanvas.width;
+    const h = certCanvas.height;
+
+    cCtx.fillStyle = '#faf8f5';
+    cCtx.fillRect(0, 0, w, h);
+
+    cCtx.lineWidth = 16;
+    cCtx.strokeStyle = '#ffd43b';
+    cCtx.strokeRect(20, 20, w - 40, h - 40);
+
+    cCtx.lineWidth = 3;
+    cCtx.strokeStyle = '#ff5e7e';
+    cCtx.strokeRect(36, 36, w - 72, h - 72);
+
+    cCtx.font = '36px Arial';
+    cCtx.fillText('🎨', 60, 90);
+    cCtx.fillText('🏆', w - 110, 90);
+    cCtx.fillText('⭐', 60, h - 70);
+    cCtx.fillText('🎉', w - 110, h - 70);
+
+    cCtx.textAlign = 'center';
+    cCtx.fillStyle = '#ff5e7e';
+    cCtx.font = 'bold 44px Fredoka, Quicksand, sans-serif';
+    cCtx.fillText('CERTIFICADO DE ARTISTA', w / 2, 130);
+
+    cCtx.fillStyle = '#495057';
+    cCtx.font = '22px Quicksand, sans-serif';
+    cCtx.fillText('Este certificado é concedido com muito orgulho a:', w / 2, 220);
+
+    cCtx.fillStyle = '#4dabf7';
+    cCtx.font = 'bold 48px Fredoka, Quicksand, sans-serif';
+    cCtx.fillText(childName.toUpperCase() || 'PEQUENO ARTISTA', w / 2, 305);
+
+    cCtx.strokeStyle = '#e9ecef';
+    cCtx.lineWidth = 3;
+    cCtx.beginPath();
+    cCtx.moveTo(w / 2 - 200, 345);
+    cCtx.lineTo(w / 2 + 200, 345);
+    cCtx.stroke();
+
+    cCtx.fillStyle = '#495057';
+    cCtx.font = '20px Quicksand, sans-serif';
+    cCtx.fillText('Por ter colorido de forma incrivelmente criativa o desenho:', w / 2, 395);
+
+    cCtx.fillStyle = '#ff5e7e';
+    cCtx.font = 'bold 28px Fredoka, Quicksand, sans-serif';
+    cCtx.fillText(`★ ${drawingName} ★`, w / 2, 445);
+
+    cCtx.fillStyle = '#868e96';
+    cCtx.font = 'italic 16px Quicksand, sans-serif';
+    cCtx.fillText('Vovó Sônia', w / 2 - 150, 525);
+    cCtx.fillText('Pedrinho', w / 2 + 150, 525);
+
+    cCtx.strokeStyle = '#cbd5e1';
+    cCtx.lineWidth = 1;
+    cCtx.beginPath();
+    cCtx.moveTo(w / 2 - 220, 505);
+    cCtx.lineTo(w / 2 - 80, 505);
+    cCtx.moveTo(w / 2 + 80, 505);
+    cCtx.lineTo(w / 2 + 220, 505);
+    cCtx.stroke();
+}
+
+window.renderPintarOnlineView = renderPintarOnlineView;
+window.closeCertificateModal = closeCertificateModal;
 

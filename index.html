@@ -575,6 +575,9 @@
                             <button id="btn-download-drawing" class="btn btn-primary btn-large btn-full-width" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                                 <i class="fa-solid fa-download"></i> <span>Baixar PNG (alta resolução)</span>
                             </button>
+                            <button id="btn-color-online-drawing" class="btn btn-secondary btn-large btn-full-width" style="display: flex; align-items: center; justify-content: center; gap: 10px; background-color: var(--color-purple); border-color: var(--color-purple); color: white; margin-top: 10px;">
+                                <i class="fa-solid fa-paintbrush"></i> <span>Colorir no Site (Grátis)</span>
+                            </button>
                             <p class="download-microcopy" style="font-size: 0.85rem; color: var(--color-dark-light); text-align: center; margin-top: 8px; font-weight: 500;">
                                 Arquivo PNG em alta resolução, pronto para imprimir em folha A4.
                             </p>
@@ -1334,6 +1337,7 @@
                 <div class="creations-tabs" style="display: flex; gap: 15px; margin-bottom: 25px; border-bottom: var(--border-thin); padding-bottom: 10px;">
                     <button class="tab-btn active" id="tab-my-drawings" onclick="switchCreationsTab('drawings')" style="background: none; border: none; font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; cursor: pointer; color: var(--color-purple); border-bottom: 4px solid var(--color-purple); padding: 5px 10px;">🖍️ Meus Desenhos</button>
                     <button class="tab-btn" id="tab-my-stories" onclick="switchCreationsTab('stories')" style="background: none; border: none; font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; cursor: pointer; color: var(--color-dark-light); border-bottom: 4px solid transparent; padding: 5px 10px;">📖 Minhas Histórias</button>
+                    <button class="tab-btn" id="tab-my-paintings" onclick="switchCreationsTab('paintings')" style="background: none; border: none; font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; cursor: pointer; color: var(--color-dark-light); border-bottom: 4px solid transparent; padding: 5px 10px;">🎨 Minhas Pinturas</button>
                 </div>
                 
                 <!-- Grid de Desenhos Gerados -->
@@ -1344,6 +1348,94 @@
                 <!-- Grid de Histórias Geradas -->
                 <div class="my-stories-container" id="my-stories-container" style="display: none;">
                     <!-- Preenchido via JS -->
+                </div>
+
+                <!-- Grid de Pinturas do Usuário -->
+                <div class="drawings-grid" id="my-paintings-grid" style="display: none;">
+                    <!-- Preenchido via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             7. TELA DE PINTAR ONLINE
+             ============================================== -->
+        <section id="view-pintar-online" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <a href="#" id="paint-breadcrumbs-back">Desenho</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Colorir Online</span>
+                </div>
+
+                <div class="section-title-wrapper align-left" style="margin-bottom: 20px;">
+                    <h1 class="page-title">Pintar Online 🎨</h1>
+                    <p class="section-subtitle">Use a sua imaginação com a paleta colorida, balde de tinta e brilho mágico!</p>
+                </div>
+
+                <div class="paint-workspace-layout">
+                    <!-- Barra de Ferramentas -->
+                    <div class="paint-toolbar">
+                        <button class="paint-tool-btn active" id="paint-tool-bucket" title="Balde de Tinta">
+                            <i class="fa-solid fa-fill-drip"></i>
+                        </button>
+                        <button class="paint-tool-btn" id="paint-tool-glitter" title="Glitter Mágico" style="color: #ff5e7e;">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </button>
+                        <button class="paint-tool-btn" id="paint-tool-brush" title="Pincel Livre">
+                            <i class="fa-solid fa-paintbrush"></i>
+                        </button>
+                        <button class="paint-tool-btn" id="paint-tool-eraser" title="Borracha">
+                            <i class="fa-solid fa-eraser"></i>
+                        </button>
+                        <hr style="width: 100%; border: none; border-top: 1px dashed #ccc; margin: 4px 0;">
+                        
+                        <!-- Carimbos -->
+                        <div style="font-size: 0.75rem; font-weight: bold; color: var(--color-dark-light); margin-bottom: 4px; text-transform: uppercase;">Selos</div>
+                        <button class="paint-tool-btn paint-stamp-btn" data-stamp="⭐" title="Estrela">⭐</button>
+                        <button class="paint-tool-btn paint-stamp-btn" data-stamp="❤️" title="Coração">❤️</button>
+                        <button class="paint-tool-btn paint-stamp-btn" data-stamp="🌈" title="Arco-íris">🌈</button>
+                        <button class="paint-tool-btn paint-stamp-btn" data-stamp="🎉" title="Confete">🎉</button>
+                    </div>
+
+                    <!-- Canvas e Painéis -->
+                    <div style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+                        <!-- Canvas Container -->
+                        <div class="paint-canvas-container">
+                            <div id="paint-canvas-loader">
+                                <div class="spinner"></div>
+                                <span>Carregando desenho...</span>
+                            </div>
+                            <canvas id="main-paint-canvas"></canvas>
+                        </div>
+
+                        <!-- Paleta de Giz de Cera -->
+                        <div class="paint-palette-card">
+                            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; color: var(--color-dark);"><i class="fa-solid fa-palette"></i> Paleta de Giz de Cera:</div>
+                            <div class="paint-colors-grid" id="paint-colors-grid">
+                                <!-- Cores injetadas por JS -->
+                            </div>
+                        </div>
+
+                        <!-- Painel de Controles e Ações -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; border-top: 1px dashed rgba(0,0,0,0.15); padding-top: 15px;">
+                            <!-- Slider de Tamanho do Pincel/Carimbo -->
+                            <div class="paint-slider-group" id="paint-slider-group" style="display: none; align-items: center; gap: 10px;">
+                                <span style="font-weight: 700; font-size: 0.9rem;">Tamanho:</span>
+                                <input type="range" id="paint-brush-size" min="3" max="40" value="8">
+                                <span id="paint-brush-size-val" style="font-weight:700; font-size:0.9rem;">8px</span>
+                            </div>
+
+                            <div style="flex: 1;"></div>
+
+                            <div style="display: flex; gap: 10px;">
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-clear"><i class="fa-solid fa-trash-can"></i> Limpar Pintura</button>
+                                <button class="btn btn-primary btn-sm" id="paint-btn-save" style="background-color: var(--color-green); border-color: var(--color-green); color: white;"><i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1364,6 +1456,31 @@
             <p class="footer-love"><i class="fa-solid fa-heart text-red"></i> Feito com carinho pela Vovó Sônia e o Pedrinho.</p>
         </div>
     </footer>
+
+    <!-- Modal do Certificado de Artista -->
+    <div class="viewer-modal-overlay" id="certificateModal" style="z-index: 100001; display: none;">
+        <div class="viewer-modal-box" style="max-width: 580px; text-align: center; padding: 30px;">
+            <button class="btn-close-viewer" onclick="closeCertificateModal()">&times;</button>
+            <span style="font-size: 4rem; display: block; margin-bottom: 10px;">🏆</span>
+            <h2 style="font-family: var(--font-heading); color: var(--color-orange); margin-bottom: 5px;">Parabéns, Grande Artista!</h2>
+            <p style="color: var(--color-dark-light); font-size: 1rem; margin-bottom: 20px;" id="certificate-congrats-text">Você coloriu o desenho com sucesso!</p>
+            
+            <div style="background: #faf8f5; border: 2px dashed #e4d7c5; border-radius: 12px; padding: 20px; margin-bottom: 25px; text-align: left;">
+                <label style="font-weight: 700; color: var(--color-dark); display: block; margin-bottom: 8px;">Escreva o nome da criança para o Certificado:</label>
+                <input type="text" id="certificate-child-name" placeholder="Ex: Pedrinho" style="width: 100%; padding: 12px; font-size: 1.1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); margin-bottom: 15px;">
+                
+                <!-- Certificado Preview canvas (invisível para renderização em background) -->
+                <div style="display: none;">
+                    <canvas id="certificate-render-canvas" width="800" height="600"></canvas>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="closeCertificateModal()">Voltar</button>
+                <button class="btn btn-primary" id="btn-download-certificate" style="background-color: var(--color-purple); border-color: var(--color-purple); color: white;"><i class="fa-solid fa-file-pdf"></i> Baixar Certificado 🎓</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal de Autenticação / Cadastro (Visitantes) -->
     <!-- Preloaded Stories Viewer Modal Overlay -->
