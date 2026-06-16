@@ -5536,21 +5536,15 @@ function renderPintarOnlineView() {
 
     if (data.imgUrl === 'blank') {
         paintDrawingImage = null;
+        paintBorderImage = null;
         
         // Desenhar no background inicial branco
         paintBgCtx.fillStyle = '#ffffff';
         paintBgCtx.fillRect(0, 0, 800, 600);
         
-        // Carregar a Moldura (Border)
-        const isPremium = currentUser && currentUser.plan && currentUser.plan !== 'Grátis';
-        paintBorderImage = new Image();
-        paintBorderImage.crossOrigin = "anonymous";
-        paintBorderImage.onload = () => {
-            composePaintCanvas();
-            savePaintHistory();
-            if (loader) loader.style.display = 'none';
-        };
-        paintBorderImage.src = isPremium ? '/premium_border_template.png' : '/classic_border_template.png';
+        composePaintCanvas();
+        savePaintHistory();
+        if (loader) loader.style.display = 'none';
     } else {
         paintDrawingImage = new Image();
         paintDrawingImage.crossOrigin = "anonymous";
@@ -5578,16 +5572,10 @@ function renderPintarOnlineView() {
             // Limpar outlines do desenho
             cleanPaintCanvasOutlineDirect(paintBgCtx);
 
-            // Carregar a Moldura (Border)
-            const isPremium = currentUser && currentUser.plan && currentUser.plan !== 'Grátis';
-            paintBorderImage = new Image();
-            paintBorderImage.crossOrigin = "anonymous";
-            paintBorderImage.onload = () => {
-                composePaintCanvas();
-                savePaintHistory();
-                if (loader) loader.style.display = 'none';
-            };
-            paintBorderImage.src = isPremium ? '/premium_border_template.png' : '/classic_border_template.png';
+            paintBorderImage = null;
+            composePaintCanvas();
+            savePaintHistory();
+            if (loader) loader.style.display = 'none';
         };
         paintDrawingImage.src = '/api/proxy-image?url=' + encodeURIComponent(data.imgUrl);
     }
@@ -5814,14 +5802,6 @@ function composePaintCanvas() {
     
     // Camada de primeiro plano (Normal brush, stamps)
     pCtx.drawImage(paintFgCanvas, 0, 0);
-    
-    // Moldura com Multiply
-    if (paintBorderImage && paintBorderImage.complete) {
-        pCtx.save();
-        pCtx.globalCompositeOperation = 'multiply';
-        pCtx.drawImage(paintBorderImage, 0, 0, paintCanvas.width, paintCanvas.height);
-        pCtx.restore();
-    }
 }
 
 function savePaintHistory() {
