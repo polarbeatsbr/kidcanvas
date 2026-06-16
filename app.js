@@ -5611,6 +5611,24 @@ function renderPintarOnlineView() {
     paintCanvas.onmouseup = stopPaintingDraw;
     paintCanvas.onmouseleave = stopPaintingDraw;
 
+    // Atualização dinâmica do cursor de texto à medida que a criança digita ou troca a fonte
+    const textInputVal = document.getElementById('paint-text-value');
+    const textFontVal = document.getElementById('paint-text-font');
+    if (textInputVal) {
+        textInputVal.oninput = () => {
+            if (activePaintTool === 'text') {
+                updatePaintCursor('text');
+            }
+        };
+    }
+    if (textFontVal) {
+        textFontVal.onchange = () => {
+            if (activePaintTool === 'text') {
+                updatePaintCursor('text');
+            }
+        };
+    }
+
     // Touch support
     paintCanvas.ontouchstart = (e) => {
         const touch = e.touches[0];
@@ -5892,13 +5910,22 @@ function updatePaintCursor(tool, stamp) {
     } else if (tool === 'glitter') {
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>✨</text></svg>") 11 11, auto';
     } else if (tool === 'brush-magic') {
-        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🪄</text></svg>") 4 22, auto';
+        // Usa o pincel comum 🖌️ que é universalmente suportado, para evitar a caixinha quadrada
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🖌️</text></svg>") 4 22, auto';
     } else if (tool === 'brush') {
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🖌️</text></svg>") 4 22, auto';
     } else if (tool === 'eraser') {
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🧽</text></svg>") 11 11, auto';
     } else if (tool === 'text') {
-        paintCanvas.style.cursor = 'text';
+        const textInput = document.getElementById('paint-text-value');
+        const rawText = textInput ? textInput.value.trim() : '';
+        const text = rawText || 'KidCanvas';
+        const fontSelect = document.getElementById('paint-text-font');
+        const font = fontSelect ? fontSelect.value : 'Fredoka';
+        
+        // Criar SVG do cursor dinamicamente para mostrar o texto que vai ser colado e tirar a dúvida do clique
+        const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="160" height="30" style="font-family:${font}, sans-serif;font-size:13px;font-weight:bold;"><text x="2" y="18" fill="%239c27b0" stroke="white" stroke-width="3" paint-order="stroke">✍️ ${text}</text></svg>`;
+        paintCanvas.style.cursor = `url("data:image/svg+xml;utf8,${encodeURIComponent(svgString)}") 0 15, auto`;
     } else if (tool === 'stamp') {
         const activeStamp = stamp || window.selectedPaintStamp || '⭐';
         paintCanvas.style.cursor = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:22px'><text y='22'>${activeStamp}</text></svg>") 11 11, auto`;
@@ -6032,6 +6059,12 @@ function setPaintTool(tool) {
     } else if (tool === 'text') {
         document.getElementById('paint-tool-text').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
+        
+        // Auto-preenche o campo de texto se estiver vazio para dar feedback visual imediato no cursor
+        const textInput = document.getElementById('paint-text-value');
+        if (textInput && textInput.value.trim() === '') {
+            textInput.value = 'KidCanvas';
+        }
     }
     
     updatePaintCursor(tool);
