@@ -585,7 +585,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
   "svg": "<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 400 400\\">...</svg>"
 }`;
 
-        const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
         
         const response = await fetch(googleUrl, {
             method: 'POST',
@@ -757,7 +757,7 @@ app.post('/api/generate-full-story', async (req, res) => {
         }
 
         // 2. Chamar o Gemini para gerar a história e os prompts
-        console.log(`[Full Story V4] Gerando livro (Capa + ${numPages} páginas, estilo: ${isColor ? 'Colorida' : 'P&B'}) em ${bookLang || 'pt'} para "${characterName}" usando Gemini 2.0 Flash...`);
+        console.log(`[Full Story V4] Gerando livro (Capa + ${numPages} páginas, estilo: ${isColor ? 'Colorida' : 'P&B'}) em ${bookLang || 'pt'} para "${characterName}" usando Gemini 2.5 Flash...`);
 
         const styleDescription = isColor 
             ? "cute children's book watercolor illustration, soft pastel colors, whimsical, detailed cartoon, playful, clean edges"
@@ -822,7 +822,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
   ]
 }`;
 
-        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
+        const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
         
         const geminiRes = await fetch(geminiUrl, {
             method: 'POST',
@@ -852,7 +852,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             console.error('[Gemini API Error Response]:', rawText);
             return res.status(geminiRes.status).json({
                 success: false,
-                message: 'Erro ao gerar o texto da história no Gemini 2.0 Flash.'
+                message: 'Erro ao gerar o texto da história no Gemini 2.5 Flash.'
             });
         }
 
@@ -862,7 +862,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
         if (!textResult) {
             return res.status(500).json({
                 success: false,
-                message: 'O Gemini 2.0 Flash não retornou nenhum texto.'
+                message: 'O Gemini 2.5 Flash não retornou nenhum texto.'
             });
         }
 
