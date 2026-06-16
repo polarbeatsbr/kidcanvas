@@ -1,0 +1,12 @@
+public/pintai-biblioteca/
+pintai-biblioteca/
+public/pintai-biblioteca-backup/
+_logs/
+input/
+output/
+saved_images/
+*.mp4
+*.ttf
+check_dir_sizes.py
+upload_novas_categorias_r2.py
+gerar_novas_categorias_flux.py
