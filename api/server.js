@@ -444,7 +444,7 @@ app.post('/api/generate', async (req, res) => {
 
         console.log(`[Proxy] Tentando gerar imagem com Ideogram V4 Turbo...`);
         try {
-            const ideogramKey = process.env.IDEOGRAM_API_KEY || "RK-CWKSVJ9Jet7vJwHOMmfsYVNHBmGA8jKujDMtQcI5snVW3ThAW_H_Zf_jYjU8be7mYXSOFdO7xLvkBgI7rcQ";
+            const ideogramKey = process.env.IDEOGRAM_API_KEY || "dgMl5GIuY_0LI37ryASxbxkTJQs7w70u8kwN9-UhBkshgHvZh3IHmBzelDoeI9mMvSplNovDD87w5YH1DG08Mg";
             const response = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
                 method: 'POST',
                 headers: {
@@ -884,7 +884,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
 
         // 3. Chamar a API de geração de imagens correspondente em paralelo
         console.log(`[Full Story V4] Iniciando geração concorrente de ${numPages + 1} imagens via ${engine.toUpperCase()}...`);
-        const ideogramKey = process.env.IDEOGRAM_API_KEY || "RK-CWKSVJ9Jet7vJwHOMmfsYVNHBmGA8jKujDMtQcI5snVW3ThAW_H_Zf_jYjU8be7mYXSOFdO7xLvkBgI7rcQ";
+        const ideogramKey = process.env.IDEOGRAM_API_KEY || "dgMl5GIuY_0LI37ryASxbxkTJQs7w70u8kwN9-UhBkshgHvZh3IHmBzelDoeI9mMvSplNovDD87w5YH1DG08Mg";
 
         // Preparar lista de prompts: Capa em primeiro lugar, depois as N páginas
         const watermarkDescription = "A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image.";
@@ -1628,7 +1628,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                 }
             } else {
                 console.log(`[Custom Drawing] Gerando imagem com Ideogram V4 Turbo...`);
-                const ideogramKey = process.env.IDEOGRAM_API_KEY || "RK-CWKSVJ9Jet7vJwHOMmfsYVNHBmGA8jKujDMtQcI5snVW3ThAW_H_Zf_jYjU8be7mYXSOFdO7xLvkBgI7rcQ";
+                const ideogramKey = process.env.IDEOGRAM_API_KEY || "dgMl5GIuY_0LI37ryASxbxkTJQs7w70u8kwN9-UhBkshgHvZh3IHmBzelDoeI9mMvSplNovDD87w5YH1DG08Mg";
                 const response = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
                     method: 'POST',
                     headers: {
