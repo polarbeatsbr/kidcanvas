@@ -511,6 +511,33 @@ app.post('/api/generate', async (req, res) => {
     }
 });
 
+app.get('/api/test-hf', async (req, res) => {
+    try {
+        const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || "";
+        const testRes = await fetch("https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-schnell", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${hfToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ inputs: "a cute baby lion coloring page" })
+        });
+        const text = await testRes.text().catch(() => '');
+        return res.json({
+            success: true,
+            status: testRes.status,
+            body: text,
+            tokenExists: !!hfToken
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: err.message,
+            stack: err.stack
+        });
+    }
+});
+
 // Função auxiliar para gerar conteúdo usando o Gemini com fallbacks para evitar erros de cota e modelos indisponíveis
 async function generateGeminiContent(apiKey, prompt, responseMimeType = "application/json") {
     const modelsToTry = [
@@ -574,6 +601,44 @@ async function generateGeminiContent(apiKey, prompt, responseMimeType = "applica
     }
 
     return { success: false, status: lastStatus, message: lastError || 'Todos os modelos do Gemini falharam.' };
+}
+
+// Helper para fazer parse de JSON de forma muito robusta, tratando blocos de código markdown e chaves extras no final
+function robustParseJSON(str) {
+    let clean = str.trim();
+    // Remover markdown fences se existirem
+    clean = clean.replace(/^```json\s*/i, '').replace(/```\s*$/g, '').trim();
+    
+    try {
+        return JSON.parse(clean);
+    } catch (e) {
+        console.error('[Robust JSON Parser] Primeira tentativa de parse falhou, limpando texto...');
+        // Tentar extrair apenas o objeto JSON delimitado por { e }
+        const firstBrace = clean.indexOf('{');
+        const lastBrace = clean.lastIndexOf('}');
+        if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+            const candidate = clean.substring(firstBrace, lastBrace + 1);
+            try {
+                return JSON.parse(candidate);
+            } catch (e2) {
+                // Se ainda falhar, tentar remover chaves extras no final uma por uma
+                let trimmedCandidate = candidate;
+                while (trimmedCandidate.endsWith('}') && trimmedCandidate.length > 2) {
+                    // Remover a última chave e ver se parse funciona
+                    trimmedCandidate = trimmedCandidate.substring(0, trimmedCandidate.length - 1).trim();
+                    if (trimmedCandidate.endsWith('}')) {
+                        try {
+                            return JSON.parse(trimmedCandidate);
+                        } catch (e3) {}
+                    } else {
+                        // Se não termina mais com }, não vale a pena continuar
+                        break;
+                    }
+                }
+            }
+        }
+        throw e; // Se nada funcionar, lançar o erro original
+    }
 }
 
 // Endpoint para gerar história personalizada e ilustração SVG usando Gemini com Fallback
@@ -661,12 +726,10 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
 
         let parsedResult;
         try {
-            parsedResult = JSON.parse(textResult.trim());
+            parsedResult = robustParseJSON(textResult);
         } catch (e) {
-            console.error('[Parse JSON Error] Tentando limpar resposta:', textResult);
-            // Fallback se por acaso vier envolto em blocos markdown de json ```json ... ```
-            const cleanText = textResult.replace(/```json\s*/g, '').replace(/```\s*$/g, '').trim();
-            parsedResult = JSON.parse(cleanText);
+            console.error('[Parse JSON Error] Falha crítica ao fazer parse da resposta do Gemini:', e);
+            throw new Error(`Resposta do Gemini inválida ou malformada. Erro: ${e.message}`);
         }
 
         return res.json({
@@ -856,11 +919,10 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
 
         let parsedGemini;
         try {
-            parsedGemini = JSON.parse(textResult.trim());
+            parsedGemini = robustParseJSON(textResult);
         } catch (e) {
-            console.error('[Parse JSON Error] Tentando limpar resposta:', textResult);
-            const cleanText = textResult.replace(/```json\s*/g, '').replace(/```\s*$/g, '').trim();
-            parsedGemini = JSON.parse(cleanText);
+            console.error('[Parse JSON Error] Falha crítica ao fazer parse da resposta do Gemini:', e);
+            throw new Error(`Resposta do Gemini inválida ou malformada. Erro: ${e.message}`);
         }
 
         if (!parsedGemini.paragraphs || parsedGemini.paragraphs.length !== numPages || !parsedGemini.cover_prompt) {
