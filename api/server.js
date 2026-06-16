@@ -965,31 +965,79 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
                 
                 if (engine === 'flux') {
                     const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || "";
-                    if (!hfToken) {
-                        throw new Error("HUGGING_FACE_TOKEN/HF_TOKEN não configurado no servidor.");
+                    let nodeBuffer;
+                    let hfSuccess = false;
+                    
+                    if (hfToken) {
+                        try {
+                            const hfRes = await fetch("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell", {
+                                method: "POST",
+                                headers: {
+                                    "Authorization": `Bearer ${hfToken}`,
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({ inputs: item.prompt })
+                            });
+                            
+                            if (hfRes.ok) {
+                                const buffer = await hfRes.arrayBuffer();
+                                nodeBuffer = Buffer.from(buffer);
+                                hfSuccess = true;
+                                console.log(`[Full Story V4] Imagem ${i + 1} gerada com sucesso via Hugging Face.`);
+                            } else {
+                                const hfErr = await hfRes.text().catch(() => '');
+                                console.warn(`[Full Story HF Warning] HF Status ${hfRes.status}: ${hfErr}`);
+                            }
+                        } catch (err) {
+                            console.warn(`[Full Story HF Error] Falha de conexão com HF:`, err.message);
+                        }
                     }
-                    const hfRes = await fetch("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell", {
-                        method: "POST",
-                        headers: {
-                            "Authorization": `Bearer ${hfToken}`,
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ inputs: item.prompt })
-                    });
-                    if (!hfRes.ok) {
-                        const hfErr = await hfRes.text().catch(() => '');
-                        console.error(`[HF API Error Image ${i + 1} Status]:`, hfRes.status);
-                        console.error(`[HF API Error Image ${i + 1} Response]:`, hfErr);
-                        throw new Error(`Erro na API do Hugging Face para imagem ${i + 1}: ${hfErr}`);
+                    
+                    // Fallback para Fal.ai se Hugging Face falhar ou token não estiver configurado
+                    if (!hfSuccess) {
+                        console.log(`[Full Story V4] Tentando fallback para Fal.ai Flux Schnell para imagem ${i + 1}...`);
+                        const falKey = process.env.FAL_KEY || "c143ca28-99d8-4bd2-8d56-82870b0d28cd:e0e10d34e1477969e0f15660c3093a0e";
+                        const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
+                            method: "POST",
+                            headers: {
+                                "Authorization": `Key ${falKey}`,
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                prompt: item.prompt,
+                                image_size: "square_hd",
+                                num_inference_steps: 4,
+                                enable_safety_checker: true
+                            })
+                        });
+                        
+                        if (falRes.ok) {
+                            const falData = await falRes.json();
+                            const imgUrl = falData.images?.[0]?.url;
+                            if (imgUrl) {
+                                console.log(`[Full Story V4] Fal.ai gerou URL: ${imgUrl}. Baixando bytes...`);
+                                const downloadRes = await fetch(imgUrl);
+                                if (downloadRes.ok) {
+                                    const buffer = await downloadRes.arrayBuffer();
+                                    nodeBuffer = Buffer.from(buffer);
+                                    console.log(`[Full Story V4] Sucesso ao baixar bytes do Fal.ai para imagem ${i + 1}.`);
+                                } else {
+                                    throw new Error(`Erro ao baixar bytes da imagem do Fal.ai: ${downloadRes.status}`);
+                                }
+                            } else {
+                                throw new Error(`Resposta do Fal.ai não contem imagens: ${JSON.stringify(falData)}`);
+                            }
+                        } else {
+                            const errText = await falRes.text().catch(() => '');
+                            throw new Error(`Erro na API do Fal.ai (Status ${falRes.status}): ${errText}`);
+                        }
                     }
-                    const buffer = await hfRes.arrayBuffer();
-                    const nodeBuffer = Buffer.from(buffer);
                     
                     // Upload to R2
                     const imageId = `story_${user.id}_${Date.now()}_${i}.jpg`;
                     const r2Url = await uploadImage(nodeBuffer, imageId, 'image/jpeg');
                     if (r2Url) {
-                        console.log(`[Full Story HF] Imagem ${i + 1} salva no R2: ${r2Url}`);
+                        console.log(`[Full Story Flux] Imagem ${i + 1} salva no R2: ${r2Url}`);
                         return r2Url;
                     } else {
                         // Fallback local se falhar ou nao estiver configurado
@@ -1671,26 +1719,79 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             if (engine === 'flux') {
                 console.log(`[Custom Drawing] Gerando imagem com Hugging Face (FLUX.1-schnell)...`);
                 const hfToken = process.env.HUGGING_FACE_TOKEN || process.env.HF_TOKEN || "";
-                if (!hfToken) {
-                    throw new Error("HUGGING_FACE_TOKEN/HF_TOKEN não configurado no servidor.");
-                }
-                const hfRes = await fetch("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${hfToken}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ inputs: finalPrompt })
-                });
-                if (hfRes.ok) {
-                    const buffer = await hfRes.arrayBuffer();
-                    bytesBase64 = Buffer.from(buffer).toString('base64');
-                    success = true;
-                    console.log(`[Custom Drawing] Sucesso com Hugging Face FLUX.1-schnell.`);
+                let hfSuccess = false;
+                
+                if (hfToken) {
+                    try {
+                        const hfRes = await fetch("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell", {
+                            method: "POST",
+                            headers: {
+                                "Authorization": `Bearer ${hfToken}`,
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ inputs: finalPrompt })
+                        });
+                        
+                        if (hfRes.ok) {
+                            const buffer = await hfRes.arrayBuffer();
+                            bytesBase64 = Buffer.from(buffer).toString('base64');
+                            success = true;
+                            hfSuccess = true;
+                            console.log(`[Custom Drawing] Sucesso com Hugging Face FLUX.1-schnell.`);
+                        } else {
+                            const errText = await hfRes.text().catch(() => '');
+                            console.warn(`[Custom Drawing Warning] Hugging Face falhou com status ${hfRes.status}:`, errText);
+                            lastError = `Hugging Face (Status ${hfRes.status}): ${errText}`;
+                        }
+                    } catch (err) {
+                        console.warn(`[Custom Drawing HF Error] Falha de conexão:`, err.message);
+                        lastError = `Hugging Face connection error: ${err.message}`;
+                    }
                 } else {
-                    const errText = await hfRes.text().catch(() => '');
-                    console.warn(`[Custom Drawing Warning] Hugging Face falhou com status ${hfRes.status}:`, errText);
-                    lastError = `Hugging Face (Status ${hfRes.status}): ${errText}`;
+                    console.warn(`[Custom Drawing] HUGGING_FACE_TOKEN não encontrado. Tentando fallback direto para Fal.ai...`);
+                }
+                
+                // Fallback para Fal.ai se Hugging Face falhar
+                if (!hfSuccess) {
+                    console.log(`[Custom Drawing] Tentando fallback para Fal.ai Flux Schnell...`);
+                    const falKey = process.env.FAL_KEY || "c143ca28-99d8-4bd2-8d56-82870b0d28cd:e0e10d34e1477969e0f15660c3093a0e";
+                    const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Key ${falKey}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            prompt: finalPrompt,
+                            image_size: "square_hd",
+                            num_inference_steps: 4,
+                            enable_safety_checker: true
+                        })
+                    });
+                    
+                    if (falRes.ok) {
+                        const falData = await falRes.json();
+                        const url = falData.images?.[0]?.url;
+                        if (url) {
+                            console.log(`[Custom Drawing] Fal.ai gerou URL: ${url}. Baixando bytes...`);
+                            const imgRes = await fetch(url);
+                            if (imgRes.ok) {
+                                const buffer = await imgRes.arrayBuffer();
+                                bytesBase64 = Buffer.from(buffer).toString('base64');
+                                success = true;
+                                console.log(`[Custom Drawing] Sucesso ao baixar e converter imagem do Fal.ai.`);
+                            } else {
+                                const errText = await imgRes.text().catch(() => '');
+                                lastError = `Erro ao baixar imagem da URL do Fal.ai: ${errText}`;
+                            }
+                        } else {
+                            lastError = `Fal.ai não retornou URL de imagem. Resposta: ${JSON.stringify(falData)}`;
+                        }
+                    } else {
+                        const errText = await falRes.text().catch(() => '');
+                        console.warn(`[Custom Drawing Warning] Fal.ai falhou com status ${falRes.status}:`, errText);
+                        lastError = `Fal.ai (Status ${falRes.status}): ${errText}`;
+                    }
                 }
             } else {
                 console.log(`[Custom Drawing] Gerando imagem com Ideogram V4 Turbo...`);
