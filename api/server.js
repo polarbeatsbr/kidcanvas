@@ -1847,6 +1847,49 @@ app.post('/api/waitlist', async (req, res) => {
     }
 });
 
+// Endpoint para reportar bug
+app.post('/api/report-bug', async (req, res) => {
+    try {
+        const { name, email, issueType, message, errorUrl } = req.body;
+        if (!name || !email || !issueType || !message) {
+            return res.status(400).json({
+                success: false,
+                message: 'Por favor, preencha todos os campos obrigatórios.'
+            });
+        }
+
+        const { loadBugs, saveBugs } = require('./r2db');
+        const bugs = await loadBugs();
+        
+        const newBug = {
+            id: `bug_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+            name,
+            email,
+            issueType,
+            message,
+            errorUrl: errorUrl || '',
+            status: 'open',
+            createdAt: new Date().toISOString()
+        };
+        
+        bugs.push(newBug);
+        await saveBugs(bugs);
+        
+        console.log(`[Bug Report] Novo bug reportado por ${email} (${issueType}): ${message.substring(0, 50)}...`);
+        
+        return res.json({
+            success: true,
+            message: 'Obrigado! Seu relato de erro foi enviado com sucesso. A equipe do KidCanvas vai investigar o ocorrido e entrar em contato se necessário! 🐛✨'
+        });
+    } catch (err) {
+        console.error('[Report Bug API Error]:', err);
+        return res.status(500).json({
+            success: false,
+            message: 'Erro interno ao processar relato de erro. Tente novamente mais tarde.'
+        });
+    }
+});
+
 // Servir historia.html para as rotas de histórias mágicas
 app.get(['/historias-magicas', '/historia'], (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'historia.html'));

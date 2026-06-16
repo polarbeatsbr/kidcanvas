@@ -173,6 +173,69 @@ async function saveWaitlist(emails) {
     return false;
 }
 
+// Caminho do bugs local
+const LOCAL_BUGS_FILE = path.join(__dirname, '..', 'bugs.json');
+
+async function loadBugs() {
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Lendo bugs.json do Cloudflare R2...`);
+            const command = new GetObjectCommand({
+                Bucket: bucketName,
+                Key: 'bugs.json',
+            });
+            const response = await s3Client.send(command);
+            const dataStr = await streamToString(response.Body);
+            try {
+                fs.writeFileSync(LOCAL_BUGS_FILE, dataStr, 'utf8');
+            } catch(e) {}
+            return JSON.parse(dataStr);
+        } catch (err) {
+            if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || err.message.includes('NoSuchKey')) {
+                console.log('[R2DB] Arquivo bugs.json não existe no bucket R2. Retornando vazio.');
+                return [];
+            }
+            console.error('[R2DB] Erro ao carregar bugs do R2 (usando fallback local):', err.message);
+        }
+    }
+    if (fs.existsSync(LOCAL_BUGS_FILE)) {
+        try {
+            const dataStr = fs.readFileSync(LOCAL_BUGS_FILE, 'utf8');
+            return JSON.parse(dataStr);
+        } catch (e) {
+            console.error('[R2DB] Erro ao ler bugs.json local:', e.message);
+        }
+    }
+    return [];
+}
+
+async function saveBugs(bugs) {
+    const dataStr = JSON.stringify(bugs, null, 2);
+    try {
+        fs.writeFileSync(LOCAL_BUGS_FILE, dataStr, 'utf8');
+        console.log('[R2DB] Backup local de bugs.json gravado com sucesso.');
+    } catch (e) {
+        console.error('[R2DB] Falha ao gravar cópia local de bugs:', e.message);
+    }
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Enviando bugs.json atualizado para o Cloudflare R2...`);
+            const command = new PutObjectCommand({
+                Bucket: bucketName,
+                Key: 'bugs.json',
+                Body: dataStr,
+                ContentType: 'application/json',
+            });
+            await s3Client.send(command);
+            console.log('[R2DB] Banco de dados bugs.json persistido no R2.');
+            return true;
+        } catch (err) {
+            console.error('[R2DB] Falha crítica ao persistir bugs no R2:', err.message);
+        }
+    }
+    return false;
+}
+
 // Hashing de senha SHA-256
 function hashPassword(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
@@ -209,6 +272,8 @@ module.exports = {
     saveUsers,
     loadWaitlist,
     saveWaitlist,
+    loadBugs,
+    saveBugs,
     hashPassword,
     uploadImage
 };

@@ -111,7 +111,7 @@
                             </ul>
                         </li>
                         <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
-                        <li><a href="mailto:contato@kidcanvas.com.br?subject=Reportar%20Bug%20-%20KidCanvas" class="nav-link" style="color: #e74c3c;"><i class="fa-solid fa-bug"></i> Reportar Bug</a></li>
+                        <li><a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" class="nav-link" style="color: #e74c3c;"><i class="fa-solid fa-bug"></i> Reportar Bug</a></li>
                     </ul>
                 </nav>
                 
@@ -167,7 +167,7 @@
                                 <a href="#" onclick="navigate('/politica-de-privacidade'); return false;" class="dropdown-menu-item">
                                     <i class="fa-solid fa-shield-halved"></i> Política de Privacidade
                                 </a>
-                                <a href="mailto:contato@kidcanvas.com.br?subject=Reportar%20Bug%20-%20KidCanvas" class="dropdown-menu-item" style="color: #e74c3c;">
+                                <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" class="dropdown-menu-item" style="color: #e74c3c;">
                                     <i class="fa-solid fa-bug"></i> Reportar Bug
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -802,9 +802,87 @@
                 </div>
             </div>
         </section>
+
+        <!-- ==============================================
+             4.5 REPORTAR BUG VIEW (Reportar Bug)
+             ============================================== -->
+        <section id="view-reportar-bug" class="page-view" style="display: none;">
+            <div class="container page-content-padding" style="max-width: 650px; margin: 0 auto;">
+                <div class="plans-header-text" style="text-align: center; margin-bottom: 30px; margin-top: 20px;">
+                    <span style="font-size: 3.5rem; display: block; margin-bottom: 10px;">🐛</span>
+                    <h1 class="section-title">Reportar Bug</h1>
+                    <p class="section-subtitle" style="font-size: 1.1rem; color: var(--color-dark-light); font-weight: 500;">
+                        Encontrou algo que não funcionou bem? Nos diga o que aconteceu para que possamos arrumar!
+                    </p>
+                </div>
+                
+                <div class="auth-card" style="box-shadow: var(--shadow-cartoon); padding: 30px; border-radius: var(--radius-md); background: white; border: var(--border-medium); margin-bottom: 40px;">
+                    <form id="bugReportForm" onsubmit="handleBugReportSubmit(event)">
+                        
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="bugName" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--color-dark); margin-bottom: 8px; display: block;">👤 Seu Nome</label>
+                            <input type="text" id="bugName" placeholder="Como podemos te chamar..." required style="width: 100%; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); border: var(--border-thin); font-family: var(--font-body);">
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="bugEmail" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--color-dark); margin-bottom: 8px; display: block;">✉️ Seu E-mail</label>
+                            <input type="email" id="bugEmail" placeholder="Para respondermos sobre o bug..." required style="width: 100%; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); border: var(--border-thin); font-family: var(--font-body);">
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--color-dark); margin-bottom: 8px; display: block;">🐞 Onde ocorreu o problema?</label>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <label class="style-radio-label active" id="bugTypeImg" style="justify-content: flex-start; padding: 12px 15px; font-size: 0.95rem;">
+                                    <input type="radio" name="bugType" value="drawing" checked style="width: 18px; height: 18px; cursor: pointer;">
+                                    🖍️ Falha ao gerar desenho (Gere sua Imagem)
+                                </label>
+                                <label class="style-radio-label" id="bugTypeStory" style="justify-content: flex-start; padding: 12px 15px; font-size: 0.95rem;">
+                                    <input type="radio" name="bugType" value="story" style="width: 18px; height: 18px; cursor: pointer;">
+                                    📖 Erro na criação ou leitura de livros
+                                </label>
+                                <label class="style-radio-label" id="bugTypeCredits" style="justify-content: flex-start; padding: 12px 15px; font-size: 0.95rem;">
+                                    <input type="radio" name="bugType" value="credits" style="width: 18px; height: 18px; cursor: pointer;">
+                                    🪙 Problemas com créditos mágicos ou pagamento
+                                </label>
+                                <label class="style-radio-label" id="bugTypeAccount" style="justify-content: flex-start; padding: 12px 15px; font-size: 0.95rem;">
+                                    <input type="radio" name="bugType" value="account" style="width: 18px; height: 18px; cursor: pointer;">
+                                    👤 Login, cadastro ou perfil de usuário
+                                </label>
+                                <label class="style-radio-label" id="bugTypeOther" style="justify-content: flex-start; padding: 12px 15px; font-size: 0.95rem;">
+                                    <input type="radio" name="bugType" value="other" style="width: 18px; height: 18px; cursor: pointer;">
+                                    🐛 Outro bug / Sugestão de melhoria
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label for="bugUrl" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--color-dark); margin-bottom: 8px; display: block;">🔗 Link da Página (Opcional)</label>
+                            <input type="url" id="bugUrl" placeholder="Ex: link da imagem gerada ou do livro com erro..." style="width: 100%; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); border: var(--border-thin); font-family: var(--font-body);">
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 25px;">
+                            <label for="bugMessage" style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--color-dark); margin-bottom: 8px; display: block;">📝 Descrição do Problema</label>
+                            <textarea id="bugMessage" placeholder="Descreva em detalhes o que aconteceu, se apareceu alguma mensagem de erro ou falha visual..." required style="width: 100%; min-height: 120px; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); border: var(--border-thin); font-family: var(--font-body); resize: vertical;"></textarea>
+                        </div>
+                        
+                        <button class="btn btn-secondary" type="submit" id="btn-submit-bug" style="font-size: 1.2rem; padding: 15px; width: 100%; border-radius: var(--radius-sm); font-weight: 700; justify-content: center; gap: 8px; background-color: #e74c3c; border-color: #e74c3c; color: white;">
+                            <i class="fa-solid fa-paper-plane"></i> Enviar Relato 🐛
+                        </button>
+                    </form>
+                    
+                    <div id="bug-success-message" style="display: none; text-align: center; padding: 20px 0;">
+                        <span style="font-size: 4.5rem; display: block; margin-bottom: 15px; animation: bounce-slow 2s infinite;">🎉</span>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-dark); margin-bottom: 10px;">Relato Enviado!</h3>
+                        <p id="bug-success-text" style="color: var(--color-dark-light); line-height: 1.6; font-size: 1rem; margin-bottom: 25px;"></p>
+                        <button class="btn btn-primary" onclick="navigate('/')" style="padding: 10px 25px; font-weight: 700;">Voltar ao Início</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ==============================================
              5. GERAR DESENHO CUSTOMIZADO VIEW (Gere sua Imagem)
-             ============================================== -->
+             ============================================= -->
         <section id="view-gerar-desenho" class="page-view" style="display: none;">
             <div class="container page-content-padding">
                 <div class="breadcrumbs">
@@ -875,7 +953,7 @@
                                         <span><strong>Aviso da Vovó Sônia:</strong> Como os desenhos e textos são gerados por Inteligência Artificial, nos damos ao direito de que eventualmente ocorram pequenas falhas em imagens ou erros ortográficos, apesar de raro.</span>
                                     </div>
                                     <div style="border-top: 1px dashed #e6d8c3; padding-top: 6px; font-size: 0.8rem; text-align: right;">
-                                        🐛 Viu algum problema? <a href="mailto:contato@kidcanvas.com.br?subject=Reportar%20Bug%20-%20KidCanvas" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">Reportar Bug</a>
+                                        🐛 Viu algum problema? <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">Reportar Bug</a>
                                     </div>
                                 </div>
                             </form>
@@ -1118,7 +1196,7 @@
                     <input type="checkbox" id="chkCiente" style="width: 18px; height: 18px; accent-color: var(--color-purple); cursor: pointer;">
                     ✓ Estou ciente
                 </label>
-                <span>🐛 Viu algum problema? <a href="mailto:contato@kidcanvas.com.br?subject=Reportar%20Bug%20-%20KidCanvas" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">Reportar Bug</a></span>
+                <span>🐛 Viu algum problema? <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">Reportar Bug</a></span>
             </div>
         </div>
 
@@ -1259,7 +1337,7 @@
             <p class="footer-copy">© 2026 kidcanvas.com.br — Todos os desenhos são gratuitos para uso pessoal e pedagógico.</p>
             <p class="footer-links">
                 <a href="/politica-de-privacidade" class="footer-link">Política de Privacidade</a> | 
-                <a href="mailto:contato@kidcanvas.com.br?subject=Reportar%20Bug%20-%20KidCanvas" class="footer-link"><i class="fa-solid fa-bug"></i> Reportar Bug</a> | 
+                <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" class="footer-link"><i class="fa-solid fa-bug"></i> Reportar Bug</a> | 
                 <span class="footer-contact">Fale Conosco: <a href="mailto:contato@kidcanvas.com.br" class="footer-link">contato@kidcanvas.com.br</a></span>
             </p>
             <p class="footer-love"><i class="fa-solid fa-heart text-red"></i> Feito com carinho pela Vovó Sônia e o Pedrinho.</p>

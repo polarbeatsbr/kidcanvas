@@ -778,6 +778,8 @@ function navigate(path, pushState = true) {
         renderHistoriasExemploView();
     } else if (cleanPath === '/politica-de-privacidade') {
         renderPoliticaPrivacidadeView();
+    } else if (cleanPath === '/reportar-bug') {
+        renderReportarBugView();
     } else if (cleanPath === '/minhas-criacoes') {
         renderMinhasCriacoesView();
     } else if (cleanPath.startsWith('/categoria/')) {
@@ -2918,6 +2920,111 @@ async function handleCustomDrawingSubmit(event) {
 
 window.handleCustomDrawingSubmit = handleCustomDrawingSubmit;
 
+async function handleBugReportSubmit(event) {
+    event.preventDefault();
+    const bugName = document.getElementById('bugName');
+    const bugEmail = document.getElementById('bugEmail');
+    const bugTypeRadio = document.querySelector('input[name="bugType"]:checked');
+    const bugUrl = document.getElementById('bugUrl');
+    const bugMessage = document.getElementById('bugMessage');
+    const submitBtn = document.getElementById('btn-submit-bug');
+    const successBox = document.getElementById('bug-success-message');
+    const formEl = document.getElementById('bugReportForm');
+    
+    if (!bugName || !bugEmail || !bugTypeRadio || !bugMessage || !submitBtn) return;
+    
+    const payload = {
+        name: bugName.value.trim(),
+        email: bugEmail.value.trim(),
+        issueType: bugTypeRadio.value,
+        message: bugMessage.value.trim(),
+        errorUrl: bugUrl ? bugUrl.value.trim() : ''
+    };
+    
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+    
+    try {
+        const response = await fetch('/api/report-bug', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok && data.success) {
+            formEl.style.display = 'none';
+            if (successBox) {
+                const textEl = document.getElementById('bug-success-text');
+                if (textEl) textEl.textContent = data.message;
+                successBox.style.display = 'block';
+            }
+            showToast('Bug reportado com sucesso! 🐛', 'success');
+        } else {
+            showToast(data.message || 'Erro ao enviar o relato do bug.', 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Relato 🐛';
+        }
+    } catch (err) {
+        console.error('[Bug Report Submit Error]:', err);
+        showToast('Erro de conexão ao enviar o relato do bug.', 'error');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Relato 🐛';
+    }
+}
+window.handleBugReportSubmit = handleBugReportSubmit;
+
+function renderReportarBugView() {
+    document.querySelectorAll('.page-view').forEach(view => {
+        view.style.display = 'none';
+    });
+    const viewReportarBug = document.getElementById('view-reportar-bug');
+    if (viewReportarBug) {
+        viewReportarBug.style.display = 'block';
+    }
+    document.title = "Reportar Bug — KidCanvas 🐛";
+    setMetaDescription("Viu algo estranho? Envie um relatório de erro direto para a equipe do KidCanvas!");
+    
+    const formEl = document.getElementById('bugReportForm');
+    const successBox = document.getElementById('bug-success-message');
+    if (formEl) formEl.style.display = 'block';
+    if (successBox) successBox.style.display = 'none';
+    
+    // Reset form elements
+    if (formEl) formEl.reset();
+    
+    // Reset styles active class for radios
+    document.querySelectorAll('input[name="bugType"]').forEach(r => {
+        const parent = r.closest('.style-radio-label');
+        if (parent) {
+            if (r.value === 'drawing') {
+                parent.classList.add('active');
+                r.checked = true;
+            } else {
+                parent.classList.remove('active');
+            }
+        }
+    });
+    
+    // Auto-preencher e-mail e nome se o usuário estiver logado
+    const bugName = document.getElementById('bugName');
+    const bugEmail = document.getElementById('bugEmail');
+    if (currentUser) {
+        if (bugName) bugName.value = currentUser.name || '';
+        if (bugEmail) bugEmail.value = currentUser.email || '';
+    }
+    
+    const submitBtn = document.getElementById('btn-submit-bug');
+    if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Enviar Relato 🐛';
+    }
+}
+window.renderReportarBugView = renderReportarBugView;
+
 function setupCustomDrawingActionListeners(imageUrl) {
     const downloadBtn = document.getElementById('btn-download-custom');
     const downloadPdfBtn = document.getElementById('btn-download-pdf-custom');
@@ -3477,6 +3584,25 @@ window.handleWaitlistSubmit = handleWaitlistSubmit;
                         submitBtnCustomDrawing.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 c.)';
                     }
                 }
+            });
+        });
+    }
+
+    // Bug Report page styling toggle feedback
+    const bugRadios = document.querySelectorAll('input[name="bugType"]');
+    if (bugRadios.length > 0) {
+        bugRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                document.querySelectorAll('input[name="bugType"]').forEach(r => {
+                    const parent = r.closest('.style-radio-label');
+                    if (parent) {
+                        if (r.checked) {
+                            parent.classList.add('active');
+                        } else {
+                            parent.classList.remove('active');
+                        }
+                    }
+                });
             });
         });
     }
