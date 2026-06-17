@@ -2434,3 +2434,58 @@
 [2026-06-17 04:24:20] Rebuilding catalog and drawings database...
 [2026-06-17 04:24:21] Build successful!
 [2026-06-17 04:24:21] Committing and pushing to origin main...
+[2026-06-17 04:24:24] Push successful! Vercel will deploy in production.
+[2026-06-17 04:24:26] [651/4400] Generated: fantasia/532-sereia-bebe-sereia-com-golfinho-amigo__baby_mermaid_swimming_with_a_friendly_dolphin.png
+[2026-06-17 04:24:27] [652/4400] Generated: fantasia/533-sereia-bebe-sereia-na-rocha-do-mar__baby_mermaid_sitting_on_a_sea_rock.png
+[2026-06-17 04:24:28] [653/4400] Generated: fantasia/534-sereia-bebe-sereia-penteando-cabelo-longo__baby_mermaid_combing_her_long_hair.png
+[2026-06-17 04:24:29] [654/4400] Generated: fantasia/535-sereia-bebe-sereia-com-perola-brilhante__baby_mermaid_holding_a_shiny_pearl.png
+[2026-06-17 04:24:31] [655/4400] Generated: fantasia/536-sereia-bebe-sereia-com-polvo-amigavel__baby_mermaid_playing_with_a_friendly_octopus.png
+[2026-06-17 04:24:32] [656/4400] Generated: fantasia/537-sereia-bebe-sereia-acenando-para-tartaruga__baby_mermaid_waving_to_a_sea_turtle.png
+[2026-06-17 04:24:33] [657/4400] Generated: fantasia/538-sereia-bebe-sereia-com-bau-de-tesouro__baby_mermaid_exploring_a_treasure_chest.png
+[2026-06-17 04:24:34] [658/4400] Generated: fantasia/539-sereia-bebe-sereia-dancando-com-peixinhos__baby_mermaid_dancing_with_little_fish.png
+[2026-06-17 04:24:35] [659/4400] Generated: fantasia/540-sereia-bebe-sereia-na-praia-de-areia__baby_mermaid_resting_on_a_sandy_beach.png
+[2026-06-17 04:24:37] [660/4400] Generated: fantasia/541-sereia-bebe-sereia-olhando-arrecife__baby_mermaid_looking_at_a_coral_reef.png
+[2026-06-17 04:24:38] [661/4400] Generated: fantasia/542-sereia-princesa-sereia-com-golfinho-amigo__princess_mermaid_swimming_with_a_friendly_dolphin.png
+[2026-06-17 04:24:39] [662/4400] Generated: fantasia/543-sereia-princesa-sereia-na-rocha-do-mar__princess_mermaid_sitting_on_a_sea_rock.png
+[2026-06-17 04:24:40] [663/4400] Generated: fantasia/545-sereia-princesa-sereia-com-perola-brilhante__princess_mermaid_holding_a_shiny_pearl.png
+[2026-06-17 04:24:42] [664/4400] Generated: fantasia/544-sereia-princesa-sereia-penteando-cabelo-longo__princess_mermaid_combing_her_long_hair.png
+[2026-06-17 04:24:43] [665/4400] Generated: fantasia/546-sereia-princesa-sereia-com-polvo-amigavel__princess_mermaid_playing_with_a_friendly_octopus.png
+[2026-06-17 04:24:44] [666/4400] Generated: fantasia/547-sereia-princesa-sereia-acenando-para-tartaruga__princess_mermaid_waving_to_a_sea_turtle.png
+[2026-06-17 04:24:46] [667/4400] Generated: fantasia/548-sereia-princesa-sereia-com-bau-de-tesouro__princess_mermaid_exploring_a_treasure_chest.png
+[2026-06-17 04:24:47] [668/4400] Generated: fantasia/549-sereia-princesa-sereia-dancando-com-peixinhos__princess_mermaid_dancing_with_little_fish.png
+[2026-06-17 04:24:49] [669/4400] Generated: fantasia/550-sereia-princesa-sereia-na-praia-de-areia__princess_mermaid_resting_on_a_sandy_beach.png
+[2026-06-17 04:24:51] [670/4400] Generated: fantasia/551-sereia-princesa-sereia-olhando-arrecife__princess_mermaid_looking_at_a_coral_reef.png
+[2026-06-17 04:24:52] [671/4400] Generated: fantasia/552-sereia-sereia-do-oceano-com-golfinho-amigo__ocean_mermaid_swimming_with_a_friendly_dolphin.png
+[2026-06-17 04:24:54] [672/4400] Generated: fantasia/553-sereia-sereia-do-oceano-na-rocha-do-mar__ocean_mermaid_sitting_on_a_sea_rock.png
+[2026-06-17 04:24:55] [673/4400] Generated: fantasia/554-sereia-sereia-do-oceano-penteando-cabelo-longo__ocean_mermaid_combing_her_long_hair.png
+[2026-06-17 04:24:56] [674/4400] Generated: fantasia/555-sereia-sereia-do-oceano-com-perola-brilhante__ocean_mermaid_holding_a_shiny_pearl.png
+[2026-06-17 04:24:57] [675/4400] Generated: fantasia/556-sereia-sereia-do-oceano-com-polvo-amigavel__ocean_mermaid_playing_with_a_friendly_octopus.png
+[2026-06-17 04:24:59] [676/4400] Generated: fantasia/557-sereia-sereia-do-oceano-acenando-para-tartaruga__ocean_mermaid_waving_to_a_sea_turtle.png
+[2026-06-17 04:25:00] [677/4400] Generated: fantasia/558-sereia-sereia-do-oceano-com-bau-de-tesouro__ocean_mermaid_exploring_a_treasure_chest.png
+[2026-06-17 04:25:01] [678/4400] Generated: fantasia/560-sereia-sereia-do-oceano-na-praia-de-areia__ocean_mermaid_resting_on_a_sandy_beach.png
+[2026-06-17 04:25:03] [679/4400] Generated: fantasia/559-sereia-sereia-do-oceano-dancando-com-peixinhos__ocean_mermaid_dancing_with_little_fish.png
+[2026-06-17 04:25:04] [680/4400] Generated: fantasia/561-sereia-sereia-do-oceano-olhando-arrecife__ocean_mermaid_looking_at_a_coral_reef.png
+[2026-06-17 04:25:06] [681/4400] Generated: fantasia/562-sereia-sereia-amigavel-com-golfinho-amigo__friendly_mermaid_swimming_with_a_friendly_dolphin.png
+[2026-06-17 04:25:07] [682/4400] Generated: fantasia/563-sereia-sereia-amigavel-na-rocha-do-mar__friendly_mermaid_sitting_on_a_sea_rock.png
+[2026-06-17 04:25:08] [683/4400] Generated: fantasia/564-sereia-sereia-amigavel-penteando-cabelo-longo__friendly_mermaid_combing_her_long_hair.png
+[2026-06-17 04:25:09] [684/4400] Generated: fantasia/565-sereia-sereia-amigavel-com-perola-brilhante__friendly_mermaid_holding_a_shiny_pearl.png
+[2026-06-17 04:25:11] [685/4400] Generated: fantasia/566-sereia-sereia-amigavel-com-polvo-amigavel__friendly_mermaid_playing_with_a_friendly_octopus.png
+[2026-06-17 04:25:12] [686/4400] Generated: fantasia/567-sereia-sereia-amigavel-acenando-para-tartaruga__friendly_mermaid_waving_to_a_sea_turtle.png
+[2026-06-17 04:25:15] [687/4400] Generated: fantasia/568-sereia-sereia-amigavel-com-bau-de-tesouro__friendly_mermaid_exploring_a_treasure_chest.png
+[2026-06-17 04:25:16] [688/4400] Generated: fantasia/569-sereia-sereia-amigavel-dancando-com-peixinhos__friendly_mermaid_dancing_with_little_fish.png
+[2026-06-17 04:25:17] [689/4400] Generated: fantasia/570-sereia-sereia-amigavel-na-praia-de-areia__friendly_mermaid_resting_on_a_sandy_beach.png
+[2026-06-17 04:25:18] [690/4400] Generated: fantasia/571-sereia-sereia-amigavel-olhando-arrecife__friendly_mermaid_looking_at_a_coral_reef.png
+[2026-06-17 04:25:19] [691/4400] Generated: fantasia/572-sereia-sereia-da-estrela-com-golfinho-amigo__starfish_mermaid_swimming_with_a_friendly_dolphin.png
+[2026-06-17 04:25:21] [692/4400] Generated: fantasia/573-sereia-sereia-da-estrela-na-rocha-do-mar__starfish_mermaid_sitting_on_a_sea_rock.png
+[2026-06-17 04:25:22] [693/4400] Generated: fantasia/575-sereia-sereia-da-estrela-com-perola-brilhante__starfish_mermaid_holding_a_shiny_pearl.png
+[2026-06-17 04:25:23] [694/4400] Generated: fantasia/574-sereia-sereia-da-estrela-penteando-cabelo-longo__starfish_mermaid_combing_her_long_hair.png
+[2026-06-17 04:25:25] [695/4400] Generated: fantasia/576-sereia-sereia-da-estrela-com-polvo-amigavel__starfish_mermaid_playing_with_a_friendly_octopus.png
+[2026-06-17 04:25:26] [696/4400] Generated: fantasia/577-sereia-sereia-da-estrela-acenando-para-tartaruga__starfish_mermaid_waving_to_a_sea_turtle.png
+[2026-06-17 04:25:28] [697/4400] Generated: fantasia/578-sereia-sereia-da-estrela-com-bau-de-tesouro__starfish_mermaid_exploring_a_treasure_chest.png
+[2026-06-17 04:25:30] [698/4400] Generated: fantasia/580-sereia-sereia-da-estrela-na-praia-de-areia__starfish_mermaid_resting_on_a_sandy_beach.png
+[2026-06-17 04:25:31] [699/4400] Generated: fantasia/579-sereia-sereia-da-estrela-dancando-com-peixinhos__starfish_mermaid_dancing_with_little_fish.png
+[2026-06-17 04:25:32] [700/4400] Generated: fantasia/581-sereia-sereia-da-estrela-olhando-arrecife__starfish_mermaid_looking_at_a_coral_reef.png
+[2026-06-17 04:25:32] Batch 14 completed (700 drawings). Triggering build & push...
+[2026-06-17 04:25:32] Rebuilding catalog and drawings database...
+[2026-06-17 04:25:33] Build successful!
+[2026-06-17 04:25:33] Committing and pushing to origin main...
