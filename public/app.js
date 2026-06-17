@@ -9171,7 +9171,7 @@ function renderEventMissions() {
         const isClaimed = p.claimed;
         
         // Progress Visuals
-        let visualProgressHtml = '<div style="display: flex; gap: 10px; margin-top: 10px; justify-content: center;">';
+        let visualProgressHtml = '<div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; justify-content: center;">';
         
         for (let i = 0; i < m.req; i++) {
             const isDone = p.current > i;

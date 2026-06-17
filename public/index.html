@@ -211,13 +211,13 @@
                         
                         <!-- Subtitle -->
                         <p class="hero-desc-new">
-                            Mais de 14.000 desenhos para colorir, livros mágicos personalizados e ferramentas criativas para transformar a imaginação em diversão.
+                            Um mundo interativo onde você coleciona cartas, ganha conquistas e vive aventuras mágicas pintando e brincando!
                         </p>
                         
                         <!-- Stats Badge -->
-                        <div class="hero-stats-badge">
-                            <span class="stats-badge-icon"><i class="fa-solid fa-images"></i></span>
-                            <span class="stats-badge-text"><strong>14.000+</strong> Desenhos para colorir e biblioteca grátis</span>
+                        <div class="hero-stats-badge" style="background: linear-gradient(135deg, #f1c40f, #f39c12); color: white; border: none; box-shadow: 0 4px 10px rgba(243,156,18,0.3);">
+                            <span class="stats-badge-icon" style="color: white;"><i class="fa-solid fa-star"></i></span>
+                            <span class="stats-badge-text" style="color: white; font-weight: 900;">Um mundo de cores e aventuras te espera!</span>
                         </div>
                         
                         <!-- BANNER SEXTA MÁGICA (Missões) -->
@@ -236,39 +236,39 @@
                         
                         <!-- The 4 CTA Cards Grid -->
                         <div class="hero-cta-grid-new">
-                            <!-- 1. Desenho com IA -->
-                            <a href="/gerar-desenho" class="hero-cta-card-new card-ia-drawing-new">
-                                <span class="cta-icon-new"><i class="fa-solid fa-pencil"></i></span>
+                            <!-- 1. Aventuras (Missões) -->
+                            <a href="#" onclick="openEventModal(); return false;" class="hero-cta-card-new card-free-library-new" style="background: #e8f8f5; border-color: #1abc9c;">
+                                <span class="cta-icon-new" style="color: #1abc9c;">🎯</span>
                                 <div class="cta-info-new">
-                                    <span class="cta-title-new">Desenho com IA</span>
-                                    <span class="cta-subtitle-new">Desenhos Personalizados</span>
+                                    <span class="cta-title-new">Aventuras</span>
+                                    <span class="cta-subtitle-new">Sexta Mágica</span>
                                 </div>
                             </a>
 
-                            <!-- 2. História Mágica -->
+                            <!-- 2. Álbum -->
+                            <a href="#" onclick="openAlbumModal(); return false;" class="hero-cta-card-new card-ia-drawing-new" style="background: #fdf2e9; border-color: #e67e22;">
+                                <span class="cta-icon-new" style="color: #e67e22;">🏆</span>
+                                <div class="cta-info-new">
+                                    <span class="cta-title-new">Álbum</span>
+                                    <span class="cta-subtitle-new">Minhas Cartas</span>
+                                </div>
+                            </a>
+
+                            <!-- 3. Histórias -->
                             <a href="/historias-magicas" class="hero-cta-card-new card-ia-story-new">
                                 <span class="cta-icon-new"><i class="fa-solid fa-book-open"></i></span>
                                 <div class="cta-info-new">
-                                    <span class="cta-title-new">História Mágica</span>
-                                    <span class="cta-subtitle-new">Livros Personalizados</span>
+                                    <span class="cta-title-new">Histórias</span>
+                                    <span class="cta-subtitle-new">Livros Mágicos</span>
                                 </div>
                             </a>
 
-                            <!-- 3. Pintura Online -->
+                            <!-- 4. Criatividade -->
                             <a href="/pintura-livre" class="hero-cta-card-new card-free-paint-new">
-                                <span class="cta-icon-new"><i class="fa-solid fa-palette"></i></span>
+                                <span class="cta-icon-new">🎨</span>
                                 <div class="cta-info-new">
-                                    <span class="cta-title-new">Pintura Online</span>
-                                    <span class="cta-subtitle-new">Pintar e Desenhar</span>
-                                </div>
-                            </a>
-
-                            <!-- 4. Biblioteca Grátis -->
-                            <a href="#home-drawings-grid" class="hero-cta-card-new card-free-library-new">
-                                <span class="cta-icon-new"><i class="fa-solid fa-images"></i></span>
-                                <div class="cta-info-new">
-                                    <span class="cta-title-new">Biblioteca Grátis</span>
-                                    <span class="cta-subtitle-new">14.000+ Desenhos</span>
+                                    <span class="cta-title-new">Criatividade</span>
+                                    <span class="cta-subtitle-new">Mão Livre</span>
                                 </div>
                             </a>
                         </div>
@@ -1929,6 +1929,9 @@
                                 <path d="M41.4 9.4C53.9-3.1 74.1-3.1 86.6 9.4L168 90.7l53.1-53.1c28.1-28.1 73.7-28.1 101.8 0L474.3 189.1c28.1 28.1 28.1 73.7 0 101.8L283.9 481.4c-37.5 37.5-98.3 37.5-135.8 0L30.6 363.9c-37.5-37.5-37.5-98.3 0-135.8L122.7 136 41.4 54.6c-12.5-12.5-12.5-32.8 0-45.3zm176 221.3L168 181.3 75.9 273.4c-4.2 4.2-7 9.3-8.4 14.6H386.7l42.3-42.3c3.1-3.1 3.1-8.2 0-11.3L277.7 82.9c-3.1-3.1-8.2-3.1-11.3 0L213.3 136l49.4 49.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0zM512 512c-35.3 0-64-28.7-64-64c0-25.2 32.6-79.6 51.2-108.7c6-9.4 19.5-9.4 25.5 0C543.4 368.4 576 422.8 576 448c0 35.3-28.7 64-64 64z"/>
                             </svg>
                         </button>
+                        <button class="paint-tool-btn" id="paint-tool-glitter" title="Glitter Mágico" style="color: #ff5e7e;">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </button>
                         <button class="paint-tool-btn" id="paint-tool-brush-magic" title="Pincel Mágico (Atrás da Linha)" style="color: var(--color-orange);">
                             <i class="fa-solid fa-magic"></i>
                         </button>
@@ -2584,7 +2587,7 @@
             <h2 style="color: white; margin: 0; font-size: 2rem; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);"><span id="event-modal-title">A Sexta Mágica Chegou!</span></h2>
             <p id="event-modal-subtitle" style="color: white; font-weight: 600; margin-top: 5px; font-size: 1.1rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">O Perigo trouxe recompensas para você!</p>
         </div>
-        <div style="padding: 20px; background-color: #f8f9fa;">
+        <div style="padding: 20px; background-color: #f8f9fa; max-height: 60vh; overflow-y: auto;">
             <div style="text-align: center; margin-bottom: 20px;">
                 <button onclick="openAlbumModal()" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 900; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(155, 89, 182, 0.4);">
                     📖 Meu Álbum de Cartas
