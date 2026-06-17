@@ -2189,7 +2189,7 @@ app.get('/api/user/public-profile', async (req, res) => {
         const monthlyCreations = publicPaintings.filter(p => p.isApproved === true && (!p.reports || p.reports < 3) && p.date >= oneMonthAgo);
         
         let hasCategoryChampion = false;
-        const categories = ['Colorir', 'Mão Livre', 'Criação com IA', 'Histórias Mágicas'];
+        const categories = ['Colorir', 'Criação com IA', 'Histórias Mágicas'];
         for (const cat of categories) {
             const catCreations = monthlyCreations.filter(p => p.category === cat || (cat === 'Colorir' && !p.category));
             if (catCreations.length > 0) {

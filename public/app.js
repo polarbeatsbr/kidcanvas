@@ -5744,7 +5744,12 @@ function renderPintarOnlineView() {
     const loader = document.getElementById('paint-canvas-loader');
     if (loader) loader.style.display = 'flex';
 
+    const chkPublicWrapper = document.getElementById('paint-chk-public-wrapper');
+
     if (data.imgUrl === 'blank') {
+        if (chkPublicWrapper) chkPublicWrapper.style.display = 'none';
+        if (resetChkPublic) resetChkPublic.checked = false;
+        
         paintDrawingImage = null;
         paintBorderImage = null;
         
@@ -5756,6 +5761,7 @@ function renderPintarOnlineView() {
         savePaintHistory();
         if (loader) loader.style.display = 'none';
     } else {
+        if (chkPublicWrapper) chkPublicWrapper.style.display = 'flex';
         paintDrawingImage = new Image();
         paintDrawingImage.crossOrigin = "anonymous";
         paintDrawingImage.onload = () => {
@@ -6841,12 +6847,12 @@ async function renderHallDaFamaView() {
         const result = await response.json();
         
         if (result.success && result.paintings) {
-            const allPaintings = result.paintings;
+            const allPaintings = result.paintings.filter(p => p.category !== 'Mão Livre');
 
             // Rankings de campeões semanais por categoria
             const weeklyChampions = {};
             const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-            const categoriesList = ['Colorir', 'Mão Livre', 'Criação com IA', 'Histórias Mágicas'];
+            const categoriesList = ['Colorir', 'Criação com IA', 'Histórias Mágicas'];
             for (const cat of categoriesList) {
                 const catApproved = allPaintings.filter(p => p.category === cat || (cat === 'Colorir' && !p.category));
                 let weeklyItems = catApproved.filter(p => p.date >= oneWeekAgo && (p.stars || p.likes || 0) > 0);
