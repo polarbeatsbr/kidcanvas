@@ -4470,3 +4470,58 @@
 [2026-06-17 05:09:47] Rebuilding catalog and drawings database...
 [2026-06-17 05:09:48] Build successful!
 [2026-06-17 05:09:48] Committing and pushing to origin main...
+[2026-06-17 05:09:52] Push successful! Vercel will deploy in production.
+[2026-06-17 05:09:53] [2501/4400] Generated: flores-e-natureza/334-inseto-lagarta-feliz-pousando-na-flor__happy_caterpillar_landing_on_a_blooming_flower.png
+[2026-06-17 05:09:54] [2502/4400] Generated: flores-e-natureza/335-inseto-lagarta-feliz-andando-na-folha__happy_caterpillar_crawling_on_a_green_leaf.png
+[2026-06-17 05:09:56] [2503/4400] Generated: flores-e-natureza/336-inseto-lagarta-feliz-voando-no-jardim__happy_caterpillar_flying_in_a_sunny_garden.png
+[2026-06-17 05:09:58] [2504/4400] Generated: flores-e-natureza/337-inseto-lagarta-feliz-bebendo-gota-de-orvalho__happy_caterpillar_drinking_a_drop_of_dew.png
+[2026-06-17 05:10:00] [2505/4400] Generated: flores-e-natureza/338-inseto-lagarta-feliz-levando-migalha__happy_caterpillar_carrying_a_tiny_crumb.png
+[2026-06-17 05:10:01] [2506/4400] Generated: flores-e-natureza/339-inseto-lagarta-feliz-descansando-no-galho__happy_caterpillar_resting_on_a_twig.png
+[2026-06-17 05:10:02] [2507/4400] Generated: flores-e-natureza/340-inseto-lagarta-feliz-brilhando-a-noite__happy_caterpillar_shining_its_light_at_night.png
+[2026-06-17 05:10:03] [2508/4400] Generated: flores-e-natureza/341-inseto-lagarta-feliz-sorrindo-amigavel__happy_caterpillar_smiling_friendly.png
+[2026-06-17 05:10:05] [2509/4400] Generated: flores-e-natureza/342-inseto-gafanhoto-saltador-pousando-na-flor__polite_grasshopper_landing_on_a_blooming_flower.png
+[2026-06-17 05:10:07] [2510/4400] Generated: flores-e-natureza/343-inseto-gafanhoto-saltador-andando-na-folha__polite_grasshopper_crawling_on_a_green_leaf.png
+[2026-06-17 05:10:08] [2511/4400] Generated: flores-e-natureza/344-inseto-gafanhoto-saltador-voando-no-jardim__polite_grasshopper_flying_in_a_sunny_garden.png
+[2026-06-17 05:10:09] [2512/4400] Generated: flores-e-natureza/345-inseto-gafanhoto-saltador-bebendo-gota-de-orvalho__polite_grasshopper_drinking_a_drop_of_dew.png
+[2026-06-17 05:10:10] [2513/4400] Generated: flores-e-natureza/346-inseto-gafanhoto-saltador-levando-migalha__polite_grasshopper_carrying_a_tiny_crumb.png
+[2026-06-17 05:10:11] [2514/4400] Generated: flores-e-natureza/347-inseto-gafanhoto-saltador-descansando-no-galho__polite_grasshopper_resting_on_a_twig.png
+[2026-06-17 05:10:13] [2515/4400] Generated: flores-e-natureza/348-inseto-gafanhoto-saltador-brilhando-a-noite__polite_grasshopper_shining_its_light_at_night.png
+[2026-06-17 05:10:14] [2516/4400] Generated: flores-e-natureza/349-inseto-gafanhoto-saltador-sorrindo-amigavel__polite_grasshopper_smiling_friendly.png
+[2026-06-17 05:10:15] [2517/4400] Generated: flores-e-natureza/350-inseto-formiguinha-trabalhadora-pousando-na-flor__little_ant_landing_on_a_blooming_flower.png
+[2026-06-17 05:10:17] [2518/4400] Generated: flores-e-natureza/351-inseto-formiguinha-trabalhadora-andando-na-folha__little_ant_crawling_on_a_green_leaf.png
+[2026-06-17 05:10:18] [2519/4400] Generated: flores-e-natureza/352-inseto-formiguinha-trabalhadora-voando-no-jardim__little_ant_flying_in_a_sunny_garden.png
+[2026-06-17 05:10:20] [2520/4400] Generated: flores-e-natureza/353-inseto-formiguinha-trabalhadora-bebendo-gota-de-orvalho__little_ant_drinking_a_drop_of_dew.png
+[2026-06-17 05:10:21] [2521/4400] Generated: flores-e-natureza/354-inseto-formiguinha-trabalhadora-levando-migalha__little_ant_carrying_a_tiny_crumb.png
+[2026-06-17 05:10:23] [2522/4400] Generated: flores-e-natureza/355-inseto-formiguinha-trabalhadora-descansando-no-galho__little_ant_resting_on_a_twig.png
+[2026-06-17 05:10:24] [2523/4400] Generated: flores-e-natureza/356-inseto-formiguinha-trabalhadora-brilhando-a-noite__little_ant_shining_its_light_at_night.png
+[2026-06-17 05:10:26] [2524/4400] Generated: flores-e-natureza/357-inseto-formiguinha-trabalhadora-sorrindo-amigavel__little_ant_smiling_friendly.png
+[2026-06-17 05:10:28] [2525/4400] Generated: flores-e-natureza/358-inseto-vagalume-brilhante-pousando-na-flor__glowing_firefly_landing_on_a_blooming_flower.png
+[2026-06-17 05:10:30] [2526/4400] Generated: flores-e-natureza/359-inseto-vagalume-brilhante-andando-na-folha__glowing_firefly_crawling_on_a_green_leaf.png
+[2026-06-17 05:10:31] [2527/4400] Generated: flores-e-natureza/360-inseto-vagalume-brilhante-voando-no-jardim__glowing_firefly_flying_in_a_sunny_garden.png
+[2026-06-17 05:10:33] [2528/4400] Generated: flores-e-natureza/361-inseto-vagalume-brilhante-bebendo-gota-de-orvalho__glowing_firefly_drinking_a_drop_of_dew.png
+[2026-06-17 05:10:34] [2529/4400] Generated: flores-e-natureza/362-inseto-vagalume-brilhante-levando-migalha__glowing_firefly_carrying_a_tiny_crumb.png
+[2026-06-17 05:10:35] [2530/4400] Generated: flores-e-natureza/363-inseto-vagalume-brilhante-descansando-no-galho__glowing_firefly_resting_on_a_twig.png
+[2026-06-17 05:10:37] [2531/4400] Generated: flores-e-natureza/364-inseto-vagalume-brilhante-brilhando-a-noite__glowing_firefly_shining_its_light_at_night.png
+[2026-06-17 05:10:38] [2532/4400] Generated: flores-e-natureza/365-inseto-vagalume-brilhante-sorrindo-amigavel__glowing_firefly_smiling_friendly.png
+[2026-06-17 05:10:40] [2533/4400] Generated: flores-e-natureza/366-inseto-besouro-forte-pousando-na-flor__beetle_landing_on_a_blooming_flower.png
+[2026-06-17 05:10:41] [2534/4400] Generated: flores-e-natureza/367-inseto-besouro-forte-andando-na-folha__beetle_crawling_on_a_green_leaf.png
+[2026-06-17 05:10:42] [2535/4400] Generated: flores-e-natureza/368-inseto-besouro-forte-voando-no-jardim__beetle_flying_in_a_sunny_garden.png
+[2026-06-17 05:10:44] [2536/4400] Generated: flores-e-natureza/369-inseto-besouro-forte-bebendo-gota-de-orvalho__beetle_drinking_a_drop_of_dew.png
+[2026-06-17 05:10:46] [2537/4400] Generated: flores-e-natureza/370-inseto-besouro-forte-levando-migalha__beetle_carrying_a_tiny_crumb.png
+[2026-06-17 05:10:47] [2538/4400] Generated: flores-e-natureza/371-inseto-besouro-forte-descansando-no-galho__beetle_resting_on_a_twig.png
+[2026-06-17 05:10:49] [2539/4400] Generated: flores-e-natureza/372-inseto-besouro-forte-brilhando-a-noite__beetle_shining_its_light_at_night.png
+[2026-06-17 05:10:51] [2540/4400] Generated: flores-e-natureza/373-inseto-besouro-forte-sorrindo-amigavel__beetle_smiling_friendly.png
+[2026-06-17 05:10:53] [2541/4400] Generated: bailarinas/01-bailarina-bailarina-menina-dancando-no-palco__cute_ballerina_girl_dancing_on_a_grand_stage.png
+[2026-06-17 05:10:54] [2542/4400] Generated: bailarinas/02-bailarina-bailarina-menina-amarrando-sapatilhas__cute_ballerina_girl_tying_her_ballet_slippers.png
+[2026-06-17 05:10:55] [2543/4400] Generated: bailarinas/03-bailarina-bailarina-menina-girando-com-musica__cute_ballerina_girl_twirling_with_music_notes_floating.png
+[2026-06-17 05:10:57] [2544/4400] Generated: bailarinas/04-bailarina-bailarina-menina-com-salto-gracioso__cute_ballerina_girl_performing_a_graceful_leap.png
+[2026-06-17 05:10:58] [2545/4400] Generated: bailarinas/05-bailarina-bailarina-menina-na-barra-de-ballet__cute_ballerina_girl_standing_at_the_ballet_barre.png
+[2026-06-17 05:10:59] [2546/4400] Generated: bailarinas/06-bailarina-bailarina-menina-com-buque-de-rosas__cute_ballerina_girl_posing_with_a_bouquet_of_roses.png
+[2026-06-17 05:11:00] [2547/4400] Generated: bailarinas/07-bailarina-princesa-bailarina-dancando-no-palco__princess_ballerina_dancing_on_a_grand_stage.png
+[2026-06-17 05:11:01] [2548/4400] Generated: bailarinas/08-bailarina-princesa-bailarina-amarrando-sapatilhas__princess_ballerina_tying_her_ballet_slippers.png
+[2026-06-17 05:11:02] [2549/4400] Generated: bailarinas/09-bailarina-princesa-bailarina-girando-com-musica__princess_ballerina_twirling_with_music_notes_floating.png
+[2026-06-17 05:11:04] [2550/4400] Generated: bailarinas/10-bailarina-princesa-bailarina-com-salto-gracioso__princess_ballerina_performing_a_graceful_leap.png
+[2026-06-17 05:11:04] Batch 51 completed (2550 drawings). Triggering build & push...
+[2026-06-17 05:11:04] Rebuilding catalog and drawings database...
+[2026-06-17 05:11:05] Build successful!
+[2026-06-17 05:11:05] Committing and pushing to origin main...
