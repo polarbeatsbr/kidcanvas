@@ -7177,7 +7177,8 @@ async function likePublicPainting(url, btn) {
         });
         const result = await response.json();
         if (response.ok && result.success) {
-            const countSpan = btn.querySelector('.like-count');
+            const card = btn.closest('.example-card');
+            const countSpan = card ? card.querySelector('.like-count') : null;
             if (countSpan) countSpan.textContent = result.stars;
             
             localStorage.setItem(likedKey, 'true');
@@ -7185,10 +7186,6 @@ async function likePublicPainting(url, btn) {
             btn.style.borderColor = '#ffe082';
             btn.style.color = '#ffb300';
             showToast('Obrigado por votar! ⭐ Dar estrelinha computado!', 'success');
-            
-            setTimeout(() => {
-                renderHallDaFamaView();
-            }, 1000);
         } else {
             showToast(result.message || 'Erro ao registrar voto.', 'error');
         }
