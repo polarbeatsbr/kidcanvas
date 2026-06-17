@@ -164,3 +164,58 @@
 [2026-06-17 03:32:49] Rebuilding catalog and drawings database...
 [2026-06-17 03:32:49] Build successful!
 [2026-06-17 03:32:49] Committing and pushing to origin main...
+[2026-06-17 03:32:52] Push successful! Vercel will deploy in production.
+[2026-06-17 03:32:53] [151/3680] Generated: animais-domesticos/319-gato-gato-persa-com-brinquedo-de-rato__persian_cat_chasing_a_mouse_toy.png
+[2026-06-17 03:32:55] [152/3680] Generated: animais-domesticos/320-gato-gato-persa-dormindo-na-almofada__persian_cat_sleeping_on_a_cushion.png
+[2026-06-17 03:32:57] [153/3680] Generated: animais-domesticos/321-gato-gato-persa-com-novelo-de-la__persian_cat_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:32:59] [154/3680] Generated: animais-domesticos/323-gato-gato-persa-com-mini-coroa__persian_cat_wearing_a_tiny_crown.png
+[2026-06-17 03:33:00] [155/3680] Generated: animais-domesticos/322-gato-gato-persa-na-beira-da-janela__persian_cat_sitting_on_a_window_sill.png
+[2026-06-17 03:33:01] [156/3680] Generated: animais-domesticos/324-gato-gato-persa-subindo-arranhador__persian_cat_climbing_a_cat_tree.png
+[2026-06-17 03:33:02] [157/3680] Generated: animais-domesticos/325-gato-gato-persa-bebendo-leite__persian_cat_drinking_milk_from_a_saucer.png
+[2026-06-17 03:33:04] [158/3680] Generated: animais-domesticos/326-gato-gato-persa-olhando-curioso__persian_cat_looking_curious.png
+[2026-06-17 03:33:05] [159/3680] Generated: animais-domesticos/327-gato-gato-persa-perto-de-planta__persian_cat_sitting_next_to_a_plant.png
+[2026-06-17 03:33:06] [160/3680] Generated: animais-domesticos/328-gato-gato-persa-brincando-com-bolhas__persian_cat_chasing_bubbles.png
+[2026-06-17 03:33:07] [161/3680] Generated: animais-domesticos/329-gato-gato-siames-com-brinquedo-de-rato__siamese_cat_chasing_a_mouse_toy.png
+[2026-06-17 03:33:09] [162/3680] Generated: animais-domesticos/330-gato-gato-siames-dormindo-na-almofada__siamese_cat_sleeping_on_a_cushion.png
+[2026-06-17 03:33:10] [163/3680] Generated: animais-domesticos/331-gato-gato-siames-com-novelo-de-la__siamese_cat_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:33:11] [164/3680] Generated: animais-domesticos/332-gato-gato-siames-na-beira-da-janela__siamese_cat_sitting_on_a_window_sill.png
+[2026-06-17 03:33:13] [165/3680] Generated: animais-domesticos/333-gato-gato-siames-com-mini-coroa__siamese_cat_wearing_a_tiny_crown.png
+[2026-06-17 03:33:14] [166/3680] Generated: animais-domesticos/334-gato-gato-siames-subindo-arranhador__siamese_cat_climbing_a_cat_tree.png
+[2026-06-17 03:33:15] [167/3680] Generated: animais-domesticos/335-gato-gato-siames-bebendo-leite__siamese_cat_drinking_milk_from_a_saucer.png
+[2026-06-17 03:33:16] [168/3680] Generated: animais-domesticos/336-gato-gato-siames-olhando-curioso__siamese_cat_looking_curious.png
+[2026-06-17 03:33:18] [169/3680] Generated: animais-domesticos/337-gato-gato-siames-perto-de-planta__siamese_cat_sitting_next_to_a_plant.png
+[2026-06-17 03:33:19] [170/3680] Generated: animais-domesticos/338-gato-gato-siames-brincando-com-bolhas__siamese_cat_chasing_bubbles.png
+[2026-06-17 03:33:21] [171/3680] Generated: animais-domesticos/339-gato-gato-maine-coon-com-brinquedo-de-rato__maine_coon_cat_chasing_a_mouse_toy.png
+[2026-06-17 03:33:22] [172/3680] Generated: animais-domesticos/340-gato-gato-maine-coon-dormindo-na-almofada__maine_coon_cat_sleeping_on_a_cushion.png
+[2026-06-17 03:33:23] [173/3680] Generated: animais-domesticos/341-gato-gato-maine-coon-com-novelo-de-la__maine_coon_cat_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:33:25] [174/3680] Generated: animais-domesticos/342-gato-gato-maine-coon-na-beira-da-janela__maine_coon_cat_sitting_on_a_window_sill.png
+[2026-06-17 03:33:27] [175/3680] Generated: animais-domesticos/343-gato-gato-maine-coon-com-mini-coroa__maine_coon_cat_wearing_a_tiny_crown.png
+[2026-06-17 03:33:28] [176/3680] Generated: animais-domesticos/344-gato-gato-maine-coon-subindo-arranhador__maine_coon_cat_climbing_a_cat_tree.png
+[2026-06-17 03:33:29] [177/3680] Generated: animais-domesticos/345-gato-gato-maine-coon-bebendo-leite__maine_coon_cat_drinking_milk_from_a_saucer.png
+[2026-06-17 03:33:31] [178/3680] Generated: animais-domesticos/346-gato-gato-maine-coon-olhando-curioso__maine_coon_cat_looking_curious.png
+[2026-06-17 03:33:33] [179/3680] Generated: animais-domesticos/347-gato-gato-maine-coon-perto-de-planta__maine_coon_cat_sitting_next_to_a_plant.png
+[2026-06-17 03:33:34] [180/3680] Generated: animais-domesticos/348-gato-gato-maine-coon-brincando-com-bolhas__maine_coon_cat_chasing_bubbles.png
+[2026-06-17 03:33:35] [181/3680] Generated: animais-domesticos/349-gato-gato-bengala-com-brinquedo-de-rato__bengal_cat_chasing_a_mouse_toy.png
+[2026-06-17 03:33:37] [182/3680] Generated: animais-domesticos/350-gato-gato-bengala-dormindo-na-almofada__bengal_cat_sleeping_on_a_cushion.png
+[2026-06-17 03:33:38] [183/3680] Generated: animais-domesticos/351-gato-gato-bengala-com-novelo-de-la__bengal_cat_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:33:39] [184/3680] Generated: animais-domesticos/352-gato-gato-bengala-na-beira-da-janela__bengal_cat_sitting_on_a_window_sill.png
+[2026-06-17 03:33:40] [185/3680] Generated: animais-domesticos/354-gato-gato-bengala-subindo-arranhador__bengal_cat_climbing_a_cat_tree.png
+[2026-06-17 03:33:41] [186/3680] Generated: animais-domesticos/353-gato-gato-bengala-com-mini-coroa__bengal_cat_wearing_a_tiny_crown.png
+[2026-06-17 03:33:44] [187/3680] Generated: animais-domesticos/355-gato-gato-bengala-bebendo-leite__bengal_cat_drinking_milk_from_a_saucer.png
+[2026-06-17 03:33:45] [188/3680] Generated: animais-domesticos/356-gato-gato-bengala-olhando-curioso__bengal_cat_looking_curious.png
+[2026-06-17 03:33:46] [189/3680] Generated: animais-domesticos/357-gato-gato-bengala-perto-de-planta__bengal_cat_sitting_next_to_a_plant.png
+[2026-06-17 03:33:48] [190/3680] Generated: animais-domesticos/358-gato-gato-bengala-brincando-com-bolhas__bengal_cat_chasing_bubbles.png
+[2026-06-17 03:33:49] [191/3680] Generated: animais-domesticos/359-gato-gato-ragdoll-com-brinquedo-de-rato__ragdoll_cat_chasing_a_mouse_toy.png
+[2026-06-17 03:33:51] [192/3680] Generated: animais-domesticos/360-gato-gato-ragdoll-dormindo-na-almofada__ragdoll_cat_sleeping_on_a_cushion.png
+[2026-06-17 03:33:52] [193/3680] Generated: animais-domesticos/361-gato-gato-ragdoll-com-novelo-de-la__ragdoll_cat_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:33:53] [194/3680] Generated: animais-domesticos/362-gato-gato-ragdoll-na-beira-da-janela__ragdoll_cat_sitting_on_a_window_sill.png
+[2026-06-17 03:33:55] [195/3680] Generated: animais-domesticos/364-gato-gato-ragdoll-subindo-arranhador__ragdoll_cat_climbing_a_cat_tree.png
+[2026-06-17 03:33:56] [196/3680] Generated: animais-domesticos/363-gato-gato-ragdoll-com-mini-coroa__ragdoll_cat_wearing_a_tiny_crown.png
+[2026-06-17 03:33:57] [197/3680] Generated: animais-domesticos/365-gato-gato-ragdoll-bebendo-leite__ragdoll_cat_drinking_milk_from_a_saucer.png
+[2026-06-17 03:33:58] [198/3680] Generated: animais-domesticos/366-gato-gato-ragdoll-olhando-curioso__ragdoll_cat_looking_curious.png
+[2026-06-17 03:34:00] [199/3680] Generated: animais-domesticos/367-gato-gato-ragdoll-perto-de-planta__ragdoll_cat_sitting_next_to_a_plant.png
+[2026-06-17 03:34:01] [200/3680] Generated: animais-domesticos/368-gato-gato-ragdoll-brincando-com-bolhas__ragdoll_cat_chasing_bubbles.png
+[2026-06-17 03:34:01] Batch 4 completed (200 drawings). Triggering build & push...
+[2026-06-17 03:34:01] Rebuilding catalog and drawings database...
+[2026-06-17 03:34:02] Build successful!
+[2026-06-17 03:34:02] Committing and pushing to origin main...
