@@ -125,8 +125,22 @@ function isDrawingAccessible(dw) {
 }
 
 function getRequiredPlanForDrawing(dw) {
-    if (dw.index <= 2000) return 'Aprendiz';
-    return 'Artista';
+    if (dw.isNew) {
+        return 'Artista';
+    }
+    if (typeof allDrawings !== 'undefined' && Array.isArray(allDrawings) && allDrawings.length > 0) {
+        const categoryDrawings = allDrawings.filter(d => d.category === dw.category);
+        const indexInCat = categoryDrawings.findIndex(d => d.slug === dw.slug);
+        if (indexInCat !== -1 && indexInCat >= 42) {
+            return 'Artista';
+        }
+    } else {
+        // Fallback de segurança se o array global ainda não carregou
+        if (dw.index && dw.index > 2000) {
+            return 'Artista';
+        }
+    }
+    return 'Aprendiz';
 }
 
 // --- SISTEMA DE AUTENTICAÇÃO E SESSÃO ---
