@@ -702,7 +702,7 @@ app.post('/api/generate', async (req, res) => {
         }
 
         // 2. Rate Limit Check (anti-bot)
-        const isPaidUser = user.plan && user.plan !== 'Grátis';
+        const isPaidUser = user.plan && user.plan !== 'Grátis' && user.plan !== 'Aprendiz';
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
         if (isRateLimited(ip, isPaidUser)) {
             return res.status(429).json({
@@ -960,7 +960,7 @@ app.post('/api/generate-story', async (req, res) => {
         }
 
         // 2. Rate Limit Check (anti-bot)
-        const isPaidUser = user.plan && user.plan !== 'Grátis';
+        const isPaidUser = user.plan && user.plan !== 'Grátis' && user.plan !== 'Aprendiz';
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
         if (isRateLimited(ip, isPaidUser)) {
             return res.status(429).json({
@@ -1078,7 +1078,7 @@ app.post('/api/generate-full-story', async (req, res) => {
         }
 
         // Rate Limit Check (anti-bot)
-        const isPaidUser = user.plan && user.plan !== 'Grátis';
+        const isPaidUser = user.plan && user.plan !== 'Grátis' && user.plan !== 'Aprendiz';
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
         if (isRateLimited(ip, isPaidUser)) {
             return res.status(429).json({
@@ -1089,26 +1089,26 @@ app.post('/api/generate-full-story', async (req, res) => {
 
         // Validar permissão de idioma do livro com base no plano do usuário
         const userPlan = user.plan;
-        if (bookLang === 'en' && !['Professor', 'Colégio', 'Premium', 'Ultra'].includes(userPlan)) {
+        if (bookLang === 'en' && !['Artista', 'Mago Criador', 'Lenda KidCanvas', 'Ultra', 'Família', 'Professor', 'Colégio', 'Premium'].includes(userPlan)) {
             return res.status(400).json({
                 success: false,
-                message: `O plano ${userPlan} não permite criar livros em inglês. Faça upgrade para o plano Professor ou Colégio!`
+                message: `O plano ${userPlan} não permite criar livros em inglês. Faça upgrade para o plano Artista!`
             });
         }
-        if (bookLang === 'es' && !['Colégio', 'Premium', 'Ultra'].includes(userPlan)) {
+        if (bookLang === 'es' && !['Mago Criador', 'Lenda KidCanvas', 'Ultra', 'Colégio', 'Premium'].includes(userPlan)) {
             return res.status(400).json({
                 success: false,
-                message: `O plano ${userPlan} não permite criar livros em espanhol. Faça upgrade para o plano Colégio!`
+                message: `O plano ${userPlan} não permite criar livros em espanhol. Faça upgrade para o plano Mago Criador!`
             });
         }
 
         const engine = imageQuality === 'medium' ? 'flux' : 'ideogram';
         const cost = engine === 'flux' ? numPages : numPages * 2;
 
-        if (user.paginasRestantes < cost) {
+        if (getUserTotalCredits(user) < cost) {
             return res.status(400).json({
                 success: false,
-                message: `Saldo insuficiente! Esta história requer ${cost} páginas de saldo, mas você possui apenas ${user.paginasRestantes} página(s) de saldo.`
+                message: `Saldo insuficiente! Esta história requer ${cost} páginas de saldo, mas você possui apenas ${getUserTotalCredits(user)} página(s) de saldo.`
             });
         }
 
@@ -1383,7 +1383,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
         });
 
         // Deduce user balance and save
-        user.paginasRestantes -= cost;
+        deductUserCredits(user, cost);
         await saveUsers(users);
 
         return res.json({
@@ -1634,8 +1634,8 @@ app.get('/api/auth/google/callback', async (req, res) => {
         
         let isNew = false;
         if (!user) {
-            let userPlan = 'Grátis';
-            let userCredits = 4;
+            let userPlan = 'Aprendiz';
+            let userCredits = 3;
             if (email === 'foneoliver@gmail.com') {
                 userPlan = 'Ultra';
                 userCredits = 400;
@@ -1724,8 +1724,8 @@ app.post('/api/auth/google', async (req, res) => {
         let isNewUser = false;
         if (!user) {
             // Criar novo usuário
-            let userPlan = 'Grátis';
-            let userCredits = 4;
+            let userPlan = 'Aprendiz';
+            let userCredits = 3;
             if (email === 'foneoliver@gmail.com') {
                 userPlan = 'Ultra';
                 userCredits = 400;
@@ -1779,7 +1779,7 @@ app.post('/api/auth/google', async (req, res) => {
                 photo: user.photo || '',
                 avatar: user.avatar || '',
                 plan: user.plan,
-                paginasRestantes: user.paginasRestantes
+                paginasRestantes: getUserTotalCredits(user)
             },
             token: sessionToken,
             isNewUser: isNewUser
@@ -1808,8 +1808,8 @@ app.post('/api/auth/signup', async (req, res) => {
         }
         
         const sessionToken = crypto.randomBytes(16).toString('hex');
-        let userPlan = 'Grátis';
-        let userCredits = 4;
+        let userPlan = 'Aprendiz';
+        let userCredits = 3;
         if (cleanEmail === 'foneoliver@gmail.com') {
             userPlan = 'Ultra';
             userCredits = 400;
@@ -1887,7 +1887,7 @@ app.post('/api/auth/login', async (req, res) => {
                 photo: user.photo || '',
                 avatar: user.avatar || '',
                 plan: user.plan,
-                paginasRestantes: user.paginasRestantes,
+                paginasRestantes: getUserTotalCredits(user),
                 myImages: user.myImages || [],
                 myStories: user.myStories || [],
                 myPaintings: user.myPaintings || []
@@ -1995,7 +1995,7 @@ app.get('/api/auth/me', async (req, res) => {
                 photo: user.photo || '',
                 avatar: user.avatar || '',
                 plan: user.plan,
-                paginasRestantes: user.paginasRestantes,
+                paginasRestantes: getUserTotalCredits(user),
                 myImages: user.myImages || [],
                 myStories: user.myStories || [],
                 myPaintings: user.myPaintings || []
@@ -2041,7 +2041,7 @@ app.post('/api/user/upgrade', async (req, res) => {
                 email: user.email,
                 photo: user.photo || '',
                 plan: user.plan,
-                paginasRestantes: user.paginasRestantes
+                paginasRestantes: getUserTotalCredits(user)
             }
         });
     } catch(err) {
@@ -2595,7 +2595,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         }
 
         // Rate Limit Check (anti-bot)
-        const isPaidUser = user.plan && user.plan !== 'Grátis';
+        const isPaidUser = user.plan && user.plan !== 'Grátis' && user.plan !== 'Aprendiz';
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
         if (isRateLimited(ip, isPaidUser)) {
             return res.status(429).json({
@@ -2607,10 +2607,10 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         const engine = imageQuality === 'high' ? 'ideogram' : 'flux';
         const cost = engine === 'flux' ? 1 : 2;
 
-        if (user.paginasRestantes < cost) {
+        if (getUserTotalCredits(user) < cost) {
             return res.status(400).json({
                 success: false,
-                message: `Saldo insuficiente! Você possui apenas ${user.paginasRestantes} crédito(s) de saldo.`
+                message: `Saldo insuficiente! Você possui apenas ${getUserTotalCredits(user)} crédito(s) de saldo.`
             });
         }
 
@@ -2798,13 +2798,13 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         });
 
         // Deduce user credits and save
-        user.paginasRestantes -= cost;
+        deductUserCredits(user, cost);
         await saveUsers(users);
 
         return res.json({
             success: true,
             imageUrl: imageUrl,
-            paginasRestantes: user.paginasRestantes
+            paginasRestantes: getUserTotalCredits(user)
         });
 
     } catch (error) {
@@ -2917,7 +2917,7 @@ app.get('/api/admin/stats', isAdmin, async (req, res) => {
             .map(u => ({
                 name: u.name,
                 email: u.email,
-                plan: u.plan || 'Grátis',
+                plan: u.plan || 'Aprendiz',
                 balance: u.paginasRestantes || 0,
                 generations: (u.myImages ? u.myImages.length : 0) + (u.myStories ? u.myStories.length : 0)
             }))
@@ -2926,8 +2926,8 @@ app.get('/api/admin/stats', isAdmin, async (req, res) => {
             
         let totalCreditsPurchased = 0;
         users.forEach(u => {
-            if (u.plan && u.plan !== 'Grátis') {
-                totalCreditsPurchased += u.plan === 'Professor' || u.plan === 'Premium' ? 100 : 400;
+            if (u.plan && u.plan !== 'Grátis' && u.plan !== 'Aprendiz') {
+                totalCreditsPurchased += u.plan === 'Artista' ? 30 : u.plan === 'Mago Criador' || u.plan === 'Professor' || u.plan === 'Premium' ? 100 : 250;
             }
         });
 
@@ -3011,8 +3011,8 @@ app.get('/api/admin/stats', isAdmin, async (req, res) => {
         
         // Estimada baseada nos planos ativos atuais
         users.forEach(u => {
-            if (u.plan && u.plan !== 'Grátis') {
-                const price = (u.plan === 'Professor' || u.plan === 'Premium') ? 39.90 : 99.90;
+            if (u.plan && u.plan !== 'Grátis' && u.plan !== 'Aprendiz') {
+                const price = u.plan === 'Artista' ? 9.90 : (u.plan === 'Mago Criador' || u.plan === 'Professor' || u.plan === 'Premium') ? 19.90 : 39.90;
                 revenueEstimated += price;
             }
         });
@@ -3030,7 +3030,7 @@ app.get('/api/admin/stats', isAdmin, async (req, res) => {
             (u.myStories && u.myStories.length > 0)
         ).length;
         
-        const subscribersCount = users.filter(u => u.plan && u.plan !== 'Grátis').length;
+        const subscribersCount = users.filter(u => u.plan && u.plan !== 'Grátis' && u.plan !== 'Aprendiz').length;
 
         const funnel = {
             visitors: visitsCount,
@@ -3204,7 +3204,7 @@ app.get('/api/admin/users', isAdmin, async (req, res) => {
             id: u.id,
             name: u.name,
             email: u.email,
-            plan: u.plan || 'Grátis',
+            plan: u.plan || 'Aprendiz',
             balance: u.paginasRestantes || 0,
             generations: (u.myImages ? u.myImages.length : 0) + (u.myStories ? u.myStories.length : 0),
             createdAt: u.createdAt || 'Antes do Analytics',
