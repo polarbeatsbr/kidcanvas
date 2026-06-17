@@ -440,12 +440,13 @@ async function initGoogleSignIn() {
 async function handleGoogleCredentialResponse(response) {
     try {
         console.log("[Google Auth] Login efetuado, enviando token ao servidor...");
+        const refCode = localStorage.getItem('kidcanvas_ref') || undefined;
         const res = await fetch('/api/auth/google', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ credential: response.credential })
+            body: JSON.stringify({ credential: response.credential, refCode })
         });
         const data = await res.json();
         if (res.ok && data.success) {
@@ -692,10 +693,11 @@ async function handleRegisterSubmit(event) {
     const password = document.getElementById('regPassword').value;
     
     try {
+        const refCode = localStorage.getItem('kidcanvas_ref') || undefined;
         const res = await fetch('/api/auth/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password })
+            body: JSON.stringify({ name, email, password, refCode })
         });
         const data = await res.json();
         if (res.ok && data.success) {
@@ -740,10 +742,15 @@ function checkGsiLoaded() {
 
 // --- INICIALIZAÇÃO ---
 window.addEventListener('DOMContentLoaded', async () => {
-    // Intercept Google OAuth redirect token
+    // Intercept Google OAuth redirect token and ref code
     const urlParams = new URLSearchParams(window.location.search);
     const googleToken = urlParams.get('google_token');
     const isNewUserQuery = urlParams.get('is_new_user');
+    const refCode = urlParams.get('ref');
+
+    if (refCode) {
+        localStorage.setItem('kidcanvas_ref', refCode);
+    }
 
     if (googleToken) {
         localStorage.setItem("kidcanvas_session_token", googleToken);
@@ -8114,37 +8121,81 @@ const ACHIEVEMENT_RARITIES = {
     mythic:    { name: 'Mítico',    color: '#FFD700', glow: 'rgba(255,215,0,0.35)',   stars: '⭐⭐⭐⭐⭐' }
 };
 
+
+const SOCIAL_ACHIEVEMENTS = [
+    { id: 'turma_colorida',   name: 'Turma Colorida', emoji: '🎨', req: 5,  desc: 'Convidou 5 amigos ativos' },
+    { id: 'festa_cores',      name: 'Festa das Cores', emoji: '🎉', req: 10, desc: 'Convidou 10 amigos ativos' },
+    { id: 'escola_inteira',   name: 'Escola Inteira',  emoji: '🏫', req: 20, desc: 'Convidou 20 amigos ativos' },
+    { id: 'mundo_kidcanvas',  name: 'Mundo KidCanvas', emoji: '🌎', req: 50, desc: 'Convidou 50 amigos ativos' }
+];
+
+function getUserStars(u) {
+    if (!u || !u.myPaintings) return 0;
+    return u.myPaintings.reduce((sum, p) => sum + (p.stars || p.likes || 0), 0);
+}
+
 const ACHIEVEMENTS_CATALOG = [
     // --- COMUNS (🟢) ---
     { id: 'primeiro_traco',       name: 'Primeiro Traço',        emoji: '✏️',  rarity: 'common', desc: 'Salvar sua primeira pintura', check: u => (u.myPaintings?.length || 0) >= 1 },
-    { id: 'artista_iniciante',    name: 'Artista Iniciante',     emoji: '🎨',  rarity: 'common', desc: 'Publicar 1 obra no Hall da Fama', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 1 },
-    { id: 'contador_historias',   name: 'Contador de Histórias', emoji: '📖',  rarity: 'common', desc: 'Criar sua primeira história mágica', check: u => (u.myStories?.length || 0) >= 1 },
-    { id: 'guardiao_galeria',     name: 'Guardião da Galeria',   emoji: '💾',  rarity: 'common', desc: 'Salvar 3 pinturas na galeria', check: u => (u.myPaintings?.length || 0) >= 3 },
+    { id: 'primeira_historia',    name: 'Primeira História',     emoji: '📖',  rarity: 'common', desc: 'Criar sua primeira história', check: u => (u.myStories?.length || 0) >= 1 },
+    { id: 'guardiao_galeria',     name: 'Guardião da Galeria',   emoji: '💾',  rarity: 'common', desc: 'Salvar 5 pinturas', check: u => (u.myPaintings?.length || 0) >= 5 },
+    { id: 'fa_carteirinha',       name: 'Fã de Carteirinha',     emoji: '🎒',  rarity: 'common', desc: 'Pintar 10 desenhos', check: u => (u.myPaintings?.length || 0) >= 10 },
+    { id: 'colorista_criativo',   name: 'Colorista Criativo',    emoji: '🖍️',  rarity: 'common', desc: 'Pintar 15 desenhos', check: u => (u.myPaintings?.length || 0) >= 15 },
+    { id: 'artista_iniciante',    name: 'Artista Iniciante',     emoji: '🎨',  rarity: 'common', desc: 'Publicar 1 obra no Hall', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 1 },
+    { id: 'primeira_estrela',     name: 'Primeira Estrela',      emoji: '⭐',  rarity: 'common', desc: 'Ganhar sua primeira estrela', check: u => getUserStars(u) >= 1 },
+    { id: 'explorador_ia',        name: 'Explorador IA',         emoji: '🤖',  rarity: 'common', desc: 'Gerar 1 imagem com IA', check: u => (u.myImages?.length || 0) >= 1 },
+    { id: 'escritor_iniciante',   name: 'Escritor Iniciante',    emoji: '📝',  rarity: 'common', desc: 'Criar 3 histórias', check: u => (u.myStories?.length || 0) >= 3 },
+    { id: 'rotina_basica',        name: 'Dois Dias!',            emoji: '📅',  rarity: 'common', desc: 'Entrar 2 dias seguidos', check: u => (u.consecutiveDays || 1) >= 2 },
     
     // --- RAROS (🔵) ---
-    { id: 'colorista_criativo',   name: 'Colorista Criativo',    emoji: '🌈',  rarity: 'rare', desc: '10 estrelas no Hall da Fama', check: u => getUserTotalStars() >= 10 },
-    { id: 'fa_carteirinha',       name: 'Fã de Carteirinha',     emoji: '🎒',  rarity: 'rare', desc: 'Pintar 10 desenhos', check: u => (u.myPaintings?.length || 0) >= 10 },
-    { id: 'escritor_mirim',       name: 'Escritor Mirim',        emoji: '✍️',  rarity: 'rare', desc: 'Criar 3 histórias mágicas', check: u => (u.myStories?.length || 0) >= 3 },
-    { id: 'estrela_nascente',     name: 'Estrela Nascente',      emoji: '🌟',  rarity: 'rare', desc: 'Publicar 3 obras no Hall', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 3 },
+    { id: 'mestre_dinos',         name: 'Mestre dos Dinossauros', emoji: '🦕', rarity: 'rare', desc: 'Pintar 5 dinossauros', check: u => countPaintingsByCategory(u, 'dinossauros') >= 5 },
+    { id: 'rei_unicornios',       name: 'Rei dos Unicórnios',    emoji: '🦄',  rarity: 'rare', desc: 'Pintar 5 de fantasia', check: u => countPaintingsByCategory(u, 'fantasia') >= 5 },
+    { id: 'explorador_espacial',  name: 'Explorador Espacial',   emoji: '🚀',  rarity: 'rare', desc: 'Pintar 5 de espaço', check: u => countPaintingsByCategory(u, 'espaco') >= 5 },
+    { id: 'mestre_animais',       name: 'Mestre dos Animais',    emoji: '🐾',  rarity: 'rare', desc: 'Pintar 5 animais', check: u => countPaintingsByCategory(u, 'animais-selvagens') + countPaintingsByCategory(u, 'animais-domesticos') + countPaintingsByCategory(u, 'animais-do-mar') >= 5 },
+    { id: 'arco_iris',            name: 'Arco-Íris de Cores',    emoji: '🌈',  rarity: 'rare', desc: '10 estrelas recebidas', check: u => getUserStars(u) >= 10 },
+    { id: 'estrela_nascente',     name: 'Estrela Nascente',      emoji: '🌟',  rarity: 'rare', desc: 'Publicar 5 obras no Hall', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 5 },
+    { id: 'designer_ia',          name: 'Designer com IA',       emoji: '🧠',  rarity: 'rare', desc: 'Gerar 5 imagens com IA', check: u => (u.myImages?.length || 0) >= 5 },
+    { id: 'galeria_20',           name: 'Galeria Cheia',         emoji: '🖼️',  rarity: 'rare', desc: 'Pintar 20 desenhos', check: u => (u.myPaintings?.length || 0) >= 20 },
+    { id: 'tres_dias',            name: 'Três Dias!',            emoji: '🔥',  rarity: 'rare', desc: 'Entrar 3 dias seguidos', check: u => (u.consecutiveDays || 1) >= 3 },
+    { id: 'escritor_mirim',       name: 'Escritor Mirim',        emoji: '✍️',  rarity: 'rare', desc: 'Criar 5 histórias', check: u => (u.myStories?.length || 0) >= 5 },
     
     // --- ÉPICOS (🟣) ---
-    { id: 'mestre_dinos',         name: 'Mestre dos Dinossauros', emoji: '🦕', rarity: 'epic', desc: 'Pintar 10 dinossauros', check: u => countPaintingsByCategory(u, 'dinossauros') >= 10 },
-    { id: 'rei_unicornios',       name: 'Rei dos Unicórnios',    emoji: '🦄',  rarity: 'epic', desc: 'Pintar 10 de fantasia', check: u => countPaintingsByCategory(u, 'fantasia') >= 10 },
-    { id: 'amigo_animais',        name: 'Amigo dos Animais',     emoji: '🐾',  rarity: 'epic', desc: 'Pintar 10 animais', check: u => countPaintingsByCategory(u, 'animais-selvagens') + countPaintingsByCategory(u, 'animais-domesticos') + countPaintingsByCategory(u, 'animais-do-mar') >= 10 },
-    { id: 'principe_princesa',    name: 'Príncipe/Princesa',     emoji: '👸',  rarity: 'epic', desc: 'Pintar 10 de contos de fada', check: u => countPaintingsByCategory(u, 'contos-de-fada') >= 10 },
-    { id: 'mago_cores',           name: 'Mago das Cores',        emoji: '🪄',  rarity: 'epic', desc: '30 estrelas no Hall da Fama', check: u => getUserTotalStars() >= 30 },
+    { id: '50_desenhos',          name: '50 Desenhos',           emoji: '🏆',  rarity: 'epic', desc: 'Pintar 50 desenhos', check: u => (u.myPaintings?.length || 0) >= 50 },
+    { id: '25_historias',         name: '25 Histórias Criadas',  emoji: '📚',  rarity: 'epic', desc: 'Criar 15 histórias', check: u => (u.myStories?.length || 0) >= 15 },
+    { id: '100_estrelas',         name: '100 Estrelas',          emoji: '💯',  rarity: 'epic', desc: '100 estrelas recebidas', check: u => getUserStars(u) >= 100 },
+    { id: '7_dias',               name: 'Uma Semana!',           emoji: '🗓️', rarity: 'epic', desc: '7 dias consecutivos', check: u => (u.consecutiveDays || 1) >= 7 },
+    { id: 'hall_bronze',          name: 'Hall da Fama Bronze',   emoji: '🥉',  rarity: 'epic', desc: 'Publicar 20 obras no Hall', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 20 },
+    { id: 'ia_master',            name: 'Mestre da IA',          emoji: '🔮',  rarity: 'epic', desc: 'Gerar 20 imagens com IA', check: u => (u.myImages?.length || 0) >= 20 },
+    { id: 'veiculos',             name: 'Piloto Rápido',         emoji: '🏎️', rarity: 'epic', desc: 'Pintar 10 veículos', check: u => countPaintingsByCategory(u, 'veiculos') >= 10 },
+    { id: 'profissoes',           name: 'Mestre do Trabalho',    emoji: '👷', rarity: 'epic', desc: 'Pintar 10 profissões', check: u => countPaintingsByCategory(u, 'profissoes') >= 10 },
+    { id: 'comida',               name: 'Chef de Cozinha',       emoji: '🍔',  rarity: 'epic', desc: 'Pintar 10 comidas', check: u => countPaintingsByCategory(u, 'comidas') >= 10 },
+    { id: 'natureza',             name: 'Defensor da Natureza',  emoji: '🌿',  rarity: 'epic', desc: 'Pintar 10 de natureza', check: u => countPaintingsByCategory(u, 'natureza') >= 10 },
     
     // --- LENDÁRIOS (🟠) ---
-    { id: 'explorador_magico',    name: 'Explorador Mágico',     emoji: '🚀',  rarity: 'legendary', desc: '50 estrelas no Hall', check: u => getUserTotalStars() >= 50 },
-    { id: 'colecionador_dedicado',name: 'Colecionador Dedicado', emoji: '🎯',  rarity: 'legendary', desc: 'Pintar 50 desenhos', check: u => (u.myPaintings?.length || 0) >= 50 },
-    { id: 'bibliotecario_magico', name: 'Bibliotecário Mágico',  emoji: '📚',  rarity: 'legendary', desc: 'Criar 10 histórias', check: u => (u.myStories?.length || 0) >= 10 },
-    { id: 'superestrela',         name: 'Superestrela do Hall',   emoji: '💫',  rarity: 'legendary', desc: 'Publicar 10 obras no Hall', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 10 },
+    { id: '250_estrelas',         name: '250 Estrelas',          emoji: '✨',  rarity: 'legendary', desc: '250 estrelas recebidas', check: u => getUserStars(u) >= 250 },
+    { id: '100_desenhos',         name: '100 Desenhos',          emoji: '🖼️',  rarity: 'legendary', desc: 'Pintar 100 desenhos', check: u => (u.myPaintings?.length || 0) >= 100 },
+    { id: 'hall_ouro',            name: 'Hall da Fama Ouro',     emoji: '🥇',  rarity: 'legendary', desc: 'Publicar 50 obras no Hall', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 50 },
+    { id: 'mestre_historias',     name: 'Mestre das Histórias',  emoji: '📜',  rarity: 'legendary', desc: 'Criar 30 histórias', check: u => (u.myStories?.length || 0) >= 30 },
+    { id: 'criador_supremo',      name: 'Criador Supremo',       emoji: '👑',  rarity: 'legendary', desc: 'Gerar 50 imagens com IA', check: u => (u.myImages?.length || 0) >= 50 },
+    { id: '14_dias',              name: 'Duas Semanas!',         emoji: '🔥🔥', rarity: 'legendary', desc: '14 dias consecutivos', check: u => (u.consecutiveDays || 1) >= 14 },
+    { id: 'amigo_monstros',       name: 'Amigo dos Monstros',    emoji: '👾',  rarity: 'legendary', desc: 'Pintar 15 monstros', check: u => countPaintingsByCategory(u, 'monstros') >= 15 },
+    { id: 'construtor',           name: 'Construtor',            emoji: '🏗️', rarity: 'legendary', desc: 'Pintar 15 cidades', check: u => countPaintingsByCategory(u, 'cidades') >= 15 },
+    { id: 'ninja',                name: 'Ninja das Cores',       emoji: '🥷',  rarity: 'legendary', desc: 'Pintar 15 esportes', check: u => countPaintingsByCategory(u, 'esportes') >= 15 },
+    { id: 'aventureiro',          name: 'Aventureiro',           emoji: '🗺️', rarity: 'legendary', desc: '50 pinturas completas', check: u => (u.myPaintings?.length || 0) >= 50 },
     
     // --- MÍTICOS (👑) ---
-    { id: 'lenda_kidcanvas',      name: 'Lenda do KidCanvas',    emoji: '👑',  rarity: 'mythic', desc: '180 estrelas no Hall', check: u => getUserTotalStars() >= 180 },
-    { id: 'mestre_supremo',       name: 'Mestre Supremo',        emoji: '🏅',  rarity: 'mythic', desc: 'Pintar 100 desenhos', check: u => (u.myPaintings?.length || 0) >= 100 },
-    { id: 'o_completista',        name: 'O Completista',         emoji: '💎',  rarity: 'mythic', desc: 'Desbloquear 15 selos', check: u => getUnlockedAchievements(u).length >= 15 }
+    { id: '500_estrelas',         name: '500 Estrelas',          emoji: '🌟',  rarity: 'mythic', desc: '500 estrelas recebidas', check: u => getUserStars(u) >= 500 },
+    { id: '500_desenhos',         name: '500 Desenhos',          emoji: '🖌️', rarity: 'mythic', desc: 'Pintar 500 desenhos', check: u => (u.myPaintings?.length || 0) >= 500 },
+    { id: '30_dias',              name: 'Um Mês Inteiro!',       emoji: '🔥🔥🔥', rarity: 'mythic', desc: '30 dias consecutivos', check: u => (u.consecutiveDays || 1) >= 30 },
+    { id: 'hall_diamante',        name: 'Hall da Fama Diamante', emoji: '💎',  rarity: 'mythic', desc: 'Publicar 100 obras no Hall', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 100 },
+    { id: 'lenda_kidcanvas',      name: 'Lenda KidCanvas',       emoji: '👑',  rarity: 'mythic', desc: 'Ganhar 1000 estrelas', check: u => getUserStars(u) >= 1000 },
+    { id: 'todas_categorias',     name: 'Explorador Total',      emoji: '🌍',  rarity: 'mythic', desc: 'Pintar 10 desenhos diferentes', check: u => (u.myPaintings?.length || 0) >= 100 },
+    { id: 'ia_deus',              name: 'Deus da IA',            emoji: '🌌',  rarity: 'mythic', desc: 'Gerar 200 imagens com IA', check: u => (u.myImages?.length || 0) >= 200 },
+    { id: 'escritor_lenda',       name: 'Escritor Lendário',     emoji: '📖',  rarity: 'mythic', desc: 'Criar 100 histórias', check: u => (u.myStories?.length || 0) >= 100 },
+    { id: 'publicador_lenda',     name: 'Publicador Lendário',   emoji: '🏛️',  rarity: 'mythic', desc: 'Publicar 200 obras', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 200 },
+    { id: '100_dias',             name: 'Cem Dias!',             emoji: '💯',  rarity: 'mythic', desc: '100 dias consecutivos', check: u => (u.consecutiveDays || 1) >= 100 }
 ];
+
 
 // Conta pinturas de uma categoria específica
 function countPaintingsByCategory(user, categorySlug) {
@@ -8966,3 +9017,43 @@ function updateUserAvatarUI(avatar) {
     }
 }
 window.updateUserAvatarUI = updateUserAvatarUI;
+
+
+window.switchConquistasTab = function(tab) {
+    const btnCriatividade = document.getElementById('btn-tab-criatividade');
+    const btnSocial = document.getElementById('btn-tab-social');
+    const contentCriatividade = document.getElementById('tab-content-criatividade');
+    const contentSocial = document.getElementById('tab-content-social');
+    
+    if (!btnCriatividade || !btnSocial || !contentCriatividade || !contentSocial) return;
+
+    if (tab === 'criatividade') {
+        btnCriatividade.classList.remove('btn-secondary', 'btn-outline');
+        btnCriatividade.classList.add('btn-primary');
+        btnSocial.classList.remove('btn-primary');
+        btnSocial.classList.add('btn-secondary', 'btn-outline');
+        contentCriatividade.style.display = 'block';
+        contentSocial.style.display = 'none';
+    } else {
+        btnSocial.classList.remove('btn-secondary', 'btn-outline');
+        btnSocial.classList.add('btn-primary');
+        btnCriatividade.classList.remove('btn-primary');
+        btnCriatividade.classList.add('btn-secondary', 'btn-outline');
+        contentCriatividade.style.display = 'none';
+        contentSocial.style.display = 'block';
+    }
+};
+
+window.copyInviteLink = function() {
+    const input = document.getElementById('invite-link-input');
+    if (!input) return;
+    input.select();
+    input.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(input.value).then(() => {
+        const msg = document.getElementById('invite-link-copied-msg');
+        if (msg) {
+            msg.style.display = 'block';
+            setTimeout(() => { msg.style.display = 'none'; }, 3000);
+        }
+    });
+};

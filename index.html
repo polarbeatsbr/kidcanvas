@@ -2015,19 +2015,47 @@
                     <p class="section-subtitle" id="conquistas-subtitle">Colecione selos e suba de nível!</p>
                 </div>
 
-                <!-- Progresso geral -->
-                <div class="conquistas-progress-bar-wrapper" id="conquistas-progress-wrapper">
-                    <div class="conquistas-progress-info">
-                        <span id="conquistas-count">0/20 selos</span>
-                        <span id="conquistas-percent">0%</span>
-                    </div>
-                    <div class="conquistas-progress-track">
-                        <div class="conquistas-progress-fill" id="conquistas-progress-fill" style="width: 0%;"></div>
-                    </div>
+                <div class="conquistas-tabs-wrapper" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <button id="btn-tab-criatividade" class="btn btn-primary" onclick="switchConquistasTab('criatividade')" style="flex: 1;">🎨 Minha Jornada Criativa</button>
+                    <button id="btn-tab-social" class="btn btn-secondary btn-outline" onclick="switchConquistasTab('social')" style="flex: 1;">👫 Clube da Turma</button>
                 </div>
 
-                <!-- Grid de conquistas por raridade -->
-                <div id="conquistas-album-grid"></div>
+                <div id="tab-content-criatividade">
+                    <!-- Progresso geral -->
+                    <div class="conquistas-progress-bar-wrapper" id="conquistas-progress-wrapper">
+                        <div class="conquistas-progress-info">
+                            <span id="conquistas-count">0/50 selos</span>
+                            <span id="conquistas-percent">0%</span>
+                        </div>
+                        <div class="conquistas-progress-track">
+                            <div class="conquistas-progress-fill" id="conquistas-progress-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Grid de conquistas por raridade -->
+                    <div id="conquistas-album-grid"></div>
+                </div>
+
+                <div id="tab-content-social" style="display: none;">
+                    <div style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 20px; text-align: center; margin-bottom: 30px; box-shadow: var(--shadow-cartoon);">
+                        <h2 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 1.8rem; margin-bottom: 10px;">Convide seus Amigos!</h2>
+                        <p style="color: var(--color-dark); margin-bottom: 20px;">Mande seu link secreto para seus amigos. Quando eles criarem uma conta e começarem a pintar, você ganha selos especiais do Clube da Turma!</p>
+                        
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                            <input type="text" id="invite-link-input" readonly style="flex: 1; min-width: 200px; padding: 12px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: monospace; background: #f0f0f0;" value="Carregando link...">
+                            <button class="btn btn-primary" onclick="copyInviteLink()" style="display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-copy"></i> Copiar Link
+                            </button>
+                        </div>
+                        <div id="invite-link-copied-msg" style="color: var(--color-green); font-weight: bold; margin-top: 10px; display: none;">Copiado com sucesso!</div>
+                        <div style="margin-top: 15px; font-size: 0.9rem; color: var(--color-dark-light); font-weight: bold;">
+                            Você já convidou: <span id="active-friends-count" style="color: var(--color-purple); font-size: 1.1rem;">0</span> amigos ativos.
+                        </div>
+                    </div>
+
+                    <!-- Grid de Conquistas Sociais -->
+                    <div id="conquistas-social-grid" class="conquistas-grid"></div>
+                </div>
 
             </div>
         </section>
@@ -2531,6 +2559,6 @@
     </div>
 
     <!-- Script JS Customizado -->
-    <script src="/app.js?v=9.7"></script>
+    <script src="/app.js?v=9.8"></script>
 </body>
 </html>

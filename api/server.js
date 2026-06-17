@@ -1716,6 +1716,7 @@ app.post('/api/auth/google', async (req, res) => {
         const googleId = payload.sub;
 
         // 2. Carregar a lista de usuários e realizar o upsert
+        const { refCode } = req.body;
         const users = await loadUsers();
         let user = users.find(u => u.email === email);
         const sessionToken = crypto.randomBytes(16).toString('hex');
@@ -1731,6 +1732,7 @@ app.post('/api/auth/google', async (req, res) => {
                 userCredits = 400;
             }
 
+            const inviteCode = crypto.randomBytes(4).toString('hex');
             user = {
                 id: crypto.randomUUID(),
                 googleId: googleId,
@@ -1742,8 +1744,22 @@ app.post('/api/auth/google', async (req, res) => {
                 token: sessionToken,
                 tokenExpiry: tokenExpiry,
                 createdAt: new Date().toISOString(),
-                lastLogin: new Date().toISOString()
+                lastLogin: new Date().toISOString(),
+                consecutiveDays: 1,
+                inviteCode: inviteCode,
+                referredUsers: [],
+                invitedBy: null
             };
+            
+            if (refCode) {
+                const inviter = users.find(u => u.inviteCode === refCode);
+                if (inviter) {
+                    user.invitedBy = inviter.id;
+                    inviter.referredUsers = inviter.referredUsers || [];
+                    inviter.referredUsers.push(user.id);
+                }
+            }
+            
             users.push(user);
             isNewUser = true;
             console.log(`[Google Auth] Novo usuário criado: ${email}`);
@@ -1754,10 +1770,25 @@ app.post('/api/auth/google', async (req, res) => {
             if (photo) user.photo = photo;
             user.token = sessionToken;
             user.tokenExpiry = tokenExpiry;
+            
+            const today = new Date().toDateString();
+            const last = new Date(user.lastLogin || new Date()).toDateString();
+            if (today !== last) {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                if (last === yesterday.toDateString()) {
+                    user.consecutiveDays = (user.consecutiveDays || 1) + 1;
+                } else {
+                    user.consecutiveDays = 1;
+                }
+            }
             user.lastLogin = new Date().toISOString();
             if (!user.createdAt) {
                 user.createdAt = new Date().toISOString();
             }
+            if (!user.inviteCode) user.inviteCode = crypto.randomBytes(4).toString('hex');
+            if (!user.referredUsers) user.referredUsers = [];
+            
             // Force Ultra plan upgrade on login if they are foneoliver@gmail.com
             const ultraEmails = ['foneoliver@gmail.com'];
             if (ultraEmails.includes(email.toLowerCase()) && user.plan !== 'Ultra') {
@@ -1794,7 +1825,7 @@ app.post('/api/auth/google', async (req, res) => {
 // Endpoint de Cadastro
 app.post('/api/auth/signup', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, refCode } = req.body;
         if (!name || !email || !password) {
             return res.status(400).json({ success: false, message: 'Todos os campos são obrigatórios.' });
         }
@@ -1808,6 +1839,7 @@ app.post('/api/auth/signup', async (req, res) => {
         }
         
         const sessionToken = crypto.randomBytes(16).toString('hex');
+        const inviteCode = crypto.randomBytes(4).toString('hex'); // Gerar código de convite único de 8 caracteres
         let userPlan = 'Aprendiz';
         let userCredits = 3;
         if (cleanEmail === 'foneoliver@gmail.com') {
@@ -1826,8 +1858,22 @@ app.post('/api/auth/signup', async (req, res) => {
             token: sessionToken,
             tokenExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 dias
             createdAt: new Date().toISOString(),
-            lastLogin: new Date().toISOString()
+            lastLogin: new Date().toISOString(),
+            consecutiveDays: 1,
+            inviteCode: inviteCode,
+            referredUsers: [],
+            invitedBy: null
         };
+        
+        // Lógica de indicação
+        if (refCode) {
+            const inviter = users.find(u => u.inviteCode === refCode);
+            if (inviter) {
+                newUser.invitedBy = inviter.id;
+                inviter.referredUsers = inviter.referredUsers || [];
+                inviter.referredUsers.push(newUser.id);
+            }
+        }
         
         users.push(newUser);
         await saveUsers(users);
@@ -1985,11 +2031,10 @@ app.get('/api/auth/me', async (req, res) => {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
         
-        
-
         return res.json({
             success: true,
             user: {
+                id: user.id,
                 name: user.name,
                 email: user.email,
                 photo: user.photo || '',
@@ -1998,7 +2043,17 @@ app.get('/api/auth/me', async (req, res) => {
                 paginasRestantes: getUserTotalCredits(user),
                 myImages: user.myImages || [],
                 myStories: user.myStories || [],
-                myPaintings: user.myPaintings || []
+                myPaintings: user.myPaintings || [],
+                consecutiveDays: user.consecutiveDays || 1,
+                inviteCode: user.inviteCode || '',
+                activeReferredUsers: (user.referredUsers || []).filter(refId => {
+                    const refUser = users.find(u => u.id === refId);
+                    if (!refUser) return false;
+                    const p = (refUser.myPaintings || []).length;
+                    const s = (refUser.myStories || []).length;
+                    const i = (refUser.myImages || []).length;
+                    return (p + s + i) > 0;
+                }).length
             }
         });
     } catch(err) {
