@@ -394,6 +394,68 @@ async function saveAnalytics(analytics) {
     return false;
 }
 
+const LOCAL_DRAWINGS_FILE = path.join(__dirname, '..', 'drawings.json');
+
+async function loadDrawings() {
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Lendo drawings.json do Cloudflare R2...`);
+            const command = new GetObjectCommand({
+                Bucket: bucketName,
+                Key: 'drawings.json',
+            });
+            const response = await s3Client.send(command);
+            const dataStr = await streamToString(response.Body);
+            try {
+                fs.writeFileSync(LOCAL_DRAWINGS_FILE, dataStr, 'utf8');
+            } catch(e) {}
+            return JSON.parse(dataStr);
+        } catch (err) {
+            if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || err.message.includes('NoSuchKey')) {
+                console.log('[R2DB] Arquivo drawings.json não existe no bucket R2. Usando fallback local.');
+            } else {
+                console.error('[R2DB] Erro ao carregar drawings do R2 (usando fallback local):', err.message);
+            }
+        }
+    }
+    if (fs.existsSync(LOCAL_DRAWINGS_FILE)) {
+        try {
+            const dataStr = fs.readFileSync(LOCAL_DRAWINGS_FILE, 'utf8');
+            return JSON.parse(dataStr);
+        } catch (e) {
+            console.error('[R2DB] Erro ao ler drawings.json local:', e.message);
+        }
+    }
+    return [];
+}
+
+async function saveDrawings(drawings) {
+    const dataStr = JSON.stringify(drawings, null, 2);
+    try {
+        fs.writeFileSync(LOCAL_DRAWINGS_FILE, dataStr, 'utf8');
+        console.log('[R2DB] Backup local de drawings.json gravado com sucesso.');
+    } catch (e) {
+        console.error('[R2DB] Falha ao gravar cópia local de drawings:', e.message);
+    }
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Enviando drawings.json atualizado para o Cloudflare R2...`);
+            const command = new PutObjectCommand({
+                Bucket: bucketName,
+                Key: 'drawings.json',
+                Body: dataStr,
+                ContentType: 'application/json',
+            });
+            await s3Client.send(command);
+            console.log('[R2DB] Banco de dados drawings.json persistido no R2.');
+            return true;
+        } catch (err) {
+            console.error('[R2DB] Falha crítica ao persistir drawings no R2:', err.message);
+        }
+    }
+    return false;
+}
+
 module.exports = {
     loadUsers,
     loadPublicPaintings,
@@ -406,6 +468,8 @@ module.exports = {
     loadAnalytics,
     saveAnalytics,
     hashPassword,
-    uploadImage
+    uploadImage,
+    loadDrawings,
+    saveDrawings
 };
 

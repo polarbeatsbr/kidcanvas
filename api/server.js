@@ -1418,35 +1418,29 @@ app.get('/api/proxy-image', async (req, res) => {
 const DRAWINGS_JSON_FILE = path.join(__dirname, '..', 'drawings.json');
 
 // Rota para listar os desenhos processados na pasta 'pintai-biblioteca' divididos por categoria e tier
-app.get('/api/drawings', (req, res) => {
-    const fs = require('fs');
-
-    // Se drawings.json existir, use-o para evitar limite de tamanho da função serverless
-    if (fs.existsSync(DRAWINGS_JSON_FILE)) {
-        try {
-            const data = fs.readFileSync(DRAWINGS_JSON_FILE, 'utf8');
-            const drawingsList = JSON.parse(data);
-            const ratings = loadRatings();
-            
-            // Mesclar as notas de estrelas atuais
-            const drawings = drawingsList.map(d => {
-                const ratingKey = `${d.category}/${d.slug}`;
-                const ratingData = ratings[ratingKey] || { totalStars: 0, votes: 0 };
-                const averageRating = ratingData.votes > 0 ? (ratingData.totalStars / ratingData.votes) : 0;
-                return {
-                    ...d,
-                    rating: averageRating,
-                    votes: ratingData.votes
-                };
-            });
-            
-            return res.json({ success: true, drawings });
-        } catch (e) {
-            console.error('Erro ao ler drawings.json, usando fallback de varredura:', e);
-        }
+app.get('/api/drawings', async (req, res) => {
+    try {
+        const { loadDrawings } = require('./r2db');
+        const drawingsList = await loadDrawings();
+        const ratings = loadRatings();
+        
+        // Mesclar as notas de estrelas atuais
+        const drawings = drawingsList.map(d => {
+            const ratingKey = `${d.category}/${d.slug}`;
+            const ratingData = ratings[ratingKey] || { totalStars: 0, votes: 0 };
+            const averageRating = ratingData.votes > 0 ? (ratingData.totalStars / ratingData.votes) : 0;
+            return {
+                ...d,
+                rating: averageRating,
+                votes: ratingData.votes
+            };
+        });
+        
+        return res.json({ success: true, drawings });
+    } catch (e) {
+        console.error('Erro ao ler drawings.json no servidor:', e);
+        return res.status(500).json({ success: false, message: 'Erro ao carregar desenhos.' });
     }
-    
-    return res.status(500).json({ success: false, message: 'Arquivo drawings.json não encontrado no servidor.' });
 });
 
 // Endpoint para votar
@@ -2349,6 +2343,38 @@ app.post('/api/paintings/delete', async (req, res) => {
         return res.status(500).json({ success: false, message: 'Erro ao remover pintura.' });
     }
 });
+
+// Endpoint para excluir um desenho do acervo de desenhos (apenas para Admin foneoliver@gmail.com)
+app.post('/api/drawings/delete', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const isAdmin = await checkIsAdmin(token);
+        if (!isAdmin) {
+            return res.status(403).json({ success: false, message: 'Acesso negado. Apenas administradores podem excluir desenhos.' });
+        }
+
+        const { category, slug } = req.body;
+        if (!category || !slug) {
+            return res.status(400).json({ success: false, message: 'Categoria e Slug são obrigatórios.' });
+        }
+
+        const { loadDrawings, saveDrawings } = require('./r2db');
+        const drawings = await loadDrawings();
+        const index = drawings.findIndex(d => d.category === category && d.slug === slug);
+
+        if (index !== -1) {
+            drawings.splice(index, 1);
+            await saveDrawings(drawings);
+            return res.json({ success: true, message: 'Desenho excluído com sucesso!' });
+        } else {
+            return res.status(404).json({ success: false, message: 'Desenho não encontrado no acervo.' });
+        }
+    } catch (err) {
+        console.error('Erro ao deletar desenho do acervo:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao excluir desenho do acervo.' });
+    }
+});
+
 
 
 // Endpoint para gerar desenho para colorir personalizado (consome 1 ou 2 créditos)

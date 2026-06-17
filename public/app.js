@@ -2436,6 +2436,53 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
             document.querySelector('.related-drawings-section').style.display = 'block';
         }
     }
+
+    // Botão de deletar desenho para Administrador (foneoliver@gmail.com) na visualização de detalhes
+    const sheetFrame = view.querySelector('.drawing-sheet-frame');
+    if (sheetFrame) {
+        const oldAdminBtn = sheetFrame.querySelector('.admin-detail-delete-btn');
+        if (oldAdminBtn) oldAdminBtn.remove();
+
+        if (currentUser && currentUser.email === 'foneoliver@gmail.com') {
+            const adminBtn = document.createElement('button');
+            adminBtn.className = 'admin-detail-delete-btn';
+            adminBtn.title = 'Excluir desenho bugado (Admin)';
+            adminBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i> Deletar Desenho';
+            adminBtn.style.cssText = 'position: absolute; top: 15px; right: 15px; z-index: 100; background-color: #e74c3c; border: 3px solid var(--color-dark); border-radius: var(--radius-sm); padding: 8px 16px; color: white; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; cursor: pointer; transition: transform 0.2s ease; box-shadow: 3px 3px 0 var(--color-dark); display: flex; align-items: center; gap: 8px;';
+            
+            adminBtn.onmouseenter = () => adminBtn.style.transform = 'translate(-2px, -2px)';
+            adminBtn.onmouseleave = () => adminBtn.style.transform = 'none';
+
+            adminBtn.onclick = async () => {
+                const confirmed = confirm(`ATENÇÃO ADMIN: Deseja realmente excluir permanentemente o desenho "${drawing.pt}" do acervo do site?`);
+                if (!confirmed) return;
+
+                try {
+                    const token = currentUser ? currentUser.token : '';
+                    const response = await fetch('/api/drawings/delete', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-session-token': token
+                        },
+                        body: JSON.stringify({ category: categorySlug, slug: drawingSlug })
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        showToast('Desenho excluído com sucesso!', 'success');
+                        navigate('/');
+                    } else {
+                        showToast(result.message || 'Erro ao excluir desenho.', 'error');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    showToast('Falha de rede ao excluir desenho.', 'error');
+                }
+            };
+
+            sheetFrame.appendChild(adminBtn);
+        }
+    }
 }
 
 // Roteador de Frases Vazadas (SVG Outline)
@@ -2622,7 +2669,13 @@ function createDrawingCard(dw, position = null, showTrending = false) {
         badgeHtml = '<span class="badge-free" style="background-color: var(--color-yellow); border-color: var(--color-dark);"><i class="fa-solid fa-star"></i> Novo!</span>';
     }
     
+    const isAdminUser = currentUser && currentUser.email === 'foneoliver@gmail.com';
+    const deleteBtnHtml = isAdminUser ? `
+        <button class="btn-delete-acervo-drawing" title="Excluir desenho bugado" style="position: absolute; top: 10px; left: 10px; z-index: 10; background-color: #e74c3c; border: 2px solid var(--color-dark); border-radius: 50%; width: 32px; height: 32px; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease; box-shadow: 0 2px 0 var(--color-dark);"><i class="fa-solid fa-trash-can"></i></button>
+    ` : '';
+    
     card.innerHTML = `
+        ${deleteBtnHtml}
         ${rankBadgeHtml}
         ${trendingBadgeHtml}
         <a href="${cardLink}" class="drawing-card-link">
@@ -2676,6 +2729,42 @@ function createDrawingCard(dw, position = null, showTrending = false) {
             triggerDrawingDownload(dw);
         }
     });
+
+    // Configurar clique do botão de deletar do admin
+    if (isAdminUser) {
+        const btnDel = card.querySelector('.btn-delete-acervo-drawing');
+        if (btnDel) {
+            btnDel.addEventListener('click', async (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                
+                const confirmed = confirm(`ATENÇÃO ADMIN: Deseja realmente excluir permanentemente o desenho "${dw.pt}" do acervo do site?`);
+                if (!confirmed) return;
+                
+                try {
+                    const token = currentUser ? currentUser.token : '';
+                    const response = await fetch('/api/drawings/delete', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-session-token': token
+                        },
+                        body: JSON.stringify({ category: dw.category, slug: dw.slug })
+                    });
+                    const result = await response.json();
+                    if (result.success) {
+                        showToast('Desenho excluído com sucesso!', 'success');
+                        card.remove();
+                    } else {
+                        showToast(result.message || 'Erro ao excluir desenho.', 'error');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    showToast('Falha de rede ao excluir desenho.', 'error');
+                }
+            });
+        }
+    }
     
     return card;
 }
