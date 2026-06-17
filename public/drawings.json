@@ -76645,7 +76645,7 @@
     "en": "Kind baker showing a tray of fresh cookies",
     "slug": "chef-padeiro-gentil-com-bandeja-de-biscoitos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 439,
@@ -76656,7 +76656,7 @@
     "en": "Kind baker stirring a big soup pot",
     "slug": "chef-padeiro-gentil-mexendo-panela-de-sopa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 44,
@@ -76678,7 +76678,7 @@
     "en": "Cute pastry chef wearing a tall white chef hat",
     "slug": "chef-confeiteiro-fofo-com-chapeu-de-cozinheiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 441,
@@ -76689,7 +76689,7 @@
     "en": "Cute pastry chef holding a wooden mixing spoon",
     "slug": "chef-confeiteiro-fofo-com-colher-de-pau",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 442,
@@ -76700,7 +76700,7 @@
     "en": "Cute pastry chef baking a delicious cake",
     "slug": "chef-confeiteiro-fofo-assando-bolo-gostoso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 443,
@@ -76711,7 +76711,7 @@
     "en": "Cute pastry chef tossing a pizza dough in the air",
     "slug": "chef-confeiteiro-fofo-jogando-massa-de-pizza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 444,
@@ -76722,7 +76722,7 @@
     "en": "Cute pastry chef showing a tray of fresh cookies",
     "slug": "chef-confeiteiro-fofo-com-bandeja-de-biscoitos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 445,
@@ -76733,7 +76733,7 @@
     "en": "Cute pastry chef stirring a big soup pot",
     "slug": "chef-confeiteiro-fofo-mexendo-panela-de-sopa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 446,
@@ -76744,7 +76744,7 @@
     "en": "Happy pizza chef wearing a tall white chef hat",
     "slug": "chef-pizzaiolo-feliz-com-chapeu-de-cozinheiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 447,
@@ -76755,7 +76755,7 @@
     "en": "Happy pizza chef holding a wooden mixing spoon",
     "slug": "chef-pizzaiolo-feliz-com-colher-de-pau",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 448,
@@ -76766,7 +76766,7 @@
     "en": "Happy pizza chef baking a delicious cake",
     "slug": "chef-pizzaiolo-feliz-assando-bolo-gostoso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 449,
@@ -76777,7 +76777,7 @@
     "en": "Happy pizza chef tossing a pizza dough in the air",
     "slug": "chef-pizzaiolo-feliz-jogando-massa-de-pizza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 45,
@@ -76799,7 +76799,7 @@
     "en": "Happy pizza chef showing a tray of fresh cookies",
     "slug": "chef-pizzaiolo-feliz-com-bandeja-de-biscoitos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 451,
@@ -76810,7 +76810,7 @@
     "en": "Happy pizza chef stirring a big soup pot",
     "slug": "chef-pizzaiolo-feliz-mexendo-panela-de-sopa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 452,
@@ -76821,7 +76821,7 @@
     "en": "Chef mascot wearing a tall white chef hat",
     "slug": "chef-mascote-chef-com-chapeu-de-cozinheiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 453,
@@ -76832,7 +76832,7 @@
     "en": "Chef mascot holding a wooden mixing spoon",
     "slug": "chef-mascote-chef-com-colher-de-pau",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 454,
@@ -76843,7 +76843,7 @@
     "en": "Chef mascot baking a delicious cake",
     "slug": "chef-mascote-chef-assando-bolo-gostoso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 455,
@@ -76854,7 +76854,7 @@
     "en": "Chef mascot tossing a pizza dough in the air",
     "slug": "chef-mascote-chef-jogando-massa-de-pizza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 456,
@@ -76865,7 +76865,7 @@
     "en": "Chef mascot showing a tray of fresh cookies",
     "slug": "chef-mascote-chef-com-bandeja-de-biscoitos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 457,
@@ -76876,7 +76876,7 @@
     "en": "Chef mascot stirring a big soup pot",
     "slug": "chef-mascote-chef-mexendo-panela-de-sopa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 458,
@@ -76887,7 +76887,7 @@
     "en": "Baker mascot wearing a tall white chef hat",
     "slug": "chef-mascote-padeiro-com-chapeu-de-cozinheiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 459,
@@ -76898,7 +76898,7 @@
     "en": "Baker mascot holding a wooden mixing spoon",
     "slug": "chef-mascote-padeiro-com-colher-de-pau",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 46,
@@ -76920,7 +76920,7 @@
     "en": "Baker mascot baking a delicious cake",
     "slug": "chef-mascote-padeiro-assando-bolo-gostoso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 461,
@@ -76931,7 +76931,7 @@
     "en": "Baker mascot tossing a pizza dough in the air",
     "slug": "chef-mascote-padeiro-jogando-massa-de-pizza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 462,
@@ -76942,7 +76942,7 @@
     "en": "Baker mascot showing a tray of fresh cookies",
     "slug": "chef-mascote-padeiro-com-bandeja-de-biscoitos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 463,
@@ -76953,7 +76953,7 @@
     "en": "Baker mascot stirring a big soup pot",
     "slug": "chef-mascote-padeiro-mexendo-panela-de-sopa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 464,
@@ -76964,7 +76964,7 @@
     "en": "Smiling cook wearing a tall white chef hat",
     "slug": "chef-cozinheiro-sorridente-com-chapeu-de-cozinheiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 465,
@@ -76975,7 +76975,7 @@
     "en": "Smiling cook holding a wooden mixing spoon",
     "slug": "chef-cozinheiro-sorridente-com-colher-de-pau",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 466,
@@ -76986,7 +76986,7 @@
     "en": "Smiling cook baking a delicious cake",
     "slug": "chef-cozinheiro-sorridente-assando-bolo-gostoso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 467,
@@ -76997,7 +76997,7 @@
     "en": "Smiling cook tossing a pizza dough in the air",
     "slug": "chef-cozinheiro-sorridente-jogando-massa-de-pizza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 468,
@@ -77008,7 +77008,7 @@
     "en": "Smiling cook showing a tray of fresh cookies",
     "slug": "chef-cozinheiro-sorridente-com-bandeja-de-biscoitos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 469,
@@ -77019,7 +77019,7 @@
     "en": "Smiling cook stirring a big soup pot",
     "slug": "chef-cozinheiro-sorridente-mexendo-panela-de-sopa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 47,
@@ -77041,7 +77041,7 @@
     "en": "Cartoon chef kid wearing a tall white chef hat",
     "slug": "chef-crianca-chef-desenho-com-chapeu-de-cozinheiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 471,
@@ -77052,7 +77052,7 @@
     "en": "Cartoon chef kid holding a wooden mixing spoon",
     "slug": "chef-crianca-chef-desenho-com-colher-de-pau",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 472,
@@ -77063,7 +77063,7 @@
     "en": "Cartoon chef kid baking a delicious cake",
     "slug": "chef-crianca-chef-desenho-assando-bolo-gostoso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 473,
@@ -77074,7 +77074,7 @@
     "en": "Cartoon chef kid tossing a pizza dough in the air",
     "slug": "chef-crianca-chef-desenho-jogando-massa-de-pizza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 474,
@@ -77085,7 +77085,7 @@
     "en": "Cartoon chef kid showing a tray of fresh cookies",
     "slug": "chef-crianca-chef-desenho-com-bandeja-de-biscoitos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 475,
@@ -77096,7 +77096,7 @@
     "en": "Cartoon chef kid stirring a big soup pot",
     "slug": "chef-crianca-chef-desenho-mexendo-panela-de-sopa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 476,
@@ -77107,7 +77107,7 @@
     "en": "Traditional chef wearing a tall white chef hat",
     "slug": "chef-chef-tradicional-com-chapeu-de-cozinheiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 477,
@@ -77118,7 +77118,7 @@
     "en": "Traditional chef holding a wooden mixing spoon",
     "slug": "chef-chef-tradicional-com-colher-de-pau",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 478,
@@ -77129,7 +77129,7 @@
     "en": "Traditional chef baking a delicious cake",
     "slug": "chef-chef-tradicional-assando-bolo-gostoso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 479,
@@ -77140,7 +77140,7 @@
     "en": "Traditional chef tossing a pizza dough in the air",
     "slug": "chef-chef-tradicional-jogando-massa-de-pizza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 48,
@@ -77162,7 +77162,7 @@
     "en": "Traditional chef showing a tray of fresh cookies",
     "slug": "chef-chef-tradicional-com-bandeja-de-biscoitos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 481,
@@ -77173,7 +77173,7 @@
     "en": "Traditional chef stirring a big soup pot",
     "slug": "chef-chef-tradicional-mexendo-panela-de-sopa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 482,
@@ -77184,7 +77184,7 @@
     "en": "Helpful kitchen helper wearing a tall white chef hat",
     "slug": "chef-ajudante-de-cozinha-com-chapeu-de-cozinheiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 483,
@@ -77195,7 +77195,7 @@
     "en": "Helpful kitchen helper holding a wooden mixing spoon",
     "slug": "chef-ajudante-de-cozinha-com-colher-de-pau",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 484,
@@ -77206,7 +77206,7 @@
     "en": "Helpful kitchen helper baking a delicious cake",
     "slug": "chef-ajudante-de-cozinha-assando-bolo-gostoso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 485,
@@ -77217,7 +77217,7 @@
     "en": "Helpful kitchen helper tossing a pizza dough in the air",
     "slug": "chef-ajudante-de-cozinha-jogando-massa-de-pizza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 486,
@@ -77228,7 +77228,7 @@
     "en": "Helpful kitchen helper showing a tray of fresh cookies",
     "slug": "chef-ajudante-de-cozinha-com-bandeja-de-biscoitos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 487,
@@ -77239,7 +77239,7 @@
     "en": "Helpful kitchen helper stirring a big soup pot",
     "slug": "chef-ajudante-de-cozinha-mexendo-panela-de-sopa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 49,
@@ -88671,6 +88671,28 @@
     "isNew": false
   },
   {
+    "index": 678,
+    "filename": "678-barco-barco-a-remo-com-bandeira-alegre__rowing_boat_waving_a_friendly_flag.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/678-barco-barco-a-remo-com-bandeira-alegre__rowing_boat_waving_a_friendly_flag.png",
+    "category": "veiculos",
+    "pt": "Barco barco a remo com bandeira alegre",
+    "en": "Rowing boat waving a friendly flag",
+    "slug": "barco-barco-a-remo-com-bandeira-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 679,
+    "filename": "679-barco-submarino-navegando-nas-ondas__submarine_sailing_on_wavy_ocean_waters.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/679-barco-submarino-navegando-nas-ondas__submarine_sailing_on_wavy_ocean_waters.png",
+    "category": "veiculos",
+    "pt": "Barco submarino navegando nas ondas",
+    "en": "Submarine sailing on wavy ocean waters",
+    "slug": "barco-submarino-navegando-nas-ondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 68,
     "filename": "68-bicicleta-na-fazenda__bicycle.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/68-bicicleta-na-fazenda__bicycle.png",
@@ -88680,6 +88702,116 @@
     "slug": "bicicleta-na-fazenda",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 680,
+    "filename": "680-barco-submarino-ancorado-no-porto__submarine_docked_at_a_sunny_harbor.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/680-barco-submarino-ancorado-no-porto__submarine_docked_at_a_sunny_harbor.png",
+    "category": "veiculos",
+    "pt": "Barco submarino ancorado no porto",
+    "en": "Submarine docked at a sunny harbor",
+    "slug": "barco-submarino-ancorado-no-porto",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 681,
+    "filename": "681-barco-submarino-mergulhando-fundo__submarine_diving_deep_underwater.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/681-barco-submarino-mergulhando-fundo__submarine_diving_deep_underwater.png",
+    "category": "veiculos",
+    "pt": "Barco submarino mergulhando fundo",
+    "en": "Submarine diving deep underwater",
+    "slug": "barco-submarino-mergulhando-fundo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 682,
+    "filename": "682-barco-submarino-no-lago-calmo__submarine_floating_on_a_calm_lake.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/682-barco-submarino-no-lago-calmo__submarine_floating_on_a_calm_lake.png",
+    "category": "veiculos",
+    "pt": "Barco submarino no lago calmo",
+    "en": "Submarine floating on a calm lake",
+    "slug": "barco-submarino-no-lago-calmo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 683,
+    "filename": "683-barco-submarino-rebocando-navio__submarine_towing_a_larger_ship.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/683-barco-submarino-rebocando-navio__submarine_towing_a_larger_ship.png",
+    "category": "veiculos",
+    "pt": "Barco submarino rebocando navio",
+    "en": "Submarine towing a larger ship",
+    "slug": "barco-submarino-rebocando-navio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 684,
+    "filename": "684-barco-submarino-com-bandeira-alegre__submarine_waving_a_friendly_flag.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/684-barco-submarino-com-bandeira-alegre__submarine_waving_a_friendly_flag.png",
+    "category": "veiculos",
+    "pt": "Barco submarino com bandeira alegre",
+    "en": "Submarine waving a friendly flag",
+    "slug": "barco-submarino-com-bandeira-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 685,
+    "filename": "685-barco-barco-de-brinquedo-navegando-nas-ondas__cute_toy_boat_sailing_on_wavy_ocean_waters.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/685-barco-barco-de-brinquedo-navegando-nas-ondas__cute_toy_boat_sailing_on_wavy_ocean_waters.png",
+    "category": "veiculos",
+    "pt": "Barco barco de brinquedo navegando nas ondas",
+    "en": "Cute toy boat sailing on wavy ocean waters",
+    "slug": "barco-barco-de-brinquedo-navegando-nas-ondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 686,
+    "filename": "686-barco-barco-de-brinquedo-ancorado-no-porto__cute_toy_boat_docked_at_a_sunny_harbor.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/686-barco-barco-de-brinquedo-ancorado-no-porto__cute_toy_boat_docked_at_a_sunny_harbor.png",
+    "category": "veiculos",
+    "pt": "Barco barco de brinquedo ancorado no porto",
+    "en": "Cute toy boat docked at a sunny harbor",
+    "slug": "barco-barco-de-brinquedo-ancorado-no-porto",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 687,
+    "filename": "687-barco-barco-de-brinquedo-mergulhando-fundo__cute_toy_boat_diving_deep_underwater.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/687-barco-barco-de-brinquedo-mergulhando-fundo__cute_toy_boat_diving_deep_underwater.png",
+    "category": "veiculos",
+    "pt": "Barco barco de brinquedo mergulhando fundo",
+    "en": "Cute toy boat diving deep underwater",
+    "slug": "barco-barco-de-brinquedo-mergulhando-fundo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 688,
+    "filename": "688-barco-barco-de-brinquedo-no-lago-calmo__cute_toy_boat_floating_on_a_calm_lake.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/688-barco-barco-de-brinquedo-no-lago-calmo__cute_toy_boat_floating_on_a_calm_lake.png",
+    "category": "veiculos",
+    "pt": "Barco barco de brinquedo no lago calmo",
+    "en": "Cute toy boat floating on a calm lake",
+    "slug": "barco-barco-de-brinquedo-no-lago-calmo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 689,
+    "filename": "689-barco-barco-de-brinquedo-rebocando-navio__cute_toy_boat_towing_a_larger_ship.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/689-barco-barco-de-brinquedo-rebocando-navio__cute_toy_boat_towing_a_larger_ship.png",
+    "category": "veiculos",
+    "pt": "Barco barco de brinquedo rebocando navio",
+    "en": "Cute toy boat towing a larger ship",
+    "slug": "barco-barco-de-brinquedo-rebocando-navio",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 69,
@@ -88693,6 +88825,116 @@
     "isNew": true
   },
   {
+    "index": 690,
+    "filename": "690-barco-barco-de-brinquedo-com-bandeira-alegre__cute_toy_boat_waving_a_friendly_flag.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/690-barco-barco-de-brinquedo-com-bandeira-alegre__cute_toy_boat_waving_a_friendly_flag.png",
+    "category": "veiculos",
+    "pt": "Barco barco de brinquedo com bandeira alegre",
+    "en": "Cute toy boat waving a friendly flag",
+    "slug": "barco-barco-de-brinquedo-com-bandeira-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 691,
+    "filename": "691-barco-barco-de-desenho-navegando-nas-ondas__friendly_cartoon_boat_sailing_on_wavy_ocean_waters.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/691-barco-barco-de-desenho-navegando-nas-ondas__friendly_cartoon_boat_sailing_on_wavy_ocean_waters.png",
+    "category": "veiculos",
+    "pt": "Barco barco de desenho navegando nas ondas",
+    "en": "Friendly cartoon boat sailing on wavy ocean waters",
+    "slug": "barco-barco-de-desenho-navegando-nas-ondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 692,
+    "filename": "692-barco-barco-de-desenho-ancorado-no-porto__friendly_cartoon_boat_docked_at_a_sunny_harbor.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/692-barco-barco-de-desenho-ancorado-no-porto__friendly_cartoon_boat_docked_at_a_sunny_harbor.png",
+    "category": "veiculos",
+    "pt": "Barco barco de desenho ancorado no porto",
+    "en": "Friendly cartoon boat docked at a sunny harbor",
+    "slug": "barco-barco-de-desenho-ancorado-no-porto",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 693,
+    "filename": "693-barco-barco-de-desenho-mergulhando-fundo__friendly_cartoon_boat_diving_deep_underwater.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/693-barco-barco-de-desenho-mergulhando-fundo__friendly_cartoon_boat_diving_deep_underwater.png",
+    "category": "veiculos",
+    "pt": "Barco barco de desenho mergulhando fundo",
+    "en": "Friendly cartoon boat diving deep underwater",
+    "slug": "barco-barco-de-desenho-mergulhando-fundo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 694,
+    "filename": "694-barco-barco-de-desenho-no-lago-calmo__friendly_cartoon_boat_floating_on_a_calm_lake.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/694-barco-barco-de-desenho-no-lago-calmo__friendly_cartoon_boat_floating_on_a_calm_lake.png",
+    "category": "veiculos",
+    "pt": "Barco barco de desenho no lago calmo",
+    "en": "Friendly cartoon boat floating on a calm lake",
+    "slug": "barco-barco-de-desenho-no-lago-calmo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 695,
+    "filename": "695-barco-barco-de-desenho-rebocando-navio__friendly_cartoon_boat_towing_a_larger_ship.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/695-barco-barco-de-desenho-rebocando-navio__friendly_cartoon_boat_towing_a_larger_ship.png",
+    "category": "veiculos",
+    "pt": "Barco barco de desenho rebocando navio",
+    "en": "Friendly cartoon boat towing a larger ship",
+    "slug": "barco-barco-de-desenho-rebocando-navio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 696,
+    "filename": "696-barco-barco-de-desenho-com-bandeira-alegre__friendly_cartoon_boat_waving_a_friendly_flag.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/696-barco-barco-de-desenho-com-bandeira-alegre__friendly_cartoon_boat_waving_a_friendly_flag.png",
+    "category": "veiculos",
+    "pt": "Barco barco de desenho com bandeira alegre",
+    "en": "Friendly cartoon boat waving a friendly flag",
+    "slug": "barco-barco-de-desenho-com-bandeira-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 697,
+    "filename": "697-barco-rebocador-navegando-nas-ondas__tugboat_sailing_on_wavy_ocean_waters.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/697-barco-rebocador-navegando-nas-ondas__tugboat_sailing_on_wavy_ocean_waters.png",
+    "category": "veiculos",
+    "pt": "Barco rebocador navegando nas ondas",
+    "en": "Tugboat sailing on wavy ocean waters",
+    "slug": "barco-rebocador-navegando-nas-ondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 698,
+    "filename": "698-barco-rebocador-ancorado-no-porto__tugboat_docked_at_a_sunny_harbor.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/698-barco-rebocador-ancorado-no-porto__tugboat_docked_at_a_sunny_harbor.png",
+    "category": "veiculos",
+    "pt": "Barco rebocador ancorado no porto",
+    "en": "Tugboat docked at a sunny harbor",
+    "slug": "barco-rebocador-ancorado-no-porto",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 699,
+    "filename": "699-barco-rebocador-mergulhando-fundo__tugboat_diving_deep_underwater.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/699-barco-rebocador-mergulhando-fundo__tugboat_diving_deep_underwater.png",
+    "category": "veiculos",
+    "pt": "Barco rebocador mergulhando fundo",
+    "en": "Tugboat diving deep underwater",
+    "slug": "barco-rebocador-mergulhando-fundo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 70,
     "filename": "70-trator-na-fazenda__tractor.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/70-trator-na-fazenda__tractor.png",
@@ -88702,6 +88944,116 @@
     "slug": "trator-na-fazenda",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 700,
+    "filename": "700-barco-rebocador-no-lago-calmo__tugboat_floating_on_a_calm_lake.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/700-barco-rebocador-no-lago-calmo__tugboat_floating_on_a_calm_lake.png",
+    "category": "veiculos",
+    "pt": "Barco rebocador no lago calmo",
+    "en": "Tugboat floating on a calm lake",
+    "slug": "barco-rebocador-no-lago-calmo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 701,
+    "filename": "701-barco-rebocador-rebocando-navio__tugboat_towing_a_larger_ship.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/701-barco-rebocador-rebocando-navio__tugboat_towing_a_larger_ship.png",
+    "category": "veiculos",
+    "pt": "Barco rebocador rebocando navio",
+    "en": "Tugboat towing a larger ship",
+    "slug": "barco-rebocador-rebocando-navio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 702,
+    "filename": "702-barco-rebocador-com-bandeira-alegre__tugboat_waving_a_friendly_flag.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/702-barco-rebocador-com-bandeira-alegre__tugboat_waving_a_friendly_flag.png",
+    "category": "veiculos",
+    "pt": "Barco rebocador com bandeira alegre",
+    "en": "Tugboat waving a friendly flag",
+    "slug": "barco-rebocador-com-bandeira-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 703,
+    "filename": "703-caminhao-caminhao-cacamba-na-rodovia-larga__dump_truck_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/703-caminhao-caminhao-cacamba-na-rodovia-larga__dump_truck_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cacamba na rodovia larga",
+    "en": "Dump truck driving on a wide highway",
+    "slug": "caminhao-caminhao-cacamba-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 704,
+    "filename": "704-caminhao-caminhao-cacamba-saltando-na-arena__dump_truck_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/704-caminhao-caminhao-cacamba-saltando-na-arena__dump_truck_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cacamba saltando na arena",
+    "en": "Dump truck jumping over ramps in an arena",
+    "slug": "caminhao-caminhao-cacamba-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 705,
+    "filename": "705-caminhao-caminhao-cacamba-entregando-pacotes__dump_truck_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/705-caminhao-caminhao-cacamba-entregando-pacotes__dump_truck_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cacamba entregando pacotes",
+    "en": "Dump truck delivering colorful packages",
+    "slug": "caminhao-caminhao-cacamba-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 706,
+    "filename": "706-caminhao-caminhao-cacamba-limpando-as-ruas__dump_truck_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/706-caminhao-caminhao-cacamba-limpando-as-ruas__dump_truck_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cacamba limpando as ruas",
+    "en": "Dump truck cleaning the city streets",
+    "slug": "caminhao-caminhao-cacamba-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 707,
+    "filename": "707-caminhao-caminhao-cacamba-carregando-toras__dump_truck_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/707-caminhao-caminhao-cacamba-carregando-toras__dump_truck_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cacamba carregando toras",
+    "en": "Dump truck carrying logs of wood",
+    "slug": "caminhao-caminhao-cacamba-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 708,
+    "filename": "708-caminhao-caminhao-cacamba-no-patio-de-carga__dump_truck_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/708-caminhao-caminhao-cacamba-no-patio-de-carga__dump_truck_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cacamba no patio de carga",
+    "en": "Dump truck parked at a loading dock",
+    "slug": "caminhao-caminhao-cacamba-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 709,
+    "filename": "709-caminhao-caminhao-cacamba-buzinando-forte__dump_truck_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/709-caminhao-caminhao-cacamba-buzinando-forte__dump_truck_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cacamba buzinando forte",
+    "en": "Dump truck blowing its loud horn",
+    "slug": "caminhao-caminhao-cacamba-buzinando-forte",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 71,
@@ -88715,6 +89067,116 @@
     "isNew": true
   },
   {
+    "index": 710,
+    "filename": "710-caminhao-caminhao-cacamba-levando-carrinhos__dump_truck_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/710-caminhao-caminhao-cacamba-levando-carrinhos__dump_truck_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cacamba levando carrinhos",
+    "en": "Dump truck carrying smaller cars on its back",
+    "slug": "caminhao-caminhao-cacamba-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 711,
+    "filename": "711-caminhao-caminhao-cegonha-na-rodovia-larga__semi-truck_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/711-caminhao-caminhao-cegonha-na-rodovia-larga__semi-truck_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha na rodovia larga",
+    "en": "Semi truck driving on a wide highway",
+    "slug": "caminhao-caminhao-cegonha-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 712,
+    "filename": "712-caminhao-caminhao-cegonha-saltando-na-arena__semi-truck_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/712-caminhao-caminhao-cegonha-saltando-na-arena__semi-truck_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha saltando na arena",
+    "en": "Semi truck jumping over ramps in an arena",
+    "slug": "caminhao-caminhao-cegonha-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 713,
+    "filename": "713-caminhao-caminhao-cegonha-entregando-pacotes__semi-truck_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/713-caminhao-caminhao-cegonha-entregando-pacotes__semi-truck_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha entregando pacotes",
+    "en": "Semi truck delivering colorful packages",
+    "slug": "caminhao-caminhao-cegonha-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 714,
+    "filename": "714-caminhao-caminhao-cegonha-limpando-as-ruas__semi-truck_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/714-caminhao-caminhao-cegonha-limpando-as-ruas__semi-truck_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha limpando as ruas",
+    "en": "Semi truck cleaning the city streets",
+    "slug": "caminhao-caminhao-cegonha-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 715,
+    "filename": "715-caminhao-caminhao-cegonha-carregando-toras__semi-truck_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/715-caminhao-caminhao-cegonha-carregando-toras__semi-truck_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha carregando toras",
+    "en": "Semi truck carrying logs of wood",
+    "slug": "caminhao-caminhao-cegonha-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 716,
+    "filename": "716-caminhao-caminhao-cegonha-no-patio-de-carga__semi-truck_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/716-caminhao-caminhao-cegonha-no-patio-de-carga__semi-truck_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha no patio de carga",
+    "en": "Semi truck parked at a loading dock",
+    "slug": "caminhao-caminhao-cegonha-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 717,
+    "filename": "717-caminhao-caminhao-cegonha-buzinando-forte__semi-truck_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/717-caminhao-caminhao-cegonha-buzinando-forte__semi-truck_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha buzinando forte",
+    "en": "Semi truck blowing its loud horn",
+    "slug": "caminhao-caminhao-cegonha-buzinando-forte",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 718,
+    "filename": "718-caminhao-caminhao-cegonha-levando-carrinhos__semi-truck_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/718-caminhao-caminhao-cegonha-levando-carrinhos__semi-truck_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha levando carrinhos",
+    "en": "Semi truck carrying smaller cars on its back",
+    "slug": "caminhao-caminhao-cegonha-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 719,
+    "filename": "719-caminhao-caminhao-de-lixo-na-rodovia-larga__garbage_truck_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/719-caminhao-caminhao-de-lixo-na-rodovia-larga__garbage_truck_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de lixo na rodovia larga",
+    "en": "Garbage truck driving on a wide highway",
+    "slug": "caminhao-caminhao-de-lixo-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 72,
     "filename": "72-ambulancia-na-fazenda__ambulance.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/72-ambulancia-na-fazenda__ambulance.png",
@@ -88724,6 +89186,116 @@
     "slug": "ambulancia-na-fazenda",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 720,
+    "filename": "720-caminhao-caminhao-de-lixo-saltando-na-arena__garbage_truck_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/720-caminhao-caminhao-de-lixo-saltando-na-arena__garbage_truck_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de lixo saltando na arena",
+    "en": "Garbage truck jumping over ramps in an arena",
+    "slug": "caminhao-caminhao-de-lixo-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 721,
+    "filename": "721-caminhao-caminhao-de-lixo-entregando-pacotes__garbage_truck_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/721-caminhao-caminhao-de-lixo-entregando-pacotes__garbage_truck_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de lixo entregando pacotes",
+    "en": "Garbage truck delivering colorful packages",
+    "slug": "caminhao-caminhao-de-lixo-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 722,
+    "filename": "722-caminhao-caminhao-de-lixo-limpando-as-ruas__garbage_truck_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/722-caminhao-caminhao-de-lixo-limpando-as-ruas__garbage_truck_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de lixo limpando as ruas",
+    "en": "Garbage truck cleaning the city streets",
+    "slug": "caminhao-caminhao-de-lixo-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 723,
+    "filename": "723-caminhao-caminhao-de-lixo-carregando-toras__garbage_truck_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/723-caminhao-caminhao-de-lixo-carregando-toras__garbage_truck_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de lixo carregando toras",
+    "en": "Garbage truck carrying logs of wood",
+    "slug": "caminhao-caminhao-de-lixo-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 724,
+    "filename": "724-caminhao-caminhao-de-lixo-no-patio-de-carga__garbage_truck_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/724-caminhao-caminhao-de-lixo-no-patio-de-carga__garbage_truck_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de lixo no patio de carga",
+    "en": "Garbage truck parked at a loading dock",
+    "slug": "caminhao-caminhao-de-lixo-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 725,
+    "filename": "725-caminhao-caminhao-de-lixo-buzinando-forte__garbage_truck_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/725-caminhao-caminhao-de-lixo-buzinando-forte__garbage_truck_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de lixo buzinando forte",
+    "en": "Garbage truck blowing its loud horn",
+    "slug": "caminhao-caminhao-de-lixo-buzinando-forte",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 726,
+    "filename": "726-caminhao-caminhao-de-lixo-levando-carrinhos__garbage_truck_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/726-caminhao-caminhao-de-lixo-levando-carrinhos__garbage_truck_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de lixo levando carrinhos",
+    "en": "Garbage truck carrying smaller cars on its back",
+    "slug": "caminhao-caminhao-de-lixo-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 727,
+    "filename": "727-caminhao-furgao-de-entrega-na-rodovia-larga__delivery_van_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/727-caminhao-furgao-de-entrega-na-rodovia-larga__delivery_van_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao furgao de entrega na rodovia larga",
+    "en": "Delivery van driving on a wide highway",
+    "slug": "caminhao-furgao-de-entrega-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 728,
+    "filename": "728-caminhao-furgao-de-entrega-saltando-na-arena__delivery_van_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/728-caminhao-furgao-de-entrega-saltando-na-arena__delivery_van_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao furgao de entrega saltando na arena",
+    "en": "Delivery van jumping over ramps in an arena",
+    "slug": "caminhao-furgao-de-entrega-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 729,
+    "filename": "729-caminhao-furgao-de-entrega-entregando-pacotes__delivery_van_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/729-caminhao-furgao-de-entrega-entregando-pacotes__delivery_van_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao furgao de entrega entregando pacotes",
+    "en": "Delivery van delivering colorful packages",
+    "slug": "caminhao-furgao-de-entrega-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 73,
@@ -88737,6 +89309,116 @@
     "isNew": true
   },
   {
+    "index": 730,
+    "filename": "730-caminhao-furgao-de-entrega-limpando-as-ruas__delivery_van_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/730-caminhao-furgao-de-entrega-limpando-as-ruas__delivery_van_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao furgao de entrega limpando as ruas",
+    "en": "Delivery van cleaning the city streets",
+    "slug": "caminhao-furgao-de-entrega-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 731,
+    "filename": "731-caminhao-furgao-de-entrega-carregando-toras__delivery_van_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/731-caminhao-furgao-de-entrega-carregando-toras__delivery_van_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao furgao de entrega carregando toras",
+    "en": "Delivery van carrying logs of wood",
+    "slug": "caminhao-furgao-de-entrega-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 732,
+    "filename": "732-caminhao-furgao-de-entrega-no-patio-de-carga__delivery_van_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/732-caminhao-furgao-de-entrega-no-patio-de-carga__delivery_van_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao furgao de entrega no patio de carga",
+    "en": "Delivery van parked at a loading dock",
+    "slug": "caminhao-furgao-de-entrega-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 733,
+    "filename": "733-caminhao-furgao-de-entrega-buzinando-forte__delivery_van_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/733-caminhao-furgao-de-entrega-buzinando-forte__delivery_van_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao furgao de entrega buzinando forte",
+    "en": "Delivery van blowing its loud horn",
+    "slug": "caminhao-furgao-de-entrega-buzinando-forte",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 734,
+    "filename": "734-caminhao-furgao-de-entrega-levando-carrinhos__delivery_van_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/734-caminhao-furgao-de-entrega-levando-carrinhos__delivery_van_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao furgao de entrega levando carrinhos",
+    "en": "Delivery van carrying smaller cars on its back",
+    "slug": "caminhao-furgao-de-entrega-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 735,
+    "filename": "735-caminhao-caminhao-guincho-na-rodovia-larga__tow_truck_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/735-caminhao-caminhao-guincho-na-rodovia-larga__tow_truck_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao guincho na rodovia larga",
+    "en": "Tow truck driving on a wide highway",
+    "slug": "caminhao-caminhao-guincho-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 736,
+    "filename": "736-caminhao-caminhao-guincho-saltando-na-arena__tow_truck_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/736-caminhao-caminhao-guincho-saltando-na-arena__tow_truck_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao guincho saltando na arena",
+    "en": "Tow truck jumping over ramps in an arena",
+    "slug": "caminhao-caminhao-guincho-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 737,
+    "filename": "737-caminhao-caminhao-guincho-entregando-pacotes__tow_truck_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/737-caminhao-caminhao-guincho-entregando-pacotes__tow_truck_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao guincho entregando pacotes",
+    "en": "Tow truck delivering colorful packages",
+    "slug": "caminhao-caminhao-guincho-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 738,
+    "filename": "738-caminhao-caminhao-guincho-limpando-as-ruas__tow_truck_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/738-caminhao-caminhao-guincho-limpando-as-ruas__tow_truck_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao guincho limpando as ruas",
+    "en": "Tow truck cleaning the city streets",
+    "slug": "caminhao-caminhao-guincho-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 739,
+    "filename": "739-caminhao-caminhao-guincho-carregando-toras__tow_truck_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/739-caminhao-caminhao-guincho-carregando-toras__tow_truck_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao guincho carregando toras",
+    "en": "Tow truck carrying logs of wood",
+    "slug": "caminhao-caminhao-guincho-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 74,
     "filename": "74-balao-na-fazenda__hot_air_balloon.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/74-balao-na-fazenda__hot_air_balloon.png",
@@ -88748,6 +89430,116 @@
     "isNew": true
   },
   {
+    "index": 740,
+    "filename": "740-caminhao-caminhao-guincho-no-patio-de-carga__tow_truck_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/740-caminhao-caminhao-guincho-no-patio-de-carga__tow_truck_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao guincho no patio de carga",
+    "en": "Tow truck parked at a loading dock",
+    "slug": "caminhao-caminhao-guincho-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 741,
+    "filename": "741-caminhao-caminhao-guincho-buzinando-forte__tow_truck_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/741-caminhao-caminhao-guincho-buzinando-forte__tow_truck_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao guincho buzinando forte",
+    "en": "Tow truck blowing its loud horn",
+    "slug": "caminhao-caminhao-guincho-buzinando-forte",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 742,
+    "filename": "742-caminhao-caminhao-guincho-levando-carrinhos__tow_truck_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/742-caminhao-caminhao-guincho-levando-carrinhos__tow_truck_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao guincho levando carrinhos",
+    "en": "Tow truck carrying smaller cars on its back",
+    "slug": "caminhao-caminhao-guincho-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 743,
+    "filename": "743-caminhao-caminhao-de-sorvete-na-rodovia-larga__ice_cream_truck_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/743-caminhao-caminhao-de-sorvete-na-rodovia-larga__ice_cream_truck_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de sorvete na rodovia larga",
+    "en": "Ice cream truck driving on a wide highway",
+    "slug": "caminhao-caminhao-de-sorvete-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 744,
+    "filename": "744-caminhao-caminhao-de-sorvete-saltando-na-arena__ice_cream_truck_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/744-caminhao-caminhao-de-sorvete-saltando-na-arena__ice_cream_truck_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de sorvete saltando na arena",
+    "en": "Ice cream truck jumping over ramps in an arena",
+    "slug": "caminhao-caminhao-de-sorvete-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 745,
+    "filename": "745-caminhao-caminhao-de-sorvete-entregando-pacotes__ice_cream_truck_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/745-caminhao-caminhao-de-sorvete-entregando-pacotes__ice_cream_truck_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de sorvete entregando pacotes",
+    "en": "Ice cream truck delivering colorful packages",
+    "slug": "caminhao-caminhao-de-sorvete-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 746,
+    "filename": "746-caminhao-caminhao-de-sorvete-limpando-as-ruas__ice_cream_truck_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/746-caminhao-caminhao-de-sorvete-limpando-as-ruas__ice_cream_truck_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de sorvete limpando as ruas",
+    "en": "Ice cream truck cleaning the city streets",
+    "slug": "caminhao-caminhao-de-sorvete-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 747,
+    "filename": "747-caminhao-caminhao-de-sorvete-carregando-toras__ice_cream_truck_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/747-caminhao-caminhao-de-sorvete-carregando-toras__ice_cream_truck_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de sorvete carregando toras",
+    "en": "Ice cream truck carrying logs of wood",
+    "slug": "caminhao-caminhao-de-sorvete-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 748,
+    "filename": "748-caminhao-caminhao-de-sorvete-no-patio-de-carga__ice_cream_truck_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/748-caminhao-caminhao-de-sorvete-no-patio-de-carga__ice_cream_truck_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de sorvete no patio de carga",
+    "en": "Ice cream truck parked at a loading dock",
+    "slug": "caminhao-caminhao-de-sorvete-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 749,
+    "filename": "749-caminhao-caminhao-de-sorvete-buzinando-forte__ice_cream_truck_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/749-caminhao-caminhao-de-sorvete-buzinando-forte__ice_cream_truck_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de sorvete buzinando forte",
+    "en": "Ice cream truck blowing its loud horn",
+    "slug": "caminhao-caminhao-de-sorvete-buzinando-forte",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 75,
     "filename": "75-onibus-na-fazenda__bus.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/75-onibus-na-fazenda__bus.png",
@@ -88757,6 +89549,39 @@
     "slug": "onibus-na-fazenda",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 750,
+    "filename": "750-caminhao-caminhao-de-sorvete-levando-carrinhos__ice_cream_truck_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/750-caminhao-caminhao-de-sorvete-levando-carrinhos__ice_cream_truck_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao de sorvete levando carrinhos",
+    "en": "Ice cream truck carrying smaller cars on its back",
+    "slug": "caminhao-caminhao-de-sorvete-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 751,
+    "filename": "751-caminhao-monster-truck-gigante-na-rodovia-larga__monster_truck_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/751-caminhao-monster-truck-gigante-na-rodovia-larga__monster_truck_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao monster truck gigante na rodovia larga",
+    "en": "Monster truck driving on a wide highway",
+    "slug": "caminhao-monster-truck-gigante-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 752,
+    "filename": "752-caminhao-monster-truck-gigante-saltando-na-arena__monster_truck_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/752-caminhao-monster-truck-gigante-saltando-na-arena__monster_truck_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao monster truck gigante saltando na arena",
+    "en": "Monster truck jumping over ramps in an arena",
+    "slug": "caminhao-monster-truck-gigante-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 76,
