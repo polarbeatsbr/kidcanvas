@@ -4428,15 +4428,125 @@ button, input, select, textarea {
     100% { transform: scale(1); }
 }
 
-/* Paint Splatter Button & Hero Features Badge Line */
-.btn-paint-splatter {
-    position: relative !important;
-    overflow: visible !important;
-    background-color: var(--color-purple) !important;
-    z-index: 1;
+/* Hero CTA Grid & Cards */
+.hero-cta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 35px;
+    max-width: 650px;
 }
 
-.btn-paint-splatter .splat {
+.hero-cta-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 22px;
+    border-radius: var(--radius-md);
+    border: var(--border-medium);
+    box-shadow: var(--shadow-cartoon);
+    text-decoration: none;
+    transition: var(--transition-bounce);
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+}
+
+.hero-cta-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-cartoon-hover);
+}
+
+.hero-cta-card:active {
+    transform: translateY(2px);
+    box-shadow: var(--shadow-cartoon-active);
+}
+
+.hero-cta-card .cta-icon {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-sm);
+    background: var(--color-white);
+    border: var(--border-thin);
+    box-shadow: 0 3px 0 var(--color-dark);
+}
+
+.hero-cta-card .cta-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-cta-card .cta-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.hero-cta-card .cta-subtitle {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-dark-light);
+    opacity: 0.85;
+}
+
+/* Card Themes */
+.card-ia-drawing {
+    background-color: var(--color-purple-light);
+    border-color: var(--color-purple);
+}
+.card-ia-drawing .cta-icon {
+    color: var(--color-purple);
+    border-color: var(--color-purple);
+}
+.card-ia-drawing .cta-title {
+    color: var(--color-purple);
+}
+
+.card-ia-story {
+    background-color: var(--color-yellow-light);
+    border-color: var(--color-orange);
+}
+.card-ia-story .cta-icon {
+    color: var(--color-orange);
+    border-color: var(--color-orange);
+}
+.card-ia-story .cta-title {
+    color: var(--color-orange);
+}
+
+.card-free-paint {
+    background-color: var(--color-green-light);
+    border-color: var(--color-green);
+    position: relative !important;
+    overflow: visible !important;
+    z-index: 1;
+}
+.card-free-paint .cta-icon {
+    color: var(--color-green);
+    border-color: var(--color-green);
+}
+.card-free-paint .cta-title {
+    color: var(--color-green);
+}
+
+.card-free-library {
+    background-color: var(--color-blue-light);
+    border-color: var(--color-blue);
+}
+.card-free-library .cta-icon {
+    color: var(--color-blue);
+    border-color: var(--color-blue);
+}
+.card-free-library .cta-title {
+    color: var(--color-blue);
+}
+
+/* Paint Splatters */
+.card-free-paint .splat {
     position: absolute;
     background-repeat: no-repeat;
     background-size: contain;
@@ -4447,78 +4557,57 @@ button, input, select, textarea {
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.btn-paint-splatter .splat-yellow {
-    top: -16px;
-    left: -20px;
-    width: 44px;
-    height: 44px;
+.card-free-paint .splat-yellow {
+    top: -14px;
+    left: -18px;
+    width: 38px;
+    height: 38px;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,30 C60,20 70,35 75,40 C85,45 90,60 80,70 C70,80 50,85 40,75 C30,65 20,60 30,45 C35,35 40,40 50,30 Z' fill='%23F39C12'/><circle cx='15' cy='35' r='5' fill='%23F39C12'/><circle cx='80' cy='25' r='4' fill='%23F39C12'/></svg>");
     transform: rotate(-15deg);
 }
 
-.btn-paint-splatter .splat-orange {
-    bottom: -16px;
-    right: -14px;
-    width: 48px;
-    height: 48px;
+.card-free-paint .splat-orange {
+    bottom: -14px;
+    right: -12px;
+    width: 42px;
+    height: 42px;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,25 C65,15 75,30 80,45 C85,60 70,80 55,80 C40,80 30,70 25,55 C20,40 35,35 50,25 Z' fill='%23E67E22'/><circle cx='85' cy='85' r='6' fill='%23E67E22'/><circle cx='15' cy='70' r='4' fill='%23E67E22'/></svg>");
     transform: rotate(20deg);
 }
 
-.btn-paint-splatter .splat-blue {
-    top: -22px;
-    right: 25px;
-    width: 36px;
-    height: 36px;
+.card-free-paint .splat-blue {
+    top: -18px;
+    right: 22px;
+    width: 32px;
+    height: 32px;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,30 C60,20 80,40 70,60 C60,80 40,75 30,60 C20,45 40,40 50,30 Z' fill='%233498DB'/><circle cx='50' cy='10' r='4' fill='%233498DB'/></svg>");
     transform: rotate(45deg);
 }
 
-.btn-paint-splatter:hover .splat-yellow {
-    transform: rotate(-25deg) scale(1.18);
+.card-free-paint:hover .splat-yellow {
+    transform: rotate(-25deg) scale(1.15);
     filter: drop-shadow(0px 3px 0px var(--color-dark));
 }
 
-.btn-paint-splatter:hover .splat-orange {
-    transform: rotate(35deg) scale(1.18);
+.card-free-paint:hover .splat-orange {
+    transform: rotate(35deg) scale(1.15);
     filter: drop-shadow(0px 3px 0px var(--color-dark));
 }
 
-.btn-paint-splatter:hover .splat-blue {
-    transform: rotate(65deg) scale(1.22);
+.card-free-paint:hover .splat-blue {
+    transform: rotate(65deg) scale(1.2);
     filter: drop-shadow(0px 3px 0px var(--color-dark));
 }
 
-.hero-features-badge-line {
-    margin-top: 30px;
-    font-size: 1.05rem;
-    color: var(--color-dark-light);
-    font-weight: 700;
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
+/* Responsiveness */
 @media (max-width: 768px) {
-    .hero-features-badge-line {
-        justify-content: center;
-        text-align: center;
-        gap: 10px 14px;
+    .hero-cta-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        max-width: 100%;
         margin-top: 25px;
     }
-    
-    .hero-features-badge-line .badge-separator {
-        display: none;
-    }
-    
-    .hero-features-badge-line .badge-item {
-        background-color: var(--color-white);
-        border: var(--border-thin);
-        padding: 5px 12px;
-        border-radius: 20px;
-        box-shadow: 0 3px 0 var(--color-dark);
-        font-size: 0.9rem;
-        display: inline-block;
+    .hero-cta-card {
+        padding: 14px 20px;
     }
 }
