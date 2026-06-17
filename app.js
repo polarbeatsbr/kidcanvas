@@ -2782,7 +2782,7 @@ function createDrawingCard(dw, position = null, showTrending = false) {
         ${rankBadgeHtml}
         ${trendingBadgeHtml}
         <a href="${cardLink}" class="drawing-card-link">
-            <div class="card-img-wrapper" style="${isLocked ? 'filter: grayscale(1) opacity(0.85);' : ''}">
+            <div class="card-img-wrapper" style="${isLocked ? 'filter: blur(5px) grayscale(0.2) opacity(0.8);' : ''}">
                 <img src="${dw.url}" alt="${dw.pt}" loading="lazy">
             </div>
         </a>
