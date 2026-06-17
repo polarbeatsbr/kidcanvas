@@ -4690,3 +4690,58 @@
 [2026-06-17 05:14:49] Rebuilding catalog and drawings database...
 [2026-06-17 05:14:50] Build successful!
 [2026-06-17 05:14:50] Committing and pushing to origin main...
+[2026-06-17 05:14:54] Push successful! Vercel will deploy in production.
+[2026-06-17 05:14:56] [2701/4400] Generated: guerreiros-e-lendas/41-cavaleiro-mascote-cao-cavaleiro-com-espada-brilhante__knight_dog_mascot_holding_a_shiny_sword.png
+[2026-06-17 05:14:57] [2702/4400] Generated: guerreiros-e-lendas/42-cavaleiro-mascote-cao-cavaleiro-perto-do-castelo__knight_dog_mascot_standing_next_to_a_castle_gate.png
+[2026-06-17 05:14:58] [2703/4400] Generated: guerreiros-e-lendas/43-cavaleiro-mascote-cao-cavaleiro-montado-no-cavalo__knight_dog_mascot_riding_a_brave_horse.png
+[2026-06-17 05:15:00] [2704/4400] Generated: guerreiros-e-lendas/44-cavaleiro-mascote-cao-cavaleiro-com-escudo-de-leao__knight_dog_mascot_holding_a_shield_with_a_lion_crest.png
+[2026-06-17 05:15:01] [2705/4400] Generated: guerreiros-e-lendas/45-cavaleiro-mascote-cao-cavaleiro-acenando-amigavel__knight_dog_mascot_waving_friendly.png
+[2026-06-17 05:15:02] [2706/4400] Generated: guerreiros-e-lendas/46-cavaleiro-mascote-cao-cavaleiro-com-capacete-de-plumas__knight_dog_mascot_wearing_a_feathered_helmet.png
+[2026-06-17 05:15:03] [2707/4400] Generated: guerreiros-e-lendas/47-cavaleiro-mascote-cao-cavaleiro-apontando-para-torre__knight_dog_mascot_pointing_to_a_castle_tower.png
+[2026-06-17 05:15:06] [2708/4400] Generated: guerreiros-e-lendas/48-cavaleiro-mascote-cao-cavaleiro-no-patio-do-castelo__knight_dog_mascot_resting_in_the_courtyard.png
+[2026-06-17 05:15:07] [2709/4400] Generated: guerreiros-e-lendas/49-cavaleiro-mascote-cao-cavaleiro-com-bandeira-de-vitoria__knight_dog_mascot_holding_a_victory_flag.png
+[2026-06-17 05:15:08] [2710/4400] Generated: guerreiros-e-lendas/50-cavaleiro-mascote-cao-cavaleiro-sorrindo-sob-o-sol__knight_dog_mascot_smiling_under_a_sunny_sky.png
+[2026-06-17 05:15:09] [2711/4400] Generated: guerreiros-e-lendas/51-cavaleiro-escudeiro-valente-com-espada-brilhante__shield_bearer_holding_a_shiny_sword.png
+[2026-06-17 05:15:10] [2712/4400] Generated: guerreiros-e-lendas/52-cavaleiro-escudeiro-valente-perto-do-castelo__shield_bearer_standing_next_to_a_castle_gate.png
+[2026-06-17 05:15:12] [2713/4400] Generated: guerreiros-e-lendas/53-cavaleiro-escudeiro-valente-montado-no-cavalo__shield_bearer_riding_a_brave_horse.png
+[2026-06-17 05:15:14] [2714/4400] Generated: guerreiros-e-lendas/54-cavaleiro-escudeiro-valente-com-escudo-de-leao__shield_bearer_holding_a_shield_with_a_lion_crest.png
+[2026-06-17 05:15:15] [2715/4400] Generated: guerreiros-e-lendas/55-cavaleiro-escudeiro-valente-acenando-amigavel__shield_bearer_waving_friendly.png
+[2026-06-17 05:15:16] [2716/4400] Generated: guerreiros-e-lendas/56-cavaleiro-escudeiro-valente-com-capacete-de-plumas__shield_bearer_wearing_a_feathered_helmet.png
+[2026-06-17 05:15:17] [2717/4400] Generated: guerreiros-e-lendas/57-cavaleiro-escudeiro-valente-apontando-para-torre__shield_bearer_pointing_to_a_castle_tower.png
+[2026-06-17 05:15:19] [2718/4400] Generated: guerreiros-e-lendas/58-cavaleiro-escudeiro-valente-no-patio-do-castelo__shield_bearer_resting_in_the_courtyard.png
+[2026-06-17 05:15:21] [2719/4400] Generated: guerreiros-e-lendas/59-cavaleiro-escudeiro-valente-com-bandeira-de-vitoria__shield_bearer_holding_a_victory_flag.png
+[2026-06-17 05:15:23] [2720/4400] Generated: guerreiros-e-lendas/60-cavaleiro-escudeiro-valente-sorrindo-sob-o-sol__shield_bearer_smiling_under_a_sunny_sky.png
+[2026-06-17 05:15:25] [2721/4400] Generated: guerreiros-e-lendas/61-cavaleiro-cavaleiro-audaz-com-espada-brilhante__valiant_knight_holding_a_shiny_sword.png
+[2026-06-17 05:15:26] [2722/4400] Generated: guerreiros-e-lendas/62-cavaleiro-cavaleiro-audaz-perto-do-castelo__valiant_knight_standing_next_to_a_castle_gate.png
+[2026-06-17 05:15:28] [2723/4400] Generated: guerreiros-e-lendas/63-cavaleiro-cavaleiro-audaz-montado-no-cavalo__valiant_knight_riding_a_brave_horse.png
+[2026-06-17 05:15:30] [2724/4400] Generated: guerreiros-e-lendas/64-cavaleiro-cavaleiro-audaz-com-escudo-de-leao__valiant_knight_holding_a_shield_with_a_lion_crest.png
+[2026-06-17 05:15:31] [2725/4400] Generated: guerreiros-e-lendas/65-cavaleiro-cavaleiro-audaz-acenando-amigavel__valiant_knight_waving_friendly.png
+[2026-06-17 05:15:33] [2726/4400] Generated: guerreiros-e-lendas/66-cavaleiro-cavaleiro-audaz-com-capacete-de-plumas__valiant_knight_wearing_a_feathered_helmet.png
+[2026-06-17 05:15:34] [2727/4400] Generated: guerreiros-e-lendas/67-cavaleiro-cavaleiro-audaz-apontando-para-torre__valiant_knight_pointing_to_a_castle_tower.png
+[2026-06-17 05:15:36] [2728/4400] Generated: guerreiros-e-lendas/68-cavaleiro-cavaleiro-audaz-no-patio-do-castelo__valiant_knight_resting_in_the_courtyard.png
+[2026-06-17 05:15:37] [2729/4400] Generated: guerreiros-e-lendas/69-cavaleiro-cavaleiro-audaz-com-bandeira-de-vitoria__valiant_knight_holding_a_victory_flag.png
+[2026-06-17 05:15:39] [2730/4400] Generated: guerreiros-e-lendas/70-cavaleiro-cavaleiro-audaz-sorrindo-sob-o-sol__valiant_knight_smiling_under_a_sunny_sky.png
+[2026-06-17 05:15:41] [2731/4400] Generated: guerreiros-e-lendas/71-cavaleiro-guarda-do-castelo-com-espada-brilhante__cartoon_castle_guard_holding_a_shiny_sword.png
+[2026-06-17 05:15:42] [2732/4400] Generated: guerreiros-e-lendas/72-cavaleiro-guarda-do-castelo-perto-do-castelo__cartoon_castle_guard_standing_next_to_a_castle_gate.png
+[2026-06-17 05:15:44] [2733/4400] Generated: guerreiros-e-lendas/73-cavaleiro-guarda-do-castelo-montado-no-cavalo__cartoon_castle_guard_riding_a_brave_horse.png
+[2026-06-17 05:15:45] [2734/4400] Generated: guerreiros-e-lendas/74-cavaleiro-guarda-do-castelo-com-escudo-de-leao__cartoon_castle_guard_holding_a_shield_with_a_lion_crest.png
+[2026-06-17 05:15:48] [2735/4400] Generated: guerreiros-e-lendas/75-cavaleiro-guarda-do-castelo-acenando-amigavel__cartoon_castle_guard_waving_friendly.png
+[2026-06-17 05:15:49] [2736/4400] Generated: guerreiros-e-lendas/76-cavaleiro-guarda-do-castelo-com-capacete-de-plumas__cartoon_castle_guard_wearing_a_feathered_helmet.png
+[2026-06-17 05:15:50] [2737/4400] Generated: guerreiros-e-lendas/77-cavaleiro-guarda-do-castelo-apontando-para-torre__cartoon_castle_guard_pointing_to_a_castle_tower.png
+[2026-06-17 05:15:51] [2738/4400] Generated: guerreiros-e-lendas/78-cavaleiro-guarda-do-castelo-no-patio-do-castelo__cartoon_castle_guard_resting_in_the_courtyard.png
+[2026-06-17 05:15:53] [2739/4400] Generated: guerreiros-e-lendas/79-cavaleiro-guarda-do-castelo-com-bandeira-de-vitoria__cartoon_castle_guard_holding_a_victory_flag.png
+[2026-06-17 05:15:54] [2740/4400] Generated: guerreiros-e-lendas/80-cavaleiro-guarda-do-castelo-sorrindo-sob-o-sol__cartoon_castle_guard_smiling_under_a_sunny_sky.png
+[2026-06-17 05:15:55] [2741/4400] Generated: guerreiros-e-lendas/81-cavaleiro-cavaleiro-lendario-com-espada-brilhante__legendary_knight_holding_a_shiny_sword.png
+[2026-06-17 05:15:56] [2742/4400] Generated: guerreiros-e-lendas/82-cavaleiro-cavaleiro-lendario-perto-do-castelo__legendary_knight_standing_next_to_a_castle_gate.png
+[2026-06-17 05:15:58] [2743/4400] Generated: guerreiros-e-lendas/84-cavaleiro-cavaleiro-lendario-com-escudo-de-leao__legendary_knight_holding_a_shield_with_a_lion_crest.png
+[2026-06-17 05:16:00] [2744/4400] Generated: guerreiros-e-lendas/83-cavaleiro-cavaleiro-lendario-montado-no-cavalo__legendary_knight_riding_a_brave_horse.png
+[2026-06-17 05:16:01] [2745/4400] Generated: guerreiros-e-lendas/85-cavaleiro-cavaleiro-lendario-acenando-amigavel__legendary_knight_waving_friendly.png
+[2026-06-17 05:16:02] [2746/4400] Generated: guerreiros-e-lendas/86-cavaleiro-cavaleiro-lendario-com-capacete-de-plumas__legendary_knight_wearing_a_feathered_helmet.png
+[2026-06-17 05:16:04] [2747/4400] Generated: guerreiros-e-lendas/87-cavaleiro-cavaleiro-lendario-apontando-para-torre__legendary_knight_pointing_to_a_castle_tower.png
+[2026-06-17 05:16:05] [2748/4400] Generated: guerreiros-e-lendas/89-cavaleiro-cavaleiro-lendario-com-bandeira-de-vitoria__legendary_knight_holding_a_victory_flag.png
+[2026-06-17 05:16:07] [2749/4400] Generated: guerreiros-e-lendas/88-cavaleiro-cavaleiro-lendario-no-patio-do-castelo__legendary_knight_resting_in_the_courtyard.png
+[2026-06-17 05:16:08] [2750/4400] Generated: guerreiros-e-lendas/90-cavaleiro-cavaleiro-lendario-sorrindo-sob-o-sol__legendary_knight_smiling_under_a_sunny_sky.png
+[2026-06-17 05:16:08] Batch 55 completed (2750 drawings). Triggering build & push...
+[2026-06-17 05:16:08] Rebuilding catalog and drawings database...
+[2026-06-17 05:16:09] Build successful!
+[2026-06-17 05:16:09] Committing and pushing to origin main...
