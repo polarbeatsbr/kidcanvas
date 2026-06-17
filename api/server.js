@@ -164,6 +164,64 @@ async function isAdmin(req, res, next) {
     }
 }
 
+function getUserTotalCredits(user) {
+    const hasAvulsos = user.creditosAvulsos && user.creditosAvulsosExpiry && new Date(user.creditosAvulsosExpiry) > Date.now();
+    return (user.paginasRestantes || 0) + (hasAvulsos ? parseInt(user.creditosAvulsos, 10) : 0);
+}
+
+function deductUserCredits(user, cost) {
+    const hasAvulsos = user.creditosAvulsos && user.creditosAvulsosExpiry && new Date(user.creditosAvulsosExpiry) > Date.now();
+    if (user.paginasRestantes >= cost) {
+        user.paginasRestantes -= cost;
+    } else if (hasAvulsos && (user.paginasRestantes + user.creditosAvulsos) >= cost) {
+        const remainder = cost - user.paginasRestantes;
+        user.paginasRestantes = 0;
+        user.creditosAvulsos -= remainder;
+    } else {
+        user.paginasRestantes = Math.max(0, user.paginasRestantes - cost);
+    }
+}
+
+async function activateUserPlanOrCredits(user, planName, users) {
+    const isAvulso = planName.includes('Créditos Avulsos');
+    if (isAvulso) {
+        const match = planName.match(/(\d+)/);
+        const quantity = match ? parseInt(match[1], 10) : 0;
+        
+        const currentAvulsos = user.creditosAvulsos && user.creditosAvulsosExpiry && new Date(user.creditosAvulsosExpiry) > Date.now()
+            ? parseInt(user.creditosAvulsos, 10)
+            : 0;
+        
+        user.creditosAvulsos = currentAvulsos + quantity;
+        user.creditosAvulsosExpiry = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+        
+        console.log(`[AVULSO SUCCESS] ${quantity} créditos avulsos adicionados para ${user.email}. Total avulsos: ${user.creditosAvulsos}`);
+    } else {
+        let credits = 3; // Aprendiz por padrão
+        const cleanPlanName = planName.replace(/\s*\(Mensal\)/i, '').replace(/\s*\(Anual\)/i, '');
+        
+        if (cleanPlanName === 'Artista') {
+            credits = 30;
+        } else if (cleanPlanName === 'Mago Criador') {
+            credits = 100;
+        } else if (cleanPlanName === 'Lenda KidCanvas') {
+            credits = 250;
+        } else if (cleanPlanName === 'Professor') {
+            credits = 100;
+        } else if (cleanPlanName === 'Colégio') {
+            credits = 400;
+        } else if (cleanPlanName === 'Família') {
+            credits = 20;
+        }
+        
+        user.plan = cleanPlanName;
+        user.paginasRestantes = credits;
+        
+        console.log(`[SUCCESS] Plano ${cleanPlanName} ativado para o usuário ${user.email}. Créditos: ${credits}`);
+    }
+    await saveUsers(users);
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -222,23 +280,11 @@ app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), async (
                 return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
             }
 
-            // Definir os créditos baseados no plano
-            let credits = 20; // Família por padrão
-            if (planName === 'Professor') {
-                credits = 100;
-            } else if (planName === 'Colégio') {
-                credits = 400;
-            }
-
-            user.plan = planName;
-            user.paginasRestantes = credits;
-
-            await saveUsers(users);
-            console.log(`[SUCCESS] Plano ${planName} ativado para o usuário ${user.email}. Créditos: ${credits}`);
+            await activateUserPlanOrCredits(user, planName, users);
             
             // Rastrear pagamento no Analytics
             try {
-                const amount = planName === 'Professor' || planName === 'Premium' ? 39.90 : 99.90;
+                const amount = planName.includes('20') ? 4.90 : planName.includes('50') ? 9.90 : planName.includes('120') ? 19.90 : planName.includes('300') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
                 trackEvent('payments', {
                     email: user.email,
                     plan: planName,
@@ -286,14 +332,37 @@ app.post('/api/stripe/create-checkout-session', async (req, res) => {
 
         // Mapear plano para Price ID
         let priceId = '';
-        if (planName === 'Família') {
-            priceId = process.env.STRIPE_PRICE_FAMILIA || 'price_1TihHMBRjUzKEXHuJAxy50Md';
-        } else if (planName === 'Professor') {
-            priceId = process.env.STRIPE_PRICE_PROFESSOR || 'price_1TihHNBRjUzKEXHurahkfPYs';
-        } else if (planName === 'Colégio') {
-            priceId = process.env.STRIPE_PRICE_COLEGIO || 'price_1TihHNBRjUzKEXHuX8SbYRge';
+        if (planName === 'Artista (Mensal)') {
+            priceId = process.env.STRIPE_PRICE_ARTISTA_MENSAL || 'price_1TihHMBRjUzKEXHu_artista_mensal';
+        } else if (planName === 'Artista (Anual)') {
+            priceId = process.env.STRIPE_PRICE_ARTISTA_ANUAL || 'price_1TihHMBRjUzKEXHu_artista_anual';
+        } else if (planName === 'Mago Criador (Mensal)') {
+            priceId = process.env.STRIPE_PRICE_MAGO_MENSAL || 'price_1TihHMBRjUzKEXHu_mago_mensal';
+        } else if (planName === 'Mago Criador (Anual)') {
+            priceId = process.env.STRIPE_PRICE_MAGO_ANUAL || 'price_1TihHMBRjUzKEXHu_mago_anual';
+        } else if (planName === 'Lenda KidCanvas (Mensal)') {
+            priceId = process.env.STRIPE_PRICE_LENDA_MENSAL || 'price_1TihHMBRjUzKEXHu_lenda_mensal';
+        } else if (planName === 'Lenda KidCanvas (Anual)') {
+            priceId = process.env.STRIPE_PRICE_LENDA_ANUAL || 'price_1TihHMBRjUzKEXHu_lenda_anual';
+        } else if (planName === '20 Créditos Avulsos') {
+            priceId = process.env.STRIPE_PRICE_AVULSO_20 || 'price_1TihHMBRjUzKEXHu_avulso_20';
+        } else if (planName === '50 Créditos Avulsos') {
+            priceId = process.env.STRIPE_PRICE_AVULSO_50 || 'price_1TihHMBRjUzKEXHu_avulso_50';
+        } else if (planName === '120 Créditos Avulsos') {
+            priceId = process.env.STRIPE_PRICE_AVULSO_120 || 'price_1TihHMBRjUzKEXHu_avulso_120';
+        } else if (planName === '300 Créditos Avulsos') {
+            priceId = process.env.STRIPE_PRICE_AVULSO_300 || 'price_1TihHMBRjUzKEXHu_avulso_300';
         } else {
-            return res.status(400).json({ success: false, message: 'Plano inválido.' });
+            // Suporte legado
+            if (planName === 'Família') {
+                priceId = process.env.STRIPE_PRICE_FAMILIA || 'price_1TihHMBRjUzKEXHuJAxy50Md';
+            } else if (planName === 'Professor') {
+                priceId = process.env.STRIPE_PRICE_PROFESSOR || 'price_1TihHNBRjUzKEXHurahkfPYs';
+            } else if (planName === 'Colégio') {
+                priceId = process.env.STRIPE_PRICE_COLEGIO || 'price_1TihHNBRjUzKEXHuX8SbYRge';
+            } else {
+                return res.status(400).json({ success: false, message: 'Plano inválido.' });
+            }
         }
 
         if (!priceId) {
@@ -304,8 +373,9 @@ app.post('/api/stripe/create-checkout-session', async (req, res) => {
 
         console.log(`[Stripe Checkout] Criando sessão para o plano ${planName} e usuário ${user.email}`);
         
+        const isOneOff = planName.includes('Créditos Avulsos');
         const session = await stripe.checkout.sessions.create({
-            mode: 'subscription',
+            mode: isOneOff ? 'payment' : 'subscription',
             payment_method_types: ['card'],
             line_items: [
                 {
@@ -359,14 +429,37 @@ app.post('/api/mercadopago/create-pix-payment', async (req, res) => {
 
         // Mapear plano para preço
         let amount = 0;
-        if (planName === 'Família') {
+        if (planName === 'Artista (Mensal)') {
+            amount = 9.90;
+        } else if (planName === 'Artista (Anual)') {
+            amount = 94.80;
+        } else if (planName === 'Mago Criador (Mensal)') {
             amount = 19.90;
-        } else if (planName === 'Professor') {
+        } else if (planName === 'Mago Criador (Anual)') {
+            amount = 190.80;
+        } else if (planName === 'Lenda KidCanvas (Mensal)') {
             amount = 39.90;
-        } else if (planName === 'Colégio') {
-            amount = 119.90;
+        } else if (planName === 'Lenda KidCanvas (Anual)') {
+            amount = 382.80;
+        } else if (planName === '20 Créditos Avulsos') {
+            amount = 4.90;
+        } else if (planName === '50 Créditos Avulsos') {
+            amount = 9.90;
+        } else if (planName === '120 Créditos Avulsos') {
+            amount = 19.90;
+        } else if (planName === '300 Créditos Avulsos') {
+            amount = 39.90;
         } else {
-            return res.status(400).json({ success: false, message: 'Plano inválido.' });
+            // Suporte legado
+            if (planName === 'Família') {
+                amount = 19.90;
+            } else if (planName === 'Professor') {
+                amount = 39.90;
+            } else if (planName === 'Colégio') {
+                amount = 119.90;
+            } else {
+                return res.status(400).json({ success: false, message: 'Plano inválido.' });
+            }
         }
 
         // Dividir primeiro e último nome
@@ -475,21 +568,12 @@ app.get('/api/mercadopago/payment-status/:paymentId', async (req, res) => {
 
             if (userId && planName) {
                 const targetUser = users.find(u => u.id === userId || u.email === userId);
-                if (targetUser && targetUser.plan !== planName) {
-                    let credits = 20;
-                    if (planName === 'Professor') {
-                        credits = 100;
-                    } else if (planName === 'Colégio') {
-                        credits = 400;
-                    }
-                    targetUser.plan = planName;
-                    targetUser.paginasRestantes = credits;
-                    await saveUsers(users);
-                    console.log(`[SUCCESS - Polling] Plano ${planName} ativado para o usuário ${targetUser.email}.`);
+                if (targetUser) {
+                    await activateUserPlanOrCredits(targetUser, planName, users);
                     
                     // Rastrear pagamento no Analytics
                     try {
-                        const amount = planName === 'Professor' || planName === 'Premium' ? 39.90 : 99.90;
+                        const amount = planName.includes('20') ? 4.90 : planName.includes('50') ? 9.90 : planName.includes('120') ? 19.90 : planName.includes('300') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
                         trackEvent('payments', {
                             email: targetUser.email,
                             plan: planName,
@@ -540,20 +624,11 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                     const users = await loadUsers();
                     const user = users.find(u => u.id === userId || u.email === userId);
                     if (user) {
-                        let credits = 20;
-                        if (planName === 'Professor') {
-                            credits = 100;
-                        } else if (planName === 'Colégio') {
-                            credits = 400;
-                        }
-                        user.plan = planName;
-                        user.paginasRestantes = credits;
-                        await saveUsers(users);
-                        console.log(`[SUCCESS - Webhook MP] Plano ${planName} ativado para ${user.email} via Pix.`);
+                        await activateUserPlanOrCredits(user, planName, users);
                         
                         // Rastrear pagamento no Analytics
                         try {
-                            const amount = planName === 'Professor' || planName === 'Premium' ? 39.90 : 99.90;
+                            const amount = planName.includes('20') ? 4.90 : planName.includes('50') ? 9.90 : planName.includes('120') ? 19.90 : planName.includes('300') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
                             trackEvent('payments', {
                                 email: user.email,
                                 plan: planName,
