@@ -25619,6 +25619,28 @@
     "isNew": true
   },
   {
+    "index": 168,
+    "filename": "168-solar-crianca-astronauta-flutuando-no-espaco__astronaut_kid_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/168-solar-crianca-astronauta-flutuando-no-espaco__astronaut_kid_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar crianca astronauta flutuando no espaco",
+    "en": "Astronaut kid floating peacefully in deep space",
+    "slug": "solar-crianca-astronauta-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 169,
+    "filename": "169-solar-crianca-astronauta-com-estrelas-em-volta__astronaut_kid_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/169-solar-crianca-astronauta-com-estrelas-em-volta__astronaut_kid_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar crianca astronauta com estrelas em volta",
+    "en": "Astronaut kid orbiting surrounded by stars",
+    "slug": "solar-crianca-astronauta-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 17,
     "filename": "17-foguete-na-lua__rocket.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/17-foguete-na-lua__rocket.png",
@@ -25626,6 +25648,116 @@
     "pt": "Foguete na lua",
     "en": "Rocket",
     "slug": "foguete-na-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 170,
+    "filename": "170-solar-crianca-astronauta-na-superficie-da-lua__astronaut_kid_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/170-solar-crianca-astronauta-na-superficie-da-lua__astronaut_kid_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar crianca astronauta na superficie da lua",
+    "en": "Astronaut kid exploring a rocky moon surface",
+    "slug": "solar-crianca-astronauta-na-superficie-da-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 171,
+    "filename": "171-solar-crianca-astronauta-perto-de-nebulosa__astronaut_kid_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/171-solar-crianca-astronauta-perto-de-nebulosa__astronaut_kid_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar crianca astronauta perto de nebulosa",
+    "en": "Astronaut kid flying past a colorful nebula",
+    "slug": "solar-crianca-astronauta-perto-de-nebulosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 172,
+    "filename": "172-solar-crianca-astronauta-acenando-da-nave__astronaut_kid_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/172-solar-crianca-astronauta-acenando-da-nave__astronaut_kid_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar crianca astronauta acenando da nave",
+    "en": "Astronaut kid waving from a spaceship window",
+    "slug": "solar-crianca-astronauta-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 173,
+    "filename": "173-solar-crianca-astronauta-no-sistema-solar__astronaut_kid_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/173-solar-crianca-astronauta-no-sistema-solar__astronaut_kid_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar crianca astronauta no sistema solar",
+    "en": "Astronaut kid orbiting the solar system",
+    "slug": "solar-crianca-astronauta-no-sistema-solar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 174,
+    "filename": "174-solar-crianca-astronauta-pousando-no-planeta__astronaut_kid_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/174-solar-crianca-astronauta-pousando-no-planeta__astronaut_kid_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar crianca astronauta pousando no planeta",
+    "en": "Astronaut kid landing on a planet",
+    "slug": "solar-crianca-astronauta-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 175,
+    "filename": "175-solar-crianca-astronauta-com-asteroides-pequenos__astronaut_kid_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/175-solar-crianca-astronauta-com-asteroides-pequenos__astronaut_kid_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar crianca astronauta com asteroides pequenos",
+    "en": "Astronaut kid surrounded by small asteroids",
+    "slug": "solar-crianca-astronauta-com-asteroides-pequenos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 176,
+    "filename": "176-solar-planeta-saturno-flutuando-no-espaco__planet_saturn_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/176-solar-planeta-saturno-flutuando-no-espaco__planet_saturn_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar planeta saturno flutuando no espaco",
+    "en": "Planet saturn floating peacefully in deep space",
+    "slug": "solar-planeta-saturno-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 177,
+    "filename": "177-solar-planeta-saturno-com-estrelas-em-volta__planet_saturn_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/177-solar-planeta-saturno-com-estrelas-em-volta__planet_saturn_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar planeta saturno com estrelas em volta",
+    "en": "Planet saturn orbiting surrounded by stars",
+    "slug": "solar-planeta-saturno-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 178,
+    "filename": "178-solar-planeta-saturno-na-superficie-da-lua__planet_saturn_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/178-solar-planeta-saturno-na-superficie-da-lua__planet_saturn_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar planeta saturno na superficie da lua",
+    "en": "Planet saturn exploring a rocky moon surface",
+    "slug": "solar-planeta-saturno-na-superficie-da-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 179,
+    "filename": "179-solar-planeta-saturno-perto-de-nebulosa__planet_saturn_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/179-solar-planeta-saturno-perto-de-nebulosa__planet_saturn_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar planeta saturno perto de nebulosa",
+    "en": "Planet saturn flying past a colorful nebula",
+    "slug": "solar-planeta-saturno-perto-de-nebulosa",
     "tier": "free",
     "isNew": false
   },
@@ -25641,6 +25773,116 @@
     "isNew": false
   },
   {
+    "index": 180,
+    "filename": "180-solar-planeta-saturno-acenando-da-nave__planet_saturn_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/180-solar-planeta-saturno-acenando-da-nave__planet_saturn_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar planeta saturno acenando da nave",
+    "en": "Planet saturn waving from a spaceship window",
+    "slug": "solar-planeta-saturno-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 181,
+    "filename": "181-solar-planeta-saturno-no-sistema-solar__planet_saturn_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/181-solar-planeta-saturno-no-sistema-solar__planet_saturn_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar planeta saturno no sistema solar",
+    "en": "Planet saturn orbiting the solar system",
+    "slug": "solar-planeta-saturno-no-sistema-solar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 182,
+    "filename": "182-solar-planeta-saturno-pousando-no-planeta__planet_saturn_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/182-solar-planeta-saturno-pousando-no-planeta__planet_saturn_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar planeta saturno pousando no planeta",
+    "en": "Planet saturn landing on a planet",
+    "slug": "solar-planeta-saturno-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 183,
+    "filename": "183-solar-planeta-saturno-com-asteroides-pequenos__planet_saturn_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/183-solar-planeta-saturno-com-asteroides-pequenos__planet_saturn_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar planeta saturno com asteroides pequenos",
+    "en": "Planet saturn surrounded by small asteroids",
+    "slug": "solar-planeta-saturno-com-asteroides-pequenos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 184,
+    "filename": "184-solar-planeta-marte-flutuando-no-espaco__planet_mars_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/184-solar-planeta-marte-flutuando-no-espaco__planet_mars_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar planeta marte flutuando no espaco",
+    "en": "Planet mars floating peacefully in deep space",
+    "slug": "solar-planeta-marte-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 185,
+    "filename": "185-solar-planeta-marte-com-estrelas-em-volta__planet_mars_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/185-solar-planeta-marte-com-estrelas-em-volta__planet_mars_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar planeta marte com estrelas em volta",
+    "en": "Planet mars orbiting surrounded by stars",
+    "slug": "solar-planeta-marte-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 186,
+    "filename": "186-solar-planeta-marte-na-superficie-da-lua__planet_mars_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/186-solar-planeta-marte-na-superficie-da-lua__planet_mars_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar planeta marte na superficie da lua",
+    "en": "Planet mars exploring a rocky moon surface",
+    "slug": "solar-planeta-marte-na-superficie-da-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 187,
+    "filename": "187-solar-planeta-marte-perto-de-nebulosa__planet_mars_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/187-solar-planeta-marte-perto-de-nebulosa__planet_mars_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar planeta marte perto de nebulosa",
+    "en": "Planet mars flying past a colorful nebula",
+    "slug": "solar-planeta-marte-perto-de-nebulosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 188,
+    "filename": "188-solar-planeta-marte-acenando-da-nave__planet_mars_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/188-solar-planeta-marte-acenando-da-nave__planet_mars_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar planeta marte acenando da nave",
+    "en": "Planet mars waving from a spaceship window",
+    "slug": "solar-planeta-marte-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 189,
+    "filename": "189-solar-planeta-marte-no-sistema-solar__planet_mars_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/189-solar-planeta-marte-no-sistema-solar__planet_mars_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar planeta marte no sistema solar",
+    "en": "Planet mars orbiting the solar system",
+    "slug": "solar-planeta-marte-no-sistema-solar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 19,
     "filename": "19-nave-espacial-na-lua__spaceship.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/19-nave-espacial-na-lua__spaceship.png",
@@ -25648,6 +25890,116 @@
     "pt": "Nave espacial na lua",
     "en": "Spaceship",
     "slug": "nave-espacial-na-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 190,
+    "filename": "190-solar-planeta-marte-pousando-no-planeta__planet_mars_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/190-solar-planeta-marte-pousando-no-planeta__planet_mars_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar planeta marte pousando no planeta",
+    "en": "Planet mars landing on a planet",
+    "slug": "solar-planeta-marte-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 191,
+    "filename": "191-solar-planeta-marte-com-asteroides-pequenos__planet_mars_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/191-solar-planeta-marte-com-asteroides-pequenos__planet_mars_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar planeta marte com asteroides pequenos",
+    "en": "Planet mars surrounded by small asteroids",
+    "slug": "solar-planeta-marte-com-asteroides-pequenos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 192,
+    "filename": "192-solar-planeta-terra-flutuando-no-espaco__planet_earth_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/192-solar-planeta-terra-flutuando-no-espaco__planet_earth_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar planeta terra flutuando no espaco",
+    "en": "Planet earth floating peacefully in deep space",
+    "slug": "solar-planeta-terra-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 193,
+    "filename": "193-solar-planeta-terra-com-estrelas-em-volta__planet_earth_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/193-solar-planeta-terra-com-estrelas-em-volta__planet_earth_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar planeta terra com estrelas em volta",
+    "en": "Planet earth orbiting surrounded by stars",
+    "slug": "solar-planeta-terra-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 194,
+    "filename": "194-solar-planeta-terra-na-superficie-da-lua__planet_earth_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/194-solar-planeta-terra-na-superficie-da-lua__planet_earth_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar planeta terra na superficie da lua",
+    "en": "Planet earth exploring a rocky moon surface",
+    "slug": "solar-planeta-terra-na-superficie-da-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 195,
+    "filename": "195-solar-planeta-terra-perto-de-nebulosa__planet_earth_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/195-solar-planeta-terra-perto-de-nebulosa__planet_earth_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar planeta terra perto de nebulosa",
+    "en": "Planet earth flying past a colorful nebula",
+    "slug": "solar-planeta-terra-perto-de-nebulosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 196,
+    "filename": "196-solar-planeta-terra-acenando-da-nave__planet_earth_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/196-solar-planeta-terra-acenando-da-nave__planet_earth_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar planeta terra acenando da nave",
+    "en": "Planet earth waving from a spaceship window",
+    "slug": "solar-planeta-terra-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 197,
+    "filename": "197-solar-planeta-terra-no-sistema-solar__planet_earth_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/197-solar-planeta-terra-no-sistema-solar__planet_earth_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar planeta terra no sistema solar",
+    "en": "Planet earth orbiting the solar system",
+    "slug": "solar-planeta-terra-no-sistema-solar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 198,
+    "filename": "198-solar-planeta-terra-pousando-no-planeta__planet_earth_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/198-solar-planeta-terra-pousando-no-planeta__planet_earth_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar planeta terra pousando no planeta",
+    "en": "Planet earth landing on a planet",
+    "slug": "solar-planeta-terra-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 199,
+    "filename": "199-solar-planeta-terra-com-asteroides-pequenos__planet_earth_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/199-solar-planeta-terra-com-asteroides-pequenos__planet_earth_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar planeta terra com asteroides pequenos",
+    "en": "Planet earth surrounded by small asteroids",
+    "slug": "solar-planeta-terra-com-asteroides-pequenos",
     "tier": "free",
     "isNew": false
   },
@@ -25663,6 +26015,116 @@
     "isNew": false
   },
   {
+    "index": 200,
+    "filename": "200-solar-onibus-espacial-flutuando-no-espaco__space_shuttle_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/200-solar-onibus-espacial-flutuando-no-espaco__space_shuttle_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar onibus espacial flutuando no espaco",
+    "en": "Space shuttle floating peacefully in deep space",
+    "slug": "solar-onibus-espacial-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 201,
+    "filename": "201-solar-onibus-espacial-com-estrelas-em-volta__space_shuttle_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/201-solar-onibus-espacial-com-estrelas-em-volta__space_shuttle_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar onibus espacial com estrelas em volta",
+    "en": "Space shuttle orbiting surrounded by stars",
+    "slug": "solar-onibus-espacial-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 202,
+    "filename": "202-solar-onibus-espacial-na-superficie-da-lua__space_shuttle_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/202-solar-onibus-espacial-na-superficie-da-lua__space_shuttle_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar onibus espacial na superficie da lua",
+    "en": "Space shuttle exploring a rocky moon surface",
+    "slug": "solar-onibus-espacial-na-superficie-da-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 203,
+    "filename": "203-solar-onibus-espacial-perto-de-nebulosa__space_shuttle_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/203-solar-onibus-espacial-perto-de-nebulosa__space_shuttle_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar onibus espacial perto de nebulosa",
+    "en": "Space shuttle flying past a colorful nebula",
+    "slug": "solar-onibus-espacial-perto-de-nebulosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 204,
+    "filename": "204-solar-onibus-espacial-acenando-da-nave__space_shuttle_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/204-solar-onibus-espacial-acenando-da-nave__space_shuttle_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar onibus espacial acenando da nave",
+    "en": "Space shuttle waving from a spaceship window",
+    "slug": "solar-onibus-espacial-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 205,
+    "filename": "205-solar-onibus-espacial-no-sistema-solar__space_shuttle_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/205-solar-onibus-espacial-no-sistema-solar__space_shuttle_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar onibus espacial no sistema solar",
+    "en": "Space shuttle orbiting the solar system",
+    "slug": "solar-onibus-espacial-no-sistema-solar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 206,
+    "filename": "206-solar-onibus-espacial-pousando-no-planeta__space_shuttle_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/206-solar-onibus-espacial-pousando-no-planeta__space_shuttle_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar onibus espacial pousando no planeta",
+    "en": "Space shuttle landing on a planet",
+    "slug": "solar-onibus-espacial-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 207,
+    "filename": "207-solar-onibus-espacial-com-asteroides-pequenos__space_shuttle_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/207-solar-onibus-espacial-com-asteroides-pequenos__space_shuttle_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar onibus espacial com asteroides pequenos",
+    "en": "Space shuttle surrounded by small asteroids",
+    "slug": "solar-onibus-espacial-com-asteroides-pequenos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 208,
+    "filename": "208-solar-robo-lunar-flutuando-no-espaco__lunar_rover_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/208-solar-robo-lunar-flutuando-no-espaco__lunar_rover_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar robo lunar flutuando no espaco",
+    "en": "Lunar rover floating peacefully in deep space",
+    "slug": "solar-robo-lunar-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 209,
+    "filename": "209-solar-robo-lunar-com-estrelas-em-volta__lunar_rover_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/209-solar-robo-lunar-com-estrelas-em-volta__lunar_rover_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar robo lunar com estrelas em volta",
+    "en": "Lunar rover orbiting surrounded by stars",
+    "slug": "solar-robo-lunar-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 21,
     "filename": "21-satelite-na-lua__satellite.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/21-satelite-na-lua__satellite.png",
@@ -25670,6 +26132,105 @@
     "pt": "Satelite na lua",
     "en": "Satellite",
     "slug": "satelite-na-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 210,
+    "filename": "210-solar-robo-lunar-na-superficie-da-lua__lunar_rover_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/210-solar-robo-lunar-na-superficie-da-lua__lunar_rover_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar robo lunar na superficie da lua",
+    "en": "Lunar rover exploring a rocky moon surface",
+    "slug": "solar-robo-lunar-na-superficie-da-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 211,
+    "filename": "211-solar-robo-lunar-perto-de-nebulosa__lunar_rover_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/211-solar-robo-lunar-perto-de-nebulosa__lunar_rover_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar robo lunar perto de nebulosa",
+    "en": "Lunar rover flying past a colorful nebula",
+    "slug": "solar-robo-lunar-perto-de-nebulosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 212,
+    "filename": "212-solar-robo-lunar-acenando-da-nave__lunar_rover_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/212-solar-robo-lunar-acenando-da-nave__lunar_rover_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar robo lunar acenando da nave",
+    "en": "Lunar rover waving from a spaceship window",
+    "slug": "solar-robo-lunar-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 213,
+    "filename": "213-solar-robo-lunar-no-sistema-solar__lunar_rover_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/213-solar-robo-lunar-no-sistema-solar__lunar_rover_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar robo lunar no sistema solar",
+    "en": "Lunar rover orbiting the solar system",
+    "slug": "solar-robo-lunar-no-sistema-solar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 214,
+    "filename": "214-solar-robo-lunar-pousando-no-planeta__lunar_rover_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/214-solar-robo-lunar-pousando-no-planeta__lunar_rover_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar robo lunar pousando no planeta",
+    "en": "Lunar rover landing on a planet",
+    "slug": "solar-robo-lunar-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 215,
+    "filename": "215-solar-robo-lunar-com-asteroides-pequenos__lunar_rover_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/215-solar-robo-lunar-com-asteroides-pequenos__lunar_rover_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar robo lunar com asteroides pequenos",
+    "en": "Lunar rover surrounded by small asteroids",
+    "slug": "solar-robo-lunar-com-asteroides-pequenos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 216,
+    "filename": "216-solar-alienigena-amigavel-flutuando-no-espaco__friendly_alien_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/216-solar-alienigena-amigavel-flutuando-no-espaco__friendly_alien_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar alienigena amigavel flutuando no espaco",
+    "en": "Friendly alien floating peacefully in deep space",
+    "slug": "solar-alienigena-amigavel-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 217,
+    "filename": "217-solar-alienigena-amigavel-com-estrelas-em-volta__friendly_alien_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/217-solar-alienigena-amigavel-com-estrelas-em-volta__friendly_alien_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar alienigena amigavel com estrelas em volta",
+    "en": "Friendly alien orbiting surrounded by stars",
+    "slug": "solar-alienigena-amigavel-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 218,
+    "filename": "218-solar-alienigena-amigavel-na-superficie-da-lua__friendly_alien_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/218-solar-alienigena-amigavel-na-superficie-da-lua__friendly_alien_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar alienigena amigavel na superficie da lua",
+    "en": "Friendly alien exploring a rocky moon surface",
+    "slug": "solar-alienigena-amigavel-na-superficie-da-lua",
     "tier": "free",
     "isNew": false
   },
@@ -82673,7 +83234,7 @@
     "en": "Big farm tractor plowing a farm field",
     "slug": "trator-trator-grande-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 184,
@@ -82684,7 +83245,7 @@
     "en": "Big farm tractor carrying a bundle of hay",
     "slug": "trator-trator-grande-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 185,
@@ -82695,7 +83256,7 @@
     "en": "Big farm tractor parked next to a red barn",
     "slug": "trator-trator-grande-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 186,
@@ -82706,7 +83267,7 @@
     "en": "Big farm tractor driving up a muddy hill",
     "slug": "trator-trator-grande-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 187,
@@ -82717,7 +83278,7 @@
     "en": "Big farm tractor watering crops",
     "slug": "trator-trator-grande-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 188,
@@ -82728,7 +83289,7 @@
     "en": "Big farm tractor waving its wheels happily",
     "slug": "trator-trator-grande-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 189,
@@ -82739,7 +83300,7 @@
     "en": "Loader tractor plowing a farm field",
     "slug": "trator-trator-carregador-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 19,
@@ -82761,7 +83322,7 @@
     "en": "Loader tractor carrying a bundle of hay",
     "slug": "trator-trator-carregador-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 191,
@@ -82772,7 +83333,7 @@
     "en": "Loader tractor parked next to a red barn",
     "slug": "trator-trator-carregador-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 192,
@@ -82783,7 +83344,7 @@
     "en": "Loader tractor driving up a muddy hill",
     "slug": "trator-trator-carregador-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 193,
@@ -82794,7 +83355,7 @@
     "en": "Loader tractor watering crops",
     "slug": "trator-trator-carregador-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 194,
@@ -82805,7 +83366,7 @@
     "en": "Loader tractor waving its wheels happily",
     "slug": "trator-trator-carregador-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 195,
@@ -82816,7 +83377,7 @@
     "en": "Vintage farm tractor plowing a farm field",
     "slug": "trator-trator-antigo-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 196,
@@ -82827,7 +83388,7 @@
     "en": "Vintage farm tractor carrying a bundle of hay",
     "slug": "trator-trator-antigo-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 197,
@@ -82838,7 +83399,7 @@
     "en": "Vintage farm tractor parked next to a red barn",
     "slug": "trator-trator-antigo-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 198,
@@ -82849,7 +83410,7 @@
     "en": "Vintage farm tractor driving up a muddy hill",
     "slug": "trator-trator-antigo-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 199,
@@ -82860,7 +83421,7 @@
     "en": "Vintage farm tractor watering crops",
     "slug": "trator-trator-antigo-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 20,
@@ -82882,7 +83443,7 @@
     "en": "Vintage farm tractor waving its wheels happily",
     "slug": "trator-trator-antigo-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 201,
@@ -82893,7 +83454,7 @@
     "en": "Crawler tractor plowing a farm field",
     "slug": "trator-trator-de-esteira-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 202,
@@ -82904,7 +83465,7 @@
     "en": "Crawler tractor carrying a bundle of hay",
     "slug": "trator-trator-de-esteira-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 203,
@@ -82915,7 +83476,7 @@
     "en": "Crawler tractor parked next to a red barn",
     "slug": "trator-trator-de-esteira-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 204,
@@ -82926,7 +83487,7 @@
     "en": "Crawler tractor driving up a muddy hill",
     "slug": "trator-trator-de-esteira-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 205,
@@ -82937,7 +83498,7 @@
     "en": "Crawler tractor watering crops",
     "slug": "trator-trator-de-esteira-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 206,
@@ -82948,7 +83509,7 @@
     "en": "Crawler tractor waving its wheels happily",
     "slug": "trator-trator-de-esteira-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 207,
@@ -82959,7 +83520,7 @@
     "en": "Utility tractor plowing a farm field",
     "slug": "trator-trator-utilitario-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 208,
@@ -82970,7 +83531,7 @@
     "en": "Utility tractor carrying a bundle of hay",
     "slug": "trator-trator-utilitario-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 209,
@@ -82981,7 +83542,7 @@
     "en": "Utility tractor parked next to a red barn",
     "slug": "trator-trator-utilitario-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 21,
@@ -83003,7 +83564,7 @@
     "en": "Utility tractor driving up a muddy hill",
     "slug": "trator-trator-utilitario-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 211,
@@ -83014,7 +83575,7 @@
     "en": "Utility tractor watering crops",
     "slug": "trator-trator-utilitario-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 212,
@@ -83025,7 +83586,7 @@
     "en": "Utility tractor waving its wheels happily",
     "slug": "trator-trator-utilitario-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 213,
@@ -83036,7 +83597,7 @@
     "en": "Heavy duty tractor plowing a farm field",
     "slug": "trator-trator-pesado-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 214,
@@ -83047,7 +83608,7 @@
     "en": "Heavy duty tractor carrying a bundle of hay",
     "slug": "trator-trator-pesado-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 215,
@@ -83058,7 +83619,7 @@
     "en": "Heavy duty tractor parked next to a red barn",
     "slug": "trator-trator-pesado-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 216,
@@ -83069,7 +83630,7 @@
     "en": "Heavy duty tractor driving up a muddy hill",
     "slug": "trator-trator-pesado-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 217,
@@ -83080,7 +83641,7 @@
     "en": "Heavy duty tractor watering crops",
     "slug": "trator-trator-pesado-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 218,
@@ -83091,7 +83652,7 @@
     "en": "Heavy duty tractor waving its wheels happily",
     "slug": "trator-trator-pesado-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 219,
@@ -83102,7 +83663,7 @@
     "en": "Cute toy tractor plowing a farm field",
     "slug": "trator-trator-de-brinquedo-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 22,
@@ -83124,7 +83685,7 @@
     "en": "Cute toy tractor carrying a bundle of hay",
     "slug": "trator-trator-de-brinquedo-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 221,
@@ -83135,7 +83696,7 @@
     "en": "Cute toy tractor parked next to a red barn",
     "slug": "trator-trator-de-brinquedo-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 222,
@@ -83146,7 +83707,7 @@
     "en": "Cute toy tractor driving up a muddy hill",
     "slug": "trator-trator-de-brinquedo-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 223,
@@ -83157,7 +83718,7 @@
     "en": "Cute toy tractor watering crops",
     "slug": "trator-trator-de-brinquedo-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 224,
@@ -83168,7 +83729,7 @@
     "en": "Cute toy tractor waving its wheels happily",
     "slug": "trator-trator-de-brinquedo-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 225,
@@ -83179,7 +83740,7 @@
     "en": "Friendly cartoon tractor plowing a farm field",
     "slug": "trator-trator-de-desenho-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 226,
@@ -83190,7 +83751,7 @@
     "en": "Friendly cartoon tractor carrying a bundle of hay",
     "slug": "trator-trator-de-desenho-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 227,
@@ -83201,7 +83762,7 @@
     "en": "Friendly cartoon tractor parked next to a red barn",
     "slug": "trator-trator-de-desenho-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 228,
@@ -83212,7 +83773,7 @@
     "en": "Friendly cartoon tractor driving up a muddy hill",
     "slug": "trator-trator-de-desenho-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 229,
@@ -83223,7 +83784,7 @@
     "en": "Friendly cartoon tractor watering crops",
     "slug": "trator-trator-de-desenho-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 23,
@@ -83245,7 +83806,7 @@
     "en": "Friendly cartoon tractor waving its wheels happily",
     "slug": "trator-trator-de-desenho-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 231,
@@ -83256,7 +83817,7 @@
     "en": "Garden tractor plowing a farm field",
     "slug": "trator-trator-de-jardim-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 232,
@@ -83267,7 +83828,7 @@
     "en": "Garden tractor carrying a bundle of hay",
     "slug": "trator-trator-de-jardim-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 233,
@@ -89584,6 +90145,83 @@
     "isNew": false
   },
   {
+    "index": 753,
+    "filename": "753-caminhao-monster-truck-gigante-entregando-pacotes__monster_truck_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/753-caminhao-monster-truck-gigante-entregando-pacotes__monster_truck_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao monster truck gigante entregando pacotes",
+    "en": "Monster truck delivering colorful packages",
+    "slug": "caminhao-monster-truck-gigante-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 754,
+    "filename": "754-caminhao-monster-truck-gigante-limpando-as-ruas__monster_truck_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/754-caminhao-monster-truck-gigante-limpando-as-ruas__monster_truck_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao monster truck gigante limpando as ruas",
+    "en": "Monster truck cleaning the city streets",
+    "slug": "caminhao-monster-truck-gigante-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 755,
+    "filename": "755-caminhao-monster-truck-gigante-carregando-toras__monster_truck_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/755-caminhao-monster-truck-gigante-carregando-toras__monster_truck_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao monster truck gigante carregando toras",
+    "en": "Monster truck carrying logs of wood",
+    "slug": "caminhao-monster-truck-gigante-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 756,
+    "filename": "756-caminhao-monster-truck-gigante-no-patio-de-carga__monster_truck_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/756-caminhao-monster-truck-gigante-no-patio-de-carga__monster_truck_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao monster truck gigante no patio de carga",
+    "en": "Monster truck parked at a loading dock",
+    "slug": "caminhao-monster-truck-gigante-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 757,
+    "filename": "757-caminhao-monster-truck-gigante-buzinando-forte__monster_truck_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/757-caminhao-monster-truck-gigante-buzinando-forte__monster_truck_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao monster truck gigante buzinando forte",
+    "en": "Monster truck blowing its loud horn",
+    "slug": "caminhao-monster-truck-gigante-buzinando-forte",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 758,
+    "filename": "758-caminhao-monster-truck-gigante-levando-carrinhos__monster_truck_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/758-caminhao-monster-truck-gigante-levando-carrinhos__monster_truck_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao monster truck gigante levando carrinhos",
+    "en": "Monster truck carrying smaller cars on its back",
+    "slug": "caminhao-monster-truck-gigante-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 759,
+    "filename": "759-caminhao-carro-de-bombeiro-na-rodovia-larga__fire_engine_truck_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/759-caminhao-carro-de-bombeiro-na-rodovia-larga__fire_engine_truck_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao carro de bombeiro na rodovia larga",
+    "en": "Fire engine truck driving on a wide highway",
+    "slug": "caminhao-carro-de-bombeiro-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 76,
     "filename": "76-carro-com-sirene-ligada__car.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/76-carro-com-sirene-ligada__car.png",
@@ -89593,6 +90231,116 @@
     "slug": "carro-com-sirene-ligada",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 760,
+    "filename": "760-caminhao-carro-de-bombeiro-saltando-na-arena__fire_engine_truck_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/760-caminhao-carro-de-bombeiro-saltando-na-arena__fire_engine_truck_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao carro de bombeiro saltando na arena",
+    "en": "Fire engine truck jumping over ramps in an arena",
+    "slug": "caminhao-carro-de-bombeiro-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 761,
+    "filename": "761-caminhao-carro-de-bombeiro-entregando-pacotes__fire_engine_truck_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/761-caminhao-carro-de-bombeiro-entregando-pacotes__fire_engine_truck_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao carro de bombeiro entregando pacotes",
+    "en": "Fire engine truck delivering colorful packages",
+    "slug": "caminhao-carro-de-bombeiro-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 762,
+    "filename": "762-caminhao-carro-de-bombeiro-limpando-as-ruas__fire_engine_truck_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/762-caminhao-carro-de-bombeiro-limpando-as-ruas__fire_engine_truck_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao carro de bombeiro limpando as ruas",
+    "en": "Fire engine truck cleaning the city streets",
+    "slug": "caminhao-carro-de-bombeiro-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 763,
+    "filename": "763-caminhao-carro-de-bombeiro-carregando-toras__fire_engine_truck_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/763-caminhao-carro-de-bombeiro-carregando-toras__fire_engine_truck_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao carro de bombeiro carregando toras",
+    "en": "Fire engine truck carrying logs of wood",
+    "slug": "caminhao-carro-de-bombeiro-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 764,
+    "filename": "764-caminhao-carro-de-bombeiro-no-patio-de-carga__fire_engine_truck_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/764-caminhao-carro-de-bombeiro-no-patio-de-carga__fire_engine_truck_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao carro de bombeiro no patio de carga",
+    "en": "Fire engine truck parked at a loading dock",
+    "slug": "caminhao-carro-de-bombeiro-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 765,
+    "filename": "765-caminhao-carro-de-bombeiro-buzinando-forte__fire_engine_truck_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/765-caminhao-carro-de-bombeiro-buzinando-forte__fire_engine_truck_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao carro de bombeiro buzinando forte",
+    "en": "Fire engine truck blowing its loud horn",
+    "slug": "caminhao-carro-de-bombeiro-buzinando-forte",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 766,
+    "filename": "766-caminhao-carro-de-bombeiro-levando-carrinhos__fire_engine_truck_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/766-caminhao-carro-de-bombeiro-levando-carrinhos__fire_engine_truck_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao carro de bombeiro levando carrinhos",
+    "en": "Fire engine truck carrying smaller cars on its back",
+    "slug": "caminhao-carro-de-bombeiro-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 767,
+    "filename": "767-caminhao-caminhao-cegonha-de-carros-na-rodovia-larga__car_carrier_truck_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/767-caminhao-caminhao-cegonha-de-carros-na-rodovia-larga__car_carrier_truck_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha de carros na rodovia larga",
+    "en": "Car carrier truck driving on a wide highway",
+    "slug": "caminhao-caminhao-cegonha-de-carros-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 768,
+    "filename": "768-caminhao-caminhao-cegonha-de-carros-saltando-na-arena__car_carrier_truck_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/768-caminhao-caminhao-cegonha-de-carros-saltando-na-arena__car_carrier_truck_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha de carros saltando na arena",
+    "en": "Car carrier truck jumping over ramps in an arena",
+    "slug": "caminhao-caminhao-cegonha-de-carros-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 769,
+    "filename": "769-caminhao-caminhao-cegonha-de-carros-entregando-pacotes__car_carrier_truck_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/769-caminhao-caminhao-cegonha-de-carros-entregando-pacotes__car_carrier_truck_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha de carros entregando pacotes",
+    "en": "Car carrier truck delivering colorful packages",
+    "slug": "caminhao-caminhao-cegonha-de-carros-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 77,
@@ -89606,6 +90354,116 @@
     "isNew": true
   },
   {
+    "index": 770,
+    "filename": "770-caminhao-caminhao-cegonha-de-carros-limpando-as-ruas__car_carrier_truck_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/770-caminhao-caminhao-cegonha-de-carros-limpando-as-ruas__car_carrier_truck_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha de carros limpando as ruas",
+    "en": "Car carrier truck cleaning the city streets",
+    "slug": "caminhao-caminhao-cegonha-de-carros-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 771,
+    "filename": "771-caminhao-caminhao-cegonha-de-carros-carregando-toras__car_carrier_truck_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/771-caminhao-caminhao-cegonha-de-carros-carregando-toras__car_carrier_truck_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha de carros carregando toras",
+    "en": "Car carrier truck carrying logs of wood",
+    "slug": "caminhao-caminhao-cegonha-de-carros-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 772,
+    "filename": "772-caminhao-caminhao-cegonha-de-carros-no-patio-de-carga__car_carrier_truck_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/772-caminhao-caminhao-cegonha-de-carros-no-patio-de-carga__car_carrier_truck_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha de carros no patio de carga",
+    "en": "Car carrier truck parked at a loading dock",
+    "slug": "caminhao-caminhao-cegonha-de-carros-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 773,
+    "filename": "773-caminhao-caminhao-cegonha-de-carros-buzinando-forte__car_carrier_truck_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/773-caminhao-caminhao-cegonha-de-carros-buzinando-forte__car_carrier_truck_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha de carros buzinando forte",
+    "en": "Car carrier truck blowing its loud horn",
+    "slug": "caminhao-caminhao-cegonha-de-carros-buzinando-forte",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 774,
+    "filename": "774-caminhao-caminhao-cegonha-de-carros-levando-carrinhos__car_carrier_truck_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/774-caminhao-caminhao-cegonha-de-carros-levando-carrinhos__car_carrier_truck_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao caminhao cegonha de carros levando carrinhos",
+    "en": "Car carrier truck carrying smaller cars on its back",
+    "slug": "caminhao-caminhao-cegonha-de-carros-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 775,
+    "filename": "775-caminhao-picape-na-rodovia-larga__pickup_truck_driving_on_a_wide_highway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/775-caminhao-picape-na-rodovia-larga__pickup_truck_driving_on_a_wide_highway.png",
+    "category": "veiculos",
+    "pt": "Caminhao picape na rodovia larga",
+    "en": "Pickup truck driving on a wide highway",
+    "slug": "caminhao-picape-na-rodovia-larga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 776,
+    "filename": "776-caminhao-picape-saltando-na-arena__pickup_truck_jumping_over_ramps_in_an_arena.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/776-caminhao-picape-saltando-na-arena__pickup_truck_jumping_over_ramps_in_an_arena.png",
+    "category": "veiculos",
+    "pt": "Caminhao picape saltando na arena",
+    "en": "Pickup truck jumping over ramps in an arena",
+    "slug": "caminhao-picape-saltando-na-arena",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 777,
+    "filename": "777-caminhao-picape-entregando-pacotes__pickup_truck_delivering_colorful_packages.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/777-caminhao-picape-entregando-pacotes__pickup_truck_delivering_colorful_packages.png",
+    "category": "veiculos",
+    "pt": "Caminhao picape entregando pacotes",
+    "en": "Pickup truck delivering colorful packages",
+    "slug": "caminhao-picape-entregando-pacotes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 778,
+    "filename": "778-caminhao-picape-limpando-as-ruas__pickup_truck_cleaning_the_city_streets.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/778-caminhao-picape-limpando-as-ruas__pickup_truck_cleaning_the_city_streets.png",
+    "category": "veiculos",
+    "pt": "Caminhao picape limpando as ruas",
+    "en": "Pickup truck cleaning the city streets",
+    "slug": "caminhao-picape-limpando-as-ruas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 779,
+    "filename": "779-caminhao-picape-carregando-toras__pickup_truck_carrying_logs_of_wood.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/779-caminhao-picape-carregando-toras__pickup_truck_carrying_logs_of_wood.png",
+    "category": "veiculos",
+    "pt": "Caminhao picape carregando toras",
+    "en": "Pickup truck carrying logs of wood",
+    "slug": "caminhao-picape-carregando-toras",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 78,
     "filename": "78-trem-com-sirene-ligada__train.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/78-trem-com-sirene-ligada__train.png",
@@ -89615,6 +90473,39 @@
     "slug": "trem-com-sirene-ligada",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 780,
+    "filename": "780-caminhao-picape-no-patio-de-carga__pickup_truck_parked_at_a_loading_dock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/780-caminhao-picape-no-patio-de-carga__pickup_truck_parked_at_a_loading_dock.png",
+    "category": "veiculos",
+    "pt": "Caminhao picape no patio de carga",
+    "en": "Pickup truck parked at a loading dock",
+    "slug": "caminhao-picape-no-patio-de-carga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 781,
+    "filename": "781-caminhao-picape-buzinando-forte__pickup_truck_blowing_its_loud_horn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/781-caminhao-picape-buzinando-forte__pickup_truck_blowing_its_loud_horn.png",
+    "category": "veiculos",
+    "pt": "Caminhao picape buzinando forte",
+    "en": "Pickup truck blowing its loud horn",
+    "slug": "caminhao-picape-buzinando-forte",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 782,
+    "filename": "782-caminhao-picape-levando-carrinhos__pickup_truck_carrying_smaller_cars_on_its_back.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/782-caminhao-picape-levando-carrinhos__pickup_truck_carrying_smaller_cars_on_its_back.png",
+    "category": "veiculos",
+    "pt": "Caminhao picape levando carrinhos",
+    "en": "Pickup truck carrying smaller cars on its back",
+    "slug": "caminhao-picape-levando-carrinhos",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 79,
