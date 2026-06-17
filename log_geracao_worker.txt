@@ -2654,3 +2654,58 @@
 [2026-06-17 04:29:15] Rebuilding catalog and drawings database...
 [2026-06-17 04:29:16] Build successful!
 [2026-06-17 04:29:16] Committing and pushing to origin main...
+[2026-06-17 04:29:19] Push successful! Vercel will deploy in production.
+[2026-06-17 04:29:21] [851/4400] Generated: profissoes/508-bombeiro-mascote-cao-bombeiro-com-capacete-amarelo__firefighter_dog_mascot_wearing_a_yellow_helmet.png
+[2026-06-17 04:29:23] [852/4400] Generated: profissoes/510-bombeiro-mascote-cao-bombeiro-acenando-feliz__firefighter_dog_mascot_waving_happily.png
+[2026-06-17 04:29:25] [853/4400] Generated: profissoes/509-bombeiro-mascote-cao-bombeiro-perto-do-quartel__firefighter_dog_mascot_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 04:29:26] [854/4400] Generated: profissoes/511-bombeiro-mascote-cao-bombeiro-com-placa-de-seguranca__firefighter_dog_mascot_pointing_at_a_safety_sign.png
+[2026-06-17 04:29:28] [855/4400] Generated: profissoes/512-bombeiro-heroi-do-resgate-com-mangueira-de-agua__fire_rescue_hero_holding_a_water_hose.png
+[2026-06-17 04:29:30] [856/4400] Generated: profissoes/513-bombeiro-heroi-do-resgate-subindo-escada-alta__fire_rescue_hero_climbing_a_tall_ladder.png
+[2026-06-17 04:29:31] [857/4400] Generated: profissoes/514-bombeiro-heroi-do-resgate-com-caminhao-de-bombeiro__fire_rescue_hero_driving_a_big_red_firetruck.png
+[2026-06-17 04:29:32] [858/4400] Generated: profissoes/515-bombeiro-heroi-do-resgate-salvando-gatinho__fire_rescue_hero_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 04:29:33] [859/4400] Generated: profissoes/516-bombeiro-heroi-do-resgate-com-capacete-amarelo__fire_rescue_hero_wearing_a_yellow_helmet.png
+[2026-06-17 04:29:35] [860/4400] Generated: profissoes/517-bombeiro-heroi-do-resgate-perto-do-quartel__fire_rescue_hero_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 04:29:37] [861/4400] Generated: profissoes/518-bombeiro-heroi-do-resgate-acenando-feliz__fire_rescue_hero_waving_happily.png
+[2026-06-17 04:29:38] [862/4400] Generated: profissoes/519-bombeiro-heroi-do-resgate-com-placa-de-seguranca__fire_rescue_hero_pointing_at_a_safety_sign.png
+[2026-06-17 04:29:39] [863/4400] Generated: profissoes/520-bombeiro-bombeira-mulher-com-mangueira-de-agua__firefighter_woman_holding_a_water_hose.png
+[2026-06-17 04:29:40] [864/4400] Generated: profissoes/521-bombeiro-bombeira-mulher-subindo-escada-alta__firefighter_woman_climbing_a_tall_ladder.png
+[2026-06-17 04:29:42] [865/4400] Generated: profissoes/523-bombeiro-bombeira-mulher-salvando-gatinho__firefighter_woman_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 04:29:43] [866/4400] Generated: profissoes/522-bombeiro-bombeira-mulher-com-caminhao-de-bombeiro__firefighter_woman_driving_a_big_red_firetruck.png
+[2026-06-17 04:29:45] [867/4400] Generated: profissoes/524-bombeiro-bombeira-mulher-com-capacete-amarelo__firefighter_woman_wearing_a_yellow_helmet.png
+[2026-06-17 04:29:46] [868/4400] Generated: profissoes/525-bombeiro-bombeira-mulher-perto-do-quartel__firefighter_woman_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 04:29:48] [869/4400] Generated: profissoes/526-bombeiro-bombeira-mulher-acenando-feliz__firefighter_woman_waving_happily.png
+[2026-06-17 04:29:49] [870/4400] Generated: profissoes/527-bombeiro-bombeira-mulher-com-placa-de-seguranca__firefighter_woman_pointing_at_a_safety_sign.png
+[2026-06-17 04:29:51] [871/4400] Generated: profissoes/528-bombeiro-crianca-bombeiro-com-mangueira-de-agua__happy_firefighter_kid_holding_a_water_hose.png
+[2026-06-17 04:29:53] [872/4400] Generated: profissoes/529-bombeiro-crianca-bombeiro-subindo-escada-alta__happy_firefighter_kid_climbing_a_tall_ladder.png
+[2026-06-17 04:29:54] [873/4400] Generated: profissoes/530-bombeiro-crianca-bombeiro-com-caminhao-de-bombeiro__happy_firefighter_kid_driving_a_big_red_firetruck.png
+[2026-06-17 04:29:55] [874/4400] Generated: profissoes/531-bombeiro-crianca-bombeiro-salvando-gatinho__happy_firefighter_kid_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 04:29:57] [875/4400] Generated: profissoes/532-bombeiro-crianca-bombeiro-com-capacete-amarelo__happy_firefighter_kid_wearing_a_yellow_helmet.png
+[2026-06-17 04:29:59] [876/4400] Generated: profissoes/533-bombeiro-crianca-bombeiro-perto-do-quartel__happy_firefighter_kid_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 04:30:00] [877/4400] Generated: profissoes/534-bombeiro-crianca-bombeiro-acenando-feliz__happy_firefighter_kid_waving_happily.png
+[2026-06-17 04:30:02] [878/4400] Generated: profissoes/536-bombeiro-bombeiro-audaz-com-mangueira-de-agua__courageous_firefighter_holding_a_water_hose.png
+[2026-06-17 04:30:03] [879/4400] Generated: profissoes/535-bombeiro-crianca-bombeiro-com-placa-de-seguranca__happy_firefighter_kid_pointing_at_a_safety_sign.png
+[2026-06-17 04:30:04] [880/4400] Generated: profissoes/537-bombeiro-bombeiro-audaz-subindo-escada-alta__courageous_firefighter_climbing_a_tall_ladder.png
+[2026-06-17 04:30:06] [881/4400] Generated: profissoes/538-bombeiro-bombeiro-audaz-com-caminhao-de-bombeiro__courageous_firefighter_driving_a_big_red_firetruck.png
+[2026-06-17 04:30:07] [882/4400] Generated: profissoes/539-bombeiro-bombeiro-audaz-salvando-gatinho__courageous_firefighter_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 04:30:08] [883/4400] Generated: profissoes/540-bombeiro-bombeiro-audaz-com-capacete-amarelo__courageous_firefighter_wearing_a_yellow_helmet.png
+[2026-06-17 04:30:09] [884/4400] Generated: profissoes/541-bombeiro-bombeiro-audaz-perto-do-quartel__courageous_firefighter_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 04:30:11] [885/4400] Generated: profissoes/542-bombeiro-bombeiro-audaz-acenando-feliz__courageous_firefighter_waving_happily.png
+[2026-06-17 04:30:12] [886/4400] Generated: profissoes/543-bombeiro-bombeiro-audaz-com-placa-de-seguranca__courageous_firefighter_pointing_at_a_safety_sign.png
+[2026-06-17 04:30:13] [887/4400] Generated: profissoes/544-bombeiro-bombeiro-voluntario-com-mangueira-de-agua__volunteer_firefighter_holding_a_water_hose.png
+[2026-06-17 04:30:14] [888/4400] Generated: profissoes/545-bombeiro-bombeiro-voluntario-subindo-escada-alta__volunteer_firefighter_climbing_a_tall_ladder.png
+[2026-06-17 04:30:16] [889/4400] Generated: profissoes/546-bombeiro-bombeiro-voluntario-com-caminhao-de-bombeiro__volunteer_firefighter_driving_a_big_red_firetruck.png
+[2026-06-17 04:30:18] [890/4400] Generated: profissoes/547-bombeiro-bombeiro-voluntario-salvando-gatinho__volunteer_firefighter_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 04:30:20] [891/4400] Generated: profissoes/548-bombeiro-bombeiro-voluntario-com-capacete-amarelo__volunteer_firefighter_wearing_a_yellow_helmet.png
+[2026-06-17 04:30:21] [892/4400] Generated: profissoes/549-bombeiro-bombeiro-voluntario-perto-do-quartel__volunteer_firefighter_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 04:30:22] [893/4400] Generated: profissoes/550-bombeiro-bombeiro-voluntario-acenando-feliz__volunteer_firefighter_waving_happily.png
+[2026-06-17 04:30:23] [894/4400] Generated: profissoes/551-bombeiro-bombeiro-voluntario-com-placa-de-seguranca__volunteer_firefighter_pointing_at_a_safety_sign.png
+[2026-06-17 04:30:25] [895/4400] Generated: profissoes/552-bombeiro-bombeiro-de-desenho-com-mangueira-de-agua__cute_cartoon_firefighter_holding_a_water_hose.png
+[2026-06-17 04:30:27] [896/4400] Generated: profissoes/553-bombeiro-bombeiro-de-desenho-subindo-escada-alta__cute_cartoon_firefighter_climbing_a_tall_ladder.png
+[2026-06-17 04:30:29] [897/4400] Generated: profissoes/554-bombeiro-bombeiro-de-desenho-com-caminhao-de-bombeiro__cute_cartoon_firefighter_driving_a_big_red_firetruck.png
+[2026-06-17 04:30:31] [898/4400] Generated: profissoes/556-bombeiro-bombeiro-de-desenho-com-capacete-amarelo__cute_cartoon_firefighter_wearing_a_yellow_helmet.png
+[2026-06-17 04:30:32] [899/4400] Generated: profissoes/555-bombeiro-bombeiro-de-desenho-salvando-gatinho__cute_cartoon_firefighter_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 04:30:33] [900/4400] Generated: profissoes/557-bombeiro-bombeiro-de-desenho-perto-do-quartel__cute_cartoon_firefighter_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 04:30:33] Batch 18 completed (900 drawings). Triggering build & push...
+[2026-06-17 04:30:33] Rebuilding catalog and drawings database...
+[2026-06-17 04:30:34] Build successful!
+[2026-06-17 04:30:34] Committing and pushing to origin main...
