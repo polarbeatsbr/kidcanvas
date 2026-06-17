@@ -2599,3 +2599,58 @@
 [2026-06-17 04:28:01] Rebuilding catalog and drawings database...
 [2026-06-17 04:28:02] Build successful!
 [2026-06-17 04:28:02] Committing and pushing to origin main...
+[2026-06-17 04:28:05] Push successful! Vercel will deploy in production.
+[2026-06-17 04:28:06] [801/4400] Generated: paper-doll/191-moda-bebe-boneca-de-papel-casaco-de-inverno-e-botas__chubby_baby_paper_doll_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 04:28:08] [802/4400] Generated: paper-doll/192-moda-bebe-boneca-de-papel-vestido-de-verao-e-chapeu__chubby_baby_paper_doll_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 04:28:09] [803/4400] Generated: paper-doll/193-moda-bebe-boneca-de-papel-roupa-esportiva-e-tenis__chubby_baby_paper_doll_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 04:28:11] [804/4400] Generated: paper-doll/194-moda-bebe-boneca-de-papel-vestido-de-festa-e-laco__chubby_baby_paper_doll_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 04:28:13] [805/4400] Generated: paper-doll/195-moda-bebe-boneca-de-papel-pijama-quentinho-e-pantufas__chubby_baby_paper_doll_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 04:28:14] [806/4400] Generated: paper-doll/196-moda-bebe-boneca-de-papel-uniforme-escolar-e-mochila__chubby_baby_paper_doll_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 04:28:15] [807/4400] Generated: paper-doll/197-moda-crianca-estilosa-boneca-casaco-de-inverno-e-botas__stylish_paper_doll_kid_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 04:28:17] [808/4400] Generated: paper-doll/198-moda-crianca-estilosa-boneca-vestido-de-verao-e-chapeu__stylish_paper_doll_kid_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 04:28:18] [809/4400] Generated: paper-doll/199-moda-crianca-estilosa-boneca-roupa-esportiva-e-tenis__stylish_paper_doll_kid_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 04:28:19] [810/4400] Generated: paper-doll/200-moda-crianca-estilosa-boneca-vestido-de-festa-e-laco__stylish_paper_doll_kid_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 04:28:20] [811/4400] Generated: paper-doll/201-moda-crianca-estilosa-boneca-pijama-quentinho-e-pantufas__stylish_paper_doll_kid_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 04:28:22] [812/4400] Generated: paper-doll/202-moda-crianca-estilosa-boneca-uniforme-escolar-e-mochila__stylish_paper_doll_kid_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 04:28:23] [813/4400] Generated: paper-doll/203-moda-boneca-de-papel-activa-casaco-de-inverno-e-botas__playful_paper_doll_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 04:28:25] [814/4400] Generated: paper-doll/204-moda-boneca-de-papel-activa-vestido-de-verao-e-chapeu__playful_paper_doll_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 04:28:26] [815/4400] Generated: paper-doll/205-moda-boneca-de-papel-activa-roupa-esportiva-e-tenis__playful_paper_doll_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 04:28:27] [816/4400] Generated: paper-doll/206-moda-boneca-de-papel-activa-vestido-de-festa-e-laco__playful_paper_doll_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 04:28:28] [817/4400] Generated: paper-doll/207-moda-boneca-de-papel-activa-pijama-quentinho-e-pantufas__playful_paper_doll_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 04:28:30] [818/4400] Generated: paper-doll/208-moda-boneca-de-papel-activa-uniforme-escolar-e-mochila__playful_paper_doll_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 04:28:31] [819/4400] Generated: paper-doll/209-moda-bonequinha-de-papel-fofa-casaco-de-inverno-e-botas__sweet_cartoon_paper_doll_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 04:28:32] [820/4400] Generated: paper-doll/211-moda-bonequinha-de-papel-fofa-roupa-esportiva-e-tenis__sweet_cartoon_paper_doll_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 04:28:33] [821/4400] Generated: paper-doll/210-moda-bonequinha-de-papel-fofa-vestido-de-verao-e-chapeu__sweet_cartoon_paper_doll_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 04:28:34] [822/4400] Generated: paper-doll/213-moda-bonequinha-de-papel-fofa-pijama-quentinho-e-pantufas__sweet_cartoon_paper_doll_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 04:28:36] [823/4400] Generated: paper-doll/214-moda-bonequinha-de-papel-fofa-uniforme-escolar-e-mochila__sweet_cartoon_paper_doll_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 04:28:37] [824/4400] Generated: paper-doll/212-moda-bonequinha-de-papel-fofa-vestido-de-festa-e-laco__sweet_cartoon_paper_doll_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 04:28:38] [825/4400] Generated: paper-doll/215-moda-personagem-boneca-de-papel-casaco-de-inverno-e-botas__cool_paper_doll_character_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 04:28:39] [826/4400] Generated: paper-doll/216-moda-personagem-boneca-de-papel-vestido-de-verao-e-chapeu__cool_paper_doll_character_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 04:28:40] [827/4400] Generated: paper-doll/217-moda-personagem-boneca-de-papel-roupa-esportiva-e-tenis__cool_paper_doll_character_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 04:28:42] [828/4400] Generated: paper-doll/219-moda-personagem-boneca-de-papel-pijama-quentinho-e-pantufas__cool_paper_doll_character_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 04:28:43] [829/4400] Generated: paper-doll/218-moda-personagem-boneca-de-papel-vestido-de-festa-e-laco__cool_paper_doll_character_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 04:28:45] [830/4400] Generated: profissoes/488-bombeiro-bombeiro-corajoso-com-mangueira-de-agua__brave_firefighter_holding_a_water_hose.png
+[2026-06-17 04:28:47] [831/4400] Generated: paper-doll/220-moda-personagem-boneca-de-papel-uniforme-escolar-e-mochila__cool_paper_doll_character_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 04:28:48] [832/4400] Generated: profissoes/490-bombeiro-bombeiro-corajoso-com-caminhao-de-bombeiro__brave_firefighter_driving_a_big_red_firetruck.png
+[2026-06-17 04:28:49] [833/4400] Generated: profissoes/489-bombeiro-bombeiro-corajoso-subindo-escada-alta__brave_firefighter_climbing_a_tall_ladder.png
+[2026-06-17 04:28:50] [834/4400] Generated: profissoes/491-bombeiro-bombeiro-corajoso-salvando-gatinho__brave_firefighter_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 04:28:52] [835/4400] Generated: profissoes/492-bombeiro-bombeiro-corajoso-com-capacete-amarelo__brave_firefighter_wearing_a_yellow_helmet.png
+[2026-06-17 04:28:54] [836/4400] Generated: profissoes/493-bombeiro-bombeiro-corajoso-perto-do-quartel__brave_firefighter_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 04:28:55] [837/4400] Generated: profissoes/494-bombeiro-bombeiro-corajoso-acenando-feliz__brave_firefighter_waving_happily.png
+[2026-06-17 04:28:57] [838/4400] Generated: profissoes/496-bombeiro-chefe-dos-bombeiros-com-mangueira-de-agua__friendly_fire_captain_holding_a_water_hose.png
+[2026-06-17 04:28:58] [839/4400] Generated: profissoes/495-bombeiro-bombeiro-corajoso-com-placa-de-seguranca__brave_firefighter_pointing_at_a_safety_sign.png
+[2026-06-17 04:29:00] [840/4400] Generated: profissoes/497-bombeiro-chefe-dos-bombeiros-subindo-escada-alta__friendly_fire_captain_climbing_a_tall_ladder.png
+[2026-06-17 04:29:02] [841/4400] Generated: profissoes/498-bombeiro-chefe-dos-bombeiros-com-caminhao-de-bombeiro__friendly_fire_captain_driving_a_big_red_firetruck.png
+[2026-06-17 04:29:04] [842/4400] Generated: profissoes/500-bombeiro-chefe-dos-bombeiros-com-capacete-amarelo__friendly_fire_captain_wearing_a_yellow_helmet.png
+[2026-06-17 04:29:05] [843/4400] Generated: profissoes/499-bombeiro-chefe-dos-bombeiros-salvando-gatinho__friendly_fire_captain_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 04:29:07] [844/4400] Generated: profissoes/501-bombeiro-chefe-dos-bombeiros-perto-do-quartel__friendly_fire_captain_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 04:29:09] [845/4400] Generated: profissoes/502-bombeiro-chefe-dos-bombeiros-acenando-feliz__friendly_fire_captain_waving_happily.png
+[2026-06-17 04:29:10] [846/4400] Generated: profissoes/503-bombeiro-chefe-dos-bombeiros-com-placa-de-seguranca__friendly_fire_captain_pointing_at_a_safety_sign.png
+[2026-06-17 04:29:11] [847/4400] Generated: profissoes/505-bombeiro-mascote-cao-bombeiro-subindo-escada-alta__firefighter_dog_mascot_climbing_a_tall_ladder.png
+[2026-06-17 04:29:13] [848/4400] Generated: profissoes/504-bombeiro-mascote-cao-bombeiro-com-mangueira-de-agua__firefighter_dog_mascot_holding_a_water_hose.png
+[2026-06-17 04:29:14] [849/4400] Generated: profissoes/506-bombeiro-mascote-cao-bombeiro-com-caminhao-de-bombeiro__firefighter_dog_mascot_driving_a_big_red_firetruck.png
+[2026-06-17 04:29:15] [850/4400] Generated: profissoes/507-bombeiro-mascote-cao-bombeiro-salvando-gatinho__firefighter_dog_mascot_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 04:29:15] Batch 17 completed (850 drawings). Triggering build & push...
+[2026-06-17 04:29:15] Rebuilding catalog and drawings database...
+[2026-06-17 04:29:16] Build successful!
+[2026-06-17 04:29:16] Committing and pushing to origin main...
