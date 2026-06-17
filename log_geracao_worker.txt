@@ -3425,3 +3425,58 @@
 [2026-06-17 04:46:33] Rebuilding catalog and drawings database...
 [2026-06-17 04:46:34] Build successful!
 [2026-06-17 04:46:34] Committing and pushing to origin main...
+[2026-06-17 04:46:38] Push successful! Vercel will deploy in production.
+[2026-06-17 04:46:39] [1551/4400] Generated: veiculos/1183-moto-moto-esportiva-na-estrada-bonita__sports_motorcycle_riding_down_a_scenic_road.png
+[2026-06-17 04:46:41] [1552/4400] Generated: veiculos/1184-moto-moto-esportiva-saltando-rampa-de-terra__sports_motorcycle_jumping_over_a_dirt_hill.png
+[2026-06-17 04:46:42] [1553/4400] Generated: veiculos/1185-moto-moto-esportiva-perto-do-cafe__sports_motorcycle_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:46:43] [1554/4400] Generated: veiculos/1186-moto-moto-esportiva-com-caixa-de-pizza__sports_motorcycle_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:46:45] [1555/4400] Generated: veiculos/1187-moto-moto-esportiva-com-capacete-de-seguranca__sports_motorcycle_riding_with_a_safety_helmet.png
+[2026-06-17 04:46:46] [1556/4400] Generated: veiculos/1188-moto-moto-esportiva-com-farois-acesos__sports_motorcycle_smiling_with_big_headlights.png
+[2026-06-17 04:46:47] [1557/4400] Generated: veiculos/1189-moto-scooter-classica-na-estrada-bonita__classic_scooter_riding_down_a_scenic_road.png
+[2026-06-17 04:46:49] [1558/4400] Generated: veiculos/1190-moto-scooter-classica-saltando-rampa-de-terra__classic_scooter_jumping_over_a_dirt_hill.png
+[2026-06-17 04:46:50] [1559/4400] Generated: veiculos/1191-moto-scooter-classica-perto-do-cafe__classic_scooter_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:46:53] [1560/4400] Generated: veiculos/1192-moto-scooter-classica-com-caixa-de-pizza__classic_scooter_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:46:55] [1561/4400] Generated: veiculos/1193-moto-scooter-classica-com-capacete-de-seguranca__classic_scooter_riding_with_a_safety_helmet.png
+[2026-06-17 04:46:56] [1562/4400] Generated: veiculos/1194-moto-scooter-classica-com-farois-acesos__classic_scooter_smiling_with_big_headlights.png
+[2026-06-17 04:46:57] [1563/4400] Generated: veiculos/1195-moto-moto-estradeira-na-estrada-bonita__cruiser_motorcycle_riding_down_a_scenic_road.png
+[2026-06-17 04:46:58] [1564/4400] Generated: veiculos/1196-moto-moto-estradeira-saltando-rampa-de-terra__cruiser_motorcycle_jumping_over_a_dirt_hill.png
+[2026-06-17 04:47:00] [1565/4400] Generated: veiculos/1198-moto-moto-estradeira-com-caixa-de-pizza__cruiser_motorcycle_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:47:01] [1566/4400] Generated: veiculos/1197-moto-moto-estradeira-perto-do-cafe__cruiser_motorcycle_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:47:02] [1567/4400] Generated: veiculos/1199-moto-moto-estradeira-com-capacete-de-seguranca__cruiser_motorcycle_riding_with_a_safety_helmet.png
+[2026-06-17 04:47:04] [1568/4400] Generated: veiculos/1200-moto-moto-estradeira-com-farois-acesos__cruiser_motorcycle_smiling_with_big_headlights.png
+[2026-06-17 04:47:05] [1569/4400] Generated: veiculos/1201-moto-moto-de-trilha-na-estrada-bonita__dirt_bike_riding_down_a_scenic_road.png
+[2026-06-17 04:47:06] [1570/4400] Generated: veiculos/1202-moto-moto-de-trilha-saltando-rampa-de-terra__dirt_bike_jumping_over_a_dirt_hill.png
+[2026-06-17 04:47:07] [1571/4400] Generated: veiculos/1205-moto-moto-de-trilha-com-capacete-de-seguranca__dirt_bike_riding_with_a_safety_helmet.png
+[2026-06-17 04:47:09] [1572/4400] Generated: veiculos/1203-moto-moto-de-trilha-perto-do-cafe__dirt_bike_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:47:10] [1573/4400] Generated: veiculos/1204-moto-moto-de-trilha-com-caixa-de-pizza__dirt_bike_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:47:11] [1574/4400] Generated: veiculos/1206-moto-moto-de-trilha-com-farois-acesos__dirt_bike_smiling_with_big_headlights.png
+[2026-06-17 04:47:12] [1575/4400] Generated: veiculos/1208-moto-moped-eletrica-saltando-rampa-de-terra__electric_moped_jumping_over_a_dirt_hill.png
+[2026-06-17 04:47:14] [1576/4400] Generated: veiculos/1207-moto-moped-eletrica-na-estrada-bonita__electric_moped_riding_down_a_scenic_road.png
+[2026-06-17 04:47:16] [1577/4400] Generated: veiculos/1210-moto-moped-eletrica-com-caixa-de-pizza__electric_moped_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:47:17] [1578/4400] Generated: veiculos/1209-moto-moped-eletrica-perto-do-cafe__electric_moped_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:47:18] [1579/4400] Generated: veiculos/1211-moto-moped-eletrica-com-capacete-de-seguranca__electric_moped_riding_with_a_safety_helmet.png
+[2026-06-17 04:47:19] [1580/4400] Generated: veiculos/1212-moto-moped-eletrica-com-farois-acesos__electric_moped_smiling_with_big_headlights.png
+[2026-06-17 04:47:21] [1581/4400] Generated: veiculos/1214-moto-moto-vintage-saltando-rampa-de-terra__vintage_motorcycle_jumping_over_a_dirt_hill.png
+[2026-06-17 04:47:22] [1582/4400] Generated: veiculos/1213-moto-moto-vintage-na-estrada-bonita__vintage_motorcycle_riding_down_a_scenic_road.png
+[2026-06-17 04:47:23] [1583/4400] Generated: veiculos/1215-moto-moto-vintage-perto-do-cafe__vintage_motorcycle_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:47:24] [1584/4400] Generated: veiculos/1216-moto-moto-vintage-com-caixa-de-pizza__vintage_motorcycle_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:47:27] [1585/4400] Generated: veiculos/1217-moto-moto-vintage-com-capacete-de-seguranca__vintage_motorcycle_riding_with_a_safety_helmet.png
+[2026-06-17 04:47:28] [1586/4400] Generated: veiculos/1218-moto-moto-vintage-com-farois-acesos__vintage_motorcycle_smiling_with_big_headlights.png
+[2026-06-17 04:47:29] [1587/4400] Generated: veiculos/1219-moto-moto-de-brinquedo-na-estrada-bonita__cute_toy_motorcycle_riding_down_a_scenic_road.png
+[2026-06-17 04:47:30] [1588/4400] Generated: veiculos/1220-moto-moto-de-brinquedo-saltando-rampa-de-terra__cute_toy_motorcycle_jumping_over_a_dirt_hill.png
+[2026-06-17 04:47:32] [1589/4400] Generated: veiculos/1221-moto-moto-de-brinquedo-perto-do-cafe__cute_toy_motorcycle_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:47:33] [1590/4400] Generated: veiculos/1226-moto-moto-de-desenho-saltando-rampa-de-terra__friendly_cartoon_motorcycle_jumping_over_a_dirt_hill.png
+[2026-06-17 04:47:35] [1591/4400] Generated: veiculos/1222-moto-moto-de-brinquedo-com-caixa-de-pizza__cute_toy_motorcycle_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:47:37] [1592/4400] Generated: veiculos/1223-moto-moto-de-brinquedo-com-capacete-de-seguranca__cute_toy_motorcycle_riding_with_a_safety_helmet.png
+[2026-06-17 04:47:38] [1593/4400] Generated: veiculos/1224-moto-moto-de-brinquedo-com-farois-acesos__cute_toy_motorcycle_smiling_with_big_headlights.png
+[2026-06-17 04:47:40] [1594/4400] Generated: veiculos/1225-moto-moto-de-desenho-na-estrada-bonita__friendly_cartoon_motorcycle_riding_down_a_scenic_road.png
+[2026-06-17 04:47:41] [1595/4400] Generated: veiculos/1228-moto-moto-de-desenho-com-caixa-de-pizza__friendly_cartoon_motorcycle_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:47:42] [1596/4400] Generated: veiculos/1230-moto-moto-de-desenho-com-farois-acesos__friendly_cartoon_motorcycle_smiling_with_big_headlights.png
+[2026-06-17 04:47:44] [1597/4400] Generated: veiculos/1231-moto-moto-de-entrega-na-estrada-bonita__delivery_motorcycle_riding_down_a_scenic_road.png
+[2026-06-17 04:47:45] [1598/4400] Generated: veiculos/1229-moto-moto-de-desenho-com-capacete-de-seguranca__friendly_cartoon_motorcycle_riding_with_a_safety_helmet.png
+[2026-06-17 04:47:47] [1599/4400] Generated: veiculos/1227-moto-moto-de-desenho-perto-do-cafe__friendly_cartoon_motorcycle_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:47:48] [1600/4400] Generated: veiculos/1234-moto-moto-de-entrega-com-caixa-de-pizza__delivery_motorcycle_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:47:48] Batch 32 completed (1600 drawings). Triggering build & push...
+[2026-06-17 04:47:48] Rebuilding catalog and drawings database...
+[2026-06-17 04:47:49] Build successful!
+[2026-06-17 04:47:49] Committing and pushing to origin main...
