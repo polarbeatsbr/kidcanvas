@@ -9111,7 +9111,15 @@ async function checkActiveEvent() {
 
 function openEventModal() {
     const modal = document.getElementById('eventModal');
-    if (!modal || !currentActiveEvent) return;
+    if (!currentUser) {
+        showToast('Faça login para ver suas missões e aventuras! 🎯', 'info');
+        openLoginModal();
+        return;
+    }
+    if (!modal || !currentActiveEvent) {
+        showToast('Nenhuma aventura ativa no momento! Volte mais tarde. ⏳', 'info');
+        return;
+    }
     
     document.getElementById('event-modal-title').textContent = `Semana dos ${currentActiveEvent.week.theme}`;
     
@@ -9301,7 +9309,11 @@ window.globalCatalog = [];
 
 window.openAlbumModal = async function() {
     closeEventModal();
-    if (!currentUser) return;
+    if (!currentUser) {
+        showToast('Faça login para ver seu Álbum de Cartas! 🎴', 'info');
+        openLoginModal();
+        return;
+    }
     
     try {
         const res = await fetch('/api/store/catalog');
