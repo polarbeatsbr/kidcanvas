@@ -605,6 +605,105 @@
     "isNew": true
   },
   {
+    "index": 141,
+    "filename": "141-matematica-jogo-de-soma-com-numeros-e-mais__cute_addition_math_puzzle_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/141-matematica-jogo-de-soma-com-numeros-e-mais__cute_addition_math_puzzle_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de soma com numeros e mais",
+    "en": "Cute addition math puzzle with numbers and plus signs",
+    "slug": "matematica-jogo-de-soma-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 142,
+    "filename": "142-matematica-jogo-de-soma-com-numeros-e-menos__cute_addition_math_puzzle_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/142-matematica-jogo-de-soma-com-numeros-e-menos__cute_addition_math_puzzle_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de soma com numeros e menos",
+    "en": "Cute addition math puzzle with numbers and minus signs",
+    "slug": "matematica-jogo-de-soma-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 143,
+    "filename": "143-matematica-jogo-de-soma-com-formas-para-colorir__cute_addition_math_puzzle_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/143-matematica-jogo-de-soma-com-formas-para-colorir__cute_addition_math_puzzle_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de soma com formas para colorir",
+    "en": "Cute addition math puzzle showing shapes to color",
+    "slug": "matematica-jogo-de-soma-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 144,
+    "filename": "144-matematica-jogo-de-soma-com-bolhas-e-estrelas__cute_addition_math_puzzle_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/144-matematica-jogo-de-soma-com-bolhas-e-estrelas__cute_addition_math_puzzle_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de soma com bolhas e estrelas",
+    "en": "Cute addition math puzzle surrounded by bubbles and stars",
+    "slug": "matematica-jogo-de-soma-com-bolhas-e-estrelas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 145,
+    "filename": "145-matematica-jogo-de-soma-com-contas-faceis__cute_addition_math_puzzle_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/145-matematica-jogo-de-soma-com-contas-faceis__cute_addition_math_puzzle_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de soma com contas faceis",
+    "en": "Cute addition math puzzle with easy calculations for kids",
+    "slug": "matematica-jogo-de-soma-com-contas-faceis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 146,
+    "filename": "146-matematica-jogo-de-subtracao-com-numeros-e-mais__cute_subtraction_math_puzzle_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/146-matematica-jogo-de-subtracao-com-numeros-e-mais__cute_subtraction_math_puzzle_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de subtracao com numeros e mais",
+    "en": "Cute subtraction math puzzle with numbers and plus signs",
+    "slug": "matematica-jogo-de-subtracao-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 147,
+    "filename": "147-matematica-jogo-de-subtracao-com-numeros-e-menos__cute_subtraction_math_puzzle_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/147-matematica-jogo-de-subtracao-com-numeros-e-menos__cute_subtraction_math_puzzle_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de subtracao com numeros e menos",
+    "en": "Cute subtraction math puzzle with numbers and minus signs",
+    "slug": "matematica-jogo-de-subtracao-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 148,
+    "filename": "148-matematica-jogo-de-subtracao-com-formas-para-colorir__cute_subtraction_math_puzzle_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/148-matematica-jogo-de-subtracao-com-formas-para-colorir__cute_subtraction_math_puzzle_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de subtracao com formas para colorir",
+    "en": "Cute subtraction math puzzle showing shapes to color",
+    "slug": "matematica-jogo-de-subtracao-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 149,
+    "filename": "149-matematica-jogo-de-subtracao-com-bolhas-e-estrelas__cute_subtraction_math_puzzle_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/149-matematica-jogo-de-subtracao-com-bolhas-e-estrelas__cute_subtraction_math_puzzle_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de subtracao com bolhas e estrelas",
+    "en": "Cute subtraction math puzzle surrounded by bubbles and stars",
+    "slug": "matematica-jogo-de-subtracao-com-bolhas-e-estrelas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 15,
     "filename": "15-letra-o-polvo-bolhas__octopus.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/15-letra-o-polvo-bolhas__octopus.png",
@@ -612,6 +711,116 @@
     "pt": "Letra o polvo bolhas",
     "en": "Octopus",
     "slug": "letra-o-polvo-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 150,
+    "filename": "150-matematica-jogo-de-subtracao-com-contas-faceis__cute_subtraction_math_puzzle_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/150-matematica-jogo-de-subtracao-com-contas-faceis__cute_subtraction_math_puzzle_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de subtracao com contas faceis",
+    "en": "Cute subtraction math puzzle with easy calculations for kids",
+    "slug": "matematica-jogo-de-subtracao-com-contas-faceis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 151,
+    "filename": "151-matematica-jogo-de-contar-com-numeros-e-mais__counting_numbers_game_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/151-matematica-jogo-de-contar-com-numeros-e-mais__counting_numbers_game_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de contar com numeros e mais",
+    "en": "Counting numbers game with numbers and plus signs",
+    "slug": "matematica-jogo-de-contar-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 152,
+    "filename": "152-matematica-jogo-de-contar-com-numeros-e-menos__counting_numbers_game_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/152-matematica-jogo-de-contar-com-numeros-e-menos__counting_numbers_game_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de contar com numeros e menos",
+    "en": "Counting numbers game with numbers and minus signs",
+    "slug": "matematica-jogo-de-contar-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 153,
+    "filename": "153-matematica-jogo-de-contar-com-formas-para-colorir__counting_numbers_game_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/153-matematica-jogo-de-contar-com-formas-para-colorir__counting_numbers_game_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de contar com formas para colorir",
+    "en": "Counting numbers game showing shapes to color",
+    "slug": "matematica-jogo-de-contar-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 154,
+    "filename": "154-matematica-jogo-de-contar-com-bolhas-e-estrelas__counting_numbers_game_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/154-matematica-jogo-de-contar-com-bolhas-e-estrelas__counting_numbers_game_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de contar com bolhas e estrelas",
+    "en": "Counting numbers game surrounded by bubbles and stars",
+    "slug": "matematica-jogo-de-contar-com-bolhas-e-estrelas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 155,
+    "filename": "155-matematica-jogo-de-contar-com-contas-faceis__counting_numbers_game_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/155-matematica-jogo-de-contar-com-contas-faceis__counting_numbers_game_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de contar com contas faceis",
+    "en": "Counting numbers game with easy calculations for kids",
+    "slug": "matematica-jogo-de-contar-com-contas-faceis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 156,
+    "filename": "156-matematica-formas-geometricas-com-numeros-e-mais__geometric_shapes_puzzle_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/156-matematica-formas-geometricas-com-numeros-e-mais__geometric_shapes_puzzle_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica formas geometricas com numeros e mais",
+    "en": "Geometric shapes puzzle with numbers and plus signs",
+    "slug": "matematica-formas-geometricas-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 157,
+    "filename": "157-matematica-formas-geometricas-com-numeros-e-menos__geometric_shapes_puzzle_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/157-matematica-formas-geometricas-com-numeros-e-menos__geometric_shapes_puzzle_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica formas geometricas com numeros e menos",
+    "en": "Geometric shapes puzzle with numbers and minus signs",
+    "slug": "matematica-formas-geometricas-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 158,
+    "filename": "158-matematica-formas-geometricas-com-formas-para-colorir__geometric_shapes_puzzle_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/158-matematica-formas-geometricas-com-formas-para-colorir__geometric_shapes_puzzle_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica formas geometricas com formas para colorir",
+    "en": "Geometric shapes puzzle showing shapes to color",
+    "slug": "matematica-formas-geometricas-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 159,
+    "filename": "159-matematica-formas-geometricas-com-bolhas-e-estrelas__geometric_shapes_puzzle_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/159-matematica-formas-geometricas-com-bolhas-e-estrelas__geometric_shapes_puzzle_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica formas geometricas com bolhas e estrelas",
+    "en": "Geometric shapes puzzle surrounded by bubbles and stars",
+    "slug": "matematica-formas-geometricas-com-bolhas-e-estrelas",
     "tier": "free",
     "isNew": false
   },
@@ -627,6 +836,116 @@
     "isNew": false
   },
   {
+    "index": 160,
+    "filename": "160-matematica-formas-geometricas-com-contas-faceis__geometric_shapes_puzzle_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/160-matematica-formas-geometricas-com-contas-faceis__geometric_shapes_puzzle_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica formas geometricas com contas faceis",
+    "en": "Geometric shapes puzzle with easy calculations for kids",
+    "slug": "matematica-formas-geometricas-com-contas-faceis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 161,
+    "filename": "161-matematica-monstro-dos-numeros-com-numeros-e-mais__funny_number_monster_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/161-matematica-monstro-dos-numeros-com-numeros-e-mais__funny_number_monster_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica monstro dos numeros com numeros e mais",
+    "en": "Funny number monster with numbers and plus signs",
+    "slug": "matematica-monstro-dos-numeros-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 162,
+    "filename": "162-matematica-monstro-dos-numeros-com-numeros-e-menos__funny_number_monster_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/162-matematica-monstro-dos-numeros-com-numeros-e-menos__funny_number_monster_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica monstro dos numeros com numeros e menos",
+    "en": "Funny number monster with numbers and minus signs",
+    "slug": "matematica-monstro-dos-numeros-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 163,
+    "filename": "163-matematica-monstro-dos-numeros-com-formas-para-colorir__funny_number_monster_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/163-matematica-monstro-dos-numeros-com-formas-para-colorir__funny_number_monster_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica monstro dos numeros com formas para colorir",
+    "en": "Funny number monster showing shapes to color",
+    "slug": "matematica-monstro-dos-numeros-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 164,
+    "filename": "164-matematica-monstro-dos-numeros-com-bolhas-e-estrelas__funny_number_monster_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/164-matematica-monstro-dos-numeros-com-bolhas-e-estrelas__funny_number_monster_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica monstro dos numeros com bolhas e estrelas",
+    "en": "Funny number monster surrounded by bubbles and stars",
+    "slug": "matematica-monstro-dos-numeros-com-bolhas-e-estrelas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 165,
+    "filename": "165-matematica-monstro-dos-numeros-com-contas-faceis__funny_number_monster_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/165-matematica-monstro-dos-numeros-com-contas-faceis__funny_number_monster_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica monstro dos numeros com contas faceis",
+    "en": "Funny number monster with easy calculations for kids",
+    "slug": "matematica-monstro-dos-numeros-com-contas-faceis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 166,
+    "filename": "166-matematica-simbolos-de-matematica-com-numeros-e-mais__math_symbol_puzzle_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/166-matematica-simbolos-de-matematica-com-numeros-e-mais__math_symbol_puzzle_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica simbolos de matematica com numeros e mais",
+    "en": "Math symbol puzzle with numbers and plus signs",
+    "slug": "matematica-simbolos-de-matematica-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 167,
+    "filename": "167-matematica-simbolos-de-matematica-com-numeros-e-menos__math_symbol_puzzle_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/167-matematica-simbolos-de-matematica-com-numeros-e-menos__math_symbol_puzzle_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica simbolos de matematica com numeros e menos",
+    "en": "Math symbol puzzle with numbers and minus signs",
+    "slug": "matematica-simbolos-de-matematica-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 168,
+    "filename": "168-matematica-simbolos-de-matematica-com-formas-para-colorir__math_symbol_puzzle_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/168-matematica-simbolos-de-matematica-com-formas-para-colorir__math_symbol_puzzle_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica simbolos de matematica com formas para colorir",
+    "en": "Math symbol puzzle showing shapes to color",
+    "slug": "matematica-simbolos-de-matematica-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 169,
+    "filename": "169-matematica-simbolos-de-matematica-com-bolhas-e-estrelas__math_symbol_puzzle_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/169-matematica-simbolos-de-matematica-com-bolhas-e-estrelas__math_symbol_puzzle_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica simbolos de matematica com bolhas e estrelas",
+    "en": "Math symbol puzzle surrounded by bubbles and stars",
+    "slug": "matematica-simbolos-de-matematica-com-bolhas-e-estrelas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 17,
     "filename": "17-letra-q-rainha-coroa__queen.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/17-letra-q-rainha-coroa__queen.png",
@@ -638,6 +957,116 @@
     "isNew": false
   },
   {
+    "index": 170,
+    "filename": "170-matematica-simbolos-de-matematica-com-contas-faceis__math_symbol_puzzle_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/170-matematica-simbolos-de-matematica-com-contas-faceis__math_symbol_puzzle_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica simbolos de matematica com contas faceis",
+    "en": "Math symbol puzzle with easy calculations for kids",
+    "slug": "matematica-simbolos-de-matematica-com-contas-faceis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 171,
+    "filename": "171-matematica-contando-macas-com-numeros-e-mais__counting_apples_puzzle_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/171-matematica-contando-macas-com-numeros-e-mais__counting_apples_puzzle_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando macas com numeros e mais",
+    "en": "Counting apples puzzle with numbers and plus signs",
+    "slug": "matematica-contando-macas-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 172,
+    "filename": "172-matematica-contando-macas-com-numeros-e-menos__counting_apples_puzzle_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/172-matematica-contando-macas-com-numeros-e-menos__counting_apples_puzzle_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando macas com numeros e menos",
+    "en": "Counting apples puzzle with numbers and minus signs",
+    "slug": "matematica-contando-macas-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 173,
+    "filename": "173-matematica-contando-macas-com-formas-para-colorir__counting_apples_puzzle_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/173-matematica-contando-macas-com-formas-para-colorir__counting_apples_puzzle_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando macas com formas para colorir",
+    "en": "Counting apples puzzle showing shapes to color",
+    "slug": "matematica-contando-macas-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 174,
+    "filename": "174-matematica-contando-macas-com-bolhas-e-estrelas__counting_apples_puzzle_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/174-matematica-contando-macas-com-bolhas-e-estrelas__counting_apples_puzzle_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando macas com bolhas e estrelas",
+    "en": "Counting apples puzzle surrounded by bubbles and stars",
+    "slug": "matematica-contando-macas-com-bolhas-e-estrelas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 175,
+    "filename": "175-matematica-contando-macas-com-contas-faceis__counting_apples_puzzle_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/175-matematica-contando-macas-com-contas-faceis__counting_apples_puzzle_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando macas com contas faceis",
+    "en": "Counting apples puzzle with easy calculations for kids",
+    "slug": "matematica-contando-macas-com-contas-faceis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 176,
+    "filename": "176-matematica-contando-baloes-com-numeros-e-mais__counting_balloons_puzzle_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/176-matematica-contando-baloes-com-numeros-e-mais__counting_balloons_puzzle_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando baloes com numeros e mais",
+    "en": "Counting balloons puzzle with numbers and plus signs",
+    "slug": "matematica-contando-baloes-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 177,
+    "filename": "177-matematica-contando-baloes-com-numeros-e-menos__counting_balloons_puzzle_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/177-matematica-contando-baloes-com-numeros-e-menos__counting_balloons_puzzle_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando baloes com numeros e menos",
+    "en": "Counting balloons puzzle with numbers and minus signs",
+    "slug": "matematica-contando-baloes-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 178,
+    "filename": "178-matematica-contando-baloes-com-formas-para-colorir__counting_balloons_puzzle_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/178-matematica-contando-baloes-com-formas-para-colorir__counting_balloons_puzzle_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando baloes com formas para colorir",
+    "en": "Counting balloons puzzle showing shapes to color",
+    "slug": "matematica-contando-baloes-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 179,
+    "filename": "179-matematica-contando-baloes-com-bolhas-e-estrelas__counting_balloons_puzzle_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/179-matematica-contando-baloes-com-bolhas-e-estrelas__counting_balloons_puzzle_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando baloes com bolhas e estrelas",
+    "en": "Counting balloons puzzle surrounded by bubbles and stars",
+    "slug": "matematica-contando-baloes-com-bolhas-e-estrelas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 18,
     "filename": "18-letra-r-coelho-cenoura__rabbit.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/18-letra-r-coelho-cenoura__rabbit.png",
@@ -645,6 +1074,61 @@
     "pt": "Letra r coelho cenoura",
     "en": "Rabbit",
     "slug": "letra-r-coelho-cenoura",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 180,
+    "filename": "180-matematica-contando-baloes-com-contas-faceis__counting_balloons_puzzle_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/180-matematica-contando-baloes-com-contas-faceis__counting_balloons_puzzle_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando baloes com contas faceis",
+    "en": "Counting balloons puzzle with easy calculations for kids",
+    "slug": "matematica-contando-baloes-com-contas-faceis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 181,
+    "filename": "181-matematica-contando-estrelas-com-numeros-e-mais__counting_stars_puzzle_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/181-matematica-contando-estrelas-com-numeros-e-mais__counting_stars_puzzle_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando estrelas com numeros e mais",
+    "en": "Counting stars puzzle with numbers and plus signs",
+    "slug": "matematica-contando-estrelas-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 182,
+    "filename": "182-matematica-contando-estrelas-com-numeros-e-menos__counting_stars_puzzle_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/182-matematica-contando-estrelas-com-numeros-e-menos__counting_stars_puzzle_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando estrelas com numeros e menos",
+    "en": "Counting stars puzzle with numbers and minus signs",
+    "slug": "matematica-contando-estrelas-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 183,
+    "filename": "183-matematica-contando-estrelas-com-formas-para-colorir__counting_stars_puzzle_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/183-matematica-contando-estrelas-com-formas-para-colorir__counting_stars_puzzle_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando estrelas com formas para colorir",
+    "en": "Counting stars puzzle showing shapes to color",
+    "slug": "matematica-contando-estrelas-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 185,
+    "filename": "185-matematica-contando-estrelas-com-contas-faceis__counting_stars_puzzle_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/185-matematica-contando-estrelas-com-contas-faceis__counting_stars_puzzle_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando estrelas com contas faceis",
+    "en": "Counting stars puzzle with easy calculations for kids",
+    "slug": "matematica-contando-estrelas-com-contas-faceis",
     "tier": "free",
     "isNew": false
   },
@@ -26235,6 +26719,17 @@
     "isNew": false
   },
   {
+    "index": 219,
+    "filename": "219-solar-alienigena-amigavel-perto-de-nebulosa__friendly_alien_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/219-solar-alienigena-amigavel-perto-de-nebulosa__friendly_alien_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar alienigena amigavel perto de nebulosa",
+    "en": "Friendly alien flying past a colorful nebula",
+    "slug": "solar-alienigena-amigavel-perto-de-nebulosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 22,
     "filename": "22-robo-espacial-na-lua__space_rover.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/22-robo-espacial-na-lua__space_rover.png",
@@ -26242,6 +26737,116 @@
     "pt": "Robo espacial na lua",
     "en": "Space rover",
     "slug": "robo-espacial-na-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 220,
+    "filename": "220-solar-alienigena-amigavel-acenando-da-nave__friendly_alien_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/220-solar-alienigena-amigavel-acenando-da-nave__friendly_alien_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar alienigena amigavel acenando da nave",
+    "en": "Friendly alien waving from a spaceship window",
+    "slug": "solar-alienigena-amigavel-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 221,
+    "filename": "221-solar-alienigena-amigavel-no-sistema-solar__friendly_alien_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/221-solar-alienigena-amigavel-no-sistema-solar__friendly_alien_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar alienigena amigavel no sistema solar",
+    "en": "Friendly alien orbiting the solar system",
+    "slug": "solar-alienigena-amigavel-no-sistema-solar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 222,
+    "filename": "222-solar-alienigena-amigavel-pousando-no-planeta__friendly_alien_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/222-solar-alienigena-amigavel-pousando-no-planeta__friendly_alien_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar alienigena amigavel pousando no planeta",
+    "en": "Friendly alien landing on a planet",
+    "slug": "solar-alienigena-amigavel-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 223,
+    "filename": "223-solar-alienigena-amigavel-com-asteroides-pequenos__friendly_alien_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/223-solar-alienigena-amigavel-com-asteroides-pequenos__friendly_alien_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar alienigena amigavel com asteroides pequenos",
+    "en": "Friendly alien surrounded by small asteroids",
+    "slug": "solar-alienigena-amigavel-com-asteroides-pequenos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 224,
+    "filename": "224-solar-telescopio-gigante-flutuando-no-espaco__giant_telescope_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/224-solar-telescopio-gigante-flutuando-no-espaco__giant_telescope_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar telescopio gigante flutuando no espaco",
+    "en": "Giant telescope floating peacefully in deep space",
+    "slug": "solar-telescopio-gigante-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 225,
+    "filename": "225-solar-telescopio-gigante-com-estrelas-em-volta__giant_telescope_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/225-solar-telescopio-gigante-com-estrelas-em-volta__giant_telescope_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar telescopio gigante com estrelas em volta",
+    "en": "Giant telescope orbiting surrounded by stars",
+    "slug": "solar-telescopio-gigante-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 226,
+    "filename": "226-solar-telescopio-gigante-na-superficie-da-lua__giant_telescope_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/226-solar-telescopio-gigante-na-superficie-da-lua__giant_telescope_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar telescopio gigante na superficie da lua",
+    "en": "Giant telescope exploring a rocky moon surface",
+    "slug": "solar-telescopio-gigante-na-superficie-da-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 227,
+    "filename": "227-solar-telescopio-gigante-perto-de-nebulosa__giant_telescope_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/227-solar-telescopio-gigante-perto-de-nebulosa__giant_telescope_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar telescopio gigante perto de nebulosa",
+    "en": "Giant telescope flying past a colorful nebula",
+    "slug": "solar-telescopio-gigante-perto-de-nebulosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 228,
+    "filename": "228-solar-telescopio-gigante-acenando-da-nave__giant_telescope_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/228-solar-telescopio-gigante-acenando-da-nave__giant_telescope_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar telescopio gigante acenando da nave",
+    "en": "Giant telescope waving from a spaceship window",
+    "slug": "solar-telescopio-gigante-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 229,
+    "filename": "229-solar-telescopio-gigante-no-sistema-solar__giant_telescope_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/229-solar-telescopio-gigante-no-sistema-solar__giant_telescope_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar telescopio gigante no sistema solar",
+    "en": "Giant telescope orbiting the solar system",
+    "slug": "solar-telescopio-gigante-no-sistema-solar",
     "tier": "free",
     "isNew": false
   },
@@ -26257,6 +26862,116 @@
     "isNew": false
   },
   {
+    "index": 230,
+    "filename": "230-solar-telescopio-gigante-pousando-no-planeta__giant_telescope_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/230-solar-telescopio-gigante-pousando-no-planeta__giant_telescope_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar telescopio gigante pousando no planeta",
+    "en": "Giant telescope landing on a planet",
+    "slug": "solar-telescopio-gigante-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 231,
+    "filename": "231-solar-telescopio-gigante-com-asteroides-pequenos__giant_telescope_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/231-solar-telescopio-gigante-com-asteroides-pequenos__giant_telescope_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar telescopio gigante com asteroides pequenos",
+    "en": "Giant telescope surrounded by small asteroids",
+    "slug": "solar-telescopio-gigante-com-asteroides-pequenos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 232,
+    "filename": "232-solar-estrela-cadente-flutuando-no-espaco__bright_shooting_star_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/232-solar-estrela-cadente-flutuando-no-espaco__bright_shooting_star_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar estrela cadente flutuando no espaco",
+    "en": "Bright shooting star floating peacefully in deep space",
+    "slug": "solar-estrela-cadente-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 233,
+    "filename": "233-solar-estrela-cadente-com-estrelas-em-volta__bright_shooting_star_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/233-solar-estrela-cadente-com-estrelas-em-volta__bright_shooting_star_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar estrela cadente com estrelas em volta",
+    "en": "Bright shooting star orbiting surrounded by stars",
+    "slug": "solar-estrela-cadente-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 234,
+    "filename": "234-solar-estrela-cadente-na-superficie-da-lua__bright_shooting_star_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/234-solar-estrela-cadente-na-superficie-da-lua__bright_shooting_star_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar estrela cadente na superficie da lua",
+    "en": "Bright shooting star exploring a rocky moon surface",
+    "slug": "solar-estrela-cadente-na-superficie-da-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 235,
+    "filename": "235-solar-estrela-cadente-perto-de-nebulosa__bright_shooting_star_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/235-solar-estrela-cadente-perto-de-nebulosa__bright_shooting_star_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar estrela cadente perto de nebulosa",
+    "en": "Bright shooting star flying past a colorful nebula",
+    "slug": "solar-estrela-cadente-perto-de-nebulosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 236,
+    "filename": "236-solar-estrela-cadente-acenando-da-nave__bright_shooting_star_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/236-solar-estrela-cadente-acenando-da-nave__bright_shooting_star_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar estrela cadente acenando da nave",
+    "en": "Bright shooting star waving from a spaceship window",
+    "slug": "solar-estrela-cadente-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 237,
+    "filename": "237-solar-estrela-cadente-no-sistema-solar__bright_shooting_star_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/237-solar-estrela-cadente-no-sistema-solar__bright_shooting_star_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar estrela cadente no sistema solar",
+    "en": "Bright shooting star orbiting the solar system",
+    "slug": "solar-estrela-cadente-no-sistema-solar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 238,
+    "filename": "238-solar-estrela-cadente-pousando-no-planeta__bright_shooting_star_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/238-solar-estrela-cadente-pousando-no-planeta__bright_shooting_star_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar estrela cadente pousando no planeta",
+    "en": "Bright shooting star landing on a planet",
+    "slug": "solar-estrela-cadente-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 239,
+    "filename": "239-solar-estrela-cadente-com-asteroides-pequenos__bright_shooting_star_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/239-solar-estrela-cadente-com-asteroides-pequenos__bright_shooting_star_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar estrela cadente com asteroides pequenos",
+    "en": "Bright shooting star surrounded by small asteroids",
+    "slug": "solar-estrela-cadente-com-asteroides-pequenos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 24,
     "filename": "24-cometa-na-lua__comet.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/24-cometa-na-lua__comet.png",
@@ -26264,6 +26979,94 @@
     "pt": "Cometa na lua",
     "en": "Comet",
     "slug": "cometa-na-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 240,
+    "filename": "240-solar-sol-feliz-flutuando-no-espaco__happy_solar_system_sun_floating_peacefully_in_deep_space.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/240-solar-sol-feliz-flutuando-no-espaco__happy_solar_system_sun_floating_peacefully_in_deep_space.png",
+    "category": "espaco",
+    "pt": "Solar sol feliz flutuando no espaco",
+    "en": "Happy solar system sun floating peacefully in deep space",
+    "slug": "solar-sol-feliz-flutuando-no-espaco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 241,
+    "filename": "241-solar-sol-feliz-com-estrelas-em-volta__happy_solar_system_sun_orbiting_surrounded_by_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/241-solar-sol-feliz-com-estrelas-em-volta__happy_solar_system_sun_orbiting_surrounded_by_stars.png",
+    "category": "espaco",
+    "pt": "Solar sol feliz com estrelas em volta",
+    "en": "Happy solar system sun orbiting surrounded by stars",
+    "slug": "solar-sol-feliz-com-estrelas-em-volta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 242,
+    "filename": "242-solar-sol-feliz-na-superficie-da-lua__happy_solar_system_sun_exploring_a_rocky_moon_surface.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/242-solar-sol-feliz-na-superficie-da-lua__happy_solar_system_sun_exploring_a_rocky_moon_surface.png",
+    "category": "espaco",
+    "pt": "Solar sol feliz na superficie da lua",
+    "en": "Happy solar system sun exploring a rocky moon surface",
+    "slug": "solar-sol-feliz-na-superficie-da-lua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 243,
+    "filename": "243-solar-sol-feliz-perto-de-nebulosa__happy_solar_system_sun_flying_past_a_colorful_nebula.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/243-solar-sol-feliz-perto-de-nebulosa__happy_solar_system_sun_flying_past_a_colorful_nebula.png",
+    "category": "espaco",
+    "pt": "Solar sol feliz perto de nebulosa",
+    "en": "Happy solar system sun flying past a colorful nebula",
+    "slug": "solar-sol-feliz-perto-de-nebulosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 244,
+    "filename": "244-solar-sol-feliz-acenando-da-nave__happy_solar_system_sun_waving_from_a_spaceship_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/244-solar-sol-feliz-acenando-da-nave__happy_solar_system_sun_waving_from_a_spaceship_window.png",
+    "category": "espaco",
+    "pt": "Solar sol feliz acenando da nave",
+    "en": "Happy solar system sun waving from a spaceship window",
+    "slug": "solar-sol-feliz-acenando-da-nave",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 245,
+    "filename": "245-solar-sol-feliz-no-sistema-solar__happy_solar_system_sun_orbiting_the_solar_system.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/245-solar-sol-feliz-no-sistema-solar__happy_solar_system_sun_orbiting_the_solar_system.png",
+    "category": "espaco",
+    "pt": "Solar sol feliz no sistema solar",
+    "en": "Happy solar system sun orbiting the solar system",
+    "slug": "solar-sol-feliz-no-sistema-solar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 246,
+    "filename": "246-solar-sol-feliz-pousando-no-planeta__happy_solar_system_sun_landing_on_a_planet.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/246-solar-sol-feliz-pousando-no-planeta__happy_solar_system_sun_landing_on_a_planet.png",
+    "category": "espaco",
+    "pt": "Solar sol feliz pousando no planeta",
+    "en": "Happy solar system sun landing on a planet",
+    "slug": "solar-sol-feliz-pousando-no-planeta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 247,
+    "filename": "247-solar-sol-feliz-com-asteroides-pequenos__happy_solar_system_sun_surrounded_by_small_asteroids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/espaco/247-solar-sol-feliz-com-asteroides-pequenos__happy_solar_system_sun_surrounded_by_small_asteroids.png",
+    "category": "espaco",
+    "pt": "Solar sol feliz com asteroides pequenos",
+    "en": "Happy solar system sun surrounded by small asteroids",
+    "slug": "solar-sol-feliz-com-asteroides-pequenos",
     "tier": "free",
     "isNew": false
   },
@@ -83839,7 +84642,7 @@
     "en": "Garden tractor parked next to a red barn",
     "slug": "trator-trator-de-jardim-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 234,
@@ -83850,7 +84653,7 @@
     "en": "Garden tractor driving up a muddy hill",
     "slug": "trator-trator-de-jardim-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 235,
@@ -83861,7 +84664,7 @@
     "en": "Garden tractor watering crops",
     "slug": "trator-trator-de-jardim-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 236,
@@ -83872,7 +84675,7 @@
     "en": "Garden tractor waving its wheels happily",
     "slug": "trator-trator-de-jardim-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 237,
@@ -83883,7 +84686,7 @@
     "en": "Industrial tractor plowing a farm field",
     "slug": "trator-trator-industrial-arando-a-terra",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 238,
@@ -83894,7 +84697,7 @@
     "en": "Industrial tractor carrying a bundle of hay",
     "slug": "trator-trator-industrial-carregando-feno",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 239,
@@ -83905,7 +84708,7 @@
     "en": "Industrial tractor parked next to a red barn",
     "slug": "trator-trator-industrial-perto-do-celeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 24,
@@ -83927,7 +84730,7 @@
     "en": "Industrial tractor driving up a muddy hill",
     "slug": "trator-trator-industrial-subindo-morro-de-lama",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 241,
@@ -83938,7 +84741,7 @@
     "en": "Industrial tractor watering crops",
     "slug": "trator-trator-industrial-regando-plantacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 242,
@@ -83949,7 +84752,7 @@
     "en": "Industrial tractor waving its wheels happily",
     "slug": "trator-trator-industrial-acenando-rodas-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 243,
@@ -83960,7 +84763,7 @@
     "en": "Heavy excavator digging a deep hole",
     "slug": "escavadeira-escavadeira-pesada-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 244,
@@ -83971,7 +84774,7 @@
     "en": "Heavy excavator scooping a pile of sand",
     "slug": "escavadeira-escavadeira-pesada-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 245,
@@ -83982,7 +84785,7 @@
     "en": "Heavy excavator parked on a construction site",
     "slug": "escavadeira-escavadeira-pesada-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 246,
@@ -83993,7 +84796,7 @@
     "en": "Heavy excavator moving a large rock",
     "slug": "escavadeira-escavadeira-pesada-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 247,
@@ -84004,7 +84807,7 @@
     "en": "Heavy excavator working next to a pile of logs",
     "slug": "escavadeira-escavadeira-pesada-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 248,
@@ -84015,7 +84818,7 @@
     "en": "Heavy excavator waving its giant bucket",
     "slug": "escavadeira-escavadeira-pesada-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 249,
@@ -84026,7 +84829,7 @@
     "en": "Crawler excavator digging a deep hole",
     "slug": "escavadeira-escavadeira-de-esteira-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 25,
@@ -84048,7 +84851,7 @@
     "en": "Crawler excavator scooping a pile of sand",
     "slug": "escavadeira-escavadeira-de-esteira-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 251,
@@ -84059,7 +84862,7 @@
     "en": "Crawler excavator parked on a construction site",
     "slug": "escavadeira-escavadeira-de-esteira-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 252,
@@ -84070,7 +84873,7 @@
     "en": "Crawler excavator moving a large rock",
     "slug": "escavadeira-escavadeira-de-esteira-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 253,
@@ -84081,7 +84884,7 @@
     "en": "Crawler excavator working next to a pile of logs",
     "slug": "escavadeira-escavadeira-de-esteira-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 254,
@@ -84092,7 +84895,7 @@
     "en": "Crawler excavator waving its giant bucket",
     "slug": "escavadeira-escavadeira-de-esteira-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 255,
@@ -84103,7 +84906,7 @@
     "en": "Backhoe loader digging a deep hole",
     "slug": "escavadeira-retroescavadeira-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 256,
@@ -84114,7 +84917,7 @@
     "en": "Backhoe loader scooping a pile of sand",
     "slug": "escavadeira-retroescavadeira-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 257,
@@ -84125,7 +84928,7 @@
     "en": "Backhoe loader parked on a construction site",
     "slug": "escavadeira-retroescavadeira-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 258,
@@ -84136,7 +84939,7 @@
     "en": "Backhoe loader moving a large rock",
     "slug": "escavadeira-retroescavadeira-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 259,
@@ -84147,7 +84950,7 @@
     "en": "Backhoe loader working next to a pile of logs",
     "slug": "escavadeira-retroescavadeira-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 26,
@@ -84169,7 +84972,7 @@
     "en": "Backhoe loader waving its giant bucket",
     "slug": "escavadeira-retroescavadeira-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 261,
@@ -84180,7 +84983,7 @@
     "en": "Mini excavator digging a deep hole",
     "slug": "escavadeira-mini-escavadeira-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 262,
@@ -84191,7 +84994,7 @@
     "en": "Mini excavator scooping a pile of sand",
     "slug": "escavadeira-mini-escavadeira-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 263,
@@ -84202,7 +85005,7 @@
     "en": "Mini excavator parked on a construction site",
     "slug": "escavadeira-mini-escavadeira-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 264,
@@ -84213,7 +85016,7 @@
     "en": "Mini excavator moving a large rock",
     "slug": "escavadeira-mini-escavadeira-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 265,
@@ -84224,7 +85027,7 @@
     "en": "Mini excavator working next to a pile of logs",
     "slug": "escavadeira-mini-escavadeira-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 266,
@@ -84235,7 +85038,7 @@
     "en": "Mini excavator waving its giant bucket",
     "slug": "escavadeira-mini-escavadeira-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 267,
@@ -84246,7 +85049,7 @@
     "en": "Demolition excavator digging a deep hole",
     "slug": "escavadeira-escavadeira-de-demolicao-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 268,
@@ -84257,7 +85060,7 @@
     "en": "Demolition excavator scooping a pile of sand",
     "slug": "escavadeira-escavadeira-de-demolicao-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 269,
@@ -84268,7 +85071,7 @@
     "en": "Demolition excavator parked on a construction site",
     "slug": "escavadeira-escavadeira-de-demolicao-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 27,
@@ -84290,7 +85093,7 @@
     "en": "Demolition excavator moving a large rock",
     "slug": "escavadeira-escavadeira-de-demolicao-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 271,
@@ -84301,7 +85104,7 @@
     "en": "Demolition excavator working next to a pile of logs",
     "slug": "escavadeira-escavadeira-de-demolicao-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 272,
@@ -84312,7 +85115,7 @@
     "en": "Demolition excavator waving its giant bucket",
     "slug": "escavadeira-escavadeira-de-demolicao-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 273,
@@ -84323,7 +85126,7 @@
     "en": "Wheeled excavator digging a deep hole",
     "slug": "escavadeira-escavadeira-com-rodas-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 274,
@@ -84334,7 +85137,7 @@
     "en": "Wheeled excavator scooping a pile of sand",
     "slug": "escavadeira-escavadeira-com-rodas-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 275,
@@ -84345,7 +85148,7 @@
     "en": "Wheeled excavator parked on a construction site",
     "slug": "escavadeira-escavadeira-com-rodas-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 276,
@@ -84356,7 +85159,7 @@
     "en": "Wheeled excavator moving a large rock",
     "slug": "escavadeira-escavadeira-com-rodas-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 277,
@@ -84367,7 +85170,7 @@
     "en": "Wheeled excavator working next to a pile of logs",
     "slug": "escavadeira-escavadeira-com-rodas-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 278,
@@ -84378,7 +85181,7 @@
     "en": "Wheeled excavator waving its giant bucket",
     "slug": "escavadeira-escavadeira-com-rodas-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 279,
@@ -84389,7 +85192,7 @@
     "en": "Cute toy excavator digging a deep hole",
     "slug": "escavadeira-escavadeira-de-brinquedo-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 28,
@@ -84411,7 +85214,7 @@
     "en": "Cute toy excavator scooping a pile of sand",
     "slug": "escavadeira-escavadeira-de-brinquedo-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 281,
@@ -84422,7 +85225,7 @@
     "en": "Cute toy excavator parked on a construction site",
     "slug": "escavadeira-escavadeira-de-brinquedo-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 282,
@@ -84433,7 +85236,7 @@
     "en": "Cute toy excavator moving a large rock",
     "slug": "escavadeira-escavadeira-de-brinquedo-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 283,
