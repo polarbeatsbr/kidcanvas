@@ -3197,7 +3197,7 @@
         alert('Enviando sua história para o Hall... ⏳');
 
         try {
-            const sessionToken = localStorage.getItem('sessionToken') || currentUser.token;
+            const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
             const response = await fetch('/api/user/save-painting', {
                 method: 'POST',
                 headers: {

@@ -6726,7 +6726,7 @@ async function loadPendingPaintingsAdmin() {
     if (!pendingGrid) return;
 
     try {
-        const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
+        const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '');
         const response = await fetch('/api/paintings/pending', {
             headers: {
                 'x-session-token': sessionToken
@@ -7091,7 +7091,7 @@ async function approvePublicPainting(url) {
         'Deseja aprovar esta pintura para exibição pública no Hall da Fama?',
         async () => {
             try {
-                const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
+                const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '');
                 const response = await fetch('/api/paintings/approve', {
                     method: 'POST',
                     headers: {
@@ -7122,7 +7122,7 @@ async function deletePublicPainting(url) {
         'Deseja realmente excluir esta pintura permanentemente?',
         async () => {
             try {
-                const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
+                const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '');
                 const response = await fetch('/api/paintings/delete', {
                     method: 'POST',
                     headers: {
@@ -7184,7 +7184,7 @@ async function likePublicPainting(url, btn) {
 
     try {
         btn.style.pointerEvents = 'none';
-        const sessionToken = localStorage.getItem('sessionToken') || (currentUser ? currentUser.token : '');
+        const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '');
         const response = await fetch('/api/paintings/like', {
             method: 'POST',
             headers: { 
@@ -7242,7 +7242,7 @@ async function savePaintingToGallery() {
 
     try {
         const imageBase64 = paintCanvas.toDataURL('image/png');
-        const sessionToken = localStorage.getItem('sessionToken') || currentUser.token;
+        const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
         const isCustomAI = data.isCustomAI || false;
         const category = isCustomAI ? 'Criação com IA' : (data.imgUrl === 'blank' ? 'Mão Livre' : 'Colorir');
 
@@ -8048,7 +8048,7 @@ async function shareStoryToHall() {
     showToast('Compartilhando sua história no Hall... ⏳', 'info');
 
     try {
-        const sessionToken = localStorage.getItem('sessionToken') || currentUser.token;
+        const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
         const response = await fetch('/api/user/save-painting', {
             method: 'POST',
             headers: {
@@ -8135,7 +8135,7 @@ window.closeAvatarSelectionModal = closeAvatarSelectionModal;
 
 async function selectAvatar(emoji) {
     try {
-        const token = localStorage.getItem('sessionToken') || '';
+        const token = localStorage.getItem('kidcanvas_session_token') || sessionToken || (currentUser ? currentUser.token : '') || '';
         if (!token) {
             showToast('Por favor, faça login para salvar seu avatar.', 'error');
             return;
