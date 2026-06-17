@@ -19030,6 +19030,72 @@
     "isNew": false
   },
   {
+    "index": 394,
+    "filename": "394-pizza-pizza-de-calabresa-na-tabua-de-madeira__pepperoni_pizza_sitting_on_a_wooden_board.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/394-pizza-pizza-de-calabresa-na-tabua-de-madeira__pepperoni_pizza_sitting_on_a_wooden_board.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de calabresa na tabua de madeira",
+    "en": "Pepperoni pizza sitting on a wooden board",
+    "slug": "pizza-pizza-de-calabresa-na-tabua-de-madeira",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 395,
+    "filename": "395-pizza-pizza-de-calabresa-sendo-cortada__pepperoni_pizza_being_cut_by_a_roller.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/395-pizza-pizza-de-calabresa-sendo-cortada__pepperoni_pizza_being_cut_by_a_roller.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de calabresa sendo cortada",
+    "en": "Pepperoni pizza being cut by a roller",
+    "slug": "pizza-pizza-de-calabresa-sendo-cortada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 396,
+    "filename": "396-pizza-pizza-de-calabresa-com-chapeu-de-chef__pepperoni_pizza_with_a_happy_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/396-pizza-pizza-de-calabresa-com-chapeu-de-chef__pepperoni_pizza_with_a_happy_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de calabresa com chapeu de chef",
+    "en": "Pepperoni pizza with a happy chef hat",
+    "slug": "pizza-pizza-de-calabresa-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 397,
+    "filename": "397-pizza-pizza-de-calabresa-olhos-de-desenho-fofos__pepperoni_pizza_smiling_with_cute_cartoon_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/397-pizza-pizza-de-calabresa-olhos-de-desenho-fofos__pepperoni_pizza_smiling_with_cute_cartoon_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de calabresa olhos de desenho fofos",
+    "en": "Pepperoni pizza smiling with cute cartoon eyes",
+    "slug": "pizza-pizza-de-calabresa-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 398,
+    "filename": "398-pizza-pizza-de-calabresa-na-mesa-de-festa__pepperoni_pizza_served_on_a_party_table.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/398-pizza-pizza-de-calabresa-na-mesa-de-festa__pepperoni_pizza_served_on_a_party_table.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de calabresa na mesa de festa",
+    "en": "Pepperoni pizza served on a party table",
+    "slug": "pizza-pizza-de-calabresa-na-mesa-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 399,
+    "filename": "399-pizza-pizza-de-queijo-com-queijo-derretendo__cheese_pizza_with_melting_cheese_stretching.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/399-pizza-pizza-de-queijo-com-queijo-derretendo__cheese_pizza_with_melting_cheese_stretching.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de queijo com queijo derretendo",
+    "en": "Cheese pizza with melting cheese stretching",
+    "slug": "pizza-pizza-de-queijo-com-queijo-derretendo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 40,
     "filename": "40-hamburguer-sorrindo__hamburger.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/40-hamburguer-sorrindo__hamburger.png",
@@ -19039,6 +19105,116 @@
     "slug": "hamburguer-sorrindo",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 400,
+    "filename": "400-pizza-pizza-de-queijo-com-calabresas-redondas__cheese_pizza_decorated_with_pepperoni_slices.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/400-pizza-pizza-de-queijo-com-calabresas-redondas__cheese_pizza_decorated_with_pepperoni_slices.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de queijo com calabresas redondas",
+    "en": "Cheese pizza decorated with pepperoni slices",
+    "slug": "pizza-pizza-de-queijo-com-calabresas-redondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 401,
+    "filename": "401-pizza-pizza-de-queijo-na-tabua-de-madeira__cheese_pizza_sitting_on_a_wooden_board.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/401-pizza-pizza-de-queijo-na-tabua-de-madeira__cheese_pizza_sitting_on_a_wooden_board.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de queijo na tabua de madeira",
+    "en": "Cheese pizza sitting on a wooden board",
+    "slug": "pizza-pizza-de-queijo-na-tabua-de-madeira",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 402,
+    "filename": "402-pizza-pizza-de-queijo-sendo-cortada__cheese_pizza_being_cut_by_a_roller.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/402-pizza-pizza-de-queijo-sendo-cortada__cheese_pizza_being_cut_by_a_roller.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de queijo sendo cortada",
+    "en": "Cheese pizza being cut by a roller",
+    "slug": "pizza-pizza-de-queijo-sendo-cortada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 403,
+    "filename": "403-pizza-pizza-de-queijo-com-chapeu-de-chef__cheese_pizza_with_a_happy_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/403-pizza-pizza-de-queijo-com-chapeu-de-chef__cheese_pizza_with_a_happy_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de queijo com chapeu de chef",
+    "en": "Cheese pizza with a happy chef hat",
+    "slug": "pizza-pizza-de-queijo-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 404,
+    "filename": "404-pizza-pizza-de-queijo-olhos-de-desenho-fofos__cheese_pizza_smiling_with_cute_cartoon_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/404-pizza-pizza-de-queijo-olhos-de-desenho-fofos__cheese_pizza_smiling_with_cute_cartoon_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de queijo olhos de desenho fofos",
+    "en": "Cheese pizza smiling with cute cartoon eyes",
+    "slug": "pizza-pizza-de-queijo-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 405,
+    "filename": "405-pizza-pizza-de-queijo-na-mesa-de-festa__cheese_pizza_served_on_a_party_table.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/405-pizza-pizza-de-queijo-na-mesa-de-festa__cheese_pizza_served_on_a_party_table.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de queijo na mesa de festa",
+    "en": "Cheese pizza served on a party table",
+    "slug": "pizza-pizza-de-queijo-na-mesa-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 406,
+    "filename": "406-pizza-pizza-de-vegetais-com-queijo-derretendo__veggie_pizza_with_melting_cheese_stretching.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/406-pizza-pizza-de-vegetais-com-queijo-derretendo__veggie_pizza_with_melting_cheese_stretching.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de vegetais com queijo derretendo",
+    "en": "Veggie pizza with melting cheese stretching",
+    "slug": "pizza-pizza-de-vegetais-com-queijo-derretendo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 407,
+    "filename": "407-pizza-pizza-de-vegetais-com-calabresas-redondas__veggie_pizza_decorated_with_pepperoni_slices.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/407-pizza-pizza-de-vegetais-com-calabresas-redondas__veggie_pizza_decorated_with_pepperoni_slices.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de vegetais com calabresas redondas",
+    "en": "Veggie pizza decorated with pepperoni slices",
+    "slug": "pizza-pizza-de-vegetais-com-calabresas-redondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 408,
+    "filename": "408-pizza-pizza-de-vegetais-na-tabua-de-madeira__veggie_pizza_sitting_on_a_wooden_board.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/408-pizza-pizza-de-vegetais-na-tabua-de-madeira__veggie_pizza_sitting_on_a_wooden_board.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de vegetais na tabua de madeira",
+    "en": "Veggie pizza sitting on a wooden board",
+    "slug": "pizza-pizza-de-vegetais-na-tabua-de-madeira",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 409,
+    "filename": "409-pizza-pizza-de-vegetais-sendo-cortada__veggie_pizza_being_cut_by_a_roller.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/409-pizza-pizza-de-vegetais-sendo-cortada__veggie_pizza_being_cut_by_a_roller.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de vegetais sendo cortada",
+    "en": "Veggie pizza being cut by a roller",
+    "slug": "pizza-pizza-de-vegetais-sendo-cortada",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 41,
@@ -19052,6 +19228,116 @@
     "isNew": true
   },
   {
+    "index": 410,
+    "filename": "410-pizza-pizza-de-vegetais-com-chapeu-de-chef__veggie_pizza_with_a_happy_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/410-pizza-pizza-de-vegetais-com-chapeu-de-chef__veggie_pizza_with_a_happy_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de vegetais com chapeu de chef",
+    "en": "Veggie pizza with a happy chef hat",
+    "slug": "pizza-pizza-de-vegetais-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 411,
+    "filename": "411-pizza-pizza-de-vegetais-olhos-de-desenho-fofos__veggie_pizza_smiling_with_cute_cartoon_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/411-pizza-pizza-de-vegetais-olhos-de-desenho-fofos__veggie_pizza_smiling_with_cute_cartoon_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de vegetais olhos de desenho fofos",
+    "en": "Veggie pizza smiling with cute cartoon eyes",
+    "slug": "pizza-pizza-de-vegetais-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 412,
+    "filename": "412-pizza-pizza-de-vegetais-na-mesa-de-festa__veggie_pizza_served_on_a_party_table.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/412-pizza-pizza-de-vegetais-na-mesa-de-festa__veggie_pizza_served_on_a_party_table.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de vegetais na mesa de festa",
+    "en": "Veggie pizza served on a party table",
+    "slug": "pizza-pizza-de-vegetais-na-mesa-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 413,
+    "filename": "413-pizza-pizza-em-forma-de-coracao-com-queijo-derretendo__heart-shaped_pizza_with_melting_cheese_stretching.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/413-pizza-pizza-em-forma-de-coracao-com-queijo-derretendo__heart-shaped_pizza_with_melting_cheese_stretching.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza em forma de coracao com queijo derretendo",
+    "en": "Heart shaped pizza with melting cheese stretching",
+    "slug": "pizza-pizza-em-forma-de-coracao-com-queijo-derretendo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 414,
+    "filename": "414-pizza-pizza-em-forma-de-coracao-com-calabresas-redondas__heart-shaped_pizza_decorated_with_pepperoni_slices.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/414-pizza-pizza-em-forma-de-coracao-com-calabresas-redondas__heart-shaped_pizza_decorated_with_pepperoni_slices.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza em forma de coracao com calabresas redondas",
+    "en": "Heart shaped pizza decorated with pepperoni slices",
+    "slug": "pizza-pizza-em-forma-de-coracao-com-calabresas-redondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 415,
+    "filename": "415-pizza-pizza-em-forma-de-coracao-na-tabua-de-madeira__heart-shaped_pizza_sitting_on_a_wooden_board.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/415-pizza-pizza-em-forma-de-coracao-na-tabua-de-madeira__heart-shaped_pizza_sitting_on_a_wooden_board.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza em forma de coracao na tabua de madeira",
+    "en": "Heart shaped pizza sitting on a wooden board",
+    "slug": "pizza-pizza-em-forma-de-coracao-na-tabua-de-madeira",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 416,
+    "filename": "416-pizza-pizza-em-forma-de-coracao-sendo-cortada__heart-shaped_pizza_being_cut_by_a_roller.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/416-pizza-pizza-em-forma-de-coracao-sendo-cortada__heart-shaped_pizza_being_cut_by_a_roller.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza em forma de coracao sendo cortada",
+    "en": "Heart shaped pizza being cut by a roller",
+    "slug": "pizza-pizza-em-forma-de-coracao-sendo-cortada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 417,
+    "filename": "417-pizza-pizza-em-forma-de-coracao-com-chapeu-de-chef__heart-shaped_pizza_with_a_happy_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/417-pizza-pizza-em-forma-de-coracao-com-chapeu-de-chef__heart-shaped_pizza_with_a_happy_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza em forma de coracao com chapeu de chef",
+    "en": "Heart shaped pizza with a happy chef hat",
+    "slug": "pizza-pizza-em-forma-de-coracao-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 418,
+    "filename": "418-pizza-pizza-em-forma-de-coracao-olhos-de-desenho-fofos__heart-shaped_pizza_smiling_with_cute_cartoon_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/418-pizza-pizza-em-forma-de-coracao-olhos-de-desenho-fofos__heart-shaped_pizza_smiling_with_cute_cartoon_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza em forma de coracao olhos de desenho fofos",
+    "en": "Heart shaped pizza smiling with cute cartoon eyes",
+    "slug": "pizza-pizza-em-forma-de-coracao-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 419,
+    "filename": "419-pizza-pizza-em-forma-de-coracao-na-mesa-de-festa__heart-shaped_pizza_served_on_a_party_table.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/419-pizza-pizza-em-forma-de-coracao-na-mesa-de-festa__heart-shaped_pizza_served_on_a_party_table.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza em forma de coracao na mesa de festa",
+    "en": "Heart shaped pizza served on a party table",
+    "slug": "pizza-pizza-em-forma-de-coracao-na-mesa-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 42,
     "filename": "42-pao-sorrindo__bread.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/42-pao-sorrindo__bread.png",
@@ -19061,6 +19347,116 @@
     "slug": "pao-sorrindo",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 420,
+    "filename": "420-pizza-pizza-de-desenho-fofa-com-queijo-derretendo__cute_cartoon_pizza_with_melting_cheese_stretching.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/420-pizza-pizza-de-desenho-fofa-com-queijo-derretendo__cute_cartoon_pizza_with_melting_cheese_stretching.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de desenho fofa com queijo derretendo",
+    "en": "Cute cartoon pizza with melting cheese stretching",
+    "slug": "pizza-pizza-de-desenho-fofa-com-queijo-derretendo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 421,
+    "filename": "421-pizza-pizza-de-desenho-fofa-com-calabresas-redondas__cute_cartoon_pizza_decorated_with_pepperoni_slices.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/421-pizza-pizza-de-desenho-fofa-com-calabresas-redondas__cute_cartoon_pizza_decorated_with_pepperoni_slices.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de desenho fofa com calabresas redondas",
+    "en": "Cute cartoon pizza decorated with pepperoni slices",
+    "slug": "pizza-pizza-de-desenho-fofa-com-calabresas-redondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 422,
+    "filename": "422-pizza-pizza-de-desenho-fofa-na-tabua-de-madeira__cute_cartoon_pizza_sitting_on_a_wooden_board.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/422-pizza-pizza-de-desenho-fofa-na-tabua-de-madeira__cute_cartoon_pizza_sitting_on_a_wooden_board.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de desenho fofa na tabua de madeira",
+    "en": "Cute cartoon pizza sitting on a wooden board",
+    "slug": "pizza-pizza-de-desenho-fofa-na-tabua-de-madeira",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 423,
+    "filename": "423-pizza-pizza-de-desenho-fofa-sendo-cortada__cute_cartoon_pizza_being_cut_by_a_roller.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/423-pizza-pizza-de-desenho-fofa-sendo-cortada__cute_cartoon_pizza_being_cut_by_a_roller.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de desenho fofa sendo cortada",
+    "en": "Cute cartoon pizza being cut by a roller",
+    "slug": "pizza-pizza-de-desenho-fofa-sendo-cortada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 424,
+    "filename": "424-pizza-pizza-de-desenho-fofa-com-chapeu-de-chef__cute_cartoon_pizza_with_a_happy_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/424-pizza-pizza-de-desenho-fofa-com-chapeu-de-chef__cute_cartoon_pizza_with_a_happy_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de desenho fofa com chapeu de chef",
+    "en": "Cute cartoon pizza with a happy chef hat",
+    "slug": "pizza-pizza-de-desenho-fofa-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 425,
+    "filename": "425-pizza-pizza-de-desenho-fofa-olhos-de-desenho-fofos__cute_cartoon_pizza_smiling_with_cute_cartoon_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/425-pizza-pizza-de-desenho-fofa-olhos-de-desenho-fofos__cute_cartoon_pizza_smiling_with_cute_cartoon_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de desenho fofa olhos de desenho fofos",
+    "en": "Cute cartoon pizza smiling with cute cartoon eyes",
+    "slug": "pizza-pizza-de-desenho-fofa-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 426,
+    "filename": "426-pizza-pizza-de-desenho-fofa-na-mesa-de-festa__cute_cartoon_pizza_served_on_a_party_table.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/426-pizza-pizza-de-desenho-fofa-na-mesa-de-festa__cute_cartoon_pizza_served_on_a_party_table.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza pizza de desenho fofa na mesa de festa",
+    "en": "Cute cartoon pizza served on a party table",
+    "slug": "pizza-pizza-de-desenho-fofa-na-mesa-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 427,
+    "filename": "427-pizza-mascote-pizzaiolo-com-queijo-derretendo__pizza_chef_mascot_with_melting_cheese_stretching.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/427-pizza-mascote-pizzaiolo-com-queijo-derretendo__pizza_chef_mascot_with_melting_cheese_stretching.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mascote pizzaiolo com queijo derretendo",
+    "en": "Pizza chef mascot with melting cheese stretching",
+    "slug": "pizza-mascote-pizzaiolo-com-queijo-derretendo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 428,
+    "filename": "428-pizza-mascote-pizzaiolo-com-calabresas-redondas__pizza_chef_mascot_decorated_with_pepperoni_slices.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/428-pizza-mascote-pizzaiolo-com-calabresas-redondas__pizza_chef_mascot_decorated_with_pepperoni_slices.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mascote pizzaiolo com calabresas redondas",
+    "en": "Pizza chef mascot decorated with pepperoni slices",
+    "slug": "pizza-mascote-pizzaiolo-com-calabresas-redondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 429,
+    "filename": "429-pizza-mascote-pizzaiolo-na-tabua-de-madeira__pizza_chef_mascot_sitting_on_a_wooden_board.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/429-pizza-mascote-pizzaiolo-na-tabua-de-madeira__pizza_chef_mascot_sitting_on_a_wooden_board.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mascote pizzaiolo na tabua de madeira",
+    "en": "Pizza chef mascot sitting on a wooden board",
+    "slug": "pizza-mascote-pizzaiolo-na-tabua-de-madeira",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 43,
@@ -19074,6 +19470,116 @@
     "isNew": true
   },
   {
+    "index": 430,
+    "filename": "430-pizza-mascote-pizzaiolo-sendo-cortada__pizza_chef_mascot_being_cut_by_a_roller.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/430-pizza-mascote-pizzaiolo-sendo-cortada__pizza_chef_mascot_being_cut_by_a_roller.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mascote pizzaiolo sendo cortada",
+    "en": "Pizza chef mascot being cut by a roller",
+    "slug": "pizza-mascote-pizzaiolo-sendo-cortada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 431,
+    "filename": "431-pizza-mascote-pizzaiolo-com-chapeu-de-chef__pizza_chef_mascot_with_a_happy_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/431-pizza-mascote-pizzaiolo-com-chapeu-de-chef__pizza_chef_mascot_with_a_happy_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mascote pizzaiolo com chapeu de chef",
+    "en": "Pizza chef mascot with a happy chef hat",
+    "slug": "pizza-mascote-pizzaiolo-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 432,
+    "filename": "432-pizza-mascote-pizzaiolo-olhos-de-desenho-fofos__pizza_chef_mascot_smiling_with_cute_cartoon_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/432-pizza-mascote-pizzaiolo-olhos-de-desenho-fofos__pizza_chef_mascot_smiling_with_cute_cartoon_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mascote pizzaiolo olhos de desenho fofos",
+    "en": "Pizza chef mascot smiling with cute cartoon eyes",
+    "slug": "pizza-mascote-pizzaiolo-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 433,
+    "filename": "433-pizza-mascote-pizzaiolo-na-mesa-de-festa__pizza_chef_mascot_served_on_a_party_table.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/433-pizza-mascote-pizzaiolo-na-mesa-de-festa__pizza_chef_mascot_served_on_a_party_table.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mascote pizzaiolo na mesa de festa",
+    "en": "Pizza chef mascot served on a party table",
+    "slug": "pizza-mascote-pizzaiolo-na-mesa-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 434,
+    "filename": "434-pizza-caixa-de-pizza-com-queijo-derretendo__pizza_delivery_box_with_melting_cheese_stretching.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/434-pizza-caixa-de-pizza-com-queijo-derretendo__pizza_delivery_box_with_melting_cheese_stretching.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza caixa de pizza com queijo derretendo",
+    "en": "Pizza delivery box with melting cheese stretching",
+    "slug": "pizza-caixa-de-pizza-com-queijo-derretendo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 435,
+    "filename": "435-pizza-caixa-de-pizza-com-calabresas-redondas__pizza_delivery_box_decorated_with_pepperoni_slices.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/435-pizza-caixa-de-pizza-com-calabresas-redondas__pizza_delivery_box_decorated_with_pepperoni_slices.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza caixa de pizza com calabresas redondas",
+    "en": "Pizza delivery box decorated with pepperoni slices",
+    "slug": "pizza-caixa-de-pizza-com-calabresas-redondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 436,
+    "filename": "436-pizza-caixa-de-pizza-na-tabua-de-madeira__pizza_delivery_box_sitting_on_a_wooden_board.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/436-pizza-caixa-de-pizza-na-tabua-de-madeira__pizza_delivery_box_sitting_on_a_wooden_board.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza caixa de pizza na tabua de madeira",
+    "en": "Pizza delivery box sitting on a wooden board",
+    "slug": "pizza-caixa-de-pizza-na-tabua-de-madeira",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 437,
+    "filename": "437-pizza-caixa-de-pizza-sendo-cortada__pizza_delivery_box_being_cut_by_a_roller.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/437-pizza-caixa-de-pizza-sendo-cortada__pizza_delivery_box_being_cut_by_a_roller.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza caixa de pizza sendo cortada",
+    "en": "Pizza delivery box being cut by a roller",
+    "slug": "pizza-caixa-de-pizza-sendo-cortada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 438,
+    "filename": "438-pizza-caixa-de-pizza-com-chapeu-de-chef__pizza_delivery_box_with_a_happy_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/438-pizza-caixa-de-pizza-com-chapeu-de-chef__pizza_delivery_box_with_a_happy_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza caixa de pizza com chapeu de chef",
+    "en": "Pizza delivery box with a happy chef hat",
+    "slug": "pizza-caixa-de-pizza-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 439,
+    "filename": "439-pizza-caixa-de-pizza-olhos-de-desenho-fofos__pizza_delivery_box_smiling_with_cute_cartoon_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/439-pizza-caixa-de-pizza-olhos-de-desenho-fofos__pizza_delivery_box_smiling_with_cute_cartoon_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza caixa de pizza olhos de desenho fofos",
+    "en": "Pizza delivery box smiling with cute cartoon eyes",
+    "slug": "pizza-caixa-de-pizza-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 44,
     "filename": "44-cereja-sorrindo__cherries.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/44-cereja-sorrindo__cherries.png",
@@ -19083,6 +19589,94 @@
     "slug": "cereja-sorrindo",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 440,
+    "filename": "440-pizza-caixa-de-pizza-na-mesa-de-festa__pizza_delivery_box_served_on_a_party_table.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/440-pizza-caixa-de-pizza-na-mesa-de-festa__pizza_delivery_box_served_on_a_party_table.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza caixa de pizza na mesa de festa",
+    "en": "Pizza delivery box served on a party table",
+    "slug": "pizza-caixa-de-pizza-na-mesa-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 441,
+    "filename": "441-pizza-mini-pizza-com-queijo-derretendo__mini_pizza_with_melting_cheese_stretching.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/441-pizza-mini-pizza-com-queijo-derretendo__mini_pizza_with_melting_cheese_stretching.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mini pizza com queijo derretendo",
+    "en": "Mini pizza with melting cheese stretching",
+    "slug": "pizza-mini-pizza-com-queijo-derretendo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 442,
+    "filename": "442-pizza-mini-pizza-com-calabresas-redondas__mini_pizza_decorated_with_pepperoni_slices.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/442-pizza-mini-pizza-com-calabresas-redondas__mini_pizza_decorated_with_pepperoni_slices.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mini pizza com calabresas redondas",
+    "en": "Mini pizza decorated with pepperoni slices",
+    "slug": "pizza-mini-pizza-com-calabresas-redondas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 443,
+    "filename": "443-pizza-mini-pizza-na-tabua-de-madeira__mini_pizza_sitting_on_a_wooden_board.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/443-pizza-mini-pizza-na-tabua-de-madeira__mini_pizza_sitting_on_a_wooden_board.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mini pizza na tabua de madeira",
+    "en": "Mini pizza sitting on a wooden board",
+    "slug": "pizza-mini-pizza-na-tabua-de-madeira",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 444,
+    "filename": "444-pizza-mini-pizza-sendo-cortada__mini_pizza_being_cut_by_a_roller.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/444-pizza-mini-pizza-sendo-cortada__mini_pizza_being_cut_by_a_roller.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mini pizza sendo cortada",
+    "en": "Mini pizza being cut by a roller",
+    "slug": "pizza-mini-pizza-sendo-cortada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 445,
+    "filename": "445-pizza-mini-pizza-com-chapeu-de-chef__mini_pizza_with_a_happy_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/445-pizza-mini-pizza-com-chapeu-de-chef__mini_pizza_with_a_happy_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mini pizza com chapeu de chef",
+    "en": "Mini pizza with a happy chef hat",
+    "slug": "pizza-mini-pizza-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 446,
+    "filename": "446-pizza-mini-pizza-olhos-de-desenho-fofos__mini_pizza_smiling_with_cute_cartoon_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/446-pizza-mini-pizza-olhos-de-desenho-fofos__mini_pizza_smiling_with_cute_cartoon_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mini pizza olhos de desenho fofos",
+    "en": "Mini pizza smiling with cute cartoon eyes",
+    "slug": "pizza-mini-pizza-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 447,
+    "filename": "447-pizza-mini-pizza-na-mesa-de-festa__mini_pizza_served_on_a_party_table.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/447-pizza-mini-pizza-na-mesa-de-festa__mini_pizza_served_on_a_party_table.png",
+    "category": "comidas-e-doces",
+    "pt": "Pizza mini pizza na mesa de festa",
+    "en": "Mini pizza served on a party table",
+    "slug": "pizza-mini-pizza-na-mesa-de-festa",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 45,
@@ -65351,6 +65945,17 @@
     "isNew": true
   },
   {
+    "index": 149,
+    "filename": "149-fruta-maca-vermelha-com-rosto-alegre__red_apple_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/149-fruta-maca-vermelha-com-rosto-alegre__red_apple_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta maca vermelha com rosto alegre",
+    "en": "Red apple with a happy cartoon face",
+    "slug": "fruta-maca-vermelha-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 15,
     "filename": "15-mirtilo-curioso__blueberry.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/15-mirtilo-curioso__blueberry.png",
@@ -65362,6 +65967,116 @@
     "isNew": true
   },
   {
+    "index": 150,
+    "filename": "150-fruta-maca-vermelha-pendurada-no-galho__red_apple_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/150-fruta-maca-vermelha-pendurada-no-galho__red_apple_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta maca vermelha pendurada no galho",
+    "en": "Red apple hanging from a tree branch",
+    "slug": "fruta-maca-vermelha-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 151,
+    "filename": "151-fruta-maca-vermelha-na-cesta-de-frutas__red_apple_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/151-fruta-maca-vermelha-na-cesta-de-frutas__red_apple_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta maca vermelha na cesta de frutas",
+    "en": "Red apple sitting in a fruit basket",
+    "slug": "fruta-maca-vermelha-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 152,
+    "filename": "152-fruta-maca-vermelha-com-folhas-verdes__red_apple_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/152-fruta-maca-vermelha-com-folhas-verdes__red_apple_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta maca vermelha com folhas verdes",
+    "en": "Red apple surrounded by green leaves",
+    "slug": "fruta-maca-vermelha-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 153,
+    "filename": "153-fruta-maca-vermelha-olhos-de-desenho-fofos__red_apple_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/153-fruta-maca-vermelha-olhos-de-desenho-fofos__red_apple_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta maca vermelha olhos de desenho fofos",
+    "en": "Red apple smiling with big friendly eyes",
+    "slug": "fruta-maca-vermelha-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 154,
+    "filename": "154-fruta-maca-vermelha-na-agua-fresca__red_apple_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/154-fruta-maca-vermelha-na-agua-fresca__red_apple_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta maca vermelha na agua fresca",
+    "en": "Red apple splashing in water",
+    "slug": "fruta-maca-vermelha-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 155,
+    "filename": "155-fruta-maca-vermelha-com-chapeu-de-folha__red_apple_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/155-fruta-maca-vermelha-com-chapeu-de-folha__red_apple_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta maca vermelha com chapeu de folha",
+    "en": "Red apple wearing a tiny leaf hat",
+    "slug": "fruta-maca-vermelha-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 156,
+    "filename": "156-fruta-banana-amarela-com-rosto-alegre__yellow_banana_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/156-fruta-banana-amarela-com-rosto-alegre__yellow_banana_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta banana amarela com rosto alegre",
+    "en": "Yellow banana with a happy cartoon face",
+    "slug": "fruta-banana-amarela-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 157,
+    "filename": "157-fruta-banana-amarela-pendurada-no-galho__yellow_banana_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/157-fruta-banana-amarela-pendurada-no-galho__yellow_banana_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta banana amarela pendurada no galho",
+    "en": "Yellow banana hanging from a tree branch",
+    "slug": "fruta-banana-amarela-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 158,
+    "filename": "158-fruta-banana-amarela-na-cesta-de-frutas__yellow_banana_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/158-fruta-banana-amarela-na-cesta-de-frutas__yellow_banana_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta banana amarela na cesta de frutas",
+    "en": "Yellow banana sitting in a fruit basket",
+    "slug": "fruta-banana-amarela-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 159,
+    "filename": "159-fruta-banana-amarela-com-folhas-verdes__yellow_banana_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/159-fruta-banana-amarela-com-folhas-verdes__yellow_banana_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta banana amarela com folhas verdes",
+    "en": "Yellow banana surrounded by green leaves",
+    "slug": "fruta-banana-amarela-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 16,
     "filename": "16-manga-artista__mango.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/16-manga-artista__mango.png",
@@ -65371,6 +66086,105 @@
     "slug": "manga-artista",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 160,
+    "filename": "160-fruta-banana-amarela-olhos-de-desenho-fofos__yellow_banana_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/160-fruta-banana-amarela-olhos-de-desenho-fofos__yellow_banana_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta banana amarela olhos de desenho fofos",
+    "en": "Yellow banana smiling with big friendly eyes",
+    "slug": "fruta-banana-amarela-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 161,
+    "filename": "161-fruta-banana-amarela-na-agua-fresca__yellow_banana_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/161-fruta-banana-amarela-na-agua-fresca__yellow_banana_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta banana amarela na agua fresca",
+    "en": "Yellow banana splashing in water",
+    "slug": "fruta-banana-amarela-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 162,
+    "filename": "162-fruta-banana-amarela-com-chapeu-de-folha__yellow_banana_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/162-fruta-banana-amarela-com-chapeu-de-folha__yellow_banana_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta banana amarela com chapeu de folha",
+    "en": "Yellow banana wearing a tiny leaf hat",
+    "slug": "fruta-banana-amarela-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 163,
+    "filename": "163-fruta-morango-doce-com-rosto-alegre__sweet_strawberry_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/163-fruta-morango-doce-com-rosto-alegre__sweet_strawberry_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta morango doce com rosto alegre",
+    "en": "Sweet strawberry with a happy cartoon face",
+    "slug": "fruta-morango-doce-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 164,
+    "filename": "164-fruta-morango-doce-pendurada-no-galho__sweet_strawberry_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/164-fruta-morango-doce-pendurada-no-galho__sweet_strawberry_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta morango doce pendurada no galho",
+    "en": "Sweet strawberry hanging from a tree branch",
+    "slug": "fruta-morango-doce-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 165,
+    "filename": "165-fruta-morango-doce-na-cesta-de-frutas__sweet_strawberry_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/165-fruta-morango-doce-na-cesta-de-frutas__sweet_strawberry_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta morango doce na cesta de frutas",
+    "en": "Sweet strawberry sitting in a fruit basket",
+    "slug": "fruta-morango-doce-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 166,
+    "filename": "166-fruta-morango-doce-com-folhas-verdes__sweet_strawberry_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/166-fruta-morango-doce-com-folhas-verdes__sweet_strawberry_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta morango doce com folhas verdes",
+    "en": "Sweet strawberry surrounded by green leaves",
+    "slug": "fruta-morango-doce-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 167,
+    "filename": "167-fruta-morango-doce-olhos-de-desenho-fofos__sweet_strawberry_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/167-fruta-morango-doce-olhos-de-desenho-fofos__sweet_strawberry_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta morango doce olhos de desenho fofos",
+    "en": "Sweet strawberry smiling with big friendly eyes",
+    "slug": "fruta-morango-doce-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 168,
+    "filename": "168-fruta-morango-doce-na-agua-fresca__sweet_strawberry_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/168-fruta-morango-doce-na-agua-fresca__sweet_strawberry_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta morango doce na agua fresca",
+    "en": "Sweet strawberry splashing in water",
+    "slug": "fruta-morango-doce-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 17,
@@ -89636,7 +90450,7 @@
     "en": "Biplane floating on calm water",
     "slug": "aviao-aviao-biplano-flutuando-na-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 434,
@@ -89647,7 +90461,7 @@
     "en": "Biplane performing an airshow loop",
     "slug": "aviao-aviao-biplano-fazendo-acrobacias",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 435,
@@ -89658,7 +90472,7 @@
     "en": "Biplane soaring near a beautiful rainbow",
     "slug": "aviao-aviao-biplano-perto-do-arco-iris",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 436,
@@ -89669,7 +90483,7 @@
     "en": "Biplane flying past a smiling sun",
     "slug": "aviao-aviao-biplano-passando-pelo-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 437,
@@ -89680,7 +90494,7 @@
     "en": "Biplane taking off into the sky",
     "slug": "aviao-aviao-biplano-decolando-para-o-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 438,
@@ -89691,7 +90505,7 @@
     "en": "Biplane waving its wings",
     "slug": "aviao-aviao-biplano-acenando-as-asas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 439,
@@ -89702,7 +90516,7 @@
     "en": "Propeller airplane flying high above soft clouds",
     "slug": "aviao-aviao-a-helice-voando-nas-nuvens",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 44,
@@ -89724,7 +90538,7 @@
     "en": "Propeller airplane landing on an airport runway",
     "slug": "aviao-aviao-a-helice-pousando-na-pista",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 441,
@@ -89735,7 +90549,7 @@
     "en": "Propeller airplane floating on calm water",
     "slug": "aviao-aviao-a-helice-flutuando-na-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 442,
@@ -89746,7 +90560,7 @@
     "en": "Propeller airplane performing an airshow loop",
     "slug": "aviao-aviao-a-helice-fazendo-acrobacias",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 443,
@@ -89757,7 +90571,7 @@
     "en": "Propeller airplane soaring near a beautiful rainbow",
     "slug": "aviao-aviao-a-helice-perto-do-arco-iris",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 444,
@@ -89768,7 +90582,7 @@
     "en": "Propeller airplane flying past a smiling sun",
     "slug": "aviao-aviao-a-helice-passando-pelo-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 445,
@@ -89779,7 +90593,7 @@
     "en": "Propeller airplane taking off into the sky",
     "slug": "aviao-aviao-a-helice-decolando-para-o-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 446,
@@ -89790,7 +90604,7 @@
     "en": "Propeller airplane waving its wings",
     "slug": "aviao-aviao-a-helice-acenando-as-asas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 447,
@@ -89801,7 +90615,7 @@
     "en": "Cargo airplane flying high above soft clouds",
     "slug": "aviao-aviao-cargueiro-voando-nas-nuvens",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 448,
@@ -89812,7 +90626,7 @@
     "en": "Cargo airplane landing on an airport runway",
     "slug": "aviao-aviao-cargueiro-pousando-na-pista",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 449,
@@ -89823,7 +90637,7 @@
     "en": "Cargo airplane floating on calm water",
     "slug": "aviao-aviao-cargueiro-flutuando-na-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 45,
@@ -89845,7 +90659,7 @@
     "en": "Cargo airplane performing an airshow loop",
     "slug": "aviao-aviao-cargueiro-fazendo-acrobacias",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 451,
@@ -89856,7 +90670,7 @@
     "en": "Cargo airplane soaring near a beautiful rainbow",
     "slug": "aviao-aviao-cargueiro-perto-do-arco-iris",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 452,
@@ -89867,7 +90681,7 @@
     "en": "Cargo airplane flying past a smiling sun",
     "slug": "aviao-aviao-cargueiro-passando-pelo-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 453,
@@ -89878,7 +90692,7 @@
     "en": "Cargo airplane taking off into the sky",
     "slug": "aviao-aviao-cargueiro-decolando-para-o-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 454,
@@ -89889,7 +90703,7 @@
     "en": "Cargo airplane waving its wings",
     "slug": "aviao-aviao-cargueiro-acenando-as-asas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 455,
@@ -89900,7 +90714,7 @@
     "en": "Seaplane flying high above soft clouds",
     "slug": "aviao-hidroaviao-voando-nas-nuvens",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 456,
@@ -89911,7 +90725,7 @@
     "en": "Seaplane landing on an airport runway",
     "slug": "aviao-hidroaviao-pousando-na-pista",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 457,
@@ -89922,7 +90736,7 @@
     "en": "Seaplane floating on calm water",
     "slug": "aviao-hidroaviao-flutuando-na-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 458,
@@ -89933,7 +90747,7 @@
     "en": "Seaplane performing an airshow loop",
     "slug": "aviao-hidroaviao-fazendo-acrobacias",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 459,
@@ -89944,7 +90758,7 @@
     "en": "Seaplane soaring near a beautiful rainbow",
     "slug": "aviao-hidroaviao-perto-do-arco-iris",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 46,
@@ -89966,7 +90780,7 @@
     "en": "Seaplane flying past a smiling sun",
     "slug": "aviao-hidroaviao-passando-pelo-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 461,
@@ -89977,7 +90791,7 @@
     "en": "Seaplane taking off into the sky",
     "slug": "aviao-hidroaviao-decolando-para-o-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 462,
@@ -89988,7 +90802,7 @@
     "en": "Seaplane waving its wings",
     "slug": "aviao-hidroaviao-acenando-as-asas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 463,
@@ -89999,7 +90813,7 @@
     "en": "Supersonic jet flying high above soft clouds",
     "slug": "aviao-jato-supersonico-voando-nas-nuvens",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 464,
@@ -90010,7 +90824,7 @@
     "en": "Supersonic jet landing on an airport runway",
     "slug": "aviao-jato-supersonico-pousando-na-pista",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 465,
@@ -90021,7 +90835,7 @@
     "en": "Supersonic jet floating on calm water",
     "slug": "aviao-jato-supersonico-flutuando-na-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 466,
@@ -90032,7 +90846,7 @@
     "en": "Supersonic jet performing an airshow loop",
     "slug": "aviao-jato-supersonico-fazendo-acrobacias",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 467,
@@ -90043,7 +90857,7 @@
     "en": "Supersonic jet soaring near a beautiful rainbow",
     "slug": "aviao-jato-supersonico-perto-do-arco-iris",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 468,
@@ -90054,7 +90868,7 @@
     "en": "Supersonic jet flying past a smiling sun",
     "slug": "aviao-jato-supersonico-passando-pelo-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 469,
@@ -90065,7 +90879,7 @@
     "en": "Supersonic jet taking off into the sky",
     "slug": "aviao-jato-supersonico-decolando-para-o-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 47,
@@ -90087,7 +90901,7 @@
     "en": "Supersonic jet waving its wings",
     "slug": "aviao-jato-supersonico-acenando-as-asas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 471,
@@ -90098,7 +90912,7 @@
     "en": "Helicopter flying high above soft clouds",
     "slug": "aviao-helicotero-voando-nas-nuvens",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 472,
@@ -90109,7 +90923,7 @@
     "en": "Helicopter landing on an airport runway",
     "slug": "aviao-helicotero-pousando-na-pista",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 473,
@@ -90120,7 +90934,7 @@
     "en": "Helicopter floating on calm water",
     "slug": "aviao-helicotero-flutuando-na-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 474,
@@ -90131,7 +90945,7 @@
     "en": "Helicopter performing an airshow loop",
     "slug": "aviao-helicotero-fazendo-acrobacias",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 475,
@@ -90142,7 +90956,7 @@
     "en": "Helicopter soaring near a beautiful rainbow",
     "slug": "aviao-helicotero-perto-do-arco-iris",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 476,
@@ -90153,7 +90967,7 @@
     "en": "Helicopter flying past a smiling sun",
     "slug": "aviao-helicotero-passando-pelo-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 477,
@@ -90164,7 +90978,7 @@
     "en": "Helicopter taking off into the sky",
     "slug": "aviao-helicotero-decolando-para-o-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 478,
@@ -90175,7 +90989,7 @@
     "en": "Helicopter waving its wings",
     "slug": "aviao-helicotero-acenando-as-asas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 479,
@@ -90186,7 +91000,7 @@
     "en": "Cute toy airplane flying high above soft clouds",
     "slug": "aviao-aviao-de-brinquedo-voando-nas-nuvens",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 48,
@@ -90208,7 +91022,7 @@
     "en": "Cute toy airplane landing on an airport runway",
     "slug": "aviao-aviao-de-brinquedo-pousando-na-pista",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 481,
@@ -90219,7 +91033,7 @@
     "en": "Cute toy airplane floating on calm water",
     "slug": "aviao-aviao-de-brinquedo-flutuando-na-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 482,
@@ -90230,7 +91044,7 @@
     "en": "Cute toy airplane performing an airshow loop",
     "slug": "aviao-aviao-de-brinquedo-fazendo-acrobacias",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 483,
