@@ -333,25 +333,25 @@ app.post('/api/stripe/create-checkout-session', async (req, res) => {
         // Mapear plano para Price ID
         let priceId = '';
         if (planName === 'Artista (Mensal)') {
-            priceId = process.env.STRIPE_PRICE_ARTISTA_MENSAL || 'price_1TihHMBRjUzKEXHu_artista_mensal';
+            priceId = process.env.STRIPE_PRICE_ARTISTA_MENSAL || 'price_1TjEklBRjUzKEXHuPtJ1XAtB';
         } else if (planName === 'Artista (Anual)') {
-            priceId = process.env.STRIPE_PRICE_ARTISTA_ANUAL || 'price_1TihHMBRjUzKEXHu_artista_anual';
+            priceId = process.env.STRIPE_PRICE_ARTISTA_ANUAL || 'price_1TjEklBRjUzKEXHuEU79qahh';
         } else if (planName === 'Mago Criador (Mensal)') {
-            priceId = process.env.STRIPE_PRICE_MAGO_MENSAL || 'price_1TihHMBRjUzKEXHu_mago_mensal';
+            priceId = process.env.STRIPE_PRICE_MAGO_MENSAL || 'price_1TjEkmBRjUzKEXHuu6OCjmdz';
         } else if (planName === 'Mago Criador (Anual)') {
-            priceId = process.env.STRIPE_PRICE_MAGO_ANUAL || 'price_1TihHMBRjUzKEXHu_mago_anual';
+            priceId = process.env.STRIPE_PRICE_MAGO_ANUAL || 'price_1TjEknBRjUzKEXHuSfKIbaWD';
         } else if (planName === 'Lenda KidCanvas (Mensal)') {
-            priceId = process.env.STRIPE_PRICE_LENDA_MENSAL || 'price_1TihHMBRjUzKEXHu_lenda_mensal';
+            priceId = process.env.STRIPE_PRICE_LENDA_MENSAL || 'price_1TjEkoBRjUzKEXHuJPZlMPLe';
         } else if (planName === 'Lenda KidCanvas (Anual)') {
-            priceId = process.env.STRIPE_PRICE_LENDA_ANUAL || 'price_1TihHMBRjUzKEXHu_lenda_anual';
+            priceId = process.env.STRIPE_PRICE_LENDA_ANUAL || 'price_1TjEkoBRjUzKEXHuVQdUB7Cc';
         } else if (planName === '20 Créditos Avulsos') {
-            priceId = process.env.STRIPE_PRICE_AVULSO_20 || 'price_1TihHMBRjUzKEXHu_avulso_20';
+            priceId = process.env.STRIPE_PRICE_AVULSO_20 || 'price_1TjEkpBRjUzKEXHuhMV2rSUO';
         } else if (planName === '50 Créditos Avulsos') {
-            priceId = process.env.STRIPE_PRICE_AVULSO_50 || 'price_1TihHMBRjUzKEXHu_avulso_50';
+            priceId = process.env.STRIPE_PRICE_AVULSO_50 || 'price_1TjEkqBRjUzKEXHulU6qJWac';
         } else if (planName === '120 Créditos Avulsos') {
-            priceId = process.env.STRIPE_PRICE_AVULSO_120 || 'price_1TihHMBRjUzKEXHu_avulso_120';
+            priceId = process.env.STRIPE_PRICE_AVULSO_120 || 'price_1TjEkqBRjUzKEXHuJk8jtccc';
         } else if (planName === '300 Créditos Avulsos') {
-            priceId = process.env.STRIPE_PRICE_AVULSO_300 || 'price_1TihHMBRjUzKEXHu_avulso_300';
+            priceId = process.env.STRIPE_PRICE_AVULSO_300 || 'price_1TjEkrBRjUzKEXHuZVngcwK1';
         } else {
             // Suporte legado
             if (planName === 'Família') {
