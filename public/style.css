@@ -4872,3 +4872,82 @@ button, input, select, textarea {
         opacity: 0;
     }
 }
+
+/* ==========================================================================
+   NOVO SISTEMA DE PLANOS E CRÉDITOS AVULSOS
+   ========================================================================== */
+
+.billing-toggle-btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 20px;
+    font-family: var(--font-heading);
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--color-dark);
+    transition: all 0.2s ease;
+}
+
+.billing-toggle-btn.active {
+    background-color: var(--color-purple) !important;
+    color: white !important;
+    box-shadow: 0 2px 0 var(--color-dark) !important;
+}
+
+.new-plan-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.new-plan-card:hover {
+    transform: translateY(-5px);
+}
+
+.new-plan-card.highlighted:hover {
+    transform: translateY(-5px) scale(1.01);
+}
+
+.credit-package-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.credit-package-card:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+.new-plan-features li {
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+}
+
+.new-plan-features li i {
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.btn-new-upgrade {
+    transition: transform 0.15s var(--transition-bounce), box-shadow 0.15s ease;
+}
+
+.btn-new-upgrade:hover {
+    transform: translateY(-2px);
+}
+
+.btn-new-upgrade:active {
+    transform: translateY(2px);
+}
+
+/* Responsividade adicional para a grade de planos */
+@media (max-width: 768px) {
+    .new-plans-grid {
+        grid-template-columns: 1fr !important;
+        max-width: 400px;
+        margin: 40px auto 0 auto !important;
+        gap: 80px !important;
+    }
+    .new-plan-card {
+        margin-top: 40px;
+    }
+}

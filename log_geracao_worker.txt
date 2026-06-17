@@ -3205,3 +3205,58 @@
 [2026-06-17 04:41:38] Rebuilding catalog and drawings database...
 [2026-06-17 04:41:39] Build successful!
 [2026-06-17 04:41:39] Committing and pushing to origin main...
+[2026-06-17 04:41:43] Push successful! Vercel will deploy in production.
+[2026-06-17 04:41:44] [1351/4400] Generated: veiculos/983-obra-caminhao-basculante-descarregando-cascalho__dump_truck_dumping_a_load_of_gravel.png
+[2026-06-17 04:41:45] [1352/4400] Generated: veiculos/984-obra-caminhao-basculante-levando-blocos__dump_truck_carrying_building_blocks.png
+[2026-06-17 04:41:46] [1353/4400] Generated: veiculos/985-obra-caminhao-basculante-com-capacete-amarelo__dump_truck_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:41:48] [1354/4400] Generated: veiculos/986-obra-caminhao-basculante-na-estrutura-do-predio__dump_truck_working_on_a_building_frame.png
+[2026-06-17 04:41:49] [1355/4400] Generated: veiculos/987-obra-empilhadeira-misturando-cimento__forklift_mixing_fresh_concrete.png
+[2026-06-17 04:41:50] [1356/4400] Generated: veiculos/988-obra-empilhadeira-nivelando-a-estrada__forklift_leveling_a_new_road.png
+[2026-06-17 04:41:51] [1357/4400] Generated: veiculos/989-obra-empilhadeira-descarregando-cascalho__forklift_dumping_a_load_of_gravel.png
+[2026-06-17 04:41:53] [1358/4400] Generated: veiculos/990-obra-empilhadeira-levando-blocos__forklift_carrying_building_blocks.png
+[2026-06-17 04:41:54] [1359/4400] Generated: veiculos/991-obra-empilhadeira-com-capacete-amarelo__forklift_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:41:55] [1360/4400] Generated: veiculos/992-obra-empilhadeira-na-estrutura-do-predio__forklift_working_on_a_building_frame.png
+[2026-06-17 04:41:56] [1361/4400] Generated: veiculos/993-obra-carrinho-de-mao-com-ferramentas-misturando-cimento__wheelbarrow_with_tools_mixing_fresh_concrete.png
+[2026-06-17 04:41:58] [1362/4400] Generated: veiculos/994-obra-carrinho-de-mao-com-ferramentas-nivelando-a-estrada__wheelbarrow_with_tools_leveling_a_new_road.png
+[2026-06-17 04:41:59] [1363/4400] Generated: veiculos/995-obra-carrinho-de-mao-com-ferramentas-descarregando-cascalho__wheelbarrow_with_tools_dumping_a_load_of_gravel.png
+[2026-06-17 04:42:00] [1364/4400] Generated: veiculos/996-obra-carrinho-de-mao-com-ferramentas-levando-blocos__wheelbarrow_with_tools_carrying_building_blocks.png
+[2026-06-17 04:42:01] [1365/4400] Generated: veiculos/997-obra-carrinho-de-mao-com-ferramentas-com-capacete-amarelo__wheelbarrow_with_tools_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:42:03] [1366/4400] Generated: veiculos/998-obra-carrinho-de-mao-com-ferramentas-na-estrutura-do-predio__wheelbarrow_with_tools_working_on_a_building_frame.png
+[2026-06-17 04:42:04] [1367/4400] Generated: veiculos/999-obra-trabalhador-de-obra-misturando-cimento__construction_worker_kid_mixing_fresh_concrete.png
+[2026-06-17 04:42:05] [1368/4400] Generated: veiculos/1000-obra-trabalhador-de-obra-nivelando-a-estrada__construction_worker_kid_leveling_a_new_road.png
+[2026-06-17 04:42:06] [1369/4400] Generated: veiculos/1001-obra-trabalhador-de-obra-descarregando-cascalho__construction_worker_kid_dumping_a_load_of_gravel.png
+[2026-06-17 04:42:07] [1370/4400] Generated: veiculos/1002-obra-trabalhador-de-obra-levando-blocos__construction_worker_kid_carrying_building_blocks.png
+[2026-06-17 04:42:09] [1371/4400] Generated: veiculos/1003-obra-trabalhador-de-obra-com-capacete-amarelo__construction_worker_kid_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:42:10] [1372/4400] Generated: veiculos/1004-obra-trabalhador-de-obra-na-estrutura-do-predio__construction_worker_kid_working_on_a_building_frame.png
+[2026-06-17 04:42:11] [1373/4400] Generated: veiculos/1005-obra-mascote-construtor-misturando-cimento__builder_mascot_mixing_fresh_concrete.png
+[2026-06-17 04:42:12] [1374/4400] Generated: veiculos/1006-obra-mascote-construtor-nivelando-a-estrada__builder_mascot_leveling_a_new_road.png
+[2026-06-17 04:42:13] [1375/4400] Generated: veiculos/1007-obra-mascote-construtor-descarregando-cascalho__builder_mascot_dumping_a_load_of_gravel.png
+[2026-06-17 04:42:15] [1376/4400] Generated: veiculos/1008-obra-mascote-construtor-levando-blocos__builder_mascot_carrying_building_blocks.png
+[2026-06-17 04:42:16] [1377/4400] Generated: veiculos/1009-obra-mascote-construtor-com-capacete-amarelo__builder_mascot_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:42:17] [1378/4400] Generated: veiculos/1010-obra-mascote-construtor-na-estrutura-do-predio__builder_mascot_working_on_a_building_frame.png
+[2026-06-17 04:42:18] [1379/4400] Generated: veiculos/1011-obra-engenheiro-com-capacete-misturando-cimento__hard_hat_engineer_mixing_fresh_concrete.png
+[2026-06-17 04:42:20] [1380/4400] Generated: veiculos/1012-obra-engenheiro-com-capacete-nivelando-a-estrada__hard_hat_engineer_leveling_a_new_road.png
+[2026-06-17 04:42:22] [1381/4400] Generated: veiculos/1013-obra-engenheiro-com-capacete-descarregando-cascalho__hard_hat_engineer_dumping_a_load_of_gravel.png
+[2026-06-17 04:42:23] [1382/4400] Generated: veiculos/1014-obra-engenheiro-com-capacete-levando-blocos__hard_hat_engineer_carrying_building_blocks.png
+[2026-06-17 04:42:24] [1383/4400] Generated: veiculos/1015-obra-engenheiro-com-capacete-com-capacete-amarelo__hard_hat_engineer_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:42:25] [1384/4400] Generated: veiculos/1016-obra-engenheiro-com-capacete-na-estrutura-do-predio__hard_hat_engineer_working_on_a_building_frame.png
+[2026-06-17 04:42:26] [1385/4400] Generated: veiculos/1017-obra-placa-de-obras-misturando-cimento__safety_sign_post_mixing_fresh_concrete.png
+[2026-06-17 04:42:28] [1386/4400] Generated: veiculos/1018-obra-placa-de-obras-nivelando-a-estrada__safety_sign_post_leveling_a_new_road.png
+[2026-06-17 04:42:30] [1387/4400] Generated: veiculos/1019-obra-placa-de-obras-descarregando-cascalho__safety_sign_post_dumping_a_load_of_gravel.png
+[2026-06-17 04:42:32] [1388/4400] Generated: veiculos/1020-obra-placa-de-obras-levando-blocos__safety_sign_post_carrying_building_blocks.png
+[2026-06-17 04:42:33] [1389/4400] Generated: veiculos/1021-obra-placa-de-obras-com-capacete-amarelo__safety_sign_post_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:42:34] [1390/4400] Generated: veiculos/1022-obra-placa-de-obras-na-estrutura-do-predio__safety_sign_post_working_on_a_building_frame.png
+[2026-06-17 04:42:36] [1391/4400] Generated: veiculos/1023-aviao-aviao-de-passageiros-voando-nas-nuvens__passenger_airplane_flying_high_above_soft_clouds.png
+[2026-06-17 04:42:38] [1392/4400] Generated: veiculos/1024-aviao-aviao-de-passageiros-pousando-na-pista__passenger_airplane_landing_on_an_airport_runway.png
+[2026-06-17 04:42:39] [1393/4400] Generated: veiculos/1025-aviao-aviao-de-passageiros-flutuando-na-agua__passenger_airplane_floating_on_calm_water.png
+[2026-06-17 04:42:40] [1394/4400] Generated: veiculos/1026-aviao-aviao-de-passageiros-fazendo-acrobacias__passenger_airplane_performing_an_airshow_loop.png
+[2026-06-17 04:42:41] [1395/4400] Generated: veiculos/1027-aviao-aviao-de-passageiros-perto-do-arco-iris__passenger_airplane_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:42:43] [1396/4400] Generated: veiculos/1028-aviao-aviao-de-passageiros-passando-pelo-sol__passenger_airplane_flying_past_a_smiling_sun.png
+[2026-06-17 04:42:44] [1397/4400] Generated: veiculos/1029-aviao-aviao-de-passageiros-decolando-para-o-ceu__passenger_airplane_taking_off_into_the_sky.png
+[2026-06-17 04:42:46] [1398/4400] Generated: veiculos/1030-aviao-aviao-de-passageiros-acenando-as-asas__passenger_airplane_waving_its_wings.png
+[2026-06-17 04:42:47] [1399/4400] Generated: veiculos/1031-aviao-aviao-biplano-voando-nas-nuvens__biplane_flying_high_above_soft_clouds.png
+[2026-06-17 04:42:48] [1400/4400] Generated: veiculos/1032-aviao-aviao-biplano-pousando-na-pista__biplane_landing_on_an_airport_runway.png
+[2026-06-17 04:42:48] Batch 28 completed (1400 drawings). Triggering build & push...
+[2026-06-17 04:42:48] Rebuilding catalog and drawings database...
+[2026-06-17 04:42:49] Build successful!
+[2026-06-17 04:42:49] Committing and pushing to origin main...
