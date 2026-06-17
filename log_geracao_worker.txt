@@ -5177,3 +5177,58 @@
 [2026-06-17 05:25:02] Rebuilding catalog and drawings database...
 [2026-06-17 05:25:03] Build successful!
 [2026-06-17 05:25:03] Committing and pushing to origin main...
+[2026-06-17 05:25:06] Push successful! Vercel will deploy in production.
+[2026-06-17 05:25:08] [3101/4400] Generated: paises-e-viagens/91-viagem-kit-de-passagens-com-rosto-alegre__airplane_ticket_kit_with_a_happy_cartoon_face.png
+[2026-06-17 05:25:09] [3102/4400] Generated: paises-e-viagens/92-viagem-kit-de-passagens-com-adesivos-de-viagem__airplane_ticket_kit_decorated_with_travel_stickers.png
+[2026-06-17 05:25:11] [3103/4400] Generated: paises-e-viagens/93-viagem-kit-de-passagens-com-estrelas-voadoras__airplane_ticket_kit_surrounded_by_flying_stars.png
+[2026-06-17 05:25:12] [3104/4400] Generated: paises-e-viagens/94-viagem-kit-de-passagens-perto-do-globo__airplane_ticket_kit_sitting_near_a_globe.png
+[2026-06-17 05:25:13] [3105/4400] Generated: paises-e-viagens/95-viagem-kit-de-passagens-olhos-de-desenho-fofos__airplane_ticket_kit_with_cute_friendly_eyes.png
+[2026-06-17 05:25:14] [3106/4400] Generated: paises-e-viagens/96-viagem-binoculo-e-chapeu-com-rosto-alegre__safari_hat_and_binoculars_with_a_happy_cartoon_face.png
+[2026-06-17 05:25:16] [3107/4400] Generated: paises-e-viagens/97-viagem-binoculo-e-chapeu-com-adesivos-de-viagem__safari_hat_and_binoculars_decorated_with_travel_stickers.png
+[2026-06-17 05:25:18] [3108/4400] Generated: paises-e-viagens/98-viagem-binoculo-e-chapeu-com-estrelas-voadoras__safari_hat_and_binoculars_surrounded_by_flying_stars.png
+[2026-06-17 05:25:20] [3109/4400] Generated: paises-e-viagens/99-viagem-binoculo-e-chapeu-perto-do-globo__safari_hat_and_binoculars_sitting_near_a_globe.png
+[2026-06-17 05:25:21] [3110/4400] Generated: paises-e-viagens/100-viagem-binoculo-e-chapeu-olhos-de-desenho-fofos__safari_hat_and_binoculars_with_cute_friendly_eyes.png
+[2026-06-17 05:25:23] [3111/4400] Generated: ciencias-e-corpo-humano/01-corpo-coracao-feliz-com-rosto-alegre__friendly_beating_heart_with_a_happy_cartoon_face.png
+[2026-06-17 05:25:24] [3112/4400] Generated: ciencias-e-corpo-humano/02-corpo-coracao-feliz-com-letras-grandes__friendly_beating_heart_labeled_with_big_friendly_letters.png
+[2026-06-17 05:25:25] [3113/4400] Generated: ciencias-e-corpo-humano/03-corpo-coracao-feliz-decorado-com-brilhos__friendly_beating_heart_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:25:26] [3114/4400] Generated: ciencias-e-corpo-humano/04-corpo-coracao-feliz-com-bolhas-ao-redor__friendly_beating_heart_surrounded_by_bubbles.png
+[2026-06-17 05:25:27] [3115/4400] Generated: ciencias-e-corpo-humano/05-corpo-coracao-feliz-olhos-de-desenho-fofos__friendly_beating_heart_smiling_with_cute_big_eyes.png
+[2026-06-17 05:25:29] [3116/4400] Generated: ciencias-e-corpo-humano/06-corpo-cerebro-inteligente-com-rosto-alegre__clever_smiling_brain_with_a_happy_cartoon_face.png
+[2026-06-17 05:25:30] [3117/4400] Generated: ciencias-e-corpo-humano/07-corpo-cerebro-inteligente-com-letras-grandes__clever_smiling_brain_labeled_with_big_friendly_letters.png
+[2026-06-17 05:25:31] [3118/4400] Generated: ciencias-e-corpo-humano/08-corpo-cerebro-inteligente-decorado-com-brilhos__clever_smiling_brain_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:25:32] [3119/4400] Generated: ciencias-e-corpo-humano/09-corpo-cerebro-inteligente-com-bolhas-ao-redor__clever_smiling_brain_surrounded_by_bubbles.png
+[2026-06-17 05:25:34] [3120/4400] Generated: ciencias-e-corpo-humano/10-corpo-cerebro-inteligente-olhos-de-desenho-fofos__clever_smiling_brain_smiling_with_cute_big_eyes.png
+[2026-06-17 05:25:36] [3121/4400] Generated: ciencias-e-corpo-humano/11-corpo-estomago-feliz-com-rosto-alegre__stomach_digesting_food_with_a_happy_cartoon_face.png
+[2026-06-17 05:25:38] [3122/4400] Generated: ciencias-e-corpo-humano/12-corpo-estomago-feliz-com-letras-grandes__stomach_digesting_food_labeled_with_big_friendly_letters.png
+[2026-06-17 05:25:40] [3123/4400] Generated: ciencias-e-corpo-humano/13-corpo-estomago-feliz-decorado-com-brilhos__stomach_digesting_food_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:25:42] [3124/4400] Generated: ciencias-e-corpo-humano/14-corpo-estomago-feliz-com-bolhas-ao-redor__stomach_digesting_food_surrounded_by_bubbles.png
+[2026-06-17 05:25:43] [3125/4400] Generated: ciencias-e-corpo-humano/15-corpo-estomago-feliz-olhos-de-desenho-fofos__stomach_digesting_food_smiling_with_cute_big_eyes.png
+[2026-06-17 05:25:45] [3126/4400] Generated: ciencias-e-corpo-humano/16-corpo-lungs-pulmoes-com-rosto-alegre__pair_of_breathing_lungs_with_a_happy_cartoon_face.png
+[2026-06-17 05:25:46] [3127/4400] Generated: ciencias-e-corpo-humano/17-corpo-lungs-pulmoes-com-letras-grandes__pair_of_breathing_lungs_labeled_with_big_friendly_letters.png
+[2026-06-17 05:25:47] [3128/4400] Generated: ciencias-e-corpo-humano/18-corpo-lungs-pulmoes-decorado-com-brilhos__pair_of_breathing_lungs_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:25:48] [3129/4400] Generated: ciencias-e-corpo-humano/19-corpo-lungs-pulmoes-com-bolhas-ao-redor__pair_of_breathing_lungs_surrounded_by_bubbles.png
+[2026-06-17 05:25:49] [3130/4400] Generated: ciencias-e-corpo-humano/20-corpo-lungs-pulmoes-olhos-de-desenho-fofos__pair_of_breathing_lungs_smiling_with_cute_big_eyes.png
+[2026-06-17 05:25:51] [3131/4400] Generated: ciencias-e-corpo-humano/21-corpo-esqueleto-dancando-com-rosto-alegre__human_skeleton_dancing_with_a_happy_cartoon_face.png
+[2026-06-17 05:25:53] [3132/4400] Generated: ciencias-e-corpo-humano/23-corpo-esqueleto-dancando-decorado-com-brilhos__human_skeleton_dancing_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:25:55] [3133/4400] Generated: ciencias-e-corpo-humano/22-corpo-esqueleto-dancando-com-letras-grandes__human_skeleton_dancing_labeled_with_big_friendly_letters.png
+[2026-06-17 05:25:57] [3134/4400] Generated: ciencias-e-corpo-humano/24-corpo-esqueleto-dancando-com-bolhas-ao-redor__human_skeleton_dancing_surrounded_by_bubbles.png
+[2026-06-17 05:25:58] [3135/4400] Generated: ciencias-e-corpo-humano/25-corpo-esqueleto-dancando-olhos-de-desenho-fofos__human_skeleton_dancing_smiling_with_cute_big_eyes.png
+[2026-06-17 05:25:59] [3136/4400] Generated: ciencias-e-corpo-humano/26-corpo-mao-mostrando-dedos-com-rosto-alegre__hand_showing_five_fingers_with_a_happy_cartoon_face.png
+[2026-06-17 05:26:00] [3137/4400] Generated: ciencias-e-corpo-humano/27-corpo-mao-mostrando-dedos-com-letras-grandes__hand_showing_five_fingers_labeled_with_big_friendly_letters.png
+[2026-06-17 05:26:02] [3138/4400] Generated: ciencias-e-corpo-humano/28-corpo-mao-mostrando-dedos-decorado-com-brilhos__hand_showing_five_fingers_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:26:03] [3139/4400] Generated: ciencias-e-corpo-humano/29-corpo-mao-mostrando-dedos-com-bolhas-ao-redor__hand_showing_five_fingers_surrounded_by_bubbles.png
+[2026-06-17 05:26:04] [3140/4400] Generated: ciencias-e-corpo-humano/30-corpo-mao-mostrando-dedos-olhos-de-desenho-fofos__hand_showing_five_fingers_smiling_with_cute_big_eyes.png
+[2026-06-17 05:26:05] [3141/4400] Generated: ciencias-e-corpo-humano/31-corpo-dente-sorridente-com-rosto-alegre__smiling_tooth_with_a_happy_cartoon_face.png
+[2026-06-17 05:26:07] [3142/4400] Generated: ciencias-e-corpo-humano/32-corpo-dente-sorridente-com-letras-grandes__smiling_tooth_labeled_with_big_friendly_letters.png
+[2026-06-17 05:26:08] [3143/4400] Generated: ciencias-e-corpo-humano/33-corpo-dente-sorridente-decorado-com-brilhos__smiling_tooth_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:26:09] [3144/4400] Generated: ciencias-e-corpo-humano/34-corpo-dente-sorridente-com-bolhas-ao-redor__smiling_tooth_surrounded_by_bubbles.png
+[2026-06-17 05:26:10] [3145/4400] Generated: ciencias-e-corpo-humano/35-corpo-dente-sorridente-olhos-de-desenho-fofos__smiling_tooth_smiling_with_cute_big_eyes.png
+[2026-06-17 05:26:11] [3146/4400] Generated: ciencias-e-corpo-humano/36-corpo-olho-feliz-com-rosto-alegre__happy_eye_with_long_lashes_with_a_happy_cartoon_face.png
+[2026-06-17 05:26:13] [3147/4400] Generated: ciencias-e-corpo-humano/37-corpo-olho-feliz-com-letras-grandes__happy_eye_with_long_lashes_labeled_with_big_friendly_letters.png
+[2026-06-17 05:26:15] [3148/4400] Generated: ciencias-e-corpo-humano/38-corpo-olho-feliz-decorado-com-brilhos__happy_eye_with_long_lashes_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:26:16] [3149/4400] Generated: ciencias-e-corpo-humano/39-corpo-olho-feliz-com-bolhas-ao-redor__happy_eye_with_long_lashes_surrounded_by_bubbles.png
+[2026-06-17 05:26:17] [3150/4400] Generated: ciencias-e-corpo-humano/40-corpo-olho-feliz-olhos-de-desenho-fofos__happy_eye_with_long_lashes_smiling_with_cute_big_eyes.png
+[2026-06-17 05:26:17] Batch 63 completed (3150 drawings). Triggering build & push...
+[2026-06-17 05:26:17] Rebuilding catalog and drawings database...
+[2026-06-17 05:26:18] Build successful!
+[2026-06-17 05:26:18] Committing and pushing to origin main...
