@@ -2458,12 +2458,11 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
                 if (!confirmed) return;
 
                 try {
-                    const token = currentUser ? currentUser.token : '';
                     const response = await fetch('/api/drawings/delete', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'x-session-token': token
+                            'x-session-token': sessionToken || ''
                         },
                         body: JSON.stringify({ category: categorySlug, slug: drawingSlug })
                     });
@@ -2742,12 +2741,11 @@ function createDrawingCard(dw, position = null, showTrending = false) {
                 if (!confirmed) return;
                 
                 try {
-                    const token = currentUser ? currentUser.token : '';
                     const response = await fetch('/api/drawings/delete', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'x-session-token': token
+                            'x-session-token': sessionToken || ''
                         },
                         body: JSON.stringify({ category: dw.category, slug: dw.slug })
                     });
