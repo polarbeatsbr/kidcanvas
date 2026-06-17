@@ -5067,3 +5067,58 @@
 [2026-06-17 05:22:33] Rebuilding catalog and drawings database...
 [2026-06-17 05:22:35] Build successful!
 [2026-06-17 05:22:35] Committing and pushing to origin main...
+[2026-06-17 05:22:38] Push successful! Vercel will deploy in production.
+[2026-06-17 05:22:40] [3001/4400] Generated: guerreiros-e-lendas/341-guerreiro-jovem-explorador-no-topo-da-colina__young_scout_standing_on_top_of_a_hill.png
+[2026-06-17 05:22:41] [3002/4400] Generated: guerreiros-e-lendas/342-guerreiro-jovem-explorador-com-escudo-de-defesa__young_scout_holding_a_defensive_shield.png
+[2026-06-17 05:22:43] [3003/4400] Generated: guerreiros-e-lendas/343-guerreiro-jovem-explorador-olhando-o-horizonte__young_scout_looking_out_at_the_horizon.png
+[2026-06-17 05:22:45] [3004/4400] Generated: guerreiros-e-lendas/345-guerreiro-jovem-explorador-com-bandeira-de-vitoria__young_scout_waving_a_banner_of_victory.png
+[2026-06-17 05:22:46] [3005/4400] Generated: guerreiros-e-lendas/344-guerreiro-jovem-explorador-com-capa-de-guerreiro__young_scout_wearing_a_cool_warrior_cape.png
+[2026-06-17 05:22:47] [3006/4400] Generated: guerreiros-e-lendas/346-guerreiro-protetor-com-armadura-no-topo-da-colina__armored_protector_standing_on_top_of_a_hill.png
+[2026-06-17 05:22:49] [3007/4400] Generated: guerreiros-e-lendas/347-guerreiro-protetor-com-armadura-com-escudo-de-defesa__armored_protector_holding_a_defensive_shield.png
+[2026-06-17 05:22:50] [3008/4400] Generated: guerreiros-e-lendas/348-guerreiro-protetor-com-armadura-olhando-o-horizonte__armored_protector_looking_out_at_the_horizon.png
+[2026-06-17 05:22:52] [3009/4400] Generated: guerreiros-e-lendas/349-guerreiro-protetor-com-armadura-com-capa-de-guerreiro__armored_protector_wearing_a_cool_warrior_cape.png
+[2026-06-17 05:22:53] [3010/4400] Generated: guerreiros-e-lendas/350-guerreiro-protetor-com-armadura-com-bandeira-de-vitoria__armored_protector_waving_a_banner_of_victory.png
+[2026-06-17 05:22:54] [3011/4400] Generated: paises-e-viagens/01-pais-torre-eiffel-da-franca-sob-ceu-ensolarado__eiffel_tower_of_france_under_a_sunny_sky_with_clouds.png
+[2026-06-17 05:22:55] [3012/4400] Generated: paises-e-viagens/02-pais-torre-eiffel-da-franca-com-passarinhos-voando__eiffel_tower_of_france_surrounded_by_flying_birds.png
+[2026-06-17 05:22:57] [3013/4400] Generated: paises-e-viagens/03-pais-torre-eiffel-da-franca-com-bandeira-nacional__eiffel_tower_of_france_with_a_waving_national_flag.png
+[2026-06-17 05:22:59] [3014/4400] Generated: paises-e-viagens/04-pais-torre-eiffel-da-franca-com-tourists-de-desenho__eiffel_tower_of_france_with_happy_cartoon_tourists.png
+[2026-06-17 05:23:00] [3015/4400] Generated: paises-e-viagens/05-pais-torre-eiffel-da-franca-decorado-com-estrelas__eiffel_tower_of_france_decorated_with_stars_and_flowers.png
+[2026-06-17 05:23:02] [3016/4400] Generated: paises-e-viagens/06-pais-estatua-da-liberdade-dos-eua-sob-ceu-ensolarado__statue_of_liberty_of_usa_under_a_sunny_sky_with_clouds.png
+[2026-06-17 05:23:03] [3017/4400] Generated: paises-e-viagens/07-pais-estatua-da-liberdade-dos-eua-com-passarinhos-voando__statue_of_liberty_of_usa_surrounded_by_flying_birds.png
+[2026-06-17 05:23:05] [3018/4400] Generated: paises-e-viagens/08-pais-estatua-da-liberdade-dos-eua-com-bandeira-nacional__statue_of_liberty_of_usa_with_a_waving_national_flag.png
+[2026-06-17 05:23:06] [3019/4400] Generated: paises-e-viagens/09-pais-estatua-da-liberdade-dos-eua-com-tourists-de-desenho__statue_of_liberty_of_usa_with_happy_cartoon_tourists.png
+[2026-06-17 05:23:07] [3020/4400] Generated: paises-e-viagens/10-pais-estatua-da-liberdade-dos-eua-decorado-com-estrelas__statue_of_liberty_of_usa_decorated_with_stars_and_flowers.png
+[2026-06-17 05:23:08] [3021/4400] Generated: paises-e-viagens/11-pais-big-ben-de-londres-sob-ceu-ensolarado__big_ben_of_london_under_a_sunny_sky_with_clouds.png
+[2026-06-17 05:23:10] [3022/4400] Generated: paises-e-viagens/12-pais-big-ben-de-londres-com-passarinhos-voando__big_ben_of_london_surrounded_by_flying_birds.png
+[2026-06-17 05:23:11] [3023/4400] Generated: paises-e-viagens/13-pais-big-ben-de-londres-com-bandeira-nacional__big_ben_of_london_with_a_waving_national_flag.png
+[2026-06-17 05:23:12] [3024/4400] Generated: paises-e-viagens/14-pais-big-ben-de-londres-com-tourists-de-desenho__big_ben_of_london_with_happy_cartoon_tourists.png
+[2026-06-17 05:23:13] [3025/4400] Generated: paises-e-viagens/15-pais-big-ben-de-londres-decorado-com-estrelas__big_ben_of_london_decorated_with_stars_and_flowers.png
+[2026-06-17 05:23:14] [3026/4400] Generated: paises-e-viagens/16-pais-grande-piramide-do-egito-sob-ceu-ensolarado__great_pyramid_of_egypt_under_a_sunny_sky_with_clouds.png
+[2026-06-17 05:23:16] [3027/4400] Generated: paises-e-viagens/18-pais-grande-piramide-do-egito-com-bandeira-nacional__great_pyramid_of_egypt_with_a_waving_national_flag.png
+[2026-06-17 05:23:17] [3028/4400] Generated: paises-e-viagens/17-pais-grande-piramide-do-egito-com-passarinhos-voando__great_pyramid_of_egypt_surrounded_by_flying_birds.png
+[2026-06-17 05:23:18] [3029/4400] Generated: paises-e-viagens/20-pais-grande-piramide-do-egito-decorado-com-estrelas__great_pyramid_of_egypt_decorated_with_stars_and_flowers.png
+[2026-06-17 05:23:20] [3030/4400] Generated: paises-e-viagens/19-pais-grande-piramide-do-egito-com-tourists-de-desenho__great_pyramid_of_egypt_with_happy_cartoon_tourists.png
+[2026-06-17 05:23:21] [3031/4400] Generated: paises-e-viagens/21-pais-taj-mahal-da-india-sob-ceu-ensolarado__taj_mahal_of_india_under_a_sunny_sky_with_clouds.png
+[2026-06-17 05:23:23] [3032/4400] Generated: paises-e-viagens/23-pais-taj-mahal-da-india-com-bandeira-nacional__taj_mahal_of_india_with_a_waving_national_flag.png
+[2026-06-17 05:23:24] [3033/4400] Generated: paises-e-viagens/22-pais-taj-mahal-da-india-com-passarinhos-voando__taj_mahal_of_india_surrounded_by_flying_birds.png
+[2026-06-17 05:23:26] [3034/4400] Generated: paises-e-viagens/24-pais-taj-mahal-da-india-com-tourists-de-desenho__taj_mahal_of_india_with_happy_cartoon_tourists.png
+[2026-06-17 05:23:28] [3035/4400] Generated: paises-e-viagens/25-pais-taj-mahal-da-india-decorado-com-estrelas__taj_mahal_of_india_decorated_with_stars_and_flowers.png
+[2026-06-17 05:23:29] [3036/4400] Generated: paises-e-viagens/26-pais-monte-fuji-do-japao-sob-ceu-ensolarado__mount_fuji_of_japan_under_a_sunny_sky_with_clouds.png
+[2026-06-17 05:23:30] [3037/4400] Generated: paises-e-viagens/27-pais-monte-fuji-do-japao-com-passarinhos-voando__mount_fuji_of_japan_surrounded_by_flying_birds.png
+[2026-06-17 05:23:31] [3038/4400] Generated: paises-e-viagens/28-pais-monte-fuji-do-japao-com-bandeira-nacional__mount_fuji_of_japan_with_a_waving_national_flag.png
+[2026-06-17 05:23:33] [3039/4400] Generated: paises-e-viagens/29-pais-monte-fuji-do-japao-com-tourists-de-desenho__mount_fuji_of_japan_with_happy_cartoon_tourists.png
+[2026-06-17 05:23:34] [3040/4400] Generated: paises-e-viagens/30-pais-monte-fuji-do-japao-decorado-com-estrelas__mount_fuji_of_japan_decorated_with_stars_and_flowers.png
+[2026-06-17 05:23:35] [3041/4400] Generated: paises-e-viagens/31-pais-cristo-redentor-do-brasil-sob-ceu-ensolarado__christ_the_redeemer_of_brazil_under_a_sunny_sky_with_clouds.png
+[2026-06-17 05:23:37] [3042/4400] Generated: paises-e-viagens/33-pais-cristo-redentor-do-brasil-com-bandeira-nacional__christ_the_redeemer_of_brazil_with_a_waving_national_flag.png
+[2026-06-17 05:23:39] [3043/4400] Generated: paises-e-viagens/32-pais-cristo-redentor-do-brasil-com-passarinhos-voando__christ_the_redeemer_of_brazil_surrounded_by_flying_birds.png
+[2026-06-17 05:23:40] [3044/4400] Generated: paises-e-viagens/34-pais-cristo-redentor-do-brasil-com-tourists-de-desenho__christ_the_redeemer_of_brazil_with_happy_cartoon_tourists.png
+[2026-06-17 05:23:41] [3045/4400] Generated: paises-e-viagens/35-pais-cristo-redentor-do-brasil-decorado-com-estrelas__christ_the_redeemer_of_brazil_decorated_with_stars_and_flowers.png
+[2026-06-17 05:23:44] [3046/4400] Generated: paises-e-viagens/36-pais-coliseu-de-roma-sob-ceu-ensolarado__colosseum_of_rome_under_a_sunny_sky_with_clouds.png
+[2026-06-17 05:23:45] [3047/4400] Generated: paises-e-viagens/38-pais-coliseu-de-roma-com-bandeira-nacional__colosseum_of_rome_with_a_waving_national_flag.png
+[2026-06-17 05:23:47] [3048/4400] Generated: paises-e-viagens/37-pais-coliseu-de-roma-com-passarinhos-voando__colosseum_of_rome_surrounded_by_flying_birds.png
+[2026-06-17 05:23:48] [3049/4400] Generated: paises-e-viagens/39-pais-coliseu-de-roma-com-tourists-de-desenho__colosseum_of_rome_with_happy_cartoon_tourists.png
+[2026-06-17 05:23:49] [3050/4400] Generated: paises-e-viagens/40-pais-coliseu-de-roma-decorado-com-estrelas__colosseum_of_rome_decorated_with_stars_and_flowers.png
+[2026-06-17 05:23:49] Batch 61 completed (3050 drawings). Triggering build & push...
+[2026-06-17 05:23:49] Rebuilding catalog and drawings database...
+[2026-06-17 05:23:51] Build successful!
+[2026-06-17 05:23:51] Committing and pushing to origin main...
