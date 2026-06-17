@@ -8352,8 +8352,9 @@ function updateHeaderAchievementCount() {
     }
     
     const count = getUnlockedAchievements(currentUser).length;
+    const totalCount = ACHIEVEMENTS_CATALOG.length;
     el.style.display = 'inline-flex';
-    el.textContent = `🏆 ${count} Selos`;
+    el.textContent = `🏆 ${count}/${totalCount}`;
     el.onclick = () => navigate('/conquistas');
 }
 window.updateHeaderAchievementCount = updateHeaderAchievementCount;
