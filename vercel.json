@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/server.js": {
-      "includeFiles": "{index.html,admin.html,creation_dates.json,drawings.json}",
+      "includeFiles": "{index.html,admin.html,creation_dates.json,drawings.json,cards_catalog.json,public_paintings.json}",
       "maxDuration": 30
     }
   },
