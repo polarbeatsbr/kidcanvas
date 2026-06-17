@@ -3755,3 +3755,58 @@
 [2026-06-17 04:53:57] Rebuilding catalog and drawings database...
 [2026-06-17 04:53:58] Build successful!
 [2026-06-17 04:53:58] Committing and pushing to origin main...
+[2026-06-17 04:54:01] Push successful! Vercel will deploy in production.
+[2026-06-17 04:54:03] [1851/4400] Generated: alfabeto-e-numeros/211-matematica-monstro-dos-numeros-com-numeros-e-mais__funny_number_monster_with_numbers_and_plus_signs.png
+[2026-06-17 04:54:04] [1852/4400] Generated: alfabeto-e-numeros/212-matematica-monstro-dos-numeros-com-numeros-e-menos__funny_number_monster_with_numbers_and_minus_signs.png
+[2026-06-17 04:54:05] [1853/4400] Generated: alfabeto-e-numeros/213-matematica-monstro-dos-numeros-com-formas-para-colorir__funny_number_monster_showing_shapes_to_color.png
+[2026-06-17 04:54:06] [1854/4400] Generated: alfabeto-e-numeros/214-matematica-monstro-dos-numeros-com-bolhas-e-estrelas__funny_number_monster_surrounded_by_bubbles_and_stars.png
+[2026-06-17 04:54:07] [1855/4400] Generated: alfabeto-e-numeros/215-matematica-monstro-dos-numeros-com-contas-faceis__funny_number_monster_with_easy_calculations_for_kids.png
+[2026-06-17 04:54:09] [1856/4400] Generated: alfabeto-e-numeros/217-matematica-simbolos-de-matematica-com-numeros-e-menos__math_symbol_puzzle_with_numbers_and_minus_signs.png
+[2026-06-17 04:54:10] [1857/4400] Generated: alfabeto-e-numeros/216-matematica-simbolos-de-matematica-com-numeros-e-mais__math_symbol_puzzle_with_numbers_and_plus_signs.png
+[2026-06-17 04:54:11] [1858/4400] Generated: alfabeto-e-numeros/218-matematica-simbolos-de-matematica-com-formas-para-colorir__math_symbol_puzzle_showing_shapes_to_color.png
+[2026-06-17 04:54:13] [1859/4400] Generated: alfabeto-e-numeros/219-matematica-simbolos-de-matematica-com-bolhas-e-estrelas__math_symbol_puzzle_surrounded_by_bubbles_and_stars.png
+[2026-06-17 04:54:14] [1860/4400] Generated: alfabeto-e-numeros/220-matematica-simbolos-de-matematica-com-contas-faceis__math_symbol_puzzle_with_easy_calculations_for_kids.png
+[2026-06-17 04:54:15] [1861/4400] Generated: alfabeto-e-numeros/221-matematica-contando-macas-com-numeros-e-mais__counting_apples_puzzle_with_numbers_and_plus_signs.png
+[2026-06-17 04:54:17] [1862/4400] Generated: alfabeto-e-numeros/222-matematica-contando-macas-com-numeros-e-menos__counting_apples_puzzle_with_numbers_and_minus_signs.png
+[2026-06-17 04:54:18] [1863/4400] Generated: alfabeto-e-numeros/223-matematica-contando-macas-com-formas-para-colorir__counting_apples_puzzle_showing_shapes_to_color.png
+[2026-06-17 04:54:19] [1864/4400] Generated: alfabeto-e-numeros/224-matematica-contando-macas-com-bolhas-e-estrelas__counting_apples_puzzle_surrounded_by_bubbles_and_stars.png
+[2026-06-17 04:54:20] [1865/4400] Generated: alfabeto-e-numeros/225-matematica-contando-macas-com-contas-faceis__counting_apples_puzzle_with_easy_calculations_for_kids.png
+[2026-06-17 04:54:21] [1866/4400] Generated: alfabeto-e-numeros/226-matematica-contando-baloes-com-numeros-e-mais__counting_balloons_puzzle_with_numbers_and_plus_signs.png
+[2026-06-17 04:54:23] [1867/4400] Generated: alfabeto-e-numeros/227-matematica-contando-baloes-com-numeros-e-menos__counting_balloons_puzzle_with_numbers_and_minus_signs.png
+[2026-06-17 04:54:24] [1868/4400] Generated: alfabeto-e-numeros/228-matematica-contando-baloes-com-formas-para-colorir__counting_balloons_puzzle_showing_shapes_to_color.png
+[2026-06-17 04:54:25] [1869/4400] Generated: alfabeto-e-numeros/229-matematica-contando-baloes-com-bolhas-e-estrelas__counting_balloons_puzzle_surrounded_by_bubbles_and_stars.png
+[2026-06-17 04:54:27] [1870/4400] Generated: alfabeto-e-numeros/230-matematica-contando-baloes-com-contas-faceis__counting_balloons_puzzle_with_easy_calculations_for_kids.png
+[2026-06-17 04:54:29] [1871/4400] Generated: alfabeto-e-numeros/231-matematica-contando-estrelas-com-numeros-e-mais__counting_stars_puzzle_with_numbers_and_plus_signs.png
+[2026-06-17 04:54:30] [1872/4400] Generated: alfabeto-e-numeros/232-matematica-contando-estrelas-com-numeros-e-menos__counting_stars_puzzle_with_numbers_and_minus_signs.png
+[2026-06-17 04:54:32] [1873/4400] Generated: alfabeto-e-numeros/233-matematica-contando-estrelas-com-formas-para-colorir__counting_stars_puzzle_showing_shapes_to_color.png
+[2026-06-17 04:54:33] [1874/4400] Generated: alfabeto-e-numeros/234-matematica-contando-estrelas-com-bolhas-e-estrelas__counting_stars_puzzle_surrounded_by_bubbles_and_stars.png
+[2026-06-17 04:54:35] [1875/4400] Generated: alfabeto-e-numeros/235-matematica-contando-estrelas-com-contas-faceis__counting_stars_puzzle_with_easy_calculations_for_kids.png
+[2026-06-17 04:54:36] [1876/4400] Generated: alfabeto-e-numeros/236-matematica-jogo-de-matematica-feliz-com-numeros-e-mais__fun_math_game_with_numbers_and_plus_signs.png
+[2026-06-17 04:54:38] [1877/4400] Generated: alfabeto-e-numeros/237-matematica-jogo-de-matematica-feliz-com-numeros-e-menos__fun_math_game_with_numbers_and_minus_signs.png
+[2026-06-17 04:54:39] [1878/4400] Generated: alfabeto-e-numeros/238-matematica-jogo-de-matematica-feliz-com-formas-para-colorir__fun_math_game_showing_shapes_to_color.png
+[2026-06-17 04:54:40] [1879/4400] Generated: alfabeto-e-numeros/239-matematica-jogo-de-matematica-feliz-com-bolhas-e-estrelas__fun_math_game_surrounded_by_bubbles_and_stars.png
+[2026-06-17 04:54:41] [1880/4400] Generated: alfabeto-e-numeros/240-matematica-jogo-de-matematica-feliz-com-contas-faceis__fun_math_game_with_easy_calculations_for_kids.png
+[2026-06-17 04:54:43] [1881/4400] Generated: comidas-e-doces/448-fast-food-hamburguer-gostoso-com-rosto-alegre__hamburger_with_a_happy_cartoon_face.png
+[2026-06-17 04:54:45] [1882/4400] Generated: comidas-e-doces/449-fast-food-hamburguer-gostoso-na-toalha-de-piquenique__hamburger_sitting_on_a_picnic_blanket.png
+[2026-06-17 04:54:46] [1883/4400] Generated: comidas-e-doces/450-fast-food-hamburguer-gostoso-com-olhos-amigaveis__hamburger_with_cute_eyes_and_smile.png
+[2026-06-17 04:54:48] [1884/4400] Generated: comidas-e-doces/451-fast-food-hamburguer-gostoso-na-cesta-de-lanches__hamburger_in_a_takeout_basket.png
+[2026-06-17 04:54:49] [1885/4400] Generated: comidas-e-doces/452-fast-food-hamburguer-gostoso-com-molhos-de-ketchup__hamburger_with_ketchup_and_mustard_bottles.png
+[2026-06-17 04:54:50] [1886/4400] Generated: comidas-e-doces/453-fast-food-hamburguer-gostoso-com-baloes-de-festa__hamburger_surrounded_by_party_balloons.png
+[2026-06-17 04:54:52] [1887/4400] Generated: comidas-e-doces/454-fast-food-hamburguer-gostoso-com-chapeu-de-chef__hamburger_wearing_a_tiny_chef_hat.png
+[2026-06-17 04:54:53] [1888/4400] Generated: comidas-e-doces/455-fast-food-batata-frita-com-rosto-alegre__french_fries_with_a_happy_cartoon_face.png
+[2026-06-17 04:54:55] [1889/4400] Generated: comidas-e-doces/456-fast-food-batata-frita-na-toalha-de-piquenique__french_fries_sitting_on_a_picnic_blanket.png
+[2026-06-17 04:54:56] [1890/4400] Generated: comidas-e-doces/457-fast-food-batata-frita-com-olhos-amigaveis__french_fries_with_cute_eyes_and_smile.png
+[2026-06-17 04:54:58] [1891/4400] Generated: comidas-e-doces/458-fast-food-batata-frita-na-cesta-de-lanches__french_fries_in_a_takeout_basket.png
+[2026-06-17 04:54:59] [1892/4400] Generated: comidas-e-doces/459-fast-food-batata-frita-com-molhos-de-ketchup__french_fries_with_ketchup_and_mustard_bottles.png
+[2026-06-17 04:55:00] [1893/4400] Generated: comidas-e-doces/460-fast-food-batata-frita-com-baloes-de-festa__french_fries_surrounded_by_party_balloons.png
+[2026-06-17 04:55:01] [1894/4400] Generated: comidas-e-doces/461-fast-food-batata-frita-com-chapeu-de-chef__french_fries_wearing_a_tiny_chef_hat.png
+[2026-06-17 04:55:03] [1895/4400] Generated: comidas-e-doces/462-fast-food-cachorro-quente-com-rosto-alegre__hot_dog_with_a_happy_cartoon_face.png
+[2026-06-17 04:55:04] [1896/4400] Generated: comidas-e-doces/464-fast-food-cachorro-quente-com-olhos-amigaveis__hot_dog_with_cute_eyes_and_smile.png
+[2026-06-17 04:55:05] [1897/4400] Generated: comidas-e-doces/463-fast-food-cachorro-quente-na-toalha-de-piquenique__hot_dog_sitting_on_a_picnic_blanket.png
+[2026-06-17 04:55:07] [1898/4400] Generated: comidas-e-doces/465-fast-food-cachorro-quente-na-cesta-de-lanches__hot_dog_in_a_takeout_basket.png
+[2026-06-17 04:55:08] [1899/4400] Generated: comidas-e-doces/466-fast-food-cachorro-quente-com-molhos-de-ketchup__hot_dog_with_ketchup_and_mustard_bottles.png
+[2026-06-17 04:55:09] [1900/4400] Generated: comidas-e-doces/467-fast-food-cachorro-quente-com-baloes-de-festa__hot_dog_surrounded_by_party_balloons.png
+[2026-06-17 04:55:09] Batch 38 completed (1900 drawings). Triggering build & push...
+[2026-06-17 04:55:09] Rebuilding catalog and drawings database...
+[2026-06-17 04:55:10] Build successful!
+[2026-06-17 04:55:10] Committing and pushing to origin main...
