@@ -3315,3 +3315,58 @@
 [2026-06-17 04:44:02] Rebuilding catalog and drawings database...
 [2026-06-17 04:44:03] Build successful!
 [2026-06-17 04:44:03] Committing and pushing to origin main...
+[2026-06-17 04:44:06] Push successful! Vercel will deploy in production.
+[2026-06-17 04:44:07] [1451/4400] Generated: veiculos/1083-aviao-aviao-de-brinquedo-perto-do-arco-iris__cute_toy_airplane_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:44:09] [1452/4400] Generated: veiculos/1084-aviao-aviao-de-brinquedo-passando-pelo-sol__cute_toy_airplane_flying_past_a_smiling_sun.png
+[2026-06-17 04:44:10] [1453/4400] Generated: veiculos/1086-aviao-aviao-de-brinquedo-acenando-as-asas__cute_toy_airplane_waving_its_wings.png
+[2026-06-17 04:44:12] [1454/4400] Generated: veiculos/1085-aviao-aviao-de-brinquedo-decolando-para-o-ceu__cute_toy_airplane_taking_off_into_the_sky.png
+[2026-06-17 04:44:14] [1455/4400] Generated: veiculos/1087-aviao-aviao-de-desenho-voando-nas-nuvens__friendly_cartoon_airplane_flying_high_above_soft_clouds.png
+[2026-06-17 04:44:15] [1456/4400] Generated: veiculos/1088-aviao-aviao-de-desenho-pousando-na-pista__friendly_cartoon_airplane_landing_on_an_airport_runway.png
+[2026-06-17 04:44:16] [1457/4400] Generated: veiculos/1089-aviao-aviao-de-desenho-flutuando-na-agua__friendly_cartoon_airplane_floating_on_calm_water.png
+[2026-06-17 04:44:18] [1458/4400] Generated: veiculos/1090-aviao-aviao-de-desenho-fazendo-acrobacias__friendly_cartoon_airplane_performing_an_airshow_loop.png
+[2026-06-17 04:44:19] [1459/4400] Generated: veiculos/1091-aviao-aviao-de-desenho-perto-do-arco-iris__friendly_cartoon_airplane_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:44:21] [1460/4400] Generated: veiculos/1092-aviao-aviao-de-desenho-passando-pelo-sol__friendly_cartoon_airplane_flying_past_a_smiling_sun.png
+[2026-06-17 04:44:22] [1461/4400] Generated: veiculos/1093-aviao-aviao-de-desenho-decolando-para-o-ceu__friendly_cartoon_airplane_taking_off_into_the_sky.png
+[2026-06-17 04:44:23] [1462/4400] Generated: veiculos/1094-aviao-aviao-de-desenho-acenando-as-asas__friendly_cartoon_airplane_waving_its_wings.png
+[2026-06-17 04:44:24] [1463/4400] Generated: veiculos/1095-aviao-aviao-de-acrobacia-voando-nas-nuvens__stunt_airplane_flying_high_above_soft_clouds.png
+[2026-06-17 04:44:26] [1464/4400] Generated: veiculos/1096-aviao-aviao-de-acrobacia-pousando-na-pista__stunt_airplane_landing_on_an_airport_runway.png
+[2026-06-17 04:44:27] [1465/4400] Generated: veiculos/1097-aviao-aviao-de-acrobacia-flutuando-na-agua__stunt_airplane_floating_on_calm_water.png
+[2026-06-17 04:44:28] [1466/4400] Generated: veiculos/1098-aviao-aviao-de-acrobacia-fazendo-acrobacias__stunt_airplane_performing_an_airshow_loop.png
+[2026-06-17 04:44:30] [1467/4400] Generated: veiculos/1099-aviao-aviao-de-acrobacia-perto-do-arco-iris__stunt_airplane_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:44:31] [1468/4400] Generated: veiculos/1100-aviao-aviao-de-acrobacia-passando-pelo-sol__stunt_airplane_flying_past_a_smiling_sun.png
+[2026-06-17 04:44:32] [1469/4400] Generated: veiculos/1101-aviao-aviao-de-acrobacia-decolando-para-o-ceu__stunt_airplane_taking_off_into_the_sky.png
+[2026-06-17 04:44:33] [1470/4400] Generated: veiculos/1102-aviao-aviao-de-acrobacia-acenando-as-asas__stunt_airplane_waving_its_wings.png
+[2026-06-17 04:44:34] [1471/4400] Generated: veiculos/1103-trem-locomotiva-a-vapor-soltando-fumaca-nos-trilhos__steam_locomotive_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:44:36] [1472/4400] Generated: veiculos/1104-trem-locomotiva-a-vapor-correndo-no-tunel__steam_locomotive_speeding_through_a_tunnel.png
+[2026-06-17 04:44:37] [1473/4400] Generated: veiculos/1105-trem-locomotiva-a-vapor-cruzando-a-ponte__steam_locomotive_crossing_a_high_stone_bridge.png
+[2026-06-17 04:44:39] [1474/4400] Generated: veiculos/1106-trem-locomotiva-a-vapor-levando-toras-e-carga__steam_locomotive_carrying_logs_and_cargo.png
+[2026-06-17 04:44:40] [1475/4400] Generated: veiculos/1107-trem-locomotiva-a-vapor-parado-na-estacao__steam_locomotive_parked_at_a_cozy_station.png
+[2026-06-17 04:44:42] [1476/4400] Generated: veiculos/1108-trem-locomotiva-a-vapor-pela-floresta-verde__steam_locomotive_driving_through_a_green_forest.png
+[2026-06-17 04:44:43] [1477/4400] Generated: veiculos/1109-trem-locomotiva-a-vapor-apitando-alegre__steam_locomotive_blowing_its_whistle_happily.png
+[2026-06-17 04:44:44] [1478/4400] Generated: veiculos/1110-trem-locomotiva-a-vapor-andando-no-tapete__steam_locomotive_riding_on_a_play_rug.png
+[2026-06-17 04:44:46] [1479/4400] Generated: veiculos/1111-trem-trem-bala-soltando-fumaca-nos-trilhos__bullet_train_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:44:47] [1480/4400] Generated: veiculos/1112-trem-trem-bala-correndo-no-tunel__bullet_train_speeding_through_a_tunnel.png
+[2026-06-17 04:44:49] [1481/4400] Generated: veiculos/1113-trem-trem-bala-cruzando-a-ponte__bullet_train_crossing_a_high_stone_bridge.png
+[2026-06-17 04:44:50] [1482/4400] Generated: veiculos/1114-trem-trem-bala-levando-toras-e-carga__bullet_train_carrying_logs_and_cargo.png
+[2026-06-17 04:44:51] [1483/4400] Generated: veiculos/1115-trem-trem-bala-parado-na-estacao__bullet_train_parked_at_a_cozy_station.png
+[2026-06-17 04:44:53] [1484/4400] Generated: veiculos/1116-trem-trem-bala-pela-floresta-verde__bullet_train_driving_through_a_green_forest.png
+[2026-06-17 04:44:54] [1485/4400] Generated: veiculos/1117-trem-trem-bala-apitando-alegre__bullet_train_blowing_its_whistle_happily.png
+[2026-06-17 04:44:55] [1486/4400] Generated: veiculos/1118-trem-trem-bala-andando-no-tapete__bullet_train_riding_on_a_play_rug.png
+[2026-06-17 04:44:56] [1487/4400] Generated: veiculos/1119-trem-trem-de-carga-soltando-fumaca-nos-trilhos__freight_train_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:44:58] [1488/4400] Generated: veiculos/1120-trem-trem-de-carga-correndo-no-tunel__freight_train_speeding_through_a_tunnel.png
+[2026-06-17 04:44:59] [1489/4400] Generated: veiculos/1121-trem-trem-de-carga-cruzando-a-ponte__freight_train_crossing_a_high_stone_bridge.png
+[2026-06-17 04:45:01] [1490/4400] Generated: veiculos/1122-trem-trem-de-carga-levando-toras-e-carga__freight_train_carrying_logs_and_cargo.png
+[2026-06-17 04:45:02] [1491/4400] Generated: veiculos/1123-trem-trem-de-carga-parado-na-estacao__freight_train_parked_at_a_cozy_station.png
+[2026-06-17 04:45:04] [1492/4400] Generated: veiculos/1124-trem-trem-de-carga-pela-floresta-verde__freight_train_driving_through_a_green_forest.png
+[2026-06-17 04:45:05] [1493/4400] Generated: veiculos/1125-trem-trem-de-carga-apitando-alegre__freight_train_blowing_its_whistle_happily.png
+[2026-06-17 04:45:06] [1494/4400] Generated: veiculos/1126-trem-trem-de-carga-andando-no-tapete__freight_train_riding_on_a_play_rug.png
+[2026-06-17 04:45:08] [1495/4400] Generated: veiculos/1127-trem-trem-de-passageiros-soltando-fumaca-nos-trilhos__passenger_train_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:45:10] [1496/4400] Generated: veiculos/1128-trem-trem-de-passageiros-correndo-no-tunel__passenger_train_speeding_through_a_tunnel.png
+[2026-06-17 04:45:12] [1497/4400] Generated: veiculos/1129-trem-trem-de-passageiros-cruzando-a-ponte__passenger_train_crossing_a_high_stone_bridge.png
+[2026-06-17 04:45:13] [1498/4400] Generated: veiculos/1130-trem-trem-de-passageiros-levando-toras-e-carga__passenger_train_carrying_logs_and_cargo.png
+[2026-06-17 04:45:14] [1499/4400] Generated: veiculos/1131-trem-trem-de-passageiros-parado-na-estacao__passenger_train_parked_at_a_cozy_station.png
+[2026-06-17 04:45:15] [1500/4400] Generated: veiculos/1132-trem-trem-de-passageiros-pela-floresta-verde__passenger_train_driving_through_a_green_forest.png
+[2026-06-17 04:45:15] Batch 30 completed (1500 drawings). Triggering build & push...
+[2026-06-17 04:45:15] Rebuilding catalog and drawings database...
+[2026-06-17 04:45:16] Build successful!
+[2026-06-17 04:45:16] Committing and pushing to origin main...

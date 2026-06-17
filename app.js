@@ -116,10 +116,10 @@ function isDrawingAccessible(dw) {
 }
 
 function getRequiredPlanForDrawing(dw) {
-    if (dw.index <= 2000) return 'Grátis';
-    if (dw.index <= 5000) return 'Família';
-    if (dw.index <= 7000) return 'Professor';
-    return 'Colégio';
+    if (dw.index <= 2000) return 'Aprendiz';
+    if (dw.index <= 5000) return 'Artista';
+    if (dw.index <= 7000) return 'Mago Criador';
+    return 'Lenda KidCanvas';
 }
 
 // --- SISTEMA DE AUTENTICAÇÃO E SESSÃO ---
@@ -209,19 +209,23 @@ function updateHeaderAuthDisplay() {
         // Atualizar Badge de Plano (Header e Dropdown)
         [userPlanBadge, dropdownPlanBadge].forEach(badge => {
             if (badge) {
-                badge.textContent = currentUser.plan;
-                if (currentUser.plan === 'Família') {
+                const planName = currentUser.plan || 'Aprendiz';
+                badge.textContent = planName;
+                if (planName === 'Aprendiz' || planName === 'Grátis') {
                     badge.style.backgroundColor = 'var(--color-green)';
-                    badge.textContent = 'Família 🏠';
-                } else if (currentUser.plan === 'Colégio') {
+                    badge.textContent = 'Aprendiz 👶';
+                } else if (planName === 'Artista') {
                     badge.style.backgroundColor = 'var(--color-purple)';
-                    badge.textContent = 'Colégio 🏫';
-                } else if (currentUser.plan === 'Professor') {
-                    badge.style.backgroundColor = 'var(--color-orange)';
-                    badge.textContent = 'Professor 🍎';
+                    badge.textContent = 'Artista 🎨';
+                } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
+                    badge.style.backgroundColor = 'var(--color-blue)';
+                    badge.textContent = 'Mago 🧙';
+                } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra') {
+                    badge.style.backgroundColor = 'var(--color-yellow)';
+                    badge.textContent = 'Lenda 👑';
                 } else {
                     badge.style.backgroundColor = 'var(--color-dark-light)';
-                    badge.textContent = currentUser.plan || 'Grátis';
+                    badge.textContent = planName;
                 }
             }
         });
@@ -237,17 +241,16 @@ function updateHeaderAuthDisplay() {
             batterySegments.innerHTML = '';
             
             // Determinar capacidade máxima por plano para calcular porcentagem real
-            let maxCapacity = 4;
-            if (currentUser.plan === 'Grátis') {
-                maxCapacity = 4;
-            } else if (currentUser.plan === 'Premium') {
-                maxCapacity = 60;
-            } else if (currentUser.plan === 'Família') {
-                maxCapacity = 20;
-            } else if (currentUser.plan === 'Colégio') {
-                maxCapacity = 400;
-            } else if (currentUser.plan === 'Ultra') {
-                maxCapacity = 400;
+            let maxCapacity = 3;
+            const plan = currentUser.plan || 'Aprendiz';
+            if (plan === 'Aprendiz' || plan === 'Grátis') {
+                maxCapacity = 3;
+            } else if (plan === 'Artista' || plan === 'Família') {
+                maxCapacity = 30;
+            } else if (plan === 'Mago Criador' || plan === 'Professor' || plan === 'Premium') {
+                maxCapacity = 100;
+            } else if (plan === 'Lenda KidCanvas' || plan === 'Colégio' || plan === 'Ultra') {
+                maxCapacity = 250;
             } else {
                 maxCapacity = 100;
             }
@@ -1083,9 +1086,60 @@ function renderPoliticaPrivacidadeView() {
 }
 
 // PLANOS VIEW
+let currentBillingCycle = 'mensal';
+
+function setBillingCycle(cycle) {
+    currentBillingCycle = cycle;
+    
+    const toggleMensal = document.getElementById('toggle-mensal');
+    const toggleAnual = document.getElementById('toggle-anual');
+    
+    if (cycle === 'mensal') {
+        if (toggleMensal) toggleMensal.classList.add('active');
+        if (toggleAnual) toggleAnual.classList.remove('active');
+        
+        const priceArtista = document.getElementById('price-artista');
+        const priceMago = document.getElementById('price-mago');
+        const priceLenda = document.getElementById('price-lenda');
+        if (priceArtista) priceArtista.textContent = '9,90';
+        if (priceMago) priceMago.textContent = '19,90';
+        if (priceLenda) priceLenda.textContent = '39,90';
+    } else {
+        if (toggleMensal) toggleMensal.classList.remove('active');
+        if (toggleAnual) toggleAnual.classList.add('active');
+        
+        const priceArtista = document.getElementById('price-artista');
+        const priceMago = document.getElementById('price-mago');
+        const priceLenda = document.getElementById('price-lenda');
+        if (priceArtista) priceArtista.textContent = '7,90';
+        if (priceMago) priceMago.textContent = '15,90';
+        if (priceLenda) priceLenda.textContent = '31,90';
+    }
+}
+
+async function handleCreditPackagePurchase(credits, price) {
+    if (!currentUser) {
+        showToast('Faça login ou cadastre-se grátis para comprar créditos avulsos! 🚀', 'info');
+        openAuthModal();
+        return;
+    }
+    
+    selectedPlanForUpgrade = `${credits} Créditos Avulsos`;
+    selectedPageAmountForUpgrade = credits;
+    
+    const planNameEl = document.getElementById('paymentModalPlanName');
+    if (planNameEl) {
+        planNameEl.textContent = `${credits} Créditos Avulsos (R$ ${price.toFixed(2).replace('.', ',')})`;
+    }
+    const modal = document.getElementById('paymentMethodModal');
+    if (modal) {
+        modal.classList.add('open');
+    }
+}
+
 function renderPlanosView() {
     document.title = "KidCanvas — Planos de Assinatura 🎨";
-    setMetaDescription("Conheça os planos de assinatura do KidCanvas. Do Grátis ao Família, libere milhares de desenhos exclusivos e histórias mágicas para colorir!");
+    setMetaDescription("Conheça os planos de assinatura do KidCanvas. Do Aprendiz ao Lenda, libere milhares de desenhos exclusivos e histórias mágicas para colorir!");
     
     const view = document.getElementById('view-planos');
     if (view) {
@@ -1093,43 +1147,43 @@ function renderPlanosView() {
     }
     
     // Atualizar os botões baseados no plano do usuário
-    const btnGratis = document.getElementById('btn-plan-gratis');
-    const btnFamilia = document.getElementById('btn-plan-familia');
-    const btnProfessor = document.getElementById('btn-plan-professor');
-    const btnColegio = document.getElementById('btn-plan-colegio');
+    const btnAprendiz = document.getElementById('btn-plan-aprendiz');
+    const btnArtista = document.getElementById('btn-plan-artista');
+    const btnMago = document.getElementById('btn-plan-mago');
+    const btnLenda = document.getElementById('btn-plan-lenda');
     
-    const cardGratis = document.getElementById('plan-card-gratis');
-    const cardFamilia = document.getElementById('plan-card-familia');
-    const cardProfessor = document.getElementById('plan-card-professor');
-    const cardColegio = document.getElementById('plan-card-colegio');
+    const cardAprendiz = document.getElementById('plan-card-aprendiz');
+    const cardArtista = document.getElementById('plan-card-artista');
+    const cardMago = document.getElementById('plan-card-mago');
+    const cardLenda = document.getElementById('plan-card-lenda');
     
     // Resetar estilos de plano atual
-    [cardGratis, cardFamilia, cardProfessor, cardColegio].forEach(card => {
+    [cardAprendiz, cardArtista, cardMago, cardLenda].forEach(card => {
         if (card) card.classList.remove('active-plan');
     });
     
     const plansInfo = [
-        { name: 'Grátis', btn: btnGratis, card: cardGratis, credits: 4 },
-        { name: 'Família', btn: btnFamilia, card: cardFamilia, credits: 20 },
-        { name: 'Professor', btn: btnProfessor, card: cardProfessor, credits: 100 },
-        { name: 'Colégio', btn: btnColegio, card: cardColegio, credits: 400 }
+        { name: 'Aprendiz', btn: btnAprendiz, card: cardAprendiz, credits: 3 },
+        { name: 'Artista', btn: btnArtista, card: cardArtista, credits: 30 },
+        { name: 'Mago Criador', btn: btnMago, card: cardMago, credits: 100 },
+        { name: 'Lenda KidCanvas', btn: btnLenda, card: cardLenda, credits: 250 }
     ];
 
     if (currentUser) {
-        const currentPlan = currentUser.plan || 'Grátis';
+        const currentPlan = currentUser.plan || 'Aprendiz';
         
         plansInfo.forEach(p => {
-            if (p.card && p.name === currentPlan) {
+            if (p.card && (p.name === currentPlan || (p.name === 'Aprendiz' && currentPlan === 'Grátis'))) {
                 p.card.classList.add('active-plan');
             }
             
             if (p.btn) {
-                if (p.name === currentPlan) {
+                if (p.name === currentPlan || (p.name === 'Aprendiz' && currentPlan === 'Grátis')) {
                     p.btn.textContent = 'Seu plano atual 🎨';
                     p.btn.disabled = true;
                     p.btn.onclick = null;
                 } else {
-                    if (p.name === 'Grátis') {
+                    if (p.name === 'Aprendiz') {
                         p.btn.textContent = 'Grátis';
                         p.btn.disabled = true;
                         p.btn.onclick = null;
@@ -1143,19 +1197,19 @@ function renderPlanosView() {
         });
     } else {
         // Visitante deslogado
-        if (btnGratis) {
-            btnGratis.textContent = 'Cadastrar Grátis';
-            btnGratis.disabled = false;
-            btnGratis.onclick = () => {
+        if (btnAprendiz) {
+            btnAprendiz.textContent = 'Cadastrar Grátis';
+            btnAprendiz.disabled = false;
+            btnAprendiz.onclick = () => {
                 openAuthModal();
                 switchAuthTab('register');
             };
         }
         
         [
-            { name: 'Família', btn: btnFamilia, credits: 20 },
-            { name: 'Professor', btn: btnProfessor, credits: 100 },
-            { name: 'Colégio', btn: btnColegio, credits: 400 }
+            { name: 'Artista', btn: btnArtista, credits: 30 },
+            { name: 'Mago Criador', btn: btnMago, credits: 100 },
+            { name: 'Lenda KidCanvas', btn: btnLenda, credits: 250 }
         ].forEach(p => {
             if (p.btn) {
                 p.btn.textContent = 'Assinar';
@@ -1213,8 +1267,13 @@ function closePixCheckoutModal() {
 
 async function handlePayWithCard() {
     closePaymentMethodModal();
-    const planName = selectedPlanForUpgrade;
+    let planName = selectedPlanForUpgrade;
     if (!planName) return;
+    
+    // Se for um plano recorrente, adiciona o ciclo de faturamento
+    if (!planName.includes('Créditos Avulsos') && planName !== 'Aprendiz' && planName !== 'Grátis') {
+        planName = `${planName} (${currentBillingCycle === 'mensal' ? 'Mensal' : 'Anual'})`;
+    }
     
     try {
         showToast(`Redirecionando para o Stripe Checkout... 💳`, 'info');
@@ -1302,7 +1361,7 @@ function validateCPF(cpf) {
 async function generatePixPayment() {
     const fullName = document.getElementById('pix-fullname').value.trim();
     const cpf = document.getElementById('pix-cpf').value.trim();
-    const planName = selectedPlanForUpgrade;
+    let planName = selectedPlanForUpgrade;
     
     if (!fullName) {
         showToast("Por favor, insira seu nome completo.", "warning");
@@ -1315,6 +1374,11 @@ async function generatePixPayment() {
     if (!validateCPF(cpf)) {
         showToast("CPF inválido. Por favor, verifique os dígitos.", "warning");
         return;
+    }
+    
+    // Se for um plano recorrente, adiciona o ciclo de faturamento
+    if (planName && !planName.includes('Créditos Avulsos') && planName !== 'Aprendiz' && planName !== 'Grátis') {
+        planName = `${planName} (${currentBillingCycle === 'mensal' ? 'Mensal' : 'Anual'})`;
     }
     
     try {
@@ -2356,8 +2420,8 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
     initRatingSystem(categorySlug, drawingSlug);
     
     // Configurar Cadeados e Permissões dos Idiomas
-    const hasEn = currentUser && ['Família', 'Professor', 'Colégio', 'Premium', 'Ultra'].includes(currentUser.plan);
-    const hasEs = currentUser && ['Colégio', 'Premium', 'Ultra'].includes(currentUser.plan);
+    const hasEn = currentUser && ['Artista', 'Mago Criador', 'Lenda KidCanvas', 'Ultra', 'Família', 'Professor', 'Colégio', 'Premium'].includes(currentUser.plan);
+    const hasEs = currentUser && ['Mago Criador', 'Lenda KidCanvas', 'Ultra', 'Colégio', 'Premium'].includes(currentUser.plan);
     
     const lockEn = document.getElementById('lock-en');
     const lockEs = document.getElementById('lock-es');
@@ -3919,8 +3983,8 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         const lockEnIcon = document.getElementById('book-lang-lock-en');
         const lockEsIcon = document.getElementById('book-lang-lock-es');
         
-        const hasEn = ['Professor', 'Colégio', 'Premium', 'Ultra'].includes(plan);
-        const hasEs = ['Colégio', 'Premium', 'Ultra'].includes(plan);
+        const hasEn = ['Artista', 'Mago Criador', 'Lenda KidCanvas', 'Ultra', 'Família', 'Professor', 'Colégio', 'Premium'].includes(plan);
+        const hasEs = ['Mago Criador', 'Lenda KidCanvas', 'Ultra', 'Colégio', 'Premium'].includes(plan);
         
         if (lockEnIcon) lockEnIcon.style.display = hasEn ? 'none' : 'inline-block';
         if (lockEsIcon) lockEsIcon.style.display = hasEs ? 'none' : 'inline-block';
@@ -3935,7 +3999,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                         radioPt.checked = true;
                         document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
                         langCardPt.classList.add('active');
-                        alert("A criação de livros em Inglês está disponível a partir do plano Professor!");
+                        alert("A criação de livros em Inglês está disponível a partir do plano Artista!");
                         return false;
                     }
                     if (!isEn && !hasEs) {
@@ -3944,7 +4008,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                         radioPt.checked = true;
                         document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
                         langCardPt.classList.add('active');
-                        alert("A criação de livros em Espanhol está disponível no plano Colégio!");
+                        alert("A criação de livros em Espanhol está disponível a partir do plano Mago Criador!");
                         return false;
                     }
                 };
