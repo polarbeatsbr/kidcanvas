@@ -304,8 +304,8 @@ app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), async (
     return res.json({ received: true });
 });
 
-// Middleware para processar JSON
-app.use(express.json());
+// Middleware para processar JSON (limite aumentado para suportar imagens base64 do canvas)
+app.use(express.json({ limit: '10mb' }));
 
 // Endpoint para criar sessão de Checkout do Stripe
 app.post('/api/stripe/create-checkout-session', async (req, res) => {
@@ -2105,10 +2105,13 @@ app.post('/api/user/save-painting', async (req, res) => {
         
         let r2Url = imageUrl;
         if (imageBase64) {
-            // Fazer upload da pintura (PNG) para o Cloudflare R2
+            // Fazer upload da pintura para o Cloudflare R2
+            const isJpeg = imageBase64.startsWith('data:image/jpeg');
+            const ext = isJpeg ? 'jpg' : 'png';
+            const mimeType = isJpeg ? 'image/jpeg' : 'image/png';
             const buffer = Buffer.from(imageBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-            const filename = `painting_${user.id}_${Date.now()}.png`;
-            r2Url = await uploadImage(buffer, filename, 'image/png');
+            const filename = `painting_${user.id}_${Date.now()}.${ext}`;
+            r2Url = await uploadImage(buffer, filename, mimeType);
             
             if (!r2Url) {
                 return res.status(500).json({ success: false, message: 'Falha ao salvar imagem de pintura no R2.' });

@@ -7406,7 +7406,8 @@ async function savePaintingToGallery() {
     showToast('Salvando sua pintura na nuvem... ⏳', 'info');
 
     try {
-        const imageBase64 = paintCanvas.toDataURL('image/png');
+        // Exportar como JPEG (qualidade 0.85) - muito menor que PNG para envio ao servidor
+        const imageBase64 = paintCanvas.toDataURL('image/jpeg', 0.85);
         const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
         const isCustomAI = data.isCustomAI || false;
         const category = isCustomAI ? 'Criação com IA' : (data.imgUrl === 'blank' ? 'Mão Livre' : 'Colorir');
