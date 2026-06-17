@@ -8083,6 +8083,29 @@ window.showCustomConfirm = showCustomConfirm;
 
 // --- SISTEMA DE CONQUISTAS V2 (ÁLBUM DE COLEÇÃO) ---
 
+const USER_LEVELS = [
+    { minStars: 0,   name: 'Aprendiz de Cores', color: '#9e9e9e', icon: '🎨' },
+    { minStars: 10,  name: 'Rabiscador Criativo', color: '#4CAF50', icon: '🖍️' },
+    { minStars: 30,  name: 'Desenhista Amador', color: '#2196F3', icon: '✏️' },
+    { minStars: 50,  name: 'Artista Promissor', color: '#9C27B0', icon: '🌟' },
+    { minStars: 100, name: 'Mestre dos Pincéis', color: '#FF9800', icon: '🖌️' },
+    { minStars: 180, name: 'Leonardo da Vinte', color: '#E91E63', icon: '👨‍🎨' },
+    { minStars: 300, name: 'Picasso do Pixel', color: '#00BCD4', icon: '🖼️' },
+    { minStars: 500, name: 'Lenda Suprema', color: '#FFD700', icon: '👑' }
+];
+
+function getUserLevel(stars) {
+    let currentLevel = USER_LEVELS[0];
+    for (const level of USER_LEVELS) {
+        if (stars >= level.minStars) {
+            currentLevel = level;
+        } else {
+            break;
+        }
+    }
+    return currentLevel;
+}
+
 const ACHIEVEMENT_RARITIES = {
     common:    { name: 'Comum',     color: '#4CAF50', glow: 'rgba(76,175,80,0.25)',   stars: '⭐' },
     rare:      { name: 'Raro',      color: '#2196F3', glow: 'rgba(33,150,243,0.25)',  stars: '⭐⭐' },
@@ -8186,9 +8209,21 @@ function checkAllAchievements() {
     
     // Salvar estado atualizado
     localStorage.setItem(storageKey, JSON.stringify(currentlyUnlocked));
-    
     // Atualizar contador no header
     updateHeaderAchievementCount();
+    
+    // Sincronizar com o backend
+    const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+    if (sessionToken) {
+        fetch('/api/user/update-achievements', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': sessionToken
+            },
+            body: JSON.stringify({ achievements: currentlyUnlocked })
+        }).catch(err => console.error('Erro ao sincronizar conquistas', err));
+    }
     
     // Mostrar modal para cada novo desbloqueio (com delay entre eles)
     if (newlyUnlocked.length > 0) {
@@ -8487,36 +8522,61 @@ async function openPublicProfile(name, userEmail = '') {
             if (storiesEl) storiesEl.textContent = profile.storiesCount;
             if (aiImagesEl) aiImagesEl.textContent = profile.aiImagesCount;
             
-            // Renderizar grade de conquistas/selos — usa os MESMOS badges do Sticker Console
+            // Atualizar Nível do Usuário
             const stars = profile.stars || 0;
+            const userLevel = getUserLevel(stars);
+            const levelBadge = document.getElementById('profile-modal-level-badge');
+            const levelIcon = document.getElementById('profile-modal-level-icon');
+            const levelName = document.getElementById('profile-modal-level-name');
+            
+            if (levelBadge && levelIcon && levelName) {
+                levelBadge.style.backgroundColor = userLevel.color;
+                levelIcon.textContent = userLevel.icon;
+                levelName.textContent = userLevel.name;
+            }
 
-            const list = unlockableBadges.map(badge => ({
-                title: badge.name,
-                desc: badge.stars === 0 ? 'Participar do Hall da Fama' : `${badge.stars} estrelas acumuladas`,
-                emoji: badge.emoji,
-                starsNeeded: badge.stars,
-                isUnlocked: stars >= badge.stars
-            }));
+            // Renderizar grade de conquistas/selos — usa ACHIEVEMENTS_CATALOG
+            const unlockedIds = profile.unlockedAchievements || [];
 
-            let unlockedCount = 0;
+            const list = ACHIEVEMENTS_CATALOG.map(badge => {
+                const isUnlocked = unlockedIds.includes(badge.id);
+                return {
+                    title: badge.name,
+                    desc: badge.desc,
+                    emoji: badge.emoji,
+                    rarity: ACHIEVEMENT_RARITIES[badge.rarity],
+                    isUnlocked: isUnlocked
+                };
+            });
+
+            let unlockedCount = list.filter(i => i.isUnlocked).length;
+            
+            document.getElementById('profile-modal-badges').textContent = `${unlockedCount}/${list.length}`;
+            
+            // Ordenar para mostrar as desbloqueadas primeiro
+            list.sort((a, b) => {
+                if (a.isUnlocked && !b.isUnlocked) return -1;
+                if (!a.isUnlocked && b.isUnlocked) return 1;
+                return 0;
+            });
+
             const gridHtml = list.map(item => {
-                if (item.isUnlocked) unlockedCount++;
                 const opacity = item.isUnlocked ? '1' : '0.4';
                 const filter = item.isUnlocked ? 'none' : 'grayscale(1)';
                 const bg = item.isUnlocked ? '#fffde7' : '#fafafa';
-                const borderColor = item.isUnlocked ? '#ffe082' : '#e0e0e0';
-                const titleColor = item.isUnlocked ? 'var(--color-purple)' : '#757575';
+                const borderColor = item.isUnlocked ? item.rarity.color : '#e0e0e0';
+                const titleColor = item.isUnlocked ? item.rarity.color : '#757575';
                 const descColor = item.isUnlocked ? 'var(--color-dark-light)' : '#9e9e9e';
 
                 return `
-                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: var(--border-thin); border-radius: var(--radius-sm); background: ${bg}; border-color: ${borderColor}; opacity: ${opacity}; filter: ${filter}; transition: all 0.2s ease;">
+                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 2px solid ${borderColor}; border-radius: var(--radius-sm); background: ${bg}; opacity: ${opacity}; filter: ${filter}; transition: all 0.2s ease;">
                         <span style="font-size: 2.2rem; min-width: 40px; text-align: center;">${item.emoji}</span>
                         <div style="display: flex; flex-direction: column; gap: 2px;">
                             <span style="font-weight: 800; font-size: 0.95rem; color: ${titleColor};">${item.title}</span>
                             <span style="font-size: 0.8rem; color: ${descColor}; font-weight: 500;">${item.desc}</span>
                         </div>
                         <span style="margin-left: auto; font-size: 0.85rem; font-weight: 800; color: ${item.isUnlocked ? '#2e7d32' : '#9e9e9e'};">
-                            ${item.isUnlocked ? '✅ Conquistado' : '🔒 ' + item.starsNeeded + '⭐'}
+                            ${item.isUnlocked ? '✅ Conquistado' : '🔒'}
                         </span>
                     </div>
                 `;

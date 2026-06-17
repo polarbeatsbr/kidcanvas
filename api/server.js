@@ -2200,6 +2200,35 @@ app.post('/api/user/update-avatar', async (req, res) => {
     }
 });
 
+        // Endpoint para atualizar conquistas do usuário
+app.post('/api/user/update-achievements', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { achievements } = req.body;
+        
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!Array.isArray(achievements)) {
+            return res.status(400).json({ success: false, message: 'Formato inválido.' });
+        }
+        
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão expirada.' });
+        }
+        
+        user.achievements = achievements;
+        await saveUsers(users);
+        
+        return res.json({ success: true });
+    } catch(err) {
+        console.error('Erro ao atualizar conquistas:', err);
+        return res.status(500).json({ success: false });
+    }
+});
+
 // Endpoint para obter perfil público de um criador do Hall da Fama
 app.get('/api/user/public-profile', async (req, res) => {
     try {
@@ -2247,55 +2276,6 @@ app.get('/api/user/public-profile', async (req, res) => {
         const storiesCount = creatorApproved.filter(p => p.category === 'Histórias Mágicas').length;
         const aiImagesCount = creatorApproved.filter(p => p.category === 'Criação com IA').length;
 
-        // Calculate achievements
-        const primeira_participacao = creatorApproved.length >= 1;
-
-        // Destaque da Semana (Top 10 weekly)
-        const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-        const weeklyCreations = publicPaintings.filter(p => p.isApproved === true && (!p.reports || p.reports < 3) && p.date >= oneWeekAgo);
-        weeklyCreations.sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
-        const top10Weekly = weeklyCreations.slice(0, 10);
-        const destaque_semana = top10Weekly.some(p => {
-            if (email && p.userEmail) {
-                return p.userEmail.toLowerCase() === email.toLowerCase();
-            }
-            return p.creatorName && p.creatorName.toLowerCase() === name.toLowerCase();
-        });
-
-        // Campeão da Categoria (Mais votado do mês)
-        const oneMonthAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
-        const monthlyCreations = publicPaintings.filter(p => p.isApproved === true && (!p.reports || p.reports < 3) && p.date >= oneMonthAgo);
-        
-        let hasCategoryChampion = false;
-        const categories = ['Colorir', 'Criação com IA', 'Histórias Mágicas'];
-        for (const cat of categories) {
-            const catCreations = monthlyCreations.filter(p => p.category === cat || (cat === 'Colorir' && !p.category));
-            if (catCreations.length > 0) {
-                // Find max stars item
-                let maxStars = -1;
-                let topItem = null;
-                for (const p of catCreations) {
-                    const s = p.stars || p.likes || 0;
-                    if (s > maxStars) {
-                        maxStars = s;
-                        topItem = p;
-                    }
-                }
-                if (topItem && maxStars > 0) {
-                    const isOwner = email && topItem.userEmail 
-                        ? topItem.userEmail.toLowerCase() === email.toLowerCase() 
-                        : topItem.creatorName && topItem.creatorName.toLowerCase() === name.toLowerCase();
-                    if (isOwner) {
-                        hasCategoryChampion = true;
-                        break;
-                    }
-                }
-            }
-        }
-        const campeao_categoria = hasCategoryChampion;
-
-        const lenda_kidcanvas = totalStars >= 500;
-
         // Retornar os dados consolidados do perfil público
         return res.json({
             success: true,
@@ -2306,12 +2286,7 @@ app.get('/api/user/public-profile', async (req, res) => {
                 paintingsCount: paintingsCount,
                 storiesCount: storiesCount,
                 aiImagesCount: aiImagesCount,
-                achievements: {
-                    primeira_participacao,
-                    destaque_semana,
-                    campeao_categoria,
-                    lenda_kidcanvas
-                }
+                unlockedAchievements: user ? (user.achievements || []) : []
             }
         });
     } catch(err) {
