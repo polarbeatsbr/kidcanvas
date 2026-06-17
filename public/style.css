@@ -451,9 +451,10 @@ button, input, select, textarea {
 
 .hero-container {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
+    grid-template-columns: 1.05fr 0.95fr; /* Mais espaço para a coluna da ilustração */
     gap: 40px;
     align-items: center;
+    max-width: 1250px; /* Permite que o hero se expanda mais no desktop */
 }
 
 .hero-text {
@@ -5182,7 +5183,7 @@ button, input, select, textarea {
 
 .hero-image-new {
     width: 100%;
-    max-width: 580px; /* Aumentado de 440px para 580px */
+    max-width: 640px; /* Aumentado de 580px para 640px para destacar mais a ilustração e os cachorros */
     height: auto;
     border: none; /* Removida borda grossa de card */
     border-radius: 0; /* Removido arredondamento */
@@ -5410,14 +5411,17 @@ button, input, select, textarea {
     }
     .hero-mascots-new {
         margin-top: 25px;
-        width: 100%;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
         display: flex;
         justify-content: center;
+        overflow: hidden;
     }
     
     .hero-image-new {
         width: 100%;
-        max-width: 460px; /* Aumentado no mobile de 320px para 460px */
+        max-width: 540px; /* Aumentado no mobile de 460px para 540px */
     }
 
     
