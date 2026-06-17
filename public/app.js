@@ -8484,9 +8484,7 @@ async function openPublicProfile(name, userEmail = '') {
         avatarEl.style.fontSize = '3.5rem';
     }
     document.getElementById('profile-modal-name').textContent = name;
-    document.getElementById('profile-modal-stars-text').textContent = 'Carregando...';
     document.getElementById('profile-modal-paintings').textContent = '...';
-    
     const storiesEl = document.getElementById('profile-modal-stories');
     if (storiesEl) storiesEl.textContent = '...';
     
