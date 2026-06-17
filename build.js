@@ -5,6 +5,7 @@ const filesToCopy = [
     'style.css',
     'app.js',
     'hero_mascots.jpg',
+    'magician_icon.png',
     'index.html',
     'historia.html',
     'admin.html',
