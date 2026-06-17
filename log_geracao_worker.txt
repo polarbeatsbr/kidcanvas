@@ -3260,3 +3260,58 @@
 [2026-06-17 04:42:48] Rebuilding catalog and drawings database...
 [2026-06-17 04:42:49] Build successful!
 [2026-06-17 04:42:49] Committing and pushing to origin main...
+[2026-06-17 04:42:53] Push successful! Vercel will deploy in production.
+[2026-06-17 04:42:54] [1401/4400] Generated: veiculos/1033-aviao-aviao-biplano-flutuando-na-agua__biplane_floating_on_calm_water.png
+[2026-06-17 04:42:55] [1402/4400] Generated: veiculos/1034-aviao-aviao-biplano-fazendo-acrobacias__biplane_performing_an_airshow_loop.png
+[2026-06-17 04:42:57] [1403/4400] Generated: veiculos/1035-aviao-aviao-biplano-perto-do-arco-iris__biplane_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:42:58] [1404/4400] Generated: veiculos/1036-aviao-aviao-biplano-passando-pelo-sol__biplane_flying_past_a_smiling_sun.png
+[2026-06-17 04:43:00] [1405/4400] Generated: veiculos/1037-aviao-aviao-biplano-decolando-para-o-ceu__biplane_taking_off_into_the_sky.png
+[2026-06-17 04:43:01] [1406/4400] Generated: veiculos/1038-aviao-aviao-biplano-acenando-as-asas__biplane_waving_its_wings.png
+[2026-06-17 04:43:02] [1407/4400] Generated: veiculos/1039-aviao-aviao-a-helice-voando-nas-nuvens__propeller_airplane_flying_high_above_soft_clouds.png
+[2026-06-17 04:43:03] [1408/4400] Generated: veiculos/1040-aviao-aviao-a-helice-pousando-na-pista__propeller_airplane_landing_on_an_airport_runway.png
+[2026-06-17 04:43:05] [1409/4400] Generated: veiculos/1041-aviao-aviao-a-helice-flutuando-na-agua__propeller_airplane_floating_on_calm_water.png
+[2026-06-17 04:43:07] [1410/4400] Generated: veiculos/1042-aviao-aviao-a-helice-fazendo-acrobacias__propeller_airplane_performing_an_airshow_loop.png
+[2026-06-17 04:43:08] [1411/4400] Generated: veiculos/1043-aviao-aviao-a-helice-perto-do-arco-iris__propeller_airplane_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:43:09] [1412/4400] Generated: veiculos/1044-aviao-aviao-a-helice-passando-pelo-sol__propeller_airplane_flying_past_a_smiling_sun.png
+[2026-06-17 04:43:11] [1413/4400] Generated: veiculos/1045-aviao-aviao-a-helice-decolando-para-o-ceu__propeller_airplane_taking_off_into_the_sky.png
+[2026-06-17 04:43:12] [1414/4400] Generated: veiculos/1046-aviao-aviao-a-helice-acenando-as-asas__propeller_airplane_waving_its_wings.png
+[2026-06-17 04:43:14] [1415/4400] Generated: veiculos/1047-aviao-aviao-cargueiro-voando-nas-nuvens__cargo_airplane_flying_high_above_soft_clouds.png
+[2026-06-17 04:43:16] [1416/4400] Generated: veiculos/1048-aviao-aviao-cargueiro-pousando-na-pista__cargo_airplane_landing_on_an_airport_runway.png
+[2026-06-17 04:43:17] [1417/4400] Generated: veiculos/1049-aviao-aviao-cargueiro-flutuando-na-agua__cargo_airplane_floating_on_calm_water.png
+[2026-06-17 04:43:18] [1418/4400] Generated: veiculos/1050-aviao-aviao-cargueiro-fazendo-acrobacias__cargo_airplane_performing_an_airshow_loop.png
+[2026-06-17 04:43:20] [1419/4400] Generated: veiculos/1051-aviao-aviao-cargueiro-perto-do-arco-iris__cargo_airplane_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:43:22] [1420/4400] Generated: veiculos/1052-aviao-aviao-cargueiro-passando-pelo-sol__cargo_airplane_flying_past_a_smiling_sun.png
+[2026-06-17 04:43:23] [1421/4400] Generated: veiculos/1053-aviao-aviao-cargueiro-decolando-para-o-ceu__cargo_airplane_taking_off_into_the_sky.png
+[2026-06-17 04:43:24] [1422/4400] Generated: veiculos/1054-aviao-aviao-cargueiro-acenando-as-asas__cargo_airplane_waving_its_wings.png
+[2026-06-17 04:43:26] [1423/4400] Generated: veiculos/1055-aviao-hidroaviao-voando-nas-nuvens__seaplane_flying_high_above_soft_clouds.png
+[2026-06-17 04:43:27] [1424/4400] Generated: veiculos/1056-aviao-hidroaviao-pousando-na-pista__seaplane_landing_on_an_airport_runway.png
+[2026-06-17 04:43:29] [1425/4400] Generated: veiculos/1057-aviao-hidroaviao-flutuando-na-agua__seaplane_floating_on_calm_water.png
+[2026-06-17 04:43:30] [1426/4400] Generated: veiculos/1058-aviao-hidroaviao-fazendo-acrobacias__seaplane_performing_an_airshow_loop.png
+[2026-06-17 04:43:31] [1427/4400] Generated: veiculos/1059-aviao-hidroaviao-perto-do-arco-iris__seaplane_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:43:32] [1428/4400] Generated: veiculos/1060-aviao-hidroaviao-passando-pelo-sol__seaplane_flying_past_a_smiling_sun.png
+[2026-06-17 04:43:33] [1429/4400] Generated: veiculos/1061-aviao-hidroaviao-decolando-para-o-ceu__seaplane_taking_off_into_the_sky.png
+[2026-06-17 04:43:35] [1430/4400] Generated: veiculos/1062-aviao-hidroaviao-acenando-as-asas__seaplane_waving_its_wings.png
+[2026-06-17 04:43:37] [1431/4400] Generated: veiculos/1063-aviao-jato-supersonico-voando-nas-nuvens__supersonic_jet_flying_high_above_soft_clouds.png
+[2026-06-17 04:43:39] [1432/4400] Generated: veiculos/1064-aviao-jato-supersonico-pousando-na-pista__supersonic_jet_landing_on_an_airport_runway.png
+[2026-06-17 04:43:40] [1433/4400] Generated: veiculos/1065-aviao-jato-supersonico-flutuando-na-agua__supersonic_jet_floating_on_calm_water.png
+[2026-06-17 04:43:41] [1434/4400] Generated: veiculos/1066-aviao-jato-supersonico-fazendo-acrobacias__supersonic_jet_performing_an_airshow_loop.png
+[2026-06-17 04:43:42] [1435/4400] Generated: veiculos/1067-aviao-jato-supersonico-perto-do-arco-iris__supersonic_jet_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:43:43] [1436/4400] Generated: veiculos/1068-aviao-jato-supersonico-passando-pelo-sol__supersonic_jet_flying_past_a_smiling_sun.png
+[2026-06-17 04:43:45] [1437/4400] Generated: veiculos/1069-aviao-jato-supersonico-decolando-para-o-ceu__supersonic_jet_taking_off_into_the_sky.png
+[2026-06-17 04:43:46] [1438/4400] Generated: veiculos/1070-aviao-jato-supersonico-acenando-as-asas__supersonic_jet_waving_its_wings.png
+[2026-06-17 04:43:47] [1439/4400] Generated: veiculos/1071-aviao-helicotero-voando-nas-nuvens__helicopter_flying_high_above_soft_clouds.png
+[2026-06-17 04:43:48] [1440/4400] Generated: veiculos/1072-aviao-helicotero-pousando-na-pista__helicopter_landing_on_an_airport_runway.png
+[2026-06-17 04:43:50] [1441/4400] Generated: veiculos/1073-aviao-helicotero-flutuando-na-agua__helicopter_floating_on_calm_water.png
+[2026-06-17 04:43:51] [1442/4400] Generated: veiculos/1074-aviao-helicotero-fazendo-acrobacias__helicopter_performing_an_airshow_loop.png
+[2026-06-17 04:43:52] [1443/4400] Generated: veiculos/1075-aviao-helicotero-perto-do-arco-iris__helicopter_soaring_near_a_beautiful_rainbow.png
+[2026-06-17 04:43:54] [1444/4400] Generated: veiculos/1076-aviao-helicotero-passando-pelo-sol__helicopter_flying_past_a_smiling_sun.png
+[2026-06-17 04:43:55] [1445/4400] Generated: veiculos/1077-aviao-helicotero-decolando-para-o-ceu__helicopter_taking_off_into_the_sky.png
+[2026-06-17 04:43:56] [1446/4400] Generated: veiculos/1078-aviao-helicotero-acenando-as-asas__helicopter_waving_its_wings.png
+[2026-06-17 04:43:57] [1447/4400] Generated: veiculos/1079-aviao-aviao-de-brinquedo-voando-nas-nuvens__cute_toy_airplane_flying_high_above_soft_clouds.png
+[2026-06-17 04:43:59] [1448/4400] Generated: veiculos/1081-aviao-aviao-de-brinquedo-flutuando-na-agua__cute_toy_airplane_floating_on_calm_water.png
+[2026-06-17 04:44:01] [1449/4400] Generated: veiculos/1080-aviao-aviao-de-brinquedo-pousando-na-pista__cute_toy_airplane_landing_on_an_airport_runway.png
+[2026-06-17 04:44:02] [1450/4400] Generated: veiculos/1082-aviao-aviao-de-brinquedo-fazendo-acrobacias__cute_toy_airplane_performing_an_airshow_loop.png
+[2026-06-17 04:44:02] Batch 29 completed (1450 drawings). Triggering build & push...
+[2026-06-17 04:44:02] Rebuilding catalog and drawings database...
+[2026-06-17 04:44:03] Build successful!
+[2026-06-17 04:44:03] Committing and pushing to origin main...
