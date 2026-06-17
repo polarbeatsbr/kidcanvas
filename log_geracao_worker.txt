@@ -1429,3 +1429,58 @@
 [2026-06-17 04:00:41] Rebuilding catalog and drawings database...
 [2026-06-17 04:00:42] Build successful!
 [2026-06-17 04:00:42] Committing and pushing to origin main...
+[2026-06-17 04:00:45] Push successful! Vercel will deploy in production.
+[2026-06-17 04:00:46] [1301/3680] Generated: veiculos/333-guindaste-guindaste-de-ponte-erguendo-viga-de-aco__overhead_crane_lifting_a_steel_beam_high_in_the_air.png
+[2026-06-17 04:00:47] [1302/3680] Generated: veiculos/334-guindaste-guindaste-de-ponte-carregando-navio__overhead_crane_loading_a_cargo_ship.png
+[2026-06-17 04:00:49] [1303/3680] Generated: veiculos/335-guindaste-guindaste-de-ponte-no-arranha-ceu__overhead_crane_parked_on_a_skyscraper_construction_site.png
+[2026-06-17 04:00:51] [1304/3680] Generated: veiculos/336-guindaste-guindaste-de-ponte-movendo-bloco-de-concreto__overhead_crane_moving_a_heavy_concrete_block.png
+[2026-06-17 04:00:52] [1305/3680] Generated: veiculos/337-guindaste-guindaste-de-ponte-trabalhando-sob-o-sol__overhead_crane_working_under_a_sunny_sky.png
+[2026-06-17 04:00:53] [1306/3680] Generated: veiculos/338-guindaste-guindaste-de-ponte-acenando-o-braco-longo__overhead_crane_waving_its_long_arm.png
+[2026-06-17 04:00:54] [1307/3680] Generated: veiculos/339-guindaste-guindaste-de-brinquedo-erguendo-viga-de-aco__cute_toy_crane_lifting_a_steel_beam_high_in_the_air.png
+[2026-06-17 04:00:55] [1308/3680] Generated: veiculos/340-guindaste-guindaste-de-brinquedo-carregando-navio__cute_toy_crane_loading_a_cargo_ship.png
+[2026-06-17 04:00:57] [1309/3680] Generated: veiculos/342-guindaste-guindaste-de-brinquedo-movendo-bloco-de-concreto__cute_toy_crane_moving_a_heavy_concrete_block.png
+[2026-06-17 04:00:58] [1310/3680] Generated: veiculos/341-guindaste-guindaste-de-brinquedo-no-arranha-ceu__cute_toy_crane_parked_on_a_skyscraper_construction_site.png
+[2026-06-17 04:01:00] [1311/3680] Generated: veiculos/343-guindaste-guindaste-de-brinquedo-trabalhando-sob-o-sol__cute_toy_crane_working_under_a_sunny_sky.png
+[2026-06-17 04:01:02] [1312/3680] Generated: veiculos/344-guindaste-guindaste-de-brinquedo-acenando-o-braco-longo__cute_toy_crane_waving_its_long_arm.png
+[2026-06-17 04:01:03] [1313/3680] Generated: veiculos/345-guindaste-guindaste-de-desenho-erguendo-viga-de-aco__friendly_cartoon_crane_lifting_a_steel_beam_high_in_the_air.png
+[2026-06-17 04:01:04] [1314/3680] Generated: veiculos/347-guindaste-guindaste-de-desenho-no-arranha-ceu__friendly_cartoon_crane_parked_on_a_skyscraper_construction_site.png
+[2026-06-17 04:01:06] [1315/3680] Generated: veiculos/346-guindaste-guindaste-de-desenho-carregando-navio__friendly_cartoon_crane_loading_a_cargo_ship.png
+[2026-06-17 04:01:08] [1316/3680] Generated: veiculos/348-guindaste-guindaste-de-desenho-movendo-bloco-de-concreto__friendly_cartoon_crane_moving_a_heavy_concrete_block.png
+[2026-06-17 04:01:09] [1317/3680] Generated: veiculos/349-guindaste-guindaste-de-desenho-trabalhando-sob-o-sol__friendly_cartoon_crane_working_under_a_sunny_sky.png
+[2026-06-17 04:01:11] [1318/3680] Generated: veiculos/350-guindaste-guindaste-de-desenho-acenando-o-braco-longo__friendly_cartoon_crane_waving_its_long_arm.png
+[2026-06-17 04:01:12] [1319/3680] Generated: veiculos/351-guindaste-guindaste-de-construcao-erguendo-viga-de-aco__construction_crane_lifting_a_steel_beam_high_in_the_air.png
+[2026-06-17 04:01:13] [1320/3680] Generated: veiculos/352-guindaste-guindaste-de-construcao-carregando-navio__construction_crane_loading_a_cargo_ship.png
+[2026-06-17 04:01:14] [1321/3680] Generated: veiculos/353-guindaste-guindaste-de-construcao-no-arranha-ceu__construction_crane_parked_on_a_skyscraper_construction_site.png
+[2026-06-17 04:01:16] [1322/3680] Generated: veiculos/354-guindaste-guindaste-de-construcao-movendo-bloco-de-concreto__construction_crane_moving_a_heavy_concrete_block.png
+[2026-06-17 04:01:17] [1323/3680] Generated: veiculos/355-guindaste-guindaste-de-construcao-trabalhando-sob-o-sol__construction_crane_working_under_a_sunny_sky.png
+[2026-06-17 04:01:18] [1324/3680] Generated: veiculos/356-guindaste-guindaste-de-construcao-acenando-o-braco-longo__construction_crane_waving_its_long_arm.png
+[2026-06-17 04:01:19] [1325/3680] Generated: veiculos/357-guindaste-guindaste-elevador-erguendo-viga-de-aco__lifting_hoist_lifting_a_steel_beam_high_in_the_air.png
+[2026-06-17 04:01:21] [1326/3680] Generated: veiculos/358-guindaste-guindaste-elevador-carregando-navio__lifting_hoist_loading_a_cargo_ship.png
+[2026-06-17 04:01:22] [1327/3680] Generated: veiculos/359-guindaste-guindaste-elevador-no-arranha-ceu__lifting_hoist_parked_on_a_skyscraper_construction_site.png
+[2026-06-17 04:01:23] [1328/3680] Generated: veiculos/360-guindaste-guindaste-elevador-movendo-bloco-de-concreto__lifting_hoist_moving_a_heavy_concrete_block.png
+[2026-06-17 04:01:24] [1329/3680] Generated: veiculos/361-guindaste-guindaste-elevador-trabalhando-sob-o-sol__lifting_hoist_working_under_a_sunny_sky.png
+[2026-06-17 04:01:25] [1330/3680] Generated: veiculos/362-guindaste-guindaste-elevador-acenando-o-braco-longo__lifting_hoist_waving_its_long_arm.png
+[2026-06-17 04:01:27] [1331/3680] Generated: veiculos/363-obra-trator-bulldozer-misturando-cimento__bulldozer_mixing_fresh_concrete.png
+[2026-06-17 04:01:28] [1332/3680] Generated: veiculos/364-obra-trator-bulldozer-nivelando-a-estrada__bulldozer_leveling_a_new_road.png
+[2026-06-17 04:01:30] [1333/3680] Generated: veiculos/365-obra-trator-bulldozer-descarregando-cascalho__bulldozer_dumping_a_load_of_gravel.png
+[2026-06-17 04:01:31] [1334/3680] Generated: veiculos/366-obra-trator-bulldozer-levando-blocos__bulldozer_carrying_building_blocks.png
+[2026-06-17 04:01:32] [1335/3680] Generated: veiculos/367-obra-trator-bulldozer-com-capacete-amarelo__bulldozer_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:01:34] [1336/3680] Generated: veiculos/368-obra-trator-bulldozer-na-estrutura-do-predio__bulldozer_working_on_a_building_frame.png
+[2026-06-17 04:01:35] [1337/3680] Generated: veiculos/369-obra-caminhao-betoneira-misturando-cimento__cement_mixer_truck_mixing_fresh_concrete.png
+[2026-06-17 04:01:37] [1338/3680] Generated: veiculos/370-obra-caminhao-betoneira-nivelando-a-estrada__cement_mixer_truck_leveling_a_new_road.png
+[2026-06-17 04:01:38] [1339/3680] Generated: veiculos/371-obra-caminhao-betoneira-descarregando-cascalho__cement_mixer_truck_dumping_a_load_of_gravel.png
+[2026-06-17 04:01:39] [1340/3680] Generated: veiculos/372-obra-caminhao-betoneira-levando-blocos__cement_mixer_truck_carrying_building_blocks.png
+[2026-06-17 04:01:41] [1341/3680] Generated: veiculos/373-obra-caminhao-betoneira-com-capacete-amarelo__cement_mixer_truck_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:01:43] [1342/3680] Generated: veiculos/374-obra-caminhao-betoneira-na-estrutura-do-predio__cement_mixer_truck_working_on_a_building_frame.png
+[2026-06-17 04:01:45] [1343/3680] Generated: veiculos/375-obra-rolo-compressor-misturando-cimento__road_roller_mixing_fresh_concrete.png
+[2026-06-17 04:01:46] [1344/3680] Generated: veiculos/376-obra-rolo-compressor-nivelando-a-estrada__road_roller_leveling_a_new_road.png
+[2026-06-17 04:01:47] [1345/3680] Generated: veiculos/377-obra-rolo-compressor-descarregando-cascalho__road_roller_dumping_a_load_of_gravel.png
+[2026-06-17 04:01:49] [1346/3680] Generated: veiculos/378-obra-rolo-compressor-levando-blocos__road_roller_carrying_building_blocks.png
+[2026-06-17 04:01:50] [1347/3680] Generated: veiculos/379-obra-rolo-compressor-com-capacete-amarelo__road_roller_wearing_a_yellow_hard_hat.png
+[2026-06-17 04:01:52] [1348/3680] Generated: veiculos/380-obra-rolo-compressor-na-estrutura-do-predio__road_roller_working_on_a_building_frame.png
+[2026-06-17 04:01:53] [1349/3680] Generated: veiculos/381-obra-caminhao-basculante-misturando-cimento__dump_truck_mixing_fresh_concrete.png
+[2026-06-17 04:01:55] [1350/3680] Generated: veiculos/382-obra-caminhao-basculante-nivelando-a-estrada__dump_truck_leveling_a_new_road.png
+[2026-06-17 04:01:55] Batch 27 completed (1350 drawings). Triggering build & push...
+[2026-06-17 04:01:55] Rebuilding catalog and drawings database...
+[2026-06-17 04:01:56] Build successful!
+[2026-06-17 04:01:56] Committing and pushing to origin main...

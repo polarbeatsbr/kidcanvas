@@ -17138,6 +17138,28 @@
     "isNew": false
   },
   {
+    "index": 238,
+    "filename": "238-sorvete-casquinha-de-sorvete-com-rosto-alegre__ice_cream_cone_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/238-sorvete-casquinha-de-sorvete-com-rosto-alegre__ice_cream_cone_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete casquinha de sorvete com rosto alegre",
+    "en": "Ice cream cone with a happy cartoon face",
+    "slug": "sorvete-casquinha-de-sorvete-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 239,
+    "filename": "239-sorvete-casquinha-de-sorvete-derretendo-no-calor__ice_cream_cone_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/239-sorvete-casquinha-de-sorvete-derretendo-no-calor__ice_cream_cone_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete casquinha de sorvete derretendo no calor",
+    "en": "Ice cream cone dripping slowly in the summer sun",
+    "slug": "sorvete-casquinha-de-sorvete-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 24,
     "filename": "24-pizzinha-com-granulado__pizza.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/24-pizzinha-com-granulado__pizza.png",
@@ -17145,6 +17167,116 @@
     "pt": "Pizzinha com granulado",
     "en": "Pizza",
     "slug": "pizzinha-com-granulado",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 240,
+    "filename": "240-sorvete-casquinha-de-sorvete-com-cereja-no-topo__ice_cream_cone_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/240-sorvete-casquinha-de-sorvete-com-cereja-no-topo__ice_cream_cone_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete casquinha de sorvete com cereja no topo",
+    "en": "Ice cream cone decorated with a cherry on top",
+    "slug": "sorvete-casquinha-de-sorvete-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 241,
+    "filename": "241-sorvete-casquinha-de-sorvete-com-guarda-chuva-colorido__ice_cream_cone_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/241-sorvete-casquinha-de-sorvete-com-guarda-chuva-colorido__ice_cream_cone_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete casquinha de sorvete com guarda chuva colorido",
+    "en": "Ice cream cone with a colorful umbrella",
+    "slug": "sorvete-casquinha-de-sorvete-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 242,
+    "filename": "242-sorvete-casquinha-de-sorvete-com-granulado-doce__ice_cream_cone_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/242-sorvete-casquinha-de-sorvete-com-granulado-doce__ice_cream_cone_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete casquinha de sorvete com granulado doce",
+    "en": "Ice cream cone sprinkled with toppings",
+    "slug": "sorvete-casquinha-de-sorvete-com-granulado-doce",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 243,
+    "filename": "243-sorvete-casquinha-de-sorvete-na-taca-de-vidro__ice_cream_cone_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/243-sorvete-casquinha-de-sorvete-na-taca-de-vidro__ice_cream_cone_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete casquinha de sorvete na taca de vidro",
+    "en": "Ice cream cone sitting in a sweet glass",
+    "slug": "sorvete-casquinha-de-sorvete-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 244,
+    "filename": "244-sorvete-casquinha-de-sorvete-sorrindo-alegre__ice_cream_cone_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/244-sorvete-casquinha-de-sorvete-sorrindo-alegre__ice_cream_cone_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete casquinha de sorvete sorrindo alegre",
+    "en": "Ice cream cone smiling with cute eyes",
+    "slug": "sorvete-casquinha-de-sorvete-sorrindo-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 245,
+    "filename": "245-sorvete-sorvete-de-duas-bolas-com-rosto-alegre__double_scoop_ice_cream_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/245-sorvete-sorvete-de-duas-bolas-com-rosto-alegre__double_scoop_ice_cream_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete de duas bolas com rosto alegre",
+    "en": "Double scoop ice cream with a happy cartoon face",
+    "slug": "sorvete-sorvete-de-duas-bolas-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 246,
+    "filename": "246-sorvete-sorvete-de-duas-bolas-derretendo-no-calor__double_scoop_ice_cream_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/246-sorvete-sorvete-de-duas-bolas-derretendo-no-calor__double_scoop_ice_cream_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete de duas bolas derretendo no calor",
+    "en": "Double scoop ice cream dripping slowly in the summer sun",
+    "slug": "sorvete-sorvete-de-duas-bolas-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 247,
+    "filename": "247-sorvete-sorvete-de-duas-bolas-com-cereja-no-topo__double_scoop_ice_cream_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/247-sorvete-sorvete-de-duas-bolas-com-cereja-no-topo__double_scoop_ice_cream_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete de duas bolas com cereja no topo",
+    "en": "Double scoop ice cream decorated with a cherry on top",
+    "slug": "sorvete-sorvete-de-duas-bolas-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 248,
+    "filename": "248-sorvete-sorvete-de-duas-bolas-com-guarda-chuva-colorido__double_scoop_ice_cream_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/248-sorvete-sorvete-de-duas-bolas-com-guarda-chuva-colorido__double_scoop_ice_cream_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete de duas bolas com guarda chuva colorido",
+    "en": "Double scoop ice cream with a colorful umbrella",
+    "slug": "sorvete-sorvete-de-duas-bolas-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 249,
+    "filename": "249-sorvete-sorvete-de-duas-bolas-com-granulado-doce__double_scoop_ice_cream_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/249-sorvete-sorvete-de-duas-bolas-com-granulado-doce__double_scoop_ice_cream_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete de duas bolas com granulado doce",
+    "en": "Double scoop ice cream sprinkled with toppings",
+    "slug": "sorvete-sorvete-de-duas-bolas-com-granulado-doce",
     "tier": "free",
     "isNew": false
   },
@@ -17160,6 +17292,116 @@
     "isNew": false
   },
   {
+    "index": 250,
+    "filename": "250-sorvete-sorvete-de-duas-bolas-na-taca-de-vidro__double_scoop_ice_cream_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/250-sorvete-sorvete-de-duas-bolas-na-taca-de-vidro__double_scoop_ice_cream_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete de duas bolas na taca de vidro",
+    "en": "Double scoop ice cream sitting in a sweet glass",
+    "slug": "sorvete-sorvete-de-duas-bolas-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 251,
+    "filename": "251-sorvete-sorvete-de-duas-bolas-sorrindo-alegre__double_scoop_ice_cream_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/251-sorvete-sorvete-de-duas-bolas-sorrindo-alegre__double_scoop_ice_cream_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete de duas bolas sorrindo alegre",
+    "en": "Double scoop ice cream smiling with cute eyes",
+    "slug": "sorvete-sorvete-de-duas-bolas-sorrindo-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 252,
+    "filename": "252-sorvete-picole-refrescante-com-rosto-alegre__popsicle_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/252-sorvete-picole-refrescante-com-rosto-alegre__popsicle_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole refrescante com rosto alegre",
+    "en": "Popsicle with a happy cartoon face",
+    "slug": "sorvete-picole-refrescante-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 253,
+    "filename": "253-sorvete-picole-refrescante-derretendo-no-calor__popsicle_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/253-sorvete-picole-refrescante-derretendo-no-calor__popsicle_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole refrescante derretendo no calor",
+    "en": "Popsicle dripping slowly in the summer sun",
+    "slug": "sorvete-picole-refrescante-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 254,
+    "filename": "254-sorvete-picole-refrescante-com-cereja-no-topo__popsicle_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/254-sorvete-picole-refrescante-com-cereja-no-topo__popsicle_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole refrescante com cereja no topo",
+    "en": "Popsicle decorated with a cherry on top",
+    "slug": "sorvete-picole-refrescante-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 255,
+    "filename": "255-sorvete-picole-refrescante-com-guarda-chuva-colorido__popsicle_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/255-sorvete-picole-refrescante-com-guarda-chuva-colorido__popsicle_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole refrescante com guarda chuva colorido",
+    "en": "Popsicle with a colorful umbrella",
+    "slug": "sorvete-picole-refrescante-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 256,
+    "filename": "256-sorvete-picole-refrescante-com-granulado-doce__popsicle_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/256-sorvete-picole-refrescante-com-granulado-doce__popsicle_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole refrescante com granulado doce",
+    "en": "Popsicle sprinkled with toppings",
+    "slug": "sorvete-picole-refrescante-com-granulado-doce",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 257,
+    "filename": "257-sorvete-picole-refrescante-na-taca-de-vidro__popsicle_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/257-sorvete-picole-refrescante-na-taca-de-vidro__popsicle_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole refrescante na taca de vidro",
+    "en": "Popsicle sitting in a sweet glass",
+    "slug": "sorvete-picole-refrescante-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 258,
+    "filename": "258-sorvete-picole-refrescante-sorrindo-alegre__popsicle_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/258-sorvete-picole-refrescante-sorrindo-alegre__popsicle_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole refrescante sorrindo alegre",
+    "en": "Popsicle smiling with cute eyes",
+    "slug": "sorvete-picole-refrescante-sorrindo-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 259,
+    "filename": "259-sorvete-taca-de-sorvete-com-rosto-alegre__ice_cream_sundae_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/259-sorvete-taca-de-sorvete-com-rosto-alegre__ice_cream_sundae_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete taca de sorvete com rosto alegre",
+    "en": "Ice cream sundae with a happy cartoon face",
+    "slug": "sorvete-taca-de-sorvete-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 26,
     "filename": "26-pipoca-com-granulado__popcorn.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/26-pipoca-com-granulado__popcorn.png",
@@ -17171,6 +17413,116 @@
     "isNew": true
   },
   {
+    "index": 260,
+    "filename": "260-sorvete-taca-de-sorvete-derretendo-no-calor__ice_cream_sundae_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/260-sorvete-taca-de-sorvete-derretendo-no-calor__ice_cream_sundae_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete taca de sorvete derretendo no calor",
+    "en": "Ice cream sundae dripping slowly in the summer sun",
+    "slug": "sorvete-taca-de-sorvete-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 261,
+    "filename": "261-sorvete-taca-de-sorvete-com-cereja-no-topo__ice_cream_sundae_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/261-sorvete-taca-de-sorvete-com-cereja-no-topo__ice_cream_sundae_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete taca de sorvete com cereja no topo",
+    "en": "Ice cream sundae decorated with a cherry on top",
+    "slug": "sorvete-taca-de-sorvete-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 262,
+    "filename": "262-sorvete-taca-de-sorvete-com-guarda-chuva-colorido__ice_cream_sundae_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/262-sorvete-taca-de-sorvete-com-guarda-chuva-colorido__ice_cream_sundae_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete taca de sorvete com guarda chuva colorido",
+    "en": "Ice cream sundae with a colorful umbrella",
+    "slug": "sorvete-taca-de-sorvete-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 263,
+    "filename": "263-sorvete-taca-de-sorvete-com-granulado-doce__ice_cream_sundae_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/263-sorvete-taca-de-sorvete-com-granulado-doce__ice_cream_sundae_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete taca de sorvete com granulado doce",
+    "en": "Ice cream sundae sprinkled with toppings",
+    "slug": "sorvete-taca-de-sorvete-com-granulado-doce",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 264,
+    "filename": "264-sorvete-taca-de-sorvete-na-taca-de-vidro__ice_cream_sundae_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/264-sorvete-taca-de-sorvete-na-taca-de-vidro__ice_cream_sundae_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete taca de sorvete na taca de vidro",
+    "en": "Ice cream sundae sitting in a sweet glass",
+    "slug": "sorvete-taca-de-sorvete-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 265,
+    "filename": "265-sorvete-taca-de-sorvete-sorrindo-alegre__ice_cream_sundae_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/265-sorvete-taca-de-sorvete-sorrindo-alegre__ice_cream_sundae_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete taca de sorvete sorrindo alegre",
+    "en": "Ice cream sundae smiling with cute eyes",
+    "slug": "sorvete-taca-de-sorvete-sorrindo-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 266,
+    "filename": "266-sorvete-milkshake-gostoso-com-rosto-alegre__milkshake_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/266-sorvete-milkshake-gostoso-com-rosto-alegre__milkshake_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete milkshake gostoso com rosto alegre",
+    "en": "Milkshake with a happy cartoon face",
+    "slug": "sorvete-milkshake-gostoso-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 267,
+    "filename": "267-sorvete-milkshake-gostoso-derretendo-no-calor__milkshake_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/267-sorvete-milkshake-gostoso-derretendo-no-calor__milkshake_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete milkshake gostoso derretendo no calor",
+    "en": "Milkshake dripping slowly in the summer sun",
+    "slug": "sorvete-milkshake-gostoso-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 268,
+    "filename": "268-sorvete-milkshake-gostoso-com-cereja-no-topo__milkshake_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/268-sorvete-milkshake-gostoso-com-cereja-no-topo__milkshake_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete milkshake gostoso com cereja no topo",
+    "en": "Milkshake decorated with a cherry on top",
+    "slug": "sorvete-milkshake-gostoso-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 269,
+    "filename": "269-sorvete-milkshake-gostoso-com-guarda-chuva-colorido__milkshake_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/269-sorvete-milkshake-gostoso-com-guarda-chuva-colorido__milkshake_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete milkshake gostoso com guarda chuva colorido",
+    "en": "Milkshake with a colorful umbrella",
+    "slug": "sorvete-milkshake-gostoso-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 27,
     "filename": "27-pao-com-granulado__bread.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/27-pao-com-granulado__bread.png",
@@ -17178,6 +17530,116 @@
     "pt": "Pao com granulado",
     "en": "Bread",
     "slug": "pao-com-granulado",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 270,
+    "filename": "270-sorvete-milkshake-gostoso-com-granulado-doce__milkshake_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/270-sorvete-milkshake-gostoso-com-granulado-doce__milkshake_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete milkshake gostoso com granulado doce",
+    "en": "Milkshake sprinkled with toppings",
+    "slug": "sorvete-milkshake-gostoso-com-granulado-doce",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 271,
+    "filename": "271-sorvete-milkshake-gostoso-na-taca-de-vidro__milkshake_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/271-sorvete-milkshake-gostoso-na-taca-de-vidro__milkshake_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete milkshake gostoso na taca de vidro",
+    "en": "Milkshake sitting in a sweet glass",
+    "slug": "sorvete-milkshake-gostoso-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 272,
+    "filename": "272-sorvete-milkshake-gostoso-sorrindo-alegre__milkshake_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/272-sorvete-milkshake-gostoso-sorrindo-alegre__milkshake_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete milkshake gostoso sorrindo alegre",
+    "en": "Milkshake smiling with cute eyes",
+    "slug": "sorvete-milkshake-gostoso-sorrindo-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 273,
+    "filename": "273-sorvete-sorvete-no-copinho-com-rosto-alegre__gelato_cup_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/273-sorvete-sorvete-no-copinho-com-rosto-alegre__gelato_cup_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete no copinho com rosto alegre",
+    "en": "Gelato cup with a happy cartoon face",
+    "slug": "sorvete-sorvete-no-copinho-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 274,
+    "filename": "274-sorvete-sorvete-no-copinho-derretendo-no-calor__gelato_cup_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/274-sorvete-sorvete-no-copinho-derretendo-no-calor__gelato_cup_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete no copinho derretendo no calor",
+    "en": "Gelato cup dripping slowly in the summer sun",
+    "slug": "sorvete-sorvete-no-copinho-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 275,
+    "filename": "275-sorvete-sorvete-no-copinho-com-cereja-no-topo__gelato_cup_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/275-sorvete-sorvete-no-copinho-com-cereja-no-topo__gelato_cup_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete no copinho com cereja no topo",
+    "en": "Gelato cup decorated with a cherry on top",
+    "slug": "sorvete-sorvete-no-copinho-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 276,
+    "filename": "276-sorvete-sorvete-no-copinho-com-guarda-chuva-colorido__gelato_cup_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/276-sorvete-sorvete-no-copinho-com-guarda-chuva-colorido__gelato_cup_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete no copinho com guarda chuva colorido",
+    "en": "Gelato cup with a colorful umbrella",
+    "slug": "sorvete-sorvete-no-copinho-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 277,
+    "filename": "277-sorvete-sorvete-no-copinho-com-granulado-doce__gelato_cup_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/277-sorvete-sorvete-no-copinho-com-granulado-doce__gelato_cup_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete no copinho com granulado doce",
+    "en": "Gelato cup sprinkled with toppings",
+    "slug": "sorvete-sorvete-no-copinho-com-granulado-doce",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 278,
+    "filename": "278-sorvete-sorvete-no-copinho-na-taca-de-vidro__gelato_cup_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/278-sorvete-sorvete-no-copinho-na-taca-de-vidro__gelato_cup_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete no copinho na taca de vidro",
+    "en": "Gelato cup sitting in a sweet glass",
+    "slug": "sorvete-sorvete-no-copinho-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 279,
+    "filename": "279-sorvete-sorvete-no-copinho-sorrindo-alegre__gelato_cup_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/279-sorvete-sorvete-no-copinho-sorrindo-alegre__gelato_cup_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete no copinho sorrindo alegre",
+    "en": "Gelato cup smiling with cute eyes",
+    "slug": "sorvete-sorvete-no-copinho-sorrindo-alegre",
     "tier": "free",
     "isNew": false
   },
@@ -17193,6 +17655,116 @@
     "isNew": false
   },
   {
+    "index": 280,
+    "filename": "280-sorvete-sorvete-na-casquinha-waffle-com-rosto-alegre__waffle_cone_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/280-sorvete-sorvete-na-casquinha-waffle-com-rosto-alegre__waffle_cone_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete na casquinha waffle com rosto alegre",
+    "en": "Waffle cone with a happy cartoon face",
+    "slug": "sorvete-sorvete-na-casquinha-waffle-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 281,
+    "filename": "281-sorvete-sorvete-na-casquinha-waffle-derretendo-no-calor__waffle_cone_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/281-sorvete-sorvete-na-casquinha-waffle-derretendo-no-calor__waffle_cone_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete na casquinha waffle derretendo no calor",
+    "en": "Waffle cone dripping slowly in the summer sun",
+    "slug": "sorvete-sorvete-na-casquinha-waffle-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 282,
+    "filename": "282-sorvete-sorvete-na-casquinha-waffle-com-cereja-no-topo__waffle_cone_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/282-sorvete-sorvete-na-casquinha-waffle-com-cereja-no-topo__waffle_cone_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete na casquinha waffle com cereja no topo",
+    "en": "Waffle cone decorated with a cherry on top",
+    "slug": "sorvete-sorvete-na-casquinha-waffle-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 283,
+    "filename": "283-sorvete-sorvete-na-casquinha-waffle-com-guarda-chuva-colorido__waffle_cone_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/283-sorvete-sorvete-na-casquinha-waffle-com-guarda-chuva-colorido__waffle_cone_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete na casquinha waffle com guarda chuva colorido",
+    "en": "Waffle cone with a colorful umbrella",
+    "slug": "sorvete-sorvete-na-casquinha-waffle-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 284,
+    "filename": "284-sorvete-sorvete-na-casquinha-waffle-com-granulado-doce__waffle_cone_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/284-sorvete-sorvete-na-casquinha-waffle-com-granulado-doce__waffle_cone_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete na casquinha waffle com granulado doce",
+    "en": "Waffle cone sprinkled with toppings",
+    "slug": "sorvete-sorvete-na-casquinha-waffle-com-granulado-doce",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 285,
+    "filename": "285-sorvete-sorvete-na-casquinha-waffle-na-taca-de-vidro__waffle_cone_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/285-sorvete-sorvete-na-casquinha-waffle-na-taca-de-vidro__waffle_cone_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete na casquinha waffle na taca de vidro",
+    "en": "Waffle cone sitting in a sweet glass",
+    "slug": "sorvete-sorvete-na-casquinha-waffle-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 286,
+    "filename": "286-sorvete-sorvete-na-casquinha-waffle-sorrindo-alegre__waffle_cone_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/286-sorvete-sorvete-na-casquinha-waffle-sorrindo-alegre__waffle_cone_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete na casquinha waffle sorrindo alegre",
+    "en": "Waffle cone smiling with cute eyes",
+    "slug": "sorvete-sorvete-na-casquinha-waffle-sorrindo-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 287,
+    "filename": "287-sorvete-sorvete-palito-com-rosto-alegre__ice_cream_bar_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/287-sorvete-sorvete-palito-com-rosto-alegre__ice_cream_bar_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete palito com rosto alegre",
+    "en": "Ice cream bar with a happy cartoon face",
+    "slug": "sorvete-sorvete-palito-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 288,
+    "filename": "288-sorvete-sorvete-palito-derretendo-no-calor__ice_cream_bar_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/288-sorvete-sorvete-palito-derretendo-no-calor__ice_cream_bar_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete palito derretendo no calor",
+    "en": "Ice cream bar dripping slowly in the summer sun",
+    "slug": "sorvete-sorvete-palito-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 289,
+    "filename": "289-sorvete-sorvete-palito-com-cereja-no-topo__ice_cream_bar_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/289-sorvete-sorvete-palito-com-cereja-no-topo__ice_cream_bar_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete palito com cereja no topo",
+    "en": "Ice cream bar decorated with a cherry on top",
+    "slug": "sorvete-sorvete-palito-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 29,
     "filename": "29-cereja-com-granulado__cherries.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/29-cereja-com-granulado__cherries.png",
@@ -17202,6 +17774,116 @@
     "slug": "cereja-com-granulado",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 290,
+    "filename": "290-sorvete-sorvete-palito-com-guarda-chuva-colorido__ice_cream_bar_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/290-sorvete-sorvete-palito-com-guarda-chuva-colorido__ice_cream_bar_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete palito com guarda chuva colorido",
+    "en": "Ice cream bar with a colorful umbrella",
+    "slug": "sorvete-sorvete-palito-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 291,
+    "filename": "291-sorvete-sorvete-palito-com-granulado-doce__ice_cream_bar_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/291-sorvete-sorvete-palito-com-granulado-doce__ice_cream_bar_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete palito com granulado doce",
+    "en": "Ice cream bar sprinkled with toppings",
+    "slug": "sorvete-sorvete-palito-com-granulado-doce",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 292,
+    "filename": "292-sorvete-sorvete-palito-na-taca-de-vidro__ice_cream_bar_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/292-sorvete-sorvete-palito-na-taca-de-vidro__ice_cream_bar_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete palito na taca de vidro",
+    "en": "Ice cream bar sitting in a sweet glass",
+    "slug": "sorvete-sorvete-palito-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 293,
+    "filename": "293-sorvete-sorvete-palito-sorrindo-alegre__ice_cream_bar_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/293-sorvete-sorvete-palito-sorrindo-alegre__ice_cream_bar_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete palito sorrindo alegre",
+    "en": "Ice cream bar smiling with cute eyes",
+    "slug": "sorvete-sorvete-palito-sorrindo-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 294,
+    "filename": "294-sorvete-sorvete-italiano-cone-com-rosto-alegre__soft_serve_cone_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/294-sorvete-sorvete-italiano-cone-com-rosto-alegre__soft_serve_cone_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete italiano cone com rosto alegre",
+    "en": "Soft serve cone with a happy cartoon face",
+    "slug": "sorvete-sorvete-italiano-cone-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 295,
+    "filename": "295-sorvete-sorvete-italiano-cone-derretendo-no-calor__soft_serve_cone_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/295-sorvete-sorvete-italiano-cone-derretendo-no-calor__soft_serve_cone_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete italiano cone derretendo no calor",
+    "en": "Soft serve cone dripping slowly in the summer sun",
+    "slug": "sorvete-sorvete-italiano-cone-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 296,
+    "filename": "296-sorvete-sorvete-italiano-cone-com-cereja-no-topo__soft_serve_cone_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/296-sorvete-sorvete-italiano-cone-com-cereja-no-topo__soft_serve_cone_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete italiano cone com cereja no topo",
+    "en": "Soft serve cone decorated with a cherry on top",
+    "slug": "sorvete-sorvete-italiano-cone-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 297,
+    "filename": "297-sorvete-sorvete-italiano-cone-com-guarda-chuva-colorido__soft_serve_cone_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/297-sorvete-sorvete-italiano-cone-com-guarda-chuva-colorido__soft_serve_cone_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete italiano cone com guarda chuva colorido",
+    "en": "Soft serve cone with a colorful umbrella",
+    "slug": "sorvete-sorvete-italiano-cone-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 298,
+    "filename": "298-sorvete-sorvete-italiano-cone-com-granulado-doce__soft_serve_cone_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/298-sorvete-sorvete-italiano-cone-com-granulado-doce__soft_serve_cone_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete italiano cone com granulado doce",
+    "en": "Soft serve cone sprinkled with toppings",
+    "slug": "sorvete-sorvete-italiano-cone-com-granulado-doce",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 299,
+    "filename": "299-sorvete-sorvete-italiano-cone-na-taca-de-vidro__soft_serve_cone_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/299-sorvete-sorvete-italiano-cone-na-taca-de-vidro__soft_serve_cone_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete italiano cone na taca de vidro",
+    "en": "Soft serve cone sitting in a sweet glass",
+    "slug": "sorvete-sorvete-italiano-cone-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 30,
@@ -17215,6 +17897,116 @@
     "isNew": false
   },
   {
+    "index": 300,
+    "filename": "300-sorvete-sorvete-italiano-cone-sorrindo-alegre__soft_serve_cone_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/300-sorvete-sorvete-italiano-cone-sorrindo-alegre__soft_serve_cone_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete sorvete italiano cone sorrindo alegre",
+    "en": "Soft serve cone smiling with cute eyes",
+    "slug": "sorvete-sorvete-italiano-cone-sorrindo-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 301,
+    "filename": "301-sorvete-picole-de-desenho-com-rosto-alegre__funny_cartoon_popsicle_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/301-sorvete-picole-de-desenho-com-rosto-alegre__funny_cartoon_popsicle_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole de desenho com rosto alegre",
+    "en": "Funny cartoon popsicle with a happy cartoon face",
+    "slug": "sorvete-picole-de-desenho-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 302,
+    "filename": "302-sorvete-picole-de-desenho-derretendo-no-calor__funny_cartoon_popsicle_dripping_slowly_in_the_summer_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/302-sorvete-picole-de-desenho-derretendo-no-calor__funny_cartoon_popsicle_dripping_slowly_in_the_summer_sun.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole de desenho derretendo no calor",
+    "en": "Funny cartoon popsicle dripping slowly in the summer sun",
+    "slug": "sorvete-picole-de-desenho-derretendo-no-calor",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 303,
+    "filename": "303-sorvete-picole-de-desenho-com-cereja-no-topo__funny_cartoon_popsicle_decorated_with_a_cherry_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/303-sorvete-picole-de-desenho-com-cereja-no-topo__funny_cartoon_popsicle_decorated_with_a_cherry_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole de desenho com cereja no topo",
+    "en": "Funny cartoon popsicle decorated with a cherry on top",
+    "slug": "sorvete-picole-de-desenho-com-cereja-no-topo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 304,
+    "filename": "304-sorvete-picole-de-desenho-com-guarda-chuva-colorido__funny_cartoon_popsicle_with_a_colorful_umbrella.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/304-sorvete-picole-de-desenho-com-guarda-chuva-colorido__funny_cartoon_popsicle_with_a_colorful_umbrella.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole de desenho com guarda chuva colorido",
+    "en": "Funny cartoon popsicle with a colorful umbrella",
+    "slug": "sorvete-picole-de-desenho-com-guarda-chuva-colorido",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 305,
+    "filename": "305-sorvete-picole-de-desenho-com-granulado-doce__funny_cartoon_popsicle_sprinkled_with_toppings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/305-sorvete-picole-de-desenho-com-granulado-doce__funny_cartoon_popsicle_sprinkled_with_toppings.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole de desenho com granulado doce",
+    "en": "Funny cartoon popsicle sprinkled with toppings",
+    "slug": "sorvete-picole-de-desenho-com-granulado-doce",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 306,
+    "filename": "306-sorvete-picole-de-desenho-na-taca-de-vidro__funny_cartoon_popsicle_sitting_in_a_sweet_glass.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/306-sorvete-picole-de-desenho-na-taca-de-vidro__funny_cartoon_popsicle_sitting_in_a_sweet_glass.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole de desenho na taca de vidro",
+    "en": "Funny cartoon popsicle sitting in a sweet glass",
+    "slug": "sorvete-picole-de-desenho-na-taca-de-vidro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 307,
+    "filename": "307-sorvete-picole-de-desenho-sorrindo-alegre__funny_cartoon_popsicle_smiling_with_cute_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/307-sorvete-picole-de-desenho-sorrindo-alegre__funny_cartoon_popsicle_smiling_with_cute_eyes.png",
+    "category": "comidas-e-doces",
+    "pt": "Sorvete picole de desenho sorrindo alegre",
+    "en": "Funny cartoon popsicle smiling with cute eyes",
+    "slug": "sorvete-picole-de-desenho-sorrindo-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 308,
+    "filename": "308-bolo-bolo-de-aniversario-com-velas-acesas__birthday_cake_with_burning_candles_on_top.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/308-bolo-bolo-de-aniversario-com-velas-acesas__birthday_cake_with_burning_candles_on_top.png",
+    "category": "comidas-e-doces",
+    "pt": "Bolo bolo de aniversario com velas acesas",
+    "en": "Birthday cake with burning candles on top",
+    "slug": "bolo-bolo-de-aniversario-com-velas-acesas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 309,
+    "filename": "309-bolo-bolo-de-aniversario-com-cobertura-e-granulado__birthday_cake_decorated_with_frosting_and_sprinkles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/309-bolo-bolo-de-aniversario-com-cobertura-e-granulado__birthday_cake_decorated_with_frosting_and_sprinkles.png",
+    "category": "comidas-e-doces",
+    "pt": "Bolo bolo de aniversario com cobertura e granulado",
+    "en": "Birthday cake decorated with frosting and sprinkles",
+    "slug": "bolo-bolo-de-aniversario-com-cobertura-e-granulado",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 31,
     "filename": "31-cupcake-sorrindo__cupcake.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/31-cupcake-sorrindo__cupcake.png",
@@ -17222,6 +18014,61 @@
     "pt": "Cupcake sorrindo",
     "en": "Cupcake",
     "slug": "cupcake-sorrindo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 310,
+    "filename": "310-bolo-bolo-de-aniversario-no-prato-de-bolo__birthday_cake_sitting_on_a_cake_stand.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/310-bolo-bolo-de-aniversario-no-prato-de-bolo__birthday_cake_sitting_on_a_cake_stand.png",
+    "category": "comidas-e-doces",
+    "pt": "Bolo bolo de aniversario no prato de bolo",
+    "en": "Birthday cake sitting on a cake stand",
+    "slug": "bolo-bolo-de-aniversario-no-prato-de-bolo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 311,
+    "filename": "311-bolo-bolo-de-aniversario-com-faixa-de-parabens__birthday_cake_with_a_happy_birthday_banner.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/311-bolo-bolo-de-aniversario-com-faixa-de-parabens__birthday_cake_with_a_happy_birthday_banner.png",
+    "category": "comidas-e-doces",
+    "pt": "Bolo bolo de aniversario com faixa de parabens",
+    "en": "Birthday cake with a happy birthday banner",
+    "slug": "bolo-bolo-de-aniversario-com-faixa-de-parabens",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 312,
+    "filename": "312-bolo-bolo-de-aniversario-sendo-cortado__birthday_cake_being_sliced_with_a_server.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/312-bolo-bolo-de-aniversario-sendo-cortado__birthday_cake_being_sliced_with_a_server.png",
+    "category": "comidas-e-doces",
+    "pt": "Bolo bolo de aniversario sendo cortado",
+    "en": "Birthday cake being sliced with a server",
+    "slug": "bolo-bolo-de-aniversario-sendo-cortado",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 313,
+    "filename": "313-bolo-bolo-de-aniversario-com-caixas-de-presente__birthday_cake_surrounded_by_gift_boxes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/313-bolo-bolo-de-aniversario-com-caixas-de-presente__birthday_cake_surrounded_by_gift_boxes.png",
+    "category": "comidas-e-doces",
+    "pt": "Bolo bolo de aniversario com caixas de presente",
+    "en": "Birthday cake surrounded by gift boxes",
+    "slug": "bolo-bolo-de-aniversario-com-caixas-de-presente",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 314,
+    "filename": "314-bolo-bolo-de-aniversario-sorrindo-feliz__birthday_cake_smiling_with_a_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/314-bolo-bolo-de-aniversario-sorrindo-feliz__birthday_cake_smiling_with_a_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Bolo bolo de aniversario sorrindo feliz",
+    "en": "Birthday cake smiling with a cartoon face",
+    "slug": "bolo-bolo-de-aniversario-sorrindo-feliz",
     "tier": "free",
     "isNew": false
   },
@@ -86699,7 +87546,7 @@
     "en": "Overhead crane lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-de-ponte-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 334,
@@ -86710,7 +87557,7 @@
     "en": "Overhead crane loading a cargo ship",
     "slug": "guindaste-guindaste-de-ponte-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 335,
@@ -86721,7 +87568,7 @@
     "en": "Overhead crane parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-de-ponte-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 336,
@@ -86732,7 +87579,7 @@
     "en": "Overhead crane moving a heavy concrete block",
     "slug": "guindaste-guindaste-de-ponte-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 337,
@@ -86743,7 +87590,7 @@
     "en": "Overhead crane working under a sunny sky",
     "slug": "guindaste-guindaste-de-ponte-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 338,
@@ -86754,7 +87601,7 @@
     "en": "Overhead crane waving its long arm",
     "slug": "guindaste-guindaste-de-ponte-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 339,
@@ -86765,7 +87612,7 @@
     "en": "Cute toy crane lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-de-brinquedo-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 34,
@@ -86787,7 +87634,7 @@
     "en": "Cute toy crane loading a cargo ship",
     "slug": "guindaste-guindaste-de-brinquedo-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 341,
@@ -86798,7 +87645,7 @@
     "en": "Cute toy crane parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-de-brinquedo-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 342,
@@ -86809,7 +87656,7 @@
     "en": "Cute toy crane moving a heavy concrete block",
     "slug": "guindaste-guindaste-de-brinquedo-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 343,
@@ -86820,7 +87667,7 @@
     "en": "Cute toy crane working under a sunny sky",
     "slug": "guindaste-guindaste-de-brinquedo-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 344,
@@ -86831,7 +87678,7 @@
     "en": "Cute toy crane waving its long arm",
     "slug": "guindaste-guindaste-de-brinquedo-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 345,
@@ -86842,7 +87689,7 @@
     "en": "Friendly cartoon crane lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-de-desenho-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 346,
@@ -86853,7 +87700,7 @@
     "en": "Friendly cartoon crane loading a cargo ship",
     "slug": "guindaste-guindaste-de-desenho-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 347,
@@ -86864,7 +87711,7 @@
     "en": "Friendly cartoon crane parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-de-desenho-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 348,
@@ -86875,7 +87722,7 @@
     "en": "Friendly cartoon crane moving a heavy concrete block",
     "slug": "guindaste-guindaste-de-desenho-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 349,
@@ -86886,7 +87733,7 @@
     "en": "Friendly cartoon crane working under a sunny sky",
     "slug": "guindaste-guindaste-de-desenho-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 35,
@@ -86908,7 +87755,7 @@
     "en": "Friendly cartoon crane waving its long arm",
     "slug": "guindaste-guindaste-de-desenho-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 351,
@@ -86919,7 +87766,7 @@
     "en": "Construction crane lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-de-construcao-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 352,
@@ -86930,7 +87777,7 @@
     "en": "Construction crane loading a cargo ship",
     "slug": "guindaste-guindaste-de-construcao-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 353,
@@ -86941,7 +87788,7 @@
     "en": "Construction crane parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-de-construcao-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 354,
@@ -86952,7 +87799,7 @@
     "en": "Construction crane moving a heavy concrete block",
     "slug": "guindaste-guindaste-de-construcao-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 355,
@@ -86963,7 +87810,7 @@
     "en": "Construction crane working under a sunny sky",
     "slug": "guindaste-guindaste-de-construcao-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 356,
@@ -86974,7 +87821,7 @@
     "en": "Construction crane waving its long arm",
     "slug": "guindaste-guindaste-de-construcao-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 357,
@@ -86985,7 +87832,7 @@
     "en": "Lifting hoist lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-elevador-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 358,
@@ -86996,7 +87843,7 @@
     "en": "Lifting hoist loading a cargo ship",
     "slug": "guindaste-guindaste-elevador-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 359,
@@ -87007,7 +87854,7 @@
     "en": "Lifting hoist parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-elevador-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 36,
@@ -87040,7 +87887,7 @@
     "en": "Lifting hoist moving a heavy concrete block",
     "slug": "guindaste-guindaste-elevador-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 361,
@@ -87051,7 +87898,7 @@
     "en": "Lifting hoist working under a sunny sky",
     "slug": "guindaste-guindaste-elevador-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 362,
@@ -87062,7 +87909,7 @@
     "en": "Lifting hoist waving its long arm",
     "slug": "guindaste-guindaste-elevador-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 363,
@@ -87073,7 +87920,7 @@
     "en": "Bulldozer mixing fresh concrete",
     "slug": "obra-trator-bulldozer-misturando-cimento",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 364,
@@ -87084,7 +87931,7 @@
     "en": "Bulldozer leveling a new road",
     "slug": "obra-trator-bulldozer-nivelando-a-estrada",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 365,
@@ -87095,7 +87942,7 @@
     "en": "Bulldozer dumping a load of gravel",
     "slug": "obra-trator-bulldozer-descarregando-cascalho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 366,
@@ -87106,7 +87953,7 @@
     "en": "Bulldozer carrying building blocks",
     "slug": "obra-trator-bulldozer-levando-blocos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 367,
@@ -87117,7 +87964,7 @@
     "en": "Bulldozer wearing a yellow hard hat",
     "slug": "obra-trator-bulldozer-com-capacete-amarelo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 368,
@@ -87128,7 +87975,7 @@
     "en": "Bulldozer working on a building frame",
     "slug": "obra-trator-bulldozer-na-estrutura-do-predio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 369,
@@ -87139,7 +87986,7 @@
     "en": "Cement mixer truck mixing fresh concrete",
     "slug": "obra-caminhao-betoneira-misturando-cimento",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 37,
@@ -87161,7 +88008,7 @@
     "en": "Cement mixer truck leveling a new road",
     "slug": "obra-caminhao-betoneira-nivelando-a-estrada",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 371,
@@ -87172,7 +88019,7 @@
     "en": "Cement mixer truck dumping a load of gravel",
     "slug": "obra-caminhao-betoneira-descarregando-cascalho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 372,
@@ -87183,7 +88030,7 @@
     "en": "Cement mixer truck carrying building blocks",
     "slug": "obra-caminhao-betoneira-levando-blocos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 373,
@@ -87194,7 +88041,7 @@
     "en": "Cement mixer truck wearing a yellow hard hat",
     "slug": "obra-caminhao-betoneira-com-capacete-amarelo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 374,
@@ -87205,7 +88052,7 @@
     "en": "Cement mixer truck working on a building frame",
     "slug": "obra-caminhao-betoneira-na-estrutura-do-predio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 375,
@@ -87216,7 +88063,7 @@
     "en": "Road roller mixing fresh concrete",
     "slug": "obra-rolo-compressor-misturando-cimento",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 376,
@@ -87227,7 +88074,7 @@
     "en": "Road roller leveling a new road",
     "slug": "obra-rolo-compressor-nivelando-a-estrada",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 377,
@@ -87238,7 +88085,7 @@
     "en": "Road roller dumping a load of gravel",
     "slug": "obra-rolo-compressor-descarregando-cascalho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 378,
@@ -87249,7 +88096,7 @@
     "en": "Road roller carrying building blocks",
     "slug": "obra-rolo-compressor-levando-blocos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 379,
@@ -87260,7 +88107,7 @@
     "en": "Road roller wearing a yellow hard hat",
     "slug": "obra-rolo-compressor-com-capacete-amarelo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 38,
@@ -87282,7 +88129,7 @@
     "en": "Road roller working on a building frame",
     "slug": "obra-rolo-compressor-na-estrutura-do-predio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 381,
@@ -87293,7 +88140,7 @@
     "en": "Dump truck mixing fresh concrete",
     "slug": "obra-caminhao-basculante-misturando-cimento",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 382,
@@ -87304,7 +88151,7 @@
     "en": "Dump truck leveling a new road",
     "slug": "obra-caminhao-basculante-nivelando-a-estrada",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 383,
