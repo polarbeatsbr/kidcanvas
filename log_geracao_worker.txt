@@ -109,3 +109,58 @@
 [2026-06-17 08:22:41] Rebuilding catalog and drawings database...
 [2026-06-17 08:22:42] Build successful!
 [2026-06-17 08:22:42] Committing and pushing to origin main...
+[2026-06-17 08:22:45] Push successful! Vercel will deploy in production.
+[2026-06-17 08:22:47] [101/280] Generated: fazenda/101-fazenda-burrinho-amigavel-comendo-grama__friendly_donkey_eating_grass_in_the_meadow.png
+[2026-06-17 08:22:48] [102/280] Generated: fazenda/102-fazenda-burrinho-amigavel-brincando-na-lama__friendly_donkey_playing_in_the_mud.png
+[2026-06-17 08:22:50] [103/280] Generated: fazenda/103-fazenda-burrinho-amigavel-perto-da-cerca-de-madeira__friendly_donkey_standing_near_a_wooden_fence.png
+[2026-06-17 08:22:51] [104/280] Generated: fazenda/104-fazenda-burrinho-amigavel-acenando-amigavel__friendly_donkey_waving_friendly_to_kids.png
+[2026-06-17 08:22:53] [105/280] Generated: fazenda/105-fazenda-burrinho-amigavel-sorrindo-sob-o-sol__friendly_donkey_smiling_under_a_sunny_sky.png
+[2026-06-17 08:22:54] [106/280] Generated: fazenda/106-fazenda-burrinho-amigavel-perto-do-monte-de-feno__friendly_donkey_sitting_next_to_a_haystack.png
+[2026-06-17 08:22:55] [107/280] Generated: fazenda/107-fazenda-burrinho-amigavel-olhando-da-porta-do-celeiro__friendly_donkey_peeking_out_of_the_barn_door.png
+[2026-06-17 08:22:57] [108/280] Generated: fazenda/109-fazenda-burrinho-amigavel-com-chapeu-de-palha__friendly_donkey_wearing_a_tiny_straw_hat.png
+[2026-06-17 08:22:59] [109/280] Generated: fazenda/108-fazenda-burrinho-amigavel-com-girassois-ao-redor__friendly_donkey_surrounded_by_yellow_sunflowers.png
+[2026-06-17 08:23:00] [110/280] Generated: fazenda/110-fazenda-burrinho-amigavel-dormindo-tranquilo__friendly_donkey_sleeping_peacefully.png
+[2026-06-17 08:23:01] [111/280] Generated: fazenda/111-fazenda-cabra-de-fazenda-comendo-grama__farm_goat_eating_grass_in_the_meadow.png
+[2026-06-17 08:23:02] [112/280] Generated: fazenda/112-fazenda-cabra-de-fazenda-brincando-na-lama__farm_goat_playing_in_the_mud.png
+[2026-06-17 08:23:03] [113/280] Generated: fazenda/113-fazenda-cabra-de-fazenda-perto-da-cerca-de-madeira__farm_goat_standing_near_a_wooden_fence.png
+[2026-06-17 08:23:05] [114/280] Generated: fazenda/114-fazenda-cabra-de-fazenda-acenando-amigavel__farm_goat_waving_friendly_to_kids.png
+[2026-06-17 08:23:06] [115/280] Generated: fazenda/115-fazenda-cabra-de-fazenda-sorrindo-sob-o-sol__farm_goat_smiling_under_a_sunny_sky.png
+[2026-06-17 08:23:07] [116/280] Generated: fazenda/116-fazenda-cabra-de-fazenda-perto-do-monte-de-feno__farm_goat_sitting_next_to_a_haystack.png
+[2026-06-17 08:23:08] [117/280] Generated: fazenda/117-fazenda-cabra-de-fazenda-olhando-da-porta-do-celeiro__farm_goat_peeking_out_of_the_barn_door.png
+[2026-06-17 08:23:10] [118/280] Generated: fazenda/119-fazenda-cabra-de-fazenda-com-chapeu-de-palha__farm_goat_wearing_a_tiny_straw_hat.png
+[2026-06-17 08:23:11] [119/280] Generated: fazenda/120-fazenda-cabra-de-fazenda-dormindo-tranquilo__farm_goat_sleeping_peacefully.png
+[2026-06-17 08:23:14] [120/280] Generated: fazenda/118-fazenda-cabra-de-fazenda-com-girassois-ao-redor__farm_goat_surrounded_by_yellow_sunflowers.png
+[2026-06-17 08:23:15] [121/280] Generated: paper-doll/02-moda-boneca-de-papel-menina-vestido-de-verao-e-chapeu__cute_cartoon_girl_paper_doll_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 08:23:16] [122/280] Generated: paper-doll/01-moda-boneca-de-papel-menina-casaco-de-inverno-e-botas__cute_cartoon_girl_paper_doll_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 08:23:17] [123/280] Generated: paper-doll/03-moda-boneca-de-papel-menina-roupa-esportiva-e-tenis__cute_cartoon_girl_paper_doll_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 08:23:19] [124/280] Generated: paper-doll/04-moda-boneca-de-papel-menina-vestido-de-festa-e-laco__cute_cartoon_girl_paper_doll_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 08:23:20] [125/280] Generated: paper-doll/05-moda-boneca-de-papel-menina-pijama-quentinho-e-pantufas__cute_cartoon_girl_paper_doll_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 08:23:21] [126/280] Generated: paper-doll/06-moda-boneca-de-papel-menina-uniforme-escolar-e-mochila__cute_cartoon_girl_paper_doll_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 08:23:23] [127/280] Generated: paper-doll/07-moda-boneco-de-papel-menino-casaco-de-inverno-e-botas__cute_cartoon_boy_paper_doll_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 08:23:24] [128/280] Generated: paper-doll/08-moda-boneco-de-papel-menino-vestido-de-verao-e-chapeu__cute_cartoon_boy_paper_doll_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 08:23:25] [129/280] Generated: paper-doll/09-moda-boneco-de-papel-menino-roupa-esportiva-e-tenis__cute_cartoon_boy_paper_doll_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 08:23:26] [130/280] Generated: paper-doll/10-moda-boneco-de-papel-menino-vestido-de-festa-e-laco__cute_cartoon_boy_paper_doll_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 08:23:27] [131/280] Generated: paper-doll/11-moda-boneco-de-papel-menino-pijama-quentinho-e-pantufas__cute_cartoon_boy_paper_doll_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 08:23:29] [132/280] Generated: paper-doll/12-moda-boneco-de-papel-menino-uniforme-escolar-e-mochila__cute_cartoon_boy_paper_doll_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 08:23:31] [133/280] Generated: paper-doll/13-moda-modelo-boneca-de-papel-casaco-de-inverno-e-botas__friendly_paper_doll_model_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 08:23:32] [134/280] Generated: paper-doll/14-moda-modelo-boneca-de-papel-vestido-de-verao-e-chapeu__friendly_paper_doll_model_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 08:23:33] [135/280] Generated: paper-doll/15-moda-modelo-boneca-de-papel-roupa-esportiva-e-tenis__friendly_paper_doll_model_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 08:23:34] [136/280] Generated: paper-doll/16-moda-modelo-boneca-de-papel-vestido-de-festa-e-laco__friendly_paper_doll_model_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 08:23:36] [137/280] Generated: paper-doll/17-moda-modelo-boneca-de-papel-pijama-quentinho-e-pantufas__friendly_paper_doll_model_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 08:23:37] [138/280] Generated: paper-doll/18-moda-modelo-boneca-de-papel-uniforme-escolar-e-mochila__friendly_paper_doll_model_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 08:23:38] [139/280] Generated: paper-doll/20-moda-crianca-boneca-de-papel-vestido-de-verao-e-chapeu__smiling_paper_doll_child_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 08:23:39] [140/280] Generated: paper-doll/19-moda-crianca-boneca-de-papel-casaco-de-inverno-e-botas__smiling_paper_doll_child_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 08:23:40] [141/280] Generated: paper-doll/21-moda-crianca-boneca-de-papel-roupa-esportiva-e-tenis__smiling_paper_doll_child_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 08:23:42] [142/280] Generated: paper-doll/22-moda-crianca-boneca-de-papel-vestido-de-festa-e-laco__smiling_paper_doll_child_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 08:23:44] [143/280] Generated: paper-doll/23-moda-crianca-boneca-de-papel-pijama-quentinho-e-pantufas__smiling_paper_doll_child_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 08:23:45] [144/280] Generated: paper-doll/24-moda-crianca-boneca-de-papel-uniforme-escolar-e-mochila__smiling_paper_doll_child_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 08:23:46] [145/280] Generated: paper-doll/25-moda-modelo-de-moda-infantil-casaco-de-inverno-e-botas__happy_kids_fashion_model_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 08:23:47] [146/280] Generated: paper-doll/26-moda-modelo-de-moda-infantil-vestido-de-verao-e-chapeu__happy_kids_fashion_model_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 08:23:49] [147/280] Generated: paper-doll/28-moda-modelo-de-moda-infantil-vestido-de-festa-e-laco__happy_kids_fashion_model_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 08:23:51] [148/280] Generated: paper-doll/27-moda-modelo-de-moda-infantil-roupa-esportiva-e-tenis__happy_kids_fashion_model_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 08:23:52] [149/280] Generated: paper-doll/30-moda-modelo-de-moda-infantil-uniforme-escolar-e-mochila__happy_kids_fashion_model_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 08:23:54] [150/280] Generated: paper-doll/29-moda-modelo-de-moda-infantil-pijama-quentinho-e-pantufas__happy_kids_fashion_model_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 08:23:54] Batch 3 completed (150 drawings). Triggering build & push...
+[2026-06-17 08:23:54] Rebuilding catalog and drawings database...
+[2026-06-17 08:23:55] Build successful!
+[2026-06-17 08:23:55] Committing and pushing to origin main...
