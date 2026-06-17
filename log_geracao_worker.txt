@@ -2049,3 +2049,58 @@
 [2026-06-17 04:15:38] Rebuilding catalog and drawings database...
 [2026-06-17 04:15:39] Build successful!
 [2026-06-17 04:15:39] Committing and pushing to origin main...
+[2026-06-17 04:15:42] Push successful! Vercel will deploy in production.
+[2026-06-17 04:15:43] [301/4400] Generated: animais-domesticos/869-coelho-coelho-angora-comendo-cenoura__angora_bunny_eating_a_carrot.png
+[2026-06-17 04:15:44] [302/4400] Generated: animais-domesticos/870-coelho-coelho-angora-pulando-a-cerca__angora_bunny_hopping_over_a_small_fence.png
+[2026-06-17 04:15:46] [303/4400] Generated: animais-domesticos/871-coelho-coelho-angora-no-jardim-de-flores__angora_bunny_sitting_in_a_flower_garden.png
+[2026-06-17 04:15:48] [304/4400] Generated: animais-domesticos/872-coelho-coelho-angora-dormindo-no-ninho__angora_bunny_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:15:49] [305/4400] Generated: animais-domesticos/873-coelho-coelho-angora-com-gravata-borboleta__angora_bunny_wearing_a_tiny_bowtie.png
+[2026-06-17 04:15:50] [306/4400] Generated: animais-domesticos/874-coelho-coelho-orelha-caida-comendo-cenoura__holland_lop_bunny_eating_a_carrot.png
+[2026-06-17 04:15:51] [307/4400] Generated: animais-domesticos/875-coelho-coelho-orelha-caida-pulando-a-cerca__holland_lop_bunny_hopping_over_a_small_fence.png
+[2026-06-17 04:15:53] [308/4400] Generated: animais-domesticos/876-coelho-coelho-orelha-caida-no-jardim-de-flores__holland_lop_bunny_sitting_in_a_flower_garden.png
+[2026-06-17 04:15:55] [309/4400] Generated: animais-domesticos/877-coelho-coelho-orelha-caida-dormindo-no-ninho__holland_lop_bunny_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:15:56] [310/4400] Generated: animais-domesticos/878-coelho-coelho-orelha-caida-com-gravata-borboleta__holland_lop_bunny_wearing_a_tiny_bowtie.png
+[2026-06-17 04:15:57] [311/4400] Generated: animais-domesticos/879-coelho-coelho-gigante-comendo-cenoura__flemish_giant_bunny_eating_a_carrot.png
+[2026-06-17 04:15:58] [312/4400] Generated: animais-domesticos/880-coelho-coelho-gigante-pulando-a-cerca__flemish_giant_bunny_hopping_over_a_small_fence.png
+[2026-06-17 04:16:00] [313/4400] Generated: animais-domesticos/881-coelho-coelho-gigante-no-jardim-de-flores__flemish_giant_bunny_sitting_in_a_flower_garden.png
+[2026-06-17 04:16:01] [314/4400] Generated: animais-domesticos/882-coelho-coelho-gigante-dormindo-no-ninho__flemish_giant_bunny_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:16:03] [315/4400] Generated: animais-domesticos/883-coelho-coelho-gigante-com-gravata-borboleta__flemish_giant_bunny_wearing_a_tiny_bowtie.png
+[2026-06-17 04:16:04] [316/4400] Generated: animais-domesticos/884-coelho-coelho-cabeca-de-leao-comendo-cenoura__lionhead_bunny_eating_a_carrot.png
+[2026-06-17 04:16:05] [317/4400] Generated: animais-domesticos/885-coelho-coelho-cabeca-de-leao-pulando-a-cerca__lionhead_bunny_hopping_over_a_small_fence.png
+[2026-06-17 04:16:07] [318/4400] Generated: animais-domesticos/886-coelho-coelho-cabeca-de-leao-no-jardim-de-flores__lionhead_bunny_sitting_in_a_flower_garden.png
+[2026-06-17 04:16:08] [319/4400] Generated: animais-domesticos/887-coelho-coelho-cabeca-de-leao-dormindo-no-ninho__lionhead_bunny_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:16:09] [320/4400] Generated: animais-domesticos/888-coelho-coelho-cabeca-de-leao-com-gravata-borboleta__lionhead_bunny_wearing_a_tiny_bowtie.png
+[2026-06-17 04:16:11] [321/4400] Generated: animais-domesticos/889-coelho-coelho-anao-comendo-cenoura__netherland_dwarf_bunny_eating_a_carrot.png
+[2026-06-17 04:16:12] [322/4400] Generated: animais-domesticos/890-coelho-coelho-anao-pulando-a-cerca__netherland_dwarf_bunny_hopping_over_a_small_fence.png
+[2026-06-17 04:16:14] [323/4400] Generated: animais-domesticos/892-coelho-coelho-anao-dormindo-no-ninho__netherland_dwarf_bunny_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:16:16] [324/4400] Generated: animais-domesticos/891-coelho-coelho-anao-no-jardim-de-flores__netherland_dwarf_bunny_sitting_in_a_flower_garden.png
+[2026-06-17 04:16:17] [325/4400] Generated: animais-domesticos/893-coelho-coelho-anao-com-gravata-borboleta__netherland_dwarf_bunny_wearing_a_tiny_bowtie.png
+[2026-06-17 04:16:18] [326/4400] Generated: animais-domesticos/894-coelho-coelho-rex-comendo-cenoura__rex_bunny_eating_a_carrot.png
+[2026-06-17 04:16:20] [327/4400] Generated: animais-domesticos/895-coelho-coelho-rex-pulando-a-cerca__rex_bunny_hopping_over_a_small_fence.png
+[2026-06-17 04:16:21] [328/4400] Generated: animais-domesticos/897-coelho-coelho-rex-dormindo-no-ninho__rex_bunny_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:16:23] [329/4400] Generated: animais-domesticos/896-coelho-coelho-rex-no-jardim-de-flores__rex_bunny_sitting_in_a_flower_garden.png
+[2026-06-17 04:16:24] [330/4400] Generated: animais-domesticos/898-coelho-coelho-rex-com-gravata-borboleta__rex_bunny_wearing_a_tiny_bowtie.png
+[2026-06-17 04:16:26] [331/4400] Generated: animais-domesticos/899-coelho-coelhinho-fofinho-comendo-cenoura__cute_fluffy_rabbit_eating_a_carrot.png
+[2026-06-17 04:16:28] [332/4400] Generated: animais-domesticos/900-coelho-coelhinho-fofinho-pulando-a-cerca__cute_fluffy_rabbit_hopping_over_a_small_fence.png
+[2026-06-17 04:16:29] [333/4400] Generated: animais-domesticos/902-coelho-coelhinho-fofinho-dormindo-no-ninho__cute_fluffy_rabbit_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:16:31] [334/4400] Generated: animais-domesticos/901-coelho-coelhinho-fofinho-no-jardim-de-flores__cute_fluffy_rabbit_sitting_in_a_flower_garden.png
+[2026-06-17 04:16:32] [335/4400] Generated: animais-domesticos/903-coelho-coelhinho-fofinho-com-gravata-borboleta__cute_fluffy_rabbit_wearing_a_tiny_bowtie.png
+[2026-06-17 04:16:33] [336/4400] Generated: animais-domesticos/904-coelho-bebe-coelho-comendo-cenoura__baby_bunny_eating_a_carrot.png
+[2026-06-17 04:16:34] [337/4400] Generated: animais-domesticos/905-coelho-bebe-coelho-pulando-a-cerca__baby_bunny_hopping_over_a_small_fence.png
+[2026-06-17 04:16:35] [338/4400] Generated: animais-domesticos/907-coelho-bebe-coelho-dormindo-no-ninho__baby_bunny_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:16:37] [339/4400] Generated: animais-domesticos/906-coelho-bebe-coelho-no-jardim-de-flores__baby_bunny_sitting_in_a_flower_garden.png
+[2026-06-17 04:16:38] [340/4400] Generated: animais-domesticos/908-coelho-bebe-coelho-com-gravata-borboleta__baby_bunny_wearing_a_tiny_bowtie.png
+[2026-06-17 04:16:39] [341/4400] Generated: animais-domesticos/909-coelho-coelho-de-jardim-comendo-cenoura__friendly_garden_rabbit_eating_a_carrot.png
+[2026-06-17 04:16:40] [342/4400] Generated: animais-domesticos/910-coelho-coelho-de-jardim-pulando-a-cerca__friendly_garden_rabbit_hopping_over_a_small_fence.png
+[2026-06-17 04:16:42] [343/4400] Generated: animais-domesticos/912-coelho-coelho-de-jardim-dormindo-no-ninho__friendly_garden_rabbit_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:16:43] [344/4400] Generated: animais-domesticos/911-coelho-coelho-de-jardim-no-jardim-de-flores__friendly_garden_rabbit_sitting_in_a_flower_garden.png
+[2026-06-17 04:16:44] [345/4400] Generated: animais-domesticos/913-coelho-coelho-de-jardim-com-gravata-borboleta__friendly_garden_rabbit_wearing_a_tiny_bowtie.png
+[2026-06-17 04:16:45] [346/4400] Generated: animais-domesticos/914-coelho-coelho-de-desenho-comendo-cenoura__whimsical_cartoon_rabbit_eating_a_carrot.png
+[2026-06-17 04:16:46] [347/4400] Generated: animais-domesticos/915-coelho-coelho-de-desenho-pulando-a-cerca__whimsical_cartoon_rabbit_hopping_over_a_small_fence.png
+[2026-06-17 04:16:48] [348/4400] Generated: animais-domesticos/916-coelho-coelho-de-desenho-no-jardim-de-flores__whimsical_cartoon_rabbit_sitting_in_a_flower_garden.png
+[2026-06-17 04:16:50] [349/4400] Generated: animais-domesticos/918-coelho-coelho-de-desenho-com-gravata-borboleta__whimsical_cartoon_rabbit_wearing_a_tiny_bowtie.png
+[2026-06-17 04:16:52] [350/4400] Generated: animais-domesticos/917-coelho-coelho-de-desenho-dormindo-no-ninho__whimsical_cartoon_rabbit_sleeping_in_a_cozy_nest.png
+[2026-06-17 04:16:52] Batch 7 completed (350 drawings). Triggering build & push...
+[2026-06-17 04:16:52] Rebuilding catalog and drawings database...
+[2026-06-17 04:16:53] Build successful!
+[2026-06-17 04:16:53] Committing and pushing to origin main...
