@@ -3419,6 +3419,141 @@ app.get('*', (req, res) => {
 });
 
 // Inicializar o servidor
+// ==========================================
+// EVENTOS - SEXTA MÁGICA
+// ==========================================
+
+const eventsPath = path.join(__dirname, '..', 'events.json');
+
+function getActiveEvent() {
+    try {
+        if (!fs.existsSync(eventsPath)) return null;
+        const eventsData = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
+        const now = new Date();
+        const activeWeek = eventsData.weeks.find(w => new Date(w.startDate) <= now && new Date(w.endDate) >= now);
+        if (activeWeek) {
+            return {
+                season: eventsData.currentSeason,
+                week: activeWeek
+            };
+        }
+        return null;
+    } catch (err) {
+        console.error('Erro ao ler events.json:', err);
+        return null;
+    }
+}
+
+async function requireAuth(req, res, next) {
+    const token = req.headers['x-session-token'];
+    if (!token) return res.status(401).json({ success: false, message: 'Não autorizado.' });
+    const users = await loadUsers();
+    const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+    if (!user) return res.status(401).json({ success: false, message: 'Sessão inválida.' });
+    req.user = user;
+    next();
+}
+
+app.get('/api/events/current', requireAuth, (req, res) => {
+    const activeEvent = getActiveEvent();
+    if (!activeEvent) {
+        return res.json({ success: true, active: false });
+    }
+    
+    const user = req.user;
+    const week = activeEvent.week;
+    
+    if (!user.eventProgress || user.eventProgress.eventId !== week.id) {
+        user.eventProgress = {
+            eventId: week.id,
+            missions: {}
+        };
+        user.eventInventory = user.eventInventory || [];
+    }
+    
+    const eventStart = new Date(week.startDate).getTime();
+    const myPaintings = user.myPaintings || [];
+    const eventPaintings = myPaintings.filter(p => p.date && p.date >= eventStart);
+    
+    const progress = {};
+    week.missions.forEach(m => {
+        if (user.eventProgress.missions[m.id] && user.eventProgress.missions[m.id].claimed) {
+            progress[m.id] = { claimed: true, current: m.req };
+            return;
+        }
+        
+        let current = 0;
+        if (m.type === 'paint_category' || m.type === 'paint_category_public') {
+            const count = eventPaintings.filter(p => {
+                const slug = p.drawingSlug || '';
+                return slug.includes('/' + m.target + '/');
+            }).length;
+            current = count;
+            
+            if (m.type === 'paint_category_public') {
+                const publicCount = eventPaintings.filter(p => {
+                    const slug = p.drawingSlug || '';
+                    return slug.includes('/' + m.target + '/') && p.isPublic;
+                }).length;
+                current = Math.min(count, publicCount > 0 ? m.req : m.req - 1);
+            }
+        } else if (m.type === 'complete_all') {
+            const claimedOthers = week.missions.filter(om => om.id !== m.id && user.eventProgress.missions[om.id]?.claimed).length;
+            current = claimedOthers;
+        }
+        
+        progress[m.id] = { claimed: false, current: Math.min(current, m.req) };
+    });
+    
+    res.json({
+        success: true,
+        active: true,
+        season: activeEvent.season,
+        week: week,
+        progress: progress,
+        inventory: user.eventInventory || []
+    });
+});
+
+app.post('/api/events/claim', requireAuth, async (req, res) => {
+    const { missionId } = req.body;
+    const activeEvent = getActiveEvent();
+    if (!activeEvent) return res.status(400).json({ success: false, message: 'Nenhum evento ativo.' });
+    
+    const user = req.user;
+    const week = activeEvent.week;
+    const mission = week.missions.find(m => m.id === missionId);
+    
+    if (!mission) return res.status(400).json({ success: false, message: 'Missão não encontrada.' });
+    if (!user.eventProgress || user.eventProgress.eventId !== week.id) {
+        return res.status(400).json({ success: false, message: 'Progresso não inicializado.' });
+    }
+    if (user.eventProgress.missions[missionId]?.claimed) {
+        return res.status(400).json({ success: false, message: 'Já resgatado.' });
+    }
+    
+    if (mission.reward.type === 'stars') {
+        user.stars = (user.stars || 0) + mission.reward.value;
+    } else if (mission.reward.type === 'badge') {
+        user.unlockedAchievements = user.unlockedAchievements || [];
+        if (!user.unlockedAchievements.includes(mission.reward.value)) {
+            user.unlockedAchievements.push(mission.reward.value);
+        }
+    }
+    
+    user.eventProgress.missions[missionId] = { claimed: true };
+    
+    if (mission.tier === 'epica' && week.chainItem) {
+        user.eventInventory = user.eventInventory || [];
+        if (!user.eventInventory.includes(week.chainItem)) {
+            user.eventInventory.push(week.chainItem);
+        }
+    }
+    
+    await saveUsers();
+    res.json({ success: true, reward: mission.reward, inventory: user.eventInventory, stars: user.stars });
+});
+
 app.listen(PORT, () => {
     console.log('\n==================================================');
     console.log(`🎨 KidCanvas Rodando com Sucesso!`);

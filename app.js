@@ -9057,3 +9057,198 @@ window.copyInviteLink = function() {
         }
     });
 };
+
+
+// ==========================================
+// EVENTOS - SEXTA MÁGICA
+// ==========================================
+
+let currentActiveEvent = null;
+
+async function checkActiveEvent() {
+    try {
+        const res = await fetch('/api/events/current', {
+            headers: { 'X-Session-Token': sessionToken }
+        });
+        const data = await res.json();
+        
+        if (data.success && data.active) {
+            currentActiveEvent = data;
+            
+            // Show global banner
+            const banner = document.getElementById('global-event-banner');
+            const bannerText = document.getElementById('global-event-text');
+            const heroBtn = document.getElementById('hero-event-button');
+            
+            if (banner && bannerText) {
+                banner.style.display = 'block';
+                const endDate = new Date(data.week.endDate);
+                
+                // Simple countdown update
+                setInterval(() => {
+                    const now = new Date();
+                    const diff = endDate - now;
+                    if (diff <= 0) {
+                        bannerText.innerHTML = '✨ A Sexta Mágica acabou! Volte semana que vem! ✨';
+                        return;
+                    }
+                    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                    const m = Math.floor((diff / 1000 / 60) % 60);
+                    bannerText.innerHTML = `Sexta Mágica da Semana dos ${data.week.theme} termina em: ⏰ ${d}d ${h}h ${m}m`;
+                }, 1000);
+            }
+            
+            if (heroBtn) {
+                heroBtn.style.display = 'block';
+            }
+        }
+    } catch (e) {
+        console.error('Erro ao buscar evento:', e);
+    }
+}
+
+function openEventModal() {
+    const modal = document.getElementById('eventModal');
+    if (!modal || !currentActiveEvent) return;
+    
+    document.getElementById('event-modal-title').textContent = `Semana dos ${currentActiveEvent.week.theme}`;
+    
+    renderEventInventory();
+    renderEventMissions();
+    
+    modal.style.display = 'flex';
+}
+
+function closeEventModal() {
+    const modal = document.getElementById('eventModal');
+    if (modal) modal.style.display = 'none';
+}
+
+function renderEventInventory() {
+    const invArea = document.getElementById('event-inventory-area');
+    const invItems = document.getElementById('event-inventory-items');
+    if (!invArea || !invItems || !currentActiveEvent.inventory) return;
+    
+    if (currentActiveEvent.inventory.length === 0) {
+        invArea.style.display = 'none';
+        return;
+    }
+    
+    invArea.style.display = 'block';
+    invItems.innerHTML = '';
+    
+    currentActiveEvent.inventory.forEach(item => {
+        let emoji = '🎁';
+        let name = 'Item Especial';
+        if (item === 'egg_1') { emoji = '🥚'; name = 'Ovo Misterioso'; }
+        if (item === 'egg_2') { emoji = '🐣'; name = 'Ovo Rachando'; }
+        if (item === 'egg_3') { emoji = '🌟'; name = 'Ovo Brilhante'; }
+        if (item === 'egg_4') { emoji = '🐉'; name = 'Mascote Dragão'; }
+        
+        invItems.innerHTML += `
+            <div style="background: #f0f0f0; border-radius: 10px; padding: 10px; width: 100px; border: 2px solid #ddd;">
+                <div style="font-size: 2.5rem;">${emoji}</div>
+                <div style="font-size: 0.8rem; font-weight: bold; margin-top: 5px;">${name}</div>
+            </div>
+        `;
+    });
+}
+
+function renderEventMissions() {
+    const container = document.getElementById('event-missions-container');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    const week = currentActiveEvent.week;
+    const progress = currentActiveEvent.progress;
+    
+    week.missions.forEach(m => {
+        const p = progress[m.id];
+        const isCompleted = p.current >= m.req;
+        const isClaimed = p.claimed;
+        
+        let rewardHtml = '';
+        if (m.reward.type === 'stars') rewardHtml = `<div style="font-weight: bold; color: var(--color-orange);"><i class="fa-solid fa-star"></i> ${m.reward.value}</div>`;
+        if (m.reward.type === 'badge') rewardHtml = `<div style="font-weight: bold; color: var(--color-purple);"><i class="fa-solid fa-award"></i> Selo Especial</div>`;
+        
+        let btnHtml = '';
+        if (isClaimed) {
+            btnHtml = `<button disabled style="background: #ccc; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; color: white;">Resgatado</button>`;
+        } else if (isCompleted) {
+            btnHtml = `<button onclick="claimEventMission('${m.id}')" style="background: var(--color-green); border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; box-shadow: 0 4px 0 #27ae60;">Resgatar</button>`;
+        } else {
+            btnHtml = `<button disabled style="background: #eee; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; color: #999;">${p.current} / ${m.req}</button>`;
+        }
+        
+        const percent = Math.min(100, Math.round((p.current / m.req) * 100));
+        
+        // Progress Bar
+        const barHtml = `
+            <div style="background: #eee; height: 12px; border-radius: 6px; margin-top: 10px; overflow: hidden; position: relative;">
+                <div style="background: var(--color-blue); width: ${percent}%; height: 100%; transition: width 0.5s;"></div>
+            </div>
+        `;
+        
+        container.innerHTML += `
+            <div style="background: white; border-radius: 12px; padding: 15px; display: flex; align-items: center; justify-content: space-between; border: 2px solid ${isClaimed ? '#2ecc71' : '#eee'};">
+                <div style="flex: 1; margin-right: 15px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="background: var(--color-purple); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase;">${m.tier}</span>
+                        <h4 style="margin: 0; font-size: 1.1rem; color: #333;">${m.title}</h4>
+                    </div>
+                    <p style="margin: 5px 0 0; font-size: 0.9rem; color: #666;">${m.desc}</p>
+                    ${barHtml}
+                </div>
+                <div style="text-align: right; min-width: 100px;">
+                    <div style="margin-bottom: 8px; font-size: 0.9rem;">Recompensa:</div>
+                    ${rewardHtml}
+                    <div style="margin-top: 10px;">${btnHtml}</div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+async function claimEventMission(missionId) {
+    try {
+        const res = await fetch('/api/events/claim', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Session-Token': sessionToken
+            },
+            body: JSON.stringify({ missionId })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            Swal.fire({
+                title: 'Recompensa Resgatada! 🎉',
+                text: 'Você concluiu a missão com sucesso.',
+                icon: 'success'
+            });
+            
+            // Refresh data
+            if (data.stars) {
+                currentUser.stars = data.stars;
+                updateStarsUI();
+            }
+            if (data.inventory) {
+                currentActiveEvent.inventory = data.inventory;
+            }
+            // re-fetch the current event to update progress
+            await checkActiveEvent();
+            renderEventMissions();
+            renderEventInventory();
+        } else {
+            Swal.fire('Erro', data.message || 'Erro ao resgatar recompensa.', 'error');
+        }
+    } catch (e) {
+        console.error(e);
+        Swal.fire('Erro', 'Falha na conexão.', 'error');
+    }
+}
+
+// Chamar checagem de evento logo após o usuário estar logado (pode ser colocado na função renderUserProfile)
