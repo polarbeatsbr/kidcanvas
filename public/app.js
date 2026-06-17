@@ -6402,7 +6402,7 @@ let magicBrushTempCtx = null;
 function updatePaintCursor(tool, stamp) {
     if (!paintCanvas) return;
     if (tool === 'bucket') {
-        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🪣</text></svg>") 4 22, auto';
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>💧</text></svg>") 4 22, auto';
     } else if (tool === 'glitter') {
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>✨</text></svg>") 11 11, auto';
     } else if (tool === 'brush-magic') {
