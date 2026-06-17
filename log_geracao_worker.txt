@@ -4635,3 +4635,58 @@
 [2026-06-17 05:13:31] Rebuilding catalog and drawings database...
 [2026-06-17 05:13:32] Build successful!
 [2026-06-17 05:13:32] Committing and pushing to origin main...
+[2026-06-17 05:13:36] Push successful! Vercel will deploy in production.
+[2026-06-17 05:13:37] [2651/4400] Generated: salao-de-beleza/51-salao-bolsa-de-moda-fofa-com-lacos-fofos__cute_fashion_handbag_surrounded_by_cute_bows.png
+[2026-06-17 05:13:38] [2652/4400] Generated: salao-de-beleza/52-salao-bolsa-de-moda-fofa-na-mesa-de-maquiagem__cute_fashion_handbag_sitting_on_a_dressing_table.png
+[2026-06-17 05:13:39] [2653/4400] Generated: salao-de-beleza/53-salao-bolsa-de-moda-fofa-com-olhos-de-desenho__cute_fashion_handbag_with_friendly_cartoon_eyes.png
+[2026-06-17 05:13:41] [2654/4400] Generated: salao-de-beleza/54-salao-bolsa-de-moda-fofa-rodeado-de-flores__cute_fashion_handbag_surrounded_by_flowers.png
+[2026-06-17 05:13:43] [2655/4400] Generated: salao-de-beleza/55-salao-kit-de-cabeleireiro-com-rosto-alegre__hair_styling_kit_with_a_happy_cartoon_face.png
+[2026-06-17 05:13:45] [2656/4400] Generated: salao-de-beleza/56-salao-kit-de-cabeleireiro-decorado-com-estrelas__hair_styling_kit_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:13:46] [2657/4400] Generated: salao-de-beleza/57-salao-kit-de-cabeleireiro-com-lacos-fofos__hair_styling_kit_surrounded_by_cute_bows.png
+[2026-06-17 05:13:47] [2658/4400] Generated: salao-de-beleza/58-salao-kit-de-cabeleireiro-na-mesa-de-maquiagem__hair_styling_kit_sitting_on_a_dressing_table.png
+[2026-06-17 05:13:49] [2659/4400] Generated: salao-de-beleza/59-salao-kit-de-cabeleireiro-com-olhos-de-desenho__hair_styling_kit_with_friendly_cartoon_eyes.png
+[2026-06-17 05:13:50] [2660/4400] Generated: salao-de-beleza/60-salao-kit-de-cabeleireiro-rodeado-de-flores__hair_styling_kit_surrounded_by_flowers.png
+[2026-06-17 05:13:52] [2661/4400] Generated: guerreiros-e-lendas/01-cavaleiro-cavaleiro-bravo-com-espada-brilhante__brave_knight_holding_a_shiny_sword.png
+[2026-06-17 05:13:54] [2662/4400] Generated: guerreiros-e-lendas/02-cavaleiro-cavaleiro-bravo-perto-do-castelo__brave_knight_standing_next_to_a_castle_gate.png
+[2026-06-17 05:13:56] [2663/4400] Generated: guerreiros-e-lendas/03-cavaleiro-cavaleiro-bravo-montado-no-cavalo__brave_knight_riding_a_brave_horse.png
+[2026-06-17 05:13:57] [2664/4400] Generated: guerreiros-e-lendas/04-cavaleiro-cavaleiro-bravo-com-escudo-de-leao__brave_knight_holding_a_shield_with_a_lion_crest.png
+[2026-06-17 05:13:58] [2665/4400] Generated: guerreiros-e-lendas/05-cavaleiro-cavaleiro-bravo-acenando-amigavel__brave_knight_waving_friendly.png
+[2026-06-17 05:13:59] [2666/4400] Generated: guerreiros-e-lendas/06-cavaleiro-cavaleiro-bravo-com-capacete-de-plumas__brave_knight_wearing_a_feathered_helmet.png
+[2026-06-17 05:14:01] [2667/4400] Generated: guerreiros-e-lendas/07-cavaleiro-cavaleiro-bravo-apontando-para-torre__brave_knight_pointing_to_a_castle_tower.png
+[2026-06-17 05:14:02] [2668/4400] Generated: guerreiros-e-lendas/08-cavaleiro-cavaleiro-bravo-no-patio-do-castelo__brave_knight_resting_in_the_courtyard.png
+[2026-06-17 05:14:04] [2669/4400] Generated: guerreiros-e-lendas/09-cavaleiro-cavaleiro-bravo-com-bandeira-de-vitoria__brave_knight_holding_a_victory_flag.png
+[2026-06-17 05:14:05] [2670/4400] Generated: guerreiros-e-lendas/11-cavaleiro-cavaleiro-real-com-espada-brilhante__royal_knight_holding_a_shiny_sword.png
+[2026-06-17 05:14:07] [2671/4400] Generated: guerreiros-e-lendas/10-cavaleiro-cavaleiro-bravo-sorrindo-sob-o-sol__brave_knight_smiling_under_a_sunny_sky.png
+[2026-06-17 05:14:08] [2672/4400] Generated: guerreiros-e-lendas/12-cavaleiro-cavaleiro-real-perto-do-castelo__royal_knight_standing_next_to_a_castle_gate.png
+[2026-06-17 05:14:10] [2673/4400] Generated: guerreiros-e-lendas/13-cavaleiro-cavaleiro-real-montado-no-cavalo__royal_knight_riding_a_brave_horse.png
+[2026-06-17 05:14:11] [2674/4400] Generated: guerreiros-e-lendas/14-cavaleiro-cavaleiro-real-com-escudo-de-leao__royal_knight_holding_a_shield_with_a_lion_crest.png
+[2026-06-17 05:14:12] [2675/4400] Generated: guerreiros-e-lendas/15-cavaleiro-cavaleiro-real-acenando-amigavel__royal_knight_waving_friendly.png
+[2026-06-17 05:14:13] [2676/4400] Generated: guerreiros-e-lendas/16-cavaleiro-cavaleiro-real-com-capacete-de-plumas__royal_knight_wearing_a_feathered_helmet.png
+[2026-06-17 05:14:17] [2677/4400] Generated: guerreiros-e-lendas/17-cavaleiro-cavaleiro-real-apontando-para-torre__royal_knight_pointing_to_a_castle_tower.png
+[2026-06-17 05:14:19] [2678/4400] Generated: guerreiros-e-lendas/18-cavaleiro-cavaleiro-real-no-patio-do-castelo__royal_knight_resting_in_the_courtyard.png
+[2026-06-17 05:14:20] [2679/4400] Generated: guerreiros-e-lendas/19-cavaleiro-cavaleiro-real-com-bandeira-de-vitoria__royal_knight_holding_a_victory_flag.png
+[2026-06-17 05:14:21] [2680/4400] Generated: guerreiros-e-lendas/21-cavaleiro-cavaleiro-de-armadura-com-espada-brilhante__knight_in_shining_armor_holding_a_shiny_sword.png
+[2026-06-17 05:14:22] [2681/4400] Generated: guerreiros-e-lendas/20-cavaleiro-cavaleiro-real-sorrindo-sob-o-sol__royal_knight_smiling_under_a_sunny_sky.png
+[2026-06-17 05:14:24] [2682/4400] Generated: guerreiros-e-lendas/22-cavaleiro-cavaleiro-de-armadura-perto-do-castelo__knight_in_shining_armor_standing_next_to_a_castle_gate.png
+[2026-06-17 05:14:25] [2683/4400] Generated: guerreiros-e-lendas/23-cavaleiro-cavaleiro-de-armadura-montado-no-cavalo__knight_in_shining_armor_riding_a_brave_horse.png
+[2026-06-17 05:14:27] [2684/4400] Generated: guerreiros-e-lendas/24-cavaleiro-cavaleiro-de-armadura-com-escudo-de-leao__knight_in_shining_armor_holding_a_shield_with_a_lion_crest.png
+[2026-06-17 05:14:28] [2685/4400] Generated: guerreiros-e-lendas/25-cavaleiro-cavaleiro-de-armadura-acenando-amigavel__knight_in_shining_armor_waving_friendly.png
+[2026-06-17 05:14:30] [2686/4400] Generated: guerreiros-e-lendas/26-cavaleiro-cavaleiro-de-armadura-com-capacete-de-plumas__knight_in_shining_armor_wearing_a_feathered_helmet.png
+[2026-06-17 05:14:31] [2687/4400] Generated: guerreiros-e-lendas/27-cavaleiro-cavaleiro-de-armadura-apontando-para-torre__knight_in_shining_armor_pointing_to_a_castle_tower.png
+[2026-06-17 05:14:32] [2688/4400] Generated: guerreiros-e-lendas/28-cavaleiro-cavaleiro-de-armadura-no-patio-do-castelo__knight_in_shining_armor_resting_in_the_courtyard.png
+[2026-06-17 05:14:34] [2689/4400] Generated: guerreiros-e-lendas/29-cavaleiro-cavaleiro-de-armadura-com-bandeira-de-vitoria__knight_in_shining_armor_holding_a_victory_flag.png
+[2026-06-17 05:14:36] [2690/4400] Generated: guerreiros-e-lendas/30-cavaleiro-cavaleiro-de-armadura-sorrindo-sob-o-sol__knight_in_shining_armor_smiling_under_a_sunny_sky.png
+[2026-06-17 05:14:37] [2691/4400] Generated: guerreiros-e-lendas/31-cavaleiro-criança-cavaleiro-com-espada-brilhante__friendly_knight_kid_holding_a_shiny_sword.png
+[2026-06-17 05:14:38] [2692/4400] Generated: guerreiros-e-lendas/32-cavaleiro-criança-cavaleiro-perto-do-castelo__friendly_knight_kid_standing_next_to_a_castle_gate.png
+[2026-06-17 05:14:40] [2693/4400] Generated: guerreiros-e-lendas/33-cavaleiro-criança-cavaleiro-montado-no-cavalo__friendly_knight_kid_riding_a_brave_horse.png
+[2026-06-17 05:14:41] [2694/4400] Generated: guerreiros-e-lendas/34-cavaleiro-criança-cavaleiro-com-escudo-de-leao__friendly_knight_kid_holding_a_shield_with_a_lion_crest.png
+[2026-06-17 05:14:42] [2695/4400] Generated: guerreiros-e-lendas/35-cavaleiro-criança-cavaleiro-acenando-amigavel__friendly_knight_kid_waving_friendly.png
+[2026-06-17 05:14:44] [2696/4400] Generated: guerreiros-e-lendas/36-cavaleiro-criança-cavaleiro-com-capacete-de-plumas__friendly_knight_kid_wearing_a_feathered_helmet.png
+[2026-06-17 05:14:45] [2697/4400] Generated: guerreiros-e-lendas/37-cavaleiro-criança-cavaleiro-apontando-para-torre__friendly_knight_kid_pointing_to_a_castle_tower.png
+[2026-06-17 05:14:47] [2698/4400] Generated: guerreiros-e-lendas/38-cavaleiro-criança-cavaleiro-no-patio-do-castelo__friendly_knight_kid_resting_in_the_courtyard.png
+[2026-06-17 05:14:48] [2699/4400] Generated: guerreiros-e-lendas/39-cavaleiro-criança-cavaleiro-com-bandeira-de-vitoria__friendly_knight_kid_holding_a_victory_flag.png
+[2026-06-17 05:14:49] [2700/4400] Generated: guerreiros-e-lendas/40-cavaleiro-criança-cavaleiro-sorrindo-sob-o-sol__friendly_knight_kid_smiling_under_a_sunny_sky.png
+[2026-06-17 05:14:49] Batch 54 completed (2700 drawings). Triggering build & push...
+[2026-06-17 05:14:49] Rebuilding catalog and drawings database...
+[2026-06-17 05:14:50] Build successful!
+[2026-06-17 05:14:50] Committing and pushing to origin main...
