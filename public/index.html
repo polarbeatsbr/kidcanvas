@@ -1929,9 +1929,6 @@
                                 <path d="M41.4 9.4C53.9-3.1 74.1-3.1 86.6 9.4L168 90.7l53.1-53.1c28.1-28.1 73.7-28.1 101.8 0L474.3 189.1c28.1 28.1 28.1 73.7 0 101.8L283.9 481.4c-37.5 37.5-98.3 37.5-135.8 0L30.6 363.9c-37.5-37.5-37.5-98.3 0-135.8L122.7 136 41.4 54.6c-12.5-12.5-12.5-32.8 0-45.3zm176 221.3L168 181.3 75.9 273.4c-4.2 4.2-7 9.3-8.4 14.6H386.7l42.3-42.3c3.1-3.1 3.1-8.2 0-11.3L277.7 82.9c-3.1-3.1-8.2-3.1-11.3 0L213.3 136l49.4 49.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0zM512 512c-35.3 0-64-28.7-64-64c0-25.2 32.6-79.6 51.2-108.7c6-9.4 19.5-9.4 25.5 0C543.4 368.4 576 422.8 576 448c0 35.3-28.7 64-64 64z"/>
                             </svg>
                         </button>
-                        <button class="paint-tool-btn" id="paint-tool-glitter" title="Glitter Mágico" style="color: #ff5e7e;">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        </button>
                         <button class="paint-tool-btn" id="paint-tool-brush-magic" title="Pincel Mágico (Atrás da Linha)" style="color: var(--color-orange);">
                             <i class="fa-solid fa-magic"></i>
                         </button>
@@ -2588,9 +2585,10 @@
             <p id="event-modal-subtitle" style="color: white; font-weight: 600; margin-top: 5px; font-size: 1.1rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">O Perigo trouxe recompensas para você!</p>
         </div>
         <div style="padding: 20px; background-color: #f8f9fa;">
-            <div id="event-inventory-area" style="display: none; background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 2px solid #eee;">
-                <h4 style="margin: 0 0 10px 0; color: #333;">Seu Inventário Especial</h4>
-                <div id="event-inventory-items" style="display: flex; justify-content: center; gap: 15px;"></div>
+            <div style="text-align: center; margin-bottom: 20px;">
+                <button onclick="openAlbumModal()" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 900; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(155, 89, 182, 0.4);">
+                    📖 Meu Álbum de Cartas
+                </button>
             </div>
             <h3 style="color: var(--color-dark); margin-top: 0; margin-bottom: 15px; text-align: center; font-size: 1.4rem;">🎯 Missões da Semana</h3>
             <div id="event-missions-container" style="display: flex; flex-direction: column; gap: 15px;"></div>

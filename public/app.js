@@ -7497,7 +7497,7 @@ async function savePaintingToGallery() {
         creatorName = creatorName.trim() || currentUser.name || currentUser.email.split('@')[0];
     }
 
-    showToast('Salvando sua pintura na nuvem... ⏳', 'info');
+    showMagicLoading('Mágica acontecendo... ⏳');
 
     try {
         // Exportar como JPEG (qualidade 0.85) - muito menor que PNG para envio ao servidor
@@ -7531,13 +7531,13 @@ async function savePaintingToGallery() {
             } else {
                 showToast('Pintura salva com sucesso na sua galeria! 🎉', 'success');
             }
-            if(typeof confetti !== 'undefined') confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } }); openCertificateModal(data.name);
+            hideMagicLoading(); openCertificateModal(data.name);
         } else {
-            showToast(resData.message || 'Erro ao salvar pintura.', 'error');
+            hideMagicLoading(); showToast(resData.message || 'Erro ao salvar pintura.', 'error');
         }
     } catch(err) {
         console.error(err);
-        showToast('Erro ao se conectar ao servidor.', 'error');
+        hideMagicLoading(); showToast('Erro ao se conectar ao servidor.', 'error');
     }
 }
 
@@ -9170,22 +9170,23 @@ function renderEventMissions() {
         const isCompleted = p.current >= m.req;
         const isClaimed = p.claimed;
         
-        // Progress Visuals (Eggs or Stars)
+        // Progress Visuals
         let visualProgressHtml = '<div style="display: flex; gap: 10px; margin-top: 10px; justify-content: center;">';
-        let icon = m.id.includes('dino') ? '🥚' : '⭐'; // default to egg for dinos
-        if (m.type === 'complete_all') icon = '👑';
         
         for (let i = 0; i < m.req; i++) {
             const isDone = p.current > i;
-            const filter = isDone ? 'none' : 'grayscale(100%) opacity(40%)';
-            const scale = isDone ? 'scale(1.1)' : 'scale(1)';
-            visualProgressHtml += `<div style="font-size: 2rem; filter: ${filter}; transform: ${scale}; transition: all 0.3s ease;">${icon}</div>`;
+            let icon = m.id.includes('dino') ? (isDone ? '🦕' : '🥚') : (isDone ? '🌟' : '⭐');
+            if (m.type === 'complete_all') icon = isDone ? '👑' : '⏳';
+            const filter = isDone ? 'none' : 'grayscale(100%) opacity(60%)';
+            const scale = isDone ? 'scale(1.2)' : 'scale(1)';
+            visualProgressHtml += `<div style="font-size: 2.5rem; filter: ${filter}; transform: ${scale}; transition: all 0.3s ease;">${icon}</div>`;
         }
         visualProgressHtml += '</div>';
         
         let rewardHtml = '';
         if (m.reward.type === 'stars') rewardHtml = `<div style="font-weight: 900; color: #ff9f43; font-size: 1.2rem; text-shadow: 1px 1px 0px rgba(0,0,0,0.1);"><i class="fa-solid fa-star"></i> +${m.reward.value}</div>`;
         if (m.reward.type === 'badge') rewardHtml = `<div style="font-weight: 900; color: #9b59b6; font-size: 1.2rem; text-shadow: 1px 1px 0px rgba(0,0,0,0.1);"><i class="fa-solid fa-award"></i> Selo</div>`;
+        if (m.reward.type === 'card') rewardHtml = `<div style="font-weight: 900; color: #e74c3c; font-size: 1.2rem; text-shadow: 1px 1px 0px rgba(0,0,0,0.1);">🃏 Carta</div>`;
         
         let btnHtml = '';
         if (isClaimed) {
@@ -9225,19 +9226,23 @@ async function claimEventMission(missionId) {
         const data = await res.json();
         
         if (data.success) {
-            Swal.fire({
-                title: 'Recompensa Resgatada! 🎉',
-                text: 'Você concluiu a missão com sucesso.',
-                icon: 'success'
-            });
+            if (data.reward && data.reward.type === 'card') {
+                if(typeof confetti !== 'undefined') confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+                showPerigoMessage('Nova Carta da Imaginação!', `Você desbloqueou a carta <b>${data.reward.name}</b>!<br><br><i>${data.reward.curiosity}</i>`);
+            } else if (data.reward && data.reward.type === 'badge') {
+                if(typeof confetti !== 'undefined') confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                showPerigoMessage('Nova Conquista!', 'Você ganhou um selo exclusivo!');
+            } else {
+                showPerigoMessage('Recompensa Resgatada!', 'Você concluiu a missão e ganhou estrelas!');
+            }
             
             // Refresh data
             if (data.stars) {
                 currentUser.stars = data.stars;
                 updateStarsUI();
             }
-            if (data.inventory) {
-                currentActiveEvent.inventory = data.inventory;
+            if (data.cards) {
+                currentUser.cards = data.cards;
             }
             // re-fetch the current event to update progress
             await checkActiveEvent();
@@ -9253,3 +9258,90 @@ async function claimEventMission(missionId) {
 }
 
 // Chamar checagem de evento logo após o usuário estar logado (pode ser colocado na função renderUserProfile)
+
+
+window.showPerigoMessage = function(title, text) {
+    Swal.fire({
+        title: title,
+        html: `<div style="display:flex; flex-direction:column; align-items:center; gap:15px;">
+                  <div style="font-size: 5rem; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); animation: bounce 2s infinite;">🐶</div>
+                  <div style="font-size: 1.2rem; color: #333; font-weight: 600;">${text}</div>
+               </div>`,
+        showConfirmButton: true,
+        confirmButtonText: 'Que legal!',
+        confirmButtonColor: '#ff9a9e',
+        background: '#fff',
+        backdrop: 'rgba(0,0,0,0.6)',
+        customClass: { popup: 'rounded-popup' }
+    });
+};
+
+window.openAlbumModal = function() {
+    if (!currentUser || !currentUser.cards || currentUser.cards.length === 0) {
+        Swal.fire('Álbum Vazio', 'Você ainda não encontrou nenhuma Carta da Imaginação. Participe da Sexta Mágica para ganhar!', 'info');
+        return;
+    }
+    
+    let html = '<div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center;">';
+    currentUser.cards.forEach(c => {
+        html += `<div style="background: linear-gradient(135deg, #1abc9c, #16a085); border-radius: 15px; padding: 15px; color: white; width: 220px; text-align: center; box-shadow: 0 4px 15px rgba(26, 188, 156, 0.4);">
+            <div style="font-size: 4rem; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); margin-bottom: 10px;">${c.value === 't_rex' ? '🦖' : '🃏'}</div>
+            <h4 style="margin:0; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">${c.name}</h4>
+            <div style="font-size: 0.8rem; background: rgba(0,0,0,0.2); padding: 5px; border-radius: 10px; margin-top: 10px; margin-bottom: 10px;">${c.collection}</div>
+            <p style="font-size: 0.9rem; font-style: italic; margin: 0;">${c.curiosity}</p>
+        </div>`;
+    });
+    html += '</div>';
+    
+    Swal.fire({
+        title: '📖 Seu Álbum de Cartas',
+        html: html,
+        width: '80%',
+        showCloseButton: true,
+        showConfirmButton: false,
+        background: '#f4f6f7'
+    });
+};
+
+window.showMagicLoading = function(message) {
+    let overlay = document.getElementById('magic-loading-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'magic-loading-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
+        overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+        overlay.style.zIndex = '999999';
+        overlay.style.display = 'flex';
+        overlay.style.flexDirection = 'column';
+        overlay.style.alignItems = 'center';
+        overlay.style.justifyContent = 'center';
+        
+        overlay.innerHTML = `
+            <div style="font-size: 5rem; animation: float 2s ease-in-out infinite;">✨</div>
+            <h2 id="magic-loading-text" style="color: #8e44ad; font-weight: 900; margin-top: 20px; text-transform: uppercase; letter-spacing: 2px;"></h2>
+        `;
+        document.body.appendChild(overlay);
+        
+        // Add float animation dynamically if not exists
+        if (!document.getElementById('magic-loading-style')) {
+            const style = document.createElement('style');
+            style.id = 'magic-loading-style';
+            style.innerHTML = `@keyframes float { 0% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-20px) scale(1.1); } 100% { transform: translateY(0px) scale(1); } }`;
+            document.head.appendChild(style);
+        }
+    }
+    
+    document.getElementById('magic-loading-text').innerText = message;
+    overlay.style.display = 'flex';
+};
+
+window.hideMagicLoading = function() {
+    const overlay = document.getElementById('magic-loading-overlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+};

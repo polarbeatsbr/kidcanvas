@@ -3528,7 +3528,12 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
         user.unlockedAchievements = user.unlockedAchievements || [];
         if (!user.unlockedAchievements.includes(mission.reward.value)) {
             user.unlockedAchievements.push(mission.reward.value);
+        } else if (mission.reward.type === 'card') {
+        user.cards = user.cards || [];
+        if (!user.cards.find(c => c.value === mission.reward.value)) {
+            user.cards.push(mission.reward);
         }
+    }
     }
     
     user.eventProgress.missions[missionId] = { claimed: true };
@@ -3541,7 +3546,7 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
     }
     
     await saveUsers();
-    res.json({ success: true, reward: mission.reward, inventory: user.eventInventory, stars: user.stars });
+    res.json({ success: true, reward: mission.reward, cards: user.cards, stars: user.stars });
 });
 
 // Rota catch-all para servir index.html e dar suporte ao roteamento SPA (histórico pushState)
