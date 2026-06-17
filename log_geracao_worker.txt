@@ -2984,3 +2984,58 @@
 [2026-06-17 04:36:40] Rebuilding catalog and drawings database...
 [2026-06-17 04:36:41] Build successful!
 [2026-06-17 04:36:41] Committing and pushing to origin main...
+[2026-06-17 04:36:45] Push successful! Vercel will deploy in production.
+[2026-06-17 04:36:46] [1151/4400] Generated: veiculos/783-trator-trator-grande-arando-a-terra__big_farm_tractor_plowing_a_farm_field.png
+[2026-06-17 04:36:47] [1152/4400] Generated: veiculos/784-trator-trator-grande-carregando-feno__big_farm_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:36:48] [1153/4400] Generated: veiculos/785-trator-trator-grande-perto-do-celeiro__big_farm_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:36:50] [1154/4400] Generated: veiculos/786-trator-trator-grande-subindo-morro-de-lama__big_farm_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:36:52] [1155/4400] Generated: veiculos/787-trator-trator-grande-regando-plantacao__big_farm_tractor_watering_crops.png
+[2026-06-17 04:36:53] [1156/4400] Generated: veiculos/788-trator-trator-grande-acenando-rodas-alegre__big_farm_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:36:54] [1157/4400] Generated: veiculos/789-trator-trator-carregador-arando-a-terra__loader_tractor_plowing_a_farm_field.png
+[2026-06-17 04:36:55] [1158/4400] Generated: veiculos/790-trator-trator-carregador-carregando-feno__loader_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:36:57] [1159/4400] Generated: veiculos/791-trator-trator-carregador-perto-do-celeiro__loader_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:36:58] [1160/4400] Generated: veiculos/792-trator-trator-carregador-subindo-morro-de-lama__loader_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:37:00] [1161/4400] Generated: veiculos/793-trator-trator-carregador-regando-plantacao__loader_tractor_watering_crops.png
+[2026-06-17 04:37:01] [1162/4400] Generated: veiculos/794-trator-trator-carregador-acenando-rodas-alegre__loader_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:37:02] [1163/4400] Generated: veiculos/795-trator-trator-antigo-arando-a-terra__vintage_farm_tractor_plowing_a_farm_field.png
+[2026-06-17 04:37:03] [1164/4400] Generated: veiculos/796-trator-trator-antigo-carregando-feno__vintage_farm_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:37:05] [1165/4400] Generated: veiculos/797-trator-trator-antigo-perto-do-celeiro__vintage_farm_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:37:06] [1166/4400] Generated: veiculos/798-trator-trator-antigo-subindo-morro-de-lama__vintage_farm_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:37:07] [1167/4400] Generated: veiculos/799-trator-trator-antigo-regando-plantacao__vintage_farm_tractor_watering_crops.png
+[2026-06-17 04:37:08] [1168/4400] Generated: veiculos/800-trator-trator-antigo-acenando-rodas-alegre__vintage_farm_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:37:10] [1169/4400] Generated: veiculos/801-trator-trator-de-esteira-arando-a-terra__crawler_tractor_plowing_a_farm_field.png
+[2026-06-17 04:37:11] [1170/4400] Generated: veiculos/802-trator-trator-de-esteira-carregando-feno__crawler_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:37:13] [1171/4400] Generated: veiculos/803-trator-trator-de-esteira-perto-do-celeiro__crawler_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:37:14] [1172/4400] Generated: veiculos/804-trator-trator-de-esteira-subindo-morro-de-lama__crawler_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:37:15] [1173/4400] Generated: veiculos/805-trator-trator-de-esteira-regando-plantacao__crawler_tractor_watering_crops.png
+[2026-06-17 04:37:17] [1174/4400] Generated: veiculos/806-trator-trator-de-esteira-acenando-rodas-alegre__crawler_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:37:18] [1175/4400] Generated: veiculos/807-trator-trator-utilitario-arando-a-terra__utility_tractor_plowing_a_farm_field.png
+[2026-06-17 04:37:19] [1176/4400] Generated: veiculos/808-trator-trator-utilitario-carregando-feno__utility_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:37:20] [1177/4400] Generated: veiculos/809-trator-trator-utilitario-perto-do-celeiro__utility_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:37:22] [1178/4400] Generated: veiculos/810-trator-trator-utilitario-subindo-morro-de-lama__utility_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:37:23] [1179/4400] Generated: veiculos/811-trator-trator-utilitario-regando-plantacao__utility_tractor_watering_crops.png
+[2026-06-17 04:37:25] [1180/4400] Generated: veiculos/812-trator-trator-utilitario-acenando-rodas-alegre__utility_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:37:26] [1181/4400] Generated: veiculos/813-trator-trator-pesado-arando-a-terra__heavy-duty_tractor_plowing_a_farm_field.png
+[2026-06-17 04:37:28] [1182/4400] Generated: veiculos/814-trator-trator-pesado-carregando-feno__heavy-duty_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:37:29] [1183/4400] Generated: veiculos/815-trator-trator-pesado-perto-do-celeiro__heavy-duty_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:37:30] [1184/4400] Generated: veiculos/816-trator-trator-pesado-subindo-morro-de-lama__heavy-duty_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:37:31] [1185/4400] Generated: veiculos/817-trator-trator-pesado-regando-plantacao__heavy-duty_tractor_watering_crops.png
+[2026-06-17 04:37:33] [1186/4400] Generated: veiculos/818-trator-trator-pesado-acenando-rodas-alegre__heavy-duty_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:37:34] [1187/4400] Generated: veiculos/819-trator-trator-de-brinquedo-arando-a-terra__cute_toy_tractor_plowing_a_farm_field.png
+[2026-06-17 04:37:35] [1188/4400] Generated: veiculos/820-trator-trator-de-brinquedo-carregando-feno__cute_toy_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:37:36] [1189/4400] Generated: veiculos/821-trator-trator-de-brinquedo-perto-do-celeiro__cute_toy_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:37:37] [1190/4400] Generated: veiculos/822-trator-trator-de-brinquedo-subindo-morro-de-lama__cute_toy_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:37:39] [1191/4400] Generated: veiculos/823-trator-trator-de-brinquedo-regando-plantacao__cute_toy_tractor_watering_crops.png
+[2026-06-17 04:37:40] [1192/4400] Generated: veiculos/824-trator-trator-de-brinquedo-acenando-rodas-alegre__cute_toy_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:37:41] [1193/4400] Generated: veiculos/825-trator-trator-de-desenho-arando-a-terra__friendly_cartoon_tractor_plowing_a_farm_field.png
+[2026-06-17 04:37:42] [1194/4400] Generated: veiculos/826-trator-trator-de-desenho-carregando-feno__friendly_cartoon_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:37:43] [1195/4400] Generated: veiculos/828-trator-trator-de-desenho-subindo-morro-de-lama__friendly_cartoon_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:37:45] [1196/4400] Generated: veiculos/827-trator-trator-de-desenho-perto-do-celeiro__friendly_cartoon_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:37:46] [1197/4400] Generated: veiculos/829-trator-trator-de-desenho-regando-plantacao__friendly_cartoon_tractor_watering_crops.png
+[2026-06-17 04:37:47] [1198/4400] Generated: veiculos/830-trator-trator-de-desenho-acenando-rodas-alegre__friendly_cartoon_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:37:48] [1199/4400] Generated: veiculos/831-trator-trator-de-jardim-arando-a-terra__garden_tractor_plowing_a_farm_field.png
+[2026-06-17 04:37:50] [1200/4400] Generated: veiculos/832-trator-trator-de-jardim-carregando-feno__garden_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:37:50] Batch 24 completed (1200 drawings). Triggering build & push...
+[2026-06-17 04:37:50] Rebuilding catalog and drawings database...
+[2026-06-17 04:37:51] Build successful!
+[2026-06-17 04:37:51] Committing and pushing to origin main...
