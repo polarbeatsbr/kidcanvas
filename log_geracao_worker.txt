@@ -4305,3 +4305,58 @@
 [2026-06-17 05:06:08] Rebuilding catalog and drawings database...
 [2026-06-17 05:06:09] Build successful!
 [2026-06-17 05:06:09] Committing and pushing to origin main...
+[2026-06-17 05:06:12] Push successful! Vercel will deploy in production.
+[2026-06-17 05:06:14] [2351/4400] Generated: animais-selvagens/351-amazonia-boto-cor-de-rosa-no-galho-da-selva__pink_river_dolphin_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:06:15] [2352/4400] Generated: animais-selvagens/352-amazonia-boto-cor-de-rosa-nadando-no-rio-amazonas__pink_river_dolphin_swimming_in_the_amazon_river.png
+[2026-06-17 05:06:16] [2353/4400] Generated: animais-selvagens/353-amazonia-boto-cor-de-rosa-abracado-na-arvore__pink_river_dolphin_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:06:18] [2354/4400] Generated: animais-selvagens/354-amazonia-boto-cor-de-rosa-entre-folhas-gigantes__pink_river_dolphin_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:06:21] [2355/4400] Generated: animais-selvagens/355-amazonia-boto-cor-de-rosa-com-orquideas-em-volta__pink_river_dolphin_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:06:22] [2356/4400] Generated: animais-selvagens/357-amazonia-sapinho-colorido-nadando-no-rio-amazonas__poison_dart_frog_swimming_in_the_amazon_river.png
+[2026-06-17 05:06:24] [2357/4400] Generated: animais-selvagens/356-amazonia-sapinho-colorido-no-galho-da-selva__poison_dart_frog_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:06:25] [2358/4400] Generated: animais-selvagens/358-amazonia-sapinho-colorido-abracado-na-arvore__poison_dart_frog_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:06:26] [2359/4400] Generated: animais-selvagens/359-amazonia-sapinho-colorido-entre-folhas-gigantes__poison_dart_frog_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:06:27] [2360/4400] Generated: animais-selvagens/360-amazonia-sapinho-colorido-com-orquideas-em-volta__poison_dart_frog_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:06:29] [2361/4400] Generated: animais-selvagens/361-amazonia-capivara-simpatica-no-galho-da-selva__capybara_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:06:31] [2362/4400] Generated: animais-selvagens/362-amazonia-capivara-simpatica-nadando-no-rio-amazonas__capybara_swimming_in_the_amazon_river.png
+[2026-06-17 05:06:32] [2363/4400] Generated: animais-selvagens/363-amazonia-capivara-simpatica-abracado-na-arvore__capybara_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:06:33] [2364/4400] Generated: animais-selvagens/364-amazonia-capivara-simpatica-entre-folhas-gigantes__capybara_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:06:34] [2365/4400] Generated: animais-selvagens/365-amazonia-capivara-simpatica-com-orquideas-em-volta__capybara_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:06:36] [2366/4400] Generated: animais-selvagens/367-amazonia-macaco-de-cheiro-nadando-no-rio-amazonas__squirrel_monkey_swimming_in_the_amazon_river.png
+[2026-06-17 05:06:37] [2367/4400] Generated: animais-selvagens/366-amazonia-macaco-de-cheiro-no-galho-da-selva__squirrel_monkey_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:06:38] [2368/4400] Generated: animais-selvagens/368-amazonia-macaco-de-cheiro-abracado-na-arvore__squirrel_monkey_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:06:39] [2369/4400] Generated: animais-selvagens/369-amazonia-macaco-de-cheiro-entre-folhas-gigantes__squirrel_monkey_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:06:41] [2370/4400] Generated: animais-selvagens/370-amazonia-macaco-de-cheiro-com-orquideas-em-volta__squirrel_monkey_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:06:43] [2371/4400] Generated: animais-selvagens/372-amazonia-sucuri-grande-nadando-no-rio-amazonas__boa_constrictor_swimming_in_the_amazon_river.png
+[2026-06-17 05:06:44] [2372/4400] Generated: animais-selvagens/371-amazonia-sucuri-grande-no-galho-da-selva__boa_constrictor_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:06:45] [2373/4400] Generated: animais-selvagens/373-amazonia-sucuri-grande-abracado-na-arvore__boa_constrictor_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:06:47] [2374/4400] Generated: animais-selvagens/374-amazonia-sucuri-grande-entre-folhas-gigantes__boa_constrictor_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:06:48] [2375/4400] Generated: animais-selvagens/375-amazonia-sucuri-grande-com-orquideas-em-volta__boa_constrictor_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:06:49] [2376/4400] Generated: animais-selvagens/376-amazonia-borboleta-azul-no-galho-da-selva__cute_butterfly_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:06:50] [2377/4400] Generated: animais-selvagens/377-amazonia-borboleta-azul-nadando-no-rio-amazonas__cute_butterfly_swimming_in_the_amazon_river.png
+[2026-06-17 05:06:52] [2378/4400] Generated: animais-selvagens/378-amazonia-borboleta-azul-abracado-na-arvore__cute_butterfly_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:06:53] [2379/4400] Generated: animais-selvagens/379-amazonia-borboleta-azul-entre-folhas-gigantes__cute_butterfly_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:06:54] [2380/4400] Generated: animais-selvagens/380-amazonia-borboleta-azul-com-orquideas-em-volta__cute_butterfly_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:06:56] [2381/4400] Generated: animais-selvagens/381-ave-selvagem-aguia-majestosa-voando-alto-no-ceu__majestic_eagle_soaring_high_in_the_sky.png
+[2026-06-17 05:06:57] [2382/4400] Generated: animais-selvagens/382-ave-selvagem-aguia-majestosa-no-galho-tropical__majestic_eagle_perched_on_a_tropical_branch.png
+[2026-06-17 05:06:58] [2383/4400] Generated: animais-selvagens/383-ave-selvagem-aguia-majestosa-nadando-na-lagoa__majestic_eagle_swimming_gracefully_in_a_pond.png
+[2026-06-17 05:07:00] [2384/4400] Generated: animais-selvagens/384-ave-selvagem-aguia-majestosa-explorando-a-floresta__majestic_eagle_exploring_the_forest.png
+[2026-06-17 05:07:01] [2385/4400] Generated: animais-selvagens/385-ave-selvagem-aguia-majestosa-andando-na-natureza__majestic_eagle_walking_in_the_wild.png
+[2026-06-17 05:07:03] [2386/4400] Generated: animais-selvagens/386-ave-selvagem-aguia-majestosa-acenando-alegre__majestic_eagle_waving_friendly.png
+[2026-06-17 05:07:04] [2387/4400] Generated: animais-selvagens/387-ave-selvagem-aguia-majestosa-sorrindo-sob-o-sol__majestic_eagle_smiling_under_a_sunny_sky.png
+[2026-06-17 05:07:05] [2388/4400] Generated: animais-selvagens/388-ave-selvagem-aguia-majestosa-entre-flores-lindas__majestic_eagle_surrounded_by_nice_flowers.png
+[2026-06-17 05:07:06] [2389/4400] Generated: animais-selvagens/389-ave-selvagem-arara-colorida-voando-alto-no-ceu__colorful_parrot_soaring_high_in_the_sky.png
+[2026-06-17 05:07:08] [2390/4400] Generated: animais-selvagens/390-ave-selvagem-arara-colorida-no-galho-tropical__colorful_parrot_perched_on_a_tropical_branch.png
+[2026-06-17 05:07:09] [2391/4400] Generated: animais-selvagens/391-ave-selvagem-arara-colorida-nadando-na-lagoa__colorful_parrot_swimming_gracefully_in_a_pond.png
+[2026-06-17 05:07:11] [2392/4400] Generated: animais-selvagens/392-ave-selvagem-arara-colorida-explorando-a-floresta__colorful_parrot_exploring_the_forest.png
+[2026-06-17 05:07:12] [2393/4400] Generated: animais-selvagens/393-ave-selvagem-arara-colorida-andando-na-natureza__colorful_parrot_walking_in_the_wild.png
+[2026-06-17 05:07:14] [2394/4400] Generated: animais-selvagens/394-ave-selvagem-arara-colorida-acenando-alegre__colorful_parrot_waving_friendly.png
+[2026-06-17 05:07:16] [2395/4400] Generated: animais-selvagens/395-ave-selvagem-arara-colorida-sorrindo-sob-o-sol__colorful_parrot_smiling_under_a_sunny_sky.png
+[2026-06-17 05:07:17] [2396/4400] Generated: animais-selvagens/396-ave-selvagem-arara-colorida-entre-flores-lindas__colorful_parrot_surrounded_by_nice_flowers.png
+[2026-06-17 05:07:18] [2397/4400] Generated: animais-selvagens/397-ave-selvagem-tucano-exotico-voando-alto-no-ceu__exotic_toucan_soaring_high_in_the_sky.png
+[2026-06-17 05:07:20] [2398/4400] Generated: animais-selvagens/398-ave-selvagem-tucano-exotico-no-galho-tropical__exotic_toucan_perched_on_a_tropical_branch.png
+[2026-06-17 05:07:21] [2399/4400] Generated: animais-selvagens/399-ave-selvagem-tucano-exotico-nadando-na-lagoa__exotic_toucan_swimming_gracefully_in_a_pond.png
+[2026-06-17 05:07:23] [2400/4400] Generated: animais-selvagens/400-ave-selvagem-tucano-exotico-explorando-a-floresta__exotic_toucan_exploring_the_forest.png
+[2026-06-17 05:07:23] Batch 48 completed (2400 drawings). Triggering build & push...
+[2026-06-17 05:07:23] Rebuilding catalog and drawings database...
+[2026-06-17 05:07:24] Build successful!
+[2026-06-17 05:07:24] Committing and pushing to origin main...
