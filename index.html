@@ -104,6 +104,7 @@
                         <li><a href="/gerar-desenho" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho</a></li>
                         <li><a href="/pintura-livre" class="nav-link" id="nav-free-paint"><i class="fa-solid fa-paintbrush"></i> Pintura Livre</a></li>
                         <li><a href="/historias-magicas" class="nav-link"><i class="fa-solid fa-book-open"></i> Histórias Mágicas</a></li>
+                        <li><a href="#" onclick="openAlbumModal(); return false;" class="nav-link"><i class="fa-solid fa-trophy"></i> Álbum de Cartas</a></li>
                         <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
                         <li><a href="/hall-da-fama" class="nav-link"><i class="fa-solid fa-camera"></i> Hall da Fama</a></li>
                     </ul>
@@ -157,6 +158,9 @@
                                 <div class="dropdown-divider"></div>
                                 <a href="#" onclick="navigate('/minhas-criacoes'); return false;" class="dropdown-menu-item">
                                     <i class="fa-solid fa-image"></i> Minhas Criações
+                                </a>
+                                <a href="#" onclick="openAlbumModal(); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-trophy"></i> Álbum de Cartas
                                 </a>
                                 <a href="#" onclick="openAvatarSelectionModal(); return false;" class="dropdown-menu-item">
                                     <i class="fa-solid fa-face-smile"></i> Escolher Avatar
@@ -2569,6 +2573,10 @@
         <a href="/historias-magicas" class="mobile-nav-item" id="mobile-nav-historia" style="color: var(--color-purple);">
             <i class="fa-solid fa-book-open"></i>
             <span>Histórias Mágicas</span>
+        </a>
+        <a href="#" onclick="openAlbumModal(); return false;" class="mobile-nav-item" id="mobile-nav-album" style="color: var(--color-orange);">
+            <i class="fa-solid fa-trophy"></i>
+            <span>Álbum</span>
         </a>
         <a href="#" class="mobile-nav-item" id="mobile-nav-search-trigger">
             <i class="fa-solid fa-magnifying-glass"></i>
