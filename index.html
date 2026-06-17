@@ -2243,14 +2243,20 @@
             <button class="btn-close-modal" onclick="closePublicProfileModal()">&times;</button>
             <span id="profile-modal-avatar" style="font-size: 3.5rem; display: block; margin-bottom: 15px; animation: bounce-slow 2s infinite;">👤</span>
             <h3 id="profile-modal-name" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-purple); margin-bottom: 5px;">Sebastian</h3>
-            <div id="profile-modal-level-badge" style="display: inline-block; background: #9e9e9e; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.95rem; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <span id="profile-modal-level-icon">🎨</span>
-                <span id="profile-modal-level-name">Aprendiz de Cores</span>
-            </div>
-            
-            <div style="margin-bottom: 20px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; background: rgba(255, 179, 0, 0.1); padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255, 179, 0, 0.3);">
-                <span style="font-size: 1.15rem; color: var(--color-orange); letter-spacing: 2px;">⭐⭐⭐⭐⭐</span>
-                <span id="profile-modal-stars-text" style="font-size: 1.1rem; font-weight: 800; color: var(--color-dark);">0 estrelas</span>
+            <div id="profile-modal-level-container" style="background: white; border: var(--border-thin); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 20px; text-align: left; box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <div id="profile-modal-level-badge" style="display: inline-flex; align-items: center; gap: 6px; font-weight: 800; font-size: 1rem;">
+                        <span id="profile-modal-level-icon">🎨</span>
+                        <span id="profile-modal-level-name">Aprendiz de Cores</span>
+                    </div>
+                    <div id="profile-modal-level-progress-text" style="font-size: 0.85rem; font-weight: 700; color: var(--color-dark-light);">0/10 ⭐</div>
+                </div>
+                <div style="background: #e0e0e0; height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 8px;">
+                    <div id="profile-modal-level-progress-bar" style="height: 100%; background: var(--color-purple); width: 0%; transition: width 0.5s ease;"></div>
+                </div>
+                <div id="profile-modal-level-hint" style="font-size: 0.8rem; color: #757575; font-weight: 600;">
+                    Faltam 10 estrelas para virar Rabiscador Criativo!
+                </div>
             </div>
             
             <div style="display: flex; flex-direction: column; gap: 12px; text-align: left; background: white; border: var(--border-thin); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 20px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);">

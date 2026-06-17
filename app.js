@@ -8516,23 +8516,59 @@ async function openPublicProfile(name, userEmail = '') {
                 }
             }
             document.getElementById('profile-modal-name').textContent = profile.name;
-            document.getElementById('profile-modal-stars-text').textContent = `${profile.stars} estrelas`;
             document.getElementById('profile-modal-paintings').textContent = profile.paintingsCount;
             
             if (storiesEl) storiesEl.textContent = profile.storiesCount;
             if (aiImagesEl) aiImagesEl.textContent = profile.aiImagesCount;
             
-            // Atualizar Nível do Usuário
+            // Atualizar Nível do Usuário com Barra de Progresso
             const stars = profile.stars || 0;
             const userLevel = getUserLevel(stars);
-            const levelBadge = document.getElementById('profile-modal-level-badge');
+            
+            let nextLevel = null;
+            const levelIndex = USER_LEVELS.findIndex(l => l.name === userLevel.name);
+            if (levelIndex >= 0 && levelIndex < USER_LEVELS.length - 1) {
+                nextLevel = USER_LEVELS[levelIndex + 1];
+            }
+
             const levelIcon = document.getElementById('profile-modal-level-icon');
             const levelName = document.getElementById('profile-modal-level-name');
+            const progressText = document.getElementById('profile-modal-level-progress-text');
+            const progressBar = document.getElementById('profile-modal-level-progress-bar');
+            const levelHint = document.getElementById('profile-modal-level-hint');
             
-            if (levelBadge && levelIcon && levelName) {
-                levelBadge.style.backgroundColor = userLevel.color;
+            if (levelIcon && levelName) {
                 levelIcon.textContent = userLevel.icon;
                 levelName.textContent = userLevel.name;
+                levelName.style.color = userLevel.color;
+            }
+            
+            if (nextLevel) {
+                const prevStars = userLevel.minStars;
+                const nextStars = nextLevel.minStars;
+                const starsInLevel = stars - prevStars;
+                const starsRequired = nextStars - prevStars;
+                const percent = Math.min(100, Math.max(0, Math.floor((starsInLevel / starsRequired) * 100)));
+                
+                if (progressText) progressText.textContent = `${stars}/${nextStars} ⭐`;
+                if (progressBar) {
+                    progressBar.style.width = `${percent}%`;
+                    progressBar.style.backgroundColor = userLevel.color;
+                }
+                if (levelHint) {
+                    levelHint.textContent = `Faltam ${nextStars - stars} estrelas para virar ${nextLevel.name}!`;
+                    levelHint.style.display = 'block';
+                }
+            } else {
+                if (progressText) progressText.textContent = `${stars} ⭐`;
+                if (progressBar) {
+                    progressBar.style.width = `100%`;
+                    progressBar.style.backgroundColor = userLevel.color;
+                }
+                if (levelHint) {
+                    levelHint.textContent = `Nível Máximo Alcançado! 🎉`;
+                    levelHint.style.display = 'block';
+                }
             }
 
             // Renderizar grade de conquistas/selos — usa ACHIEVEMENTS_CATALOG
