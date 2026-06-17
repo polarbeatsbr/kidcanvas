@@ -2764,3 +2764,58 @@
 [2026-06-17 04:31:49] Rebuilding catalog and drawings database...
 [2026-06-17 04:31:50] Build successful!
 [2026-06-17 04:31:50] Committing and pushing to origin main...
+[2026-06-17 04:31:53] Push successful! Vercel will deploy in production.
+[2026-06-17 04:31:54] [951/4400] Generated: profissoes/608-policial-policial-valente-acenando-amigavel__courageous_police_officer_waving_friendly.png
+[2026-06-17 04:31:56] [952/4400] Generated: profissoes/609-policial-policial-valente-ajudando-crianca__courageous_police_officer_helping_a_lost_child_find_their_way.png
+[2026-06-17 04:31:58] [953/4400] Generated: profissoes/610-policial-policial-de-desenho-com-carro-de-policia__cute_cartoon_police_officer_driving_a_blue_police_car.png
+[2026-06-17 04:31:59] [954/4400] Generated: profissoes/611-policial-policial-de-desenho-orientando-transito__cute_cartoon_police_officer_directing_traffic_with_a_smile.png
+[2026-06-17 04:32:00] [955/4400] Generated: profissoes/612-policial-policial-de-desenho-com-quepe-policial__cute_cartoon_police_officer_wearing_a_police_cap.png
+[2026-06-17 04:32:02] [956/4400] Generated: profissoes/613-policial-policial-de-desenho-com-placa-de-pare__cute_cartoon_police_officer_holding_a_stop_sign.png
+[2026-06-17 04:32:03] [957/4400] Generated: profissoes/614-policial-policial-de-desenho-acenando-amigavel__cute_cartoon_police_officer_waving_friendly.png
+[2026-06-17 04:32:05] [958/4400] Generated: profissoes/615-policial-policial-de-desenho-ajudando-crianca__cute_cartoon_police_officer_helping_a_lost_child_find_their_way.png
+[2026-06-17 04:32:06] [959/4400] Generated: profissoes/616-policial-inspetor-policial-com-carro-de-policia__police_inspector_driving_a_blue_police_car.png
+[2026-06-17 04:32:07] [960/4400] Generated: profissoes/617-policial-inspetor-policial-orientando-transito__police_inspector_directing_traffic_with_a_smile.png
+[2026-06-17 04:32:08] [961/4400] Generated: profissoes/618-policial-inspetor-policial-com-quepe-policial__police_inspector_wearing_a_police_cap.png
+[2026-06-17 04:32:10] [962/4400] Generated: profissoes/619-policial-inspetor-policial-com-placa-de-pare__police_inspector_holding_a_stop_sign.png
+[2026-06-17 04:32:12] [963/4400] Generated: profissoes/620-policial-inspetor-policial-acenando-amigavel__police_inspector_waving_friendly.png
+[2026-06-17 04:32:13] [964/4400] Generated: profissoes/621-policial-inspetor-policial-ajudando-crianca__police_inspector_helping_a_lost_child_find_their_way.png
+[2026-06-17 04:32:14] [965/4400] Generated: profissoes/623-policial-mascote-policial-orientando-transito__police_mascot_directing_traffic_with_a_smile.png
+[2026-06-17 04:32:16] [966/4400] Generated: profissoes/622-policial-mascote-policial-com-carro-de-policia__police_mascot_driving_a_blue_police_car.png
+[2026-06-17 04:32:18] [967/4400] Generated: profissoes/624-policial-mascote-policial-com-quepe-policial__police_mascot_wearing_a_police_cap.png
+[2026-06-17 04:32:19] [968/4400] Generated: profissoes/625-policial-mascote-policial-com-placa-de-pare__police_mascot_holding_a_stop_sign.png
+[2026-06-17 04:32:20] [969/4400] Generated: profissoes/626-policial-mascote-policial-acenando-amigavel__police_mascot_waving_friendly.png
+[2026-06-17 04:32:22] [970/4400] Generated: profissoes/628-medico-medico-amigo-com-prancheta-de-notas__friendly_doctor_holding_a_clipboard.png
+[2026-06-17 04:32:24] [971/4400] Generated: profissoes/627-policial-mascote-policial-ajudando-crianca__police_mascot_helping_a_lost_child_find_their_way.png
+[2026-06-17 04:32:25] [972/4400] Generated: profissoes/629-medico-medico-amigo-com-estetoscopio__friendly_doctor_wearing_a_stethoscope.png
+[2026-06-17 04:32:26] [973/4400] Generated: profissoes/630-medico-medico-amigo-cuidando-do-ursinho__friendly_doctor_checking_a_friendly_teddy_bear's_heartbeat.png
+[2026-06-17 04:32:27] [974/4400] Generated: profissoes/631-medico-medico-amigo-com-mapa-de-alimentos__friendly_doctor_pointing_to_a_healthy_food_chart.png
+[2026-06-17 04:32:28] [975/4400] Generated: profissoes/633-medico-medico-amigo-com-maleta-de-primeiros-socorros__friendly_doctor_holding_a_first_aid_kit.png
+[2026-06-17 04:32:30] [976/4400] Generated: profissoes/632-medico-medico-amigo-acenando-feliz__friendly_doctor_waving_happily.png
+[2026-06-17 04:32:31] [977/4400] Generated: profissoes/634-medico-enfermeira-gentil-com-prancheta-de-notas__kind_nurse_holding_a_clipboard.png
+[2026-06-17 04:32:32] [978/4400] Generated: profissoes/635-medico-enfermeira-gentil-com-estetoscopio__kind_nurse_wearing_a_stethoscope.png
+[2026-06-17 04:32:33] [979/4400] Generated: profissoes/636-medico-enfermeira-gentil-cuidando-do-ursinho__kind_nurse_checking_a_friendly_teddy_bear's_heartbeat.png
+[2026-06-17 04:32:34] [980/4400] Generated: profissoes/637-medico-enfermeira-gentil-com-mapa-de-alimentos__kind_nurse_pointing_to_a_healthy_food_chart.png
+[2026-06-17 04:32:36] [981/4400] Generated: profissoes/638-medico-enfermeira-gentil-acenando-feliz__kind_nurse_waving_happily.png
+[2026-06-17 04:32:37] [982/4400] Generated: profissoes/639-medico-enfermeira-gentil-com-maleta-de-primeiros-socorros__kind_nurse_holding_a_first_aid_kit.png
+[2026-06-17 04:32:39] [983/4400] Generated: profissoes/640-medico-pediatra-fofo-com-prancheta-de-notas__cute_pediatrician_holding_a_clipboard.png
+[2026-06-17 04:32:40] [984/4400] Generated: profissoes/641-medico-pediatra-fofo-com-estetoscopio__cute_pediatrician_wearing_a_stethoscope.png
+[2026-06-17 04:32:41] [985/4400] Generated: profissoes/642-medico-pediatra-fofo-cuidando-do-ursinho__cute_pediatrician_checking_a_friendly_teddy_bear's_heartbeat.png
+[2026-06-17 04:32:42] [986/4400] Generated: profissoes/643-medico-pediatra-fofo-com-mapa-de-alimentos__cute_pediatrician_pointing_to_a_healthy_food_chart.png
+[2026-06-17 04:32:44] [987/4400] Generated: profissoes/644-medico-pediatra-fofo-acenando-feliz__cute_pediatrician_waving_happily.png
+[2026-06-17 04:32:45] [988/4400] Generated: profissoes/645-medico-pediatra-fofo-com-maleta-de-primeiros-socorros__cute_pediatrician_holding_a_first_aid_kit.png
+[2026-06-17 04:32:46] [989/4400] Generated: profissoes/646-medico-dentista-feliz-com-prancheta-de-notas__happy_dentist_holding_a_clipboard.png
+[2026-06-17 04:32:48] [990/4400] Generated: profissoes/647-medico-dentista-feliz-com-estetoscopio__happy_dentist_wearing_a_stethoscope.png
+[2026-06-17 04:32:50] [991/4400] Generated: profissoes/648-medico-dentista-feliz-cuidando-do-ursinho__happy_dentist_checking_a_friendly_teddy_bear's_heartbeat.png
+[2026-06-17 04:32:52] [992/4400] Generated: profissoes/649-medico-dentista-feliz-com-mapa-de-alimentos__happy_dentist_pointing_to_a_healthy_food_chart.png
+[2026-06-17 04:32:53] [993/4400] Generated: profissoes/650-medico-dentista-feliz-acenando-feliz__happy_dentist_waving_happily.png
+[2026-06-17 04:32:55] [994/4400] Generated: profissoes/651-medico-dentista-feliz-com-maleta-de-primeiros-socorros__happy_dentist_holding_a_first_aid_kit.png
+[2026-06-17 04:32:56] [995/4400] Generated: profissoes/653-medico-mascote-medico-com-estetoscopio__doctor_mascot_wearing_a_stethoscope.png
+[2026-06-17 04:32:57] [996/4400] Generated: profissoes/652-medico-mascote-medico-com-prancheta-de-notas__doctor_mascot_holding_a_clipboard.png
+[2026-06-17 04:32:58] [997/4400] Generated: profissoes/654-medico-mascote-medico-cuidando-do-ursinho__doctor_mascot_checking_a_friendly_teddy_bear's_heartbeat.png
+[2026-06-17 04:32:59] [998/4400] Generated: profissoes/655-medico-mascote-medico-com-mapa-de-alimentos__doctor_mascot_pointing_to_a_healthy_food_chart.png
+[2026-06-17 04:33:01] [999/4400] Generated: profissoes/656-medico-mascote-medico-acenando-feliz__doctor_mascot_waving_happily.png
+[2026-06-17 04:33:02] [1000/4400] Generated: profissoes/658-medico-mascote-enfermeira-com-prancheta-de-notas__nurse_mascot_holding_a_clipboard.png
+[2026-06-17 04:33:02] Batch 20 completed (1000 drawings). Triggering build & push...
+[2026-06-17 04:33:02] Rebuilding catalog and drawings database...
+[2026-06-17 04:33:03] Build successful!
+[2026-06-17 04:33:03] Committing and pushing to origin main...
