@@ -5530,7 +5530,7 @@
     "en": "Dachshund dog playing with a ball",
     "slug": "cachorro-dachshund-brincando-com-bola",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 27,
@@ -5552,7 +5552,7 @@
     "en": "Dachshund dog running in the park",
     "slug": "cachorro-dachshund-correndo-no-parque",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 271,
@@ -5563,7 +5563,7 @@
     "en": "Dachshund dog sleeping in a basket",
     "slug": "cachorro-dachshund-dormindo-na-cesta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 272,
@@ -5574,7 +5574,7 @@
     "en": "Dachshund dog wearing a party hat",
     "slug": "cachorro-dachshund-com-chapeu-de-festa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 273,
@@ -5585,7 +5585,7 @@
     "en": "Dachshund dog next to a dog house",
     "slug": "cachorro-dachshund-perto-da-casinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 274,
@@ -5596,7 +5596,7 @@
     "en": "Dachshund dog chasing a butterfly",
     "slug": "cachorro-dachshund-atras-de-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 275,
@@ -5607,7 +5607,7 @@
     "en": "Dachshund dog eating from a bowl",
     "slug": "cachorro-dachshund-comendo-ração",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 276,
@@ -5618,7 +5618,7 @@
     "en": "Dachshund dog smiling happily",
     "slug": "cachorro-dachshund-sorrindo-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 277,
@@ -5629,7 +5629,7 @@
     "en": "Dachshund dog looking out a window",
     "slug": "cachorro-dachshund-olhando-a-janela",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 278,
@@ -5640,7 +5640,7 @@
     "en": "Dachshund dog holding a bone",
     "slug": "cachorro-dachshund-segurando-osso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 279,
@@ -5651,7 +5651,7 @@
     "en": "Shih tzu dog playing with a ball",
     "slug": "cachorro-shih-tzu-brincando-com-bola",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 28,
@@ -5673,7 +5673,7 @@
     "en": "Shih tzu dog running in the park",
     "slug": "cachorro-shih-tzu-correndo-no-parque",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 281,
@@ -5684,7 +5684,7 @@
     "en": "Shih tzu dog sleeping in a basket",
     "slug": "cachorro-shih-tzu-dormindo-na-cesta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 282,
@@ -5695,7 +5695,7 @@
     "en": "Shih tzu dog wearing a party hat",
     "slug": "cachorro-shih-tzu-com-chapeu-de-festa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 283,
@@ -5706,7 +5706,7 @@
     "en": "Shih tzu dog next to a dog house",
     "slug": "cachorro-shih-tzu-perto-da-casinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 284,
@@ -5717,7 +5717,7 @@
     "en": "Shih tzu dog chasing a butterfly",
     "slug": "cachorro-shih-tzu-atras-de-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 285,
@@ -5728,7 +5728,7 @@
     "en": "Shih tzu dog eating from a bowl",
     "slug": "cachorro-shih-tzu-comendo-ração",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 286,
@@ -5739,7 +5739,7 @@
     "en": "Shih tzu dog smiling happily",
     "slug": "cachorro-shih-tzu-sorrindo-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 287,
@@ -5750,7 +5750,7 @@
     "en": "Shih tzu dog looking out a window",
     "slug": "cachorro-shih-tzu-olhando-a-janela",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 288,
@@ -5761,7 +5761,7 @@
     "en": "Shih tzu dog holding a bone",
     "slug": "cachorro-shih-tzu-segurando-osso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 289,
@@ -5772,7 +5772,7 @@
     "en": "Dalmatian dog playing with a ball",
     "slug": "cachorro-dalmata-brincando-com-bola",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 29,
@@ -5794,7 +5794,7 @@
     "en": "Dalmatian dog running in the park",
     "slug": "cachorro-dalmata-correndo-no-parque",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 291,
@@ -5805,7 +5805,7 @@
     "en": "Dalmatian dog sleeping in a basket",
     "slug": "cachorro-dalmata-dormindo-na-cesta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 292,
@@ -5816,7 +5816,7 @@
     "en": "Dalmatian dog wearing a party hat",
     "slug": "cachorro-dalmata-com-chapeu-de-festa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 293,
@@ -5827,7 +5827,7 @@
     "en": "Dalmatian dog next to a dog house",
     "slug": "cachorro-dalmata-perto-da-casinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 294,
@@ -5838,7 +5838,7 @@
     "en": "Dalmatian dog chasing a butterfly",
     "slug": "cachorro-dalmata-atras-de-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 295,
@@ -5849,7 +5849,7 @@
     "en": "Dalmatian dog eating from a bowl",
     "slug": "cachorro-dalmata-comendo-ração",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 296,
@@ -5860,7 +5860,7 @@
     "en": "Dalmatian dog smiling happily",
     "slug": "cachorro-dalmata-sorrindo-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 297,
@@ -5871,7 +5871,7 @@
     "en": "Dalmatian dog looking out a window",
     "slug": "cachorro-dalmata-olhando-a-janela",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 298,
@@ -5882,7 +5882,7 @@
     "en": "Dalmatian dog holding a bone",
     "slug": "cachorro-dalmata-segurando-osso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 299,
@@ -5893,7 +5893,7 @@
     "en": "Border collie dog playing with a ball",
     "slug": "cachorro-border-collie-brincando-com-bola",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 30,
@@ -5915,7 +5915,7 @@
     "en": "Border collie dog running in the park",
     "slug": "cachorro-border-collie-correndo-no-parque",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 301,
@@ -5926,7 +5926,7 @@
     "en": "Border collie dog sleeping in a basket",
     "slug": "cachorro-border-collie-dormindo-na-cesta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 302,
@@ -5937,7 +5937,7 @@
     "en": "Border collie dog wearing a party hat",
     "slug": "cachorro-border-collie-com-chapeu-de-festa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 303,
@@ -5948,7 +5948,7 @@
     "en": "Border collie dog next to a dog house",
     "slug": "cachorro-border-collie-perto-da-casinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 304,
@@ -5959,7 +5959,7 @@
     "en": "Border collie dog chasing a butterfly",
     "slug": "cachorro-border-collie-atras-de-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 305,
@@ -5970,7 +5970,7 @@
     "en": "Border collie dog eating from a bowl",
     "slug": "cachorro-border-collie-comendo-ração",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 306,
@@ -5981,7 +5981,7 @@
     "en": "Border collie dog smiling happily",
     "slug": "cachorro-border-collie-sorrindo-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 307,
@@ -5992,7 +5992,7 @@
     "en": "Border collie dog looking out a window",
     "slug": "cachorro-border-collie-olhando-a-janela",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 308,
@@ -6003,7 +6003,7 @@
     "en": "Border collie dog holding a bone",
     "slug": "cachorro-border-collie-segurando-osso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 309,
@@ -6014,7 +6014,7 @@
     "en": "Cute mixed breed dog playing with a ball",
     "slug": "cachorro-vira-lata-brincando-com-bola",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 31,
@@ -6036,7 +6036,7 @@
     "en": "Cute mixed breed dog running in the park",
     "slug": "cachorro-vira-lata-correndo-no-parque",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 311,
@@ -6047,7 +6047,7 @@
     "en": "Cute mixed breed dog sleeping in a basket",
     "slug": "cachorro-vira-lata-dormindo-na-cesta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 312,
@@ -6058,7 +6058,7 @@
     "en": "Cute mixed breed dog wearing a party hat",
     "slug": "cachorro-vira-lata-com-chapeu-de-festa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 313,
@@ -6069,7 +6069,7 @@
     "en": "Cute mixed breed dog next to a dog house",
     "slug": "cachorro-vira-lata-perto-da-casinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 314,
@@ -6080,7 +6080,7 @@
     "en": "Cute mixed breed dog chasing a butterfly",
     "slug": "cachorro-vira-lata-atras-de-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 315,
@@ -6091,7 +6091,7 @@
     "en": "Cute mixed breed dog eating from a bowl",
     "slug": "cachorro-vira-lata-comendo-ração",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 316,
@@ -6102,7 +6102,7 @@
     "en": "Cute mixed breed dog smiling happily",
     "slug": "cachorro-vira-lata-sorrindo-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 317,
@@ -6113,7 +6113,7 @@
     "en": "Cute mixed breed dog looking out a window",
     "slug": "cachorro-vira-lata-olhando-a-janela",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 318,
@@ -6124,7 +6124,7 @@
     "en": "Cute mixed breed dog holding a bone",
     "slug": "cachorro-vira-lata-segurando-osso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 319,
@@ -6226,6 +6226,39 @@
     "isNew": false
   },
   {
+    "index": 327,
+    "filename": "327-gato-gato-persa-perto-de-planta__persian_cat_sitting_next_to_a_plant.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/327-gato-gato-persa-perto-de-planta__persian_cat_sitting_next_to_a_plant.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa perto de planta",
+    "en": "Persian cat sitting next to a plant",
+    "slug": "gato-gato-persa-perto-de-planta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 328,
+    "filename": "328-gato-gato-persa-brincando-com-bolhas__persian_cat_chasing_bubbles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/328-gato-gato-persa-brincando-com-bolhas__persian_cat_chasing_bubbles.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa brincando com bolhas",
+    "en": "Persian cat chasing bubbles",
+    "slug": "gato-gato-persa-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 329,
+    "filename": "329-gato-gato-siames-com-brinquedo-de-rato__siamese_cat_chasing_a_mouse_toy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/329-gato-gato-siames-com-brinquedo-de-rato__siamese_cat_chasing_a_mouse_toy.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames com brinquedo de rato",
+    "en": "Siamese cat chasing a mouse toy",
+    "slug": "gato-gato-siames-com-brinquedo-de-rato",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 33,
     "filename": "33-coelho-comendo-petisco__rabbit.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/33-coelho-comendo-petisco__rabbit.png",
@@ -6233,6 +6266,116 @@
     "pt": "Coelho comendo petisco",
     "en": "Rabbit",
     "slug": "coelho-comendo-petisco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 330,
+    "filename": "330-gato-gato-siames-dormindo-na-almofada__siamese_cat_sleeping_on_a_cushion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/330-gato-gato-siames-dormindo-na-almofada__siamese_cat_sleeping_on_a_cushion.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames dormindo na almofada",
+    "en": "Siamese cat sleeping on a cushion",
+    "slug": "gato-gato-siames-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 331,
+    "filename": "331-gato-gato-siames-com-novelo-de-la__siamese_cat_playing_with_a_ball_of_yarn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/331-gato-gato-siames-com-novelo-de-la__siamese_cat_playing_with_a_ball_of_yarn.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames com novelo de la",
+    "en": "Siamese cat playing with a ball of yarn",
+    "slug": "gato-gato-siames-com-novelo-de-la",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 332,
+    "filename": "332-gato-gato-siames-na-beira-da-janela__siamese_cat_sitting_on_a_window_sill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/332-gato-gato-siames-na-beira-da-janela__siamese_cat_sitting_on_a_window_sill.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames na beira da janela",
+    "en": "Siamese cat sitting on a window sill",
+    "slug": "gato-gato-siames-na-beira-da-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 333,
+    "filename": "333-gato-gato-siames-com-mini-coroa__siamese_cat_wearing_a_tiny_crown.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/333-gato-gato-siames-com-mini-coroa__siamese_cat_wearing_a_tiny_crown.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames com mini coroa",
+    "en": "Siamese cat wearing a tiny crown",
+    "slug": "gato-gato-siames-com-mini-coroa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 334,
+    "filename": "334-gato-gato-siames-subindo-arranhador__siamese_cat_climbing_a_cat_tree.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/334-gato-gato-siames-subindo-arranhador__siamese_cat_climbing_a_cat_tree.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames subindo arranhador",
+    "en": "Siamese cat climbing a cat tree",
+    "slug": "gato-gato-siames-subindo-arranhador",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 335,
+    "filename": "335-gato-gato-siames-bebendo-leite__siamese_cat_drinking_milk_from_a_saucer.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/335-gato-gato-siames-bebendo-leite__siamese_cat_drinking_milk_from_a_saucer.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames bebendo leite",
+    "en": "Siamese cat drinking milk from a saucer",
+    "slug": "gato-gato-siames-bebendo-leite",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 336,
+    "filename": "336-gato-gato-siames-olhando-curioso__siamese_cat_looking_curious.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/336-gato-gato-siames-olhando-curioso__siamese_cat_looking_curious.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames olhando curioso",
+    "en": "Siamese cat looking curious",
+    "slug": "gato-gato-siames-olhando-curioso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 337,
+    "filename": "337-gato-gato-siames-perto-de-planta__siamese_cat_sitting_next_to_a_plant.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/337-gato-gato-siames-perto-de-planta__siamese_cat_sitting_next_to_a_plant.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames perto de planta",
+    "en": "Siamese cat sitting next to a plant",
+    "slug": "gato-gato-siames-perto-de-planta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 338,
+    "filename": "338-gato-gato-siames-brincando-com-bolhas__siamese_cat_chasing_bubbles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/338-gato-gato-siames-brincando-com-bolhas__siamese_cat_chasing_bubbles.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato siames brincando com bolhas",
+    "en": "Siamese cat chasing bubbles",
+    "slug": "gato-gato-siames-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 339,
+    "filename": "339-gato-gato-maine-coon-com-brinquedo-de-rato__maine_coon_cat_chasing_a_mouse_toy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/339-gato-gato-maine-coon-com-brinquedo-de-rato__maine_coon_cat_chasing_a_mouse_toy.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon com brinquedo de rato",
+    "en": "Maine coon cat chasing a mouse toy",
+    "slug": "gato-gato-maine-coon-com-brinquedo-de-rato",
     "tier": "free",
     "isNew": false
   },
@@ -6248,6 +6391,116 @@
     "isNew": false
   },
   {
+    "index": 340,
+    "filename": "340-gato-gato-maine-coon-dormindo-na-almofada__maine_coon_cat_sleeping_on_a_cushion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/340-gato-gato-maine-coon-dormindo-na-almofada__maine_coon_cat_sleeping_on_a_cushion.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon dormindo na almofada",
+    "en": "Maine coon cat sleeping on a cushion",
+    "slug": "gato-gato-maine-coon-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 341,
+    "filename": "341-gato-gato-maine-coon-com-novelo-de-la__maine_coon_cat_playing_with_a_ball_of_yarn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/341-gato-gato-maine-coon-com-novelo-de-la__maine_coon_cat_playing_with_a_ball_of_yarn.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon com novelo de la",
+    "en": "Maine coon cat playing with a ball of yarn",
+    "slug": "gato-gato-maine-coon-com-novelo-de-la",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 342,
+    "filename": "342-gato-gato-maine-coon-na-beira-da-janela__maine_coon_cat_sitting_on_a_window_sill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/342-gato-gato-maine-coon-na-beira-da-janela__maine_coon_cat_sitting_on_a_window_sill.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon na beira da janela",
+    "en": "Maine coon cat sitting on a window sill",
+    "slug": "gato-gato-maine-coon-na-beira-da-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 343,
+    "filename": "343-gato-gato-maine-coon-com-mini-coroa__maine_coon_cat_wearing_a_tiny_crown.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/343-gato-gato-maine-coon-com-mini-coroa__maine_coon_cat_wearing_a_tiny_crown.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon com mini coroa",
+    "en": "Maine coon cat wearing a tiny crown",
+    "slug": "gato-gato-maine-coon-com-mini-coroa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 344,
+    "filename": "344-gato-gato-maine-coon-subindo-arranhador__maine_coon_cat_climbing_a_cat_tree.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/344-gato-gato-maine-coon-subindo-arranhador__maine_coon_cat_climbing_a_cat_tree.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon subindo arranhador",
+    "en": "Maine coon cat climbing a cat tree",
+    "slug": "gato-gato-maine-coon-subindo-arranhador",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 345,
+    "filename": "345-gato-gato-maine-coon-bebendo-leite__maine_coon_cat_drinking_milk_from_a_saucer.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/345-gato-gato-maine-coon-bebendo-leite__maine_coon_cat_drinking_milk_from_a_saucer.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon bebendo leite",
+    "en": "Maine coon cat drinking milk from a saucer",
+    "slug": "gato-gato-maine-coon-bebendo-leite",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 346,
+    "filename": "346-gato-gato-maine-coon-olhando-curioso__maine_coon_cat_looking_curious.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/346-gato-gato-maine-coon-olhando-curioso__maine_coon_cat_looking_curious.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon olhando curioso",
+    "en": "Maine coon cat looking curious",
+    "slug": "gato-gato-maine-coon-olhando-curioso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 347,
+    "filename": "347-gato-gato-maine-coon-perto-de-planta__maine_coon_cat_sitting_next_to_a_plant.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/347-gato-gato-maine-coon-perto-de-planta__maine_coon_cat_sitting_next_to_a_plant.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon perto de planta",
+    "en": "Maine coon cat sitting next to a plant",
+    "slug": "gato-gato-maine-coon-perto-de-planta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 348,
+    "filename": "348-gato-gato-maine-coon-brincando-com-bolhas__maine_coon_cat_chasing_bubbles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/348-gato-gato-maine-coon-brincando-com-bolhas__maine_coon_cat_chasing_bubbles.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato maine coon brincando com bolhas",
+    "en": "Maine coon cat chasing bubbles",
+    "slug": "gato-gato-maine-coon-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 349,
+    "filename": "349-gato-gato-bengala-com-brinquedo-de-rato__bengal_cat_chasing_a_mouse_toy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/349-gato-gato-bengala-com-brinquedo-de-rato__bengal_cat_chasing_a_mouse_toy.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala com brinquedo de rato",
+    "en": "Bengal cat chasing a mouse toy",
+    "slug": "gato-gato-bengala-com-brinquedo-de-rato",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 35,
     "filename": "35-papagaio-comendo-petisco__parrot.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/35-papagaio-comendo-petisco__parrot.png",
@@ -6255,6 +6508,116 @@
     "pt": "Papagaio comendo petisco",
     "en": "Parrot",
     "slug": "papagaio-comendo-petisco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 350,
+    "filename": "350-gato-gato-bengala-dormindo-na-almofada__bengal_cat_sleeping_on_a_cushion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/350-gato-gato-bengala-dormindo-na-almofada__bengal_cat_sleeping_on_a_cushion.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala dormindo na almofada",
+    "en": "Bengal cat sleeping on a cushion",
+    "slug": "gato-gato-bengala-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 351,
+    "filename": "351-gato-gato-bengala-com-novelo-de-la__bengal_cat_playing_with_a_ball_of_yarn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/351-gato-gato-bengala-com-novelo-de-la__bengal_cat_playing_with_a_ball_of_yarn.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala com novelo de la",
+    "en": "Bengal cat playing with a ball of yarn",
+    "slug": "gato-gato-bengala-com-novelo-de-la",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 352,
+    "filename": "352-gato-gato-bengala-na-beira-da-janela__bengal_cat_sitting_on_a_window_sill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/352-gato-gato-bengala-na-beira-da-janela__bengal_cat_sitting_on_a_window_sill.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala na beira da janela",
+    "en": "Bengal cat sitting on a window sill",
+    "slug": "gato-gato-bengala-na-beira-da-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 353,
+    "filename": "353-gato-gato-bengala-com-mini-coroa__bengal_cat_wearing_a_tiny_crown.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/353-gato-gato-bengala-com-mini-coroa__bengal_cat_wearing_a_tiny_crown.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala com mini coroa",
+    "en": "Bengal cat wearing a tiny crown",
+    "slug": "gato-gato-bengala-com-mini-coroa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 354,
+    "filename": "354-gato-gato-bengala-subindo-arranhador__bengal_cat_climbing_a_cat_tree.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/354-gato-gato-bengala-subindo-arranhador__bengal_cat_climbing_a_cat_tree.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala subindo arranhador",
+    "en": "Bengal cat climbing a cat tree",
+    "slug": "gato-gato-bengala-subindo-arranhador",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 355,
+    "filename": "355-gato-gato-bengala-bebendo-leite__bengal_cat_drinking_milk_from_a_saucer.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/355-gato-gato-bengala-bebendo-leite__bengal_cat_drinking_milk_from_a_saucer.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala bebendo leite",
+    "en": "Bengal cat drinking milk from a saucer",
+    "slug": "gato-gato-bengala-bebendo-leite",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 356,
+    "filename": "356-gato-gato-bengala-olhando-curioso__bengal_cat_looking_curious.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/356-gato-gato-bengala-olhando-curioso__bengal_cat_looking_curious.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala olhando curioso",
+    "en": "Bengal cat looking curious",
+    "slug": "gato-gato-bengala-olhando-curioso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 357,
+    "filename": "357-gato-gato-bengala-perto-de-planta__bengal_cat_sitting_next_to_a_plant.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/357-gato-gato-bengala-perto-de-planta__bengal_cat_sitting_next_to_a_plant.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala perto de planta",
+    "en": "Bengal cat sitting next to a plant",
+    "slug": "gato-gato-bengala-perto-de-planta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 358,
+    "filename": "358-gato-gato-bengala-brincando-com-bolhas__bengal_cat_chasing_bubbles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/358-gato-gato-bengala-brincando-com-bolhas__bengal_cat_chasing_bubbles.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato bengala brincando com bolhas",
+    "en": "Bengal cat chasing bubbles",
+    "slug": "gato-gato-bengala-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 359,
+    "filename": "359-gato-gato-ragdoll-com-brinquedo-de-rato__ragdoll_cat_chasing_a_mouse_toy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/359-gato-gato-ragdoll-com-brinquedo-de-rato__ragdoll_cat_chasing_a_mouse_toy.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll com brinquedo de rato",
+    "en": "Ragdoll cat chasing a mouse toy",
+    "slug": "gato-gato-ragdoll-com-brinquedo-de-rato",
     "tier": "free",
     "isNew": false
   },
@@ -6270,6 +6633,116 @@
     "isNew": false
   },
   {
+    "index": 360,
+    "filename": "360-gato-gato-ragdoll-dormindo-na-almofada__ragdoll_cat_sleeping_on_a_cushion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/360-gato-gato-ragdoll-dormindo-na-almofada__ragdoll_cat_sleeping_on_a_cushion.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll dormindo na almofada",
+    "en": "Ragdoll cat sleeping on a cushion",
+    "slug": "gato-gato-ragdoll-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 361,
+    "filename": "361-gato-gato-ragdoll-com-novelo-de-la__ragdoll_cat_playing_with_a_ball_of_yarn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/361-gato-gato-ragdoll-com-novelo-de-la__ragdoll_cat_playing_with_a_ball_of_yarn.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll com novelo de la",
+    "en": "Ragdoll cat playing with a ball of yarn",
+    "slug": "gato-gato-ragdoll-com-novelo-de-la",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 362,
+    "filename": "362-gato-gato-ragdoll-na-beira-da-janela__ragdoll_cat_sitting_on_a_window_sill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/362-gato-gato-ragdoll-na-beira-da-janela__ragdoll_cat_sitting_on_a_window_sill.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll na beira da janela",
+    "en": "Ragdoll cat sitting on a window sill",
+    "slug": "gato-gato-ragdoll-na-beira-da-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 363,
+    "filename": "363-gato-gato-ragdoll-com-mini-coroa__ragdoll_cat_wearing_a_tiny_crown.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/363-gato-gato-ragdoll-com-mini-coroa__ragdoll_cat_wearing_a_tiny_crown.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll com mini coroa",
+    "en": "Ragdoll cat wearing a tiny crown",
+    "slug": "gato-gato-ragdoll-com-mini-coroa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 364,
+    "filename": "364-gato-gato-ragdoll-subindo-arranhador__ragdoll_cat_climbing_a_cat_tree.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/364-gato-gato-ragdoll-subindo-arranhador__ragdoll_cat_climbing_a_cat_tree.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll subindo arranhador",
+    "en": "Ragdoll cat climbing a cat tree",
+    "slug": "gato-gato-ragdoll-subindo-arranhador",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 365,
+    "filename": "365-gato-gato-ragdoll-bebendo-leite__ragdoll_cat_drinking_milk_from_a_saucer.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/365-gato-gato-ragdoll-bebendo-leite__ragdoll_cat_drinking_milk_from_a_saucer.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll bebendo leite",
+    "en": "Ragdoll cat drinking milk from a saucer",
+    "slug": "gato-gato-ragdoll-bebendo-leite",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 366,
+    "filename": "366-gato-gato-ragdoll-olhando-curioso__ragdoll_cat_looking_curious.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/366-gato-gato-ragdoll-olhando-curioso__ragdoll_cat_looking_curious.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll olhando curioso",
+    "en": "Ragdoll cat looking curious",
+    "slug": "gato-gato-ragdoll-olhando-curioso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 367,
+    "filename": "367-gato-gato-ragdoll-perto-de-planta__ragdoll_cat_sitting_next_to_a_plant.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/367-gato-gato-ragdoll-perto-de-planta__ragdoll_cat_sitting_next_to_a_plant.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll perto de planta",
+    "en": "Ragdoll cat sitting next to a plant",
+    "slug": "gato-gato-ragdoll-perto-de-planta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 368,
+    "filename": "368-gato-gato-ragdoll-brincando-com-bolhas__ragdoll_cat_chasing_bubbles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/368-gato-gato-ragdoll-brincando-com-bolhas__ragdoll_cat_chasing_bubbles.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato ragdoll brincando com bolhas",
+    "en": "Ragdoll cat chasing bubbles",
+    "slug": "gato-gato-ragdoll-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 369,
+    "filename": "369-gato-gato-pelo-curto-com-brinquedo-de-rato__british_shorthair_cat_chasing_a_mouse_toy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/369-gato-gato-pelo-curto-com-brinquedo-de-rato__british_shorthair_cat_chasing_a_mouse_toy.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto com brinquedo de rato",
+    "en": "British shorthair cat chasing a mouse toy",
+    "slug": "gato-gato-pelo-curto-com-brinquedo-de-rato",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 37,
     "filename": "37-porquinho-da-india-comendo-petisco__guinea_pig.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/37-porquinho-da-india-comendo-petisco__guinea_pig.png",
@@ -6277,6 +6750,116 @@
     "pt": "Porquinho da india comendo petisco",
     "en": "Guinea pig",
     "slug": "porquinho-da-india-comendo-petisco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 370,
+    "filename": "370-gato-gato-pelo-curto-dormindo-na-almofada__british_shorthair_cat_sleeping_on_a_cushion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/370-gato-gato-pelo-curto-dormindo-na-almofada__british_shorthair_cat_sleeping_on_a_cushion.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto dormindo na almofada",
+    "en": "British shorthair cat sleeping on a cushion",
+    "slug": "gato-gato-pelo-curto-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 371,
+    "filename": "371-gato-gato-pelo-curto-com-novelo-de-la__british_shorthair_cat_playing_with_a_ball_of_yarn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/371-gato-gato-pelo-curto-com-novelo-de-la__british_shorthair_cat_playing_with_a_ball_of_yarn.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto com novelo de la",
+    "en": "British shorthair cat playing with a ball of yarn",
+    "slug": "gato-gato-pelo-curto-com-novelo-de-la",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 372,
+    "filename": "372-gato-gato-pelo-curto-na-beira-da-janela__british_shorthair_cat_sitting_on_a_window_sill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/372-gato-gato-pelo-curto-na-beira-da-janela__british_shorthair_cat_sitting_on_a_window_sill.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto na beira da janela",
+    "en": "British shorthair cat sitting on a window sill",
+    "slug": "gato-gato-pelo-curto-na-beira-da-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 373,
+    "filename": "373-gato-gato-pelo-curto-com-mini-coroa__british_shorthair_cat_wearing_a_tiny_crown.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/373-gato-gato-pelo-curto-com-mini-coroa__british_shorthair_cat_wearing_a_tiny_crown.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto com mini coroa",
+    "en": "British shorthair cat wearing a tiny crown",
+    "slug": "gato-gato-pelo-curto-com-mini-coroa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 374,
+    "filename": "374-gato-gato-pelo-curto-subindo-arranhador__british_shorthair_cat_climbing_a_cat_tree.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/374-gato-gato-pelo-curto-subindo-arranhador__british_shorthair_cat_climbing_a_cat_tree.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto subindo arranhador",
+    "en": "British shorthair cat climbing a cat tree",
+    "slug": "gato-gato-pelo-curto-subindo-arranhador",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 375,
+    "filename": "375-gato-gato-pelo-curto-bebendo-leite__british_shorthair_cat_drinking_milk_from_a_saucer.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/375-gato-gato-pelo-curto-bebendo-leite__british_shorthair_cat_drinking_milk_from_a_saucer.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto bebendo leite",
+    "en": "British shorthair cat drinking milk from a saucer",
+    "slug": "gato-gato-pelo-curto-bebendo-leite",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 376,
+    "filename": "376-gato-gato-pelo-curto-olhando-curioso__british_shorthair_cat_looking_curious.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/376-gato-gato-pelo-curto-olhando-curioso__british_shorthair_cat_looking_curious.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto olhando curioso",
+    "en": "British shorthair cat looking curious",
+    "slug": "gato-gato-pelo-curto-olhando-curioso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 377,
+    "filename": "377-gato-gato-pelo-curto-perto-de-planta__british_shorthair_cat_sitting_next_to_a_plant.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/377-gato-gato-pelo-curto-perto-de-planta__british_shorthair_cat_sitting_next_to_a_plant.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto perto de planta",
+    "en": "British shorthair cat sitting next to a plant",
+    "slug": "gato-gato-pelo-curto-perto-de-planta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 378,
+    "filename": "378-gato-gato-pelo-curto-brincando-com-bolhas__british_shorthair_cat_chasing_bubbles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/378-gato-gato-pelo-curto-brincando-com-bolhas__british_shorthair_cat_chasing_bubbles.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato pelo curto brincando com bolhas",
+    "en": "British shorthair cat chasing bubbles",
+    "slug": "gato-gato-pelo-curto-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 379,
+    "filename": "379-gato-gato-sphynx-com-brinquedo-de-rato__sphynx_cat_chasing_a_mouse_toy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/379-gato-gato-sphynx-com-brinquedo-de-rato__sphynx_cat_chasing_a_mouse_toy.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx com brinquedo de rato",
+    "en": "Sphynx cat chasing a mouse toy",
+    "slug": "gato-gato-sphynx-com-brinquedo-de-rato",
     "tier": "free",
     "isNew": false
   },
@@ -6292,6 +6875,116 @@
     "isNew": false
   },
   {
+    "index": 380,
+    "filename": "380-gato-gato-sphynx-dormindo-na-almofada__sphynx_cat_sleeping_on_a_cushion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/380-gato-gato-sphynx-dormindo-na-almofada__sphynx_cat_sleeping_on_a_cushion.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx dormindo na almofada",
+    "en": "Sphynx cat sleeping on a cushion",
+    "slug": "gato-gato-sphynx-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 381,
+    "filename": "381-gato-gato-sphynx-com-novelo-de-la__sphynx_cat_playing_with_a_ball_of_yarn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/381-gato-gato-sphynx-com-novelo-de-la__sphynx_cat_playing_with_a_ball_of_yarn.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx com novelo de la",
+    "en": "Sphynx cat playing with a ball of yarn",
+    "slug": "gato-gato-sphynx-com-novelo-de-la",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 382,
+    "filename": "382-gato-gato-sphynx-na-beira-da-janela__sphynx_cat_sitting_on_a_window_sill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/382-gato-gato-sphynx-na-beira-da-janela__sphynx_cat_sitting_on_a_window_sill.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx na beira da janela",
+    "en": "Sphynx cat sitting on a window sill",
+    "slug": "gato-gato-sphynx-na-beira-da-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 383,
+    "filename": "383-gato-gato-sphynx-com-mini-coroa__sphynx_cat_wearing_a_tiny_crown.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/383-gato-gato-sphynx-com-mini-coroa__sphynx_cat_wearing_a_tiny_crown.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx com mini coroa",
+    "en": "Sphynx cat wearing a tiny crown",
+    "slug": "gato-gato-sphynx-com-mini-coroa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 384,
+    "filename": "384-gato-gato-sphynx-subindo-arranhador__sphynx_cat_climbing_a_cat_tree.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/384-gato-gato-sphynx-subindo-arranhador__sphynx_cat_climbing_a_cat_tree.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx subindo arranhador",
+    "en": "Sphynx cat climbing a cat tree",
+    "slug": "gato-gato-sphynx-subindo-arranhador",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 385,
+    "filename": "385-gato-gato-sphynx-bebendo-leite__sphynx_cat_drinking_milk_from_a_saucer.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/385-gato-gato-sphynx-bebendo-leite__sphynx_cat_drinking_milk_from_a_saucer.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx bebendo leite",
+    "en": "Sphynx cat drinking milk from a saucer",
+    "slug": "gato-gato-sphynx-bebendo-leite",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 386,
+    "filename": "386-gato-gato-sphynx-olhando-curioso__sphynx_cat_looking_curious.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/386-gato-gato-sphynx-olhando-curioso__sphynx_cat_looking_curious.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx olhando curioso",
+    "en": "Sphynx cat looking curious",
+    "slug": "gato-gato-sphynx-olhando-curioso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 387,
+    "filename": "387-gato-gato-sphynx-perto-de-planta__sphynx_cat_sitting_next_to_a_plant.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/387-gato-gato-sphynx-perto-de-planta__sphynx_cat_sitting_next_to_a_plant.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx perto de planta",
+    "en": "Sphynx cat sitting next to a plant",
+    "slug": "gato-gato-sphynx-perto-de-planta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 388,
+    "filename": "388-gato-gato-sphynx-brincando-com-bolhas__sphynx_cat_chasing_bubbles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/388-gato-gato-sphynx-brincando-com-bolhas__sphynx_cat_chasing_bubbles.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato sphynx brincando com bolhas",
+    "en": "Sphynx cat chasing bubbles",
+    "slug": "gato-gato-sphynx-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 389,
+    "filename": "389-gato-gato-abissinio-com-brinquedo-de-rato__abyssinian_cat_chasing_a_mouse_toy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/389-gato-gato-abissinio-com-brinquedo-de-rato__abyssinian_cat_chasing_a_mouse_toy.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio com brinquedo de rato",
+    "en": "Abyssinian cat chasing a mouse toy",
+    "slug": "gato-gato-abissinio-com-brinquedo-de-rato",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 39,
     "filename": "39-furao-comendo-petisco__ferret.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/39-furao-comendo-petisco__ferret.png",
@@ -6303,6 +6996,116 @@
     "isNew": false
   },
   {
+    "index": 390,
+    "filename": "390-gato-gato-abissinio-dormindo-na-almofada__abyssinian_cat_sleeping_on_a_cushion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/390-gato-gato-abissinio-dormindo-na-almofada__abyssinian_cat_sleeping_on_a_cushion.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio dormindo na almofada",
+    "en": "Abyssinian cat sleeping on a cushion",
+    "slug": "gato-gato-abissinio-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 391,
+    "filename": "391-gato-gato-abissinio-com-novelo-de-la__abyssinian_cat_playing_with_a_ball_of_yarn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/391-gato-gato-abissinio-com-novelo-de-la__abyssinian_cat_playing_with_a_ball_of_yarn.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio com novelo de la",
+    "en": "Abyssinian cat playing with a ball of yarn",
+    "slug": "gato-gato-abissinio-com-novelo-de-la",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 392,
+    "filename": "392-gato-gato-abissinio-na-beira-da-janela__abyssinian_cat_sitting_on_a_window_sill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/392-gato-gato-abissinio-na-beira-da-janela__abyssinian_cat_sitting_on_a_window_sill.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio na beira da janela",
+    "en": "Abyssinian cat sitting on a window sill",
+    "slug": "gato-gato-abissinio-na-beira-da-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 393,
+    "filename": "393-gato-gato-abissinio-com-mini-coroa__abyssinian_cat_wearing_a_tiny_crown.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/393-gato-gato-abissinio-com-mini-coroa__abyssinian_cat_wearing_a_tiny_crown.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio com mini coroa",
+    "en": "Abyssinian cat wearing a tiny crown",
+    "slug": "gato-gato-abissinio-com-mini-coroa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 394,
+    "filename": "394-gato-gato-abissinio-subindo-arranhador__abyssinian_cat_climbing_a_cat_tree.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/394-gato-gato-abissinio-subindo-arranhador__abyssinian_cat_climbing_a_cat_tree.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio subindo arranhador",
+    "en": "Abyssinian cat climbing a cat tree",
+    "slug": "gato-gato-abissinio-subindo-arranhador",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 395,
+    "filename": "395-gato-gato-abissinio-bebendo-leite__abyssinian_cat_drinking_milk_from_a_saucer.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/395-gato-gato-abissinio-bebendo-leite__abyssinian_cat_drinking_milk_from_a_saucer.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio bebendo leite",
+    "en": "Abyssinian cat drinking milk from a saucer",
+    "slug": "gato-gato-abissinio-bebendo-leite",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 396,
+    "filename": "396-gato-gato-abissinio-olhando-curioso__abyssinian_cat_looking_curious.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/396-gato-gato-abissinio-olhando-curioso__abyssinian_cat_looking_curious.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio olhando curioso",
+    "en": "Abyssinian cat looking curious",
+    "slug": "gato-gato-abissinio-olhando-curioso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 397,
+    "filename": "397-gato-gato-abissinio-perto-de-planta__abyssinian_cat_sitting_next_to_a_plant.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/397-gato-gato-abissinio-perto-de-planta__abyssinian_cat_sitting_next_to_a_plant.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio perto de planta",
+    "en": "Abyssinian cat sitting next to a plant",
+    "slug": "gato-gato-abissinio-perto-de-planta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 398,
+    "filename": "398-gato-gato-abissinio-brincando-com-bolhas__abyssinian_cat_chasing_bubbles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/398-gato-gato-abissinio-brincando-com-bolhas__abyssinian_cat_chasing_bubbles.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato abissinio brincando com bolhas",
+    "en": "Abyssinian cat chasing bubbles",
+    "slug": "gato-gato-abissinio-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 399,
+    "filename": "399-gato-gato-scottish-fold-com-brinquedo-de-rato__scottish_fold_cat_chasing_a_mouse_toy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/399-gato-gato-scottish-fold-com-brinquedo-de-rato__scottish_fold_cat_chasing_a_mouse_toy.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato scottish fold com brinquedo de rato",
+    "en": "Scottish fold cat chasing a mouse toy",
+    "slug": "gato-gato-scottish-fold-com-brinquedo-de-rato",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 40,
     "filename": "40-tartaruga-comendo-petisco__turtle.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/40-tartaruga-comendo-petisco__turtle.png",
@@ -6310,6 +7113,61 @@
     "pt": "Tartaruga comendo petisco",
     "en": "Turtle",
     "slug": "tartaruga-comendo-petisco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 400,
+    "filename": "400-gato-gato-scottish-fold-dormindo-na-almofada__scottish_fold_cat_sleeping_on_a_cushion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/400-gato-gato-scottish-fold-dormindo-na-almofada__scottish_fold_cat_sleeping_on_a_cushion.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato scottish fold dormindo na almofada",
+    "en": "Scottish fold cat sleeping on a cushion",
+    "slug": "gato-gato-scottish-fold-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 401,
+    "filename": "401-gato-gato-scottish-fold-com-novelo-de-la__scottish_fold_cat_playing_with_a_ball_of_yarn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/401-gato-gato-scottish-fold-com-novelo-de-la__scottish_fold_cat_playing_with_a_ball_of_yarn.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato scottish fold com novelo de la",
+    "en": "Scottish fold cat playing with a ball of yarn",
+    "slug": "gato-gato-scottish-fold-com-novelo-de-la",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 402,
+    "filename": "402-gato-gato-scottish-fold-na-beira-da-janela__scottish_fold_cat_sitting_on_a_window_sill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/402-gato-gato-scottish-fold-na-beira-da-janela__scottish_fold_cat_sitting_on_a_window_sill.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato scottish fold na beira da janela",
+    "en": "Scottish fold cat sitting on a window sill",
+    "slug": "gato-gato-scottish-fold-na-beira-da-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 403,
+    "filename": "403-gato-gato-scottish-fold-com-mini-coroa__scottish_fold_cat_wearing_a_tiny_crown.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/403-gato-gato-scottish-fold-com-mini-coroa__scottish_fold_cat_wearing_a_tiny_crown.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato scottish fold com mini coroa",
+    "en": "Scottish fold cat wearing a tiny crown",
+    "slug": "gato-gato-scottish-fold-com-mini-coroa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 404,
+    "filename": "404-gato-gato-scottish-fold-subindo-arranhador__scottish_fold_cat_climbing_a_cat_tree.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/404-gato-gato-scottish-fold-subindo-arranhador__scottish_fold_cat_climbing_a_cat_tree.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato scottish fold subindo arranhador",
+    "en": "Scottish fold cat climbing a cat tree",
+    "slug": "gato-gato-scottish-fold-subindo-arranhador",
     "tier": "free",
     "isNew": false
   },
