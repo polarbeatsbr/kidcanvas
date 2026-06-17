@@ -3514,6 +3514,52 @@ app.get('/api/events/current', requireAuth, (req, res) => {
     });
 });
 
+
+// Loja: Comprar Pacotinho de Cartas
+app.post('/api/store/buy-card', requireAuth, async (req, res) => {
+    try {
+        const users = await loadUsers();
+        const userIndex = users.findIndex(u => u.email === req.user.email);
+        if (userIndex === -1) return res.status(404).json({ success: false, message: 'User not found' });
+        
+        const user = users[userIndex];
+        if (!user.stars) user.stars = 0;
+        if (user.stars < 5) {
+            return res.status(400).json({ success: false, message: 'Estrelas insuficientes. Pinte mais para ganhar!' });
+        }
+        
+        // Deduzir estrelas
+        user.stars -= 5;
+        
+        // Sortear carta
+        const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
+        const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
+        if (catalog.length === 0) return res.status(500).json({ success: false, message: 'Catálogo vazio' });
+        
+        // Sistema de Raridade simples com pesos
+        // Lendária (5%), Épica (15%), Rara (30%), Comum (50%)
+        const rand = Math.random() * 100;
+        let selectedRarity = 'Comum';
+        if (rand <= 5) selectedRarity = 'Lendária';
+        else if (rand <= 20) selectedRarity = 'Épica';
+        else if (rand <= 50) selectedRarity = 'Rara';
+        
+        const possibleCards = catalog.filter(c => c.rarity === selectedRarity);
+        const cardPool = possibleCards.length > 0 ? possibleCards : catalog;
+        
+        const randomCard = cardPool[Math.floor(Math.random() * cardPool.length)];
+        
+        if (!user.cards) user.cards = [];
+        user.cards.push(randomCard);
+        
+        await saveUsers(users);
+        res.json({ success: true, newCard: randomCard, stars: user.stars, cards: user.cards });
+    } catch (err) {
+        console.error('Erro ao comprar carta:', err);
+        res.status(500).json({ success: false, message: 'Erro interno' });
+    }
+});
+
 app.post('/api/events/claim', requireAuth, async (req, res) => {
     const { missionId } = req.body;
     const activeEvent = getActiveEvent();

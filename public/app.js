@@ -9295,6 +9295,7 @@ window.showPerigoMessage = function(title, text) {
     });
 };
 
+
 window.openAlbumModal = function() {
     closeEventModal();
     if (!currentUser || !currentUser.cards || currentUser.cards.length === 0) {
@@ -9304,13 +9305,19 @@ window.openAlbumModal = function() {
         return;
     }
     
-    let html = '<div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center;">';
-    currentUser.cards.forEach(c => {
-        html += `<div style="background: linear-gradient(135deg, #1abc9c, #16a085); border-radius: 15px; padding: 15px; color: white; width: 220px; text-align: center; box-shadow: 0 4px 15px rgba(26, 188, 156, 0.4);">
-            <div style="font-size: 4rem; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3)); margin-bottom: 10px;">${c.value === 't_rex' ? '🦖' : '🃏'}</div>
-            <h4 style="margin:0; font-size: 1.4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">${c.name}</h4>
-            <div style="font-size: 0.8rem; background: rgba(0,0,0,0.2); padding: 5px; border-radius: 10px; margin-top: 10px; margin-bottom: 10px;">${c.collection}</div>
-            <p style="font-size: 0.9rem; font-style: italic; margin: 0;">${c.curiosity}</p>
+    let html = '<div class="album-grid">';
+    currentUser.cards.forEach((c, idx) => {
+        // Fallbacks para cartas antigas
+        const emoji = c.emoji || (c.value === 't_rex' ? '🦖' : '🃏');
+        const rarity = c.rarity || 'Comum';
+        const cssClass = 'rarity-' + rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        const cardId = c.id || c.value;
+        
+        html += `
+        <div class="album-card-mini" onclick="openCardDetails('${idx}')">
+            <div class="rarity-dot ${cssClass}"></div>
+            <div class="emoji">${emoji}</div>
+            <div class="name">${c.name}</div>
         </div>`;
     });
     html += '</div>';
@@ -9326,6 +9333,63 @@ window.openAlbumModal = function() {
         });
     }, 100);
 };
+
+window.openCardDetails = function(index) {
+    if (!currentUser || !currentUser.cards || !currentUser.cards[index]) return;
+    const c = currentUser.cards[index];
+    
+    const emoji = c.emoji || (c.value === 't_rex' ? '🦖' : '🃏');
+    const rarity = c.rarity || 'Comum';
+    const cssClass = 'rarity-' + rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+    const code = c.collection ? c.collection.split(' ')[1] : '1A';
+    
+    let statsHtml = '';
+    if (c.stats) {
+        for (const [key, value] of Object.entries(c.stats)) {
+            statsHtml += `<tr><td class="stat-name">${key.toUpperCase()}</td><td class="stat-value">${value}</td></tr>`;
+        }
+    } else {
+        // Stats dummy para cartas antigas
+        statsHtml = `
+            <tr><td class="stat-name">FORÇA</td><td class="stat-value">95</td></tr>
+            <tr><td class="stat-name">DEFESA</td><td class="stat-value">70</td></tr>
+        `;
+    }
+
+    const html = `
+    <div class="st-card-container">
+        <div class="st-rarity-badge ${cssClass}">${rarity.toUpperCase()}</div>
+        <div class="st-card-header">
+            <div class="st-card-code">${code}</div>
+            ${c.name}
+        </div>
+        <div class="st-card-image">
+            ${emoji}
+        </div>
+        <table class="st-card-table">
+            ${statsHtml}
+        </table>
+        <div style="margin-top: 10px; font-size: 0.8rem; color: #fff; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 5px; font-style: italic;">
+            "${c.curiosity}"
+        </div>
+    </div>
+    <div style="margin-top:20px;">
+        <button onclick="openAlbumModal()" style="background: #333; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Voltar ao Álbum</button>
+    </div>
+    `;
+
+    Swal.fire({
+        html: html,
+        showCloseButton: true,
+        showConfirmButton: false,
+        background: 'transparent',
+        backdrop: 'rgba(0,0,0,0.8)',
+        customClass: {
+            popup: 'transparent-popup' // Will add to CSS
+        }
+    });
+};
+
 
 window.showMagicLoading = function(message) {
     let overlay = document.getElementById('magic-loading-overlay');
@@ -9367,5 +9431,49 @@ window.hideMagicLoading = function() {
     const overlay = document.getElementById('magic-loading-overlay');
     if (overlay) {
         overlay.style.display = 'none';
+    }
+};
+
+
+window.buyCardPack = async function() {
+    if (!currentUser) return;
+    
+    if ((currentUser.stars || 0) < 5) {
+        Swal.fire('Ops!', 'Você precisa de pelo menos 5 Estrelas para comprar um pacotinho. Continue pintando desenhos mágicos para ganhar mais!', 'warning');
+        return;
+    }
+    
+    showMagicLoading('Abrindo pacotinho mágico...');
+    try {
+        const res = await fetch('/api/store/buy-card', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Session-Token': localStorage.getItem('sessionToken')
+            }
+        });
+        const data = await res.json();
+        hideMagicLoading();
+        
+        if (data.success) {
+            currentUser.stars = data.stars;
+            currentUser.cards = data.cards;
+            
+            // Reabrir album atualizado
+            Swal.fire({
+                title: '🎉 NOVA CARTA!',
+                text: 'Você tirou: ' + data.newCard.name,
+                icon: 'success',
+                confirmButtonText: 'Ver Álbum'
+            }).then(() => {
+                openAlbumModal();
+            });
+            updateTopBar();
+        } else {
+            Swal.fire('Erro', data.message || 'Erro ao comprar carta.', 'error');
+        }
+    } catch(e) {
+        hideMagicLoading();
+        Swal.fire('Erro', 'Falha na conexão.', 'error');
     }
 };

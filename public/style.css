@@ -6376,3 +6376,160 @@ button, input, select, textarea {
 
 @keyframes pulse-magic { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 154, 158, 0.7); } 70% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(255, 154, 158, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 154, 158, 0); } }
 .pulse-btn { animation: pulse-magic 2s infinite; }
+
+/* Super Trunfo Card Styles */
+.st-card-container {
+    background: #e2a024;
+    border-radius: 10px;
+    padding: 10px;
+    width: 280px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: relative;
+    border: 3px solid #fff;
+}
+.st-card-header {
+    background: #6a2c16;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 1.5rem;
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-align: right;
+    position: relative;
+    box-shadow: inset 0 -2px 5px rgba(0,0,0,0.5);
+    margin-bottom: 10px;
+}
+.st-card-code {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    color: #6a2c16;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 1.1rem;
+}
+.st-card-image {
+    background: #fff;
+    border: 4px solid #fff;
+    border-radius: 5px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    overflow: hidden;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+.st-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.st-card-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f1d38d;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.st-card-table td {
+    padding: 5px 10px;
+    border-bottom: 2px solid #e2a024;
+    font-weight: 800;
+    color: #333;
+    font-size: 0.95rem;
+}
+.st-card-table tr:last-child td {
+    border-bottom: none;
+}
+.st-card-table td.stat-name {
+    background: #d49520;
+    color: white;
+    text-shadow: 1px 1px 0 #000;
+    width: 70%;
+    border-right: 2px solid #e2a024;
+}
+.st-card-table td.stat-value {
+    text-align: center;
+    font-size: 1.1rem;
+}
+.st-rarity-badge {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: #ff4757;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 900;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: 2px solid #fff;
+    transform: rotate(10deg);
+}
+.rarity-comum { background: #7bed9f; color: #2f3542; }
+.rarity-incomum { background: #1e90ff; }
+.rarity-rara { background: #3742fa; }
+.rarity-épica { background: #9b59b6; }
+.rarity-lendária { background: #ffa502; text-shadow: 1px 1px 2px #c23616; }
+
+/* Grid de miniaturas */
+.album-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+.album-card-mini {
+    background: #2c3e50;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    width: 120px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+    position: relative;
+    border: 2px solid #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.album-card-mini:hover {
+    transform: scale(1.05);
+}
+.album-card-mini .emoji {
+    font-size: 3rem;
+    margin-bottom: 5px;
+}
+.album-card-mini .name {
+    font-size: 0.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.album-card-mini .rarity-dot {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.transparent-popup {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+.transparent-popup .swal2-close {
+    color: white !important;
+}
