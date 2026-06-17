@@ -6376,7 +6376,3 @@ button, input, select, textarea {
 
 @keyframes pulse-magic { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 154, 158, 0.7); } 70% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(255, 154, 158, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 154, 158, 0); } }
 .pulse-btn { animation: pulse-magic 2s infinite; }
-
-
-/* Kids Mode - Hide Complex Tools */
-#paint-tool-glitter, #paint-tool-brush-magic, #paint-tool-text, .paint-stamp-btn, [onclick="openStickerConsoleModal()"] { display: none !important; }
