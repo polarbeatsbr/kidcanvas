@@ -1027,6 +1027,8 @@ function navigate(path, pushState = true) {
         renderHallDaFamaView();
     } else if (cleanPath === '/pintar-online') {
         renderPintarOnlineView();
+    } else if (cleanPath === '/pintura-livre') {
+        renderPinturaLivreChooser();
     } else if (cleanPath.startsWith('/categoria/')) {
         const categorySlug = cleanPath.replace('/categoria/', '');
         const isNovidades = categorySlug === 'novidades';
@@ -7560,6 +7562,155 @@ function startFreeHandDrawing(e) {
 window.renderPintarOnlineView = renderPintarOnlineView;
 window.closeCertificateModal = closeCertificateModal;
 window.startFreeHandDrawing = startFreeHandDrawing;
+
+// ==============================================
+// PINTURA LIVRE CHOOSER (ROLETA MÁGICA)
+// ==============================================
+
+let plcCurrentDrawings = []; // Armazena os 3 desenhos aleatórios atuais
+
+function renderPinturaLivreChooser() {
+    document.title = "Pintura Livre — KidCanvas 🎨";
+    setMetaDescription("Escolha entre uma tela em branco ou receba sugestões aleatórias de desenhos para colorir online!");
+
+    // Ocultar todas as views e exibir a view de escolha
+    document.querySelectorAll('.page-view').forEach(view => view.style.display = 'none');
+    const view = document.getElementById('view-pintura-livre-chooser');
+    if (view) view.style.display = 'block';
+
+    // Resetar estado: mostrar opções e esconder roleta
+    const optionsGrid = document.querySelector('.plc-options-grid');
+    const roulettePanel = document.getElementById('plc-roulette-panel');
+    if (optionsGrid) optionsGrid.style.display = 'grid';
+    if (roulettePanel) roulettePanel.style.display = 'none';
+}
+
+function getRandomDrawings(count) {
+    if (!allDrawings || allDrawings.length === 0) {
+        return [];
+    }
+    
+    // Filtrar desenhos free para usuários sem plano pago
+    let pool = allDrawings;
+    if (!currentUser || !currentUser.plan || currentUser.plan === 'Aprendiz' || currentUser.plan === 'Grátis') {
+        pool = pool.filter(d => d.tier === 'free');
+    }
+    
+    if (pool.length === 0) return [];
+    
+    // Algoritmo Fisher-Yates para N aleatórios sem repetição
+    const shuffled = [...pool];
+    const result = [];
+    for (let i = 0; i < Math.min(count, shuffled.length); i++) {
+        const j = i + Math.floor(Math.random() * (shuffled.length - i));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        result.push(shuffled[i]);
+    }
+    return result;
+}
+
+function populateRouletteCards(drawings) {
+    plcCurrentDrawings = drawings;
+    for (let i = 0; i < 3; i++) {
+        const drawing = drawings[i];
+        const img = document.getElementById(`plc-img-${i}`);
+        const name = document.getElementById(`plc-name-${i}`);
+        const badge = document.getElementById(`plc-badge-${i}`);
+        
+        if (drawing && img && name && badge) {
+            img.src = drawing.url;
+            img.alt = drawing.pt;
+            name.textContent = drawing.pt;
+            
+            // Pegar emoji e nome da categoria
+            const catData = CATEGORIES_DATA[drawing.category];
+            badge.textContent = catData ? `${catData.emoji} ${catData.name}` : drawing.category;
+        }
+    }
+}
+
+function openMagicRoulette() {
+    const optionsGrid = document.querySelector('.plc-options-grid');
+    const roulettePanel = document.getElementById('plc-roulette-panel');
+    
+    if (optionsGrid) optionsGrid.style.display = 'none';
+    if (roulettePanel) {
+        roulettePanel.style.display = 'block';
+        // Re-trigger animation
+        roulettePanel.style.animation = 'none';
+        roulettePanel.offsetHeight; // Force reflow
+        roulettePanel.style.animation = '';
+    }
+    
+    // Sortear 3 desenhos
+    const drawings = getRandomDrawings(3);
+    if (drawings.length < 3) {
+        showToast('Carregando desenhos... Tente novamente em um instante! ⏳', 'info');
+        return;
+    }
+    populateRouletteCards(drawings);
+}
+
+function closeRoulette() {
+    const optionsGrid = document.querySelector('.plc-options-grid');
+    const roulettePanel = document.getElementById('plc-roulette-panel');
+    
+    if (optionsGrid) optionsGrid.style.display = 'grid';
+    if (roulettePanel) roulettePanel.style.display = 'none';
+}
+
+function shuffleRouletteDrawings() {
+    const shuffleBtn = document.getElementById('plc-shuffle-btn');
+    if (shuffleBtn) {
+        shuffleBtn.classList.add('plc-shuffling');
+        setTimeout(() => shuffleBtn.classList.remove('plc-shuffling'), 500);
+    }
+    
+    // Animação de flip nos cards
+    for (let i = 0; i < 3; i++) {
+        const card = document.getElementById(`plc-card-${i}`);
+        if (card) {
+            card.classList.add('plc-card-flip');
+            setTimeout(() => card.classList.remove('plc-card-flip'), 600);
+        }
+    }
+    
+    // Trocar desenhos após metade da animação de flip
+    setTimeout(() => {
+        const drawings = getRandomDrawings(3);
+        if (drawings.length >= 3) {
+            populateRouletteCards(drawings);
+        }
+    }, 300);
+}
+
+function selectRouletteDrawing(index) {
+    const drawing = plcCurrentDrawings[index];
+    if (!drawing) return;
+    
+    window.currentPaintingData = {
+        imgUrl: drawing.url,
+        name: drawing.pt,
+        backUrl: '/pintura-livre'
+    };
+    navigate('/pintar-online');
+}
+
+function startBlankCanvas() {
+    window.currentPaintingData = {
+        imgUrl: 'blank',
+        name: 'Desenho Livre',
+        backUrl: '/pintura-livre'
+    };
+    navigate('/pintar-online');
+}
+
+window.renderPinturaLivreChooser = renderPinturaLivreChooser;
+window.openMagicRoulette = openMagicRoulette;
+window.closeRoulette = closeRoulette;
+window.shuffleRouletteDrawings = shuffleRouletteDrawings;
+window.selectRouletteDrawing = selectRouletteDrawing;
+window.startBlankCanvas = startBlankCanvas;
 
 // ==============================================
 // STICKER CONSOLE & CUSTOM DIALOG SYSTEM

@@ -35,7 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <!-- CSS Customizado -->
-    <link rel="stylesheet" href="/style.css?v=9.0">
+    <link rel="stylesheet" href="/style.css?v=9.1">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -98,7 +98,7 @@
                             </ul>
                         </li>
                         <li><a href="/gerar-desenho" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho</a></li>
-                        <li><a href="/pintar-online" onclick="startFreeHandDrawing(event); return false;" class="nav-link" id="nav-free-paint"><i class="fa-solid fa-paintbrush"></i> Pintura Livre</a></li>
+                        <li><a href="/pintura-livre" class="nav-link" id="nav-free-paint"><i class="fa-solid fa-paintbrush"></i> Pintura Livre</a></li>
                         <li><a href="/historias-magicas" class="nav-link"><i class="fa-solid fa-book-open"></i> Histórias Mágicas</a></li>
                         <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
                         <li><a href="/hall-da-fama" class="nav-link"><i class="fa-solid fa-camera"></i> Hall da Fama</a></li>
@@ -234,7 +234,7 @@
                             </a>
 
                             <!-- 3. Pintura Online -->
-                            <a href="/pintar-online" onclick="startFreeHandDrawing(event); return false;" class="hero-cta-card-new card-free-paint-new">
+                            <a href="/pintura-livre" class="hero-cta-card-new card-free-paint-new">
                                 <span class="cta-icon-new"><i class="fa-solid fa-palette"></i></span>
                                 <div class="cta-info-new">
                                     <span class="cta-title-new">Pintura Online</span>
@@ -1770,6 +1770,106 @@
         </section>
 
         <!-- ==============================================
+             6.5. TELA DE ESCOLHA - PINTURA LIVRE (ROLETA MÁGICA)
+             ============================================== -->
+        <section id="view-pintura-livre-chooser" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Pintura Livre</span>
+                </div>
+
+                <div class="section-title-wrapper" style="margin-bottom: 30px;">
+                    <h1 class="page-title">🎨 O que você quer pintar hoje?</h1>
+                    <p class="section-subtitle">Escolha entre uma tela em branco ou deixe a mágica te surpreender!</p>
+                </div>
+
+                <!-- Opções principais -->
+                <div class="plc-options-grid">
+                    <!-- Card Tela em Branco -->
+                    <div class="plc-option-card plc-blank-card" onclick="startBlankCanvas()" id="plc-blank-btn">
+                        <div class="plc-card-icon">
+                            <i class="fa-solid fa-paintbrush"></i>
+                        </div>
+                        <h3>Tela em Branco</h3>
+                        <p>Desenhe e pinte do zero usando toda a sua imaginação!</p>
+                    </div>
+
+                    <!-- Card Me Surpreenda -->
+                    <div class="plc-option-card plc-surprise-card" onclick="openMagicRoulette()" id="plc-surprise-btn">
+                        <div class="plc-card-icon plc-icon-magic">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3>🎲 Me Surpreenda!</h3>
+                        <p>Receba 3 sugestões aleatórias e escolha a sua favorita!</p>
+                        <div class="plc-sparkles">✨</div>
+                    </div>
+                </div>
+
+                <!-- Painel da Roleta Mágica (inicialmente escondido) -->
+                <div id="plc-roulette-panel" class="plc-roulette-panel" style="display: none;">
+                    <div class="plc-roulette-header">
+                        <h2>✨ Escolha sua Aventura!</h2>
+                        <p>Clique no desenho que mais te agrada para começar a pintar!</p>
+                    </div>
+
+                    <div class="plc-roulette-cards" id="plc-roulette-cards">
+                        <!-- Cards preenchidos via JS -->
+                        <div class="plc-drawing-card" id="plc-card-0">
+                            <div class="plc-drawing-thumb">
+                                <img id="plc-img-0" src="" alt="">
+                                <div class="plc-card-category-badge" id="plc-badge-0"></div>
+                            </div>
+                            <div class="plc-drawing-info">
+                                <span class="plc-drawing-name" id="plc-name-0"></span>
+                            </div>
+                            <button class="btn plc-btn-pintar" onclick="selectRouletteDrawing(0)">
+                                <i class="fa-solid fa-palette"></i> Pintar Este!
+                            </button>
+                        </div>
+
+                        <div class="plc-drawing-card" id="plc-card-1">
+                            <div class="plc-drawing-thumb">
+                                <img id="plc-img-1" src="" alt="">
+                                <div class="plc-card-category-badge" id="plc-badge-1"></div>
+                            </div>
+                            <div class="plc-drawing-info">
+                                <span class="plc-drawing-name" id="plc-name-1"></span>
+                            </div>
+                            <button class="btn plc-btn-pintar" onclick="selectRouletteDrawing(1)">
+                                <i class="fa-solid fa-palette"></i> Pintar Este!
+                            </button>
+                        </div>
+
+                        <div class="plc-drawing-card" id="plc-card-2">
+                            <div class="plc-drawing-thumb">
+                                <img id="plc-img-2" src="" alt="">
+                                <div class="plc-card-category-badge" id="plc-badge-2"></div>
+                            </div>
+                            <div class="plc-drawing-info">
+                                <span class="plc-drawing-name" id="plc-name-2"></span>
+                            </div>
+                            <button class="btn plc-btn-pintar" onclick="selectRouletteDrawing(2)">
+                                <i class="fa-solid fa-palette"></i> Pintar Este!
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="plc-roulette-actions">
+                        <button class="btn plc-btn-shuffle" onclick="shuffleRouletteDrawings()" id="plc-shuffle-btn">
+                            <i class="fa-solid fa-dice"></i> Sortear Novos
+                        </button>
+                        <button class="btn plc-btn-back" onclick="closeRoulette()">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==============================================
              7. TELA DE PINTAR ONLINE
              ============================================== -->
         <section id="view-pintar-online" class="page-view" style="display: none;">
@@ -2386,6 +2486,6 @@
     </div>
 
     <!-- Script JS Customizado -->
-    <script src="/app.js?v=9.5"></script>
+    <script src="/app.js?v=9.6"></script>
 </body>
 </html>

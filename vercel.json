@@ -59,6 +59,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/pintura-livre",
+      "destination": "/index.html"
+    },
+    {
       "source": "/categoria/:path*",
       "destination": "/index.html"
     },
