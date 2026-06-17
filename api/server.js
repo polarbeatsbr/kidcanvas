@@ -1702,6 +1702,7 @@ app.post('/api/auth/google', async (req, res) => {
                 name: user.name,
                 email: user.email,
                 photo: user.photo || '',
+                avatar: user.avatar || '',
                 plan: user.plan,
                 paginasRestantes: user.paginasRestantes
             },
@@ -1762,6 +1763,7 @@ app.post('/api/auth/signup', async (req, res) => {
                 name: newUser.name,
                 email: newUser.email,
                 photo: newUser.photo || '',
+                avatar: newUser.avatar || '',
                 plan: newUser.plan,
                 paginasRestantes: newUser.paginasRestantes
             },
@@ -1808,6 +1810,7 @@ app.post('/api/auth/login', async (req, res) => {
                 name: user.name,
                 email: user.email,
                 photo: user.photo || '',
+                avatar: user.avatar || '',
                 plan: user.plan,
                 paginasRestantes: user.paginasRestantes,
                 myImages: user.myImages || [],
@@ -1915,6 +1918,7 @@ app.get('/api/auth/me', async (req, res) => {
                 name: user.name,
                 email: user.email,
                 photo: user.photo || '',
+                avatar: user.avatar || '',
                 plan: user.plan,
                 paginasRestantes: user.paginasRestantes,
                 myImages: user.myImages || [],
@@ -2089,6 +2093,35 @@ app.post('/api/user/save-painting', async (req, res) => {
     }
 });
 
+// Endpoint para atualizar o avatar do usuário
+app.post('/api/user/update-avatar', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { avatar } = req.body;
+        
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado. Faça login novamente.' });
+        }
+        if (!avatar) {
+            return res.status(400).json({ success: false, message: 'Avatar é obrigatório.' });
+        }
+        
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+        
+        user.avatar = avatar;
+        await saveUsers(users);
+        
+        return res.json({ success: true, message: 'Avatar atualizado com sucesso!', avatar: user.avatar });
+    } catch(err) {
+        console.error('Erro ao atualizar avatar:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao atualizar o avatar.' });
+    }
+});
+
 // Endpoint para obter perfil público de um criador do Hall da Fama
 app.get('/api/user/public-profile', async (req, res) => {
     try {
@@ -2190,6 +2223,7 @@ app.get('/api/user/public-profile', async (req, res) => {
             success: true,
             profile: {
                 name: user ? (user.name || name) : name,
+                avatar: user ? (user.avatar || '👤') : '👤',
                 stars: totalStars,
                 paintingsCount: paintingsCount,
                 storiesCount: storiesCount,
@@ -2213,8 +2247,23 @@ app.get('/api/paintings/public', async (req, res) => {
     try {
         const { loadPublicPaintings } = require('./r2db');
         const publicPaintings = await loadPublicPaintings();
+        const users = await loadUsers();
+        
         const approved = publicPaintings.filter(p => p.isApproved === true && (!p.reports || p.reports < 3));
-        const sorted = [...approved].reverse();
+        const mapped = approved.map(p => {
+            let user = null;
+            if (p.userEmail) {
+                user = users.find(u => u.email && u.email.toLowerCase() === p.userEmail.toLowerCase());
+            } else if (p.creatorName) {
+                user = users.find(u => u.name && u.name.toLowerCase() === p.creatorName.toLowerCase());
+            }
+            return {
+                ...p,
+                creatorAvatar: user ? (user.avatar || '👤') : '👤'
+            };
+        });
+        
+        const sorted = [...mapped].reverse();
         return res.json({ success: true, paintings: sorted });
     } catch(err) {
         console.error('Erro ao carregar pinturas públicas:', err);

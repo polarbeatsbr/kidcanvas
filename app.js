@@ -178,9 +178,8 @@ function updateHeaderAuthDisplay() {
         userWidget.style.display = 'flex';
         
         // Atualizar Foto/Avatar (Header e Dropdown)
-        const photoUrl = currentUser.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
-        if (userAvatarImg) userAvatarImg.src = photoUrl;
-        if (dropdownAvatar) dropdownAvatar.src = photoUrl;
+        const userAvatar = currentUser.avatar || currentUser.photo || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+        updateUserAvatarUI(userAvatar);
         
         // Atualizar Nome (Header e Dropdown)
         const shortName = currentUser.name ? currentUser.name.split(' ')[0] : 'Nome';
@@ -6925,6 +6924,19 @@ async function renderHallDaFamaView() {
                     else if (category === 'Criação com IA') catBadgeColor = 'background: #9c27b0;';
                     else if (category === 'Histórias Mágicas') catBadgeColor = 'background: #2196f3;';
 
+                    // Avatar do criador (emoji ou imagem Google)
+                    let avatarHtml = '👤';
+                    if (dw.creatorAvatar) {
+                        const isUrl = dw.creatorAvatar.startsWith('http') || dw.creatorAvatar.startsWith('/');
+                        if (isUrl) {
+                            avatarHtml = `<img src="${dw.creatorAvatar}" style="width: 18px; height: 18px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px; display: inline-block; border: 1px solid rgba(0,0,0,0.1);">`;
+                        } else {
+                            avatarHtml = `<span style="font-size: 1.05rem; vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1;">${dw.creatorAvatar}</span>`;
+                        }
+                    } else {
+                        avatarHtml = `<span style="font-size: 1.05rem; vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1;">👤</span>`;
+                    }
+
                     // Champion Badge
                     let championBadgeHtml = '';
                     if (dw.url === weeklyChampions[category]) {
@@ -6960,7 +6972,7 @@ async function renderHallDaFamaView() {
                                 </span>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1;">
-                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700;">👤 Autor: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
+                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">${avatarHtml} Autor: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
                                 <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0; line-height: 1.2;">📖 ${dw.prompt}</h4>
                                 <p style="font-size: 0.75rem; color: var(--color-dark-light); margin: 0;">Publicado ${timeStr}</p>
                                 
@@ -7007,7 +7019,7 @@ async function renderHallDaFamaView() {
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 2px;">
                                 ${extraContentHtml}
-                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700;">👤 Por: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
+                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">${avatarHtml} Por: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
                                 <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0;">${dw.prompt}</h4>
                                 <p style="font-size: 0.75rem; color: var(--color-dark-light); margin: 0;">Publicado ${timeStr}</p>
                                 
@@ -7746,6 +7758,11 @@ async function openPublicProfile(name, userEmail = '') {
     if (!modal) return;
 
     // Carregar estado de visualização limpo/loading
+    const avatarEl = document.getElementById('profile-modal-avatar');
+    if (avatarEl) {
+        avatarEl.innerHTML = '👤';
+        avatarEl.style.fontSize = '3.5rem';
+    }
     document.getElementById('profile-modal-name').textContent = name;
     document.getElementById('profile-modal-stars-text').textContent = 'Carregando...';
     document.getElementById('profile-modal-paintings').textContent = '...';
@@ -7768,6 +7785,16 @@ async function openPublicProfile(name, userEmail = '') {
         
         if (data.success && data.profile) {
             const profile = data.profile;
+            if (avatarEl) {
+                const avatarVal = profile.avatar || '👤';
+                const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
+                if (isUrl) {
+                    avatarEl.innerHTML = `<img src="${avatarVal}" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: var(--border-medium); display: inline-block;">`;
+                } else {
+                    avatarEl.innerHTML = avatarVal;
+                    avatarEl.style.fontSize = '3.5rem';
+                }
+            }
             document.getElementById('profile-modal-name').textContent = profile.name;
             document.getElementById('profile-modal-stars-text').textContent = `${profile.stars} estrelas`;
             document.getElementById('profile-modal-paintings').textContent = profile.paintingsCount;
@@ -8050,4 +8077,130 @@ async function shareStoryToHall() {
 }
 window.shareStoryToHall = shareStoryToHall;
 
+// Funções do Modal de Escolha de Avatar
+function openAvatarSelectionModal() {
+    const modal = document.getElementById('avatarSelectionModal');
+    if (!modal) return;
+    
+    const grid = document.getElementById('avatar-options-grid');
+    if (grid) {
+        grid.innerHTML = '';
+        const options = ['🧒', '👧', '👦', '🦊', '🐶', '🦄', '🐱', '🦁', '🐯', '🐼', '🐨', '🐰', '🐻', '🐸', '🐵', '🐣', '🦖', '🐉', '🐙', '🐝', '🧚', '🧙', '🧜', '👽', '🤖'];
+        options.forEach(emoji => {
+            const btn = document.createElement('button');
+            btn.textContent = emoji;
+            btn.style.fontSize = '2.2rem';
+            btn.style.padding = '8px';
+            btn.style.border = 'var(--border-thin)';
+            btn.style.borderRadius = '12px';
+            btn.style.backgroundColor = '#fdfdfd';
+            btn.style.cursor = 'pointer';
+            btn.style.transition = 'all 0.15s ease';
+            
+            // Estilo selecionado
+            if (currentUser && currentUser.avatar === emoji) {
+                btn.style.borderColor = 'var(--color-purple)';
+                btn.style.backgroundColor = 'rgba(123, 31, 162, 0.08)';
+                btn.style.boxShadow = '0 0 0 2px var(--color-purple)';
+            }
+            
+            btn.onmouseover = () => {
+                btn.style.transform = 'scale(1.15)';
+                btn.style.backgroundColor = '#f3effa';
+            };
+            btn.onmouseout = () => {
+                btn.style.transform = 'scale(1.0)';
+                btn.style.backgroundColor = (currentUser && currentUser.avatar === emoji) ? 'rgba(123, 31, 162, 0.08)' : '#fdfdfd';
+            };
+            btn.onclick = () => selectAvatar(emoji);
+            grid.appendChild(btn);
+        });
+    }
+    
+    modal.style.display = 'flex';
+}
+window.openAvatarSelectionModal = openAvatarSelectionModal;
 
+function closeAvatarSelectionModal() {
+    const modal = document.getElementById('avatarSelectionModal');
+    if (modal) modal.style.display = 'none';
+}
+window.closeAvatarSelectionModal = closeAvatarSelectionModal;
+
+async function selectAvatar(emoji) {
+    try {
+        const token = localStorage.getItem('sessionToken') || '';
+        if (!token) {
+            showToast('Por favor, faça login para salvar seu avatar.', 'error');
+            return;
+        }
+        
+        const response = await fetch('/api/user/update-avatar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': token
+            },
+            body: JSON.stringify({ avatar: emoji })
+        });
+        const result = await response.json();
+        if (response.ok && result.success) {
+            if (currentUser) {
+                currentUser.avatar = emoji;
+            }
+            showToast('Avatar atualizado com sucesso! 😍', 'success');
+            
+            updateUserAvatarUI(emoji);
+            closeAvatarSelectionModal();
+            
+            // Recarregar Hall para ver a mudança imediata nas suas postagens
+            renderHallDaFamaView();
+        } else {
+            showToast(result.message || 'Erro ao salvar avatar.', 'error');
+        }
+    } catch (err) {
+        console.error(err);
+        showToast('Erro ao se conectar ao servidor.', 'error');
+    }
+}
+window.selectAvatar = selectAvatar;
+
+function updateUserAvatarUI(avatar) {
+    const userAvatarImg = document.getElementById('user-avatar-img');
+    const userAvatarEmoji = document.getElementById('user-avatar-emoji');
+    const dropdownAvatar = document.getElementById('dropdown-user-avatar');
+    const dropdownAvatarEmoji = document.getElementById('dropdown-user-avatar-emoji');
+    
+    if (!avatar) {
+        avatar = '👤';
+    }
+    
+    const isUrl = avatar.startsWith('http') || avatar.startsWith('/');
+    
+    if (isUrl) {
+        if (userAvatarImg) {
+            userAvatarImg.src = avatar;
+            userAvatarImg.style.display = 'block';
+        }
+        if (userAvatarEmoji) userAvatarEmoji.style.display = 'none';
+        
+        if (dropdownAvatar) {
+            dropdownAvatar.src = avatar;
+            dropdownAvatar.style.display = 'block';
+        }
+        if (dropdownAvatarEmoji) dropdownAvatarEmoji.style.display = 'none';
+    } else {
+        if (userAvatarImg) userAvatarImg.style.display = 'none';
+        if (userAvatarEmoji) {
+            userAvatarEmoji.textContent = avatar;
+            userAvatarEmoji.style.display = 'block';
+        }
+        
+        if (dropdownAvatar) dropdownAvatar.style.display = 'none';
+        if (dropdownAvatarEmoji) {
+            dropdownAvatarEmoji.textContent = avatar;
+            dropdownAvatarEmoji.style.display = 'block';
+        }
+    }
+}
+window.updateUserAvatarUI = updateUserAvatarUI;
