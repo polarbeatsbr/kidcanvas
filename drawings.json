@@ -7950,7 +7950,7 @@
     "en": "Angora bunny eating a carrot",
     "slug": "coelho-coelho-angora-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 47,
@@ -7972,7 +7972,7 @@
     "en": "Angora bunny hopping over a small fence",
     "slug": "coelho-coelho-angora-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 471,
@@ -7983,7 +7983,7 @@
     "en": "Angora bunny sitting in a flower garden",
     "slug": "coelho-coelho-angora-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 472,
@@ -7994,7 +7994,7 @@
     "en": "Angora bunny sleeping in a cozy nest",
     "slug": "coelho-coelho-angora-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 473,
@@ -8005,7 +8005,7 @@
     "en": "Angora bunny wearing a tiny bowtie",
     "slug": "coelho-coelho-angora-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 474,
@@ -8016,7 +8016,7 @@
     "en": "Holland lop bunny eating a carrot",
     "slug": "coelho-coelho-orelha-caida-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 475,
@@ -8027,7 +8027,7 @@
     "en": "Holland lop bunny hopping over a small fence",
     "slug": "coelho-coelho-orelha-caida-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 476,
@@ -8038,7 +8038,7 @@
     "en": "Holland lop bunny sitting in a flower garden",
     "slug": "coelho-coelho-orelha-caida-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 477,
@@ -8049,7 +8049,7 @@
     "en": "Holland lop bunny sleeping in a cozy nest",
     "slug": "coelho-coelho-orelha-caida-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 478,
@@ -8060,7 +8060,7 @@
     "en": "Holland lop bunny wearing a tiny bowtie",
     "slug": "coelho-coelho-orelha-caida-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 479,
@@ -8071,7 +8071,7 @@
     "en": "Flemish giant bunny eating a carrot",
     "slug": "coelho-coelho-gigante-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 48,
@@ -8093,7 +8093,7 @@
     "en": "Flemish giant bunny hopping over a small fence",
     "slug": "coelho-coelho-gigante-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 481,
@@ -8104,7 +8104,7 @@
     "en": "Flemish giant bunny sitting in a flower garden",
     "slug": "coelho-coelho-gigante-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 482,
@@ -8115,7 +8115,7 @@
     "en": "Flemish giant bunny sleeping in a cozy nest",
     "slug": "coelho-coelho-gigante-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 483,
@@ -8126,7 +8126,7 @@
     "en": "Flemish giant bunny wearing a tiny bowtie",
     "slug": "coelho-coelho-gigante-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 484,
@@ -8137,7 +8137,7 @@
     "en": "Lionhead bunny eating a carrot",
     "slug": "coelho-coelho-cabeca-de-leao-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 485,
@@ -8148,7 +8148,7 @@
     "en": "Lionhead bunny hopping over a small fence",
     "slug": "coelho-coelho-cabeca-de-leao-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 486,
@@ -8159,7 +8159,7 @@
     "en": "Lionhead bunny sitting in a flower garden",
     "slug": "coelho-coelho-cabeca-de-leao-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 487,
@@ -8170,7 +8170,7 @@
     "en": "Lionhead bunny sleeping in a cozy nest",
     "slug": "coelho-coelho-cabeca-de-leao-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 488,
@@ -8181,7 +8181,7 @@
     "en": "Lionhead bunny wearing a tiny bowtie",
     "slug": "coelho-coelho-cabeca-de-leao-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 489,
@@ -8192,7 +8192,7 @@
     "en": "Netherland dwarf bunny eating a carrot",
     "slug": "coelho-coelho-anao-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 49,
@@ -8214,7 +8214,7 @@
     "en": "Netherland dwarf bunny hopping over a small fence",
     "slug": "coelho-coelho-anao-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 491,
@@ -8225,7 +8225,7 @@
     "en": "Netherland dwarf bunny sitting in a flower garden",
     "slug": "coelho-coelho-anao-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 492,
@@ -8236,7 +8236,7 @@
     "en": "Netherland dwarf bunny sleeping in a cozy nest",
     "slug": "coelho-coelho-anao-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 493,
@@ -8247,7 +8247,7 @@
     "en": "Netherland dwarf bunny wearing a tiny bowtie",
     "slug": "coelho-coelho-anao-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 494,
@@ -8258,7 +8258,7 @@
     "en": "Rex bunny eating a carrot",
     "slug": "coelho-coelho-rex-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 495,
@@ -8269,7 +8269,7 @@
     "en": "Rex bunny hopping over a small fence",
     "slug": "coelho-coelho-rex-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 496,
@@ -8280,7 +8280,7 @@
     "en": "Rex bunny sitting in a flower garden",
     "slug": "coelho-coelho-rex-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 497,
@@ -8291,7 +8291,7 @@
     "en": "Rex bunny sleeping in a cozy nest",
     "slug": "coelho-coelho-rex-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 498,
@@ -8302,7 +8302,7 @@
     "en": "Rex bunny wearing a tiny bowtie",
     "slug": "coelho-coelho-rex-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 499,
@@ -8313,7 +8313,7 @@
     "en": "Cute fluffy rabbit eating a carrot",
     "slug": "coelho-coelhinho-fofinho-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 50,
@@ -8335,7 +8335,7 @@
     "en": "Cute fluffy rabbit hopping over a small fence",
     "slug": "coelho-coelhinho-fofinho-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 501,
@@ -8346,7 +8346,7 @@
     "en": "Cute fluffy rabbit sitting in a flower garden",
     "slug": "coelho-coelhinho-fofinho-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 502,
@@ -8357,7 +8357,7 @@
     "en": "Cute fluffy rabbit sleeping in a cozy nest",
     "slug": "coelho-coelhinho-fofinho-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 503,
@@ -8368,7 +8368,7 @@
     "en": "Cute fluffy rabbit wearing a tiny bowtie",
     "slug": "coelho-coelhinho-fofinho-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 504,
@@ -8379,7 +8379,7 @@
     "en": "Baby bunny eating a carrot",
     "slug": "coelho-bebe-coelho-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 505,
@@ -8390,7 +8390,7 @@
     "en": "Baby bunny hopping over a small fence",
     "slug": "coelho-bebe-coelho-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 506,
@@ -8401,7 +8401,7 @@
     "en": "Baby bunny sitting in a flower garden",
     "slug": "coelho-bebe-coelho-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 507,
@@ -8412,7 +8412,7 @@
     "en": "Baby bunny sleeping in a cozy nest",
     "slug": "coelho-bebe-coelho-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 508,
@@ -8423,7 +8423,7 @@
     "en": "Baby bunny wearing a tiny bowtie",
     "slug": "coelho-bebe-coelho-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 509,
@@ -8434,7 +8434,7 @@
     "en": "Friendly garden rabbit eating a carrot",
     "slug": "coelho-coelho-de-jardim-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 51,
@@ -8456,7 +8456,7 @@
     "en": "Friendly garden rabbit hopping over a small fence",
     "slug": "coelho-coelho-de-jardim-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 511,
@@ -8467,7 +8467,7 @@
     "en": "Friendly garden rabbit sitting in a flower garden",
     "slug": "coelho-coelho-de-jardim-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 512,
@@ -8478,7 +8478,7 @@
     "en": "Friendly garden rabbit sleeping in a cozy nest",
     "slug": "coelho-coelho-de-jardim-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 513,
@@ -8489,7 +8489,7 @@
     "en": "Friendly garden rabbit wearing a tiny bowtie",
     "slug": "coelho-coelho-de-jardim-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 514,
@@ -8500,7 +8500,7 @@
     "en": "Whimsical cartoon rabbit eating a carrot",
     "slug": "coelho-coelho-de-desenho-comendo-cenoura",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 515,
@@ -8511,7 +8511,7 @@
     "en": "Whimsical cartoon rabbit hopping over a small fence",
     "slug": "coelho-coelho-de-desenho-pulando-a-cerca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 516,
@@ -8522,7 +8522,7 @@
     "en": "Whimsical cartoon rabbit sitting in a flower garden",
     "slug": "coelho-coelho-de-desenho-no-jardim-de-flores",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 517,
@@ -8533,7 +8533,7 @@
     "en": "Whimsical cartoon rabbit sleeping in a cozy nest",
     "slug": "coelho-coelho-de-desenho-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 518,
@@ -8544,7 +8544,7 @@
     "en": "Whimsical cartoon rabbit wearing a tiny bowtie",
     "slug": "coelho-coelho-de-desenho-com-gravata-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 519,
@@ -11957,6 +11957,116 @@
     "isNew": false
   },
   {
+    "index": 100,
+    "filename": "100-ave-pavao-lindo-no-galho-tropical__friendly_peacock_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/100-ave-pavao-lindo-no-galho-tropical__friendly_peacock_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave pavao lindo no galho tropical",
+    "en": "Friendly peacock perched on a tropical branch",
+    "slug": "ave-pavao-lindo-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 101,
+    "filename": "101-ave-pavao-lindo-nadando-na-lagoa__friendly_peacock_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/101-ave-pavao-lindo-nadando-na-lagoa__friendly_peacock_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave pavao lindo nadando na lagoa",
+    "en": "Friendly peacock swimming gracefully in a pond",
+    "slug": "ave-pavao-lindo-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 102,
+    "filename": "102-ave-pavao-lindo-explorando-a-floresta__friendly_peacock_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/102-ave-pavao-lindo-explorando-a-floresta__friendly_peacock_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave pavao lindo explorando a floresta",
+    "en": "Friendly peacock exploring the forest",
+    "slug": "ave-pavao-lindo-explorando-a-floresta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 103,
+    "filename": "103-ave-pavao-lindo-andando-na-natureza__friendly_peacock_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/103-ave-pavao-lindo-andando-na-natureza__friendly_peacock_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave pavao lindo andando na natureza",
+    "en": "Friendly peacock walking in the wild",
+    "slug": "ave-pavao-lindo-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 104,
+    "filename": "104-ave-pavao-lindo-acenando-alegre__friendly_peacock_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/104-ave-pavao-lindo-acenando-alegre__friendly_peacock_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave pavao lindo acenando alegre",
+    "en": "Friendly peacock waving friendly",
+    "slug": "ave-pavao-lindo-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 105,
+    "filename": "105-ave-pavao-lindo-sorrindo-sob-o-sol__friendly_peacock_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/105-ave-pavao-lindo-sorrindo-sob-o-sol__friendly_peacock_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave pavao lindo sorrindo sob o sol",
+    "en": "Friendly peacock smiling under a sunny sky",
+    "slug": "ave-pavao-lindo-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 106,
+    "filename": "106-ave-pavao-lindo-entre-flores-lindas__friendly_peacock_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/106-ave-pavao-lindo-entre-flores-lindas__friendly_peacock_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave pavao lindo entre flores lindas",
+    "en": "Friendly peacock surrounded by nice flowers",
+    "slug": "ave-pavao-lindo-entre-flores-lindas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 107,
+    "filename": "107-ave-pinguim-fofo-voando-alto-no-ceu__cute_penguin_soaring_high_in_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/107-ave-pinguim-fofo-voando-alto-no-ceu__cute_penguin_soaring_high_in_the_sky.png",
+    "category": "aves",
+    "pt": "Ave pinguim fofo voando alto no ceu",
+    "en": "Cute penguin soaring high in the sky",
+    "slug": "ave-pinguim-fofo-voando-alto-no-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 108,
+    "filename": "108-ave-pinguim-fofo-no-galho-tropical__cute_penguin_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/108-ave-pinguim-fofo-no-galho-tropical__cute_penguin_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave pinguim fofo no galho tropical",
+    "en": "Cute penguin perched on a tropical branch",
+    "slug": "ave-pinguim-fofo-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 109,
+    "filename": "109-ave-pinguim-fofo-nadando-na-lagoa__cute_penguin_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/109-ave-pinguim-fofo-nadando-na-lagoa__cute_penguin_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave pinguim fofo nadando na lagoa",
+    "en": "Cute penguin swimming gracefully in a pond",
+    "slug": "ave-pinguim-fofo-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 11,
     "filename": "11-passarinho-cardeal-cantando-no-galho__cardinal_bird_singing_on_a_branch.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/11-passarinho-cardeal-cantando-no-galho__cardinal_bird_singing_on_a_branch.png",
@@ -11968,6 +12078,116 @@
     "isNew": false
   },
   {
+    "index": 110,
+    "filename": "110-ave-pinguim-fofo-explorando-a-floresta__cute_penguin_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/110-ave-pinguim-fofo-explorando-a-floresta__cute_penguin_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave pinguim fofo explorando a floresta",
+    "en": "Cute penguin exploring the forest",
+    "slug": "ave-pinguim-fofo-explorando-a-floresta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 111,
+    "filename": "111-ave-pinguim-fofo-andando-na-natureza__cute_penguin_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/111-ave-pinguim-fofo-andando-na-natureza__cute_penguin_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave pinguim fofo andando na natureza",
+    "en": "Cute penguin walking in the wild",
+    "slug": "ave-pinguim-fofo-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 112,
+    "filename": "112-ave-pinguim-fofo-acenando-alegre__cute_penguin_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/112-ave-pinguim-fofo-acenando-alegre__cute_penguin_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave pinguim fofo acenando alegre",
+    "en": "Cute penguin waving friendly",
+    "slug": "ave-pinguim-fofo-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 113,
+    "filename": "113-ave-pinguim-fofo-sorrindo-sob-o-sol__cute_penguin_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/113-ave-pinguim-fofo-sorrindo-sob-o-sol__cute_penguin_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave pinguim fofo sorrindo sob o sol",
+    "en": "Cute penguin smiling under a sunny sky",
+    "slug": "ave-pinguim-fofo-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 114,
+    "filename": "114-ave-pinguim-fofo-entre-flores-lindas__cute_penguin_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/114-ave-pinguim-fofo-entre-flores-lindas__cute_penguin_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave pinguim fofo entre flores lindas",
+    "en": "Cute penguin surrounded by nice flowers",
+    "slug": "ave-pinguim-fofo-entre-flores-lindas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 115,
+    "filename": "115-ave-patinho-feliz-voando-alto-no-ceu__happy_duckling_soaring_high_in_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/115-ave-patinho-feliz-voando-alto-no-ceu__happy_duckling_soaring_high_in_the_sky.png",
+    "category": "aves",
+    "pt": "Ave patinho feliz voando alto no ceu",
+    "en": "Happy duckling soaring high in the sky",
+    "slug": "ave-patinho-feliz-voando-alto-no-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 116,
+    "filename": "116-ave-patinho-feliz-no-galho-tropical__happy_duckling_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/116-ave-patinho-feliz-no-galho-tropical__happy_duckling_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave patinho feliz no galho tropical",
+    "en": "Happy duckling perched on a tropical branch",
+    "slug": "ave-patinho-feliz-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 117,
+    "filename": "117-ave-patinho-feliz-nadando-na-lagoa__happy_duckling_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/117-ave-patinho-feliz-nadando-na-lagoa__happy_duckling_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave patinho feliz nadando na lagoa",
+    "en": "Happy duckling swimming gracefully in a pond",
+    "slug": "ave-patinho-feliz-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 118,
+    "filename": "118-ave-patinho-feliz-explorando-a-floresta__happy_duckling_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/118-ave-patinho-feliz-explorando-a-floresta__happy_duckling_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave patinho feliz explorando a floresta",
+    "en": "Happy duckling exploring the forest",
+    "slug": "ave-patinho-feliz-explorando-a-floresta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 119,
+    "filename": "119-ave-patinho-feliz-andando-na-natureza__happy_duckling_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/119-ave-patinho-feliz-andando-na-natureza__happy_duckling_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave patinho feliz andando na natureza",
+    "en": "Happy duckling walking in the wild",
+    "slug": "ave-patinho-feliz-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 12,
     "filename": "12-passarinho-cardeal-na-casinha-de-madeira__cardinal_bird_in_a_wooden_birdhouse.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/12-passarinho-cardeal-na-casinha-de-madeira__cardinal_bird_in_a_wooden_birdhouse.png",
@@ -11975,6 +12195,83 @@
     "pt": "Passarinho cardeal na casinha de madeira",
     "en": "Cardinal bird in a wooden birdhouse",
     "slug": "passarinho-cardeal-na-casinha-de-madeira",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 120,
+    "filename": "120-ave-patinho-feliz-acenando-alegre__happy_duckling_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/120-ave-patinho-feliz-acenando-alegre__happy_duckling_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave patinho feliz acenando alegre",
+    "en": "Happy duckling waving friendly",
+    "slug": "ave-patinho-feliz-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 121,
+    "filename": "121-ave-patinho-feliz-sorrindo-sob-o-sol__happy_duckling_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/121-ave-patinho-feliz-sorrindo-sob-o-sol__happy_duckling_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave patinho feliz sorrindo sob o sol",
+    "en": "Happy duckling smiling under a sunny sky",
+    "slug": "ave-patinho-feliz-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 122,
+    "filename": "122-ave-patinho-feliz-entre-flores-lindas__happy_duckling_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/122-ave-patinho-feliz-entre-flores-lindas__happy_duckling_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave patinho feliz entre flores lindas",
+    "en": "Happy duckling surrounded by nice flowers",
+    "slug": "ave-patinho-feliz-entre-flores-lindas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 123,
+    "filename": "123-ave-galo-orgulhoso-voando-alto-no-ceu__proud_rooster_soaring_high_in_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/123-ave-galo-orgulhoso-voando-alto-no-ceu__proud_rooster_soaring_high_in_the_sky.png",
+    "category": "aves",
+    "pt": "Ave galo orgulhoso voando alto no ceu",
+    "en": "Proud rooster soaring high in the sky",
+    "slug": "ave-galo-orgulhoso-voando-alto-no-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 124,
+    "filename": "124-ave-galo-orgulhoso-no-galho-tropical__proud_rooster_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/124-ave-galo-orgulhoso-no-galho-tropical__proud_rooster_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave galo orgulhoso no galho tropical",
+    "en": "Proud rooster perched on a tropical branch",
+    "slug": "ave-galo-orgulhoso-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 125,
+    "filename": "125-ave-galo-orgulhoso-nadando-na-lagoa__proud_rooster_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/125-ave-galo-orgulhoso-nadando-na-lagoa__proud_rooster_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave galo orgulhoso nadando na lagoa",
+    "en": "Proud rooster swimming gracefully in a pond",
+    "slug": "ave-galo-orgulhoso-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 126,
+    "filename": "126-ave-galo-orgulhoso-explorando-a-floresta__proud_rooster_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/126-ave-galo-orgulhoso-explorando-a-floresta__proud_rooster_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave galo orgulhoso explorando a floresta",
+    "en": "Proud rooster exploring the forest",
+    "slug": "ave-galo-orgulhoso-explorando-a-floresta",
     "tier": "free",
     "isNew": false
   },
@@ -12404,6 +12701,534 @@
     "pt": "Ave aguia majestosa voando alto no ceu",
     "en": "Majestic eagle soaring high in the sky",
     "slug": "ave-aguia-majestosa-voando-alto-no-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 52,
+    "filename": "52-ave-aguia-majestosa-no-galho-tropical__majestic_eagle_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/52-ave-aguia-majestosa-no-galho-tropical__majestic_eagle_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave aguia majestosa no galho tropical",
+    "en": "Majestic eagle perched on a tropical branch",
+    "slug": "ave-aguia-majestosa-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 53,
+    "filename": "53-ave-aguia-majestosa-nadando-na-lagoa__majestic_eagle_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/53-ave-aguia-majestosa-nadando-na-lagoa__majestic_eagle_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave aguia majestosa nadando na lagoa",
+    "en": "Majestic eagle swimming gracefully in a pond",
+    "slug": "ave-aguia-majestosa-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 54,
+    "filename": "54-ave-aguia-majestosa-explorando-a-floresta__majestic_eagle_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/54-ave-aguia-majestosa-explorando-a-floresta__majestic_eagle_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave aguia majestosa explorando a floresta",
+    "en": "Majestic eagle exploring the forest",
+    "slug": "ave-aguia-majestosa-explorando-a-floresta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 55,
+    "filename": "55-ave-aguia-majestosa-andando-na-natureza__majestic_eagle_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/55-ave-aguia-majestosa-andando-na-natureza__majestic_eagle_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave aguia majestosa andando na natureza",
+    "en": "Majestic eagle walking in the wild",
+    "slug": "ave-aguia-majestosa-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 56,
+    "filename": "56-ave-aguia-majestosa-acenando-alegre__majestic_eagle_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/56-ave-aguia-majestosa-acenando-alegre__majestic_eagle_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave aguia majestosa acenando alegre",
+    "en": "Majestic eagle waving friendly",
+    "slug": "ave-aguia-majestosa-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 57,
+    "filename": "57-ave-aguia-majestosa-sorrindo-sob-o-sol__majestic_eagle_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/57-ave-aguia-majestosa-sorrindo-sob-o-sol__majestic_eagle_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave aguia majestosa sorrindo sob o sol",
+    "en": "Majestic eagle smiling under a sunny sky",
+    "slug": "ave-aguia-majestosa-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 58,
+    "filename": "58-ave-aguia-majestosa-entre-flores-lindas__majestic_eagle_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/58-ave-aguia-majestosa-entre-flores-lindas__majestic_eagle_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave aguia majestosa entre flores lindas",
+    "en": "Majestic eagle surrounded by nice flowers",
+    "slug": "ave-aguia-majestosa-entre-flores-lindas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 59,
+    "filename": "59-ave-arara-colorida-voando-alto-no-ceu__colorful_parrot_soaring_high_in_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/59-ave-arara-colorida-voando-alto-no-ceu__colorful_parrot_soaring_high_in_the_sky.png",
+    "category": "aves",
+    "pt": "Ave arara colorida voando alto no ceu",
+    "en": "Colorful parrot soaring high in the sky",
+    "slug": "ave-arara-colorida-voando-alto-no-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 60,
+    "filename": "60-ave-arara-colorida-no-galho-tropical__colorful_parrot_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/60-ave-arara-colorida-no-galho-tropical__colorful_parrot_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave arara colorida no galho tropical",
+    "en": "Colorful parrot perched on a tropical branch",
+    "slug": "ave-arara-colorida-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 61,
+    "filename": "61-ave-arara-colorida-nadando-na-lagoa__colorful_parrot_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/61-ave-arara-colorida-nadando-na-lagoa__colorful_parrot_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave arara colorida nadando na lagoa",
+    "en": "Colorful parrot swimming gracefully in a pond",
+    "slug": "ave-arara-colorida-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 62,
+    "filename": "62-ave-arara-colorida-explorando-a-floresta__colorful_parrot_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/62-ave-arara-colorida-explorando-a-floresta__colorful_parrot_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave arara colorida explorando a floresta",
+    "en": "Colorful parrot exploring the forest",
+    "slug": "ave-arara-colorida-explorando-a-floresta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 63,
+    "filename": "63-ave-arara-colorida-andando-na-natureza__colorful_parrot_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/63-ave-arara-colorida-andando-na-natureza__colorful_parrot_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave arara colorida andando na natureza",
+    "en": "Colorful parrot walking in the wild",
+    "slug": "ave-arara-colorida-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 64,
+    "filename": "64-ave-arara-colorida-acenando-alegre__colorful_parrot_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/64-ave-arara-colorida-acenando-alegre__colorful_parrot_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave arara colorida acenando alegre",
+    "en": "Colorful parrot waving friendly",
+    "slug": "ave-arara-colorida-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 65,
+    "filename": "65-ave-arara-colorida-sorrindo-sob-o-sol__colorful_parrot_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/65-ave-arara-colorida-sorrindo-sob-o-sol__colorful_parrot_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave arara colorida sorrindo sob o sol",
+    "en": "Colorful parrot smiling under a sunny sky",
+    "slug": "ave-arara-colorida-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 66,
+    "filename": "66-ave-arara-colorida-entre-flores-lindas__colorful_parrot_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/66-ave-arara-colorida-entre-flores-lindas__colorful_parrot_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave arara colorida entre flores lindas",
+    "en": "Colorful parrot surrounded by nice flowers",
+    "slug": "ave-arara-colorida-entre-flores-lindas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 67,
+    "filename": "67-ave-tucano-exotico-voando-alto-no-ceu__exotic_toucan_soaring_high_in_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/67-ave-tucano-exotico-voando-alto-no-ceu__exotic_toucan_soaring_high_in_the_sky.png",
+    "category": "aves",
+    "pt": "Ave tucano exotico voando alto no ceu",
+    "en": "Exotic toucan soaring high in the sky",
+    "slug": "ave-tucano-exotico-voando-alto-no-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 68,
+    "filename": "68-ave-tucano-exotico-no-galho-tropical__exotic_toucan_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/68-ave-tucano-exotico-no-galho-tropical__exotic_toucan_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave tucano exotico no galho tropical",
+    "en": "Exotic toucan perched on a tropical branch",
+    "slug": "ave-tucano-exotico-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 69,
+    "filename": "69-ave-tucano-exotico-nadando-na-lagoa__exotic_toucan_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/69-ave-tucano-exotico-nadando-na-lagoa__exotic_toucan_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave tucano exotico nadando na lagoa",
+    "en": "Exotic toucan swimming gracefully in a pond",
+    "slug": "ave-tucano-exotico-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 70,
+    "filename": "70-ave-tucano-exotico-explorando-a-floresta__exotic_toucan_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/70-ave-tucano-exotico-explorando-a-floresta__exotic_toucan_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave tucano exotico explorando a floresta",
+    "en": "Exotic toucan exploring the forest",
+    "slug": "ave-tucano-exotico-explorando-a-floresta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 71,
+    "filename": "71-ave-tucano-exotico-andando-na-natureza__exotic_toucan_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/71-ave-tucano-exotico-andando-na-natureza__exotic_toucan_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave tucano exotico andando na natureza",
+    "en": "Exotic toucan walking in the wild",
+    "slug": "ave-tucano-exotico-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 72,
+    "filename": "72-ave-tucano-exotico-acenando-alegre__exotic_toucan_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/72-ave-tucano-exotico-acenando-alegre__exotic_toucan_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave tucano exotico acenando alegre",
+    "en": "Exotic toucan waving friendly",
+    "slug": "ave-tucano-exotico-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 73,
+    "filename": "73-ave-tucano-exotico-sorrindo-sob-o-sol__exotic_toucan_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/73-ave-tucano-exotico-sorrindo-sob-o-sol__exotic_toucan_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave tucano exotico sorrindo sob o sol",
+    "en": "Exotic toucan smiling under a sunny sky",
+    "slug": "ave-tucano-exotico-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 74,
+    "filename": "74-ave-tucano-exotico-entre-flores-lindas__exotic_toucan_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/74-ave-tucano-exotico-entre-flores-lindas__exotic_toucan_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave tucano exotico entre flores lindas",
+    "en": "Exotic toucan surrounded by nice flowers",
+    "slug": "ave-tucano-exotico-entre-flores-lindas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 75,
+    "filename": "75-ave-coruja-sabia-voando-alto-no-ceu__wise_old_owl_soaring_high_in_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/75-ave-coruja-sabia-voando-alto-no-ceu__wise_old_owl_soaring_high_in_the_sky.png",
+    "category": "aves",
+    "pt": "Ave coruja sabia voando alto no ceu",
+    "en": "Wise old owl soaring high in the sky",
+    "slug": "ave-coruja-sabia-voando-alto-no-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 76,
+    "filename": "76-ave-coruja-sabia-no-galho-tropical__wise_old_owl_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/76-ave-coruja-sabia-no-galho-tropical__wise_old_owl_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave coruja sabia no galho tropical",
+    "en": "Wise old owl perched on a tropical branch",
+    "slug": "ave-coruja-sabia-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 77,
+    "filename": "77-ave-coruja-sabia-nadando-na-lagoa__wise_old_owl_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/77-ave-coruja-sabia-nadando-na-lagoa__wise_old_owl_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave coruja sabia nadando na lagoa",
+    "en": "Wise old owl swimming gracefully in a pond",
+    "slug": "ave-coruja-sabia-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 78,
+    "filename": "78-ave-coruja-sabia-explorando-a-floresta__wise_old_owl_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/78-ave-coruja-sabia-explorando-a-floresta__wise_old_owl_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave coruja sabia explorando a floresta",
+    "en": "Wise old owl exploring the forest",
+    "slug": "ave-coruja-sabia-explorando-a-floresta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 79,
+    "filename": "79-ave-coruja-sabia-andando-na-natureza__wise_old_owl_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/79-ave-coruja-sabia-andando-na-natureza__wise_old_owl_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave coruja sabia andando na natureza",
+    "en": "Wise old owl walking in the wild",
+    "slug": "ave-coruja-sabia-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 80,
+    "filename": "80-ave-coruja-sabia-acenando-alegre__wise_old_owl_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/80-ave-coruja-sabia-acenando-alegre__wise_old_owl_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave coruja sabia acenando alegre",
+    "en": "Wise old owl waving friendly",
+    "slug": "ave-coruja-sabia-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 81,
+    "filename": "81-ave-coruja-sabia-sorrindo-sob-o-sol__wise_old_owl_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/81-ave-coruja-sabia-sorrindo-sob-o-sol__wise_old_owl_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave coruja sabia sorrindo sob o sol",
+    "en": "Wise old owl smiling under a sunny sky",
+    "slug": "ave-coruja-sabia-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 82,
+    "filename": "82-ave-coruja-sabia-entre-flores-lindas__wise_old_owl_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/82-ave-coruja-sabia-entre-flores-lindas__wise_old_owl_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave coruja sabia entre flores lindas",
+    "en": "Wise old owl surrounded by nice flowers",
+    "slug": "ave-coruja-sabia-entre-flores-lindas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 83,
+    "filename": "83-ave-flamingo-rosa-voando-alto-no-ceu__pink_flamingo_soaring_high_in_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/83-ave-flamingo-rosa-voando-alto-no-ceu__pink_flamingo_soaring_high_in_the_sky.png",
+    "category": "aves",
+    "pt": "Ave flamingo rosa voando alto no ceu",
+    "en": "Pink flamingo soaring high in the sky",
+    "slug": "ave-flamingo-rosa-voando-alto-no-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 84,
+    "filename": "84-ave-flamingo-rosa-no-galho-tropical__pink_flamingo_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/84-ave-flamingo-rosa-no-galho-tropical__pink_flamingo_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave flamingo rosa no galho tropical",
+    "en": "Pink flamingo perched on a tropical branch",
+    "slug": "ave-flamingo-rosa-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 85,
+    "filename": "85-ave-flamingo-rosa-nadando-na-lagoa__pink_flamingo_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/85-ave-flamingo-rosa-nadando-na-lagoa__pink_flamingo_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave flamingo rosa nadando na lagoa",
+    "en": "Pink flamingo swimming gracefully in a pond",
+    "slug": "ave-flamingo-rosa-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 86,
+    "filename": "86-ave-flamingo-rosa-explorando-a-floresta__pink_flamingo_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/86-ave-flamingo-rosa-explorando-a-floresta__pink_flamingo_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave flamingo rosa explorando a floresta",
+    "en": "Pink flamingo exploring the forest",
+    "slug": "ave-flamingo-rosa-explorando-a-floresta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 87,
+    "filename": "87-ave-flamingo-rosa-andando-na-natureza__pink_flamingo_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/87-ave-flamingo-rosa-andando-na-natureza__pink_flamingo_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave flamingo rosa andando na natureza",
+    "en": "Pink flamingo walking in the wild",
+    "slug": "ave-flamingo-rosa-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 88,
+    "filename": "88-ave-flamingo-rosa-acenando-alegre__pink_flamingo_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/88-ave-flamingo-rosa-acenando-alegre__pink_flamingo_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave flamingo rosa acenando alegre",
+    "en": "Pink flamingo waving friendly",
+    "slug": "ave-flamingo-rosa-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 89,
+    "filename": "89-ave-flamingo-rosa-sorrindo-sob-o-sol__pink_flamingo_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/89-ave-flamingo-rosa-sorrindo-sob-o-sol__pink_flamingo_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave flamingo rosa sorrindo sob o sol",
+    "en": "Pink flamingo smiling under a sunny sky",
+    "slug": "ave-flamingo-rosa-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 90,
+    "filename": "90-ave-flamingo-rosa-entre-flores-lindas__pink_flamingo_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/90-ave-flamingo-rosa-entre-flores-lindas__pink_flamingo_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave flamingo rosa entre flores lindas",
+    "en": "Pink flamingo surrounded by nice flowers",
+    "slug": "ave-flamingo-rosa-entre-flores-lindas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 91,
+    "filename": "91-ave-cisne-gracioso-voando-alto-no-ceu__graceful_swan_soaring_high_in_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/91-ave-cisne-gracioso-voando-alto-no-ceu__graceful_swan_soaring_high_in_the_sky.png",
+    "category": "aves",
+    "pt": "Ave cisne gracioso voando alto no ceu",
+    "en": "Graceful swan soaring high in the sky",
+    "slug": "ave-cisne-gracioso-voando-alto-no-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 92,
+    "filename": "92-ave-cisne-gracioso-no-galho-tropical__graceful_swan_perched_on_a_tropical_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/92-ave-cisne-gracioso-no-galho-tropical__graceful_swan_perched_on_a_tropical_branch.png",
+    "category": "aves",
+    "pt": "Ave cisne gracioso no galho tropical",
+    "en": "Graceful swan perched on a tropical branch",
+    "slug": "ave-cisne-gracioso-no-galho-tropical",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 93,
+    "filename": "93-ave-cisne-gracioso-nadando-na-lagoa__graceful_swan_swimming_gracefully_in_a_pond.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/93-ave-cisne-gracioso-nadando-na-lagoa__graceful_swan_swimming_gracefully_in_a_pond.png",
+    "category": "aves",
+    "pt": "Ave cisne gracioso nadando na lagoa",
+    "en": "Graceful swan swimming gracefully in a pond",
+    "slug": "ave-cisne-gracioso-nadando-na-lagoa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 94,
+    "filename": "94-ave-cisne-gracioso-explorando-a-floresta__graceful_swan_exploring_the_forest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/94-ave-cisne-gracioso-explorando-a-floresta__graceful_swan_exploring_the_forest.png",
+    "category": "aves",
+    "pt": "Ave cisne gracioso explorando a floresta",
+    "en": "Graceful swan exploring the forest",
+    "slug": "ave-cisne-gracioso-explorando-a-floresta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 95,
+    "filename": "95-ave-cisne-gracioso-andando-na-natureza__graceful_swan_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/95-ave-cisne-gracioso-andando-na-natureza__graceful_swan_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave cisne gracioso andando na natureza",
+    "en": "Graceful swan walking in the wild",
+    "slug": "ave-cisne-gracioso-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 96,
+    "filename": "96-ave-cisne-gracioso-acenando-alegre__graceful_swan_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/96-ave-cisne-gracioso-acenando-alegre__graceful_swan_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave cisne gracioso acenando alegre",
+    "en": "Graceful swan waving friendly",
+    "slug": "ave-cisne-gracioso-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 97,
+    "filename": "97-ave-cisne-gracioso-sorrindo-sob-o-sol__graceful_swan_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/97-ave-cisne-gracioso-sorrindo-sob-o-sol__graceful_swan_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave cisne gracioso sorrindo sob o sol",
+    "en": "Graceful swan smiling under a sunny sky",
+    "slug": "ave-cisne-gracioso-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 98,
+    "filename": "98-ave-cisne-gracioso-entre-flores-lindas__graceful_swan_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/98-ave-cisne-gracioso-entre-flores-lindas__graceful_swan_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave cisne gracioso entre flores lindas",
+    "en": "Graceful swan surrounded by nice flowers",
+    "slug": "ave-cisne-gracioso-entre-flores-lindas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 99,
+    "filename": "99-ave-pavao-lindo-voando-alto-no-ceu__friendly_peacock_soaring_high_in_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/99-ave-pavao-lindo-voando-alto-no-ceu__friendly_peacock_soaring_high_in_the_sky.png",
+    "category": "aves",
+    "pt": "Ave pavao lindo voando alto no ceu",
+    "en": "Friendly peacock soaring high in the sky",
+    "slug": "ave-pavao-lindo-voando-alto-no-ceu",
     "tier": "free",
     "isNew": false
   },
