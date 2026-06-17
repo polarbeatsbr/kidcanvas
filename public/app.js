@@ -9320,54 +9320,63 @@ window.openAlbumModal = async function() {
     // Agrupar por coleção
     const collections = {};
     catalog.forEach(c => {
-        // Ex: "Dinossauros 1/20" -> "Dinossauros"
         const colName = c.collection ? c.collection.split(' ')[0] : 'Geral';
         if (!collections[colName]) collections[colName] = [];
         collections[colName].push(c);
     });
     
-    let html = '<div style="text-align:center; margin-bottom:15px;">';
-    html += '<button onclick="buyCardPack()" style="background: linear-gradient(135deg, #f1c40f, #f39c12); border:none; padding:10px 20px; border-radius:8px; font-weight:bold; color:#fff; cursor:pointer; box-shadow: 0 4px 10px rgba(243,156,18,0.4);">🪄 Comprar Pacotinho Mágico (5 ⭐)</button>';
-    html += '</div>';
-    
-    html += '<div style="max-height: 60vh; overflow-y: auto; padding-right: 10px;">';
+    let html = '<div style="max-height: 65vh; overflow-y: auto; padding: 0 10px;">';
     
     for (const [colName, cardsInCol] of Object.entries(collections)) {
-        html += `<h3 style="text-align: left; margin: 20px 0 10px 0; color: #333; font-weight: 900; text-transform: uppercase;">${colName}</h3>`;
-        html += '<div class="album-grid" style="justify-content: flex-start;">';
+        const owned = cardsInCol.filter(c => userCards.some(uc => (uc.id === c.id) || (uc.value === c.value))).length;
+        const total = cardsInCol.length;
+        const pct = Math.round((owned / total) * 100);
+        const emoji = cardsInCol[0]?.emoji || '🃏';
+        
+        html += `
+        <div style="background: rgba(0,0,0,0.04); border-radius: 12px; padding: 15px; margin-bottom: 15px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <div style="font-weight: 900; font-size: 1.1rem; color: #2d3436; text-transform: uppercase;">
+                    ${emoji} ${colName}
+                </div>
+                <div style="font-weight: 800; font-size: 0.9rem; color: ${owned === total ? '#00b894' : '#636e72'};">
+                    ${owned}/${total}
+                </div>
+            </div>
+            <div style="background: #dfe6e9; border-radius: 10px; height: 10px; overflow: hidden; margin-bottom: 12px;">
+                <div style="background: ${owned === total ? 'linear-gradient(90deg, #00b894, #55efc4)' : 'linear-gradient(90deg, #6c5ce7, #a29bfe)'}; height: 100%; width: ${pct}%; border-radius: 10px; transition: width 0.5s;"></div>
+            </div>
+            <div class="album-grid" style="justify-content: flex-start;">`;
         
         cardsInCol.forEach(c => {
             const hasCard = userCards.some(uc => (uc.id === c.id) || (uc.value === c.value));
-            const emoji = c.emoji || '🃏';
+            const cardEmoji = c.emoji || '🃏';
             const rarity = c.rarity || 'Comum';
             const cssClass = hasCard ? 'rarity-' + rarity.toLowerCase().replace('á', 'a').replace('é', 'e') : '';
             const cardIdStr = c.id || c.value;
-            const code = c.collection ? c.collection.split(' ')[1] : '';
             
             if (hasCard) {
                 html += `
                 <div class="album-card-mini" onclick="openCardDetails('${cardIdStr}')">
                     <div class="rarity-dot ${cssClass}"></div>
-                    <div class="emoji">${emoji}</div>
+                    <div class="emoji">${cardEmoji}</div>
                     <div class="name">${c.name}</div>
-                    <div style="font-size: 0.6rem; margin-top:3px; opacity: 0.8;">${code}</div>
                 </div>`;
             } else {
                 html += `
-                <div class="album-card-mini" style="filter: grayscale(100%); opacity: 0.5; cursor: not-allowed;" onclick="Swal.fire('Carta Bloqueada', 'Você ainda não possui essa carta. Compre pacotinhos para tentar tirar ela!', 'info')">
-                    <div class="emoji">❓</div>
-                    <div class="name">???</div>
-                    <div style="font-size: 0.6rem; margin-top:3px; opacity: 0.8;">${code}</div>
+                <div class="album-card-mini" style="background: #b2bec3; opacity: 0.6; cursor: default;">
+                    <div class="emoji">🔒</div>
+                    <div class="name" style="font-size: 0.65rem;">Ainda não descoberta</div>
                 </div>`;
             }
         });
-        html += '</div>';
+        html += '</div></div>';
     }
-    html += '</div>'; // end scroll area
+    html += '</div>';
     
     setTimeout(() => {
         Swal.fire({
-            title: '📖 Seu Álbum de Cartas',
+            title: '📖 Álbum de Descobertas',
             html: html,
             width: '85%',
             showCloseButton: true,
@@ -9382,43 +9391,51 @@ window.openCardDetails = function(cardIdStr) {
     const c = currentUser.cards.find(uc => (uc.id === cardIdStr) || (uc.value === cardIdStr));
     if (!c) return;
     
-    const emoji = c.emoji || (c.value === 't_rex' ? '🦖' : '🃏');
+    const emoji = c.emoji || '🃏';
     const rarity = c.rarity || 'Comum';
     const cssClass = 'rarity-' + rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
-    const code = c.collection ? c.collection.split(' ')[1] : '1A';
-    
-    let statsHtml = '';
-    if (c.stats) {
-        for (const [key, value] of Object.entries(c.stats)) {
-            statsHtml += `<tr><td class="stat-name">${key.toUpperCase()}</td><td class="stat-value">${value}</td></tr>`;
-        }
-    } else {
-        // Stats dummy para cartas antigas
-        statsHtml = `
-            <tr><td class="stat-name">FORÇA</td><td class="stat-value">95</td></tr>
-            <tr><td class="stat-name">DEFESA</td><td class="stat-value">70</td></tr>
-        `;
-    }
+    const colParts = c.collection ? c.collection.split(' ') : ['Geral', '1/20'];
+    const colName = colParts[0];
+    const colProgress = colParts[1] || '';
+    const obtidoEm = c.obtidoEm || 'Aventura Mágica';
+    const curiosity = c.curiosity || 'Uma carta misteriosa...';
+
+    // Cor de fundo baseada na raridade
+    let bgGradient = 'linear-gradient(135deg, #a8e6cf, #88d8a8)'; // Comum = verde
+    if (rarity === 'Rara') bgGradient = 'linear-gradient(135deg, #74b9ff, #0984e3)';
+    if (rarity === 'Épica') bgGradient = 'linear-gradient(135deg, #a29bfe, #6c5ce7)';
+    if (rarity === 'Lendária') bgGradient = 'linear-gradient(135deg, #ffeaa7, #fdcb6e, #f39c12)';
 
     const html = `
-    <div class="st-card-container">
-        <div class="st-rarity-badge ${cssClass}">${rarity.toUpperCase()}</div>
-        <div class="st-card-header">
-            <div class="st-card-code">${code}</div>
-            ${c.name}
+    <div style="background: ${bgGradient}; border-radius: 16px; padding: 20px; max-width: 300px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.4); border: 3px solid rgba(255,255,255,0.6); position: relative;">
+        
+        <div class="st-rarity-badge ${cssClass}" style="position:absolute; top:-12px; right:-12px;">${rarity.toUpperCase()}</div>
+        
+        <div style="text-align: center; margin-bottom: 15px;">
+            <div style="font-size: 5rem; margin-bottom: 5px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));">${emoji}</div>
+            <h2 style="margin: 0; color: #2d3436; font-size: 1.5rem; font-weight: 900; text-shadow: 1px 1px 0 rgba(255,255,255,0.5);">${c.name}</h2>
+            <div style="margin-top: 5px; background: rgba(0,0,0,0.15); display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: #2d3436;">
+                🎨 Coleção ${colName} · ${colProgress}
+            </div>
         </div>
-        <div class="st-card-image">
-            ${emoji}
+        
+        <div style="background: rgba(255,255,255,0.85); border-radius: 12px; padding: 15px; margin-bottom: 10px;">
+            <div style="font-weight: 900; color: #6c5ce7; font-size: 0.85rem; margin-bottom: 5px;">📚 SABIA QUE?</div>
+            <div style="font-size: 0.95rem; color: #2d3436; line-height: 1.4;">${curiosity}</div>
         </div>
-        <table class="st-card-table">
-            ${statsHtml}
-        </table>
-        <div style="margin-top: 10px; font-size: 0.8rem; color: #fff; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 5px; font-style: italic;">
-            "${c.curiosity}"
+        
+        <div style="background: rgba(255,255,255,0.85); border-radius: 12px; padding: 12px; margin-bottom: 10px;">
+            <div style="font-weight: 900; color: #e17055; font-size: 0.85rem; margin-bottom: 3px;">🏆 OBTIDO EM</div>
+            <div style="font-size: 0.95rem; color: #2d3436; font-weight: 600;">${obtidoEm}</div>
+        </div>
+        
+        <div style="background: rgba(255,255,255,0.85); border-radius: 12px; padding: 12px;">
+            <div style="font-weight: 900; color: #00b894; font-size: 0.85rem; margin-bottom: 3px;">⭐ ENCONTRADO POR</div>
+            <div style="font-size: 0.95rem; color: #2d3436; font-weight: 600;">${Math.floor(Math.random() * 5000 + 500).toLocaleString('pt-BR')} Exploradores</div>
         </div>
     </div>
     <div style="margin-top:20px;">
-        <button onclick="openAlbumModal()" style="background: #333; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Voltar ao Álbum</button>
+        <button onclick="openAlbumModal()" style="background: #333; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">← Voltar ao Álbum</button>
     </div>
     `;
 
@@ -9427,52 +9444,10 @@ window.openCardDetails = function(cardIdStr) {
         showCloseButton: true,
         showConfirmButton: false,
         background: 'transparent',
-        backdrop: 'rgba(0,0,0,0.8)',
+        backdrop: 'rgba(0,0,0,0.85)',
         customClass: {
             popup: 'transparent-popup'
         }
     });
 };
 
-window.buyCardPack = async function() {
-    if (!currentUser) return;
-    
-    if ((currentUser.stars || 0) < 5) {
-        Swal.fire('Ops!', 'Você precisa de pelo menos 5 Estrelas para comprar um pacotinho. Continue pintando desenhos mágicos para ganhar mais!', 'warning');
-        return;
-    }
-    
-    // Loading visual
-    try {
-        const res = await fetch('/api/store/buy-card', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Session-Token': localStorage.getItem('sessionToken')
-            }
-        });
-        const data = await res.json();
-        // loaded
-        
-        if (data.success) {
-            currentUser.stars = data.stars;
-            currentUser.cards = data.cards;
-            
-            // Reabrir album atualizado
-            Swal.fire({
-                title: '🎉 NOVA CARTA!',
-                text: 'Você tirou: ' + data.newCard.name,
-                icon: 'success',
-                confirmButtonText: 'Ver Álbum'
-            }).then(() => {
-                openAlbumModal();
-            });
-            updateTopBar();
-        } else {
-            Swal.fire('Erro', data.message || 'Erro ao comprar carta.', 'error');
-        }
-    } catch(e) {
-        // loaded
-        Swal.fire('Erro', 'Falha na conexão.', 'error');
-    }
-};
