@@ -824,3 +824,58 @@
 [2026-06-17 03:47:26] Rebuilding catalog and drawings database...
 [2026-06-17 03:47:26] Build successful!
 [2026-06-17 03:47:26] Committing and pushing to origin main...
+[2026-06-17 03:47:29] Push successful! Vercel will deploy in production.
+[2026-06-17 03:47:30] [751/3680] Generated: fantasia/392-sereia-sereia-magica-com-golfinho-amigo__magical_mermaid_swimming_with_a_friendly_dolphin.png
+[2026-06-17 03:47:32] [752/3680] Generated: fantasia/393-sereia-sereia-magica-na-rocha-do-mar__magical_mermaid_sitting_on_a_sea_rock.png
+[2026-06-17 03:47:33] [753/3680] Generated: fantasia/394-sereia-sereia-magica-penteando-cabelo-longo__magical_mermaid_combing_her_long_hair.png
+[2026-06-17 03:47:34] [754/3680] Generated: fantasia/395-sereia-sereia-magica-com-perola-brilhante__magical_mermaid_holding_a_shiny_pearl.png
+[2026-06-17 03:47:35] [755/3680] Generated: fantasia/396-sereia-sereia-magica-com-polvo-amigavel__magical_mermaid_playing_with_a_friendly_octopus.png
+[2026-06-17 03:47:37] [756/3680] Generated: fantasia/397-sereia-sereia-magica-acenando-para-tartaruga__magical_mermaid_waving_to_a_sea_turtle.png
+[2026-06-17 03:47:38] [757/3680] Generated: fantasia/398-sereia-sereia-magica-com-bau-de-tesouro__magical_mermaid_exploring_a_treasure_chest.png
+[2026-06-17 03:47:39] [758/3680] Generated: fantasia/399-sereia-sereia-magica-dancando-com-peixinhos__magical_mermaid_dancing_with_little_fish.png
+[2026-06-17 03:47:40] [759/3680] Generated: fantasia/400-sereia-sereia-magica-na-praia-de-areia__magical_mermaid_resting_on_a_sandy_beach.png
+[2026-06-17 03:47:42] [760/3680] Generated: fantasia/401-sereia-sereia-magica-olhando-arrecife__magical_mermaid_looking_at_a_coral_reef.png
+[2026-06-17 03:47:43] [761/3680] Generated: fantasia/402-sereia-sereia-brincalhona-com-golfinho-amigo__playful_mermaid_swimming_with_a_friendly_dolphin.png
+[2026-06-17 03:47:44] [762/3680] Generated: fantasia/403-sereia-sereia-brincalhona-na-rocha-do-mar__playful_mermaid_sitting_on_a_sea_rock.png
+[2026-06-17 03:47:45] [763/3680] Generated: fantasia/404-sereia-sereia-brincalhona-penteando-cabelo-longo__playful_mermaid_combing_her_long_hair.png
+[2026-06-17 03:47:47] [764/3680] Generated: fantasia/405-sereia-sereia-brincalhona-com-perola-brilhante__playful_mermaid_holding_a_shiny_pearl.png
+[2026-06-17 03:47:48] [765/3680] Generated: fantasia/406-sereia-sereia-brincalhona-com-polvo-amigavel__playful_mermaid_playing_with_a_friendly_octopus.png
+[2026-06-17 03:47:49] [766/3680] Generated: fantasia/407-sereia-sereia-brincalhona-acenando-para-tartaruga__playful_mermaid_waving_to_a_sea_turtle.png
+[2026-06-17 03:47:50] [767/3680] Generated: fantasia/408-sereia-sereia-brincalhona-com-bau-de-tesouro__playful_mermaid_exploring_a_treasure_chest.png
+[2026-06-17 03:47:51] [768/3680] Generated: fantasia/409-sereia-sereia-brincalhona-dancando-com-peixinhos__playful_mermaid_dancing_with_little_fish.png
+[2026-06-17 03:47:53] [769/3680] Generated: fantasia/410-sereia-sereia-brincalhona-na-praia-de-areia__playful_mermaid_resting_on_a_sandy_beach.png
+[2026-06-17 03:47:54] [770/3680] Generated: fantasia/411-sereia-sereia-brincalhona-olhando-arrecife__playful_mermaid_looking_at_a_coral_reef.png
+[2026-06-17 03:47:55] [771/3680] Generated: paper-doll/101-moda-boneca-de-papel-menina-casaco-de-inverno-e-botas__cute_cartoon_girl_paper_doll_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 03:47:56] [772/3680] Generated: paper-doll/102-moda-boneca-de-papel-menina-vestido-de-verao-e-chapeu__cute_cartoon_girl_paper_doll_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 03:47:57] [773/3680] Generated: paper-doll/103-moda-boneca-de-papel-menina-roupa-esportiva-e-tenis__cute_cartoon_girl_paper_doll_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 03:47:59] [774/3680] Generated: paper-doll/104-moda-boneca-de-papel-menina-vestido-de-festa-e-laco__cute_cartoon_girl_paper_doll_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 03:48:00] [775/3680] Generated: paper-doll/106-moda-boneca-de-papel-menina-uniforme-escolar-e-mochila__cute_cartoon_girl_paper_doll_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 03:48:02] [776/3680] Generated: paper-doll/105-moda-boneca-de-papel-menina-pijama-quentinho-e-pantufas__cute_cartoon_girl_paper_doll_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 03:48:03] [777/3680] Generated: paper-doll/107-moda-boneco-de-papel-menino-casaco-de-inverno-e-botas__cute_cartoon_boy_paper_doll_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 03:48:05] [778/3680] Generated: paper-doll/108-moda-boneco-de-papel-menino-vestido-de-verao-e-chapeu__cute_cartoon_boy_paper_doll_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 03:48:06] [779/3680] Generated: paper-doll/109-moda-boneco-de-papel-menino-roupa-esportiva-e-tenis__cute_cartoon_boy_paper_doll_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 03:48:07] [780/3680] Generated: paper-doll/110-moda-boneco-de-papel-menino-vestido-de-festa-e-laco__cute_cartoon_boy_paper_doll_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 03:48:08] [781/3680] Generated: paper-doll/111-moda-boneco-de-papel-menino-pijama-quentinho-e-pantufas__cute_cartoon_boy_paper_doll_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 03:48:09] [782/3680] Generated: paper-doll/112-moda-boneco-de-papel-menino-uniforme-escolar-e-mochila__cute_cartoon_boy_paper_doll_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 03:48:11] [783/3680] Generated: paper-doll/113-moda-modelo-boneca-de-papel-casaco-de-inverno-e-botas__friendly_paper_doll_model_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 03:48:12] [784/3680] Generated: paper-doll/114-moda-modelo-boneca-de-papel-vestido-de-verao-e-chapeu__friendly_paper_doll_model_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 03:48:14] [785/3680] Generated: paper-doll/115-moda-modelo-boneca-de-papel-roupa-esportiva-e-tenis__friendly_paper_doll_model_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 03:48:16] [786/3680] Generated: paper-doll/116-moda-modelo-boneca-de-papel-vestido-de-festa-e-laco__friendly_paper_doll_model_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 03:48:17] [787/3680] Generated: paper-doll/117-moda-modelo-boneca-de-papel-pijama-quentinho-e-pantufas__friendly_paper_doll_model_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 03:48:18] [788/3680] Generated: paper-doll/118-moda-modelo-boneca-de-papel-uniforme-escolar-e-mochila__friendly_paper_doll_model_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 03:48:19] [789/3680] Generated: paper-doll/119-moda-crianca-boneca-de-papel-casaco-de-inverno-e-botas__smiling_paper_doll_child_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 03:48:20] [790/3680] Generated: paper-doll/121-moda-crianca-boneca-de-papel-roupa-esportiva-e-tenis__smiling_paper_doll_child_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 03:48:21] [791/3680] Generated: paper-doll/120-moda-crianca-boneca-de-papel-vestido-de-verao-e-chapeu__smiling_paper_doll_child_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 03:48:23] [792/3680] Generated: paper-doll/122-moda-crianca-boneca-de-papel-vestido-de-festa-e-laco__smiling_paper_doll_child_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 03:48:24] [793/3680] Generated: paper-doll/123-moda-crianca-boneca-de-papel-pijama-quentinho-e-pantufas__smiling_paper_doll_child_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 03:48:25] [794/3680] Generated: paper-doll/124-moda-crianca-boneca-de-papel-uniforme-escolar-e-mochila__smiling_paper_doll_child_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 03:48:26] [795/3680] Generated: paper-doll/125-moda-modelo-de-moda-infantil-casaco-de-inverno-e-botas__happy_kids_fashion_model_wearing_a_cozy_winter_coat_and_boots.png
+[2026-06-17 03:48:27] [796/3680] Generated: paper-doll/126-moda-modelo-de-moda-infantil-vestido-de-verao-e-chapeu__happy_kids_fashion_model_wearing_a_cute_summer_dress_and_sunhat.png
+[2026-06-17 03:48:29] [797/3680] Generated: paper-doll/127-moda-modelo-de-moda-infantil-roupa-esportiva-e-tenis__happy_kids_fashion_model_wearing_a_sporty_outfit_with_sneakers.png
+[2026-06-17 03:48:30] [798/3680] Generated: paper-doll/128-moda-modelo-de-moda-infantil-vestido-de-festa-e-laco__happy_kids_fashion_model_wearing_a_fancy_party_dress_with_a_bow.png
+[2026-06-17 03:48:31] [799/3680] Generated: paper-doll/129-moda-modelo-de-moda-infantil-pijama-quentinho-e-pantufas__happy_kids_fashion_model_wearing_cozy_pajamas_with_slippers.png
+[2026-06-17 03:48:32] [800/3680] Generated: paper-doll/130-moda-modelo-de-moda-infantil-uniforme-escolar-e-mochila__happy_kids_fashion_model_wearing_a_school_uniform_with_a_backpack.png
+[2026-06-17 03:48:32] Batch 16 completed (800 drawings). Triggering build & push...
+[2026-06-17 03:48:32] Rebuilding catalog and drawings database...
+[2026-06-17 03:48:33] Build successful!
+[2026-06-17 03:48:33] Committing and pushing to origin main...

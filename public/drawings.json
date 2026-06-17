@@ -53204,7 +53204,7 @@
     "en": "Magical mermaid swimming with a friendly dolphin",
     "slug": "sereia-sereia-magica-com-golfinho-amigo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 393,
@@ -53215,7 +53215,7 @@
     "en": "Magical mermaid sitting on a sea rock",
     "slug": "sereia-sereia-magica-na-rocha-do-mar",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 394,
@@ -53226,7 +53226,7 @@
     "en": "Magical mermaid combing her long hair",
     "slug": "sereia-sereia-magica-penteando-cabelo-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 395,
@@ -53237,7 +53237,7 @@
     "en": "Magical mermaid holding a shiny pearl",
     "slug": "sereia-sereia-magica-com-perola-brilhante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 396,
@@ -53248,7 +53248,7 @@
     "en": "Magical mermaid playing with a friendly octopus",
     "slug": "sereia-sereia-magica-com-polvo-amigavel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 397,
@@ -53259,7 +53259,7 @@
     "en": "Magical mermaid waving to a sea turtle",
     "slug": "sereia-sereia-magica-acenando-para-tartaruga",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 398,
@@ -53270,7 +53270,7 @@
     "en": "Magical mermaid exploring a treasure chest",
     "slug": "sereia-sereia-magica-com-bau-de-tesouro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 399,
@@ -53281,7 +53281,7 @@
     "en": "Magical mermaid dancing with little fish",
     "slug": "sereia-sereia-magica-dancando-com-peixinhos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 40,
@@ -53303,7 +53303,7 @@
     "en": "Magical mermaid resting on a sandy beach",
     "slug": "sereia-sereia-magica-na-praia-de-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 401,
@@ -53314,7 +53314,7 @@
     "en": "Magical mermaid looking at a coral reef",
     "slug": "sereia-sereia-magica-olhando-arrecife",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 402,
@@ -53325,7 +53325,7 @@
     "en": "Playful mermaid swimming with a friendly dolphin",
     "slug": "sereia-sereia-brincalhona-com-golfinho-amigo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 403,
@@ -53336,7 +53336,7 @@
     "en": "Playful mermaid sitting on a sea rock",
     "slug": "sereia-sereia-brincalhona-na-rocha-do-mar",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 404,
@@ -53347,7 +53347,7 @@
     "en": "Playful mermaid combing her long hair",
     "slug": "sereia-sereia-brincalhona-penteando-cabelo-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 405,
@@ -53358,7 +53358,7 @@
     "en": "Playful mermaid holding a shiny pearl",
     "slug": "sereia-sereia-brincalhona-com-perola-brilhante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 406,
@@ -53369,7 +53369,7 @@
     "en": "Playful mermaid playing with a friendly octopus",
     "slug": "sereia-sereia-brincalhona-com-polvo-amigavel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 407,
@@ -53380,7 +53380,7 @@
     "en": "Playful mermaid waving to a sea turtle",
     "slug": "sereia-sereia-brincalhona-acenando-para-tartaruga",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 408,
@@ -53391,7 +53391,7 @@
     "en": "Playful mermaid exploring a treasure chest",
     "slug": "sereia-sereia-brincalhona-com-bau-de-tesouro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 409,
@@ -53402,7 +53402,7 @@
     "en": "Playful mermaid dancing with little fish",
     "slug": "sereia-sereia-brincalhona-dancando-com-peixinhos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 41,
@@ -53424,7 +53424,7 @@
     "en": "Playful mermaid resting on a sandy beach",
     "slug": "sereia-sereia-brincalhona-na-praia-de-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 411,
@@ -53435,7 +53435,7 @@
     "en": "Playful mermaid looking at a coral reef",
     "slug": "sereia-sereia-brincalhona-olhando-arrecife",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 42,
@@ -69319,7 +69319,7 @@
     "en": "Cute cartoon girl paper doll wearing a cozy winter coat and boots",
     "slug": "moda-boneca-de-papel-menina-casaco-de-inverno-e-botas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 102,
@@ -69330,7 +69330,7 @@
     "en": "Cute cartoon girl paper doll wearing a cute summer dress and sunhat",
     "slug": "moda-boneca-de-papel-menina-vestido-de-verao-e-chapeu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 103,
@@ -69341,7 +69341,7 @@
     "en": "Cute cartoon girl paper doll wearing a sporty outfit with sneakers",
     "slug": "moda-boneca-de-papel-menina-roupa-esportiva-e-tenis",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 104,
@@ -69352,7 +69352,7 @@
     "en": "Cute cartoon girl paper doll wearing a fancy party dress with a bow",
     "slug": "moda-boneca-de-papel-menina-vestido-de-festa-e-laco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 105,
@@ -69363,7 +69363,7 @@
     "en": "Cute cartoon girl paper doll wearing cozy pajamas with slippers",
     "slug": "moda-boneca-de-papel-menina-pijama-quentinho-e-pantufas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 106,
@@ -69374,7 +69374,7 @@
     "en": "Cute cartoon girl paper doll wearing a school uniform with a backpack",
     "slug": "moda-boneca-de-papel-menina-uniforme-escolar-e-mochila",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 107,
@@ -69385,7 +69385,7 @@
     "en": "Cute cartoon boy paper doll wearing a cozy winter coat and boots",
     "slug": "moda-boneco-de-papel-menino-casaco-de-inverno-e-botas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 108,
@@ -69396,7 +69396,7 @@
     "en": "Cute cartoon boy paper doll wearing a cute summer dress and sunhat",
     "slug": "moda-boneco-de-papel-menino-vestido-de-verao-e-chapeu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 109,
@@ -69407,7 +69407,7 @@
     "en": "Cute cartoon boy paper doll wearing a sporty outfit with sneakers",
     "slug": "moda-boneco-de-papel-menino-roupa-esportiva-e-tenis",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 11,
@@ -69429,7 +69429,7 @@
     "en": "Cute cartoon boy paper doll wearing a fancy party dress with a bow",
     "slug": "moda-boneco-de-papel-menino-vestido-de-festa-e-laco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 111,
@@ -69440,7 +69440,7 @@
     "en": "Cute cartoon boy paper doll wearing cozy pajamas with slippers",
     "slug": "moda-boneco-de-papel-menino-pijama-quentinho-e-pantufas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 112,
@@ -69451,7 +69451,7 @@
     "en": "Cute cartoon boy paper doll wearing a school uniform with a backpack",
     "slug": "moda-boneco-de-papel-menino-uniforme-escolar-e-mochila",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 113,
@@ -69462,7 +69462,7 @@
     "en": "Friendly paper doll model wearing a cozy winter coat and boots",
     "slug": "moda-modelo-boneca-de-papel-casaco-de-inverno-e-botas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 114,
@@ -69473,7 +69473,7 @@
     "en": "Friendly paper doll model wearing a cute summer dress and sunhat",
     "slug": "moda-modelo-boneca-de-papel-vestido-de-verao-e-chapeu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 115,
@@ -69484,7 +69484,7 @@
     "en": "Friendly paper doll model wearing a sporty outfit with sneakers",
     "slug": "moda-modelo-boneca-de-papel-roupa-esportiva-e-tenis",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 116,
@@ -69495,7 +69495,7 @@
     "en": "Friendly paper doll model wearing a fancy party dress with a bow",
     "slug": "moda-modelo-boneca-de-papel-vestido-de-festa-e-laco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 117,
@@ -69506,7 +69506,7 @@
     "en": "Friendly paper doll model wearing cozy pajamas with slippers",
     "slug": "moda-modelo-boneca-de-papel-pijama-quentinho-e-pantufas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 118,
@@ -69517,7 +69517,7 @@
     "en": "Friendly paper doll model wearing a school uniform with a backpack",
     "slug": "moda-modelo-boneca-de-papel-uniforme-escolar-e-mochila",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 119,
@@ -69528,7 +69528,7 @@
     "en": "Smiling paper doll child wearing a cozy winter coat and boots",
     "slug": "moda-crianca-boneca-de-papel-casaco-de-inverno-e-botas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 12,
@@ -69550,7 +69550,7 @@
     "en": "Smiling paper doll child wearing a cute summer dress and sunhat",
     "slug": "moda-crianca-boneca-de-papel-vestido-de-verao-e-chapeu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 121,
@@ -69561,7 +69561,7 @@
     "en": "Smiling paper doll child wearing a sporty outfit with sneakers",
     "slug": "moda-crianca-boneca-de-papel-roupa-esportiva-e-tenis",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 122,
@@ -69572,7 +69572,7 @@
     "en": "Smiling paper doll child wearing a fancy party dress with a bow",
     "slug": "moda-crianca-boneca-de-papel-vestido-de-festa-e-laco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 123,
@@ -69583,7 +69583,7 @@
     "en": "Smiling paper doll child wearing cozy pajamas with slippers",
     "slug": "moda-crianca-boneca-de-papel-pijama-quentinho-e-pantufas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 124,
@@ -69594,7 +69594,7 @@
     "en": "Smiling paper doll child wearing a school uniform with a backpack",
     "slug": "moda-crianca-boneca-de-papel-uniforme-escolar-e-mochila",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 125,
@@ -69605,7 +69605,7 @@
     "en": "Happy kids fashion model wearing a cozy winter coat and boots",
     "slug": "moda-modelo-de-moda-infantil-casaco-de-inverno-e-botas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 126,
@@ -69616,7 +69616,7 @@
     "en": "Happy kids fashion model wearing a cute summer dress and sunhat",
     "slug": "moda-modelo-de-moda-infantil-vestido-de-verao-e-chapeu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 127,
@@ -69627,7 +69627,7 @@
     "en": "Happy kids fashion model wearing a sporty outfit with sneakers",
     "slug": "moda-modelo-de-moda-infantil-roupa-esportiva-e-tenis",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 128,
@@ -69638,7 +69638,7 @@
     "en": "Happy kids fashion model wearing a fancy party dress with a bow",
     "slug": "moda-modelo-de-moda-infantil-vestido-de-festa-e-laco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 129,
@@ -69649,7 +69649,7 @@
     "en": "Happy kids fashion model wearing cozy pajamas with slippers",
     "slug": "moda-modelo-de-moda-infantil-pijama-quentinho-e-pantufas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 13,
@@ -69671,7 +69671,7 @@
     "en": "Happy kids fashion model wearing a school uniform with a backpack",
     "slug": "moda-modelo-de-moda-infantil-uniforme-escolar-e-mochila",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 131,
@@ -77033,6 +77033,116 @@
     "isNew": false
   },
   {
+    "index": 470,
+    "filename": "470-chef-crianca-chef-desenho-com-chapeu-de-cozinheiro__cartoon_chef_kid_wearing_a_tall_white_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/470-chef-crianca-chef-desenho-com-chapeu-de-cozinheiro__cartoon_chef_kid_wearing_a_tall_white_chef_hat.png",
+    "category": "profissoes",
+    "pt": "Chef crianca chef desenho com chapeu de cozinheiro",
+    "en": "Cartoon chef kid wearing a tall white chef hat",
+    "slug": "chef-crianca-chef-desenho-com-chapeu-de-cozinheiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 471,
+    "filename": "471-chef-crianca-chef-desenho-com-colher-de-pau__cartoon_chef_kid_holding_a_wooden_mixing_spoon.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/471-chef-crianca-chef-desenho-com-colher-de-pau__cartoon_chef_kid_holding_a_wooden_mixing_spoon.png",
+    "category": "profissoes",
+    "pt": "Chef crianca chef desenho com colher de pau",
+    "en": "Cartoon chef kid holding a wooden mixing spoon",
+    "slug": "chef-crianca-chef-desenho-com-colher-de-pau",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 472,
+    "filename": "472-chef-crianca-chef-desenho-assando-bolo-gostoso__cartoon_chef_kid_baking_a_delicious_cake.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/472-chef-crianca-chef-desenho-assando-bolo-gostoso__cartoon_chef_kid_baking_a_delicious_cake.png",
+    "category": "profissoes",
+    "pt": "Chef crianca chef desenho assando bolo gostoso",
+    "en": "Cartoon chef kid baking a delicious cake",
+    "slug": "chef-crianca-chef-desenho-assando-bolo-gostoso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 473,
+    "filename": "473-chef-crianca-chef-desenho-jogando-massa-de-pizza__cartoon_chef_kid_tossing_a_pizza_dough_in_the_air.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/473-chef-crianca-chef-desenho-jogando-massa-de-pizza__cartoon_chef_kid_tossing_a_pizza_dough_in_the_air.png",
+    "category": "profissoes",
+    "pt": "Chef crianca chef desenho jogando massa de pizza",
+    "en": "Cartoon chef kid tossing a pizza dough in the air",
+    "slug": "chef-crianca-chef-desenho-jogando-massa-de-pizza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 474,
+    "filename": "474-chef-crianca-chef-desenho-com-bandeja-de-biscoitos__cartoon_chef_kid_showing_a_tray_of_fresh_cookies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/474-chef-crianca-chef-desenho-com-bandeja-de-biscoitos__cartoon_chef_kid_showing_a_tray_of_fresh_cookies.png",
+    "category": "profissoes",
+    "pt": "Chef crianca chef desenho com bandeja de biscoitos",
+    "en": "Cartoon chef kid showing a tray of fresh cookies",
+    "slug": "chef-crianca-chef-desenho-com-bandeja-de-biscoitos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 475,
+    "filename": "475-chef-crianca-chef-desenho-mexendo-panela-de-sopa__cartoon_chef_kid_stirring_a_big_soup_pot.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/475-chef-crianca-chef-desenho-mexendo-panela-de-sopa__cartoon_chef_kid_stirring_a_big_soup_pot.png",
+    "category": "profissoes",
+    "pt": "Chef crianca chef desenho mexendo panela de sopa",
+    "en": "Cartoon chef kid stirring a big soup pot",
+    "slug": "chef-crianca-chef-desenho-mexendo-panela-de-sopa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 476,
+    "filename": "476-chef-chef-tradicional-com-chapeu-de-cozinheiro__traditional_chef_wearing_a_tall_white_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/476-chef-chef-tradicional-com-chapeu-de-cozinheiro__traditional_chef_wearing_a_tall_white_chef_hat.png",
+    "category": "profissoes",
+    "pt": "Chef chef tradicional com chapeu de cozinheiro",
+    "en": "Traditional chef wearing a tall white chef hat",
+    "slug": "chef-chef-tradicional-com-chapeu-de-cozinheiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 477,
+    "filename": "477-chef-chef-tradicional-com-colher-de-pau__traditional_chef_holding_a_wooden_mixing_spoon.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/477-chef-chef-tradicional-com-colher-de-pau__traditional_chef_holding_a_wooden_mixing_spoon.png",
+    "category": "profissoes",
+    "pt": "Chef chef tradicional com colher de pau",
+    "en": "Traditional chef holding a wooden mixing spoon",
+    "slug": "chef-chef-tradicional-com-colher-de-pau",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 478,
+    "filename": "478-chef-chef-tradicional-assando-bolo-gostoso__traditional_chef_baking_a_delicious_cake.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/478-chef-chef-tradicional-assando-bolo-gostoso__traditional_chef_baking_a_delicious_cake.png",
+    "category": "profissoes",
+    "pt": "Chef chef tradicional assando bolo gostoso",
+    "en": "Traditional chef baking a delicious cake",
+    "slug": "chef-chef-tradicional-assando-bolo-gostoso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 479,
+    "filename": "479-chef-chef-tradicional-jogando-massa-de-pizza__traditional_chef_tossing_a_pizza_dough_in_the_air.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/479-chef-chef-tradicional-jogando-massa-de-pizza__traditional_chef_tossing_a_pizza_dough_in_the_air.png",
+    "category": "profissoes",
+    "pt": "Chef chef tradicional jogando massa de pizza",
+    "en": "Traditional chef tossing a pizza dough in the air",
+    "slug": "chef-chef-tradicional-jogando-massa-de-pizza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 48,
     "filename": "48-medico-no-escritorio__doctor.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/48-medico-no-escritorio__doctor.png",
@@ -77040,6 +77150,94 @@
     "pt": "Medico no escritorio",
     "en": "Doctor",
     "slug": "medico-no-escritorio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 480,
+    "filename": "480-chef-chef-tradicional-com-bandeja-de-biscoitos__traditional_chef_showing_a_tray_of_fresh_cookies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/480-chef-chef-tradicional-com-bandeja-de-biscoitos__traditional_chef_showing_a_tray_of_fresh_cookies.png",
+    "category": "profissoes",
+    "pt": "Chef chef tradicional com bandeja de biscoitos",
+    "en": "Traditional chef showing a tray of fresh cookies",
+    "slug": "chef-chef-tradicional-com-bandeja-de-biscoitos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 481,
+    "filename": "481-chef-chef-tradicional-mexendo-panela-de-sopa__traditional_chef_stirring_a_big_soup_pot.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/481-chef-chef-tradicional-mexendo-panela-de-sopa__traditional_chef_stirring_a_big_soup_pot.png",
+    "category": "profissoes",
+    "pt": "Chef chef tradicional mexendo panela de sopa",
+    "en": "Traditional chef stirring a big soup pot",
+    "slug": "chef-chef-tradicional-mexendo-panela-de-sopa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 482,
+    "filename": "482-chef-ajudante-de-cozinha-com-chapeu-de-cozinheiro__helpful_kitchen_helper_wearing_a_tall_white_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/482-chef-ajudante-de-cozinha-com-chapeu-de-cozinheiro__helpful_kitchen_helper_wearing_a_tall_white_chef_hat.png",
+    "category": "profissoes",
+    "pt": "Chef ajudante de cozinha com chapeu de cozinheiro",
+    "en": "Helpful kitchen helper wearing a tall white chef hat",
+    "slug": "chef-ajudante-de-cozinha-com-chapeu-de-cozinheiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 483,
+    "filename": "483-chef-ajudante-de-cozinha-com-colher-de-pau__helpful_kitchen_helper_holding_a_wooden_mixing_spoon.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/483-chef-ajudante-de-cozinha-com-colher-de-pau__helpful_kitchen_helper_holding_a_wooden_mixing_spoon.png",
+    "category": "profissoes",
+    "pt": "Chef ajudante de cozinha com colher de pau",
+    "en": "Helpful kitchen helper holding a wooden mixing spoon",
+    "slug": "chef-ajudante-de-cozinha-com-colher-de-pau",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 484,
+    "filename": "484-chef-ajudante-de-cozinha-assando-bolo-gostoso__helpful_kitchen_helper_baking_a_delicious_cake.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/484-chef-ajudante-de-cozinha-assando-bolo-gostoso__helpful_kitchen_helper_baking_a_delicious_cake.png",
+    "category": "profissoes",
+    "pt": "Chef ajudante de cozinha assando bolo gostoso",
+    "en": "Helpful kitchen helper baking a delicious cake",
+    "slug": "chef-ajudante-de-cozinha-assando-bolo-gostoso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 485,
+    "filename": "485-chef-ajudante-de-cozinha-jogando-massa-de-pizza__helpful_kitchen_helper_tossing_a_pizza_dough_in_the_air.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/485-chef-ajudante-de-cozinha-jogando-massa-de-pizza__helpful_kitchen_helper_tossing_a_pizza_dough_in_the_air.png",
+    "category": "profissoes",
+    "pt": "Chef ajudante de cozinha jogando massa de pizza",
+    "en": "Helpful kitchen helper tossing a pizza dough in the air",
+    "slug": "chef-ajudante-de-cozinha-jogando-massa-de-pizza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 486,
+    "filename": "486-chef-ajudante-de-cozinha-com-bandeja-de-biscoitos__helpful_kitchen_helper_showing_a_tray_of_fresh_cookies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/486-chef-ajudante-de-cozinha-com-bandeja-de-biscoitos__helpful_kitchen_helper_showing_a_tray_of_fresh_cookies.png",
+    "category": "profissoes",
+    "pt": "Chef ajudante de cozinha com bandeja de biscoitos",
+    "en": "Helpful kitchen helper showing a tray of fresh cookies",
+    "slug": "chef-ajudante-de-cozinha-com-bandeja-de-biscoitos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 487,
+    "filename": "487-chef-ajudante-de-cozinha-mexendo-panela-de-sopa__helpful_kitchen_helper_stirring_a_big_soup_pot.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/profissoes/487-chef-ajudante-de-cozinha-mexendo-panela-de-sopa__helpful_kitchen_helper_stirring_a_big_soup_pot.png",
+    "category": "profissoes",
+    "pt": "Chef ajudante de cozinha mexendo panela de sopa",
+    "en": "Helpful kitchen helper stirring a big soup pot",
+    "slug": "chef-ajudante-de-cozinha-mexendo-panela-de-sopa",
     "tier": "free",
     "isNew": false
   },
@@ -82467,6 +82665,83 @@
     "isNew": true
   },
   {
+    "index": 183,
+    "filename": "183-trator-trator-grande-arando-a-terra__big_farm_tractor_plowing_a_farm_field.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/183-trator-trator-grande-arando-a-terra__big_farm_tractor_plowing_a_farm_field.png",
+    "category": "veiculos",
+    "pt": "Trator trator grande arando a terra",
+    "en": "Big farm tractor plowing a farm field",
+    "slug": "trator-trator-grande-arando-a-terra",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 184,
+    "filename": "184-trator-trator-grande-carregando-feno__big_farm_tractor_carrying_a_bundle_of_hay.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/184-trator-trator-grande-carregando-feno__big_farm_tractor_carrying_a_bundle_of_hay.png",
+    "category": "veiculos",
+    "pt": "Trator trator grande carregando feno",
+    "en": "Big farm tractor carrying a bundle of hay",
+    "slug": "trator-trator-grande-carregando-feno",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 185,
+    "filename": "185-trator-trator-grande-perto-do-celeiro__big_farm_tractor_parked_next_to_a_red_barn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/185-trator-trator-grande-perto-do-celeiro__big_farm_tractor_parked_next_to_a_red_barn.png",
+    "category": "veiculos",
+    "pt": "Trator trator grande perto do celeiro",
+    "en": "Big farm tractor parked next to a red barn",
+    "slug": "trator-trator-grande-perto-do-celeiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 186,
+    "filename": "186-trator-trator-grande-subindo-morro-de-lama__big_farm_tractor_driving_up_a_muddy_hill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/186-trator-trator-grande-subindo-morro-de-lama__big_farm_tractor_driving_up_a_muddy_hill.png",
+    "category": "veiculos",
+    "pt": "Trator trator grande subindo morro de lama",
+    "en": "Big farm tractor driving up a muddy hill",
+    "slug": "trator-trator-grande-subindo-morro-de-lama",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 187,
+    "filename": "187-trator-trator-grande-regando-plantacao__big_farm_tractor_watering_crops.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/187-trator-trator-grande-regando-plantacao__big_farm_tractor_watering_crops.png",
+    "category": "veiculos",
+    "pt": "Trator trator grande regando plantacao",
+    "en": "Big farm tractor watering crops",
+    "slug": "trator-trator-grande-regando-plantacao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 188,
+    "filename": "188-trator-trator-grande-acenando-rodas-alegre__big_farm_tractor_waving_its_wheels_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/188-trator-trator-grande-acenando-rodas-alegre__big_farm_tractor_waving_its_wheels_happily.png",
+    "category": "veiculos",
+    "pt": "Trator trator grande acenando rodas alegre",
+    "en": "Big farm tractor waving its wheels happily",
+    "slug": "trator-trator-grande-acenando-rodas-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 189,
+    "filename": "189-trator-trator-carregador-arando-a-terra__loader_tractor_plowing_a_farm_field.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/189-trator-trator-carregador-arando-a-terra__loader_tractor_plowing_a_farm_field.png",
+    "category": "veiculos",
+    "pt": "Trator trator carregador arando a terra",
+    "en": "Loader tractor plowing a farm field",
+    "slug": "trator-trator-carregador-arando-a-terra",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 19,
     "filename": "19-aviao-nos-trilhos__airplane.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/19-aviao-nos-trilhos__airplane.png",
@@ -82476,6 +82751,116 @@
     "slug": "aviao-nos-trilhos",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 190,
+    "filename": "190-trator-trator-carregador-carregando-feno__loader_tractor_carrying_a_bundle_of_hay.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/190-trator-trator-carregador-carregando-feno__loader_tractor_carrying_a_bundle_of_hay.png",
+    "category": "veiculos",
+    "pt": "Trator trator carregador carregando feno",
+    "en": "Loader tractor carrying a bundle of hay",
+    "slug": "trator-trator-carregador-carregando-feno",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 191,
+    "filename": "191-trator-trator-carregador-perto-do-celeiro__loader_tractor_parked_next_to_a_red_barn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/191-trator-trator-carregador-perto-do-celeiro__loader_tractor_parked_next_to_a_red_barn.png",
+    "category": "veiculos",
+    "pt": "Trator trator carregador perto do celeiro",
+    "en": "Loader tractor parked next to a red barn",
+    "slug": "trator-trator-carregador-perto-do-celeiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 192,
+    "filename": "192-trator-trator-carregador-subindo-morro-de-lama__loader_tractor_driving_up_a_muddy_hill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/192-trator-trator-carregador-subindo-morro-de-lama__loader_tractor_driving_up_a_muddy_hill.png",
+    "category": "veiculos",
+    "pt": "Trator trator carregador subindo morro de lama",
+    "en": "Loader tractor driving up a muddy hill",
+    "slug": "trator-trator-carregador-subindo-morro-de-lama",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 193,
+    "filename": "193-trator-trator-carregador-regando-plantacao__loader_tractor_watering_crops.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/193-trator-trator-carregador-regando-plantacao__loader_tractor_watering_crops.png",
+    "category": "veiculos",
+    "pt": "Trator trator carregador regando plantacao",
+    "en": "Loader tractor watering crops",
+    "slug": "trator-trator-carregador-regando-plantacao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 194,
+    "filename": "194-trator-trator-carregador-acenando-rodas-alegre__loader_tractor_waving_its_wheels_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/194-trator-trator-carregador-acenando-rodas-alegre__loader_tractor_waving_its_wheels_happily.png",
+    "category": "veiculos",
+    "pt": "Trator trator carregador acenando rodas alegre",
+    "en": "Loader tractor waving its wheels happily",
+    "slug": "trator-trator-carregador-acenando-rodas-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 195,
+    "filename": "195-trator-trator-antigo-arando-a-terra__vintage_farm_tractor_plowing_a_farm_field.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/195-trator-trator-antigo-arando-a-terra__vintage_farm_tractor_plowing_a_farm_field.png",
+    "category": "veiculos",
+    "pt": "Trator trator antigo arando a terra",
+    "en": "Vintage farm tractor plowing a farm field",
+    "slug": "trator-trator-antigo-arando-a-terra",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 196,
+    "filename": "196-trator-trator-antigo-carregando-feno__vintage_farm_tractor_carrying_a_bundle_of_hay.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/196-trator-trator-antigo-carregando-feno__vintage_farm_tractor_carrying_a_bundle_of_hay.png",
+    "category": "veiculos",
+    "pt": "Trator trator antigo carregando feno",
+    "en": "Vintage farm tractor carrying a bundle of hay",
+    "slug": "trator-trator-antigo-carregando-feno",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 197,
+    "filename": "197-trator-trator-antigo-perto-do-celeiro__vintage_farm_tractor_parked_next_to_a_red_barn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/197-trator-trator-antigo-perto-do-celeiro__vintage_farm_tractor_parked_next_to_a_red_barn.png",
+    "category": "veiculos",
+    "pt": "Trator trator antigo perto do celeiro",
+    "en": "Vintage farm tractor parked next to a red barn",
+    "slug": "trator-trator-antigo-perto-do-celeiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 198,
+    "filename": "198-trator-trator-antigo-subindo-morro-de-lama__vintage_farm_tractor_driving_up_a_muddy_hill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/198-trator-trator-antigo-subindo-morro-de-lama__vintage_farm_tractor_driving_up_a_muddy_hill.png",
+    "category": "veiculos",
+    "pt": "Trator trator antigo subindo morro de lama",
+    "en": "Vintage farm tractor driving up a muddy hill",
+    "slug": "trator-trator-antigo-subindo-morro-de-lama",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 199,
+    "filename": "199-trator-trator-antigo-regando-plantacao__vintage_farm_tractor_watering_crops.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/199-trator-trator-antigo-regando-plantacao__vintage_farm_tractor_watering_crops.png",
+    "category": "veiculos",
+    "pt": "Trator trator antigo regando plantacao",
+    "en": "Vintage farm tractor watering crops",
+    "slug": "trator-trator-antigo-regando-plantacao",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 20,
@@ -82489,6 +82874,116 @@
     "isNew": true
   },
   {
+    "index": 200,
+    "filename": "200-trator-trator-antigo-acenando-rodas-alegre__vintage_farm_tractor_waving_its_wheels_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/200-trator-trator-antigo-acenando-rodas-alegre__vintage_farm_tractor_waving_its_wheels_happily.png",
+    "category": "veiculos",
+    "pt": "Trator trator antigo acenando rodas alegre",
+    "en": "Vintage farm tractor waving its wheels happily",
+    "slug": "trator-trator-antigo-acenando-rodas-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 201,
+    "filename": "201-trator-trator-de-esteira-arando-a-terra__crawler_tractor_plowing_a_farm_field.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/201-trator-trator-de-esteira-arando-a-terra__crawler_tractor_plowing_a_farm_field.png",
+    "category": "veiculos",
+    "pt": "Trator trator de esteira arando a terra",
+    "en": "Crawler tractor plowing a farm field",
+    "slug": "trator-trator-de-esteira-arando-a-terra",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 202,
+    "filename": "202-trator-trator-de-esteira-carregando-feno__crawler_tractor_carrying_a_bundle_of_hay.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/202-trator-trator-de-esteira-carregando-feno__crawler_tractor_carrying_a_bundle_of_hay.png",
+    "category": "veiculos",
+    "pt": "Trator trator de esteira carregando feno",
+    "en": "Crawler tractor carrying a bundle of hay",
+    "slug": "trator-trator-de-esteira-carregando-feno",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 203,
+    "filename": "203-trator-trator-de-esteira-perto-do-celeiro__crawler_tractor_parked_next_to_a_red_barn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/203-trator-trator-de-esteira-perto-do-celeiro__crawler_tractor_parked_next_to_a_red_barn.png",
+    "category": "veiculos",
+    "pt": "Trator trator de esteira perto do celeiro",
+    "en": "Crawler tractor parked next to a red barn",
+    "slug": "trator-trator-de-esteira-perto-do-celeiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 204,
+    "filename": "204-trator-trator-de-esteira-subindo-morro-de-lama__crawler_tractor_driving_up_a_muddy_hill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/204-trator-trator-de-esteira-subindo-morro-de-lama__crawler_tractor_driving_up_a_muddy_hill.png",
+    "category": "veiculos",
+    "pt": "Trator trator de esteira subindo morro de lama",
+    "en": "Crawler tractor driving up a muddy hill",
+    "slug": "trator-trator-de-esteira-subindo-morro-de-lama",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 205,
+    "filename": "205-trator-trator-de-esteira-regando-plantacao__crawler_tractor_watering_crops.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/205-trator-trator-de-esteira-regando-plantacao__crawler_tractor_watering_crops.png",
+    "category": "veiculos",
+    "pt": "Trator trator de esteira regando plantacao",
+    "en": "Crawler tractor watering crops",
+    "slug": "trator-trator-de-esteira-regando-plantacao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 206,
+    "filename": "206-trator-trator-de-esteira-acenando-rodas-alegre__crawler_tractor_waving_its_wheels_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/206-trator-trator-de-esteira-acenando-rodas-alegre__crawler_tractor_waving_its_wheels_happily.png",
+    "category": "veiculos",
+    "pt": "Trator trator de esteira acenando rodas alegre",
+    "en": "Crawler tractor waving its wheels happily",
+    "slug": "trator-trator-de-esteira-acenando-rodas-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 207,
+    "filename": "207-trator-trator-utilitario-arando-a-terra__utility_tractor_plowing_a_farm_field.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/207-trator-trator-utilitario-arando-a-terra__utility_tractor_plowing_a_farm_field.png",
+    "category": "veiculos",
+    "pt": "Trator trator utilitario arando a terra",
+    "en": "Utility tractor plowing a farm field",
+    "slug": "trator-trator-utilitario-arando-a-terra",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 208,
+    "filename": "208-trator-trator-utilitario-carregando-feno__utility_tractor_carrying_a_bundle_of_hay.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/208-trator-trator-utilitario-carregando-feno__utility_tractor_carrying_a_bundle_of_hay.png",
+    "category": "veiculos",
+    "pt": "Trator trator utilitario carregando feno",
+    "en": "Utility tractor carrying a bundle of hay",
+    "slug": "trator-trator-utilitario-carregando-feno",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 209,
+    "filename": "209-trator-trator-utilitario-perto-do-celeiro__utility_tractor_parked_next_to_a_red_barn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/209-trator-trator-utilitario-perto-do-celeiro__utility_tractor_parked_next_to_a_red_barn.png",
+    "category": "veiculos",
+    "pt": "Trator trator utilitario perto do celeiro",
+    "en": "Utility tractor parked next to a red barn",
+    "slug": "trator-trator-utilitario-perto-do-celeiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 21,
     "filename": "21-barco-nos-trilhos__boat.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/21-barco-nos-trilhos__boat.png",
@@ -82496,6 +82991,116 @@
     "pt": "Barco nos trilhos",
     "en": "Boat",
     "slug": "barco-nos-trilhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 210,
+    "filename": "210-trator-trator-utilitario-subindo-morro-de-lama__utility_tractor_driving_up_a_muddy_hill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/210-trator-trator-utilitario-subindo-morro-de-lama__utility_tractor_driving_up_a_muddy_hill.png",
+    "category": "veiculos",
+    "pt": "Trator trator utilitario subindo morro de lama",
+    "en": "Utility tractor driving up a muddy hill",
+    "slug": "trator-trator-utilitario-subindo-morro-de-lama",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 211,
+    "filename": "211-trator-trator-utilitario-regando-plantacao__utility_tractor_watering_crops.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/211-trator-trator-utilitario-regando-plantacao__utility_tractor_watering_crops.png",
+    "category": "veiculos",
+    "pt": "Trator trator utilitario regando plantacao",
+    "en": "Utility tractor watering crops",
+    "slug": "trator-trator-utilitario-regando-plantacao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 212,
+    "filename": "212-trator-trator-utilitario-acenando-rodas-alegre__utility_tractor_waving_its_wheels_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/212-trator-trator-utilitario-acenando-rodas-alegre__utility_tractor_waving_its_wheels_happily.png",
+    "category": "veiculos",
+    "pt": "Trator trator utilitario acenando rodas alegre",
+    "en": "Utility tractor waving its wheels happily",
+    "slug": "trator-trator-utilitario-acenando-rodas-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 213,
+    "filename": "213-trator-trator-pesado-arando-a-terra__heavy-duty_tractor_plowing_a_farm_field.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/213-trator-trator-pesado-arando-a-terra__heavy-duty_tractor_plowing_a_farm_field.png",
+    "category": "veiculos",
+    "pt": "Trator trator pesado arando a terra",
+    "en": "Heavy duty tractor plowing a farm field",
+    "slug": "trator-trator-pesado-arando-a-terra",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 214,
+    "filename": "214-trator-trator-pesado-carregando-feno__heavy-duty_tractor_carrying_a_bundle_of_hay.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/214-trator-trator-pesado-carregando-feno__heavy-duty_tractor_carrying_a_bundle_of_hay.png",
+    "category": "veiculos",
+    "pt": "Trator trator pesado carregando feno",
+    "en": "Heavy duty tractor carrying a bundle of hay",
+    "slug": "trator-trator-pesado-carregando-feno",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 215,
+    "filename": "215-trator-trator-pesado-perto-do-celeiro__heavy-duty_tractor_parked_next_to_a_red_barn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/215-trator-trator-pesado-perto-do-celeiro__heavy-duty_tractor_parked_next_to_a_red_barn.png",
+    "category": "veiculos",
+    "pt": "Trator trator pesado perto do celeiro",
+    "en": "Heavy duty tractor parked next to a red barn",
+    "slug": "trator-trator-pesado-perto-do-celeiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 216,
+    "filename": "216-trator-trator-pesado-subindo-morro-de-lama__heavy-duty_tractor_driving_up_a_muddy_hill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/216-trator-trator-pesado-subindo-morro-de-lama__heavy-duty_tractor_driving_up_a_muddy_hill.png",
+    "category": "veiculos",
+    "pt": "Trator trator pesado subindo morro de lama",
+    "en": "Heavy duty tractor driving up a muddy hill",
+    "slug": "trator-trator-pesado-subindo-morro-de-lama",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 217,
+    "filename": "217-trator-trator-pesado-regando-plantacao__heavy-duty_tractor_watering_crops.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/217-trator-trator-pesado-regando-plantacao__heavy-duty_tractor_watering_crops.png",
+    "category": "veiculos",
+    "pt": "Trator trator pesado regando plantacao",
+    "en": "Heavy duty tractor watering crops",
+    "slug": "trator-trator-pesado-regando-plantacao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 218,
+    "filename": "218-trator-trator-pesado-acenando-rodas-alegre__heavy-duty_tractor_waving_its_wheels_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/218-trator-trator-pesado-acenando-rodas-alegre__heavy-duty_tractor_waving_its_wheels_happily.png",
+    "category": "veiculos",
+    "pt": "Trator trator pesado acenando rodas alegre",
+    "en": "Heavy duty tractor waving its wheels happily",
+    "slug": "trator-trator-pesado-acenando-rodas-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 219,
+    "filename": "219-trator-trator-de-brinquedo-arando-a-terra__cute_toy_tractor_plowing_a_farm_field.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/219-trator-trator-de-brinquedo-arando-a-terra__cute_toy_tractor_plowing_a_farm_field.png",
+    "category": "veiculos",
+    "pt": "Trator trator de brinquedo arando a terra",
+    "en": "Cute toy tractor plowing a farm field",
+    "slug": "trator-trator-de-brinquedo-arando-a-terra",
     "tier": "free",
     "isNew": false
   },
@@ -82511,6 +83116,116 @@
     "isNew": true
   },
   {
+    "index": 220,
+    "filename": "220-trator-trator-de-brinquedo-carregando-feno__cute_toy_tractor_carrying_a_bundle_of_hay.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/220-trator-trator-de-brinquedo-carregando-feno__cute_toy_tractor_carrying_a_bundle_of_hay.png",
+    "category": "veiculos",
+    "pt": "Trator trator de brinquedo carregando feno",
+    "en": "Cute toy tractor carrying a bundle of hay",
+    "slug": "trator-trator-de-brinquedo-carregando-feno",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 221,
+    "filename": "221-trator-trator-de-brinquedo-perto-do-celeiro__cute_toy_tractor_parked_next_to_a_red_barn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/221-trator-trator-de-brinquedo-perto-do-celeiro__cute_toy_tractor_parked_next_to_a_red_barn.png",
+    "category": "veiculos",
+    "pt": "Trator trator de brinquedo perto do celeiro",
+    "en": "Cute toy tractor parked next to a red barn",
+    "slug": "trator-trator-de-brinquedo-perto-do-celeiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 222,
+    "filename": "222-trator-trator-de-brinquedo-subindo-morro-de-lama__cute_toy_tractor_driving_up_a_muddy_hill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/222-trator-trator-de-brinquedo-subindo-morro-de-lama__cute_toy_tractor_driving_up_a_muddy_hill.png",
+    "category": "veiculos",
+    "pt": "Trator trator de brinquedo subindo morro de lama",
+    "en": "Cute toy tractor driving up a muddy hill",
+    "slug": "trator-trator-de-brinquedo-subindo-morro-de-lama",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 223,
+    "filename": "223-trator-trator-de-brinquedo-regando-plantacao__cute_toy_tractor_watering_crops.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/223-trator-trator-de-brinquedo-regando-plantacao__cute_toy_tractor_watering_crops.png",
+    "category": "veiculos",
+    "pt": "Trator trator de brinquedo regando plantacao",
+    "en": "Cute toy tractor watering crops",
+    "slug": "trator-trator-de-brinquedo-regando-plantacao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 224,
+    "filename": "224-trator-trator-de-brinquedo-acenando-rodas-alegre__cute_toy_tractor_waving_its_wheels_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/224-trator-trator-de-brinquedo-acenando-rodas-alegre__cute_toy_tractor_waving_its_wheels_happily.png",
+    "category": "veiculos",
+    "pt": "Trator trator de brinquedo acenando rodas alegre",
+    "en": "Cute toy tractor waving its wheels happily",
+    "slug": "trator-trator-de-brinquedo-acenando-rodas-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 225,
+    "filename": "225-trator-trator-de-desenho-arando-a-terra__friendly_cartoon_tractor_plowing_a_farm_field.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/225-trator-trator-de-desenho-arando-a-terra__friendly_cartoon_tractor_plowing_a_farm_field.png",
+    "category": "veiculos",
+    "pt": "Trator trator de desenho arando a terra",
+    "en": "Friendly cartoon tractor plowing a farm field",
+    "slug": "trator-trator-de-desenho-arando-a-terra",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 226,
+    "filename": "226-trator-trator-de-desenho-carregando-feno__friendly_cartoon_tractor_carrying_a_bundle_of_hay.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/226-trator-trator-de-desenho-carregando-feno__friendly_cartoon_tractor_carrying_a_bundle_of_hay.png",
+    "category": "veiculos",
+    "pt": "Trator trator de desenho carregando feno",
+    "en": "Friendly cartoon tractor carrying a bundle of hay",
+    "slug": "trator-trator-de-desenho-carregando-feno",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 227,
+    "filename": "227-trator-trator-de-desenho-perto-do-celeiro__friendly_cartoon_tractor_parked_next_to_a_red_barn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/227-trator-trator-de-desenho-perto-do-celeiro__friendly_cartoon_tractor_parked_next_to_a_red_barn.png",
+    "category": "veiculos",
+    "pt": "Trator trator de desenho perto do celeiro",
+    "en": "Friendly cartoon tractor parked next to a red barn",
+    "slug": "trator-trator-de-desenho-perto-do-celeiro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 228,
+    "filename": "228-trator-trator-de-desenho-subindo-morro-de-lama__friendly_cartoon_tractor_driving_up_a_muddy_hill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/228-trator-trator-de-desenho-subindo-morro-de-lama__friendly_cartoon_tractor_driving_up_a_muddy_hill.png",
+    "category": "veiculos",
+    "pt": "Trator trator de desenho subindo morro de lama",
+    "en": "Friendly cartoon tractor driving up a muddy hill",
+    "slug": "trator-trator-de-desenho-subindo-morro-de-lama",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 229,
+    "filename": "229-trator-trator-de-desenho-regando-plantacao__friendly_cartoon_tractor_watering_crops.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/229-trator-trator-de-desenho-regando-plantacao__friendly_cartoon_tractor_watering_crops.png",
+    "category": "veiculos",
+    "pt": "Trator trator de desenho regando plantacao",
+    "en": "Friendly cartoon tractor watering crops",
+    "slug": "trator-trator-de-desenho-regando-plantacao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 23,
     "filename": "23-bicicleta-nos-trilhos__bicycle.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/23-bicicleta-nos-trilhos__bicycle.png",
@@ -82520,6 +83235,39 @@
     "slug": "bicicleta-nos-trilhos",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 230,
+    "filename": "230-trator-trator-de-desenho-acenando-rodas-alegre__friendly_cartoon_tractor_waving_its_wheels_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/230-trator-trator-de-desenho-acenando-rodas-alegre__friendly_cartoon_tractor_waving_its_wheels_happily.png",
+    "category": "veiculos",
+    "pt": "Trator trator de desenho acenando rodas alegre",
+    "en": "Friendly cartoon tractor waving its wheels happily",
+    "slug": "trator-trator-de-desenho-acenando-rodas-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 231,
+    "filename": "231-trator-trator-de-jardim-arando-a-terra__garden_tractor_plowing_a_farm_field.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/231-trator-trator-de-jardim-arando-a-terra__garden_tractor_plowing_a_farm_field.png",
+    "category": "veiculos",
+    "pt": "Trator trator de jardim arando a terra",
+    "en": "Garden tractor plowing a farm field",
+    "slug": "trator-trator-de-jardim-arando-a-terra",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 232,
+    "filename": "232-trator-trator-de-jardim-carregando-feno__garden_tractor_carrying_a_bundle_of_hay.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/232-trator-trator-de-jardim-carregando-feno__garden_tractor_carrying_a_bundle_of_hay.png",
+    "category": "veiculos",
+    "pt": "Trator trator de jardim carregando feno",
+    "en": "Garden tractor carrying a bundle of hay",
+    "slug": "trator-trator-de-jardim-carregando-feno",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 24,
