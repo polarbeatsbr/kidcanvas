@@ -5232,3 +5232,58 @@
 [2026-06-17 05:26:17] Rebuilding catalog and drawings database...
 [2026-06-17 05:26:18] Build successful!
 [2026-06-17 05:26:18] Committing and pushing to origin main...
+[2026-06-17 05:26:22] Push successful! Vercel will deploy in production.
+[2026-06-17 05:26:24] [3151/4400] Generated: ciencias-e-corpo-humano/41-corpo-osso-de-desenho-com-rosto-alegre__bone_puzzle_with_a_happy_cartoon_face.png
+[2026-06-17 05:26:25] [3152/4400] Generated: ciencias-e-corpo-humano/43-corpo-osso-de-desenho-decorado-com-brilhos__bone_puzzle_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:26:26] [3153/4400] Generated: ciencias-e-corpo-humano/42-corpo-osso-de-desenho-com-letras-grandes__bone_puzzle_labeled_with_big_friendly_letters.png
+[2026-06-17 05:26:28] [3154/4400] Generated: ciencias-e-corpo-humano/44-corpo-osso-de-desenho-com-bolhas-ao-redor__bone_puzzle_surrounded_by_bubbles.png
+[2026-06-17 05:26:29] [3155/4400] Generated: ciencias-e-corpo-humano/45-corpo-osso-de-desenho-olhos-de-desenho-fofos__bone_puzzle_smiling_with_cute_big_eyes.png
+[2026-06-17 05:26:31] [3156/4400] Generated: ciencias-e-corpo-humano/46-corpo-template-do-corpo-humano-com-rosto-alegre__human_body_template_with_a_happy_cartoon_face.png
+[2026-06-17 05:26:32] [3157/4400] Generated: ciencias-e-corpo-humano/47-corpo-template-do-corpo-humano-com-letras-grandes__human_body_template_labeled_with_big_friendly_letters.png
+[2026-06-17 05:26:34] [3158/4400] Generated: ciencias-e-corpo-humano/48-corpo-template-do-corpo-humano-decorado-com-brilhos__human_body_template_decorated_with_sparkles_and_stars.png
+[2026-06-17 05:26:35] [3159/4400] Generated: ciencias-e-corpo-humano/49-corpo-template-do-corpo-humano-com-bolhas-ao-redor__human_body_template_surrounded_by_bubbles.png
+[2026-06-17 05:26:36] [3160/4400] Generated: ciencias-e-corpo-humano/50-corpo-template-do-corpo-humano-olhos-de-desenho-fofos__human_body_template_smiling_with_cute_big_eyes.png
+[2026-06-17 05:26:38] [3161/4400] Generated: ciencias-e-corpo-humano/51-ciencia-microscopio-de-ciencia-com-rosto-alegre__science_microscope_with_a_happy_cartoon_face.png
+[2026-06-17 05:26:40] [3162/4400] Generated: ciencias-e-corpo-humano/52-ciencia-microscopio-de-ciencia-com-bolhas-e-estrelas__science_microscope_surrounded_by_bubbles_and_stars.png
+[2026-06-17 05:26:41] [3163/4400] Generated: ciencias-e-corpo-humano/53-ciencia-microscopio-de-ciencia-na-mesa-de-laboratorio__science_microscope_resting_on_a_lab_table.png
+[2026-06-17 05:26:43] [3164/4400] Generated: ciencias-e-corpo-humano/54-ciencia-microscopio-de-ciencia-brilhando-com-ideias__science_microscope_shining_with_ideas.png
+[2026-06-17 05:26:44] [3165/4400] Generated: ciencias-e-corpo-humano/55-ciencia-microscopio-de-ciencia-com-olhos-amigaveis__science_microscope_with_friendly_cartoon_eyes.png
+[2026-06-17 05:26:45] [3166/4400] Generated: ciencias-e-corpo-humano/56-ciencia-frasco-de-laboratorio-com-rosto-alegre__science_laboratory_flask_with_a_happy_cartoon_face.png
+[2026-06-17 05:26:46] [3167/4400] Generated: ciencias-e-corpo-humano/58-ciencia-frasco-de-laboratorio-na-mesa-de-laboratorio__science_laboratory_flask_resting_on_a_lab_table.png
+[2026-06-17 05:26:48] [3168/4400] Generated: ciencias-e-corpo-humano/57-ciencia-frasco-de-laboratorio-com-bolhas-e-estrelas__science_laboratory_flask_surrounded_by_bubbles_and_stars.png
+[2026-06-17 05:26:49] [3169/4400] Generated: ciencias-e-corpo-humano/60-ciencia-frasco-de-laboratorio-com-olhos-amigaveis__science_laboratory_flask_with_friendly_cartoon_eyes.png
+[2026-06-17 05:26:50] [3170/4400] Generated: ciencias-e-corpo-humano/59-ciencia-frasco-de-laboratorio-brilhando-com-ideias__science_laboratory_flask_shining_with_ideas.png
+[2026-06-17 05:26:51] [3171/4400] Generated: ciencias-e-corpo-humano/61-ciencia-telescopio-espacial-com-rosto-alegre__space_telescope_with_a_happy_cartoon_face.png
+[2026-06-17 05:26:52] [3172/4400] Generated: ciencias-e-corpo-humano/62-ciencia-telescopio-espacial-com-bolhas-e-estrelas__space_telescope_surrounded_by_bubbles_and_stars.png
+[2026-06-17 05:26:54] [3173/4400] Generated: ciencias-e-corpo-humano/63-ciencia-telescopio-espacial-na-mesa-de-laboratorio__space_telescope_resting_on_a_lab_table.png
+[2026-06-17 05:26:55] [3174/4400] Generated: ciencias-e-corpo-humano/64-ciencia-telescopio-espacial-brilhando-com-ideias__space_telescope_shining_with_ideas.png
+[2026-06-17 05:26:56] [3175/4400] Generated: ciencias-e-corpo-humano/65-ciencia-telescopio-espacial-com-olhos-amigaveis__space_telescope_with_friendly_cartoon_eyes.png
+[2026-06-17 05:26:57] [3176/4400] Generated: ciencias-e-corpo-humano/66-ciencia-lampada-de-ideia-com-rosto-alegre__glowing_lightbulb_idea_with_a_happy_cartoon_face.png
+[2026-06-17 05:26:58] [3177/4400] Generated: ciencias-e-corpo-humano/67-ciencia-lampada-de-ideia-com-bolhas-e-estrelas__glowing_lightbulb_idea_surrounded_by_bubbles_and_stars.png
+[2026-06-17 05:27:00] [3178/4400] Generated: ciencias-e-corpo-humano/68-ciencia-lampada-de-ideia-na-mesa-de-laboratorio__glowing_lightbulb_idea_resting_on_a_lab_table.png
+[2026-06-17 05:27:01] [3179/4400] Generated: ciencias-e-corpo-humano/69-ciencia-lampada-de-ideia-brilhando-com-ideias__glowing_lightbulb_idea_shining_with_ideas.png
+[2026-06-17 05:27:02] [3180/4400] Generated: ciencias-e-corpo-humano/70-ciencia-lampada-de-ideia-com-olhos-amigaveis__glowing_lightbulb_idea_with_friendly_cartoon_eyes.png
+[2026-06-17 05:27:04] [3181/4400] Generated: ciencias-e-corpo-humano/71-ciencia-modelo-de-atomo-com-rosto-alegre__swirling_atom_model_with_a_happy_cartoon_face.png
+[2026-06-17 05:27:05] [3182/4400] Generated: ciencias-e-corpo-humano/72-ciencia-modelo-de-atomo-com-bolhas-e-estrelas__swirling_atom_model_surrounded_by_bubbles_and_stars.png
+[2026-06-17 05:27:06] [3183/4400] Generated: ciencias-e-corpo-humano/73-ciencia-modelo-de-atomo-na-mesa-de-laboratorio__swirling_atom_model_resting_on_a_lab_table.png
+[2026-06-17 05:27:07] [3184/4400] Generated: ciencias-e-corpo-humano/74-ciencia-modelo-de-atomo-brilhando-com-ideias__swirling_atom_model_shining_with_ideas.png
+[2026-06-17 05:27:08] [3185/4400] Generated: ciencias-e-corpo-humano/75-ciencia-modelo-de-atomo-com-olhos-amigaveis__swirling_atom_model_with_friendly_cartoon_eyes.png
+[2026-06-17 05:27:10] [3186/4400] Generated: ciencias-e-corpo-humano/76-ciencia-robo-ajudante-com-rosto-alegre__friendly_robot_lab_helper_with_a_happy_cartoon_face.png
+[2026-06-17 05:27:12] [3187/4400] Generated: ciencias-e-corpo-humano/77-ciencia-robo-ajudante-com-bolhas-e-estrelas__friendly_robot_lab_helper_surrounded_by_bubbles_and_stars.png
+[2026-06-17 05:27:13] [3188/4400] Generated: ciencias-e-corpo-humano/78-ciencia-robo-ajudante-na-mesa-de-laboratorio__friendly_robot_lab_helper_resting_on_a_lab_table.png
+[2026-06-17 05:27:15] [3189/4400] Generated: ciencias-e-corpo-humano/79-ciencia-robo-ajudante-brilhando-com-ideias__friendly_robot_lab_helper_shining_with_ideas.png
+[2026-06-17 05:27:17] [3190/4400] Generated: ciencias-e-corpo-humano/80-ciencia-robo-ajudante-com-olhos-amigaveis__friendly_robot_lab_helper_with_friendly_cartoon_eyes.png
+[2026-06-17 05:27:18] [3191/4400] Generated: ciencias-e-corpo-humano/81-ciencia-lupa-de-cientista-com-rosto-alegre__magnifying_glass_with_a_happy_cartoon_face.png
+[2026-06-17 05:27:20] [3192/4400] Generated: ciencias-e-corpo-humano/82-ciencia-lupa-de-cientista-com-bolhas-e-estrelas__magnifying_glass_surrounded_by_bubbles_and_stars.png
+[2026-06-17 05:27:21] [3193/4400] Generated: ciencias-e-corpo-humano/83-ciencia-lupa-de-cientista-na-mesa-de-laboratorio__magnifying_glass_resting_on_a_lab_table.png
+[2026-06-17 05:27:22] [3194/4400] Generated: ciencias-e-corpo-humano/84-ciencia-lupa-de-cientista-brilhando-com-ideias__magnifying_glass_shining_with_ideas.png
+[2026-06-17 05:27:23] [3195/4400] Generated: ciencias-e-corpo-humano/85-ciencia-lupa-de-cientista-com-olhos-amigaveis__magnifying_glass_with_friendly_cartoon_eyes.png
+[2026-06-17 05:27:25] [3196/4400] Generated: ciencias-e-corpo-humano/86-ciencia-livro-de-ciencias-com-rosto-alegre__science_book_with_a_happy_cartoon_face.png
+[2026-06-17 05:27:27] [3197/4400] Generated: ciencias-e-corpo-humano/87-ciencia-livro-de-ciencias-com-bolhas-e-estrelas__science_book_surrounded_by_bubbles_and_stars.png
+[2026-06-17 05:27:29] [3198/4400] Generated: ciencias-e-corpo-humano/88-ciencia-livro-de-ciencias-na-mesa-de-laboratorio__science_book_resting_on_a_lab_table.png
+[2026-06-17 05:27:30] [3199/4400] Generated: ciencias-e-corpo-humano/89-ciencia-livro-de-ciencias-brilhando-com-ideias__science_book_shining_with_ideas.png
+[2026-06-17 05:27:31] [3200/4400] Generated: ciencias-e-corpo-humano/90-ciencia-livro-de-ciencias-com-olhos-amigaveis__science_book_with_friendly_cartoon_eyes.png
+[2026-06-17 05:27:31] Batch 64 completed (3200 drawings). Triggering build & push...
+[2026-06-17 05:27:31] Rebuilding catalog and drawings database...
+[2026-06-17 05:27:32] Build successful!
+[2026-06-17 05:27:32] Committing and pushing to origin main...
