@@ -74225,7 +74225,7 @@
     "en": "Cute cartoon firefighter waving happily",
     "slug": "bombeiro-bombeiro-de-desenho-acenando-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 239,
@@ -74236,7 +74236,7 @@
     "en": "Cute cartoon firefighter pointing at a safety sign",
     "slug": "bombeiro-bombeiro-de-desenho-com-placa-de-seguranca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 24,
@@ -74258,7 +74258,7 @@
     "en": "Firefighter mascot holding a water hose",
     "slug": "bombeiro-mascote-bombeiro-com-mangueira-de-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 241,
@@ -74269,7 +74269,7 @@
     "en": "Firefighter mascot climbing a tall ladder",
     "slug": "bombeiro-mascote-bombeiro-subindo-escada-alta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 242,
@@ -74280,7 +74280,7 @@
     "en": "Firefighter mascot driving a big red firetruck",
     "slug": "bombeiro-mascote-bombeiro-com-caminhao-de-bombeiro",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 243,
@@ -74291,7 +74291,7 @@
     "en": "Firefighter mascot rescuing a cute kitten from a tree",
     "slug": "bombeiro-mascote-bombeiro-salvando-gatinho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 244,
@@ -74302,7 +74302,7 @@
     "en": "Firefighter mascot wearing a yellow helmet",
     "slug": "bombeiro-mascote-bombeiro-com-capacete-amarelo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 245,
@@ -74313,7 +74313,7 @@
     "en": "Firefighter mascot standing proudly next to the fire station",
     "slug": "bombeiro-mascote-bombeiro-perto-do-quartel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 246,
@@ -74324,7 +74324,7 @@
     "en": "Firefighter mascot waving happily",
     "slug": "bombeiro-mascote-bombeiro-acenando-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 247,
@@ -74335,7 +74335,7 @@
     "en": "Firefighter mascot pointing at a safety sign",
     "slug": "bombeiro-mascote-bombeiro-com-placa-de-seguranca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 248,
@@ -74346,7 +74346,7 @@
     "en": "Friendly police officer driving a blue police car",
     "slug": "policial-policial-amigavel-com-carro-de-policia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 249,
@@ -74357,7 +74357,7 @@
     "en": "Friendly police officer directing traffic with a smile",
     "slug": "policial-policial-amigavel-orientando-transito",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 25,
@@ -74379,7 +74379,7 @@
     "en": "Friendly police officer wearing a police cap",
     "slug": "policial-policial-amigavel-com-quepe-policial",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 251,
@@ -74390,7 +74390,7 @@
     "en": "Friendly police officer holding a stop sign",
     "slug": "policial-policial-amigavel-com-placa-de-pare",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 252,
@@ -74401,7 +74401,7 @@
     "en": "Friendly police officer waving friendly",
     "slug": "policial-policial-amigavel-acenando-amigavel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 253,
@@ -74412,7 +74412,7 @@
     "en": "Friendly police officer helping a lost child find their way",
     "slug": "policial-policial-amigavel-ajudando-crianca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 254,
@@ -74423,7 +74423,7 @@
     "en": "Police sergeant driving a blue police car",
     "slug": "policial-sargento-policial-com-carro-de-policia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 255,
@@ -74434,7 +74434,7 @@
     "en": "Police sergeant directing traffic with a smile",
     "slug": "policial-sargento-policial-orientando-transito",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 256,
@@ -74445,7 +74445,7 @@
     "en": "Police sergeant wearing a police cap",
     "slug": "policial-sargento-policial-com-quepe-policial",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 257,
@@ -74456,7 +74456,7 @@
     "en": "Police sergeant holding a stop sign",
     "slug": "policial-sargento-policial-com-placa-de-pare",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 258,
@@ -74467,7 +74467,7 @@
     "en": "Police sergeant waving friendly",
     "slug": "policial-sargento-policial-acenando-amigavel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 259,
@@ -74478,7 +74478,7 @@
     "en": "Police sergeant helping a lost child find their way",
     "slug": "policial-sargento-policial-ajudando-crianca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 26,
@@ -74500,7 +74500,7 @@
     "en": "Police dog mascot driving a blue police car",
     "slug": "policial-mascote-cao-policial-com-carro-de-policia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 261,
@@ -74511,7 +74511,7 @@
     "en": "Police dog mascot directing traffic with a smile",
     "slug": "policial-mascote-cao-policial-orientando-transito",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 262,
@@ -74522,7 +74522,7 @@
     "en": "Police dog mascot wearing a police cap",
     "slug": "policial-mascote-cao-policial-com-quepe-policial",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 263,
@@ -74533,7 +74533,7 @@
     "en": "Police dog mascot holding a stop sign",
     "slug": "policial-mascote-cao-policial-com-placa-de-pare",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 264,
@@ -74544,7 +74544,7 @@
     "en": "Police dog mascot waving friendly",
     "slug": "policial-mascote-cao-policial-acenando-amigavel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 265,
@@ -74555,7 +74555,7 @@
     "en": "Police dog mascot helping a lost child find their way",
     "slug": "policial-mascote-cao-policial-ajudando-crianca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 266,
@@ -74566,7 +74566,7 @@
     "en": "Police traffic officer driving a blue police car",
     "slug": "policial-guarda-de-transito-com-carro-de-policia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 267,
@@ -74577,7 +74577,7 @@
     "en": "Police traffic officer directing traffic with a smile",
     "slug": "policial-guarda-de-transito-orientando-transito",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 268,
@@ -74588,7 +74588,7 @@
     "en": "Police traffic officer wearing a police cap",
     "slug": "policial-guarda-de-transito-com-quepe-policial",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 269,
@@ -74599,7 +74599,7 @@
     "en": "Police traffic officer holding a stop sign",
     "slug": "policial-guarda-de-transito-com-placa-de-pare",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 27,
@@ -74621,7 +74621,7 @@
     "en": "Police traffic officer waving friendly",
     "slug": "policial-guarda-de-transito-acenando-amigavel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 271,
@@ -74632,7 +74632,7 @@
     "en": "Police traffic officer helping a lost child find their way",
     "slug": "policial-guarda-de-transito-ajudando-crianca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 272,
@@ -74643,7 +74643,7 @@
     "en": "Police woman driving a blue police car",
     "slug": "policial-policial-mulher-com-carro-de-policia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 273,
@@ -74654,7 +74654,7 @@
     "en": "Police woman directing traffic with a smile",
     "slug": "policial-policial-mulher-orientando-transito",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 274,
@@ -74665,7 +74665,7 @@
     "en": "Police woman wearing a police cap",
     "slug": "policial-policial-mulher-com-quepe-policial",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 275,
@@ -74676,7 +74676,7 @@
     "en": "Police woman holding a stop sign",
     "slug": "policial-policial-mulher-com-placa-de-pare",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 276,
@@ -74687,7 +74687,7 @@
     "en": "Police woman waving friendly",
     "slug": "policial-policial-mulher-acenando-amigavel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 277,
@@ -74698,7 +74698,7 @@
     "en": "Police woman helping a lost child find their way",
     "slug": "policial-policial-mulher-ajudando-crianca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 278,
@@ -74709,7 +74709,7 @@
     "en": "Happy police kid driving a blue police car",
     "slug": "policial-crianca-policial-com-carro-de-policia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 279,
@@ -74720,7 +74720,7 @@
     "en": "Happy police kid directing traffic with a smile",
     "slug": "policial-crianca-policial-orientando-transito",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 28,
@@ -74742,7 +74742,7 @@
     "en": "Happy police kid wearing a police cap",
     "slug": "policial-crianca-policial-com-quepe-policial",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 281,
@@ -74753,7 +74753,7 @@
     "en": "Happy police kid holding a stop sign",
     "slug": "policial-crianca-policial-com-placa-de-pare",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 282,
@@ -74764,7 +74764,7 @@
     "en": "Happy police kid waving friendly",
     "slug": "policial-crianca-policial-acenando-amigavel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 283,
@@ -74775,7 +74775,7 @@
     "en": "Happy police kid helping a lost child find their way",
     "slug": "policial-crianca-policial-ajudando-crianca",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 284,
@@ -74786,7 +74786,7 @@
     "en": "Courageous police officer driving a blue police car",
     "slug": "policial-policial-valente-com-carro-de-policia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 285,
@@ -74797,7 +74797,7 @@
     "en": "Courageous police officer directing traffic with a smile",
     "slug": "policial-policial-valente-orientando-transito",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 286,
@@ -74808,7 +74808,7 @@
     "en": "Courageous police officer wearing a police cap",
     "slug": "policial-policial-valente-com-quepe-policial",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 287,
@@ -74819,7 +74819,7 @@
     "en": "Courageous police officer holding a stop sign",
     "slug": "policial-policial-valente-com-placa-de-pare",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 288,
@@ -85140,6 +85140,50 @@
     "isNew": false
   },
   {
+    "index": 386,
+    "filename": "386-obra-caminhao-basculante-na-estrutura-do-predio__dump_truck_working_on_a_building_frame.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/386-obra-caminhao-basculante-na-estrutura-do-predio__dump_truck_working_on_a_building_frame.png",
+    "category": "veiculos",
+    "pt": "Obra caminhao basculante na estrutura do predio",
+    "en": "Dump truck working on a building frame",
+    "slug": "obra-caminhao-basculante-na-estrutura-do-predio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 387,
+    "filename": "387-obra-empilhadeira-misturando-cimento__forklift_mixing_fresh_concrete.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/387-obra-empilhadeira-misturando-cimento__forklift_mixing_fresh_concrete.png",
+    "category": "veiculos",
+    "pt": "Obra empilhadeira misturando cimento",
+    "en": "Forklift mixing fresh concrete",
+    "slug": "obra-empilhadeira-misturando-cimento",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 388,
+    "filename": "388-obra-empilhadeira-nivelando-a-estrada__forklift_leveling_a_new_road.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/388-obra-empilhadeira-nivelando-a-estrada__forklift_leveling_a_new_road.png",
+    "category": "veiculos",
+    "pt": "Obra empilhadeira nivelando a estrada",
+    "en": "Forklift leveling a new road",
+    "slug": "obra-empilhadeira-nivelando-a-estrada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 389,
+    "filename": "389-obra-empilhadeira-descarregando-cascalho__forklift_dumping_a_load_of_gravel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/389-obra-empilhadeira-descarregando-cascalho__forklift_dumping_a_load_of_gravel.png",
+    "category": "veiculos",
+    "pt": "Obra empilhadeira descarregando cascalho",
+    "en": "Forklift dumping a load of gravel",
+    "slug": "obra-empilhadeira-descarregando-cascalho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 39,
     "filename": "39-moto-no-ceu__motorcycle.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/39-moto-no-ceu__motorcycle.png",
@@ -85149,6 +85193,116 @@
     "slug": "moto-no-ceu",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 390,
+    "filename": "390-obra-empilhadeira-levando-blocos__forklift_carrying_building_blocks.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/390-obra-empilhadeira-levando-blocos__forklift_carrying_building_blocks.png",
+    "category": "veiculos",
+    "pt": "Obra empilhadeira levando blocos",
+    "en": "Forklift carrying building blocks",
+    "slug": "obra-empilhadeira-levando-blocos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 391,
+    "filename": "391-obra-empilhadeira-com-capacete-amarelo__forklift_wearing_a_yellow_hard_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/391-obra-empilhadeira-com-capacete-amarelo__forklift_wearing_a_yellow_hard_hat.png",
+    "category": "veiculos",
+    "pt": "Obra empilhadeira com capacete amarelo",
+    "en": "Forklift wearing a yellow hard hat",
+    "slug": "obra-empilhadeira-com-capacete-amarelo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 392,
+    "filename": "392-obra-empilhadeira-na-estrutura-do-predio__forklift_working_on_a_building_frame.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/392-obra-empilhadeira-na-estrutura-do-predio__forklift_working_on_a_building_frame.png",
+    "category": "veiculos",
+    "pt": "Obra empilhadeira na estrutura do predio",
+    "en": "Forklift working on a building frame",
+    "slug": "obra-empilhadeira-na-estrutura-do-predio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 393,
+    "filename": "393-obra-carrinho-de-mao-com-ferramentas-misturando-cimento__wheelbarrow_with_tools_mixing_fresh_concrete.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/393-obra-carrinho-de-mao-com-ferramentas-misturando-cimento__wheelbarrow_with_tools_mixing_fresh_concrete.png",
+    "category": "veiculos",
+    "pt": "Obra carrinho de mao com ferramentas misturando cimento",
+    "en": "Wheelbarrow with tools mixing fresh concrete",
+    "slug": "obra-carrinho-de-mao-com-ferramentas-misturando-cimento",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 394,
+    "filename": "394-obra-carrinho-de-mao-com-ferramentas-nivelando-a-estrada__wheelbarrow_with_tools_leveling_a_new_road.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/394-obra-carrinho-de-mao-com-ferramentas-nivelando-a-estrada__wheelbarrow_with_tools_leveling_a_new_road.png",
+    "category": "veiculos",
+    "pt": "Obra carrinho de mao com ferramentas nivelando a estrada",
+    "en": "Wheelbarrow with tools leveling a new road",
+    "slug": "obra-carrinho-de-mao-com-ferramentas-nivelando-a-estrada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 395,
+    "filename": "395-obra-carrinho-de-mao-com-ferramentas-descarregando-cascalho__wheelbarrow_with_tools_dumping_a_load_of_gravel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/395-obra-carrinho-de-mao-com-ferramentas-descarregando-cascalho__wheelbarrow_with_tools_dumping_a_load_of_gravel.png",
+    "category": "veiculos",
+    "pt": "Obra carrinho de mao com ferramentas descarregando cascalho",
+    "en": "Wheelbarrow with tools dumping a load of gravel",
+    "slug": "obra-carrinho-de-mao-com-ferramentas-descarregando-cascalho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 396,
+    "filename": "396-obra-carrinho-de-mao-com-ferramentas-levando-blocos__wheelbarrow_with_tools_carrying_building_blocks.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/396-obra-carrinho-de-mao-com-ferramentas-levando-blocos__wheelbarrow_with_tools_carrying_building_blocks.png",
+    "category": "veiculos",
+    "pt": "Obra carrinho de mao com ferramentas levando blocos",
+    "en": "Wheelbarrow with tools carrying building blocks",
+    "slug": "obra-carrinho-de-mao-com-ferramentas-levando-blocos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 397,
+    "filename": "397-obra-carrinho-de-mao-com-ferramentas-com-capacete-amarelo__wheelbarrow_with_tools_wearing_a_yellow_hard_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/397-obra-carrinho-de-mao-com-ferramentas-com-capacete-amarelo__wheelbarrow_with_tools_wearing_a_yellow_hard_hat.png",
+    "category": "veiculos",
+    "pt": "Obra carrinho de mao com ferramentas com capacete amarelo",
+    "en": "Wheelbarrow with tools wearing a yellow hard hat",
+    "slug": "obra-carrinho-de-mao-com-ferramentas-com-capacete-amarelo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 398,
+    "filename": "398-obra-carrinho-de-mao-com-ferramentas-na-estrutura-do-predio__wheelbarrow_with_tools_working_on_a_building_frame.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/398-obra-carrinho-de-mao-com-ferramentas-na-estrutura-do-predio__wheelbarrow_with_tools_working_on_a_building_frame.png",
+    "category": "veiculos",
+    "pt": "Obra carrinho de mao com ferramentas na estrutura do predio",
+    "en": "Wheelbarrow with tools working on a building frame",
+    "slug": "obra-carrinho-de-mao-com-ferramentas-na-estrutura-do-predio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 399,
+    "filename": "399-obra-trabalhador-de-obra-misturando-cimento__construction_worker_kid_mixing_fresh_concrete.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/399-obra-trabalhador-de-obra-misturando-cimento__construction_worker_kid_mixing_fresh_concrete.png",
+    "category": "veiculos",
+    "pt": "Obra trabalhador de obra misturando cimento",
+    "en": "Construction worker kid mixing fresh concrete",
+    "slug": "obra-trabalhador-de-obra-misturando-cimento",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 40,
@@ -85162,6 +85316,116 @@
     "isNew": true
   },
   {
+    "index": 400,
+    "filename": "400-obra-trabalhador-de-obra-nivelando-a-estrada__construction_worker_kid_leveling_a_new_road.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/400-obra-trabalhador-de-obra-nivelando-a-estrada__construction_worker_kid_leveling_a_new_road.png",
+    "category": "veiculos",
+    "pt": "Obra trabalhador de obra nivelando a estrada",
+    "en": "Construction worker kid leveling a new road",
+    "slug": "obra-trabalhador-de-obra-nivelando-a-estrada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 401,
+    "filename": "401-obra-trabalhador-de-obra-descarregando-cascalho__construction_worker_kid_dumping_a_load_of_gravel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/401-obra-trabalhador-de-obra-descarregando-cascalho__construction_worker_kid_dumping_a_load_of_gravel.png",
+    "category": "veiculos",
+    "pt": "Obra trabalhador de obra descarregando cascalho",
+    "en": "Construction worker kid dumping a load of gravel",
+    "slug": "obra-trabalhador-de-obra-descarregando-cascalho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 402,
+    "filename": "402-obra-trabalhador-de-obra-levando-blocos__construction_worker_kid_carrying_building_blocks.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/402-obra-trabalhador-de-obra-levando-blocos__construction_worker_kid_carrying_building_blocks.png",
+    "category": "veiculos",
+    "pt": "Obra trabalhador de obra levando blocos",
+    "en": "Construction worker kid carrying building blocks",
+    "slug": "obra-trabalhador-de-obra-levando-blocos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 403,
+    "filename": "403-obra-trabalhador-de-obra-com-capacete-amarelo__construction_worker_kid_wearing_a_yellow_hard_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/403-obra-trabalhador-de-obra-com-capacete-amarelo__construction_worker_kid_wearing_a_yellow_hard_hat.png",
+    "category": "veiculos",
+    "pt": "Obra trabalhador de obra com capacete amarelo",
+    "en": "Construction worker kid wearing a yellow hard hat",
+    "slug": "obra-trabalhador-de-obra-com-capacete-amarelo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 404,
+    "filename": "404-obra-trabalhador-de-obra-na-estrutura-do-predio__construction_worker_kid_working_on_a_building_frame.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/404-obra-trabalhador-de-obra-na-estrutura-do-predio__construction_worker_kid_working_on_a_building_frame.png",
+    "category": "veiculos",
+    "pt": "Obra trabalhador de obra na estrutura do predio",
+    "en": "Construction worker kid working on a building frame",
+    "slug": "obra-trabalhador-de-obra-na-estrutura-do-predio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 405,
+    "filename": "405-obra-mascote-construtor-misturando-cimento__builder_mascot_mixing_fresh_concrete.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/405-obra-mascote-construtor-misturando-cimento__builder_mascot_mixing_fresh_concrete.png",
+    "category": "veiculos",
+    "pt": "Obra mascote construtor misturando cimento",
+    "en": "Builder mascot mixing fresh concrete",
+    "slug": "obra-mascote-construtor-misturando-cimento",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 406,
+    "filename": "406-obra-mascote-construtor-nivelando-a-estrada__builder_mascot_leveling_a_new_road.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/406-obra-mascote-construtor-nivelando-a-estrada__builder_mascot_leveling_a_new_road.png",
+    "category": "veiculos",
+    "pt": "Obra mascote construtor nivelando a estrada",
+    "en": "Builder mascot leveling a new road",
+    "slug": "obra-mascote-construtor-nivelando-a-estrada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 407,
+    "filename": "407-obra-mascote-construtor-descarregando-cascalho__builder_mascot_dumping_a_load_of_gravel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/407-obra-mascote-construtor-descarregando-cascalho__builder_mascot_dumping_a_load_of_gravel.png",
+    "category": "veiculos",
+    "pt": "Obra mascote construtor descarregando cascalho",
+    "en": "Builder mascot dumping a load of gravel",
+    "slug": "obra-mascote-construtor-descarregando-cascalho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 408,
+    "filename": "408-obra-mascote-construtor-levando-blocos__builder_mascot_carrying_building_blocks.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/408-obra-mascote-construtor-levando-blocos__builder_mascot_carrying_building_blocks.png",
+    "category": "veiculos",
+    "pt": "Obra mascote construtor levando blocos",
+    "en": "Builder mascot carrying building blocks",
+    "slug": "obra-mascote-construtor-levando-blocos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 409,
+    "filename": "409-obra-mascote-construtor-com-capacete-amarelo__builder_mascot_wearing_a_yellow_hard_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/409-obra-mascote-construtor-com-capacete-amarelo__builder_mascot_wearing_a_yellow_hard_hat.png",
+    "category": "veiculos",
+    "pt": "Obra mascote construtor com capacete amarelo",
+    "en": "Builder mascot wearing a yellow hard hat",
+    "slug": "obra-mascote-construtor-com-capacete-amarelo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 41,
     "filename": "41-caminhao-bombeiro-no-ceu__fire_truck.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/41-caminhao-bombeiro-no-ceu__fire_truck.png",
@@ -85171,6 +85435,116 @@
     "slug": "caminhao-bombeiro-no-ceu",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 410,
+    "filename": "410-obra-mascote-construtor-na-estrutura-do-predio__builder_mascot_working_on_a_building_frame.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/410-obra-mascote-construtor-na-estrutura-do-predio__builder_mascot_working_on_a_building_frame.png",
+    "category": "veiculos",
+    "pt": "Obra mascote construtor na estrutura do predio",
+    "en": "Builder mascot working on a building frame",
+    "slug": "obra-mascote-construtor-na-estrutura-do-predio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 411,
+    "filename": "411-obra-engenheiro-com-capacete-misturando-cimento__hard_hat_engineer_mixing_fresh_concrete.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/411-obra-engenheiro-com-capacete-misturando-cimento__hard_hat_engineer_mixing_fresh_concrete.png",
+    "category": "veiculos",
+    "pt": "Obra engenheiro com capacete misturando cimento",
+    "en": "Hard hat engineer mixing fresh concrete",
+    "slug": "obra-engenheiro-com-capacete-misturando-cimento",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 412,
+    "filename": "412-obra-engenheiro-com-capacete-nivelando-a-estrada__hard_hat_engineer_leveling_a_new_road.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/412-obra-engenheiro-com-capacete-nivelando-a-estrada__hard_hat_engineer_leveling_a_new_road.png",
+    "category": "veiculos",
+    "pt": "Obra engenheiro com capacete nivelando a estrada",
+    "en": "Hard hat engineer leveling a new road",
+    "slug": "obra-engenheiro-com-capacete-nivelando-a-estrada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 413,
+    "filename": "413-obra-engenheiro-com-capacete-descarregando-cascalho__hard_hat_engineer_dumping_a_load_of_gravel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/413-obra-engenheiro-com-capacete-descarregando-cascalho__hard_hat_engineer_dumping_a_load_of_gravel.png",
+    "category": "veiculos",
+    "pt": "Obra engenheiro com capacete descarregando cascalho",
+    "en": "Hard hat engineer dumping a load of gravel",
+    "slug": "obra-engenheiro-com-capacete-descarregando-cascalho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 414,
+    "filename": "414-obra-engenheiro-com-capacete-levando-blocos__hard_hat_engineer_carrying_building_blocks.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/414-obra-engenheiro-com-capacete-levando-blocos__hard_hat_engineer_carrying_building_blocks.png",
+    "category": "veiculos",
+    "pt": "Obra engenheiro com capacete levando blocos",
+    "en": "Hard hat engineer carrying building blocks",
+    "slug": "obra-engenheiro-com-capacete-levando-blocos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 415,
+    "filename": "415-obra-engenheiro-com-capacete-com-capacete-amarelo__hard_hat_engineer_wearing_a_yellow_hard_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/415-obra-engenheiro-com-capacete-com-capacete-amarelo__hard_hat_engineer_wearing_a_yellow_hard_hat.png",
+    "category": "veiculos",
+    "pt": "Obra engenheiro com capacete com capacete amarelo",
+    "en": "Hard hat engineer wearing a yellow hard hat",
+    "slug": "obra-engenheiro-com-capacete-com-capacete-amarelo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 416,
+    "filename": "416-obra-engenheiro-com-capacete-na-estrutura-do-predio__hard_hat_engineer_working_on_a_building_frame.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/416-obra-engenheiro-com-capacete-na-estrutura-do-predio__hard_hat_engineer_working_on_a_building_frame.png",
+    "category": "veiculos",
+    "pt": "Obra engenheiro com capacete na estrutura do predio",
+    "en": "Hard hat engineer working on a building frame",
+    "slug": "obra-engenheiro-com-capacete-na-estrutura-do-predio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 417,
+    "filename": "417-obra-placa-de-obras-misturando-cimento__safety_sign_post_mixing_fresh_concrete.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/417-obra-placa-de-obras-misturando-cimento__safety_sign_post_mixing_fresh_concrete.png",
+    "category": "veiculos",
+    "pt": "Obra placa de obras misturando cimento",
+    "en": "Safety sign post mixing fresh concrete",
+    "slug": "obra-placa-de-obras-misturando-cimento",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 418,
+    "filename": "418-obra-placa-de-obras-nivelando-a-estrada__safety_sign_post_leveling_a_new_road.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/418-obra-placa-de-obras-nivelando-a-estrada__safety_sign_post_leveling_a_new_road.png",
+    "category": "veiculos",
+    "pt": "Obra placa de obras nivelando a estrada",
+    "en": "Safety sign post leveling a new road",
+    "slug": "obra-placa-de-obras-nivelando-a-estrada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 419,
+    "filename": "419-obra-placa-de-obras-descarregando-cascalho__safety_sign_post_dumping_a_load_of_gravel.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/419-obra-placa-de-obras-descarregando-cascalho__safety_sign_post_dumping_a_load_of_gravel.png",
+    "category": "veiculos",
+    "pt": "Obra placa de obras descarregando cascalho",
+    "en": "Safety sign post dumping a load of gravel",
+    "slug": "obra-placa-de-obras-descarregando-cascalho",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 42,
@@ -85184,6 +85558,116 @@
     "isNew": true
   },
   {
+    "index": 420,
+    "filename": "420-obra-placa-de-obras-levando-blocos__safety_sign_post_carrying_building_blocks.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/420-obra-placa-de-obras-levando-blocos__safety_sign_post_carrying_building_blocks.png",
+    "category": "veiculos",
+    "pt": "Obra placa de obras levando blocos",
+    "en": "Safety sign post carrying building blocks",
+    "slug": "obra-placa-de-obras-levando-blocos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 421,
+    "filename": "421-obra-placa-de-obras-com-capacete-amarelo__safety_sign_post_wearing_a_yellow_hard_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/421-obra-placa-de-obras-com-capacete-amarelo__safety_sign_post_wearing_a_yellow_hard_hat.png",
+    "category": "veiculos",
+    "pt": "Obra placa de obras com capacete amarelo",
+    "en": "Safety sign post wearing a yellow hard hat",
+    "slug": "obra-placa-de-obras-com-capacete-amarelo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 422,
+    "filename": "422-obra-placa-de-obras-na-estrutura-do-predio__safety_sign_post_working_on_a_building_frame.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/422-obra-placa-de-obras-na-estrutura-do-predio__safety_sign_post_working_on_a_building_frame.png",
+    "category": "veiculos",
+    "pt": "Obra placa de obras na estrutura do predio",
+    "en": "Safety sign post working on a building frame",
+    "slug": "obra-placa-de-obras-na-estrutura-do-predio",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 423,
+    "filename": "423-aviao-aviao-de-passageiros-voando-nas-nuvens__passenger_airplane_flying_high_above_soft_clouds.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/423-aviao-aviao-de-passageiros-voando-nas-nuvens__passenger_airplane_flying_high_above_soft_clouds.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao de passageiros voando nas nuvens",
+    "en": "Passenger airplane flying high above soft clouds",
+    "slug": "aviao-aviao-de-passageiros-voando-nas-nuvens",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 424,
+    "filename": "424-aviao-aviao-de-passageiros-pousando-na-pista__passenger_airplane_landing_on_an_airport_runway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/424-aviao-aviao-de-passageiros-pousando-na-pista__passenger_airplane_landing_on_an_airport_runway.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao de passageiros pousando na pista",
+    "en": "Passenger airplane landing on an airport runway",
+    "slug": "aviao-aviao-de-passageiros-pousando-na-pista",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 425,
+    "filename": "425-aviao-aviao-de-passageiros-flutuando-na-agua__passenger_airplane_floating_on_calm_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/425-aviao-aviao-de-passageiros-flutuando-na-agua__passenger_airplane_floating_on_calm_water.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao de passageiros flutuando na agua",
+    "en": "Passenger airplane floating on calm water",
+    "slug": "aviao-aviao-de-passageiros-flutuando-na-agua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 426,
+    "filename": "426-aviao-aviao-de-passageiros-fazendo-acrobacias__passenger_airplane_performing_an_airshow_loop.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/426-aviao-aviao-de-passageiros-fazendo-acrobacias__passenger_airplane_performing_an_airshow_loop.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao de passageiros fazendo acrobacias",
+    "en": "Passenger airplane performing an airshow loop",
+    "slug": "aviao-aviao-de-passageiros-fazendo-acrobacias",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 427,
+    "filename": "427-aviao-aviao-de-passageiros-perto-do-arco-iris__passenger_airplane_soaring_near_a_beautiful_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/427-aviao-aviao-de-passageiros-perto-do-arco-iris__passenger_airplane_soaring_near_a_beautiful_rainbow.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao de passageiros perto do arco iris",
+    "en": "Passenger airplane soaring near a beautiful rainbow",
+    "slug": "aviao-aviao-de-passageiros-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 428,
+    "filename": "428-aviao-aviao-de-passageiros-passando-pelo-sol__passenger_airplane_flying_past_a_smiling_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/428-aviao-aviao-de-passageiros-passando-pelo-sol__passenger_airplane_flying_past_a_smiling_sun.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao de passageiros passando pelo sol",
+    "en": "Passenger airplane flying past a smiling sun",
+    "slug": "aviao-aviao-de-passageiros-passando-pelo-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 429,
+    "filename": "429-aviao-aviao-de-passageiros-decolando-para-o-ceu__passenger_airplane_taking_off_into_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/429-aviao-aviao-de-passageiros-decolando-para-o-ceu__passenger_airplane_taking_off_into_the_sky.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao de passageiros decolando para o ceu",
+    "en": "Passenger airplane taking off into the sky",
+    "slug": "aviao-aviao-de-passageiros-decolando-para-o-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 43,
     "filename": "43-carro-policia-no-ceu__police_car.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/43-carro-policia-no-ceu__police_car.png",
@@ -85193,6 +85677,116 @@
     "slug": "carro-policia-no-ceu",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 430,
+    "filename": "430-aviao-aviao-de-passageiros-acenando-as-asas__passenger_airplane_waving_its_wings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/430-aviao-aviao-de-passageiros-acenando-as-asas__passenger_airplane_waving_its_wings.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao de passageiros acenando as asas",
+    "en": "Passenger airplane waving its wings",
+    "slug": "aviao-aviao-de-passageiros-acenando-as-asas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 431,
+    "filename": "431-aviao-aviao-biplano-voando-nas-nuvens__biplane_flying_high_above_soft_clouds.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/431-aviao-aviao-biplano-voando-nas-nuvens__biplane_flying_high_above_soft_clouds.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao biplano voando nas nuvens",
+    "en": "Biplane flying high above soft clouds",
+    "slug": "aviao-aviao-biplano-voando-nas-nuvens",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 432,
+    "filename": "432-aviao-aviao-biplano-pousando-na-pista__biplane_landing_on_an_airport_runway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/432-aviao-aviao-biplano-pousando-na-pista__biplane_landing_on_an_airport_runway.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao biplano pousando na pista",
+    "en": "Biplane landing on an airport runway",
+    "slug": "aviao-aviao-biplano-pousando-na-pista",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 433,
+    "filename": "433-aviao-aviao-biplano-flutuando-na-agua__biplane_floating_on_calm_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/433-aviao-aviao-biplano-flutuando-na-agua__biplane_floating_on_calm_water.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao biplano flutuando na agua",
+    "en": "Biplane floating on calm water",
+    "slug": "aviao-aviao-biplano-flutuando-na-agua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 434,
+    "filename": "434-aviao-aviao-biplano-fazendo-acrobacias__biplane_performing_an_airshow_loop.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/434-aviao-aviao-biplano-fazendo-acrobacias__biplane_performing_an_airshow_loop.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao biplano fazendo acrobacias",
+    "en": "Biplane performing an airshow loop",
+    "slug": "aviao-aviao-biplano-fazendo-acrobacias",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 435,
+    "filename": "435-aviao-aviao-biplano-perto-do-arco-iris__biplane_soaring_near_a_beautiful_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/435-aviao-aviao-biplano-perto-do-arco-iris__biplane_soaring_near_a_beautiful_rainbow.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao biplano perto do arco iris",
+    "en": "Biplane soaring near a beautiful rainbow",
+    "slug": "aviao-aviao-biplano-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 436,
+    "filename": "436-aviao-aviao-biplano-passando-pelo-sol__biplane_flying_past_a_smiling_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/436-aviao-aviao-biplano-passando-pelo-sol__biplane_flying_past_a_smiling_sun.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao biplano passando pelo sol",
+    "en": "Biplane flying past a smiling sun",
+    "slug": "aviao-aviao-biplano-passando-pelo-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 437,
+    "filename": "437-aviao-aviao-biplano-decolando-para-o-ceu__biplane_taking_off_into_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/437-aviao-aviao-biplano-decolando-para-o-ceu__biplane_taking_off_into_the_sky.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao biplano decolando para o ceu",
+    "en": "Biplane taking off into the sky",
+    "slug": "aviao-aviao-biplano-decolando-para-o-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 438,
+    "filename": "438-aviao-aviao-biplano-acenando-as-asas__biplane_waving_its_wings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/438-aviao-aviao-biplano-acenando-as-asas__biplane_waving_its_wings.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao biplano acenando as asas",
+    "en": "Biplane waving its wings",
+    "slug": "aviao-aviao-biplano-acenando-as-asas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 439,
+    "filename": "439-aviao-aviao-a-helice-voando-nas-nuvens__propeller_airplane_flying_high_above_soft_clouds.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/439-aviao-aviao-a-helice-voando-nas-nuvens__propeller_airplane_flying_high_above_soft_clouds.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao a helice voando nas nuvens",
+    "en": "Propeller airplane flying high above soft clouds",
+    "slug": "aviao-aviao-a-helice-voando-nas-nuvens",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 44,
@@ -85206,6 +85800,116 @@
     "isNew": true
   },
   {
+    "index": 440,
+    "filename": "440-aviao-aviao-a-helice-pousando-na-pista__propeller_airplane_landing_on_an_airport_runway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/440-aviao-aviao-a-helice-pousando-na-pista__propeller_airplane_landing_on_an_airport_runway.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao a helice pousando na pista",
+    "en": "Propeller airplane landing on an airport runway",
+    "slug": "aviao-aviao-a-helice-pousando-na-pista",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 441,
+    "filename": "441-aviao-aviao-a-helice-flutuando-na-agua__propeller_airplane_floating_on_calm_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/441-aviao-aviao-a-helice-flutuando-na-agua__propeller_airplane_floating_on_calm_water.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao a helice flutuando na agua",
+    "en": "Propeller airplane floating on calm water",
+    "slug": "aviao-aviao-a-helice-flutuando-na-agua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 442,
+    "filename": "442-aviao-aviao-a-helice-fazendo-acrobacias__propeller_airplane_performing_an_airshow_loop.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/442-aviao-aviao-a-helice-fazendo-acrobacias__propeller_airplane_performing_an_airshow_loop.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao a helice fazendo acrobacias",
+    "en": "Propeller airplane performing an airshow loop",
+    "slug": "aviao-aviao-a-helice-fazendo-acrobacias",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 443,
+    "filename": "443-aviao-aviao-a-helice-perto-do-arco-iris__propeller_airplane_soaring_near_a_beautiful_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/443-aviao-aviao-a-helice-perto-do-arco-iris__propeller_airplane_soaring_near_a_beautiful_rainbow.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao a helice perto do arco iris",
+    "en": "Propeller airplane soaring near a beautiful rainbow",
+    "slug": "aviao-aviao-a-helice-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 444,
+    "filename": "444-aviao-aviao-a-helice-passando-pelo-sol__propeller_airplane_flying_past_a_smiling_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/444-aviao-aviao-a-helice-passando-pelo-sol__propeller_airplane_flying_past_a_smiling_sun.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao a helice passando pelo sol",
+    "en": "Propeller airplane flying past a smiling sun",
+    "slug": "aviao-aviao-a-helice-passando-pelo-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 445,
+    "filename": "445-aviao-aviao-a-helice-decolando-para-o-ceu__propeller_airplane_taking_off_into_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/445-aviao-aviao-a-helice-decolando-para-o-ceu__propeller_airplane_taking_off_into_the_sky.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao a helice decolando para o ceu",
+    "en": "Propeller airplane taking off into the sky",
+    "slug": "aviao-aviao-a-helice-decolando-para-o-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 446,
+    "filename": "446-aviao-aviao-a-helice-acenando-as-asas__propeller_airplane_waving_its_wings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/446-aviao-aviao-a-helice-acenando-as-asas__propeller_airplane_waving_its_wings.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao a helice acenando as asas",
+    "en": "Propeller airplane waving its wings",
+    "slug": "aviao-aviao-a-helice-acenando-as-asas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 447,
+    "filename": "447-aviao-aviao-cargueiro-voando-nas-nuvens__cargo_airplane_flying_high_above_soft_clouds.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/447-aviao-aviao-cargueiro-voando-nas-nuvens__cargo_airplane_flying_high_above_soft_clouds.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao cargueiro voando nas nuvens",
+    "en": "Cargo airplane flying high above soft clouds",
+    "slug": "aviao-aviao-cargueiro-voando-nas-nuvens",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 448,
+    "filename": "448-aviao-aviao-cargueiro-pousando-na-pista__cargo_airplane_landing_on_an_airport_runway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/448-aviao-aviao-cargueiro-pousando-na-pista__cargo_airplane_landing_on_an_airport_runway.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao cargueiro pousando na pista",
+    "en": "Cargo airplane landing on an airport runway",
+    "slug": "aviao-aviao-cargueiro-pousando-na-pista",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 449,
+    "filename": "449-aviao-aviao-cargueiro-flutuando-na-agua__cargo_airplane_floating_on_calm_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/449-aviao-aviao-cargueiro-flutuando-na-agua__cargo_airplane_floating_on_calm_water.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao cargueiro flutuando na agua",
+    "en": "Cargo airplane floating on calm water",
+    "slug": "aviao-aviao-cargueiro-flutuando-na-agua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 45,
     "filename": "45-onibus-no-ceu__bus.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/45-onibus-no-ceu__bus.png",
@@ -85217,6 +85921,116 @@
     "isNew": true
   },
   {
+    "index": 450,
+    "filename": "450-aviao-aviao-cargueiro-fazendo-acrobacias__cargo_airplane_performing_an_airshow_loop.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/450-aviao-aviao-cargueiro-fazendo-acrobacias__cargo_airplane_performing_an_airshow_loop.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao cargueiro fazendo acrobacias",
+    "en": "Cargo airplane performing an airshow loop",
+    "slug": "aviao-aviao-cargueiro-fazendo-acrobacias",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 451,
+    "filename": "451-aviao-aviao-cargueiro-perto-do-arco-iris__cargo_airplane_soaring_near_a_beautiful_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/451-aviao-aviao-cargueiro-perto-do-arco-iris__cargo_airplane_soaring_near_a_beautiful_rainbow.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao cargueiro perto do arco iris",
+    "en": "Cargo airplane soaring near a beautiful rainbow",
+    "slug": "aviao-aviao-cargueiro-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 452,
+    "filename": "452-aviao-aviao-cargueiro-passando-pelo-sol__cargo_airplane_flying_past_a_smiling_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/452-aviao-aviao-cargueiro-passando-pelo-sol__cargo_airplane_flying_past_a_smiling_sun.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao cargueiro passando pelo sol",
+    "en": "Cargo airplane flying past a smiling sun",
+    "slug": "aviao-aviao-cargueiro-passando-pelo-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 453,
+    "filename": "453-aviao-aviao-cargueiro-decolando-para-o-ceu__cargo_airplane_taking_off_into_the_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/453-aviao-aviao-cargueiro-decolando-para-o-ceu__cargo_airplane_taking_off_into_the_sky.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao cargueiro decolando para o ceu",
+    "en": "Cargo airplane taking off into the sky",
+    "slug": "aviao-aviao-cargueiro-decolando-para-o-ceu",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 454,
+    "filename": "454-aviao-aviao-cargueiro-acenando-as-asas__cargo_airplane_waving_its_wings.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/454-aviao-aviao-cargueiro-acenando-as-asas__cargo_airplane_waving_its_wings.png",
+    "category": "veiculos",
+    "pt": "Aviao aviao cargueiro acenando as asas",
+    "en": "Cargo airplane waving its wings",
+    "slug": "aviao-aviao-cargueiro-acenando-as-asas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 455,
+    "filename": "455-aviao-hidroaviao-voando-nas-nuvens__seaplane_flying_high_above_soft_clouds.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/455-aviao-hidroaviao-voando-nas-nuvens__seaplane_flying_high_above_soft_clouds.png",
+    "category": "veiculos",
+    "pt": "Aviao hidroaviao voando nas nuvens",
+    "en": "Seaplane flying high above soft clouds",
+    "slug": "aviao-hidroaviao-voando-nas-nuvens",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 456,
+    "filename": "456-aviao-hidroaviao-pousando-na-pista__seaplane_landing_on_an_airport_runway.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/456-aviao-hidroaviao-pousando-na-pista__seaplane_landing_on_an_airport_runway.png",
+    "category": "veiculos",
+    "pt": "Aviao hidroaviao pousando na pista",
+    "en": "Seaplane landing on an airport runway",
+    "slug": "aviao-hidroaviao-pousando-na-pista",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 457,
+    "filename": "457-aviao-hidroaviao-flutuando-na-agua__seaplane_floating_on_calm_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/457-aviao-hidroaviao-flutuando-na-agua__seaplane_floating_on_calm_water.png",
+    "category": "veiculos",
+    "pt": "Aviao hidroaviao flutuando na agua",
+    "en": "Seaplane floating on calm water",
+    "slug": "aviao-hidroaviao-flutuando-na-agua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 458,
+    "filename": "458-aviao-hidroaviao-fazendo-acrobacias__seaplane_performing_an_airshow_loop.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/458-aviao-hidroaviao-fazendo-acrobacias__seaplane_performing_an_airshow_loop.png",
+    "category": "veiculos",
+    "pt": "Aviao hidroaviao fazendo acrobacias",
+    "en": "Seaplane performing an airshow loop",
+    "slug": "aviao-hidroaviao-fazendo-acrobacias",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 459,
+    "filename": "459-aviao-hidroaviao-perto-do-arco-iris__seaplane_soaring_near_a_beautiful_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/459-aviao-hidroaviao-perto-do-arco-iris__seaplane_soaring_near_a_beautiful_rainbow.png",
+    "category": "veiculos",
+    "pt": "Aviao hidroaviao perto do arco iris",
+    "en": "Seaplane soaring near a beautiful rainbow",
+    "slug": "aviao-hidroaviao-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 46,
     "filename": "46-carro-nas-ondas__car.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/46-carro-nas-ondas__car.png",
@@ -85226,6 +86040,17 @@
     "slug": "carro-nas-ondas",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 460,
+    "filename": "460-aviao-hidroaviao-passando-pelo-sol__seaplane_flying_past_a_smiling_sun.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/460-aviao-hidroaviao-passando-pelo-sol__seaplane_flying_past_a_smiling_sun.png",
+    "category": "veiculos",
+    "pt": "Aviao hidroaviao passando pelo sol",
+    "en": "Seaplane flying past a smiling sun",
+    "slug": "aviao-hidroaviao-passando-pelo-sol",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 47,

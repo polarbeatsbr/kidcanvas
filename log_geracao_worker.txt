@@ -989,3 +989,58 @@
 [2026-06-17 03:51:01] Rebuilding catalog and drawings database...
 [2026-06-17 03:51:02] Build successful!
 [2026-06-17 03:51:02] Committing and pushing to origin main...
+[2026-06-17 03:51:05] Push successful! Vercel will deploy in production.
+[2026-06-17 03:51:06] [901/3680] Generated: profissoes/238-bombeiro-bombeiro-de-desenho-acenando-feliz__cute_cartoon_firefighter_waving_happily.png
+[2026-06-17 03:51:08] [902/3680] Generated: profissoes/239-bombeiro-bombeiro-de-desenho-com-placa-de-seguranca__cute_cartoon_firefighter_pointing_at_a_safety_sign.png
+[2026-06-17 03:51:09] [903/3680] Generated: profissoes/240-bombeiro-mascote-bombeiro-com-mangueira-de-agua__firefighter_mascot_holding_a_water_hose.png
+[2026-06-17 03:51:11] [904/3680] Generated: profissoes/241-bombeiro-mascote-bombeiro-subindo-escada-alta__firefighter_mascot_climbing_a_tall_ladder.png
+[2026-06-17 03:51:12] [905/3680] Generated: profissoes/242-bombeiro-mascote-bombeiro-com-caminhao-de-bombeiro__firefighter_mascot_driving_a_big_red_firetruck.png
+[2026-06-17 03:51:13] [906/3680] Generated: profissoes/243-bombeiro-mascote-bombeiro-salvando-gatinho__firefighter_mascot_rescuing_a_cute_kitten_from_a_tree.png
+[2026-06-17 03:51:14] [907/3680] Generated: profissoes/244-bombeiro-mascote-bombeiro-com-capacete-amarelo__firefighter_mascot_wearing_a_yellow_helmet.png
+[2026-06-17 03:51:16] [908/3680] Generated: profissoes/245-bombeiro-mascote-bombeiro-perto-do-quartel__firefighter_mascot_standing_proudly_next_to_the_fire_station.png
+[2026-06-17 03:51:17] [909/3680] Generated: profissoes/246-bombeiro-mascote-bombeiro-acenando-feliz__firefighter_mascot_waving_happily.png
+[2026-06-17 03:51:18] [910/3680] Generated: profissoes/247-bombeiro-mascote-bombeiro-com-placa-de-seguranca__firefighter_mascot_pointing_at_a_safety_sign.png
+[2026-06-17 03:51:20] [911/3680] Generated: profissoes/248-policial-policial-amigavel-com-carro-de-policia__friendly_police_officer_driving_a_blue_police_car.png
+[2026-06-17 03:51:21] [912/3680] Generated: profissoes/249-policial-policial-amigavel-orientando-transito__friendly_police_officer_directing_traffic_with_a_smile.png
+[2026-06-17 03:51:22] [913/3680] Generated: profissoes/250-policial-policial-amigavel-com-quepe-policial__friendly_police_officer_wearing_a_police_cap.png
+[2026-06-17 03:51:23] [914/3680] Generated: profissoes/251-policial-policial-amigavel-com-placa-de-pare__friendly_police_officer_holding_a_stop_sign.png
+[2026-06-17 03:51:24] [915/3680] Generated: profissoes/252-policial-policial-amigavel-acenando-amigavel__friendly_police_officer_waving_friendly.png
+[2026-06-17 03:51:26] [916/3680] Generated: profissoes/253-policial-policial-amigavel-ajudando-crianca__friendly_police_officer_helping_a_lost_child_find_their_way.png
+[2026-06-17 03:51:27] [917/3680] Generated: profissoes/254-policial-sargento-policial-com-carro-de-policia__police_sergeant_driving_a_blue_police_car.png
+[2026-06-17 03:51:28] [918/3680] Generated: profissoes/255-policial-sargento-policial-orientando-transito__police_sergeant_directing_traffic_with_a_smile.png
+[2026-06-17 03:51:29] [919/3680] Generated: profissoes/256-policial-sargento-policial-com-quepe-policial__police_sergeant_wearing_a_police_cap.png
+[2026-06-17 03:51:31] [920/3680] Generated: profissoes/257-policial-sargento-policial-com-placa-de-pare__police_sergeant_holding_a_stop_sign.png
+[2026-06-17 03:51:33] [921/3680] Generated: profissoes/259-policial-sargento-policial-ajudando-crianca__police_sergeant_helping_a_lost_child_find_their_way.png
+[2026-06-17 03:51:34] [922/3680] Generated: profissoes/258-policial-sargento-policial-acenando-amigavel__police_sergeant_waving_friendly.png
+[2026-06-17 03:51:35] [923/3680] Generated: profissoes/260-policial-mascote-cao-policial-com-carro-de-policia__police_dog_mascot_driving_a_blue_police_car.png
+[2026-06-17 03:51:37] [924/3680] Generated: profissoes/261-policial-mascote-cao-policial-orientando-transito__police_dog_mascot_directing_traffic_with_a_smile.png
+[2026-06-17 03:51:39] [925/3680] Generated: profissoes/262-policial-mascote-cao-policial-com-quepe-policial__police_dog_mascot_wearing_a_police_cap.png
+[2026-06-17 03:51:40] [926/3680] Generated: profissoes/263-policial-mascote-cao-policial-com-placa-de-pare__police_dog_mascot_holding_a_stop_sign.png
+[2026-06-17 03:51:42] [927/3680] Generated: profissoes/264-policial-mascote-cao-policial-acenando-amigavel__police_dog_mascot_waving_friendly.png
+[2026-06-17 03:51:43] [928/3680] Generated: profissoes/265-policial-mascote-cao-policial-ajudando-crianca__police_dog_mascot_helping_a_lost_child_find_their_way.png
+[2026-06-17 03:51:45] [929/3680] Generated: profissoes/266-policial-guarda-de-transito-com-carro-de-policia__police_traffic_officer_driving_a_blue_police_car.png
+[2026-06-17 03:51:47] [930/3680] Generated: profissoes/267-policial-guarda-de-transito-orientando-transito__police_traffic_officer_directing_traffic_with_a_smile.png
+[2026-06-17 03:51:49] [931/3680] Generated: profissoes/269-policial-guarda-de-transito-com-placa-de-pare__police_traffic_officer_holding_a_stop_sign.png
+[2026-06-17 03:51:50] [932/3680] Generated: profissoes/268-policial-guarda-de-transito-com-quepe-policial__police_traffic_officer_wearing_a_police_cap.png
+[2026-06-17 03:51:51] [933/3680] Generated: profissoes/270-policial-guarda-de-transito-acenando-amigavel__police_traffic_officer_waving_friendly.png
+[2026-06-17 03:51:52] [934/3680] Generated: profissoes/271-policial-guarda-de-transito-ajudando-crianca__police_traffic_officer_helping_a_lost_child_find_their_way.png
+[2026-06-17 03:51:54] [935/3680] Generated: profissoes/272-policial-policial-mulher-com-carro-de-policia__police_woman_driving_a_blue_police_car.png
+[2026-06-17 03:51:56] [936/3680] Generated: profissoes/273-policial-policial-mulher-orientando-transito__police_woman_directing_traffic_with_a_smile.png
+[2026-06-17 03:51:57] [937/3680] Generated: profissoes/274-policial-policial-mulher-com-quepe-policial__police_woman_wearing_a_police_cap.png
+[2026-06-17 03:51:58] [938/3680] Generated: profissoes/275-policial-policial-mulher-com-placa-de-pare__police_woman_holding_a_stop_sign.png
+[2026-06-17 03:51:59] [939/3680] Generated: profissoes/276-policial-policial-mulher-acenando-amigavel__police_woman_waving_friendly.png
+[2026-06-17 03:52:01] [940/3680] Generated: profissoes/277-policial-policial-mulher-ajudando-crianca__police_woman_helping_a_lost_child_find_their_way.png
+[2026-06-17 03:52:03] [941/3680] Generated: profissoes/278-policial-crianca-policial-com-carro-de-policia__happy_police_kid_driving_a_blue_police_car.png
+[2026-06-17 03:52:04] [942/3680] Generated: profissoes/279-policial-crianca-policial-orientando-transito__happy_police_kid_directing_traffic_with_a_smile.png
+[2026-06-17 03:52:05] [943/3680] Generated: profissoes/280-policial-crianca-policial-com-quepe-policial__happy_police_kid_wearing_a_police_cap.png
+[2026-06-17 03:52:06] [944/3680] Generated: profissoes/281-policial-crianca-policial-com-placa-de-pare__happy_police_kid_holding_a_stop_sign.png
+[2026-06-17 03:52:08] [945/3680] Generated: profissoes/282-policial-crianca-policial-acenando-amigavel__happy_police_kid_waving_friendly.png
+[2026-06-17 03:52:09] [946/3680] Generated: profissoes/283-policial-crianca-policial-ajudando-crianca__happy_police_kid_helping_a_lost_child_find_their_way.png
+[2026-06-17 03:52:10] [947/3680] Generated: profissoes/284-policial-policial-valente-com-carro-de-policia__courageous_police_officer_driving_a_blue_police_car.png
+[2026-06-17 03:52:11] [948/3680] Generated: profissoes/285-policial-policial-valente-orientando-transito__courageous_police_officer_directing_traffic_with_a_smile.png
+[2026-06-17 03:52:12] [949/3680] Generated: profissoes/286-policial-policial-valente-com-quepe-policial__courageous_police_officer_wearing_a_police_cap.png
+[2026-06-17 03:52:14] [950/3680] Generated: profissoes/287-policial-policial-valente-com-placa-de-pare__courageous_police_officer_holding_a_stop_sign.png
+[2026-06-17 03:52:14] Batch 19 completed (950 drawings). Triggering build & push...
+[2026-06-17 03:52:14] Rebuilding catalog and drawings database...
+[2026-06-17 03:52:14] Build successful!
+[2026-06-17 03:52:14] Committing and pushing to origin main...
