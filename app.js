@@ -5960,7 +5960,11 @@ function updatePaintCursor(tool, stamp) {
         paintCanvas.style.cursor = `url("data:image/svg+xml;utf8,${encodeURIComponent(svgString)}") 0 15, auto`;
     } else if (tool === 'stamp') {
         const activeStamp = stamp || window.selectedPaintStamp || '⭐';
-        paintCanvas.style.cursor = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:22px'><text y='22'>${activeStamp}</text></svg>") 11 11, auto`;
+        if (activeStamp.startsWith('http') || activeStamp.startsWith('/') || activeStamp.startsWith('./')) {
+            paintCanvas.style.cursor = `url("${activeStamp}") 16 16, auto`;
+        } else {
+            paintCanvas.style.cursor = `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:22px'><text y='22'>${activeStamp}</text></svg>") 11 11, auto`;
+        }
     } else {
         paintCanvas.style.cursor = 'default';
     }
@@ -6241,17 +6245,29 @@ function stopPaintingDraw() {
 function executePaintStamp(x, y) {
     const stamp = window.selectedPaintStamp || '⭐';
     const sizeInput = document.getElementById('paint-brush-size');
-    const size = sizeInput ? parseInt(sizeInput.value) * 2 : 32;
+    const size = sizeInput ? parseInt(sizeInput.value) * 2.5 : 40;
 
-    paintFgCtx.save();
-    paintFgCtx.font = `${size}px Arial, sans-serif`;
-    paintFgCtx.textAlign = 'center';
-    paintFgCtx.textBaseline = 'middle';
-    paintFgCtx.fillText(stamp, x, y);
-    paintFgCtx.restore();
-
-    composePaintCanvas();
-    savePaintHistory();
+    if (stamp.startsWith('http') || stamp.startsWith('/') || stamp.startsWith('./')) {
+        const img = new Image();
+        img.src = stamp;
+        img.onload = () => {
+            paintFgCtx.save();
+            paintFgCtx.translate(x, y);
+            paintFgCtx.drawImage(img, -size / 2, -size / 2, size, size);
+            paintFgCtx.restore();
+            composePaintCanvas();
+            savePaintHistory();
+        };
+    } else {
+        paintFgCtx.save();
+        paintFgCtx.font = `${size}px Arial, sans-serif`;
+        paintFgCtx.textAlign = 'center';
+        paintFgCtx.textBaseline = 'middle';
+        paintFgCtx.fillText(stamp, x, y);
+        paintFgCtx.restore();
+        composePaintCanvas();
+        savePaintHistory();
+    }
 }
 
 function executePaintText(x, y) {
@@ -7037,13 +7053,23 @@ window.startFreeHandDrawing = startFreeHandDrawing;
 // ==============================================
 
 const stickerCategories = {
-    top: ['😎', '🧢', '👑', '🎭', '🌈', '⭐', '❤️', '🎈', '🦋', '🐶', '🐱', '☀️', '🌙', '🚀', '🏆'],
-    acessorios: ['😎', '❤️', '🧢', '👑', '🎀', '🤠', '🏴‍☠️', '🎩', '👔', '💡', '👓', '🕶️', '👑', '👒', '🎒'],
-    emocoes: ['😀', '😍', '🤪', '🧔', '🥸', '👅', '😊', '🤩', '🧐', '😂', '🥳', '🦁', '🐼', '🦊'],
-    magicos: ['🪄', '⭐', '✨', '🌈', '☁️', '🌙', '☀️', '🧚', '🧪', '🔮', '🦄', '🧞', '🧜', '🪐', '☄️'],
-    animais: ['🐶', '🐱', '🐰', '🦋', '🐞', '🐝', '🦕', '🦄', '🐉', '🐟', '🦁', '🐯', '🐸', '🐵', '🐔'],
-    festa: ['🎈', '🎁', '🎂', '🎉', '🎊', '🎆', '🏆', '🏅', '🍭', '🍬', '🍕', '🍩', '🍦', '🥤', '🍿'],
-    aventura: ['🚀', '🛸', '🏴‍☠️', '🗺️', '⚔️', '🛡️', '🔭', '🎒', '⛺', '🧭', '🏎️', '✈️', '⛵', '🦖', '🌋']
+    top: ['😎', '👑', '🌈', '⭐', '❤️', '🎈', '🦋', '🐶', '🐱', '☀️', '🌙', '🚀', '🏆'],
+    acessorios: ['😎', '❤️', '🎀', '🤠', '🏴‍☠️', '🎩', '👔', '💡', '👓', '🕶️', '👒'],
+    emocoes: ['😀', '😍', '🤪', '🧔', '👅', '😊', '🤩', '🧐', '😂', '🥳'],
+    magicos: ['🪄', '⭐', '✨', '🌈', '☁️', '🌙', '☀️', '🧚', '🧪', '🔮', '🦄', '🪐'],
+    animais: ['🐶', '🐱', '🐰', '🦋', '🐞', '🐝', '🦕', '🦄', '🐉', '🐟', '🦁', '🐯'],
+    festa: ['🎈', '🎁', '🎂', '🎉', '🎊', '🎆', '🏆', '🏅', '🍭', '🍿'],
+    aventura: ['🚀', '🛸', '🏴‍☠️', '🗺️', '⚔️', '🛡️', '🔭', '🧭', '🏎️', '🌋'],
+    moda: [
+        { name: 'Óculos gigantes', url: '/stickers/oculos_gigantes.png' },
+        { name: 'Boné azul', url: '/stickers/bone_azul.png' },
+        { name: 'Boné vermelho', url: '/stickers/bone_vermelho.png' },
+        { name: 'Coroa dourada', url: '/stickers/coroa_dourada.png' },
+        { name: 'Gravata', url: '/stickers/gravata.png' },
+        { name: 'Laço rosa', url: '/stickers/laco_rosa.png' },
+        { name: 'Relógio', url: '/stickers/relogio.png' },
+        { name: 'Fones de ouvido', url: '/stickers/fones_de_ouvido.png' }
+    ]
 };
 
 const unlockableBadges = [
@@ -7052,6 +7078,13 @@ const unlockableBadges = [
     { name: 'Mestre da Imaginação', emoji: '🦄', stars: 30 },
     { name: 'Explorador Mágico', emoji: '🚀', stars: 50 },
     { name: 'Lenda do KidCanvas', emoji: '👑', stars: 180 }
+];
+
+const unlockableStickers = [
+    { name: 'Óculos de estrela', emoji: '⭐', url: '/stickers/oculos_estrela.png', stars: 10 },
+    { name: 'Óculos arco-íris', emoji: '🌈', url: '/stickers/oculos_arco_iris.png', stars: 30 },
+    { name: 'Óculos lendário dourado cravejado de diamantes', emoji: '💎', url: '/stickers/oculos_lendario_dourado_diamantes.png', stars: 20 },
+    { name: 'Óculos lendário dourado', emoji: '👑', url: '/stickers/oculos_lendario_dourado.png', stars: 100 }
 ];
 
 let activeStickerTab = 'top';
@@ -7101,7 +7134,7 @@ function switchStickerTab(tab) {
             btn.classList.remove('active');
         });
         const btns = container.querySelectorAll('.sticker-tab-btn');
-        const tabNames = ['top', 'acessorios', 'emocoes', 'magicos', 'animais', 'festa', 'aventura', 'desbloqueaveis'];
+        const tabNames = ['top', 'acessorios', 'emocoes', 'magicos', 'animais', 'festa', 'aventura', 'moda', 'desbloqueaveis'];
         const idx = tabNames.indexOf(tab);
         if (idx !== -1 && btns[idx]) {
             btns[idx].classList.add('active');
@@ -7115,6 +7148,8 @@ function switchStickerTab(tab) {
     
     if (tab === 'desbloqueaveis') {
         const stars = getUserTotalStars();
+        
+        // 1. Renderizar os Distintivos de Perfil (Badges)
         unlockableBadges.forEach(badge => {
             const isUnlocked = stars >= badge.stars;
             const item = document.createElement('div');
@@ -7123,7 +7158,7 @@ function switchStickerTab(tab) {
             if (isUnlocked) {
                 item.innerHTML = `
                     <span class="sticker-badge-icon">${badge.emoji}</span>
-                    <span class="sticker-badge-name">${badge.name}</span>
+                    <span class="sticker-badge-name" style="font-size: 0.8rem; line-height: 1.1;">${badge.name}</span>
                     <span class="sticker-badge-requirement" style="color: #2e7d32; font-size: 0.75rem;">Desbloqueado! 🔓</span>
                 `;
                 item.onclick = () => {
@@ -7132,7 +7167,7 @@ function switchStickerTab(tab) {
             } else {
                 item.innerHTML = `
                     <span class="sticker-badge-icon" style="filter: grayscale(1); opacity: 0.5;">🔒</span>
-                    <span class="sticker-badge-name" style="color: #90a4ae;">Bloqueado</span>
+                    <span class="sticker-badge-name" style="color: #90a4ae; font-size: 0.8rem; line-height: 1.1;">${badge.name}</span>
                     <span class="sticker-badge-requirement" style="font-size: 0.75rem;">Precisa de ${badge.stars} ⭐</span>
                 `;
                 item.onclick = () => {
@@ -7141,15 +7176,55 @@ function switchStickerTab(tab) {
             }
             grid.appendChild(item);
         });
+
+        // 2. Renderizar os Adesivos Customizados Desbloqueáveis (Stickers)
+        unlockableStickers.forEach(st => {
+            const isUnlocked = stars >= st.stars;
+            const item = document.createElement('div');
+            item.className = 'sticker-badge-item' + (isUnlocked ? '' : ' locked');
+            
+            if (isUnlocked) {
+                item.innerHTML = `
+                    <span class="sticker-badge-icon" style="padding: 4px; display: flex; align-items: center; justify-content: center; height: 42px;"><img src="${st.url}" alt="${st.name}" style="max-width: 100%; max-height: 100%; object-fit: contain;"></span>
+                    <span class="sticker-badge-name" style="font-size: 0.8rem; line-height: 1.1;">${st.name}</span>
+                    <span class="sticker-badge-requirement" style="color: #2e7d32; font-size: 0.75rem;">Desbloqueado! 🔓</span>
+                `;
+                item.onclick = () => {
+                    selectConsoleSticker(st.url);
+                };
+            } else {
+                item.innerHTML = `
+                    <span class="sticker-badge-icon" style="filter: grayscale(1); opacity: 0.5; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; height: 42px;">🔒</span>
+                    <span class="sticker-badge-name" style="color: #90a4ae; font-size: 0.8rem; line-height: 1.1;">${st.name}</span>
+                    <span class="sticker-badge-requirement" style="font-size: 0.75rem;">Precisa de ${st.stars} ⭐</span>
+                `;
+                item.onclick = () => {
+                    showCustomAlert('Adesivo Bloqueado! 🔒', `Este acessório especial será liberado quando suas pinturas no Hall da Fama acumularem ${st.stars} estrelas! Continue colorindo e compartilhando! 🎨`);
+                };
+            }
+            grid.appendChild(item);
+        });
     } else {
         const stickers = stickerCategories[tab] || [];
-        stickers.forEach(emoji => {
+        stickers.forEach(st => {
             const item = document.createElement('div');
-            item.className = 'sticker-grid-item';
-            item.textContent = emoji;
-            item.onclick = () => {
-                selectConsoleSticker(emoji);
-            };
+            if (typeof st === 'object' && st.url) {
+                item.className = 'sticker-grid-item';
+                item.style.padding = '6px';
+                item.style.display = 'flex';
+                item.style.alignItems = 'center';
+                item.style.justifyContent = 'center';
+                item.innerHTML = `<img src="${st.url}" alt="${st.name}" style="max-width: 100%; max-height: 100%; object-fit: contain;" title="${st.name}">`;
+                item.onclick = () => {
+                    selectConsoleSticker(st.url);
+                };
+            } else {
+                item.className = 'sticker-grid-item';
+                item.textContent = st;
+                item.onclick = () => {
+                    selectConsoleSticker(st);
+                };
+            }
             grid.appendChild(item);
         });
     }
@@ -7166,7 +7241,14 @@ function selectConsoleSticker(emoji) {
     document.querySelectorAll('.paint-stamp-btn').forEach(btn => btn.classList.remove('active'));
     
     // Mostrar feedback
-    showToast(`Carimbo ${emoji} selecionado! Toque no desenho para colar. ✨`, 'success');
+    if (emoji.startsWith('http') || emoji.startsWith('/') || emoji.startsWith('./')) {
+        const parts = emoji.split('/');
+        const filename = parts[parts.length - 1].replace('.png', '').replace(/_/g, ' ');
+        const formattedName = filename.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        showToast(`Adesivo "${formattedName}" selecionado! Toque no desenho para colar. ✨`, 'success');
+    } else {
+        showToast(`Carimbo ${emoji} selecionado! Toque no desenho para colar. ✨`, 'success');
+    }
 }
 
 // Dialog Modals Customizados

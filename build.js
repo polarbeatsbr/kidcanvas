@@ -40,6 +40,31 @@ try {
         }
     });
 
+    // Helper to recursively copy directories
+    const copyDirRecursive = (src, dest) => {
+        if (!fs.existsSync(dest)) {
+            fs.mkdirSync(dest, { recursive: true });
+        }
+        const entries = fs.readdirSync(src, { withFileTypes: true });
+        entries.forEach(entry => {
+            const srcPath = path.join(src, entry.name);
+            const destPath = path.join(dest, entry.name);
+            if (entry.isDirectory()) {
+                copyDirRecursive(srcPath, destPath);
+            } else {
+                fs.copyFileSync(srcPath, destPath);
+            }
+        });
+    };
+
+    // Copy stickers directory
+    const stickersSrc = path.join(__dirname, 'stickers');
+    const stickersDest = path.join(publicDir, 'stickers');
+    if (fs.existsSync(stickersSrc)) {
+        copyDirRecursive(stickersSrc, stickersDest);
+        console.log('Copied stickers/ directory to public/stickers/.');
+    }
+
     console.log('Build completed successfully.');
 } catch (error) {
     console.error('Build failed:', error);
