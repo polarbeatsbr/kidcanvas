@@ -1122,6 +1122,17 @@
     "isNew": false
   },
   {
+    "index": 184,
+    "filename": "184-matematica-contando-estrelas-com-bolhas-e-estrelas__counting_stars_puzzle_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/184-matematica-contando-estrelas-com-bolhas-e-estrelas__counting_stars_puzzle_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica contando estrelas com bolhas e estrelas",
+    "en": "Counting stars puzzle surrounded by bubbles and stars",
+    "slug": "matematica-contando-estrelas-com-bolhas-e-estrelas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 185,
     "filename": "185-matematica-contando-estrelas-com-contas-faceis__counting_stars_puzzle_with_easy_calculations_for_kids.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/185-matematica-contando-estrelas-com-contas-faceis__counting_stars_puzzle_with_easy_calculations_for_kids.png",
@@ -1133,6 +1144,50 @@
     "isNew": false
   },
   {
+    "index": 186,
+    "filename": "186-matematica-jogo-de-matematica-feliz-com-numeros-e-mais__fun_math_game_with_numbers_and_plus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/186-matematica-jogo-de-matematica-feliz-com-numeros-e-mais__fun_math_game_with_numbers_and_plus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de matematica feliz com numeros e mais",
+    "en": "Fun math game with numbers and plus signs",
+    "slug": "matematica-jogo-de-matematica-feliz-com-numeros-e-mais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 187,
+    "filename": "187-matematica-jogo-de-matematica-feliz-com-numeros-e-menos__fun_math_game_with_numbers_and_minus_signs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/187-matematica-jogo-de-matematica-feliz-com-numeros-e-menos__fun_math_game_with_numbers_and_minus_signs.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de matematica feliz com numeros e menos",
+    "en": "Fun math game with numbers and minus signs",
+    "slug": "matematica-jogo-de-matematica-feliz-com-numeros-e-menos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 188,
+    "filename": "188-matematica-jogo-de-matematica-feliz-com-formas-para-colorir__fun_math_game_showing_shapes_to_color.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/188-matematica-jogo-de-matematica-feliz-com-formas-para-colorir__fun_math_game_showing_shapes_to_color.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de matematica feliz com formas para colorir",
+    "en": "Fun math game showing shapes to color",
+    "slug": "matematica-jogo-de-matematica-feliz-com-formas-para-colorir",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 189,
+    "filename": "189-matematica-jogo-de-matematica-feliz-com-bolhas-e-estrelas__fun_math_game_surrounded_by_bubbles_and_stars.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/189-matematica-jogo-de-matematica-feliz-com-bolhas-e-estrelas__fun_math_game_surrounded_by_bubbles_and_stars.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de matematica feliz com bolhas e estrelas",
+    "en": "Fun math game surrounded by bubbles and stars",
+    "slug": "matematica-jogo-de-matematica-feliz-com-bolhas-e-estrelas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 19,
     "filename": "19-letra-s-sol-brilhando__sun.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/19-letra-s-sol-brilhando__sun.png",
@@ -1140,6 +1195,17 @@
     "pt": "Letra s sol brilhando",
     "en": "Sun",
     "slug": "letra-s-sol-brilhando",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 190,
+    "filename": "190-matematica-jogo-de-matematica-feliz-com-contas-faceis__fun_math_game_with_easy_calculations_for_kids.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/alfabeto-e-numeros/190-matematica-jogo-de-matematica-feliz-com-contas-faceis__fun_math_game_with_easy_calculations_for_kids.png",
+    "category": "alfabeto-e-numeros",
+    "pt": "Matematica jogo de matematica feliz com contas faceis",
+    "en": "Fun math game with easy calculations for kids",
+    "slug": "matematica-jogo-de-matematica-feliz-com-contas-faceis",
     "tier": "free",
     "isNew": false
   },
@@ -16225,6 +16291,28 @@
     "isNew": true
   },
   {
+    "index": 168,
+    "filename": "168-fast-food-hamburguer-gostoso-com-rosto-alegre__hamburger_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/168-fast-food-hamburguer-gostoso-com-rosto-alegre__hamburger_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food hamburguer gostoso com rosto alegre",
+    "en": "Hamburger with a happy cartoon face",
+    "slug": "fast-food-hamburguer-gostoso-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 169,
+    "filename": "169-fast-food-hamburguer-gostoso-na-toalha-de-piquenique__hamburger_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/169-fast-food-hamburguer-gostoso-na-toalha-de-piquenique__hamburger_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food hamburguer gostoso na toalha de piquenique",
+    "en": "Hamburger sitting on a picnic blanket",
+    "slug": "fast-food-hamburguer-gostoso-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 17,
     "filename": "17-sorvete-com-granulado__ice_cream.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/17-sorvete-com-granulado__ice_cream.png",
@@ -16232,6 +16320,116 @@
     "pt": "Sorvete com granulado",
     "en": "Ice cream",
     "slug": "sorvete-com-granulado",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 170,
+    "filename": "170-fast-food-hamburguer-gostoso-com-olhos-amigaveis__hamburger_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/170-fast-food-hamburguer-gostoso-com-olhos-amigaveis__hamburger_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food hamburguer gostoso com olhos amigaveis",
+    "en": "Hamburger with cute eyes and smile",
+    "slug": "fast-food-hamburguer-gostoso-com-olhos-amigaveis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 171,
+    "filename": "171-fast-food-hamburguer-gostoso-na-cesta-de-lanches__hamburger_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/171-fast-food-hamburguer-gostoso-na-cesta-de-lanches__hamburger_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food hamburguer gostoso na cesta de lanches",
+    "en": "Hamburger in a takeout basket",
+    "slug": "fast-food-hamburguer-gostoso-na-cesta-de-lanches",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 172,
+    "filename": "172-fast-food-hamburguer-gostoso-com-molhos-de-ketchup__hamburger_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/172-fast-food-hamburguer-gostoso-com-molhos-de-ketchup__hamburger_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food hamburguer gostoso com molhos de ketchup",
+    "en": "Hamburger with ketchup and mustard bottles",
+    "slug": "fast-food-hamburguer-gostoso-com-molhos-de-ketchup",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 173,
+    "filename": "173-fast-food-hamburguer-gostoso-com-baloes-de-festa__hamburger_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/173-fast-food-hamburguer-gostoso-com-baloes-de-festa__hamburger_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food hamburguer gostoso com baloes de festa",
+    "en": "Hamburger surrounded by party balloons",
+    "slug": "fast-food-hamburguer-gostoso-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 174,
+    "filename": "174-fast-food-hamburguer-gostoso-com-chapeu-de-chef__hamburger_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/174-fast-food-hamburguer-gostoso-com-chapeu-de-chef__hamburger_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food hamburguer gostoso com chapeu de chef",
+    "en": "Hamburger wearing a tiny chef hat",
+    "slug": "fast-food-hamburguer-gostoso-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 175,
+    "filename": "175-fast-food-batata-frita-com-rosto-alegre__french_fries_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/175-fast-food-batata-frita-com-rosto-alegre__french_fries_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food batata frita com rosto alegre",
+    "en": "French fries with a happy cartoon face",
+    "slug": "fast-food-batata-frita-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 176,
+    "filename": "176-fast-food-batata-frita-na-toalha-de-piquenique__french_fries_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/176-fast-food-batata-frita-na-toalha-de-piquenique__french_fries_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food batata frita na toalha de piquenique",
+    "en": "French fries sitting on a picnic blanket",
+    "slug": "fast-food-batata-frita-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 177,
+    "filename": "177-fast-food-batata-frita-com-olhos-amigaveis__french_fries_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/177-fast-food-batata-frita-com-olhos-amigaveis__french_fries_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food batata frita com olhos amigaveis",
+    "en": "French fries with cute eyes and smile",
+    "slug": "fast-food-batata-frita-com-olhos-amigaveis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 178,
+    "filename": "178-fast-food-batata-frita-na-cesta-de-lanches__french_fries_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/178-fast-food-batata-frita-na-cesta-de-lanches__french_fries_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food batata frita na cesta de lanches",
+    "en": "French fries in a takeout basket",
+    "slug": "fast-food-batata-frita-na-cesta-de-lanches",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 179,
+    "filename": "179-fast-food-batata-frita-com-molhos-de-ketchup__french_fries_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/179-fast-food-batata-frita-com-molhos-de-ketchup__french_fries_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food batata frita com molhos de ketchup",
+    "en": "French fries with ketchup and mustard bottles",
+    "slug": "fast-food-batata-frita-com-molhos-de-ketchup",
     "tier": "free",
     "isNew": false
   },
@@ -16247,6 +16445,116 @@
     "isNew": false
   },
   {
+    "index": 180,
+    "filename": "180-fast-food-batata-frita-com-baloes-de-festa__french_fries_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/180-fast-food-batata-frita-com-baloes-de-festa__french_fries_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food batata frita com baloes de festa",
+    "en": "French fries surrounded by party balloons",
+    "slug": "fast-food-batata-frita-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 181,
+    "filename": "181-fast-food-batata-frita-com-chapeu-de-chef__french_fries_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/181-fast-food-batata-frita-com-chapeu-de-chef__french_fries_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food batata frita com chapeu de chef",
+    "en": "French fries wearing a tiny chef hat",
+    "slug": "fast-food-batata-frita-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 182,
+    "filename": "182-fast-food-cachorro-quente-com-rosto-alegre__hot_dog_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/182-fast-food-cachorro-quente-com-rosto-alegre__hot_dog_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food cachorro quente com rosto alegre",
+    "en": "Hot dog with a happy cartoon face",
+    "slug": "fast-food-cachorro-quente-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 183,
+    "filename": "183-fast-food-cachorro-quente-na-toalha-de-piquenique__hot_dog_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/183-fast-food-cachorro-quente-na-toalha-de-piquenique__hot_dog_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food cachorro quente na toalha de piquenique",
+    "en": "Hot dog sitting on a picnic blanket",
+    "slug": "fast-food-cachorro-quente-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 184,
+    "filename": "184-fast-food-cachorro-quente-com-olhos-amigaveis__hot_dog_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/184-fast-food-cachorro-quente-com-olhos-amigaveis__hot_dog_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food cachorro quente com olhos amigaveis",
+    "en": "Hot dog with cute eyes and smile",
+    "slug": "fast-food-cachorro-quente-com-olhos-amigaveis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 185,
+    "filename": "185-fast-food-cachorro-quente-na-cesta-de-lanches__hot_dog_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/185-fast-food-cachorro-quente-na-cesta-de-lanches__hot_dog_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food cachorro quente na cesta de lanches",
+    "en": "Hot dog in a takeout basket",
+    "slug": "fast-food-cachorro-quente-na-cesta-de-lanches",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 186,
+    "filename": "186-fast-food-cachorro-quente-com-molhos-de-ketchup__hot_dog_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/186-fast-food-cachorro-quente-com-molhos-de-ketchup__hot_dog_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food cachorro quente com molhos de ketchup",
+    "en": "Hot dog with ketchup and mustard bottles",
+    "slug": "fast-food-cachorro-quente-com-molhos-de-ketchup",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 187,
+    "filename": "187-fast-food-cachorro-quente-com-baloes-de-festa__hot_dog_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/187-fast-food-cachorro-quente-com-baloes-de-festa__hot_dog_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food cachorro quente com baloes de festa",
+    "en": "Hot dog surrounded by party balloons",
+    "slug": "fast-food-cachorro-quente-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 188,
+    "filename": "188-fast-food-cachorro-quente-com-chapeu-de-chef__hot_dog_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/188-fast-food-cachorro-quente-com-chapeu-de-chef__hot_dog_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food cachorro quente com chapeu de chef",
+    "en": "Hot dog wearing a tiny chef hat",
+    "slug": "fast-food-cachorro-quente-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 189,
+    "filename": "189-fast-food-taco-saboroso-com-rosto-alegre__tasty_taco_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/189-fast-food-taco-saboroso-com-rosto-alegre__tasty_taco_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food taco saboroso com rosto alegre",
+    "en": "Tasty taco with a happy cartoon face",
+    "slug": "fast-food-taco-saboroso-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 19,
     "filename": "19-bolo-com-granulado__cake.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/19-bolo-com-granulado__cake.png",
@@ -16254,6 +16562,116 @@
     "pt": "Bolo com granulado",
     "en": "Cake",
     "slug": "bolo-com-granulado",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 190,
+    "filename": "190-fast-food-taco-saboroso-na-toalha-de-piquenique__tasty_taco_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/190-fast-food-taco-saboroso-na-toalha-de-piquenique__tasty_taco_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food taco saboroso na toalha de piquenique",
+    "en": "Tasty taco sitting on a picnic blanket",
+    "slug": "fast-food-taco-saboroso-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 191,
+    "filename": "191-fast-food-taco-saboroso-com-olhos-amigaveis__tasty_taco_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/191-fast-food-taco-saboroso-com-olhos-amigaveis__tasty_taco_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food taco saboroso com olhos amigaveis",
+    "en": "Tasty taco with cute eyes and smile",
+    "slug": "fast-food-taco-saboroso-com-olhos-amigaveis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 192,
+    "filename": "192-fast-food-taco-saboroso-na-cesta-de-lanches__tasty_taco_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/192-fast-food-taco-saboroso-na-cesta-de-lanches__tasty_taco_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food taco saboroso na cesta de lanches",
+    "en": "Tasty taco in a takeout basket",
+    "slug": "fast-food-taco-saboroso-na-cesta-de-lanches",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 193,
+    "filename": "193-fast-food-taco-saboroso-com-molhos-de-ketchup__tasty_taco_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/193-fast-food-taco-saboroso-com-molhos-de-ketchup__tasty_taco_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food taco saboroso com molhos de ketchup",
+    "en": "Tasty taco with ketchup and mustard bottles",
+    "slug": "fast-food-taco-saboroso-com-molhos-de-ketchup",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 194,
+    "filename": "194-fast-food-taco-saboroso-com-baloes-de-festa__tasty_taco_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/194-fast-food-taco-saboroso-com-baloes-de-festa__tasty_taco_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food taco saboroso com baloes de festa",
+    "en": "Tasty taco surrounded by party balloons",
+    "slug": "fast-food-taco-saboroso-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 195,
+    "filename": "195-fast-food-taco-saboroso-com-chapeu-de-chef__tasty_taco_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/195-fast-food-taco-saboroso-com-chapeu-de-chef__tasty_taco_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food taco saboroso com chapeu de chef",
+    "en": "Tasty taco wearing a tiny chef hat",
+    "slug": "fast-food-taco-saboroso-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 196,
+    "filename": "196-fast-food-nugget-crocante-com-rosto-alegre__crispy_chicken_nugget_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/196-fast-food-nugget-crocante-com-rosto-alegre__crispy_chicken_nugget_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nugget crocante com rosto alegre",
+    "en": "Crispy chicken nugget with a happy cartoon face",
+    "slug": "fast-food-nugget-crocante-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 197,
+    "filename": "197-fast-food-nugget-crocante-na-toalha-de-piquenique__crispy_chicken_nugget_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/197-fast-food-nugget-crocante-na-toalha-de-piquenique__crispy_chicken_nugget_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nugget crocante na toalha de piquenique",
+    "en": "Crispy chicken nugget sitting on a picnic blanket",
+    "slug": "fast-food-nugget-crocante-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 198,
+    "filename": "198-fast-food-nugget-crocante-com-olhos-amigaveis__crispy_chicken_nugget_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/198-fast-food-nugget-crocante-com-olhos-amigaveis__crispy_chicken_nugget_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nugget crocante com olhos amigaveis",
+    "en": "Crispy chicken nugget with cute eyes and smile",
+    "slug": "fast-food-nugget-crocante-com-olhos-amigaveis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 199,
+    "filename": "199-fast-food-nugget-crocante-na-cesta-de-lanches__crispy_chicken_nugget_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/199-fast-food-nugget-crocante-na-cesta-de-lanches__crispy_chicken_nugget_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nugget crocante na cesta de lanches",
+    "en": "Crispy chicken nugget in a takeout basket",
+    "slug": "fast-food-nugget-crocante-na-cesta-de-lanches",
     "tier": "free",
     "isNew": false
   },
@@ -16269,6 +16687,116 @@
     "isNew": true
   },
   {
+    "index": 200,
+    "filename": "200-fast-food-nugget-crocante-com-molhos-de-ketchup__crispy_chicken_nugget_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/200-fast-food-nugget-crocante-com-molhos-de-ketchup__crispy_chicken_nugget_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nugget crocante com molhos de ketchup",
+    "en": "Crispy chicken nugget with ketchup and mustard bottles",
+    "slug": "fast-food-nugget-crocante-com-molhos-de-ketchup",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 201,
+    "filename": "201-fast-food-nugget-crocante-com-baloes-de-festa__crispy_chicken_nugget_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/201-fast-food-nugget-crocante-com-baloes-de-festa__crispy_chicken_nugget_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nugget crocante com baloes de festa",
+    "en": "Crispy chicken nugget surrounded by party balloons",
+    "slug": "fast-food-nugget-crocante-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 202,
+    "filename": "202-fast-food-nugget-crocante-com-chapeu-de-chef__crispy_chicken_nugget_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/202-fast-food-nugget-crocante-com-chapeu-de-chef__crispy_chicken_nugget_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nugget crocante com chapeu de chef",
+    "en": "Crispy chicken nugget wearing a tiny chef hat",
+    "slug": "fast-food-nugget-crocante-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 203,
+    "filename": "203-fast-food-copo-de-refrigerante-com-rosto-alegre__soda_cup_with_straw_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/203-fast-food-copo-de-refrigerante-com-rosto-alegre__soda_cup_with_straw_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food copo de refrigerante com rosto alegre",
+    "en": "Soda cup with straw with a happy cartoon face",
+    "slug": "fast-food-copo-de-refrigerante-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 204,
+    "filename": "204-fast-food-copo-de-refrigerante-na-toalha-de-piquenique__soda_cup_with_straw_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/204-fast-food-copo-de-refrigerante-na-toalha-de-piquenique__soda_cup_with_straw_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food copo de refrigerante na toalha de piquenique",
+    "en": "Soda cup with straw sitting on a picnic blanket",
+    "slug": "fast-food-copo-de-refrigerante-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 205,
+    "filename": "205-fast-food-copo-de-refrigerante-com-olhos-amigaveis__soda_cup_with_straw_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/205-fast-food-copo-de-refrigerante-com-olhos-amigaveis__soda_cup_with_straw_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food copo de refrigerante com olhos amigaveis",
+    "en": "Soda cup with straw with cute eyes and smile",
+    "slug": "fast-food-copo-de-refrigerante-com-olhos-amigaveis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 206,
+    "filename": "206-fast-food-copo-de-refrigerante-na-cesta-de-lanches__soda_cup_with_straw_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/206-fast-food-copo-de-refrigerante-na-cesta-de-lanches__soda_cup_with_straw_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food copo de refrigerante na cesta de lanches",
+    "en": "Soda cup with straw in a takeout basket",
+    "slug": "fast-food-copo-de-refrigerante-na-cesta-de-lanches",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 207,
+    "filename": "207-fast-food-copo-de-refrigerante-com-molhos-de-ketchup__soda_cup_with_straw_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/207-fast-food-copo-de-refrigerante-com-molhos-de-ketchup__soda_cup_with_straw_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food copo de refrigerante com molhos de ketchup",
+    "en": "Soda cup with straw with ketchup and mustard bottles",
+    "slug": "fast-food-copo-de-refrigerante-com-molhos-de-ketchup",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 208,
+    "filename": "208-fast-food-copo-de-refrigerante-com-baloes-de-festa__soda_cup_with_straw_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/208-fast-food-copo-de-refrigerante-com-baloes-de-festa__soda_cup_with_straw_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food copo de refrigerante com baloes de festa",
+    "en": "Soda cup with straw surrounded by party balloons",
+    "slug": "fast-food-copo-de-refrigerante-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 209,
+    "filename": "209-fast-food-copo-de-refrigerante-com-chapeu-de-chef__soda_cup_with_straw_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/209-fast-food-copo-de-refrigerante-com-chapeu-de-chef__soda_cup_with_straw_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food copo de refrigerante com chapeu de chef",
+    "en": "Soda cup with straw wearing a tiny chef hat",
+    "slug": "fast-food-copo-de-refrigerante-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 21,
     "filename": "21-banana-com-granulado__banana.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/21-banana-com-granulado__banana.png",
@@ -16276,6 +16804,116 @@
     "pt": "Banana com granulado",
     "en": "Banana",
     "slug": "banana-com-granulado",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 210,
+    "filename": "210-fast-food-saco-de-pipoca-com-rosto-alegre__bag_of_popcorn_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/210-fast-food-saco-de-pipoca-com-rosto-alegre__bag_of_popcorn_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food saco de pipoca com rosto alegre",
+    "en": "Bag of popcorn with a happy cartoon face",
+    "slug": "fast-food-saco-de-pipoca-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 211,
+    "filename": "211-fast-food-saco-de-pipoca-na-toalha-de-piquenique__bag_of_popcorn_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/211-fast-food-saco-de-pipoca-na-toalha-de-piquenique__bag_of_popcorn_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food saco de pipoca na toalha de piquenique",
+    "en": "Bag of popcorn sitting on a picnic blanket",
+    "slug": "fast-food-saco-de-pipoca-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 212,
+    "filename": "212-fast-food-saco-de-pipoca-com-olhos-amigaveis__bag_of_popcorn_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/212-fast-food-saco-de-pipoca-com-olhos-amigaveis__bag_of_popcorn_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food saco de pipoca com olhos amigaveis",
+    "en": "Bag of popcorn with cute eyes and smile",
+    "slug": "fast-food-saco-de-pipoca-com-olhos-amigaveis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 213,
+    "filename": "213-fast-food-saco-de-pipoca-na-cesta-de-lanches__bag_of_popcorn_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/213-fast-food-saco-de-pipoca-na-cesta-de-lanches__bag_of_popcorn_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food saco de pipoca na cesta de lanches",
+    "en": "Bag of popcorn in a takeout basket",
+    "slug": "fast-food-saco-de-pipoca-na-cesta-de-lanches",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 214,
+    "filename": "214-fast-food-saco-de-pipoca-com-molhos-de-ketchup__bag_of_popcorn_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/214-fast-food-saco-de-pipoca-com-molhos-de-ketchup__bag_of_popcorn_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food saco de pipoca com molhos de ketchup",
+    "en": "Bag of popcorn with ketchup and mustard bottles",
+    "slug": "fast-food-saco-de-pipoca-com-molhos-de-ketchup",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 215,
+    "filename": "215-fast-food-saco-de-pipoca-com-baloes-de-festa__bag_of_popcorn_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/215-fast-food-saco-de-pipoca-com-baloes-de-festa__bag_of_popcorn_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food saco de pipoca com baloes de festa",
+    "en": "Bag of popcorn surrounded by party balloons",
+    "slug": "fast-food-saco-de-pipoca-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 216,
+    "filename": "216-fast-food-saco-de-pipoca-com-chapeu-de-chef__bag_of_popcorn_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/216-fast-food-saco-de-pipoca-com-chapeu-de-chef__bag_of_popcorn_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food saco de pipoca com chapeu de chef",
+    "en": "Bag of popcorn wearing a tiny chef hat",
+    "slug": "fast-food-saco-de-pipoca-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 217,
+    "filename": "217-fast-food-aneis-de-cebola-com-rosto-alegre__onion_rings_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/217-fast-food-aneis-de-cebola-com-rosto-alegre__onion_rings_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food aneis de cebola com rosto alegre",
+    "en": "Onion rings with a happy cartoon face",
+    "slug": "fast-food-aneis-de-cebola-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 218,
+    "filename": "218-fast-food-aneis-de-cebola-na-toalha-de-piquenique__onion_rings_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/218-fast-food-aneis-de-cebola-na-toalha-de-piquenique__onion_rings_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food aneis de cebola na toalha de piquenique",
+    "en": "Onion rings sitting on a picnic blanket",
+    "slug": "fast-food-aneis-de-cebola-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 219,
+    "filename": "219-fast-food-aneis-de-cebola-com-olhos-amigaveis__onion_rings_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/219-fast-food-aneis-de-cebola-com-olhos-amigaveis__onion_rings_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food aneis de cebola com olhos amigaveis",
+    "en": "Onion rings with cute eyes and smile",
+    "slug": "fast-food-aneis-de-cebola-com-olhos-amigaveis",
     "tier": "free",
     "isNew": false
   },
@@ -16291,6 +16929,116 @@
     "isNew": false
   },
   {
+    "index": 220,
+    "filename": "220-fast-food-aneis-de-cebola-na-cesta-de-lanches__onion_rings_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/220-fast-food-aneis-de-cebola-na-cesta-de-lanches__onion_rings_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food aneis de cebola na cesta de lanches",
+    "en": "Onion rings in a takeout basket",
+    "slug": "fast-food-aneis-de-cebola-na-cesta-de-lanches",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 221,
+    "filename": "221-fast-food-aneis-de-cebola-com-molhos-de-ketchup__onion_rings_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/221-fast-food-aneis-de-cebola-com-molhos-de-ketchup__onion_rings_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food aneis de cebola com molhos de ketchup",
+    "en": "Onion rings with ketchup and mustard bottles",
+    "slug": "fast-food-aneis-de-cebola-com-molhos-de-ketchup",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 222,
+    "filename": "222-fast-food-aneis-de-cebola-com-baloes-de-festa__onion_rings_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/222-fast-food-aneis-de-cebola-com-baloes-de-festa__onion_rings_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food aneis de cebola com baloes de festa",
+    "en": "Onion rings surrounded by party balloons",
+    "slug": "fast-food-aneis-de-cebola-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 223,
+    "filename": "223-fast-food-aneis-de-cebola-com-chapeu-de-chef__onion_rings_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/223-fast-food-aneis-de-cebola-com-chapeu-de-chef__onion_rings_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food aneis de cebola com chapeu de chef",
+    "en": "Onion rings wearing a tiny chef hat",
+    "slug": "fast-food-aneis-de-cebola-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 224,
+    "filename": "224-fast-food-nachos-com-queijo-com-rosto-alegre__cheesy_nachos_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/224-fast-food-nachos-com-queijo-com-rosto-alegre__cheesy_nachos_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nachos com queijo com rosto alegre",
+    "en": "Cheesy nachos with a happy cartoon face",
+    "slug": "fast-food-nachos-com-queijo-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 225,
+    "filename": "225-fast-food-nachos-com-queijo-na-toalha-de-piquenique__cheesy_nachos_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/225-fast-food-nachos-com-queijo-na-toalha-de-piquenique__cheesy_nachos_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nachos com queijo na toalha de piquenique",
+    "en": "Cheesy nachos sitting on a picnic blanket",
+    "slug": "fast-food-nachos-com-queijo-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 226,
+    "filename": "226-fast-food-nachos-com-queijo-com-olhos-amigaveis__cheesy_nachos_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/226-fast-food-nachos-com-queijo-com-olhos-amigaveis__cheesy_nachos_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nachos com queijo com olhos amigaveis",
+    "en": "Cheesy nachos with cute eyes and smile",
+    "slug": "fast-food-nachos-com-queijo-com-olhos-amigaveis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 227,
+    "filename": "227-fast-food-nachos-com-queijo-na-cesta-de-lanches__cheesy_nachos_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/227-fast-food-nachos-com-queijo-na-cesta-de-lanches__cheesy_nachos_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nachos com queijo na cesta de lanches",
+    "en": "Cheesy nachos in a takeout basket",
+    "slug": "fast-food-nachos-com-queijo-na-cesta-de-lanches",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 228,
+    "filename": "228-fast-food-nachos-com-queijo-com-molhos-de-ketchup__cheesy_nachos_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/228-fast-food-nachos-com-queijo-com-molhos-de-ketchup__cheesy_nachos_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nachos com queijo com molhos de ketchup",
+    "en": "Cheesy nachos with ketchup and mustard bottles",
+    "slug": "fast-food-nachos-com-queijo-com-molhos-de-ketchup",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 229,
+    "filename": "229-fast-food-nachos-com-queijo-com-baloes-de-festa__cheesy_nachos_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/229-fast-food-nachos-com-queijo-com-baloes-de-festa__cheesy_nachos_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nachos com queijo com baloes de festa",
+    "en": "Cheesy nachos surrounded by party balloons",
+    "slug": "fast-food-nachos-com-queijo-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 23,
     "filename": "23-morango-com-granulado__strawberry.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/23-morango-com-granulado__strawberry.png",
@@ -16300,6 +17048,94 @@
     "slug": "morango-com-granulado",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 230,
+    "filename": "230-fast-food-nachos-com-queijo-com-chapeu-de-chef__cheesy_nachos_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/230-fast-food-nachos-com-queijo-com-chapeu-de-chef__cheesy_nachos_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food nachos com queijo com chapeu de chef",
+    "en": "Cheesy nachos wearing a tiny chef hat",
+    "slug": "fast-food-nachos-com-queijo-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 231,
+    "filename": "231-fast-food-sanduiche-natural-com-rosto-alegre__sandwich_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/231-fast-food-sanduiche-natural-com-rosto-alegre__sandwich_with_a_happy_cartoon_face.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food sanduiche natural com rosto alegre",
+    "en": "Sandwich with a happy cartoon face",
+    "slug": "fast-food-sanduiche-natural-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 232,
+    "filename": "232-fast-food-sanduiche-natural-na-toalha-de-piquenique__sandwich_sitting_on_a_picnic_blanket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/232-fast-food-sanduiche-natural-na-toalha-de-piquenique__sandwich_sitting_on_a_picnic_blanket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food sanduiche natural na toalha de piquenique",
+    "en": "Sandwich sitting on a picnic blanket",
+    "slug": "fast-food-sanduiche-natural-na-toalha-de-piquenique",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 233,
+    "filename": "233-fast-food-sanduiche-natural-com-olhos-amigaveis__sandwich_with_cute_eyes_and_smile.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/233-fast-food-sanduiche-natural-com-olhos-amigaveis__sandwich_with_cute_eyes_and_smile.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food sanduiche natural com olhos amigaveis",
+    "en": "Sandwich with cute eyes and smile",
+    "slug": "fast-food-sanduiche-natural-com-olhos-amigaveis",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 234,
+    "filename": "234-fast-food-sanduiche-natural-na-cesta-de-lanches__sandwich_in_a_takeout_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/234-fast-food-sanduiche-natural-na-cesta-de-lanches__sandwich_in_a_takeout_basket.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food sanduiche natural na cesta de lanches",
+    "en": "Sandwich in a takeout basket",
+    "slug": "fast-food-sanduiche-natural-na-cesta-de-lanches",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 235,
+    "filename": "235-fast-food-sanduiche-natural-com-molhos-de-ketchup__sandwich_with_ketchup_and_mustard_bottles.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/235-fast-food-sanduiche-natural-com-molhos-de-ketchup__sandwich_with_ketchup_and_mustard_bottles.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food sanduiche natural com molhos de ketchup",
+    "en": "Sandwich with ketchup and mustard bottles",
+    "slug": "fast-food-sanduiche-natural-com-molhos-de-ketchup",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 236,
+    "filename": "236-fast-food-sanduiche-natural-com-baloes-de-festa__sandwich_surrounded_by_party_balloons.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/236-fast-food-sanduiche-natural-com-baloes-de-festa__sandwich_surrounded_by_party_balloons.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food sanduiche natural com baloes de festa",
+    "en": "Sandwich surrounded by party balloons",
+    "slug": "fast-food-sanduiche-natural-com-baloes-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 237,
+    "filename": "237-fast-food-sanduiche-natural-com-chapeu-de-chef__sandwich_wearing_a_tiny_chef_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/comidas-e-doces/237-fast-food-sanduiche-natural-com-chapeu-de-chef__sandwich_wearing_a_tiny_chef_hat.png",
+    "category": "comidas-e-doces",
+    "pt": "Fast food sanduiche natural com chapeu de chef",
+    "en": "Sandwich wearing a tiny chef hat",
+    "slug": "fast-food-sanduiche-natural-com-chapeu-de-chef",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 24,
@@ -85247,7 +86083,7 @@
     "en": "Cute toy excavator working next to a pile of logs",
     "slug": "escavadeira-escavadeira-de-brinquedo-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 284,
@@ -85258,7 +86094,7 @@
     "en": "Cute toy excavator waving its giant bucket",
     "slug": "escavadeira-escavadeira-de-brinquedo-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 285,
@@ -85269,7 +86105,7 @@
     "en": "Friendly cartoon excavator digging a deep hole",
     "slug": "escavadeira-escavadeira-de-desenho-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 286,
@@ -85280,7 +86116,7 @@
     "en": "Friendly cartoon excavator scooping a pile of sand",
     "slug": "escavadeira-escavadeira-de-desenho-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 287,
@@ -85291,7 +86127,7 @@
     "en": "Friendly cartoon excavator parked on a construction site",
     "slug": "escavadeira-escavadeira-de-desenho-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 288,
@@ -85302,7 +86138,7 @@
     "en": "Friendly cartoon excavator moving a large rock",
     "slug": "escavadeira-escavadeira-de-desenho-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 289,
@@ -85313,7 +86149,7 @@
     "en": "Friendly cartoon excavator working next to a pile of logs",
     "slug": "escavadeira-escavadeira-de-desenho-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 29,
@@ -85335,7 +86171,7 @@
     "en": "Friendly cartoon excavator waving its giant bucket",
     "slug": "escavadeira-escavadeira-de-desenho-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 291,
@@ -85346,7 +86182,7 @@
     "en": "Construction excavator digging a deep hole",
     "slug": "escavadeira-escavadeira-de-obra-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 292,
@@ -85357,7 +86193,7 @@
     "en": "Construction excavator scooping a pile of sand",
     "slug": "escavadeira-escavadeira-de-obra-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 293,
@@ -85368,7 +86204,7 @@
     "en": "Construction excavator parked on a construction site",
     "slug": "escavadeira-escavadeira-de-obra-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 294,
@@ -85379,7 +86215,7 @@
     "en": "Construction excavator moving a large rock",
     "slug": "escavadeira-escavadeira-de-obra-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 295,
@@ -85390,7 +86226,7 @@
     "en": "Construction excavator working next to a pile of logs",
     "slug": "escavadeira-escavadeira-de-obra-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 296,
@@ -85401,7 +86237,7 @@
     "en": "Construction excavator waving its giant bucket",
     "slug": "escavadeira-escavadeira-de-obra-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 297,
@@ -85412,7 +86248,7 @@
     "en": "Digging machine digging a deep hole",
     "slug": "escavadeira-maquina-de-escavar-cavando-buraco-fundo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 298,
@@ -85423,7 +86259,7 @@
     "en": "Digging machine scooping a pile of sand",
     "slug": "escavadeira-maquina-de-escavar-pegando-areia",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 299,
@@ -85434,7 +86270,7 @@
     "en": "Digging machine parked on a construction site",
     "slug": "escavadeira-maquina-de-escavar-no-canteiro-de-obras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 30,
@@ -85456,7 +86292,7 @@
     "en": "Digging machine moving a large rock",
     "slug": "escavadeira-maquina-de-escavar-movendo-pedra-grande",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 301,
@@ -85467,7 +86303,7 @@
     "en": "Digging machine working next to a pile of logs",
     "slug": "escavadeira-maquina-de-escavar-perto-de-toras",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 302,
@@ -85478,7 +86314,7 @@
     "en": "Digging machine waving its giant bucket",
     "slug": "escavadeira-maquina-de-escavar-acenando-a-pa-gigante",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 303,
@@ -85489,7 +86325,7 @@
     "en": "Tower crane lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-de-torre-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 304,
@@ -85500,7 +86336,7 @@
     "en": "Tower crane loading a cargo ship",
     "slug": "guindaste-guindaste-de-torre-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 305,
@@ -85511,7 +86347,7 @@
     "en": "Tower crane parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-de-torre-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 306,
@@ -85522,7 +86358,7 @@
     "en": "Tower crane moving a heavy concrete block",
     "slug": "guindaste-guindaste-de-torre-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 307,
@@ -85533,7 +86369,7 @@
     "en": "Tower crane working under a sunny sky",
     "slug": "guindaste-guindaste-de-torre-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 308,
@@ -85544,7 +86380,7 @@
     "en": "Tower crane waving its long arm",
     "slug": "guindaste-guindaste-de-torre-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 309,
@@ -85555,7 +86391,7 @@
     "en": "Mobile crane lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-movel-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 31,
@@ -85577,7 +86413,7 @@
     "en": "Mobile crane loading a cargo ship",
     "slug": "guindaste-guindaste-movel-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 311,
@@ -85588,7 +86424,7 @@
     "en": "Mobile crane parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-movel-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 312,
@@ -85599,7 +86435,7 @@
     "en": "Mobile crane moving a heavy concrete block",
     "slug": "guindaste-guindaste-movel-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 313,
@@ -85610,7 +86446,7 @@
     "en": "Mobile crane working under a sunny sky",
     "slug": "guindaste-guindaste-movel-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 314,
@@ -85621,7 +86457,7 @@
     "en": "Mobile crane waving its long arm",
     "slug": "guindaste-guindaste-movel-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 315,
@@ -85632,7 +86468,7 @@
     "en": "Crawler crane lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-de-esteira-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 316,
@@ -85643,7 +86479,7 @@
     "en": "Crawler crane loading a cargo ship",
     "slug": "guindaste-guindaste-de-esteira-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 317,
@@ -85654,7 +86490,7 @@
     "en": "Crawler crane parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-de-esteira-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 318,
@@ -85665,7 +86501,7 @@
     "en": "Crawler crane moving a heavy concrete block",
     "slug": "guindaste-guindaste-de-esteira-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 319,
@@ -85676,7 +86512,7 @@
     "en": "Crawler crane working under a sunny sky",
     "slug": "guindaste-guindaste-de-esteira-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 32,
@@ -85698,7 +86534,7 @@
     "en": "Crawler crane waving its long arm",
     "slug": "guindaste-guindaste-de-esteira-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 321,
@@ -85709,7 +86545,7 @@
     "en": "Rough terrain crane lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-todo-terreno-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 322,
@@ -85720,7 +86556,7 @@
     "en": "Rough terrain crane loading a cargo ship",
     "slug": "guindaste-guindaste-todo-terreno-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 323,
@@ -85731,7 +86567,7 @@
     "en": "Rough terrain crane parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-todo-terreno-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 324,
@@ -85742,7 +86578,7 @@
     "en": "Rough terrain crane moving a heavy concrete block",
     "slug": "guindaste-guindaste-todo-terreno-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 325,
@@ -85753,7 +86589,7 @@
     "en": "Rough terrain crane working under a sunny sky",
     "slug": "guindaste-guindaste-todo-terreno-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 326,
@@ -85764,7 +86600,7 @@
     "en": "Rough terrain crane waving its long arm",
     "slug": "guindaste-guindaste-todo-terreno-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 327,
@@ -85775,7 +86611,7 @@
     "en": "Harbor crane lifting a steel beam high in the air",
     "slug": "guindaste-guindaste-de-porto-erguendo-viga-de-aco",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 328,
@@ -85786,7 +86622,7 @@
     "en": "Harbor crane loading a cargo ship",
     "slug": "guindaste-guindaste-de-porto-carregando-navio",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 329,
@@ -85797,7 +86633,7 @@
     "en": "Harbor crane parked on a skyscraper construction site",
     "slug": "guindaste-guindaste-de-porto-no-arranha-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 33,
@@ -85830,7 +86666,7 @@
     "en": "Harbor crane moving a heavy concrete block",
     "slug": "guindaste-guindaste-de-porto-movendo-bloco-de-concreto",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 331,
@@ -85841,7 +86677,7 @@
     "en": "Harbor crane working under a sunny sky",
     "slug": "guindaste-guindaste-de-porto-trabalhando-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 332,
@@ -85852,7 +86688,7 @@
     "en": "Harbor crane waving its long arm",
     "slug": "guindaste-guindaste-de-porto-acenando-o-braco-longo",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 333,
