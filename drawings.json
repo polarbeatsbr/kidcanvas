@@ -4925,7 +4925,7 @@
     "en": "Chihuahua dog playing with a ball",
     "slug": "cachorro-chihuahua-brincando-com-bola",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 22,
@@ -4947,7 +4947,7 @@
     "en": "Chihuahua dog running in the park",
     "slug": "cachorro-chihuahua-correndo-no-parque",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 221,
@@ -4958,7 +4958,7 @@
     "en": "Chihuahua dog sleeping in a basket",
     "slug": "cachorro-chihuahua-dormindo-na-cesta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 222,
@@ -4969,7 +4969,7 @@
     "en": "Chihuahua dog wearing a party hat",
     "slug": "cachorro-chihuahua-com-chapeu-de-festa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 223,
@@ -4980,7 +4980,7 @@
     "en": "Chihuahua dog next to a dog house",
     "slug": "cachorro-chihuahua-perto-da-casinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 224,
@@ -4991,7 +4991,7 @@
     "en": "Chihuahua dog chasing a butterfly",
     "slug": "cachorro-chihuahua-atras-de-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 225,
@@ -5002,7 +5002,7 @@
     "en": "Chihuahua dog eating from a bowl",
     "slug": "cachorro-chihuahua-comendo-ração",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 226,
@@ -5013,7 +5013,7 @@
     "en": "Chihuahua dog smiling happily",
     "slug": "cachorro-chihuahua-sorrindo-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 227,
@@ -5024,7 +5024,7 @@
     "en": "Chihuahua dog looking out a window",
     "slug": "cachorro-chihuahua-olhando-a-janela",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 228,
@@ -5035,7 +5035,7 @@
     "en": "Chihuahua dog holding a bone",
     "slug": "cachorro-chihuahua-segurando-osso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 229,
@@ -5046,7 +5046,7 @@
     "en": "Pug dog playing with a ball",
     "slug": "cachorro-pug-brincando-com-bola",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 23,
@@ -5068,7 +5068,7 @@
     "en": "Pug dog running in the park",
     "slug": "cachorro-pug-correndo-no-parque",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 231,
@@ -5079,7 +5079,7 @@
     "en": "Pug dog sleeping in a basket",
     "slug": "cachorro-pug-dormindo-na-cesta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 232,
@@ -5090,7 +5090,7 @@
     "en": "Pug dog wearing a party hat",
     "slug": "cachorro-pug-com-chapeu-de-festa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 233,
@@ -5101,7 +5101,7 @@
     "en": "Pug dog next to a dog house",
     "slug": "cachorro-pug-perto-da-casinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 234,
@@ -5112,7 +5112,7 @@
     "en": "Pug dog chasing a butterfly",
     "slug": "cachorro-pug-atras-de-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 235,
@@ -5123,7 +5123,7 @@
     "en": "Pug dog eating from a bowl",
     "slug": "cachorro-pug-comendo-ração",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 236,
@@ -5134,7 +5134,7 @@
     "en": "Pug dog smiling happily",
     "slug": "cachorro-pug-sorrindo-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 237,
@@ -5145,7 +5145,7 @@
     "en": "Pug dog looking out a window",
     "slug": "cachorro-pug-olhando-a-janela",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 238,
@@ -5156,7 +5156,7 @@
     "en": "Pug dog holding a bone",
     "slug": "cachorro-pug-segurando-osso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 239,
@@ -5167,7 +5167,7 @@
     "en": "Labrador dog playing with a ball",
     "slug": "cachorro-labrador-brincando-com-bola",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 24,
@@ -5189,7 +5189,7 @@
     "en": "Labrador dog running in the park",
     "slug": "cachorro-labrador-correndo-no-parque",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 241,
@@ -5200,7 +5200,7 @@
     "en": "Labrador dog sleeping in a basket",
     "slug": "cachorro-labrador-dormindo-na-cesta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 242,
@@ -5211,7 +5211,7 @@
     "en": "Labrador dog wearing a party hat",
     "slug": "cachorro-labrador-com-chapeu-de-festa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 243,
@@ -5222,7 +5222,7 @@
     "en": "Labrador dog next to a dog house",
     "slug": "cachorro-labrador-perto-da-casinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 244,
@@ -5233,7 +5233,7 @@
     "en": "Labrador dog chasing a butterfly",
     "slug": "cachorro-labrador-atras-de-borboleta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 245,
@@ -5244,7 +5244,7 @@
     "en": "Labrador dog eating from a bowl",
     "slug": "cachorro-labrador-comendo-ração",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 246,
@@ -5255,7 +5255,7 @@
     "en": "Labrador dog smiling happily",
     "slug": "cachorro-labrador-sorrindo-feliz",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 247,
@@ -5266,7 +5266,7 @@
     "en": "Labrador dog looking out a window",
     "slug": "cachorro-labrador-olhando-a-janela",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 248,
@@ -5277,7 +5277,7 @@
     "en": "Labrador dog holding a bone",
     "slug": "cachorro-labrador-segurando-osso",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 249,
@@ -5288,7 +5288,7 @@
     "en": "Yorkshire dog playing with a ball",
     "slug": "cachorro-yorkshire-brincando-com-bola",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 25,
@@ -5310,7 +5310,7 @@
     "en": "Yorkshire dog running in the park",
     "slug": "cachorro-yorkshire-correndo-no-parque",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 251,
@@ -5321,7 +5321,95 @@
     "en": "Yorkshire dog sleeping in a basket",
     "slug": "cachorro-yorkshire-dormindo-na-cesta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
+  },
+  {
+    "index": 252,
+    "filename": "252-cachorro-yorkshire-com-chapeu-de-festa__yorkshire_dog_wearing_a_party_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/252-cachorro-yorkshire-com-chapeu-de-festa__yorkshire_dog_wearing_a_party_hat.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro yorkshire com chapeu de festa",
+    "en": "Yorkshire dog wearing a party hat",
+    "slug": "cachorro-yorkshire-com-chapeu-de-festa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 253,
+    "filename": "253-cachorro-yorkshire-perto-da-casinha__yorkshire_dog_next_to_a_dog_house.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/253-cachorro-yorkshire-perto-da-casinha__yorkshire_dog_next_to_a_dog_house.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro yorkshire perto da casinha",
+    "en": "Yorkshire dog next to a dog house",
+    "slug": "cachorro-yorkshire-perto-da-casinha",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 254,
+    "filename": "254-cachorro-yorkshire-atras-de-borboleta__yorkshire_dog_chasing_a_butterfly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/254-cachorro-yorkshire-atras-de-borboleta__yorkshire_dog_chasing_a_butterfly.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro yorkshire atras de borboleta",
+    "en": "Yorkshire dog chasing a butterfly",
+    "slug": "cachorro-yorkshire-atras-de-borboleta",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 255,
+    "filename": "255-cachorro-yorkshire-comendo-ração__yorkshire_dog_eating_from_a_bowl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/255-cachorro-yorkshire-comendo-ração__yorkshire_dog_eating_from_a_bowl.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro yorkshire comendo ração",
+    "en": "Yorkshire dog eating from a bowl",
+    "slug": "cachorro-yorkshire-comendo-ração",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 256,
+    "filename": "256-cachorro-yorkshire-sorrindo-feliz__yorkshire_dog_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/256-cachorro-yorkshire-sorrindo-feliz__yorkshire_dog_smiling_happily.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro yorkshire sorrindo feliz",
+    "en": "Yorkshire dog smiling happily",
+    "slug": "cachorro-yorkshire-sorrindo-feliz",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 257,
+    "filename": "257-cachorro-yorkshire-olhando-a-janela__yorkshire_dog_looking_out_a_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/257-cachorro-yorkshire-olhando-a-janela__yorkshire_dog_looking_out_a_window.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro yorkshire olhando a janela",
+    "en": "Yorkshire dog looking out a window",
+    "slug": "cachorro-yorkshire-olhando-a-janela",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 258,
+    "filename": "258-cachorro-yorkshire-segurando-osso__yorkshire_dog_holding_a_bone.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/258-cachorro-yorkshire-segurando-osso__yorkshire_dog_holding_a_bone.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro yorkshire segurando osso",
+    "en": "Yorkshire dog holding a bone",
+    "slug": "cachorro-yorkshire-segurando-osso",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 259,
+    "filename": "259-cachorro-husky-siberiano-brincando-com-bola__siberian_husky_dog_playing_with_a_ball.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/259-cachorro-husky-siberiano-brincando-com-bola__siberian_husky_dog_playing_with_a_ball.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano brincando com bola",
+    "en": "Siberian husky dog playing with a ball",
+    "slug": "cachorro-husky-siberiano-brincando-com-bola",
+    "tier": "free",
+    "isNew": true
   },
   {
     "index": 26,
@@ -5331,6 +5419,116 @@
     "pt": "Canario dormindo na almofada",
     "en": "Canary",
     "slug": "canario-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 260,
+    "filename": "260-cachorro-husky-siberiano-correndo-no-parque__siberian_husky_dog_running_in_the_park.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/260-cachorro-husky-siberiano-correndo-no-parque__siberian_husky_dog_running_in_the_park.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano correndo no parque",
+    "en": "Siberian husky dog running in the park",
+    "slug": "cachorro-husky-siberiano-correndo-no-parque",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 261,
+    "filename": "261-cachorro-husky-siberiano-dormindo-na-cesta__siberian_husky_dog_sleeping_in_a_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/261-cachorro-husky-siberiano-dormindo-na-cesta__siberian_husky_dog_sleeping_in_a_basket.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano dormindo na cesta",
+    "en": "Siberian husky dog sleeping in a basket",
+    "slug": "cachorro-husky-siberiano-dormindo-na-cesta",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 262,
+    "filename": "262-cachorro-husky-siberiano-com-chapeu-de-festa__siberian_husky_dog_wearing_a_party_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/262-cachorro-husky-siberiano-com-chapeu-de-festa__siberian_husky_dog_wearing_a_party_hat.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano com chapeu de festa",
+    "en": "Siberian husky dog wearing a party hat",
+    "slug": "cachorro-husky-siberiano-com-chapeu-de-festa",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 263,
+    "filename": "263-cachorro-husky-siberiano-perto-da-casinha__siberian_husky_dog_next_to_a_dog_house.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/263-cachorro-husky-siberiano-perto-da-casinha__siberian_husky_dog_next_to_a_dog_house.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano perto da casinha",
+    "en": "Siberian husky dog next to a dog house",
+    "slug": "cachorro-husky-siberiano-perto-da-casinha",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 264,
+    "filename": "264-cachorro-husky-siberiano-atras-de-borboleta__siberian_husky_dog_chasing_a_butterfly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/264-cachorro-husky-siberiano-atras-de-borboleta__siberian_husky_dog_chasing_a_butterfly.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano atras de borboleta",
+    "en": "Siberian husky dog chasing a butterfly",
+    "slug": "cachorro-husky-siberiano-atras-de-borboleta",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 265,
+    "filename": "265-cachorro-husky-siberiano-comendo-ração__siberian_husky_dog_eating_from_a_bowl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/265-cachorro-husky-siberiano-comendo-ração__siberian_husky_dog_eating_from_a_bowl.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano comendo ração",
+    "en": "Siberian husky dog eating from a bowl",
+    "slug": "cachorro-husky-siberiano-comendo-ração",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 266,
+    "filename": "266-cachorro-husky-siberiano-sorrindo-feliz__siberian_husky_dog_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/266-cachorro-husky-siberiano-sorrindo-feliz__siberian_husky_dog_smiling_happily.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano sorrindo feliz",
+    "en": "Siberian husky dog smiling happily",
+    "slug": "cachorro-husky-siberiano-sorrindo-feliz",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 267,
+    "filename": "267-cachorro-husky-siberiano-olhando-a-janela__siberian_husky_dog_looking_out_a_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/267-cachorro-husky-siberiano-olhando-a-janela__siberian_husky_dog_looking_out_a_window.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano olhando a janela",
+    "en": "Siberian husky dog looking out a window",
+    "slug": "cachorro-husky-siberiano-olhando-a-janela",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 268,
+    "filename": "268-cachorro-husky-siberiano-segurando-osso__siberian_husky_dog_holding_a_bone.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/268-cachorro-husky-siberiano-segurando-osso__siberian_husky_dog_holding_a_bone.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro husky siberiano segurando osso",
+    "en": "Siberian husky dog holding a bone",
+    "slug": "cachorro-husky-siberiano-segurando-osso",
+    "tier": "free",
+    "isNew": true
+  },
+  {
+    "index": 269,
+    "filename": "269-cachorro-dachshund-brincando-com-bola__dachshund_dog_playing_with_a_ball.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/269-cachorro-dachshund-brincando-com-bola__dachshund_dog_playing_with_a_ball.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund brincando com bola",
+    "en": "Dachshund dog playing with a ball",
+    "slug": "cachorro-dachshund-brincando-com-bola",
     "tier": "free",
     "isNew": false
   },
@@ -5346,6 +5544,116 @@
     "isNew": false
   },
   {
+    "index": 270,
+    "filename": "270-cachorro-dachshund-correndo-no-parque__dachshund_dog_running_in_the_park.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/270-cachorro-dachshund-correndo-no-parque__dachshund_dog_running_in_the_park.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund correndo no parque",
+    "en": "Dachshund dog running in the park",
+    "slug": "cachorro-dachshund-correndo-no-parque",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 271,
+    "filename": "271-cachorro-dachshund-dormindo-na-cesta__dachshund_dog_sleeping_in_a_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/271-cachorro-dachshund-dormindo-na-cesta__dachshund_dog_sleeping_in_a_basket.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund dormindo na cesta",
+    "en": "Dachshund dog sleeping in a basket",
+    "slug": "cachorro-dachshund-dormindo-na-cesta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 272,
+    "filename": "272-cachorro-dachshund-com-chapeu-de-festa__dachshund_dog_wearing_a_party_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/272-cachorro-dachshund-com-chapeu-de-festa__dachshund_dog_wearing_a_party_hat.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund com chapeu de festa",
+    "en": "Dachshund dog wearing a party hat",
+    "slug": "cachorro-dachshund-com-chapeu-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 273,
+    "filename": "273-cachorro-dachshund-perto-da-casinha__dachshund_dog_next_to_a_dog_house.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/273-cachorro-dachshund-perto-da-casinha__dachshund_dog_next_to_a_dog_house.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund perto da casinha",
+    "en": "Dachshund dog next to a dog house",
+    "slug": "cachorro-dachshund-perto-da-casinha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 274,
+    "filename": "274-cachorro-dachshund-atras-de-borboleta__dachshund_dog_chasing_a_butterfly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/274-cachorro-dachshund-atras-de-borboleta__dachshund_dog_chasing_a_butterfly.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund atras de borboleta",
+    "en": "Dachshund dog chasing a butterfly",
+    "slug": "cachorro-dachshund-atras-de-borboleta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 275,
+    "filename": "275-cachorro-dachshund-comendo-ração__dachshund_dog_eating_from_a_bowl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/275-cachorro-dachshund-comendo-ração__dachshund_dog_eating_from_a_bowl.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund comendo ração",
+    "en": "Dachshund dog eating from a bowl",
+    "slug": "cachorro-dachshund-comendo-ração",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 276,
+    "filename": "276-cachorro-dachshund-sorrindo-feliz__dachshund_dog_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/276-cachorro-dachshund-sorrindo-feliz__dachshund_dog_smiling_happily.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund sorrindo feliz",
+    "en": "Dachshund dog smiling happily",
+    "slug": "cachorro-dachshund-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 277,
+    "filename": "277-cachorro-dachshund-olhando-a-janela__dachshund_dog_looking_out_a_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/277-cachorro-dachshund-olhando-a-janela__dachshund_dog_looking_out_a_window.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund olhando a janela",
+    "en": "Dachshund dog looking out a window",
+    "slug": "cachorro-dachshund-olhando-a-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 278,
+    "filename": "278-cachorro-dachshund-segurando-osso__dachshund_dog_holding_a_bone.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/278-cachorro-dachshund-segurando-osso__dachshund_dog_holding_a_bone.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dachshund segurando osso",
+    "en": "Dachshund dog holding a bone",
+    "slug": "cachorro-dachshund-segurando-osso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 279,
+    "filename": "279-cachorro-shih-tzu-brincando-com-bola__shih_tzu_dog_playing_with_a_ball.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/279-cachorro-shih-tzu-brincando-com-bola__shih_tzu_dog_playing_with_a_ball.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu brincando com bola",
+    "en": "Shih tzu dog playing with a ball",
+    "slug": "cachorro-shih-tzu-brincando-com-bola",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 28,
     "filename": "28-periquito-dormindo-na-almofada__parakeet.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/28-periquito-dormindo-na-almofada__parakeet.png",
@@ -5353,6 +5661,116 @@
     "pt": "Periquito dormindo na almofada",
     "en": "Parakeet",
     "slug": "periquito-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 280,
+    "filename": "280-cachorro-shih-tzu-correndo-no-parque__shih_tzu_dog_running_in_the_park.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/280-cachorro-shih-tzu-correndo-no-parque__shih_tzu_dog_running_in_the_park.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu correndo no parque",
+    "en": "Shih tzu dog running in the park",
+    "slug": "cachorro-shih-tzu-correndo-no-parque",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 281,
+    "filename": "281-cachorro-shih-tzu-dormindo-na-cesta__shih_tzu_dog_sleeping_in_a_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/281-cachorro-shih-tzu-dormindo-na-cesta__shih_tzu_dog_sleeping_in_a_basket.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu dormindo na cesta",
+    "en": "Shih tzu dog sleeping in a basket",
+    "slug": "cachorro-shih-tzu-dormindo-na-cesta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 282,
+    "filename": "282-cachorro-shih-tzu-com-chapeu-de-festa__shih_tzu_dog_wearing_a_party_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/282-cachorro-shih-tzu-com-chapeu-de-festa__shih_tzu_dog_wearing_a_party_hat.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu com chapeu de festa",
+    "en": "Shih tzu dog wearing a party hat",
+    "slug": "cachorro-shih-tzu-com-chapeu-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 283,
+    "filename": "283-cachorro-shih-tzu-perto-da-casinha__shih_tzu_dog_next_to_a_dog_house.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/283-cachorro-shih-tzu-perto-da-casinha__shih_tzu_dog_next_to_a_dog_house.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu perto da casinha",
+    "en": "Shih tzu dog next to a dog house",
+    "slug": "cachorro-shih-tzu-perto-da-casinha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 284,
+    "filename": "284-cachorro-shih-tzu-atras-de-borboleta__shih_tzu_dog_chasing_a_butterfly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/284-cachorro-shih-tzu-atras-de-borboleta__shih_tzu_dog_chasing_a_butterfly.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu atras de borboleta",
+    "en": "Shih tzu dog chasing a butterfly",
+    "slug": "cachorro-shih-tzu-atras-de-borboleta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 285,
+    "filename": "285-cachorro-shih-tzu-comendo-ração__shih_tzu_dog_eating_from_a_bowl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/285-cachorro-shih-tzu-comendo-ração__shih_tzu_dog_eating_from_a_bowl.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu comendo ração",
+    "en": "Shih tzu dog eating from a bowl",
+    "slug": "cachorro-shih-tzu-comendo-ração",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 286,
+    "filename": "286-cachorro-shih-tzu-sorrindo-feliz__shih_tzu_dog_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/286-cachorro-shih-tzu-sorrindo-feliz__shih_tzu_dog_smiling_happily.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu sorrindo feliz",
+    "en": "Shih tzu dog smiling happily",
+    "slug": "cachorro-shih-tzu-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 287,
+    "filename": "287-cachorro-shih-tzu-olhando-a-janela__shih_tzu_dog_looking_out_a_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/287-cachorro-shih-tzu-olhando-a-janela__shih_tzu_dog_looking_out_a_window.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu olhando a janela",
+    "en": "Shih tzu dog looking out a window",
+    "slug": "cachorro-shih-tzu-olhando-a-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 288,
+    "filename": "288-cachorro-shih-tzu-segurando-osso__shih_tzu_dog_holding_a_bone.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/288-cachorro-shih-tzu-segurando-osso__shih_tzu_dog_holding_a_bone.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro shih tzu segurando osso",
+    "en": "Shih tzu dog holding a bone",
+    "slug": "cachorro-shih-tzu-segurando-osso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 289,
+    "filename": "289-cachorro-dalmata-brincando-com-bola__dalmatian_dog_playing_with_a_ball.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/289-cachorro-dalmata-brincando-com-bola__dalmatian_dog_playing_with_a_ball.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata brincando com bola",
+    "en": "Dalmatian dog playing with a ball",
+    "slug": "cachorro-dalmata-brincando-com-bola",
     "tier": "free",
     "isNew": false
   },
@@ -5368,6 +5786,116 @@
     "isNew": false
   },
   {
+    "index": 290,
+    "filename": "290-cachorro-dalmata-correndo-no-parque__dalmatian_dog_running_in_the_park.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/290-cachorro-dalmata-correndo-no-parque__dalmatian_dog_running_in_the_park.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata correndo no parque",
+    "en": "Dalmatian dog running in the park",
+    "slug": "cachorro-dalmata-correndo-no-parque",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 291,
+    "filename": "291-cachorro-dalmata-dormindo-na-cesta__dalmatian_dog_sleeping_in_a_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/291-cachorro-dalmata-dormindo-na-cesta__dalmatian_dog_sleeping_in_a_basket.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata dormindo na cesta",
+    "en": "Dalmatian dog sleeping in a basket",
+    "slug": "cachorro-dalmata-dormindo-na-cesta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 292,
+    "filename": "292-cachorro-dalmata-com-chapeu-de-festa__dalmatian_dog_wearing_a_party_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/292-cachorro-dalmata-com-chapeu-de-festa__dalmatian_dog_wearing_a_party_hat.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata com chapeu de festa",
+    "en": "Dalmatian dog wearing a party hat",
+    "slug": "cachorro-dalmata-com-chapeu-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 293,
+    "filename": "293-cachorro-dalmata-perto-da-casinha__dalmatian_dog_next_to_a_dog_house.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/293-cachorro-dalmata-perto-da-casinha__dalmatian_dog_next_to_a_dog_house.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata perto da casinha",
+    "en": "Dalmatian dog next to a dog house",
+    "slug": "cachorro-dalmata-perto-da-casinha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 294,
+    "filename": "294-cachorro-dalmata-atras-de-borboleta__dalmatian_dog_chasing_a_butterfly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/294-cachorro-dalmata-atras-de-borboleta__dalmatian_dog_chasing_a_butterfly.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata atras de borboleta",
+    "en": "Dalmatian dog chasing a butterfly",
+    "slug": "cachorro-dalmata-atras-de-borboleta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 295,
+    "filename": "295-cachorro-dalmata-comendo-ração__dalmatian_dog_eating_from_a_bowl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/295-cachorro-dalmata-comendo-ração__dalmatian_dog_eating_from_a_bowl.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata comendo ração",
+    "en": "Dalmatian dog eating from a bowl",
+    "slug": "cachorro-dalmata-comendo-ração",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 296,
+    "filename": "296-cachorro-dalmata-sorrindo-feliz__dalmatian_dog_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/296-cachorro-dalmata-sorrindo-feliz__dalmatian_dog_smiling_happily.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata sorrindo feliz",
+    "en": "Dalmatian dog smiling happily",
+    "slug": "cachorro-dalmata-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 297,
+    "filename": "297-cachorro-dalmata-olhando-a-janela__dalmatian_dog_looking_out_a_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/297-cachorro-dalmata-olhando-a-janela__dalmatian_dog_looking_out_a_window.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata olhando a janela",
+    "en": "Dalmatian dog looking out a window",
+    "slug": "cachorro-dalmata-olhando-a-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 298,
+    "filename": "298-cachorro-dalmata-segurando-osso__dalmatian_dog_holding_a_bone.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/298-cachorro-dalmata-segurando-osso__dalmatian_dog_holding_a_bone.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro dalmata segurando osso",
+    "en": "Dalmatian dog holding a bone",
+    "slug": "cachorro-dalmata-segurando-osso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 299,
+    "filename": "299-cachorro-border-collie-brincando-com-bola__border_collie_dog_playing_with_a_ball.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/299-cachorro-border-collie-brincando-com-bola__border_collie_dog_playing_with_a_ball.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie brincando com bola",
+    "en": "Border collie dog playing with a ball",
+    "slug": "cachorro-border-collie-brincando-com-bola",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 30,
     "filename": "30-cachorrinho-dormindo-na-almofada__puppy.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/30-cachorrinho-dormindo-na-almofada__puppy.png",
@@ -5375,6 +5903,116 @@
     "pt": "Cachorrinho dormindo na almofada",
     "en": "Puppy",
     "slug": "cachorrinho-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 300,
+    "filename": "300-cachorro-border-collie-correndo-no-parque__border_collie_dog_running_in_the_park.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/300-cachorro-border-collie-correndo-no-parque__border_collie_dog_running_in_the_park.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie correndo no parque",
+    "en": "Border collie dog running in the park",
+    "slug": "cachorro-border-collie-correndo-no-parque",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 301,
+    "filename": "301-cachorro-border-collie-dormindo-na-cesta__border_collie_dog_sleeping_in_a_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/301-cachorro-border-collie-dormindo-na-cesta__border_collie_dog_sleeping_in_a_basket.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie dormindo na cesta",
+    "en": "Border collie dog sleeping in a basket",
+    "slug": "cachorro-border-collie-dormindo-na-cesta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 302,
+    "filename": "302-cachorro-border-collie-com-chapeu-de-festa__border_collie_dog_wearing_a_party_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/302-cachorro-border-collie-com-chapeu-de-festa__border_collie_dog_wearing_a_party_hat.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie com chapeu de festa",
+    "en": "Border collie dog wearing a party hat",
+    "slug": "cachorro-border-collie-com-chapeu-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 303,
+    "filename": "303-cachorro-border-collie-perto-da-casinha__border_collie_dog_next_to_a_dog_house.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/303-cachorro-border-collie-perto-da-casinha__border_collie_dog_next_to_a_dog_house.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie perto da casinha",
+    "en": "Border collie dog next to a dog house",
+    "slug": "cachorro-border-collie-perto-da-casinha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 304,
+    "filename": "304-cachorro-border-collie-atras-de-borboleta__border_collie_dog_chasing_a_butterfly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/304-cachorro-border-collie-atras-de-borboleta__border_collie_dog_chasing_a_butterfly.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie atras de borboleta",
+    "en": "Border collie dog chasing a butterfly",
+    "slug": "cachorro-border-collie-atras-de-borboleta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 305,
+    "filename": "305-cachorro-border-collie-comendo-ração__border_collie_dog_eating_from_a_bowl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/305-cachorro-border-collie-comendo-ração__border_collie_dog_eating_from_a_bowl.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie comendo ração",
+    "en": "Border collie dog eating from a bowl",
+    "slug": "cachorro-border-collie-comendo-ração",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 306,
+    "filename": "306-cachorro-border-collie-sorrindo-feliz__border_collie_dog_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/306-cachorro-border-collie-sorrindo-feliz__border_collie_dog_smiling_happily.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie sorrindo feliz",
+    "en": "Border collie dog smiling happily",
+    "slug": "cachorro-border-collie-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 307,
+    "filename": "307-cachorro-border-collie-olhando-a-janela__border_collie_dog_looking_out_a_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/307-cachorro-border-collie-olhando-a-janela__border_collie_dog_looking_out_a_window.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie olhando a janela",
+    "en": "Border collie dog looking out a window",
+    "slug": "cachorro-border-collie-olhando-a-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 308,
+    "filename": "308-cachorro-border-collie-segurando-osso__border_collie_dog_holding_a_bone.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/308-cachorro-border-collie-segurando-osso__border_collie_dog_holding_a_bone.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro border collie segurando osso",
+    "en": "Border collie dog holding a bone",
+    "slug": "cachorro-border-collie-segurando-osso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 309,
+    "filename": "309-cachorro-vira-lata-brincando-com-bola__cute_mixed_breed_dog_playing_with_a_ball.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/309-cachorro-vira-lata-brincando-com-bola__cute_mixed_breed_dog_playing_with_a_ball.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata brincando com bola",
+    "en": "Cute mixed breed dog playing with a ball",
+    "slug": "cachorro-vira-lata-brincando-com-bola",
     "tier": "free",
     "isNew": false
   },
@@ -5390,6 +6028,116 @@
     "isNew": false
   },
   {
+    "index": 310,
+    "filename": "310-cachorro-vira-lata-correndo-no-parque__cute_mixed_breed_dog_running_in_the_park.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/310-cachorro-vira-lata-correndo-no-parque__cute_mixed_breed_dog_running_in_the_park.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata correndo no parque",
+    "en": "Cute mixed breed dog running in the park",
+    "slug": "cachorro-vira-lata-correndo-no-parque",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 311,
+    "filename": "311-cachorro-vira-lata-dormindo-na-cesta__cute_mixed_breed_dog_sleeping_in_a_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/311-cachorro-vira-lata-dormindo-na-cesta__cute_mixed_breed_dog_sleeping_in_a_basket.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata dormindo na cesta",
+    "en": "Cute mixed breed dog sleeping in a basket",
+    "slug": "cachorro-vira-lata-dormindo-na-cesta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 312,
+    "filename": "312-cachorro-vira-lata-com-chapeu-de-festa__cute_mixed_breed_dog_wearing_a_party_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/312-cachorro-vira-lata-com-chapeu-de-festa__cute_mixed_breed_dog_wearing_a_party_hat.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata com chapeu de festa",
+    "en": "Cute mixed breed dog wearing a party hat",
+    "slug": "cachorro-vira-lata-com-chapeu-de-festa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 313,
+    "filename": "313-cachorro-vira-lata-perto-da-casinha__cute_mixed_breed_dog_next_to_a_dog_house.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/313-cachorro-vira-lata-perto-da-casinha__cute_mixed_breed_dog_next_to_a_dog_house.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata perto da casinha",
+    "en": "Cute mixed breed dog next to a dog house",
+    "slug": "cachorro-vira-lata-perto-da-casinha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 314,
+    "filename": "314-cachorro-vira-lata-atras-de-borboleta__cute_mixed_breed_dog_chasing_a_butterfly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/314-cachorro-vira-lata-atras-de-borboleta__cute_mixed_breed_dog_chasing_a_butterfly.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata atras de borboleta",
+    "en": "Cute mixed breed dog chasing a butterfly",
+    "slug": "cachorro-vira-lata-atras-de-borboleta",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 315,
+    "filename": "315-cachorro-vira-lata-comendo-ração__cute_mixed_breed_dog_eating_from_a_bowl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/315-cachorro-vira-lata-comendo-ração__cute_mixed_breed_dog_eating_from_a_bowl.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata comendo ração",
+    "en": "Cute mixed breed dog eating from a bowl",
+    "slug": "cachorro-vira-lata-comendo-ração",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 316,
+    "filename": "316-cachorro-vira-lata-sorrindo-feliz__cute_mixed_breed_dog_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/316-cachorro-vira-lata-sorrindo-feliz__cute_mixed_breed_dog_smiling_happily.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata sorrindo feliz",
+    "en": "Cute mixed breed dog smiling happily",
+    "slug": "cachorro-vira-lata-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 317,
+    "filename": "317-cachorro-vira-lata-olhando-a-janela__cute_mixed_breed_dog_looking_out_a_window.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/317-cachorro-vira-lata-olhando-a-janela__cute_mixed_breed_dog_looking_out_a_window.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata olhando a janela",
+    "en": "Cute mixed breed dog looking out a window",
+    "slug": "cachorro-vira-lata-olhando-a-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 318,
+    "filename": "318-cachorro-vira-lata-segurando-osso__cute_mixed_breed_dog_holding_a_bone.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/318-cachorro-vira-lata-segurando-osso__cute_mixed_breed_dog_holding_a_bone.png",
+    "category": "animais-domesticos",
+    "pt": "Cachorro vira lata segurando osso",
+    "en": "Cute mixed breed dog holding a bone",
+    "slug": "cachorro-vira-lata-segurando-osso",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 319,
+    "filename": "319-gato-gato-persa-com-brinquedo-de-rato__persian_cat_chasing_a_mouse_toy.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/319-gato-gato-persa-com-brinquedo-de-rato__persian_cat_chasing_a_mouse_toy.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa com brinquedo de rato",
+    "en": "Persian cat chasing a mouse toy",
+    "slug": "gato-gato-persa-com-brinquedo-de-rato",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 32,
     "filename": "32-cachorro-comendo-petisco__dog.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/32-cachorro-comendo-petisco__dog.png",
@@ -5397,6 +6145,83 @@
     "pt": "Cachorro comendo petisco",
     "en": "Dog",
     "slug": "cachorro-comendo-petisco",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 320,
+    "filename": "320-gato-gato-persa-dormindo-na-almofada__persian_cat_sleeping_on_a_cushion.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/320-gato-gato-persa-dormindo-na-almofada__persian_cat_sleeping_on_a_cushion.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa dormindo na almofada",
+    "en": "Persian cat sleeping on a cushion",
+    "slug": "gato-gato-persa-dormindo-na-almofada",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 321,
+    "filename": "321-gato-gato-persa-com-novelo-de-la__persian_cat_playing_with_a_ball_of_yarn.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/321-gato-gato-persa-com-novelo-de-la__persian_cat_playing_with_a_ball_of_yarn.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa com novelo de la",
+    "en": "Persian cat playing with a ball of yarn",
+    "slug": "gato-gato-persa-com-novelo-de-la",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 322,
+    "filename": "322-gato-gato-persa-na-beira-da-janela__persian_cat_sitting_on_a_window_sill.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/322-gato-gato-persa-na-beira-da-janela__persian_cat_sitting_on_a_window_sill.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa na beira da janela",
+    "en": "Persian cat sitting on a window sill",
+    "slug": "gato-gato-persa-na-beira-da-janela",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 323,
+    "filename": "323-gato-gato-persa-com-mini-coroa__persian_cat_wearing_a_tiny_crown.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/323-gato-gato-persa-com-mini-coroa__persian_cat_wearing_a_tiny_crown.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa com mini coroa",
+    "en": "Persian cat wearing a tiny crown",
+    "slug": "gato-gato-persa-com-mini-coroa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 324,
+    "filename": "324-gato-gato-persa-subindo-arranhador__persian_cat_climbing_a_cat_tree.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/324-gato-gato-persa-subindo-arranhador__persian_cat_climbing_a_cat_tree.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa subindo arranhador",
+    "en": "Persian cat climbing a cat tree",
+    "slug": "gato-gato-persa-subindo-arranhador",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 325,
+    "filename": "325-gato-gato-persa-bebendo-leite__persian_cat_drinking_milk_from_a_saucer.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/325-gato-gato-persa-bebendo-leite__persian_cat_drinking_milk_from_a_saucer.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa bebendo leite",
+    "en": "Persian cat drinking milk from a saucer",
+    "slug": "gato-gato-persa-bebendo-leite",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 326,
+    "filename": "326-gato-gato-persa-olhando-curioso__persian_cat_looking_curious.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/326-gato-gato-persa-olhando-curioso__persian_cat_looking_curious.png",
+    "category": "animais-domesticos",
+    "pt": "Gato gato persa olhando curioso",
+    "en": "Persian cat looking curious",
+    "slug": "gato-gato-persa-olhando-curioso",
     "tier": "free",
     "isNew": false
   },

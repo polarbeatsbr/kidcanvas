@@ -54,3 +54,58 @@
 [2026-06-17 03:30:19] Rebuilding catalog and drawings database...
 [2026-06-17 03:30:20] Build successful!
 [2026-06-17 03:30:20] Committing and pushing to origin main...
+[2026-06-17 03:30:23] Push successful! Vercel will deploy in production.
+[2026-06-17 03:30:24] [51/3680] Generated: animais-domesticos/219-cachorro-chihuahua-brincando-com-bola__chihuahua_dog_playing_with_a_ball.png
+[2026-06-17 03:30:25] [52/3680] Generated: animais-domesticos/220-cachorro-chihuahua-correndo-no-parque__chihuahua_dog_running_in_the_park.png
+[2026-06-17 03:30:26] [53/3680] Generated: animais-domesticos/221-cachorro-chihuahua-dormindo-na-cesta__chihuahua_dog_sleeping_in_a_basket.png
+[2026-06-17 03:30:28] [54/3680] Generated: animais-domesticos/222-cachorro-chihuahua-com-chapeu-de-festa__chihuahua_dog_wearing_a_party_hat.png
+[2026-06-17 03:30:29] [55/3680] Generated: animais-domesticos/223-cachorro-chihuahua-perto-da-casinha__chihuahua_dog_next_to_a_dog_house.png
+[2026-06-17 03:30:30] [56/3680] Generated: animais-domesticos/224-cachorro-chihuahua-atras-de-borboleta__chihuahua_dog_chasing_a_butterfly.png
+[2026-06-17 03:30:32] [57/3680] Generated: animais-domesticos/225-cachorro-chihuahua-comendo-ração__chihuahua_dog_eating_from_a_bowl.png
+[2026-06-17 03:30:33] [58/3680] Generated: animais-domesticos/226-cachorro-chihuahua-sorrindo-feliz__chihuahua_dog_smiling_happily.png
+[2026-06-17 03:30:35] [59/3680] Generated: animais-domesticos/227-cachorro-chihuahua-olhando-a-janela__chihuahua_dog_looking_out_a_window.png
+[2026-06-17 03:30:36] [60/3680] Generated: animais-domesticos/228-cachorro-chihuahua-segurando-osso__chihuahua_dog_holding_a_bone.png
+[2026-06-17 03:30:37] [61/3680] Generated: animais-domesticos/231-cachorro-pug-dormindo-na-cesta__pug_dog_sleeping_in_a_basket.png
+[2026-06-17 03:30:38] [62/3680] Generated: animais-domesticos/232-cachorro-pug-com-chapeu-de-festa__pug_dog_wearing_a_party_hat.png
+[2026-06-17 03:30:40] [63/3680] Generated: animais-domesticos/229-cachorro-pug-brincando-com-bola__pug_dog_playing_with_a_ball.png
+[2026-06-17 03:30:41] [64/3680] Generated: animais-domesticos/230-cachorro-pug-correndo-no-parque__pug_dog_running_in_the_park.png
+[2026-06-17 03:30:42] [65/3680] Generated: animais-domesticos/233-cachorro-pug-perto-da-casinha__pug_dog_next_to_a_dog_house.png
+[2026-06-17 03:30:43] [66/3680] Generated: animais-domesticos/234-cachorro-pug-atras-de-borboleta__pug_dog_chasing_a_butterfly.png
+[2026-06-17 03:30:45] [67/3680] Generated: animais-domesticos/235-cachorro-pug-comendo-ração__pug_dog_eating_from_a_bowl.png
+[2026-06-17 03:30:47] [68/3680] Generated: animais-domesticos/236-cachorro-pug-sorrindo-feliz__pug_dog_smiling_happily.png
+[2026-06-17 03:30:48] [69/3680] Generated: animais-domesticos/237-cachorro-pug-olhando-a-janela__pug_dog_looking_out_a_window.png
+[2026-06-17 03:30:50] [70/3680] Generated: animais-domesticos/238-cachorro-pug-segurando-osso__pug_dog_holding_a_bone.png
+[2026-06-17 03:30:52] [71/3680] Generated: animais-domesticos/239-cachorro-labrador-brincando-com-bola__labrador_dog_playing_with_a_ball.png
+[2026-06-17 03:30:53] [72/3680] Generated: animais-domesticos/240-cachorro-labrador-correndo-no-parque__labrador_dog_running_in_the_park.png
+[2026-06-17 03:30:55] [73/3680] Generated: animais-domesticos/241-cachorro-labrador-dormindo-na-cesta__labrador_dog_sleeping_in_a_basket.png
+[2026-06-17 03:30:56] [74/3680] Generated: animais-domesticos/242-cachorro-labrador-com-chapeu-de-festa__labrador_dog_wearing_a_party_hat.png
+[2026-06-17 03:30:58] [75/3680] Generated: animais-domesticos/243-cachorro-labrador-perto-da-casinha__labrador_dog_next_to_a_dog_house.png
+[2026-06-17 03:30:59] [76/3680] Generated: animais-domesticos/244-cachorro-labrador-atras-de-borboleta__labrador_dog_chasing_a_butterfly.png
+[2026-06-17 03:31:00] [77/3680] Generated: animais-domesticos/245-cachorro-labrador-comendo-ração__labrador_dog_eating_from_a_bowl.png
+[2026-06-17 03:31:01] [78/3680] Generated: animais-domesticos/246-cachorro-labrador-sorrindo-feliz__labrador_dog_smiling_happily.png
+[2026-06-17 03:31:03] [79/3680] Generated: animais-domesticos/247-cachorro-labrador-olhando-a-janela__labrador_dog_looking_out_a_window.png
+[2026-06-17 03:31:04] [80/3680] Generated: animais-domesticos/248-cachorro-labrador-segurando-osso__labrador_dog_holding_a_bone.png
+[2026-06-17 03:31:06] [81/3680] Generated: animais-domesticos/249-cachorro-yorkshire-brincando-com-bola__yorkshire_dog_playing_with_a_ball.png
+[2026-06-17 03:31:07] [82/3680] Generated: animais-domesticos/250-cachorro-yorkshire-correndo-no-parque__yorkshire_dog_running_in_the_park.png
+[2026-06-17 03:31:08] [83/3680] Generated: animais-domesticos/251-cachorro-yorkshire-dormindo-na-cesta__yorkshire_dog_sleeping_in_a_basket.png
+[2026-06-17 03:31:10] [84/3680] Generated: animais-domesticos/252-cachorro-yorkshire-com-chapeu-de-festa__yorkshire_dog_wearing_a_party_hat.png
+[2026-06-17 03:31:12] [85/3680] Generated: animais-domesticos/253-cachorro-yorkshire-perto-da-casinha__yorkshire_dog_next_to_a_dog_house.png
+[2026-06-17 03:31:13] [86/3680] Generated: animais-domesticos/254-cachorro-yorkshire-atras-de-borboleta__yorkshire_dog_chasing_a_butterfly.png
+[2026-06-17 03:31:14] [87/3680] Generated: animais-domesticos/255-cachorro-yorkshire-comendo-ração__yorkshire_dog_eating_from_a_bowl.png
+[2026-06-17 03:31:15] [88/3680] Generated: animais-domesticos/256-cachorro-yorkshire-sorrindo-feliz__yorkshire_dog_smiling_happily.png
+[2026-06-17 03:31:16] [89/3680] Generated: animais-domesticos/257-cachorro-yorkshire-olhando-a-janela__yorkshire_dog_looking_out_a_window.png
+[2026-06-17 03:31:18] [90/3680] Generated: animais-domesticos/258-cachorro-yorkshire-segurando-osso__yorkshire_dog_holding_a_bone.png
+[2026-06-17 03:31:19] [91/3680] Generated: animais-domesticos/259-cachorro-husky-siberiano-brincando-com-bola__siberian_husky_dog_playing_with_a_ball.png
+[2026-06-17 03:31:21] [92/3680] Generated: animais-domesticos/260-cachorro-husky-siberiano-correndo-no-parque__siberian_husky_dog_running_in_the_park.png
+[2026-06-17 03:31:23] [93/3680] Generated: animais-domesticos/261-cachorro-husky-siberiano-dormindo-na-cesta__siberian_husky_dog_sleeping_in_a_basket.png
+[2026-06-17 03:31:24] [94/3680] Generated: animais-domesticos/262-cachorro-husky-siberiano-com-chapeu-de-festa__siberian_husky_dog_wearing_a_party_hat.png
+[2026-06-17 03:31:26] [95/3680] Generated: animais-domesticos/263-cachorro-husky-siberiano-perto-da-casinha__siberian_husky_dog_next_to_a_dog_house.png
+[2026-06-17 03:31:27] [96/3680] Generated: animais-domesticos/264-cachorro-husky-siberiano-atras-de-borboleta__siberian_husky_dog_chasing_a_butterfly.png
+[2026-06-17 03:31:28] [97/3680] Generated: animais-domesticos/265-cachorro-husky-siberiano-comendo-ração__siberian_husky_dog_eating_from_a_bowl.png
+[2026-06-17 03:31:30] [98/3680] Generated: animais-domesticos/266-cachorro-husky-siberiano-sorrindo-feliz__siberian_husky_dog_smiling_happily.png
+[2026-06-17 03:31:31] [99/3680] Generated: animais-domesticos/267-cachorro-husky-siberiano-olhando-a-janela__siberian_husky_dog_looking_out_a_window.png
+[2026-06-17 03:31:33] [100/3680] Generated: animais-domesticos/268-cachorro-husky-siberiano-segurando-osso__siberian_husky_dog_holding_a_bone.png
+[2026-06-17 03:31:33] Batch 2 completed (100 drawings). Triggering build & push...
+[2026-06-17 03:31:33] Rebuilding catalog and drawings database...
+[2026-06-17 03:31:33] Build successful!
+[2026-06-17 03:31:33] Committing and pushing to origin main...
