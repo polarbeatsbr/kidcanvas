@@ -3039,3 +3039,58 @@
 [2026-06-17 04:37:50] Rebuilding catalog and drawings database...
 [2026-06-17 04:37:51] Build successful!
 [2026-06-17 04:37:51] Committing and pushing to origin main...
+[2026-06-17 04:37:54] Push successful! Vercel will deploy in production.
+[2026-06-17 04:37:55] [1201/4400] Generated: veiculos/833-trator-trator-de-jardim-perto-do-celeiro__garden_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:37:56] [1202/4400] Generated: veiculos/834-trator-trator-de-jardim-subindo-morro-de-lama__garden_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:37:58] [1203/4400] Generated: veiculos/835-trator-trator-de-jardim-regando-plantacao__garden_tractor_watering_crops.png
+[2026-06-17 04:37:59] [1204/4400] Generated: veiculos/836-trator-trator-de-jardim-acenando-rodas-alegre__garden_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:38:00] [1205/4400] Generated: veiculos/837-trator-trator-industrial-arando-a-terra__industrial_tractor_plowing_a_farm_field.png
+[2026-06-17 04:38:01] [1206/4400] Generated: veiculos/838-trator-trator-industrial-carregando-feno__industrial_tractor_carrying_a_bundle_of_hay.png
+[2026-06-17 04:38:03] [1207/4400] Generated: veiculos/839-trator-trator-industrial-perto-do-celeiro__industrial_tractor_parked_next_to_a_red_barn.png
+[2026-06-17 04:38:05] [1208/4400] Generated: veiculos/840-trator-trator-industrial-subindo-morro-de-lama__industrial_tractor_driving_up_a_muddy_hill.png
+[2026-06-17 04:38:06] [1209/4400] Generated: veiculos/841-trator-trator-industrial-regando-plantacao__industrial_tractor_watering_crops.png
+[2026-06-17 04:38:07] [1210/4400] Generated: veiculos/842-trator-trator-industrial-acenando-rodas-alegre__industrial_tractor_waving_its_wheels_happily.png
+[2026-06-17 04:38:09] [1211/4400] Generated: veiculos/843-escavadeira-escavadeira-pesada-cavando-buraco-fundo__heavy_excavator_digging_a_deep_hole.png
+[2026-06-17 04:38:10] [1212/4400] Generated: veiculos/844-escavadeira-escavadeira-pesada-pegando-areia__heavy_excavator_scooping_a_pile_of_sand.png
+[2026-06-17 04:38:12] [1213/4400] Generated: veiculos/845-escavadeira-escavadeira-pesada-no-canteiro-de-obras__heavy_excavator_parked_on_a_construction_site.png
+[2026-06-17 04:38:13] [1214/4400] Generated: veiculos/846-escavadeira-escavadeira-pesada-movendo-pedra-grande__heavy_excavator_moving_a_large_rock.png
+[2026-06-17 04:38:14] [1215/4400] Generated: veiculos/848-escavadeira-escavadeira-pesada-acenando-a-pa-gigante__heavy_excavator_waving_its_giant_bucket.png
+[2026-06-17 04:38:16] [1216/4400] Generated: veiculos/847-escavadeira-escavadeira-pesada-perto-de-toras__heavy_excavator_working_next_to_a_pile_of_logs.png
+[2026-06-17 04:38:17] [1217/4400] Generated: veiculos/849-escavadeira-escavadeira-de-esteira-cavando-buraco-fundo__crawler_excavator_digging_a_deep_hole.png
+[2026-06-17 04:38:18] [1218/4400] Generated: veiculos/850-escavadeira-escavadeira-de-esteira-pegando-areia__crawler_excavator_scooping_a_pile_of_sand.png
+[2026-06-17 04:38:19] [1219/4400] Generated: veiculos/851-escavadeira-escavadeira-de-esteira-no-canteiro-de-obras__crawler_excavator_parked_on_a_construction_site.png
+[2026-06-17 04:38:20] [1220/4400] Generated: veiculos/852-escavadeira-escavadeira-de-esteira-movendo-pedra-grande__crawler_excavator_moving_a_large_rock.png
+[2026-06-17 04:38:22] [1221/4400] Generated: veiculos/853-escavadeira-escavadeira-de-esteira-perto-de-toras__crawler_excavator_working_next_to_a_pile_of_logs.png
+[2026-06-17 04:38:23] [1222/4400] Generated: veiculos/854-escavadeira-escavadeira-de-esteira-acenando-a-pa-gigante__crawler_excavator_waving_its_giant_bucket.png
+[2026-06-17 04:38:25] [1223/4400] Generated: veiculos/855-escavadeira-retroescavadeira-cavando-buraco-fundo__backhoe_loader_digging_a_deep_hole.png
+[2026-06-17 04:38:27] [1224/4400] Generated: veiculos/856-escavadeira-retroescavadeira-pegando-areia__backhoe_loader_scooping_a_pile_of_sand.png
+[2026-06-17 04:38:28] [1225/4400] Generated: veiculos/858-escavadeira-retroescavadeira-movendo-pedra-grande__backhoe_loader_moving_a_large_rock.png
+[2026-06-17 04:38:30] [1226/4400] Generated: veiculos/857-escavadeira-retroescavadeira-no-canteiro-de-obras__backhoe_loader_parked_on_a_construction_site.png
+[2026-06-17 04:38:32] [1227/4400] Generated: veiculos/859-escavadeira-retroescavadeira-perto-de-toras__backhoe_loader_working_next_to_a_pile_of_logs.png
+[2026-06-17 04:38:34] [1228/4400] Generated: veiculos/860-escavadeira-retroescavadeira-acenando-a-pa-gigante__backhoe_loader_waving_its_giant_bucket.png
+[2026-06-17 04:38:35] [1229/4400] Generated: veiculos/861-escavadeira-mini-escavadeira-cavando-buraco-fundo__mini_excavator_digging_a_deep_hole.png
+[2026-06-17 04:38:36] [1230/4400] Generated: veiculos/862-escavadeira-mini-escavadeira-pegando-areia__mini_excavator_scooping_a_pile_of_sand.png
+[2026-06-17 04:38:37] [1231/4400] Generated: veiculos/863-escavadeira-mini-escavadeira-no-canteiro-de-obras__mini_excavator_parked_on_a_construction_site.png
+[2026-06-17 04:38:39] [1232/4400] Generated: veiculos/864-escavadeira-mini-escavadeira-movendo-pedra-grande__mini_excavator_moving_a_large_rock.png
+[2026-06-17 04:38:40] [1233/4400] Generated: veiculos/866-escavadeira-mini-escavadeira-acenando-a-pa-gigante__mini_excavator_waving_its_giant_bucket.png
+[2026-06-17 04:38:41] [1234/4400] Generated: veiculos/865-escavadeira-mini-escavadeira-perto-de-toras__mini_excavator_working_next_to_a_pile_of_logs.png
+[2026-06-17 04:38:42] [1235/4400] Generated: veiculos/867-escavadeira-escavadeira-de-demolicao-cavando-buraco-fundo__demolition_excavator_digging_a_deep_hole.png
+[2026-06-17 04:38:44] [1236/4400] Generated: veiculos/868-escavadeira-escavadeira-de-demolicao-pegando-areia__demolition_excavator_scooping_a_pile_of_sand.png
+[2026-06-17 04:38:46] [1237/4400] Generated: veiculos/869-escavadeira-escavadeira-de-demolicao-no-canteiro-de-obras__demolition_excavator_parked_on_a_construction_site.png
+[2026-06-17 04:38:47] [1238/4400] Generated: veiculos/870-escavadeira-escavadeira-de-demolicao-movendo-pedra-grande__demolition_excavator_moving_a_large_rock.png
+[2026-06-17 04:38:48] [1239/4400] Generated: veiculos/871-escavadeira-escavadeira-de-demolicao-perto-de-toras__demolition_excavator_working_next_to_a_pile_of_logs.png
+[2026-06-17 04:38:49] [1240/4400] Generated: veiculos/872-escavadeira-escavadeira-de-demolicao-acenando-a-pa-gigante__demolition_excavator_waving_its_giant_bucket.png
+[2026-06-17 04:38:51] [1241/4400] Generated: veiculos/873-escavadeira-escavadeira-com-rodas-cavando-buraco-fundo__wheeled_excavator_digging_a_deep_hole.png
+[2026-06-17 04:38:52] [1242/4400] Generated: veiculos/874-escavadeira-escavadeira-com-rodas-pegando-areia__wheeled_excavator_scooping_a_pile_of_sand.png
+[2026-06-17 04:38:53] [1243/4400] Generated: veiculos/875-escavadeira-escavadeira-com-rodas-no-canteiro-de-obras__wheeled_excavator_parked_on_a_construction_site.png
+[2026-06-17 04:38:54] [1244/4400] Generated: veiculos/876-escavadeira-escavadeira-com-rodas-movendo-pedra-grande__wheeled_excavator_moving_a_large_rock.png
+[2026-06-17 04:38:56] [1245/4400] Generated: veiculos/877-escavadeira-escavadeira-com-rodas-perto-de-toras__wheeled_excavator_working_next_to_a_pile_of_logs.png
+[2026-06-17 04:38:58] [1246/4400] Generated: veiculos/878-escavadeira-escavadeira-com-rodas-acenando-a-pa-gigante__wheeled_excavator_waving_its_giant_bucket.png
+[2026-06-17 04:38:59] [1247/4400] Generated: veiculos/879-escavadeira-escavadeira-de-brinquedo-cavando-buraco-fundo__cute_toy_excavator_digging_a_deep_hole.png
+[2026-06-17 04:39:00] [1248/4400] Generated: veiculos/880-escavadeira-escavadeira-de-brinquedo-pegando-areia__cute_toy_excavator_scooping_a_pile_of_sand.png
+[2026-06-17 04:39:01] [1249/4400] Generated: veiculos/881-escavadeira-escavadeira-de-brinquedo-no-canteiro-de-obras__cute_toy_excavator_parked_on_a_construction_site.png
+[2026-06-17 04:39:03] [1250/4400] Generated: veiculos/882-escavadeira-escavadeira-de-brinquedo-movendo-pedra-grande__cute_toy_excavator_moving_a_large_rock.png
+[2026-06-17 04:39:03] Batch 25 completed (1250 drawings). Triggering build & push...
+[2026-06-17 04:39:03] Rebuilding catalog and drawings database...
+[2026-06-17 04:39:04] Build successful!
+[2026-06-17 04:39:04] Committing and pushing to origin main...
