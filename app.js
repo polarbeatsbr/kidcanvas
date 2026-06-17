@@ -1029,7 +1029,15 @@ function navigate(path, pushState = true) {
         renderPintarOnlineView();
     } else if (cleanPath.startsWith('/categoria/')) {
         const categorySlug = cleanPath.replace('/categoria/', '');
-        if (!currentUser && !FREE_CATEGORIES.includes(categorySlug)) {
+        const isNovidades = categorySlug === 'novidades';
+        const userPlan = currentUser ? (currentUser.plan || 'Aprendiz') : 'Grátis';
+        const isNovidadesLocked = isNovidades && (!currentUser || userPlan === 'Aprendiz' || userPlan === 'Grátis');
+        
+        if (isNovidadesLocked) {
+            showToast('Esta categoria requer o plano Artista! Faça upgrade para acessar. 🚀', 'info');
+            renderPlanosView();
+            cleanPath = '/planos';
+        } else if (!currentUser && !FREE_CATEGORIES.includes(categorySlug)) {
             showToast('Cadastre-se grátis para desbloquear todas as categorias! 🎨', 'info');
             openAuthModal();
             renderHomeView();
@@ -1520,22 +1528,48 @@ function renderHomeView() {
                 ? allDrawings.filter(d => d.isNew).length
                 : allDrawings.filter(d => d.category === slug).length;
             
-            const isLocked = !currentUser && !FREE_CATEGORIES.includes(slug);
+            let isLocked = false;
+            let lockType = ''; // 'auth' ou 'upgrade'
+            
+            if (slug === 'novidades') {
+                const userPlan = currentUser ? (currentUser.plan || 'Aprendiz') : 'Grátis';
+                if (!currentUser || userPlan === 'Aprendiz' || userPlan === 'Grátis') {
+                    isLocked = true;
+                    lockType = 'upgrade';
+                }
+            } else if (!currentUser && !FREE_CATEGORIES.includes(slug)) {
+                isLocked = true;
+                lockType = 'auth';
+            }
+            
             const card = document.createElement('a');
             
             if (isLocked) {
                 card.href = '#';
                 card.className = 'category-card locked';
-                card.innerHTML = `
-                    <span class="category-icon">${catInfo.emoji}<i class="fa-solid fa-lock locked-badge"></i></span>
-                    <span class="category-name">${catInfo.name}</span>
-                    <span class="category-count">Cadastre-se grátis para desbloquear</span>
-                `;
-                card.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    showToast('Cadastre-se grátis para desbloquear todas as categorias! 🎨', 'info');
-                    openAuthModal();
-                });
+                if (lockType === 'upgrade') {
+                    card.innerHTML = `
+                        <span class="category-icon">${catInfo.emoji}<i class="fa-solid fa-lock locked-badge"></i></span>
+                        <span class="category-name">${catInfo.name}</span>
+                        <span class="category-count">Requer Plano Artista</span>
+                    `;
+                    card.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        showToast('Esta categoria requer o plano Artista! Faça upgrade para acessar. 🚀', 'info');
+                        navigate('/planos');
+                    });
+                } else {
+                    card.innerHTML = `
+                        <span class="category-icon">${catInfo.emoji}<i class="fa-solid fa-lock locked-badge"></i></span>
+                        <span class="category-name">${catInfo.name}</span>
+                        <span class="category-count">Cadastre-se grátis para desbloquear</span>
+                    `;
+                    card.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        showToast('Cadastre-se grátis para desbloquear todas as categorias! 🎨', 'info');
+                        openAuthModal();
+                    });
+                }
             } else {
                 card.href = `/categoria/${slug}`;
                 card.className = 'category-card';
@@ -1710,22 +1744,48 @@ function renderCategoriasView() {
                 ? allDrawings.filter(d => d.isNew).length
                 : allDrawings.filter(d => d.category === slug).length;
             
-            const isLocked = !currentUser && !FREE_CATEGORIES.includes(slug);
+            let isLocked = false;
+            let lockType = ''; // 'auth' ou 'upgrade'
+            
+            if (slug === 'novidades') {
+                const userPlan = currentUser ? (currentUser.plan || 'Aprendiz') : 'Grátis';
+                if (!currentUser || userPlan === 'Aprendiz' || userPlan === 'Grátis') {
+                    isLocked = true;
+                    lockType = 'upgrade';
+                }
+            } else if (!currentUser && !FREE_CATEGORIES.includes(slug)) {
+                isLocked = true;
+                lockType = 'auth';
+            }
+            
             const card = document.createElement('a');
             
             if (isLocked) {
                 card.href = '#';
                 card.className = 'category-card locked';
-                card.innerHTML = `
-                    <span class="category-icon">${catInfo.emoji}<i class="fa-solid fa-lock locked-badge"></i></span>
-                    <span class="category-name">${catInfo.name}</span>
-                    <span class="category-count">Cadastre-se grátis para desbloquear</span>
-                `;
-                card.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    showToast('Cadastre-se grátis para desbloquear todas as categorias! 🎨', 'info');
-                    openAuthModal();
-                });
+                if (lockType === 'upgrade') {
+                    card.innerHTML = `
+                        <span class="category-icon">${catInfo.emoji}<i class="fa-solid fa-lock locked-badge"></i></span>
+                        <span class="category-name">${catInfo.name}</span>
+                        <span class="category-count">Requer Plano Artista</span>
+                    `;
+                    card.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        showToast('Esta categoria requer o plano Artista! Faça upgrade para acessar. 🚀', 'info');
+                        navigate('/planos');
+                    });
+                } else {
+                    card.innerHTML = `
+                        <span class="category-icon">${catInfo.emoji}<i class="fa-solid fa-lock locked-badge"></i></span>
+                        <span class="category-name">${catInfo.name}</span>
+                        <span class="category-count">Cadastre-se grátis para desbloquear</span>
+                    `;
+                    card.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        showToast('Cadastre-se grátis para desbloquear todas as categorias! 🎨', 'info');
+                        openAuthModal();
+                    });
+                }
             } else {
                 card.href = `/categoria/${slug}`;
                 card.className = 'category-card';
