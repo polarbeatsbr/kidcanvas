@@ -5110,6 +5110,11 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
     }
 
     function generatePreloadedPDF(storyKey) {
+        if (!currentUser) {
+            showToast('Faça login ou crie uma conta grátis para baixar histórias em PDF! 📚', 'info');
+            openAuthModal();
+            return;
+        }
         const story = PRELOADED_STORIES[storyKey];
         if (!story) return;
         generatePDFFromData(story.characterName, story.coverUrl, story.paragraphs, 'btnDownloadPreloadedPDF');
@@ -5328,6 +5333,11 @@ async function downloadSavedImage(url, prompt) {
 }
 
 function printStoryObj(story) {
+    if (!currentUser) {
+        showToast('Faça login ou crie uma conta grátis para imprimir histórias! 📚', 'info');
+        openAuthModal();
+        return;
+    }
     const printWindow = window.open('', '_blank');
     let html = `
         <html>
@@ -8350,6 +8360,11 @@ async function viewPublicStory(url) {
     const btnDownload = document.getElementById('btnDownloadPublicPDF');
     if (btnDownload) {
         btnDownload.onclick = () => {
+            if (!currentUser) {
+                showToast('Faça login ou crie uma conta grátis para baixar histórias em PDF! 📚', 'info');
+                openAuthModal();
+                return;
+            }
             generatePDFFromData(matchedStory.title, matchedStory.coverUrl || matchedStory.imageUrl || url, matchedStory.paragraphs, 'btnDownloadPublicPDF');
         };
     }
@@ -8357,6 +8372,11 @@ async function viewPublicStory(url) {
     const btnPrint = document.getElementById('btnPrintPublicBook');
     if (btnPrint) {
         btnPrint.onclick = () => {
+            if (!currentUser) {
+                showToast('Faça login ou crie uma conta grátis para imprimir histórias! 📚', 'info');
+                openAuthModal();
+                return;
+            }
             const printWindow = window.open('', '_blank');
             let printHtml = `
                 <html>
