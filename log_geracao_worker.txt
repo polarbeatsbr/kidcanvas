@@ -5354,3 +5354,102 @@
 [2026-06-17 05:29:04] [3259/4400] Generated: praia-e-estacoes/49-verao-palmeira-fofa-aproveitando-o-calor__cute_palm_tree_enjoying_the_summer_weather.png
 [2026-06-17 05:29:06] [3260/4400] Generated: praia-e-estacoes/50-verao-palmeira-fofa-olhos-de-desenho-fofos__cute_palm_tree_smiling_with_cute_friendly_eyes.png
 [2026-06-17 05:29:07] [3261/4400] Generated: praia-e-estacoes/51-praia-castelo-de-areia-de-praia-na-areia-da-praia__beach_sandcastle_sitting_on_a_sandy_beach.png
+[2026-06-17 06:07:36] === STARTING MASSIVE IMAGE GENERATION WORKER ===
+[2026-06-17 06:07:37] Total drawings to generate (including new Anime & Manga): 4400
+[2026-06-17 06:07:38] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:38] Failed to generate: animais-domesticos/969-cachorro-pastor-alemao-brincando-com-bola__german_shepherd_dog_playing_with_a_ball.png
+[2026-06-17 06:07:38] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:38] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:38] Failed to generate: animais-domesticos/973-cachorro-pastor-alemao-perto-da-casinha__german_shepherd_dog_next_to_a_dog_house.png
+[2026-06-17 06:07:38] Failed to generate: animais-domesticos/971-cachorro-pastor-alemao-dormindo-na-cesta__german_shepherd_dog_sleeping_in_a_basket.png
+[2026-06-17 06:07:38] Failed to generate: animais-domesticos/972-cachorro-pastor-alemao-com-chapeu-de-festa__german_shepherd_dog_wearing_a_party_hat.png
+[2026-06-17 06:07:38] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:38] Failed to generate: animais-domesticos/970-cachorro-pastor-alemao-correndo-no-parque__german_shepherd_dog_running_in_the_park.png
+[2026-06-17 06:07:39] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:39] Failed to generate: animais-domesticos/977-cachorro-pastor-alemao-olhando-a-janela__german_shepherd_dog_looking_out_a_window.png
+[2026-06-17 06:07:39] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:39] Failed to generate: animais-domesticos/975-cachorro-pastor-alemao-comendo-ração__german_shepherd_dog_eating_from_a_bowl.png
+[2026-06-17 06:07:39] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:39] Failed to generate: animais-domesticos/974-cachorro-pastor-alemao-atras-de-borboleta__german_shepherd_dog_chasing_a_butterfly.png
+[2026-06-17 06:07:39] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:39] Failed to generate: animais-domesticos/976-cachorro-pastor-alemao-sorrindo-feliz__german_shepherd_dog_smiling_happily.png
+[2026-06-17 06:07:39] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:39] Failed to generate: animais-domesticos/981-cachorro-golden-retriever-dormindo-na-cesta__golden_retriever_dog_sleeping_in_a_basket.png
+[2026-06-17 06:07:40] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:07:40] Failed to generate: animais-domesticos/983-cachorro-golden-retriever-perto-da-casinha__golden_retriever_dog_next_to_a_dog_house.png
+[2026-06-17 06:07:46] [1/4400] Generated: animais-domesticos/979-cachorro-golden-retriever-brincando-com-bola__golden_retriever_dog_playing_with_a_ball.png
+[2026-06-17 06:07:48] [2/4400] Generated: animais-domesticos/980-cachorro-golden-retriever-correndo-no-parque__golden_retriever_dog_running_in_the_park.png
+[2026-06-17 06:07:50] [3/4400] Generated: animais-domesticos/982-cachorro-golden-retriever-com-chapeu-de-festa__golden_retriever_dog_wearing_a_party_hat.png
+[2026-06-17 06:07:52] [4/4400] Generated: animais-domesticos/984-cachorro-golden-retriever-atras-de-borboleta__golden_retriever_dog_chasing_a_butterfly.png
+[2026-06-17 06:07:54] [5/4400] Generated: animais-domesticos/986-cachorro-golden-retriever-sorrindo-feliz__golden_retriever_dog_smiling_happily.png
+[2026-06-17 06:07:56] [6/4400] Generated: animais-domesticos/988-cachorro-golden-retriever-segurando-osso__golden_retriever_dog_holding_a_bone.png
+[2026-06-17 06:07:58] [7/4400] Generated: animais-domesticos/989-cachorro-poodle-brincando-com-bola__poodle_dog_playing_with_a_ball.png
+[2026-06-17 06:07:59] [8/4400] Generated: animais-domesticos/990-cachorro-poodle-correndo-no-parque__poodle_dog_running_in_the_park.png
+[2026-06-17 06:08:01] [9/4400] Generated: animais-domesticos/991-cachorro-poodle-dormindo-na-cesta__poodle_dog_sleeping_in_a_basket.png
+[2026-06-17 06:08:03] [10/4400] Generated: animais-domesticos/992-cachorro-poodle-com-chapeu-de-festa__poodle_dog_wearing_a_party_hat.png
+[2026-06-17 06:08:05] [11/4400] Generated: animais-domesticos/993-cachorro-poodle-perto-da-casinha__poodle_dog_next_to_a_dog_house.png
+[2026-06-17 06:08:07] [12/4400] Generated: animais-domesticos/994-cachorro-poodle-atras-de-borboleta__poodle_dog_chasing_a_butterfly.png
+[2026-06-17 06:08:10] [13/4400] Generated: animais-domesticos/995-cachorro-poodle-comendo-ração__poodle_dog_eating_from_a_bowl.png
+[2026-06-17 06:08:15] [14/4400] Generated: animais-domesticos/997-cachorro-poodle-olhando-a-janela__poodle_dog_looking_out_a_window.png
+[2026-06-17 06:08:18] ERROR downloading: HTTP Error 403: Forbidden
+[2026-06-17 06:08:19] [15/4400] Generated: animais-domesticos/998-cachorro-poodle-segurando-osso__poodle_dog_holding_a_bone.png
+[2026-06-17 06:08:19] Failed to generate: animais-domesticos/978-cachorro-pastor-alemao-segurando-osso__german_shepherd_dog_holding_a_bone.png
+[2026-06-17 06:08:23] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:08:24] ERROR downloading: HTTP Error 403: Forbidden
+[2026-06-17 06:08:24] [16/4400] Generated: animais-domesticos/999-cachorro-bulldog-brincando-com-bola__bulldog_playing_with_a_ball.png
+[2026-06-17 06:08:24] ERROR downloading: HTTP Error 403: Forbidden
+[2026-06-17 06:08:25] [17/4400] Generated: animais-domesticos/1000-cachorro-bulldog-correndo-no-parque__bulldog_running_in_the_park.png
+[2026-06-17 06:08:25] Failed to generate: animais-domesticos/1001-cachorro-bulldog-dormindo-na-cesta__bulldog_sleeping_in_a_basket.png
+[2026-06-17 06:08:25] Failed to generate: animais-domesticos/985-cachorro-golden-retriever-comendo-ração__golden_retriever_dog_eating_from_a_bowl.png
+[2026-06-17 06:08:25] Failed to generate: animais-domesticos/987-cachorro-golden-retriever-olhando-a-janela__golden_retriever_dog_looking_out_a_window.png
+[2026-06-17 06:08:29] ERROR starting Fal.ai task: HTTP Error 403: Forbidden
+[2026-06-17 06:08:30] [18/4400] Generated: animais-domesticos/1002-cachorro-bulldog-com-chapeu-de-festa__bulldog_wearing_a_party_hat.png
+[2026-06-17 06:08:32] [19/4400] Generated: animais-domesticos/1003-cachorro-bulldog-perto-da-casinha__bulldog_next_to_a_dog_house.png
+[2026-06-17 06:08:34] [20/4400] Generated: animais-domesticos/1004-cachorro-bulldog-atras-de-borboleta__bulldog_chasing_a_butterfly.png
+[2026-06-17 06:08:34] Failed to generate: animais-domesticos/1008-cachorro-bulldog-segurando-osso__bulldog_holding_a_bone.png
+[2026-06-17 06:08:35] [21/4400] Generated: animais-domesticos/1006-cachorro-bulldog-sorrindo-feliz__bulldog_smiling_happily.png
+[2026-06-17 06:08:37] [22/4400] Generated: animais-domesticos/1007-cachorro-bulldog-olhando-a-janela__bulldog_looking_out_a_window.png
+[2026-06-17 06:08:38] [23/4400] Generated: animais-domesticos/1009-cachorro-beagle-brincando-com-bola__beagle_dog_playing_with_a_ball.png
+[2026-06-17 06:08:40] [24/4400] Generated: animais-domesticos/1010-cachorro-beagle-correndo-no-parque__beagle_dog_running_in_the_park.png
+[2026-06-17 06:08:42] [25/4400] Generated: animais-domesticos/1011-cachorro-beagle-dormindo-na-cesta__beagle_dog_sleeping_in_a_basket.png
+[2026-06-17 06:08:44] [26/4400] Generated: animais-domesticos/1012-cachorro-beagle-com-chapeu-de-festa__beagle_dog_wearing_a_party_hat.png
+[2026-06-17 06:08:45] ERROR downloading: HTTP Error 403: Forbidden
+[2026-06-17 06:08:45] [27/4400] Generated: animais-domesticos/1013-cachorro-beagle-perto-da-casinha__beagle_dog_next_to_a_dog_house.png
+[2026-06-17 06:08:47] [28/4400] Generated: animais-domesticos/1014-cachorro-beagle-atras-de-borboleta__beagle_dog_chasing_a_butterfly.png
+[2026-06-17 06:08:49] [29/4400] Generated: animais-domesticos/1015-cachorro-beagle-comendo-ração__beagle_dog_eating_from_a_bowl.png
+[2026-06-17 06:08:49] Failed to generate: animais-domesticos/996-cachorro-poodle-sorrindo-feliz__poodle_dog_smiling_happily.png
+[2026-06-17 06:08:50] [30/4400] Generated: animais-domesticos/1017-cachorro-beagle-olhando-a-janela__beagle_dog_looking_out_a_window.png
+[2026-06-17 06:08:51] [31/4400] Generated: animais-domesticos/1016-cachorro-beagle-sorrindo-feliz__beagle_dog_smiling_happily.png
+[2026-06-17 06:08:53] [32/4400] Generated: animais-domesticos/1018-cachorro-beagle-segurando-osso__beagle_dog_holding_a_bone.png
+[2026-06-17 06:08:55] [33/4400] Generated: animais-domesticos/1019-cachorro-chihuahua-brincando-com-bola__chihuahua_dog_playing_with_a_ball.png
+[2026-06-17 06:08:56] [34/4400] Generated: animais-domesticos/1020-cachorro-chihuahua-correndo-no-parque__chihuahua_dog_running_in_the_park.png
+[2026-06-17 06:08:58] [35/4400] Generated: animais-domesticos/1021-cachorro-chihuahua-dormindo-na-cesta__chihuahua_dog_sleeping_in_a_basket.png
+[2026-06-17 06:08:59] [36/4400] Generated: animais-domesticos/1022-cachorro-chihuahua-com-chapeu-de-festa__chihuahua_dog_wearing_a_party_hat.png
+[2026-06-17 06:09:01] [37/4400] Generated: animais-domesticos/1023-cachorro-chihuahua-perto-da-casinha__chihuahua_dog_next_to_a_dog_house.png
+[2026-06-17 06:09:03] [38/4400] Generated: animais-domesticos/1025-cachorro-chihuahua-comendo-ração__chihuahua_dog_eating_from_a_bowl.png
+[2026-06-17 06:09:04] [39/4400] Generated: animais-domesticos/1026-cachorro-chihuahua-sorrindo-feliz__chihuahua_dog_smiling_happily.png
+[2026-06-17 06:09:04] ERROR downloading: HTTP Error 403: Forbidden
+[2026-06-17 06:09:06] [40/4400] Generated: animais-domesticos/1027-cachorro-chihuahua-olhando-a-janela__chihuahua_dog_looking_out_a_window.png
+[2026-06-17 06:09:07] [41/4400] Generated: animais-domesticos/1028-cachorro-chihuahua-segurando-osso__chihuahua_dog_holding_a_bone.png
+[2026-06-17 06:09:10] [42/4400] Generated: animais-domesticos/1029-cachorro-pug-brincando-com-bola__pug_dog_playing_with_a_ball.png
+[2026-06-17 06:09:11] [43/4400] Generated: animais-domesticos/1030-cachorro-pug-correndo-no-parque__pug_dog_running_in_the_park.png
+[2026-06-17 06:09:11] Failed to generate: animais-domesticos/1005-cachorro-bulldog-comendo-ração__bulldog_eating_from_a_bowl.png
+[2026-06-17 06:09:12] [44/4400] Generated: animais-domesticos/1031-cachorro-pug-dormindo-na-cesta__pug_dog_sleeping_in_a_basket.png
+[2026-06-17 06:09:14] [45/4400] Generated: animais-domesticos/1035-cachorro-pug-comendo-ração__pug_dog_eating_from_a_bowl.png
+[2026-06-17 06:09:17] [46/4400] Generated: animais-domesticos/1036-cachorro-pug-sorrindo-feliz__pug_dog_smiling_happily.png
+[2026-06-17 06:09:32] ERROR downloading: HTTP Error 403: Forbidden
+[2026-06-17 06:09:32] Failed to generate: animais-domesticos/1024-cachorro-chihuahua-atras-de-borboleta__chihuahua_dog_chasing_a_butterfly.png
+[2026-06-17 06:09:38] [47/4400] Generated: animais-domesticos/1038-cachorro-pug-segurando-osso__pug_dog_holding_a_bone.png
+[2026-06-17 06:09:43] ERROR downloading: HTTP Error 403: Forbidden
+[2026-06-17 06:09:43] [48/4400] Generated: animais-domesticos/1039-cachorro-labrador-brincando-com-bola__labrador_dog_playing_with_a_ball.png
+[2026-06-17 06:09:43] Failed to generate: animais-domesticos/1032-cachorro-pug-com-chapeu-de-festa__pug_dog_wearing_a_party_hat.png
+[2026-06-17 06:09:44] ERROR downloading: HTTP Error 403: Forbidden
+[2026-06-17 06:09:44] Failed to generate: animais-domesticos/1033-cachorro-pug-perto-da-casinha__pug_dog_next_to_a_dog_house.png
+[2026-06-17 06:09:45] ERROR downloading: HTTP Error 403: Forbidden
+[2026-06-17 06:09:45] Failed to generate: animais-domesticos/1034-cachorro-pug-atras-de-borboleta__pug_dog_chasing_a_butterfly.png
+[2026-06-17 06:09:49] [49/4400] Generated: animais-domesticos/1040-cachorro-labrador-correndo-no-parque__labrador_dog_running_in_the_park.png
+[2026-06-17 06:09:50] [50/4400] Generated: animais-domesticos/1041-cachorro-labrador-dormindo-na-cesta__labrador_dog_sleeping_in_a_basket.png
+[2026-06-17 06:09:50] Batch 1 completed (50 drawings). Triggering build & push...
+[2026-06-17 06:09:50] Rebuilding catalog and drawings database...
+[2026-06-17 06:09:51] Build successful!
+[2026-06-17 06:09:51] Committing and pushing to origin main...
