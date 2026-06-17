@@ -9125,6 +9125,24 @@ function closeEventModal() {
     const modal = document.getElementById('eventModal');
     if (modal) modal.style.display = 'none';
 }
+window.closeEventModal = closeEventModal;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeEventModal();
+    }
+});
+
+// Click outside to close
+document.addEventListener('click', (e) => {
+    const modal = document.getElementById('eventModal');
+    if (modal && modal.style.display === 'block') {
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent && !modalContent.contains(e.target) && !e.target.closest('#hero-event-button') && !e.target.closest('#global-event-banner') && !e.target.closest('.hero-cta-card-new')) {
+            closeEventModal();
+        }
+    }
+});
 
 function renderEventInventory() {
     const invArea = document.getElementById('event-inventory-area');
