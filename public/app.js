@@ -112,14 +112,21 @@ function getSpanishWord(englishWord) {
 
 // --- VERIFICAÇÃO DE ACESSO A DESENHOS POR PLANO ---
 function isDrawingAccessible(dw) {
+    const requiredPlan = getRequiredPlanForDrawing(dw);
+    if (requiredPlan === 'Aprendiz') {
+        return true;
+    }
+    if (!currentUser) return false;
+    const plan = currentUser.plan || 'Aprendiz';
+    if (plan === 'Aprendiz' || plan === 'Grátis') {
+        return false;
+    }
     return true;
 }
 
 function getRequiredPlanForDrawing(dw) {
     if (dw.index <= 2000) return 'Aprendiz';
-    if (dw.index <= 5000) return 'Artista';
-    if (dw.index <= 7000) return 'Mago Criador';
-    return 'Lenda KidCanvas';
+    return 'Artista';
 }
 
 // --- SISTEMA DE AUTENTICAÇÃO E SESSÃO ---
