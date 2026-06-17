@@ -9412,12 +9412,16 @@ window.openCardDetails = function(cardIdStr) {
         <div class="st-rarity-badge ${cssClass}" style="position:absolute; top:-12px; right:-12px;">${rarity.toUpperCase()}</div>
         
         <div style="text-align: center; margin-bottom: 15px;">
-            <div style="font-size: 5rem; margin-bottom: 5px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));">${emoji}</div>
+            ${c.imageUrl 
+                ? `<img src="${c.imageUrl}" alt="${c.name}" style="width: 100%; max-height: 220px; object-fit: cover; border-radius: 10px; margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'"><div style="font-size: 5rem; display:none;">${emoji}</div>`
+                : `<div style="font-size: 5rem; margin-bottom: 5px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));">${emoji}</div>`
+            }
             <h2 style="margin: 0; color: #2d3436; font-size: 1.5rem; font-weight: 900; text-shadow: 1px 1px 0 rgba(255,255,255,0.5);">${c.name}</h2>
             <div style="margin-top: 5px; background: rgba(0,0,0,0.15); display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; color: #2d3436;">
                 🎨 Coleção ${colName} · ${colProgress}
             </div>
         </div>
+
         
         <div style="background: rgba(255,255,255,0.85); border-radius: 12px; padding: 15px; margin-bottom: 10px;">
             <div style="font-weight: 900; color: #6c5ce7; font-size: 0.85rem; margin-bottom: 5px;">📚 SABIA QUE?</div>
