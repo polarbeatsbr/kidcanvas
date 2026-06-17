@@ -130,6 +130,9 @@
                             <span id="user-display-name" class="user-name-text">Nome</span>
                             <span id="user-plan-badge" class="plan-badge-tag">Plano</span>
                         </div>
+
+                        <!-- Contador de Selos/Conquistas -->
+                        <span id="header-achievement-count" class="header-achievement-count" style="display: none;" title="Álbum de Conquistas">🏆 0 Selos</span>
                         
                         <!-- Engrenagem que abre o dropdown de configurações/ações -->
                         <div class="profile-settings-dropdown-wrapper">
@@ -1993,6 +1996,39 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- ==============================================
+             8. ÁLBUM DE CONQUISTAS
+             ============================================== -->
+        <section id="view-conquistas" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Álbum de Conquistas</span>
+                </div>
+
+                <div class="section-title-wrapper" style="margin-bottom: 10px;">
+                    <h1 class="page-title">🏆 Álbum de Conquistas</h1>
+                    <p class="section-subtitle" id="conquistas-subtitle">Colecione selos e suba de nível!</p>
+                </div>
+
+                <!-- Progresso geral -->
+                <div class="conquistas-progress-bar-wrapper" id="conquistas-progress-wrapper">
+                    <div class="conquistas-progress-info">
+                        <span id="conquistas-count">0/20 selos</span>
+                        <span id="conquistas-percent">0%</span>
+                    </div>
+                    <div class="conquistas-progress-track">
+                        <div class="conquistas-progress-fill" id="conquistas-progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+
+                <!-- Grid de conquistas por raridade -->
+                <div id="conquistas-album-grid"></div>
+
             </div>
         </section>
 

@@ -329,6 +329,11 @@ function updateHeaderAuthDisplay() {
             }
         }
 
+        // Atualizar contador de selos no header
+        if (typeof updateHeaderAchievementCount === 'function') {
+            updateHeaderAchievementCount();
+        }
+
         // Dashboard do Criador (painel da home)
         if (creatorPanel) {
             creatorPanel.style.display = 'block';
@@ -1055,6 +1060,8 @@ function navigate(path, pushState = true) {
         renderPintarOnlineView();
     } else if (cleanPath === '/pintura-livre') {
         renderPinturaLivreChooser();
+    } else if (cleanPath === '/conquistas') {
+        renderConquistasView();
     } else if (cleanPath.startsWith('/categoria/')) {
         const categorySlug = cleanPath.replace('/categoria/', '');
         const isNovidades = categorySlug === 'novidades';
@@ -8074,82 +8081,360 @@ function showCustomConfirm(title, message, onConfirm, onCancel) {
 window.showCustomConfirm = showCustomConfirm;
 
 
-// --- SISTEMA DE CONQUISTAS E PERFIL PÚBLICO ---
+// --- SISTEMA DE CONQUISTAS V2 (ÁLBUM DE COLEÇÃO) ---
 
-function checkNewAchievements() {
-    if (!currentUser) return;
-    const stars = getUserTotalStars();
-    const checkedKey = 'checked_stars_' + currentUser.id;
+const ACHIEVEMENT_RARITIES = {
+    common:    { name: 'Comum',     color: '#4CAF50', glow: 'rgba(76,175,80,0.25)',   stars: '⭐' },
+    rare:      { name: 'Raro',      color: '#2196F3', glow: 'rgba(33,150,243,0.25)',  stars: '⭐⭐' },
+    epic:      { name: 'Épico',     color: '#9C27B0', glow: 'rgba(156,39,176,0.25)',  stars: '⭐⭐⭐' },
+    legendary: { name: 'Lendário',  color: '#FF9800', glow: 'rgba(255,152,0,0.3)',    stars: '⭐⭐⭐⭐' },
+    mythic:    { name: 'Mítico',    color: '#FFD700', glow: 'rgba(255,215,0,0.35)',   stars: '⭐⭐⭐⭐⭐' }
+};
+
+const ACHIEVEMENTS_CATALOG = [
+    // --- COMUNS (🟢) ---
+    { id: 'primeiro_traco',       name: 'Primeiro Traço',        emoji: '✏️',  rarity: 'common', desc: 'Salvar sua primeira pintura', check: u => (u.myPaintings?.length || 0) >= 1 },
+    { id: 'artista_iniciante',    name: 'Artista Iniciante',     emoji: '🎨',  rarity: 'common', desc: 'Publicar 1 obra no Hall da Fama', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 1 },
+    { id: 'contador_historias',   name: 'Contador de Histórias', emoji: '📖',  rarity: 'common', desc: 'Criar sua primeira história mágica', check: u => (u.myStories?.length || 0) >= 1 },
+    { id: 'guardiao_galeria',     name: 'Guardião da Galeria',   emoji: '💾',  rarity: 'common', desc: 'Salvar 3 pinturas na galeria', check: u => (u.myPaintings?.length || 0) >= 3 },
     
-    // Inicializar na primeira verificação sem disparar modal retroativo
-    if (localStorage.getItem(checkedKey) === null) {
-        localStorage.setItem(checkedKey, (stars === 0 ? -1 : stars).toString());
+    // --- RAROS (🔵) ---
+    { id: 'colorista_criativo',   name: 'Colorista Criativo',    emoji: '🌈',  rarity: 'rare', desc: '10 estrelas no Hall da Fama', check: u => getUserTotalStars() >= 10 },
+    { id: 'fa_carteirinha',       name: 'Fã de Carteirinha',     emoji: '🎒',  rarity: 'rare', desc: 'Pintar 10 desenhos', check: u => (u.myPaintings?.length || 0) >= 10 },
+    { id: 'escritor_mirim',       name: 'Escritor Mirim',        emoji: '✍️',  rarity: 'rare', desc: 'Criar 3 histórias mágicas', check: u => (u.myStories?.length || 0) >= 3 },
+    { id: 'estrela_nascente',     name: 'Estrela Nascente',      emoji: '🌟',  rarity: 'rare', desc: 'Publicar 3 obras no Hall', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 3 },
+    
+    // --- ÉPICOS (🟣) ---
+    { id: 'mestre_dinos',         name: 'Mestre dos Dinossauros', emoji: '🦕', rarity: 'epic', desc: 'Pintar 10 dinossauros', check: u => countPaintingsByCategory(u, 'dinossauros') >= 10 },
+    { id: 'rei_unicornios',       name: 'Rei dos Unicórnios',    emoji: '🦄',  rarity: 'epic', desc: 'Pintar 10 de fantasia', check: u => countPaintingsByCategory(u, 'fantasia') >= 10 },
+    { id: 'amigo_animais',        name: 'Amigo dos Animais',     emoji: '🐾',  rarity: 'epic', desc: 'Pintar 10 animais', check: u => countPaintingsByCategory(u, 'animais-selvagens') + countPaintingsByCategory(u, 'animais-domesticos') + countPaintingsByCategory(u, 'animais-do-mar') >= 10 },
+    { id: 'principe_princesa',    name: 'Príncipe/Princesa',     emoji: '👸',  rarity: 'epic', desc: 'Pintar 10 de contos de fada', check: u => countPaintingsByCategory(u, 'contos-de-fada') >= 10 },
+    { id: 'mago_cores',           name: 'Mago das Cores',        emoji: '🪄',  rarity: 'epic', desc: '30 estrelas no Hall da Fama', check: u => getUserTotalStars() >= 30 },
+    
+    // --- LENDÁRIOS (🟠) ---
+    { id: 'explorador_magico',    name: 'Explorador Mágico',     emoji: '🚀',  rarity: 'legendary', desc: '50 estrelas no Hall', check: u => getUserTotalStars() >= 50 },
+    { id: 'colecionador_dedicado',name: 'Colecionador Dedicado', emoji: '🎯',  rarity: 'legendary', desc: 'Pintar 50 desenhos', check: u => (u.myPaintings?.length || 0) >= 50 },
+    { id: 'bibliotecario_magico', name: 'Bibliotecário Mágico',  emoji: '📚',  rarity: 'legendary', desc: 'Criar 10 histórias', check: u => (u.myStories?.length || 0) >= 10 },
+    { id: 'superestrela',         name: 'Superestrela do Hall',   emoji: '💫',  rarity: 'legendary', desc: 'Publicar 10 obras no Hall', check: u => (u.myPaintings?.filter(p => p.isPublic)?.length || 0) >= 10 },
+    
+    // --- MÍTICOS (👑) ---
+    { id: 'lenda_kidcanvas',      name: 'Lenda do KidCanvas',    emoji: '👑',  rarity: 'mythic', desc: '180 estrelas no Hall', check: u => getUserTotalStars() >= 180 },
+    { id: 'mestre_supremo',       name: 'Mestre Supremo',        emoji: '🏅',  rarity: 'mythic', desc: 'Pintar 100 desenhos', check: u => (u.myPaintings?.length || 0) >= 100 },
+    { id: 'o_completista',        name: 'O Completista',         emoji: '💎',  rarity: 'mythic', desc: 'Desbloquear 15 selos', check: u => getUnlockedAchievements(u).length >= 15 }
+];
+
+// Conta pinturas de uma categoria específica
+function countPaintingsByCategory(user, categorySlug) {
+    if (!user || !user.myPaintings) return 0;
+    return user.myPaintings.filter(p => {
+        if (!p.drawingSlug && !p.prompt) return false;
+        // Tenta pegar a categoria do slug do desenho original
+        const slug = p.drawingSlug || '';
+        const parts = slug.split('/');
+        if (parts.length >= 2) {
+            const folderName = parts[parts.length - 2] || '';
+            // O folderName é como "dinossauros", "fantasia" etc.
+            // Mapear nomes de pastas para slugs de categorias
+            const folderToCat = {
+                'dinossauros': 'dinossauros',
+                'fantasia': 'fantasia',
+                'animais-selvagens': 'animais-selvagens',
+                'animais-domesticos': 'animais-domesticos',
+                'animais-do-mar': 'animais-do-mar',
+                'contos-de-fada': 'contos-de-fada',
+                'veiculos': 'veiculos',
+                'flores-e-natureza': 'flores-e-natureza',
+                'comidas-e-doces': 'comidas-e-doces',
+                'personagens': 'personagens',
+                'esportes': 'esportes',
+                'profissoes': 'profissoes'
+            };
+            return (folderToCat[folderName] || folderName) === categorySlug;
+        }
+        return false;
+    }).length;
+}
+
+// Retorna lista de conquistas desbloqueadas para um usuário
+function getUnlockedAchievements(user) {
+    if (!user) return [];
+    return ACHIEVEMENTS_CATALOG.filter(a => {
+        try { return a.check(user); } catch(e) { return false; }
+    });
+}
+
+// Verifica conquistas e mostra modais para novas
+function checkAllAchievements() {
+    if (!currentUser) return;
+    
+    const storageKey = 'achievements_unlocked_' + currentUser.id;
+    let previouslyUnlocked = [];
+    try {
+        previouslyUnlocked = JSON.parse(localStorage.getItem(storageKey) || '[]');
+    } catch(e) { previouslyUnlocked = []; }
+    
+    // Primeira execução: salva estado atual sem mostrar modais
+    if (!localStorage.getItem(storageKey)) {
+        const currentlyUnlocked = getUnlockedAchievements(currentUser).map(a => a.id);
+        localStorage.setItem(storageKey, JSON.stringify(currentlyUnlocked));
+        updateHeaderAchievementCount();
         return;
     }
     
-    const lastCheckedStars = parseInt(localStorage.getItem(checkedKey) || '0', 10);
+    const currentlyUnlocked = getUnlockedAchievements(currentUser).map(a => a.id);
+    const newlyUnlocked = currentlyUnlocked.filter(id => !previouslyUnlocked.includes(id));
     
-    const newlyUnlocked = [];
-    unlockableBadges.forEach(badge => {
-        if (stars >= badge.stars && lastCheckedStars < badge.stars) {
-            newlyUnlocked.push(badge);
-        }
-    });
-
-    localStorage.setItem(checkedKey, stars.toString());
-
+    // Salvar estado atualizado
+    localStorage.setItem(storageKey, JSON.stringify(currentlyUnlocked));
+    
+    // Atualizar contador no header
+    updateHeaderAchievementCount();
+    
+    // Mostrar modal para cada novo desbloqueio (com delay entre eles)
     if (newlyUnlocked.length > 0) {
-        // Exibe o maior selo desbloqueado nesta rodada
-        const highestBadge = newlyUnlocked[newlyUnlocked.length - 1];
-        showAchievementModal(highestBadge);
+        const queue = newlyUnlocked.map(id => ACHIEVEMENTS_CATALOG.find(a => a.id === id)).filter(Boolean);
+        showAchievementUnlockQueue(queue);
     }
 }
-window.checkNewAchievements = checkNewAchievements;
+window.checkAllAchievements = checkAllAchievements;
+// Manter compatibilidade com chamadas antigas
+window.checkNewAchievements = checkAllAchievements;
 
-function showAchievementModal(badge) {
-    const modal = document.getElementById('achievementModal');
-    if (!modal) return;
+// Fila de modais de desbloqueio
+function showAchievementUnlockQueue(queue) {
+    if (queue.length === 0) return;
+    const achievement = queue[0];
+    showEpicAchievementModal(achievement, () => {
+        if (queue.length > 1) {
+            setTimeout(() => showAchievementUnlockQueue(queue.slice(1)), 500);
+        }
+    });
+}
 
-    const emojiEl = document.getElementById('achievement-modal-emoji');
-    const nameEl = document.getElementById('achievement-modal-badge-name');
-
-    if (emojiEl) emojiEl.textContent = badge.emoji;
-    if (nameEl) nameEl.textContent = badge.name;
-
-    modal.classList.add('open');
-
-    // Disparar efeito de confetes
+// Modal épico de desbloqueio
+function showEpicAchievementModal(achievement, onClose) {
+    const rarity = ACHIEVEMENT_RARITIES[achievement.rarity];
+    const unlockedCount = getUnlockedAchievements(currentUser).length;
+    const totalCount = ACHIEVEMENTS_CATALOG.length;
+    const percent = Math.round((unlockedCount / totalCount) * 100);
+    
+    // Remover modal anterior se existir
+    let overlay = document.getElementById('achievement-unlock-overlay');
+    if (overlay) overlay.remove();
+    
+    overlay = document.createElement('div');
+    overlay.id = 'achievement-unlock-overlay';
+    overlay.className = 'achievement-unlock-overlay';
+    
+    overlay.innerHTML = `
+        <div class="achievement-unlock-card" style="--achievement-color: ${rarity.color}; --achievement-glow: ${rarity.glow};">
+            <div class="achievement-unlock-rarity" style="background: ${rarity.color}; color: white;">
+                ✨ SELO ${rarity.name.toUpperCase()} DESBLOQUEADO ✨
+            </div>
+            
+            <span class="achievement-unlock-emoji">${achievement.emoji}</span>
+            
+            <div class="achievement-unlock-name">${achievement.name}</div>
+            
+            <div class="achievement-unlock-stars">${rarity.stars}</div>
+            
+            <div class="achievement-unlock-desc">${achievement.desc}</div>
+            
+            <div class="achievement-unlock-progress">
+                <div class="achievement-unlock-progress-text">🏅 Coleção: ${unlockedCount}/${totalCount} selos (${percent}%)</div>
+                <div class="achievement-unlock-progress-track">
+                    <div class="achievement-unlock-progress-fill" style="width: ${percent}%;"></div>
+                </div>
+            </div>
+            
+            <div class="achievement-unlock-actions">
+                <button class="achievement-btn-close" onclick="closeEpicAchievementModal()">🎉 Incrível!</button>
+                <button class="achievement-btn-share" onclick="shareAchievementWhatsApp('${achievement.name}', '${achievement.emoji}', '${rarity.name}')">
+                    <i class="fa-brands fa-whatsapp"></i> Compartilhar
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    // Animar entrada
+    requestAnimationFrame(() => {
+        overlay.classList.add('open');
+    });
+    
+    // Confetti
     if (typeof confetti === 'function') {
-        const duration = 3 * 1000;
+        const colors = {
+            common: ['#4CAF50', '#81C784', '#A5D6A7'],
+            rare: ['#2196F3', '#64B5F6', '#90CAF9'],
+            epic: ['#9C27B0', '#BA68C8', '#CE93D8'],
+            legendary: ['#FF9800', '#FFB74D', '#FFCC80'],
+            mythic: ['#FFD700', '#FFF176', '#FFEE58', '#FF6F00']
+        };
+        const duration = achievement.rarity === 'mythic' ? 5000 : 3000;
         const end = Date.now() + duration;
-
         (function frame() {
-            confetti({
-                particleCount: 5,
-                angle: 60,
-                spread: 55,
-                origin: { x: 0 },
-                colors: ['#bb0000', '#ffffff', '#ffb300', '#7B4FA6']
-            });
-            confetti({
-                particleCount: 5,
-                angle: 120,
-                spread: 55,
-                origin: { x: 1 },
-                colors: ['#bb0000', '#ffffff', '#ffb300', '#7B4FA6']
-            });
-
-            if (Date.now() < end) {
-                requestAnimationFrame(frame);
-            }
+            confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 }, colors: colors[achievement.rarity] || colors.common });
+            confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 }, colors: colors[achievement.rarity] || colors.common });
+            if (Date.now() < end) requestAnimationFrame(frame);
         }());
+    }
+    
+    // Guardar callback
+    window._achievementOnClose = onClose;
+}
+window.showEpicAchievementModal = showEpicAchievementModal;
+
+function closeEpicAchievementModal() {
+    const overlay = document.getElementById('achievement-unlock-overlay');
+    if (overlay) {
+        overlay.classList.remove('open');
+        setTimeout(() => overlay.remove(), 400);
+    }
+    if (window._achievementOnClose) {
+        const cb = window._achievementOnClose;
+        window._achievementOnClose = null;
+        cb();
+    }
+}
+window.closeEpicAchievementModal = closeEpicAchievementModal;
+
+function shareAchievementWhatsApp(name, emoji, rarity) {
+    const text = `${emoji} Desbloqueei o selo "${name}" (${rarity}) no KidCanvas! 🏆\n\nVem colecionar conquistas também! 🎨\nhttps://www.kidcanvas.com.br`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+}
+window.shareAchievementWhatsApp = shareAchievementWhatsApp;
+
+// Atualizar contagem no header
+function updateHeaderAchievementCount() {
+    const el = document.getElementById('header-achievement-count');
+    if (!el) return;
+    
+    if (!currentUser) {
+        el.style.display = 'none';
+        return;
+    }
+    
+    const count = getUnlockedAchievements(currentUser).length;
+    el.style.display = 'inline-flex';
+    el.textContent = `🏆 ${count} Selos`;
+    el.onclick = () => navigate('/conquistas');
+}
+window.updateHeaderAchievementCount = updateHeaderAchievementCount;
+
+// Renderizar página do Álbum de Conquistas
+function renderConquistasView() {
+    document.title = "Álbum de Conquistas 🏆 — KidCanvas";
+    setMetaDescription("Colecione selos e suba de nível! Veja todas as conquistas disponíveis no KidCanvas.");
+    
+    const view = document.getElementById('view-conquistas');
+    if (!view) return;
+    view.style.display = 'block';
+    
+    if (!currentUser) {
+        showToast('Faça login para ver suas conquistas! 🏆', 'info');
+        openAuthModal();
+        navigate('/');
+        return;
+    }
+    
+    const unlocked = getUnlockedAchievements(currentUser);
+    const unlockedIds = unlocked.map(a => a.id);
+    const totalCount = ACHIEVEMENTS_CATALOG.length;
+    const unlockedCount = unlocked.length;
+    const percent = Math.round((unlockedCount / totalCount) * 100);
+    
+    // Atualizar barra de progresso
+    const countEl = document.getElementById('conquistas-count');
+    const percentEl = document.getElementById('conquistas-percent');
+    const fillEl = document.getElementById('conquistas-progress-fill');
+    const subtitleEl = document.getElementById('conquistas-subtitle');
+    
+    if (countEl) countEl.textContent = `🏅 ${unlockedCount}/${totalCount} selos`;
+    if (percentEl) percentEl.textContent = `${percent}%`;
+    if (fillEl) fillEl.style.width = `${percent}%`;
+    
+    if (subtitleEl) {
+        if (percent === 100) subtitleEl.textContent = '🎉 Parabéns! Você completou o álbum!';
+        else if (percent >= 75) subtitleEl.textContent = '🔥 Quase lá! Continue colecionando!';
+        else if (percent >= 50) subtitleEl.textContent = '⭐ Você já passou da metade!';
+        else if (percent >= 25) subtitleEl.textContent = '🌟 Bom começo! Continue pintando!';
+        else subtitleEl.textContent = 'Colecione selos e suba de nível!';
+    }
+    
+    // Renderizar grid por raridade
+    const albumGrid = document.getElementById('conquistas-album-grid');
+    if (!albumGrid) return;
+    albumGrid.innerHTML = '';
+    
+    const rarityOrder = ['common', 'rare', 'epic', 'legendary', 'mythic'];
+    
+    rarityOrder.forEach(rarityKey => {
+        const rarity = ACHIEVEMENT_RARITIES[rarityKey];
+        const achievements = ACHIEVEMENTS_CATALOG.filter(a => a.rarity === rarityKey);
+        if (achievements.length === 0) return;
+        
+        const unlockedInRarity = achievements.filter(a => unlockedIds.includes(a.id)).length;
+        
+        const section = document.createElement('div');
+        section.className = 'conquistas-rarity-section';
+        
+        section.innerHTML = `
+            <div class="conquistas-rarity-header">
+                <span class="conquistas-rarity-dot" style="background: ${rarity.color}; color: ${rarity.color};"></span>
+                <span class="conquistas-rarity-title">${rarity.name}</span>
+                <span class="conquistas-rarity-count">${unlockedInRarity}/${achievements.length}</span>
+            </div>
+            <div class="conquistas-grid" id="conquistas-grid-${rarityKey}"></div>
+        `;
+        
+        albumGrid.appendChild(section);
+        
+        const grid = document.getElementById(`conquistas-grid-${rarityKey}`);
+        
+        achievements.forEach(achievement => {
+            const isUnlocked = unlockedIds.includes(achievement.id);
+            const card = document.createElement('div');
+            card.className = `conquista-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+            card.style.setProperty('--achievement-color', rarity.color);
+            card.style.setProperty('--achievement-glow', rarity.glow);
+            
+            if (isUnlocked) {
+                card.innerHTML = `
+                    <span class="conquista-emoji">${achievement.emoji}</span>
+                    <div class="conquista-name">${achievement.name}</div>
+                    <div class="conquista-desc">${achievement.desc}</div>
+                    <span class="conquista-rarity-badge" style="background: ${rarity.color};">${rarity.name}</span>
+                `;
+            } else {
+                card.innerHTML = `
+                    <span class="conquista-lock-icon"><i class="fa-solid fa-lock"></i></span>
+                    <span class="conquista-emoji">🔒</span>
+                    <div class="conquista-name">${achievement.name}</div>
+                    <div class="conquista-desc">${achievement.desc}</div>
+                    <span class="conquista-rarity-badge" style="background: #b0a89f;">${rarity.name}</span>
+                `;
+            }
+            
+            grid.appendChild(card);
+        });
+    });
+}
+window.renderConquistasView = renderConquistasView;
+
+// Manter compatibilidade com o antigo showAchievementModal
+function showAchievementModal(badge) {
+    // Converter do formato antigo para o novo
+    const achievement = ACHIEVEMENTS_CATALOG.find(a => a.name === badge.name);
+    if (achievement) {
+        showEpicAchievementModal(achievement, () => {});
     }
 }
 window.showAchievementModal = showAchievementModal;
 
 function closeAchievementModal() {
-    const modal = document.getElementById('achievementModal');
-    if (modal) modal.classList.remove('open');
+    closeEpicAchievementModal();
 }
 window.closeAchievementModal = closeAchievementModal;
 
