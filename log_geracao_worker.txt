@@ -1649,3 +1649,58 @@
 [2026-06-17 04:05:39] Rebuilding catalog and drawings database...
 [2026-06-17 04:05:39] Build successful!
 [2026-06-17 04:05:39] Committing and pushing to origin main...
+[2026-06-17 04:05:43] Push successful! Vercel will deploy in production.
+[2026-06-17 04:05:44] [1501/3680] Generated: veiculos/534-trem-trem-de-passageiros-andando-no-tapete__passenger_train_riding_on_a_play_rug.png
+[2026-06-17 04:05:46] [1502/3680] Generated: veiculos/533-trem-trem-de-passageiros-apitando-alegre__passenger_train_blowing_its_whistle_happily.png
+[2026-06-17 04:05:47] [1503/3680] Generated: veiculos/535-trem-trem-eletrico-soltando-fumaca-nos-trilhos__electric_train_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:05:48] [1504/3680] Generated: veiculos/536-trem-trem-eletrico-correndo-no-tunel__electric_train_speeding_through_a_tunnel.png
+[2026-06-17 04:05:49] [1505/3680] Generated: veiculos/537-trem-trem-eletrico-cruzando-a-ponte__electric_train_crossing_a_high_stone_bridge.png
+[2026-06-17 04:05:51] [1506/3680] Generated: veiculos/539-trem-trem-eletrico-parado-na-estacao__electric_train_parked_at_a_cozy_station.png
+[2026-06-17 04:05:53] [1507/3680] Generated: veiculos/538-trem-trem-eletrico-levando-toras-e-carga__electric_train_carrying_logs_and_cargo.png
+[2026-06-17 04:05:54] [1508/3680] Generated: veiculos/540-trem-trem-eletrico-pela-floresta-verde__electric_train_driving_through_a_green_forest.png
+[2026-06-17 04:05:55] [1509/3680] Generated: veiculos/541-trem-trem-eletrico-apitando-alegre__electric_train_blowing_its_whistle_happily.png
+[2026-06-17 04:05:57] [1510/3680] Generated: veiculos/542-trem-trem-eletrico-andando-no-tapete__electric_train_riding_on_a_play_rug.png
+[2026-06-17 04:05:58] [1511/3680] Generated: veiculos/543-trem-trem-de-metro-soltando-fumaca-nos-trilhos__subway_train_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:05:59] [1512/3680] Generated: veiculos/544-trem-trem-de-metro-correndo-no-tunel__subway_train_speeding_through_a_tunnel.png
+[2026-06-17 04:06:00] [1513/3680] Generated: veiculos/545-trem-trem-de-metro-cruzando-a-ponte__subway_train_crossing_a_high_stone_bridge.png
+[2026-06-17 04:06:02] [1514/3680] Generated: veiculos/546-trem-trem-de-metro-levando-toras-e-carga__subway_train_carrying_logs_and_cargo.png
+[2026-06-17 04:06:03] [1515/3680] Generated: veiculos/547-trem-trem-de-metro-parado-na-estacao__subway_train_parked_at_a_cozy_station.png
+[2026-06-17 04:06:05] [1516/3680] Generated: veiculos/549-trem-trem-de-metro-apitando-alegre__subway_train_blowing_its_whistle_happily.png
+[2026-06-17 04:06:06] [1517/3680] Generated: veiculos/548-trem-trem-de-metro-pela-floresta-verde__subway_train_driving_through_a_green_forest.png
+[2026-06-17 04:06:08] [1518/3680] Generated: veiculos/550-trem-trem-de-metro-andando-no-tapete__subway_train_riding_on_a_play_rug.png
+[2026-06-17 04:06:10] [1519/3680] Generated: veiculos/551-trem-trem-de-brinquedo-soltando-fumaca-nos-trilhos__cute_toy_train_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:06:11] [1520/3680] Generated: veiculos/552-trem-trem-de-brinquedo-correndo-no-tunel__cute_toy_train_speeding_through_a_tunnel.png
+[2026-06-17 04:06:13] [1521/3680] Generated: veiculos/554-trem-trem-de-brinquedo-levando-toras-e-carga__cute_toy_train_carrying_logs_and_cargo.png
+[2026-06-17 04:06:15] [1522/3680] Generated: veiculos/553-trem-trem-de-brinquedo-cruzando-a-ponte__cute_toy_train_crossing_a_high_stone_bridge.png
+[2026-06-17 04:06:17] [1523/3680] Generated: veiculos/555-trem-trem-de-brinquedo-parado-na-estacao__cute_toy_train_parked_at_a_cozy_station.png
+[2026-06-17 04:06:18] [1524/3680] Generated: veiculos/556-trem-trem-de-brinquedo-pela-floresta-verde__cute_toy_train_driving_through_a_green_forest.png
+[2026-06-17 04:06:20] [1525/3680] Generated: veiculos/557-trem-trem-de-brinquedo-apitando-alegre__cute_toy_train_blowing_its_whistle_happily.png
+[2026-06-17 04:06:21] [1526/3680] Generated: veiculos/558-trem-trem-de-brinquedo-andando-no-tapete__cute_toy_train_riding_on_a_play_rug.png
+[2026-06-17 04:06:23] [1527/3680] Generated: veiculos/559-trem-trem-de-desenho-soltando-fumaca-nos-trilhos__friendly_cartoon_train_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:06:24] [1528/3680] Generated: veiculos/560-trem-trem-de-desenho-correndo-no-tunel__friendly_cartoon_train_speeding_through_a_tunnel.png
+[2026-06-17 04:06:25] [1529/3680] Generated: veiculos/561-trem-trem-de-desenho-cruzando-a-ponte__friendly_cartoon_train_crossing_a_high_stone_bridge.png
+[2026-06-17 04:06:26] [1530/3680] Generated: veiculos/562-trem-trem-de-desenho-levando-toras-e-carga__friendly_cartoon_train_carrying_logs_and_cargo.png
+[2026-06-17 04:06:29] [1531/3680] Generated: veiculos/563-trem-trem-de-desenho-parado-na-estacao__friendly_cartoon_train_parked_at_a_cozy_station.png
+[2026-06-17 04:06:30] [1532/3680] Generated: veiculos/564-trem-trem-de-desenho-pela-floresta-verde__friendly_cartoon_train_driving_through_a_green_forest.png
+[2026-06-17 04:06:31] [1533/3680] Generated: veiculos/565-trem-trem-de-desenho-apitando-alegre__friendly_cartoon_train_blowing_its_whistle_happily.png
+[2026-06-17 04:06:32] [1534/3680] Generated: veiculos/566-trem-trem-de-desenho-andando-no-tapete__friendly_cartoon_train_riding_on_a_play_rug.png
+[2026-06-17 04:06:34] [1535/3680] Generated: veiculos/567-trem-trem-monotrilho-soltando-fumaca-nos-trilhos__monorail_train_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:06:36] [1536/3680] Generated: veiculos/568-trem-trem-monotrilho-correndo-no-tunel__monorail_train_speeding_through_a_tunnel.png
+[2026-06-17 04:06:37] [1537/3680] Generated: veiculos/569-trem-trem-monotrilho-cruzando-a-ponte__monorail_train_crossing_a_high_stone_bridge.png
+[2026-06-17 04:06:38] [1538/3680] Generated: veiculos/570-trem-trem-monotrilho-levando-toras-e-carga__monorail_train_carrying_logs_and_cargo.png
+[2026-06-17 04:06:40] [1539/3680] Generated: veiculos/571-trem-trem-monotrilho-parado-na-estacao__monorail_train_parked_at_a_cozy_station.png
+[2026-06-17 04:06:41] [1540/3680] Generated: veiculos/572-trem-trem-monotrilho-pela-floresta-verde__monorail_train_driving_through_a_green_forest.png
+[2026-06-17 04:06:43] [1541/3680] Generated: veiculos/574-trem-trem-monotrilho-andando-no-tapete__monorail_train_riding_on_a_play_rug.png
+[2026-06-17 04:06:45] [1542/3680] Generated: veiculos/573-trem-trem-monotrilho-apitando-alegre__monorail_train_blowing_its_whistle_happily.png
+[2026-06-17 04:06:46] [1543/3680] Generated: veiculos/575-trem-trem-funicular-soltando-fumaca-nos-trilhos__cable_train_puffing_steam_along_mountain_tracks.png
+[2026-06-17 04:06:47] [1544/3680] Generated: veiculos/576-trem-trem-funicular-correndo-no-tunel__cable_train_speeding_through_a_tunnel.png
+[2026-06-17 04:06:48] [1545/3680] Generated: veiculos/577-trem-trem-funicular-cruzando-a-ponte__cable_train_crossing_a_high_stone_bridge.png
+[2026-06-17 04:06:50] [1546/3680] Generated: veiculos/578-trem-trem-funicular-levando-toras-e-carga__cable_train_carrying_logs_and_cargo.png
+[2026-06-17 04:06:52] [1547/3680] Generated: veiculos/579-trem-trem-funicular-parado-na-estacao__cable_train_parked_at_a_cozy_station.png
+[2026-06-17 04:06:53] [1548/3680] Generated: veiculos/580-trem-trem-funicular-pela-floresta-verde__cable_train_driving_through_a_green_forest.png
+[2026-06-17 04:06:54] [1549/3680] Generated: veiculos/581-trem-trem-funicular-apitando-alegre__cable_train_blowing_its_whistle_happily.png
+[2026-06-17 04:06:55] [1550/3680] Generated: veiculos/582-trem-trem-funicular-andando-no-tapete__cable_train_riding_on_a_play_rug.png
+[2026-06-17 04:06:55] Batch 31 completed (1550 drawings). Triggering build & push...
+[2026-06-17 04:06:55] Rebuilding catalog and drawings database...
+[2026-06-17 04:06:56] Build successful!
+[2026-06-17 04:06:56] Committing and pushing to origin main...
