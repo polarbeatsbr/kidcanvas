@@ -5856,3 +5856,17 @@
 [2026-06-17 06:20:32] Rebuilding catalog and drawings database...
 [2026-06-17 06:20:33] Build successful!
 [2026-06-17 06:20:33] Committing and pushing to origin main...
+[2026-06-17 06:20:37] Push successful! Vercel will deploy in production.
+[2026-06-17 06:20:38] [301/4400] Generated: animais-domesticos/1379-coelho-coelho-angora-comendo-cenoura__angora_bunny_eating_a_carrot.png
+[2026-06-17 06:20:39] [302/4400] Generated: animais-domesticos/1380-coelho-coelho-angora-pulando-a-cerca__angora_bunny_hopping_over_a_small_fence.png
+[2026-06-17 06:20:41] [303/4400] Generated: animais-domesticos/1381-coelho-coelho-angora-no-jardim-de-flores__angora_bunny_sitting_in_a_flower_garden.png
+[2026-06-17 06:20:43] [304/4400] Generated: animais-domesticos/1382-coelho-coelho-angora-dormindo-no-ninho__angora_bunny_sleeping_in_a_cozy_nest.png
+[2026-06-17 06:20:44] [305/4400] Generated: animais-domesticos/1383-coelho-coelho-angora-com-gravata-borboleta__angora_bunny_wearing_a_tiny_bowtie.png
+[2026-06-17 06:20:46] [306/4400] Generated: animais-domesticos/1384-coelho-coelho-orelha-caida-comendo-cenoura__holland_lop_bunny_eating_a_carrot.png
+[2026-06-17 06:20:47] [307/4400] Generated: animais-domesticos/1385-coelho-coelho-orelha-caida-pulando-a-cerca__holland_lop_bunny_hopping_over_a_small_fence.png
+[2026-06-17 06:20:49] [308/4400] Generated: animais-domesticos/1386-coelho-coelho-orelha-caida-no-jardim-de-flores__holland_lop_bunny_sitting_in_a_flower_garden.png
+[2026-06-17 06:20:50] [309/4400] Generated: animais-domesticos/1387-coelho-coelho-orelha-caida-dormindo-no-ninho__holland_lop_bunny_sleeping_in_a_cozy_nest.png
+[2026-06-17 06:20:52] [310/4400] Generated: animais-domesticos/1388-coelho-coelho-orelha-caida-com-gravata-borboleta__holland_lop_bunny_wearing_a_tiny_bowtie.png
+[2026-06-17 06:20:53] [311/4400] Generated: animais-domesticos/1389-coelho-coelho-gigante-comendo-cenoura__flemish_giant_bunny_eating_a_carrot.png
+[2026-06-17 06:20:55] [312/4400] Generated: animais-domesticos/1390-coelho-coelho-gigante-pulando-a-cerca__flemish_giant_bunny_hopping_over_a_small_fence.png
+[2026-06-17 06:20:57] [313/4400] Generated: animais-domesticos/1391-coelho-coelho-gigante-no-jardim-de-flores__flemish_giant_bunny_sitting_in_a_flower_garden.png
