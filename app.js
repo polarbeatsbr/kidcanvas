@@ -9201,6 +9201,7 @@ function renderEventMissions() {
             <div style="background: ${isClaimed ? '#f0fff0' : 'white'}; border-radius: 20px; padding: 20px; display: flex; align-items: center; justify-content: space-between; border: 4px solid ${isCompleted && !isClaimed ? '#f1c40f' : '#eee'}; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 15px;">
                 <div style="flex: 1; min-width: 200px; text-align: center;">
                     <h4 style="margin: 0; font-size: 1.3rem; color: #333; font-weight: 900;">${m.title}</h4>
+                    <p style="margin: 5px 0 0 0; font-size: 1.0rem; color: #666; font-weight: 600;">${m.desc}</p>
                     ${visualProgressHtml}
                 </div>
                 <div style="text-align: center; min-width: 120px; background: #fff5eb; padding: 10px; border-radius: 15px; border: 2px dashed #ffdcb0;">
