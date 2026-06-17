@@ -2379,3 +2379,58 @@
 [2026-06-17 04:23:07] Rebuilding catalog and drawings database...
 [2026-06-17 04:23:08] Build successful!
 [2026-06-17 04:23:08] Committing and pushing to origin main...
+[2026-06-17 04:23:11] Push successful! Vercel will deploy in production.
+[2026-06-17 04:23:12] [601/4400] Generated: fantasia/482-fada-fada-dos-sonhos-com-varinha-de-condao__dream_fairy_waving_a_magic_wand.png
+[2026-06-17 04:23:13] [602/4400] Generated: fantasia/483-fada-fada-dos-sonhos-cogumelo-gigante__dream_fairy_sitting_on_a_giant_mushroom.png
+[2026-06-17 04:23:15] [603/4400] Generated: fantasia/484-fada-fada-dos-sonhos-perto-do-arco-iris__dream_fairy_flying_near_a_rainbow.png
+[2026-06-17 04:23:16] [604/4400] Generated: fantasia/485-fada-fada-dos-sonhos-regando-flor-magica__dream_fairy_watering_a_magical_flower.png
+[2026-06-17 04:23:17] [605/4400] Generated: fantasia/486-fada-fada-dos-sonhos-dormindo-na-nuvem__dream_fairy_sleeping_on_a_soft_cloud.png
+[2026-06-17 04:23:18] [606/4400] Generated: fantasia/487-fada-fada-dos-sonhos-dancando-com-borboletas__dream_fairy_dancing_with_butterflies.png
+[2026-06-17 04:23:19] [607/4400] Generated: fantasia/488-fada-fada-dos-sonhos-com-estrela-brilhante__dream_fairy_holding_a_shining_star.png
+[2026-06-17 04:23:21] [608/4400] Generated: fantasia/489-fada-fada-dos-sonhos-conversando-com-joaninha__dream_fairy_whispering_to_a_ladybug.png
+[2026-06-17 04:23:22] [609/4400] Generated: fantasia/490-fada-fada-dos-sonhos-colhendo-po-magico__dream_fairy_gathering_stardust.png
+[2026-06-17 04:23:23] [610/4400] Generated: fantasia/491-fada-fada-dos-sonhos-sorrindo-feliz__dream_fairy_smiling_happily.png
+[2026-06-17 04:23:24] [611/4400] Generated: fantasia/492-fada-fada-borboleta-com-varinha-de-condao__butterfly_fairy_waving_a_magic_wand.png
+[2026-06-17 04:23:26] [612/4400] Generated: fantasia/493-fada-fada-borboleta-cogumelo-gigante__butterfly_fairy_sitting_on_a_giant_mushroom.png
+[2026-06-17 04:23:27] [613/4400] Generated: fantasia/495-fada-fada-borboleta-regando-flor-magica__butterfly_fairy_watering_a_magical_flower.png
+[2026-06-17 04:23:28] [614/4400] Generated: fantasia/494-fada-fada-borboleta-perto-do-arco-iris__butterfly_fairy_flying_near_a_rainbow.png
+[2026-06-17 04:23:29] [615/4400] Generated: fantasia/496-fada-fada-borboleta-dormindo-na-nuvem__butterfly_fairy_sleeping_on_a_soft_cloud.png
+[2026-06-17 04:23:31] [616/4400] Generated: fantasia/497-fada-fada-borboleta-dancando-com-borboletas__butterfly_fairy_dancing_with_butterflies.png
+[2026-06-17 04:23:32] [617/4400] Generated: fantasia/498-fada-fada-borboleta-com-estrela-brilhante__butterfly_fairy_holding_a_shining_star.png
+[2026-06-17 04:23:34] [618/4400] Generated: fantasia/500-fada-fada-borboleta-colhendo-po-magico__butterfly_fairy_gathering_stardust.png
+[2026-06-17 04:23:35] [619/4400] Generated: fantasia/499-fada-fada-borboleta-conversando-com-joaninha__butterfly_fairy_whispering_to_a_ladybug.png
+[2026-06-17 04:23:37] [620/4400] Generated: fantasia/501-fada-fada-borboleta-sorrindo-feliz__butterfly_fairy_smiling_happily.png
+[2026-06-17 04:23:38] [621/4400] Generated: fantasia/502-fada-fada-do-jardim-com-varinha-de-condao__garden_fairy_waving_a_magic_wand.png
+[2026-06-17 04:23:39] [622/4400] Generated: fantasia/503-fada-fada-do-jardim-cogumelo-gigante__garden_fairy_sitting_on_a_giant_mushroom.png
+[2026-06-17 04:23:41] [623/4400] Generated: fantasia/505-fada-fada-do-jardim-regando-flor-magica__garden_fairy_watering_a_magical_flower.png
+[2026-06-17 04:23:42] [624/4400] Generated: fantasia/504-fada-fada-do-jardim-perto-do-arco-iris__garden_fairy_flying_near_a_rainbow.png
+[2026-06-17 04:23:43] [625/4400] Generated: fantasia/506-fada-fada-do-jardim-dormindo-na-nuvem__garden_fairy_sleeping_on_a_soft_cloud.png
+[2026-06-17 04:23:45] [626/4400] Generated: fantasia/507-fada-fada-do-jardim-dancando-com-borboletas__garden_fairy_dancing_with_butterflies.png
+[2026-06-17 04:23:47] [627/4400] Generated: fantasia/508-fada-fada-do-jardim-com-estrela-brilhante__garden_fairy_holding_a_shining_star.png
+[2026-06-17 04:23:49] [628/4400] Generated: fantasia/510-fada-fada-do-jardim-colhendo-po-magico__garden_fairy_gathering_stardust.png
+[2026-06-17 04:23:51] [629/4400] Generated: fantasia/509-fada-fada-do-jardim-conversando-com-joaninha__garden_fairy_whispering_to_a_ladybug.png
+[2026-06-17 04:23:52] [630/4400] Generated: fantasia/511-fada-fada-do-jardim-sorrindo-feliz__garden_fairy_smiling_happily.png
+[2026-06-17 04:23:54] [631/4400] Generated: fantasia/512-fada-fada-feliz-com-varinha-de-condao__happy_cartoon_fairy_waving_a_magic_wand.png
+[2026-06-17 04:23:55] [632/4400] Generated: fantasia/513-fada-fada-feliz-cogumelo-gigante__happy_cartoon_fairy_sitting_on_a_giant_mushroom.png
+[2026-06-17 04:23:56] [633/4400] Generated: fantasia/515-fada-fada-feliz-regando-flor-magica__happy_cartoon_fairy_watering_a_magical_flower.png
+[2026-06-17 04:23:58] [634/4400] Generated: fantasia/514-fada-fada-feliz-perto-do-arco-iris__happy_cartoon_fairy_flying_near_a_rainbow.png
+[2026-06-17 04:23:59] [635/4400] Generated: fantasia/516-fada-fada-feliz-dormindo-na-nuvem__happy_cartoon_fairy_sleeping_on_a_soft_cloud.png
+[2026-06-17 04:24:00] [636/4400] Generated: fantasia/517-fada-fada-feliz-dancando-com-borboletas__happy_cartoon_fairy_dancing_with_butterflies.png
+[2026-06-17 04:24:02] [637/4400] Generated: fantasia/518-fada-fada-feliz-com-estrela-brilhante__happy_cartoon_fairy_holding_a_shining_star.png
+[2026-06-17 04:24:03] [638/4400] Generated: fantasia/519-fada-fada-feliz-conversando-com-joaninha__happy_cartoon_fairy_whispering_to_a_ladybug.png
+[2026-06-17 04:24:05] [639/4400] Generated: fantasia/520-fada-fada-feliz-colhendo-po-magico__happy_cartoon_fairy_gathering_stardust.png
+[2026-06-17 04:24:07] [640/4400] Generated: fantasia/521-fada-fada-feliz-sorrindo-feliz__happy_cartoon_fairy_smiling_happily.png
+[2026-06-17 04:24:09] [641/4400] Generated: fantasia/522-fada-fadinha-fofa-com-varinha-de-condao__cute_little_fairy_waving_a_magic_wand.png
+[2026-06-17 04:24:10] [642/4400] Generated: fantasia/523-fada-fadinha-fofa-cogumelo-gigante__cute_little_fairy_sitting_on_a_giant_mushroom.png
+[2026-06-17 04:24:11] [643/4400] Generated: fantasia/524-fada-fadinha-fofa-perto-do-arco-iris__cute_little_fairy_flying_near_a_rainbow.png
+[2026-06-17 04:24:13] [644/4400] Generated: fantasia/525-fada-fadinha-fofa-regando-flor-magica__cute_little_fairy_watering_a_magical_flower.png
+[2026-06-17 04:24:14] [645/4400] Generated: fantasia/526-fada-fadinha-fofa-dormindo-na-nuvem__cute_little_fairy_sleeping_on_a_soft_cloud.png
+[2026-06-17 04:24:15] [646/4400] Generated: fantasia/527-fada-fadinha-fofa-dancando-com-borboletas__cute_little_fairy_dancing_with_butterflies.png
+[2026-06-17 04:24:17] [647/4400] Generated: fantasia/528-fada-fadinha-fofa-com-estrela-brilhante__cute_little_fairy_holding_a_shining_star.png
+[2026-06-17 04:24:18] [648/4400] Generated: fantasia/529-fada-fadinha-fofa-conversando-com-joaninha__cute_little_fairy_whispering_to_a_ladybug.png
+[2026-06-17 04:24:19] [649/4400] Generated: fantasia/530-fada-fadinha-fofa-colhendo-po-magico__cute_little_fairy_gathering_stardust.png
+[2026-06-17 04:24:20] [650/4400] Generated: fantasia/531-fada-fadinha-fofa-sorrindo-feliz__cute_little_fairy_smiling_happily.png
+[2026-06-17 04:24:20] Batch 13 completed (650 drawings). Triggering build & push...
+[2026-06-17 04:24:20] Rebuilding catalog and drawings database...
+[2026-06-17 04:24:21] Build successful!
+[2026-06-17 04:24:21] Committing and pushing to origin main...
