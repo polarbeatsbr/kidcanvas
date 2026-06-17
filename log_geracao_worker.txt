@@ -1704,3 +1704,73 @@
 [2026-06-17 04:06:55] Rebuilding catalog and drawings database...
 [2026-06-17 04:06:56] Build successful!
 [2026-06-17 04:06:56] Committing and pushing to origin main...
+[2026-06-17 04:07:00] Push successful! Vercel will deploy in production.
+[2026-06-17 04:07:02] [1551/3680] Generated: veiculos/584-moto-moto-esportiva-saltando-rampa-de-terra__sports_motorcycle_jumping_over_a_dirt_hill.png
+[2026-06-17 04:07:03] [1552/3680] Generated: veiculos/583-moto-moto-esportiva-na-estrada-bonita__sports_motorcycle_riding_down_a_scenic_road.png
+[2026-06-17 04:07:04] [1553/3680] Generated: veiculos/585-moto-moto-esportiva-perto-do-cafe__sports_motorcycle_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:07:06] [1554/3680] Generated: veiculos/586-moto-moto-esportiva-com-caixa-de-pizza__sports_motorcycle_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:07:07] [1555/3680] Generated: veiculos/587-moto-moto-esportiva-com-capacete-de-seguranca__sports_motorcycle_riding_with_a_safety_helmet.png
+[2026-06-17 04:07:08] [1556/3680] Generated: veiculos/588-moto-moto-esportiva-com-farois-acesos__sports_motorcycle_smiling_with_big_headlights.png
+[2026-06-17 04:07:10] [1557/3680] Generated: veiculos/589-moto-scooter-classica-na-estrada-bonita__classic_scooter_riding_down_a_scenic_road.png
+[2026-06-17 04:07:11] [1558/3680] Generated: veiculos/590-moto-scooter-classica-saltando-rampa-de-terra__classic_scooter_jumping_over_a_dirt_hill.png
+[2026-06-17 04:07:12] [1559/3680] Generated: veiculos/591-moto-scooter-classica-perto-do-cafe__classic_scooter_parked_next_to_a_cozy_cafe.png
+[2026-06-17 04:07:13] [1560/3680] Generated: veiculos/592-moto-scooter-classica-com-caixa-de-pizza__classic_scooter_carrying_a_pizza_delivery_box.png
+[2026-06-17 04:07:15] [1561/3680] Generated: veiculos/594-moto-scooter-classica-com-farois-acesos__classic_scooter_smiling_with_big_headlights.png
+[2026-06-17 04:07:16] [1562/3680] Generated: veiculos/593-moto-scooter-classica-com-capacete-de-seguranca__classic_scooter_riding_with_a_safety_helmet.png
+[2026-06-17 04:07:18] [1563/3680] Generated: veiculos/595-moto-moto-estradeira-na-estrada-bonita__cruiser_motorcycle_riding_down_a_scenic_road.png
+[2026-06-17 04:08:09] === STARTING MASSIVE IMAGE GENERATION WORKER ===
+[2026-06-17 04:08:09] Total drawings to generate (including new Anime & Manga): 4400
+[2026-06-17 04:08:16] [1/4400] Generated: animais-domesticos/569-cachorro-pastor-alemao-brincando-com-bola__german_shepherd_dog_playing_with_a_ball.png
+[2026-06-17 04:08:18] [2/4400] Generated: animais-domesticos/572-cachorro-pastor-alemao-com-chapeu-de-festa__german_shepherd_dog_wearing_a_party_hat.png
+[2026-06-17 04:08:19] [3/4400] Generated: animais-domesticos/573-cachorro-pastor-alemao-perto-da-casinha__german_shepherd_dog_next_to_a_dog_house.png
+[2026-06-17 04:08:21] [4/4400] Generated: animais-domesticos/571-cachorro-pastor-alemao-dormindo-na-cesta__german_shepherd_dog_sleeping_in_a_basket.png
+[2026-06-17 04:08:23] [5/4400] Generated: animais-domesticos/570-cachorro-pastor-alemao-correndo-no-parque__german_shepherd_dog_running_in_the_park.png
+[2026-06-17 04:08:24] [6/4400] Generated: animais-domesticos/575-cachorro-pastor-alemao-comendo-ração__german_shepherd_dog_eating_from_a_bowl.png
+[2026-06-17 04:08:26] [7/4400] Generated: animais-domesticos/574-cachorro-pastor-alemao-atras-de-borboleta__german_shepherd_dog_chasing_a_butterfly.png
+[2026-06-17 04:08:28] [8/4400] Generated: animais-domesticos/576-cachorro-pastor-alemao-sorrindo-feliz__german_shepherd_dog_smiling_happily.png
+[2026-06-17 04:08:30] [9/4400] Generated: animais-domesticos/577-cachorro-pastor-alemao-olhando-a-janela__german_shepherd_dog_looking_out_a_window.png
+[2026-06-17 04:08:32] [10/4400] Generated: animais-domesticos/578-cachorro-pastor-alemao-segurando-osso__german_shepherd_dog_holding_a_bone.png
+[2026-06-17 04:08:33] [11/4400] Generated: animais-domesticos/580-cachorro-golden-retriever-correndo-no-parque__golden_retriever_dog_running_in_the_park.png
+[2026-06-17 04:08:35] [12/4400] Generated: animais-domesticos/579-cachorro-golden-retriever-brincando-com-bola__golden_retriever_dog_playing_with_a_ball.png
+[2026-06-17 04:08:37] [13/4400] Generated: animais-domesticos/581-cachorro-golden-retriever-dormindo-na-cesta__golden_retriever_dog_sleeping_in_a_basket.png
+[2026-06-17 04:08:38] [14/4400] Generated: animais-domesticos/582-cachorro-golden-retriever-com-chapeu-de-festa__golden_retriever_dog_wearing_a_party_hat.png
+[2026-06-17 04:08:40] [15/4400] Generated: animais-domesticos/583-cachorro-golden-retriever-perto-da-casinha__golden_retriever_dog_next_to_a_dog_house.png
+[2026-06-17 04:08:42] [16/4400] Generated: animais-domesticos/584-cachorro-golden-retriever-atras-de-borboleta__golden_retriever_dog_chasing_a_butterfly.png
+[2026-06-17 04:08:44] [17/4400] Generated: animais-domesticos/585-cachorro-golden-retriever-comendo-ração__golden_retriever_dog_eating_from_a_bowl.png
+[2026-06-17 04:08:45] [18/4400] Generated: animais-domesticos/586-cachorro-golden-retriever-sorrindo-feliz__golden_retriever_dog_smiling_happily.png
+[2026-06-17 04:08:46] [19/4400] Generated: animais-domesticos/587-cachorro-golden-retriever-olhando-a-janela__golden_retriever_dog_looking_out_a_window.png
+[2026-06-17 04:08:47] [20/4400] Generated: animais-domesticos/588-cachorro-golden-retriever-segurando-osso__golden_retriever_dog_holding_a_bone.png
+[2026-06-17 04:08:49] [21/4400] Generated: animais-domesticos/589-cachorro-poodle-brincando-com-bola__poodle_dog_playing_with_a_ball.png
+[2026-06-17 04:08:50] [22/4400] Generated: animais-domesticos/591-cachorro-poodle-dormindo-na-cesta__poodle_dog_sleeping_in_a_basket.png
+[2026-06-17 04:08:52] [23/4400] Generated: animais-domesticos/590-cachorro-poodle-correndo-no-parque__poodle_dog_running_in_the_park.png
+[2026-06-17 04:08:53] [24/4400] Generated: animais-domesticos/592-cachorro-poodle-com-chapeu-de-festa__poodle_dog_wearing_a_party_hat.png
+[2026-06-17 04:08:55] [25/4400] Generated: animais-domesticos/593-cachorro-poodle-perto-da-casinha__poodle_dog_next_to_a_dog_house.png
+[2026-06-17 04:08:57] [26/4400] Generated: animais-domesticos/594-cachorro-poodle-atras-de-borboleta__poodle_dog_chasing_a_butterfly.png
+[2026-06-17 04:08:58] [27/4400] Generated: animais-domesticos/595-cachorro-poodle-comendo-ração__poodle_dog_eating_from_a_bowl.png
+[2026-06-17 04:08:59] [28/4400] Generated: animais-domesticos/596-cachorro-poodle-sorrindo-feliz__poodle_dog_smiling_happily.png
+[2026-06-17 04:09:01] [29/4400] Generated: animais-domesticos/597-cachorro-poodle-olhando-a-janela__poodle_dog_looking_out_a_window.png
+[2026-06-17 04:09:02] [30/4400] Generated: animais-domesticos/598-cachorro-poodle-segurando-osso__poodle_dog_holding_a_bone.png
+[2026-06-17 04:09:04] [31/4400] Generated: animais-domesticos/599-cachorro-bulldog-brincando-com-bola__bulldog_playing_with_a_ball.png
+[2026-06-17 04:09:06] [32/4400] Generated: animais-domesticos/601-cachorro-bulldog-dormindo-na-cesta__bulldog_sleeping_in_a_basket.png
+[2026-06-17 04:09:07] [33/4400] Generated: animais-domesticos/600-cachorro-bulldog-correndo-no-parque__bulldog_running_in_the_park.png
+[2026-06-17 04:09:09] [34/4400] Generated: animais-domesticos/603-cachorro-bulldog-perto-da-casinha__bulldog_next_to_a_dog_house.png
+[2026-06-17 04:09:11] [35/4400] Generated: animais-domesticos/602-cachorro-bulldog-com-chapeu-de-festa__bulldog_wearing_a_party_hat.png
+[2026-06-17 04:09:13] [36/4400] Generated: animais-domesticos/604-cachorro-bulldog-atras-de-borboleta__bulldog_chasing_a_butterfly.png
+[2026-06-17 04:09:15] [37/4400] Generated: animais-domesticos/605-cachorro-bulldog-comendo-ração__bulldog_eating_from_a_bowl.png
+[2026-06-17 04:09:16] [38/4400] Generated: animais-domesticos/606-cachorro-bulldog-sorrindo-feliz__bulldog_smiling_happily.png
+[2026-06-17 04:09:18] [39/4400] Generated: animais-domesticos/608-cachorro-bulldog-segurando-osso__bulldog_holding_a_bone.png
+[2026-06-17 04:09:20] [40/4400] Generated: animais-domesticos/607-cachorro-bulldog-olhando-a-janela__bulldog_looking_out_a_window.png
+[2026-06-17 04:09:21] [41/4400] Generated: animais-domesticos/609-cachorro-beagle-brincando-com-bola__beagle_dog_playing_with_a_ball.png
+[2026-06-17 04:09:23] [42/4400] Generated: animais-domesticos/611-cachorro-beagle-dormindo-na-cesta__beagle_dog_sleeping_in_a_basket.png
+[2026-06-17 04:09:25] [43/4400] Generated: animais-domesticos/610-cachorro-beagle-correndo-no-parque__beagle_dog_running_in_the_park.png
+[2026-06-17 04:09:27] [44/4400] Generated: animais-domesticos/612-cachorro-beagle-com-chapeu-de-festa__beagle_dog_wearing_a_party_hat.png
+[2026-06-17 04:09:28] [45/4400] Generated: animais-domesticos/613-cachorro-beagle-perto-da-casinha__beagle_dog_next_to_a_dog_house.png
+[2026-06-17 04:09:29] [46/4400] Generated: animais-domesticos/614-cachorro-beagle-atras-de-borboleta__beagle_dog_chasing_a_butterfly.png
+[2026-06-17 04:09:31] [47/4400] Generated: animais-domesticos/615-cachorro-beagle-comendo-ração__beagle_dog_eating_from_a_bowl.png
+[2026-06-17 04:09:32] [48/4400] Generated: animais-domesticos/616-cachorro-beagle-sorrindo-feliz__beagle_dog_smiling_happily.png
+[2026-06-17 04:09:34] [49/4400] Generated: animais-domesticos/617-cachorro-beagle-olhando-a-janela__beagle_dog_looking_out_a_window.png
+[2026-06-17 04:09:36] [50/4400] Generated: animais-domesticos/618-cachorro-beagle-segurando-osso__beagle_dog_holding_a_bone.png
+[2026-06-17 04:09:36] Batch 1 completed (50 drawings). Triggering build & push...
+[2026-06-17 04:09:36] Rebuilding catalog and drawings database...
+[2026-06-17 04:09:36] Build successful!
+[2026-06-17 04:09:36] Committing and pushing to origin main...

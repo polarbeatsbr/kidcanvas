@@ -41,7 +41,18 @@ const CATEGORIES_DATA = {
     'ciencias-e-corpo-humano': { name: 'Ciências e Corpo Humano', emoji: '🔬', desc: 'Desenhos de Ciências e Corpo Humano para colorir e aprender! Pinte órgãos humanos de forma divertida, telescópios, átomos e tubos de ensaio.' },
     'praia-e-estacoes': { name: 'Praia e Estações', emoji: '🏖️', desc: 'Desenhos de Praia, Férias e Estações do Ano para colorir grátis! Pinte dias ensolarados de verão, bonecos de neve no inverno, acampamentos e conchas.' },
     'fazenda': { name: 'Fazenda', emoji: '🚜', desc: 'Desenhos de Fazenda para colorir e imprimir grátis! Divirta-se pintando vaquinhas, porquinhos, ovelhas, tratores trabalhando e a vida no campo.' },
-    'mundo-gamer': { name: 'Mundo Gamer', emoji: '🎮', desc: 'Desenhos de Mundo Gamer para colorir e imprimir grátis! Encontre controles de videogame, consoles modernos, personagens de pixel e cenários de jogos.' }
+    'mundo-gamer': { name: 'Mundo Gamer', emoji: '🎮', desc: 'Desenhos de Mundo Gamer para colorir e imprimir grátis! Encontre controles de videogame, consoles modernos, personagens de pixel e cenários de jogos.' },
+    'anime-garotos': { name: 'Garotos Anime', emoji: '👦', desc: 'Desenhos de Garotos Anime para colorir e imprimir grátis! Encontre heróis aventureiros, ninjas, guerreiros elementais, magos e espadachins.' },
+    'anime-garotas': { name: 'Garotas Anime', emoji: '👧', desc: 'Desenhos de Garotas Anime para colorir e imprimir grátis! Pinte meninas mágicas, princesas de anime, idols cantoras, feiticeiras e heroínas.' },
+    'anime-samurais-e-guerreiros': { name: 'Samurais Anime', emoji: '⚔️', desc: 'Desenhos de Samurais e Guerreiros de anime para colorir grátis! Pinte samurais jovens, mestres samurais, ronins lendários e guerreiras samurais.' },
+    'anime-ninjas': { name: 'Ninjas Anime', emoji: '🥷', desc: 'Desenhos de Ninjas de anime para colorir e imprimir grátis! Encontre ninjas elementais, ninjas iniciantes, mestres das sombras e ninjas mágicos.' },
+    'anime-mechas-e-robos': { name: 'Mechas e Robôs Anime', emoji: '🤖', desc: 'Desenhos de Mechas e Robôs gigantes de anime para colorir grátis! Pinte robôs amigáveis, pilotos de mecha, robôs animais e naves.' },
+    'anime-kawaii': { name: 'Desenhos Kawaii', emoji: '🐱', desc: 'Desenhos Kawaii super fofos para colorir grátis! Pinte gatos, cachorros, pandas, capivaras, sorvetes e frutas no estilo kawaii japonês.' },
+    'anime-criaturas-misticas': { name: 'Criaturas Místicas Anime', emoji: '🐉', desc: 'Desenhos de Criaturas Místicas de anime para colorir grátis! Baixe imagens de dragões, fênix, raposas mágicas de nove caudas e grifos.' },
+    'anime-vida-escolar': { name: 'Vida Escolar Anime', emoji: '🏫', desc: 'Desenhos de Vida Escolar estilo anime para colorir e imprimir! Pinte salas de aula, festivais escolares, clubes de artes e amigos da escola.' },
+    'anime-fantasia': { name: 'Fantasia Anime', emoji: '✨', desc: 'Desenhos de Fantasia estilo anime para colorir grátis! Baixe desenhos de reinos mágicos, castelos voadores, cristais e portais encantados.' },
+    'anime-futurista': { name: 'Sci-Fi e Futurista Anime', emoji: '🚀', desc: 'Desenhos de Sci-Fi e Futurismo estilo anime para colorir! Pinte cidades futuristas, motos voadoras, naves e estações espaciais.' },
+    'anime-gamer': { name: 'Gamer Anime', emoji: '🎮', desc: 'Desenhos Gamer estilo anime para colorir grátis! Encontre avatares de jogadores, guerreiros digitais, monstros de pixel e mundos virtuais.' }
 };
 
 const POPULAR_SUGGESTIONS = ['unicórnio', 'dinossauro', 'borboleta', 'leão', 'golfinho'];
