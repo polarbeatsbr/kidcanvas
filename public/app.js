@@ -45,7 +45,7 @@ const CATEGORIES_DATA = {
     'anime-garotos': { name: 'Garotos Anime', emoji: '👦', desc: 'Desenhos de Garotos Anime para colorir e imprimir grátis! Encontre heróis aventureiros, ninjas, guerreiros elementais, magos e espadachins.' },
     'anime-garotas': { name: 'Garotas Anime', emoji: '👧', desc: 'Desenhos de Garotas Anime para colorir e imprimir grátis! Pinte meninas mágicas, princesas de anime, idols cantoras, feiticeiras e heroínas.' },
     'anime-samurais-e-guerreiros': { name: 'Samurais Anime', emoji: '⚔️', desc: 'Desenhos de Samurais e Guerreiros de anime para colorir grátis! Pinte samurais jovens, mestres samurais, ronins lendários e guerreiras samurais.' },
-    'anime-ninjas': { name: 'Ninjas Anime', emoji: '🥷', desc: 'Desenhos de Ninjas de anime para colorir e imprimir grátis! Encontre ninjas elementais, ninjas iniciantes, mestres das sombras e ninjas mágicos.' },
+    'anime-ninjas': { name: 'Ninjas Anime', emoji: '<img src="/ninja_icon.png" style="width: 1em; height: 1em; object-fit: contain; vertical-align: middle;" />', desc: 'Desenhos de Ninjas de anime para colorir e imprimir grátis! Encontre ninjas elementais, ninjas iniciantes, mestres das sombras e ninjas mágicos.' },
     'anime-mechas-e-robos': { name: 'Mechas e Robôs Anime', emoji: '🤖', desc: 'Desenhos de Mechas e Robôs gigantes de anime para colorir grátis! Pinte robôs amigáveis, pilotos de mecha, robôs animais e naves.' },
     'anime-kawaii': { name: 'Desenhos Kawaii', emoji: '🐱', desc: 'Desenhos Kawaii super fofos para colorir grátis! Pinte gatos, cachorros, pandas, capivaras, sorvetes e frutas no estilo kawaii japonês.' },
     'anime-criaturas-misticas': { name: 'Criaturas Místicas Anime', emoji: '🐉', desc: 'Desenhos de Criaturas Místicas de anime para colorir grátis! Baixe imagens de dragões, fênix, raposas mágicas de nove caudas e grifos.' },
@@ -1816,7 +1816,7 @@ function renderCategoriaDetalheView(categorySlug) {
     
     // Atualizar banner e crumbs
     document.getElementById('category-detail-title-crumb').textContent = catInfo.name;
-    document.getElementById('category-detail-icon').textContent = catInfo.emoji;
+    document.getElementById('category-detail-icon').innerHTML = catInfo.emoji;
     document.getElementById('category-detail-title').textContent = catInfo.name;
     document.getElementById('category-detail-desc').textContent = catInfo.desc;
     
