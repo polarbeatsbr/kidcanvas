@@ -2005,12 +2005,15 @@ app.get('/api/proxy-image', async (req, res) => {
 app.post('/api/user/save-painting', async (req, res) => {
     try {
         const token = req.headers['x-session-token'];
-        const { imageBase64, prompt, isPublic, category, creatorName } = req.body;
+        const { imageBase64, imageUrl, prompt, isPublic, category, creatorName, firstLines, storyData } = req.body;
         
         if (!token) {
             return res.status(401).json({ success: false, message: 'Não autorizado.' });
         }
-        if (!imageBase64 || !prompt) {
+        if (!imageBase64 && !imageUrl) {
+            return res.status(400).json({ success: false, message: 'Imagem ou URL são obrigatórios.' });
+        }
+        if (!prompt) {
             return res.status(400).json({ success: false, message: 'Imagem e nome do desenho são obrigatórios.' });
         }
         
@@ -2021,13 +2024,16 @@ app.post('/api/user/save-painting', async (req, res) => {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
         
-        // Fazer upload da pintura (PNG) para o Cloudflare R2
-        const buffer = Buffer.from(imageBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-        const filename = `painting_${user.id}_${Date.now()}.png`;
-        const r2Url = await uploadImage(buffer, filename, 'image/png');
-        
-        if (!r2Url) {
-            return res.status(500).json({ success: false, message: 'Falha ao salvar imagem de pintura no R2.' });
+        let r2Url = imageUrl;
+        if (imageBase64) {
+            // Fazer upload da pintura (PNG) para o Cloudflare R2
+            const buffer = Buffer.from(imageBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
+            const filename = `painting_${user.id}_${Date.now()}.png`;
+            r2Url = await uploadImage(buffer, filename, 'image/png');
+            
+            if (!r2Url) {
+                return res.status(500).json({ success: false, message: 'Falha ao salvar imagem de pintura no R2.' });
+            }
         }
         
         // Salvar metadados no perfil do usuário
@@ -2037,7 +2043,9 @@ app.post('/api/user/save-painting', async (req, res) => {
             prompt: prompt,
             date: Date.now(),
             isPublic: !!isPublic,
-            category: category || (prompt === 'Desenho Livre' ? 'Mão Livre' : 'Colorir')
+            category: category || (prompt === 'Desenho Livre' ? 'Mão Livre' : 'Colorir'),
+            firstLines: firstLines || null,
+            storyData: storyData || null
         };
         user.myPaintings.push(paintingItem);
         
@@ -2060,7 +2068,9 @@ app.post('/api/user/save-painting', async (req, res) => {
                 likes: 0,
                 isApproved: false,
                 reports: 0,
-                votedBy: []
+                votedBy: [],
+                firstLines: firstLines || null,
+                storyData: storyData || null
             });
             if (publicPaintings.length > 500) {
                 publicPaintings.shift();
@@ -2108,25 +2118,72 @@ app.get('/api/user/public-profile', async (req, res) => {
             user = users.find(u => u.name && u.name.toLowerCase() === name.toLowerCase());
         }
 
-        let totalStars = 0;
-        let publishedCount = 0;
-        let totalCreations = 0;
-
-        if (user) {
-            // Filtrar criações aprovadas deste usuário
-            const userApproved = publicPaintings.filter(p => p.userEmail && p.userEmail.toLowerCase() === user.email.toLowerCase() && p.isApproved === true && (!p.reports || p.reports < 3));
-            totalStars = userApproved.reduce((sum, p) => sum + (p.stars || p.likes || 0), 0);
-            publishedCount = userApproved.length;
-            
-            // Obras criadas: soma de gerados em myImages, histórias em myStories e pinturas em myPaintings
-            totalCreations = (user.myImages || []).length + (user.myStories || []).length + (user.myPaintings || []).length;
-        } else {
-            // Fallback caso usuário não seja encontrado na base (ex: pintura legada ou de visitante)
-            const creatorApproved = publicPaintings.filter(p => p.creatorName && p.creatorName.toLowerCase() === name.toLowerCase() && p.isApproved === true && (!p.reports || p.reports < 3));
-            totalStars = creatorApproved.reduce((sum, p) => sum + (p.stars || p.likes || 0), 0);
-            publishedCount = creatorApproved.length;
-            totalCreations = publishedCount; // Fallback
+        if (user && !email) {
+            email = user.email;
         }
+
+        let creatorApproved = [];
+        if (email) {
+            creatorApproved = publicPaintings.filter(p => p.userEmail && p.userEmail.toLowerCase() === email.toLowerCase() && p.isApproved === true && (!p.reports || p.reports < 3));
+        } else {
+            creatorApproved = publicPaintings.filter(p => p.creatorName && p.creatorName.toLowerCase() === name.toLowerCase() && p.isApproved === true && (!p.reports || p.reports < 3));
+        }
+
+        const totalStars = creatorApproved.reduce((sum, p) => sum + (p.stars || p.likes || 0), 0);
+
+        // Count category-specific creations in the public gallery
+        const paintingsCount = creatorApproved.filter(p => p.category === 'Colorir' || p.category === 'Mão Livre' || !p.category).length;
+        const storiesCount = creatorApproved.filter(p => p.category === 'Histórias Mágicas').length;
+        const aiImagesCount = creatorApproved.filter(p => p.category === 'Criação com IA').length;
+
+        // Calculate achievements
+        const primeira_participacao = creatorApproved.length >= 1;
+
+        // Destaque da Semana (Top 10 weekly)
+        const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+        const weeklyCreations = publicPaintings.filter(p => p.isApproved === true && (!p.reports || p.reports < 3) && p.date >= oneWeekAgo);
+        weeklyCreations.sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+        const top10Weekly = weeklyCreations.slice(0, 10);
+        const destaque_semana = top10Weekly.some(p => {
+            if (email && p.userEmail) {
+                return p.userEmail.toLowerCase() === email.toLowerCase();
+            }
+            return p.creatorName && p.creatorName.toLowerCase() === name.toLowerCase();
+        });
+
+        // Campeão da Categoria (Mais votado do mês)
+        const oneMonthAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
+        const monthlyCreations = publicPaintings.filter(p => p.isApproved === true && (!p.reports || p.reports < 3) && p.date >= oneMonthAgo);
+        
+        let hasCategoryChampion = false;
+        const categories = ['Colorir', 'Mão Livre', 'Criação com IA', 'Histórias Mágicas'];
+        for (const cat of categories) {
+            const catCreations = monthlyCreations.filter(p => p.category === cat || (cat === 'Colorir' && !p.category));
+            if (catCreations.length > 0) {
+                // Find max stars item
+                let maxStars = -1;
+                let topItem = null;
+                for (const p of catCreations) {
+                    const s = p.stars || p.likes || 0;
+                    if (s > maxStars) {
+                        maxStars = s;
+                        topItem = p;
+                    }
+                }
+                if (topItem && maxStars > 0) {
+                    const isOwner = email && topItem.userEmail 
+                        ? topItem.userEmail.toLowerCase() === email.toLowerCase() 
+                        : topItem.creatorName && topItem.creatorName.toLowerCase() === name.toLowerCase();
+                    if (isOwner) {
+                        hasCategoryChampion = true;
+                        break;
+                    }
+                }
+            }
+        }
+        const campeao_categoria = hasCategoryChampion;
+
+        const lenda_kidcanvas = totalStars >= 500;
 
         // Retornar os dados consolidados do perfil público
         return res.json({
@@ -2134,8 +2191,15 @@ app.get('/api/user/public-profile', async (req, res) => {
             profile: {
                 name: user ? (user.name || name) : name,
                 stars: totalStars,
-                publishedCount: publishedCount,
-                createdCount: totalCreations
+                paintingsCount: paintingsCount,
+                storiesCount: storiesCount,
+                aiImagesCount: aiImagesCount,
+                achievements: {
+                    primeira_participacao,
+                    destaque_semana,
+                    campeao_categoria,
+                    lenda_kidcanvas
+                }
             }
         });
     } catch(err) {

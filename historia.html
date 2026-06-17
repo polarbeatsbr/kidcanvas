@@ -1437,6 +1437,7 @@
             <div class="btn-action-group" style="max-width: 480px;">
                 <button class="btn-action btn-print" id="btnPrintCover">🖨️ Imprimir Capa</button>
                 <button class="btn-action" id="btnDownloadCover">💾 Salvar Capa</button>
+                <button class="btn-action" id="btnShareStoryHall" onclick="shareStoryToHall()" style="background-color: var(--color-purple); color: white;">🚀 Compartilhar no Hall</button>
             </div>
         </div>
         
@@ -3165,6 +3166,71 @@
             });
         });
     }
+
+    async function shareStoryToHall() {
+        if (!currentUser) {
+            alert('Faça login ou crie uma conta grátis para compartilhar sua história no Hall da Fama! 🧙‍♂️');
+            if (typeof openPlansModal === 'function') {
+                openPlansModal();
+                if (typeof switchAuthTab === 'function') {
+                    switchAuthTab('login');
+                }
+            }
+            return;
+        }
+        
+        if (typeof generatedCoverUrl === 'undefined' || typeof generatedParagraphs === 'undefined' || !generatedCoverUrl || !generatedParagraphs || generatedParagraphs.length === 0) {
+            alert('Nenhuma história gerada para compartilhar.');
+            return;
+        }
+
+        const coverTitleEl = document.getElementById('coverTitle');
+        const title = coverTitleEl ? coverTitleEl.textContent : 'O Livro Mágico';
+        const firstLines = generatedParagraphs[0].text;
+        
+        let creatorName = prompt('Qual o nome ou apelido do pequeno autor que criou esta história?', currentUser.name || currentUser.email.split('@')[0]);
+        if (creatorName === null) {
+            return;
+        }
+        creatorName = creatorName.trim() || currentUser.name || currentUser.email.split('@')[0];
+
+        alert('Enviando sua história para o Hall... ⏳');
+
+        try {
+            const sessionToken = localStorage.getItem('sessionToken') || currentUser.token;
+            const response = await fetch('/api/user/save-painting', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-session-token': sessionToken
+                },
+                body: JSON.stringify({
+                    imageUrl: generatedCoverUrl,
+                    prompt: title,
+                    isPublic: true,
+                    category: 'Histórias Mágicas',
+                    creatorName: creatorName,
+                    firstLines: firstLines,
+                    storyData: {
+                        title: title,
+                        coverUrl: generatedCoverUrl,
+                        paragraphs: generatedParagraphs
+                    }
+                })
+            });
+
+            const resData = await response.json();
+            if (response.ok && resData.success) {
+                alert('Sua história foi enviada para o Hall da Fama! Ela passará por moderação antes de aparecer. 🎉');
+            } else {
+                alert(resData.message || 'Erro ao compartilhar história.');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Erro ao enviar história para o servidor.');
+        }
+    }
+    window.shareStoryToHall = shareStoryToHall;
 </script>
 </body>
 </html>

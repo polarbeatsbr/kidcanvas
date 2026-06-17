@@ -3594,6 +3594,19 @@ function setupCustomDrawingActionListeners(imageUrl) {
             shareDrawingOnWhatsApp(imageUrl, promptText);
         };
     }
+
+    const paintOnlineBtn = document.getElementById('btn-paint-custom-online');
+    if (paintOnlineBtn) {
+        paintOnlineBtn.onclick = () => {
+            window.currentPaintingData = {
+                imgUrl: imageUrl,
+                name: promptText || 'Desenho Customizado',
+                backUrl: window.location.pathname,
+                isCustomAI: true
+            };
+            navigate('/pintar-online');
+        };
+    }
 }
 
 async function handleWaitlistSubmit(event) {
@@ -6759,6 +6772,33 @@ async function loadPendingPaintingsAdmin() {
 }
 window.loadPendingPaintingsAdmin = loadPendingPaintingsAdmin;
 
+function formatRelativeTime(timestamp) {
+    if (!timestamp) return 'há algum tempo';
+    const now = Date.now();
+    const diffMs = now - timestamp;
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffHr = Math.floor(diffMin / 60);
+    const diffDays = Math.floor(diffHr / 24);
+    const diffMonths = Math.floor(diffDays / 30);
+    const diffYears = Math.floor(diffDays / 365);
+
+    if (diffSec < 60) {
+        return 'há poucos segundos';
+    } else if (diffMin < 60) {
+        return diffMin === 1 ? 'há 1 minuto' : `há ${diffMin} minutos`;
+    } else if (diffHr < 24) {
+        return diffHr === 1 ? 'há 1 hora' : `há ${diffHr} horas`;
+    } else if (diffDays < 30) {
+        return diffDays === 1 ? 'há 1 dia' : `há ${diffDays} dias`;
+    } else if (diffMonths < 12) {
+        return diffMonths === 1 ? 'há 1 mês' : `há ${diffMonths} meses`;
+    } else {
+        return diffYears === 1 ? 'há 1 ano' : `há ${diffYears} anos`;
+    }
+}
+window.formatRelativeTime = formatRelativeTime;
+
 async function renderHallDaFamaView() {
     document.title = "Hall da Fama 🏆 — KidCanvas";
     setMetaDescription("Veja as criações mais votadas da comunidade KidCanvas.");
@@ -6804,6 +6844,25 @@ async function renderHallDaFamaView() {
         if (result.success && result.paintings) {
             const allPaintings = result.paintings;
 
+            // Rankings de campeões semanais por categoria
+            const weeklyChampions = {};
+            const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+            const categoriesList = ['Colorir', 'Mão Livre', 'Criação com IA', 'Histórias Mágicas'];
+            for (const cat of categoriesList) {
+                const catApproved = allPaintings.filter(p => p.category === cat || (cat === 'Colorir' && !p.category));
+                let weeklyItems = catApproved.filter(p => p.date >= oneWeekAgo && (p.stars || p.likes || 0) > 0);
+                if (weeklyItems.length > 0) {
+                    weeklyItems.sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+                    weeklyChampions[cat] = weeklyItems[0].url;
+                } else {
+                    let allTimeItems = catApproved.filter(p => (p.stars || p.likes || 0) > 0);
+                    if (allTimeItems.length > 0) {
+                        allTimeItems.sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+                        weeklyChampions[cat] = allTimeItems[0].url;
+                    }
+                }
+            }
+
             // Filtrar por categoria ativa
             let filtered = allPaintings;
             if (window.activeHallCategory !== 'all') {
@@ -6822,6 +6881,12 @@ async function renderHallDaFamaView() {
                     } else if (window.activeHallCategory === 'Colorir') {
                         if (emptyTitle) emptyTitle.textContent = 'Nenhuma obra de Colorir por aqui ainda.';
                         if (emptySub) emptySub.textContent = 'Escolha um desenho legal, pinte e publique aqui!';
+                    } else if (window.activeHallCategory === 'Criação com IA') {
+                        if (emptyTitle) emptyTitle.textContent = 'Nenhuma criação com IA por aqui ainda.';
+                        if (emptySub) emptySub.textContent = 'Use sua imaginação no gerador de IA e envie para o Hall!';
+                    } else if (window.activeHallCategory === 'Histórias Mágicas') {
+                        if (emptyTitle) emptyTitle.textContent = 'Nenhuma história mágica por aqui ainda.';
+                        if (emptySub) emptySub.textContent = 'Crie um livro incrível e compartilhe no Hall!';
                     } else {
                         if (emptyTitle) emptyTitle.textContent = 'O Hall da Fama está esperando a primeira obra.';
                         if (emptySub) emptySub.textContent = 'Pinte, compartilhe e brilhe por aqui!';
@@ -6845,8 +6910,9 @@ async function renderHallDaFamaView() {
                     card.style.gap = '8px';
                     card.style.position = 'relative';
 
-                    const timeStr = new Date(dw.date).toLocaleDateString('pt-BR');
+                    const timeStr = formatRelativeTime(dw.date);
                     const starsCount = dw.stars || dw.likes || 0;
+                    const category = dw.category || 'Colorir';
                     
                     const likedKey = 'liked_painting_' + btoa(dw.url).replace(/=/g, '');
                     const hasLiked = localStorage.getItem(likedKey);
@@ -6854,40 +6920,118 @@ async function renderHallDaFamaView() {
                         ? 'background-color: #fff3cd; border-color: #ffe082; color: #ffb300;' 
                         : 'background-color: #ffffff; color: var(--color-dark);';
 
-                    const catBadgeColor = dw.category === 'Mão Livre' ? 'background: #ff9f43;' : 'background: #10ac84;';
+                    let catBadgeColor = 'background: #10ac84;';
+                    if (category === 'Mão Livre') catBadgeColor = 'background: #ff9f43;';
+                    else if (category === 'Criação com IA') catBadgeColor = 'background: #9c27b0;';
+                    else if (category === 'Histórias Mágicas') catBadgeColor = 'background: #2196f3;';
 
-                    card.innerHTML = `
-                        <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
-                            <img src="${dw.url}" alt="${dw.prompt}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
-                            <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
-                                ${dw.category || 'Colorir'}
-                            </span>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 2px;">
-                            <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700;">👤 Por: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
-                            <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0;">${dw.prompt}</h4>
-                            <p style="font-size: 0.75rem; color: var(--color-dark-light); margin: 0;">Publicado em ${timeStr}</p>
-                            
-                            <!-- Selo Automático -->
-                            <div style="margin-top: 4px; min-height: 20px;">
-                                ${renderStarsBadgeHtml(starsCount)}
+                    // Champion Badge
+                    let championBadgeHtml = '';
+                    if (dw.url === weeklyChampions[category]) {
+                        let championText = '';
+                        let championColor = '';
+                        if (category === 'Colorir') {
+                            championText = '🏆 Campeão da Semana — Colorir';
+                            championColor = '#ffb300';
+                        } else if (category === 'Mão Livre') {
+                            championText = '🎨 Campeão da Semana — Mão Livre';
+                            championColor = '#ff9f43';
+                        } else if (category === 'Criação com IA') {
+                            championText = '🪄 Mestre dos Prompts';
+                            championColor = '#9c27b0';
+                        } else if (category === 'Histórias Mágicas') {
+                            championText = '📖 Contador de Histórias';
+                            championColor = '#2196f3';
+                        }
+                        championBadgeHtml = `
+                            <div style="background: ${championColor}; color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 800; text-align: center; margin-bottom: 8px; border: var(--border-thin); box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-color: var(--color-dark); text-shadow: 0 1px 1px rgba(0,0,0,0.2);">
+                                ${championText}
                             </div>
-                        </div>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 8px; border-top: 1px dashed #f0f0f0;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                                <span style="font-weight: 800; color: var(--color-orange); font-size: 1.05rem;">⭐ <span class="like-count">${starsCount}</span></span>
-                                <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${dw.url}', this)" style="font-size: 0.8rem; padding: 4px 10px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;">
-                                    ⭐ Dar estrelinha
+                        `;
+                    }
+
+                    if (category === 'Histórias Mágicas') {
+                        card.innerHTML = `
+                            ${championBadgeHtml}
+                            <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
+                                <img src="${dw.url}" alt="${dw.prompt}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
+                                <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
+                                    ${category}
+                                </span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1;">
+                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700;">👤 Autor: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
+                                <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0; line-height: 1.2;">📖 ${dw.prompt}</h4>
+                                <p style="font-size: 0.75rem; color: var(--color-dark-light); margin: 0;">Publicado ${timeStr}</p>
+                                
+                                <div style="background: #fdfdfd; border-left: 3px solid var(--color-purple); padding: 6px 10px; margin: 4px 0; font-size: 0.75rem; font-style: italic; color: #555; max-height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                    "${dw.firstLines || 'Era uma vez...'}"
+                                </div>
+                                
+                                <button class="btn btn-primary btn-sm" onclick="viewPublicStory('${dw.url}')" style="width: 100%; font-size: 0.8rem; padding: 6px; font-weight: 700; border-radius: 8px; margin-top: auto; background-color: var(--color-purple); border-color: var(--color-purple); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                    📖 Ler História
                                 </button>
                             </div>
-                            <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
-                                <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px;" title="Imprimir"><i class="fa-solid fa-print"></i></button>
-                                <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px; background-color: #25d366; border-color: #25d366; color: white;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
-                                <a href="#" onclick="reportPublicPainting(event, '${dw.url}')" style="color: #e74c3c; font-size: 0.7rem; font-weight: bold; text-decoration: none; padding: 4px; display: inline-flex; align-items: center; gap: 2px;" title="Denunciar esta pintura"><i class="fa-solid fa-flag"></i> Denunciar</a>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #f0f0f0;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                    <span style="font-weight: 800; color: var(--color-orange); font-size: 1.05rem;">⭐ <span class="like-count">${starsCount}</span></span>
+                                    <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${dw.url}', this)" style="font-size: 0.8rem; padding: 4px 10px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;">
+                                        ⭐ Dar estrelinha
+                                    </button>
+                                </div>
+                                <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
+                                    <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px;" title="Imprimir"><i class="fa-solid fa-print"></i></button>
+                                    <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px; background-color: #25d366; border-color: #25d366; color: white;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+                                    <a href="#" onclick="reportPublicPainting(event, '${dw.url}')" style="color: #e74c3c; font-size: 0.7rem; font-weight: bold; text-decoration: none; padding: 4px; display: inline-flex; align-items: center; gap: 2px;" title="Denunciar esta história"><i class="fa-solid fa-flag"></i> Denunciar</a>
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    } else {
+                        let extraContentHtml = '';
+                        if (category === 'Criação com IA') {
+                            extraContentHtml = `
+                                <div style="background: #f7f9fa; border: 1px dashed #ced4da; border-radius: 6px; padding: 8px; margin-bottom: 6px; font-size: 0.75rem; font-weight: 600; color: var(--color-dark); max-height: 70px; overflow-y: auto;">
+                                    <strong>Prompt:</strong> <span style="font-style: italic; color: #495057;">"${dw.prompt}"</span>
+                                </div>
+                            `;
+                        }
+
+                        card.innerHTML = `
+                            ${championBadgeHtml}
+                            <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
+                                <img src="${dw.url}" alt="${dw.prompt}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
+                                <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
+                                    ${category}
+                                </span>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 2px;">
+                                ${extraContentHtml}
+                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700;">👤 Por: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
+                                <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0;">${dw.prompt}</h4>
+                                <p style="font-size: 0.75rem; color: var(--color-dark-light); margin: 0;">Publicado ${timeStr}</p>
+                                
+                                <!-- Selo Automático -->
+                                <div style="margin-top: 4px; min-height: 20px;">
+                                    ${renderStarsBadgeHtml(starsCount)}
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 8px; border-top: 1px dashed #f0f0f0;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                                    <span style="font-weight: 800; color: var(--color-orange); font-size: 1.05rem;">⭐ <span class="like-count">${starsCount}</span></span>
+                                    <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${dw.url}', this)" style="font-size: 0.8rem; padding: 4px 10px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;">
+                                        ⭐ Dar estrelinha
+                                    </button>
+                                </div>
+                                <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
+                                    <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px;" title="Imprimir"><i class="fa-solid fa-print"></i></button>
+                                    <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px; background-color: #25d366; border-color: #25d366; color: white;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+                                    <a href="#" onclick="reportPublicPainting(event, '${dw.url}')" style="color: #e74c3c; font-size: 0.7rem; font-weight: bold; text-decoration: none; padding: 4px; display: inline-flex; align-items: center; gap: 2px;" title="Denunciar esta pintura"><i class="fa-solid fa-flag"></i> Denunciar</a>
+                                </div>
+                            </div>
+                        `;
+                    }
                     grid.appendChild(card);
                 });
             }
@@ -7085,7 +7229,8 @@ async function savePaintingToGallery() {
     try {
         const imageBase64 = paintCanvas.toDataURL('image/png');
         const sessionToken = localStorage.getItem('sessionToken') || currentUser.token;
-        const category = data.imgUrl === 'blank' ? 'Mão Livre' : 'Colorir';
+        const isCustomAI = data.isCustomAI || false;
+        const category = isCustomAI ? 'Criação com IA' : (data.imgUrl === 'blank' ? 'Mão Livre' : 'Colorir');
 
         const response = await fetch('/api/user/save-painting', {
             method: 'POST',
@@ -7608,9 +7753,15 @@ async function openPublicProfile(name, userEmail = '') {
     document.getElementById('profile-modal-name').textContent = name;
     document.getElementById('profile-modal-stars-text').textContent = 'Carregando...';
     document.getElementById('profile-modal-paintings').textContent = '...';
-    document.getElementById('profile-modal-creations').textContent = '...';
+    
+    const storiesEl = document.getElementById('profile-modal-stories');
+    if (storiesEl) storiesEl.textContent = '...';
+    
+    const aiImagesEl = document.getElementById('profile-modal-ai-images');
+    if (aiImagesEl) aiImagesEl.textContent = '...';
+    
     document.getElementById('profile-modal-badges').textContent = '...';
-    document.getElementById('profile-modal-badges-grid').innerHTML = '';
+    document.getElementById('profile-modal-badges-grid').innerHTML = '<div style="text-align:center; padding: 20px; font-weight: bold; color: var(--color-dark-light);"><i class="fa-solid fa-spinner fa-spin"></i> Carregando conquistas...</div>';
 
     modal.classList.add('open');
 
@@ -7623,26 +7774,75 @@ async function openPublicProfile(name, userEmail = '') {
             const profile = data.profile;
             document.getElementById('profile-modal-name').textContent = profile.name;
             document.getElementById('profile-modal-stars-text').textContent = `${profile.stars} estrelas`;
-            document.getElementById('profile-modal-paintings').textContent = profile.publishedCount;
-            document.getElementById('profile-modal-creations').textContent = profile.createdCount;
+            document.getElementById('profile-modal-paintings').textContent = profile.paintingsCount;
             
-            // Renderizar grade de selos/conquistas
+            if (storiesEl) storiesEl.textContent = profile.storiesCount;
+            if (aiImagesEl) aiImagesEl.textContent = profile.aiImagesCount;
+            
+            // Renderizar grade de conquistas/selos
+            const achievements = profile.achievements || {
+                primeira_participacao: false,
+                destaque_semana: false,
+                campeao_categoria: false,
+                lenda_kidcanvas: false
+            };
+
+            const list = [
+                {
+                    key: 'primeira_participacao',
+                    title: 'Primeira Participação',
+                    desc: 'Primeiro desenho publicado',
+                    emoji: '🥉',
+                    isUnlocked: achievements.primeira_participacao
+                },
+                {
+                    key: 'destaque_semana',
+                    title: 'Destaque da Semana',
+                    desc: 'Top 10 semanal',
+                    emoji: '🥈',
+                    isUnlocked: achievements.destaque_semana
+                },
+                {
+                    key: 'campeao_categoria',
+                    title: 'Campeão da Categoria',
+                    desc: 'Mais votado do mês',
+                    emoji: '🥇',
+                    isUnlocked: achievements.campeao_categoria
+                },
+                {
+                    key: 'lenda_kidcanvas',
+                    title: 'Lenda KidCanvas',
+                    desc: '500 estrelas acumuladas',
+                    emoji: '👑',
+                    isUnlocked: achievements.lenda_kidcanvas
+                }
+            ];
+
             let unlockedCount = 0;
-            const gridHtml = unlockableBadges.map(badge => {
-                const isUnlocked = profile.stars >= badge.stars;
-                if (isUnlocked) unlockedCount++;
-                const opacity = isUnlocked ? '1' : '0.25';
-                const filter = isUnlocked ? 'none' : 'grayscale(1)';
-                const titleText = isUnlocked ? badge.name : `Bloqueado - Precisa de ${badge.stars} ⭐`;
+            const gridHtml = list.map(item => {
+                if (item.isUnlocked) unlockedCount++;
+                const opacity = item.isUnlocked ? '1' : '0.4';
+                const filter = item.isUnlocked ? 'none' : 'grayscale(1)';
+                const bg = item.isUnlocked ? '#fffde7' : '#fafafa';
+                const borderColor = item.isUnlocked ? '#ffe082' : '#e0e0e0';
+                const titleColor = item.isUnlocked ? 'var(--color-purple)' : '#757575';
+                const descColor = item.isUnlocked ? 'var(--color-dark-light)' : '#9e9e9e';
+
                 return `
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 8px 6px; border: var(--border-thin); border-radius: var(--radius-sm); background: ${isUnlocked ? '#fffde7' : '#fdfdfd'}; border-color: ${isUnlocked ? '#fff59d' : '#e2e8f0'}; flex: 1; max-width: 70px; min-width: 65px; cursor: pointer; transition: transform 0.2s;" title="${titleText}">
-                        <span style="font-size: 1.8rem; filter: ${filter}; opacity: ${opacity};">${badge.emoji}</span>
-                        <span style="font-size: 0.65rem; font-weight: 700; text-align: center; color: ${isUnlocked ? 'var(--color-dark)' : '#a0aec0'}; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">${badge.name}</span>
+                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: var(--border-thin); border-radius: var(--radius-sm); background: ${bg}; border-color: ${borderColor}; opacity: ${opacity}; filter: ${filter}; transition: all 0.2s ease;">
+                        <span style="font-size: 2.2rem; min-width: 40px; text-align: center;">${item.emoji}</span>
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <span style="font-weight: 800; font-size: 0.95rem; color: ${titleColor};">${item.title}</span>
+                            <span style="font-size: 0.8rem; color: ${descColor}; font-weight: 500;">${item.desc}</span>
+                        </div>
+                        <span style="margin-left: auto; font-size: 0.85rem; font-weight: 800; color: ${item.isUnlocked ? '#2e7d32' : '#9e9e9e'};">
+                            ${item.isUnlocked ? '✅ Conquistado' : '🔒 Bloqueado'}
+                        </span>
                     </div>
                 `;
             }).join('');
             
-            document.getElementById('profile-modal-badges').textContent = `${unlockedCount}/5`;
+            document.getElementById('profile-modal-badges').textContent = `${unlockedCount}/4`;
             document.getElementById('profile-modal-badges-grid').innerHTML = gridHtml;
         } else {
             showToast('Erro ao carregar dados do perfil.', 'error');
@@ -7661,5 +7861,197 @@ function closePublicProfileModal() {
     if (modal) modal.classList.remove('open');
 }
 window.closePublicProfileModal = closePublicProfileModal;
+
+async function viewPublicStory(url) {
+    const viewerModal = document.getElementById('viewerModal');
+    const viewerContent = document.getElementById('viewerContent');
+    const viewerModalTitle = document.getElementById('viewerModalTitle');
+    
+    if (!viewerModal || !viewerContent || !viewerModalTitle) return;
+
+    viewerContent.innerHTML = '<div style="text-align:center; padding: 40px; font-weight: bold; color: var(--color-dark-light);"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Carregando a história mágica...</div>';
+    viewerModalTitle.textContent = 'Carregando...';
+    viewerModal.classList.add('open');
+
+    let matchedStory = null;
+    try {
+        const response = await fetch('/api/paintings/public');
+        const result = await response.json();
+        if (result.success && result.paintings) {
+            const painting = result.paintings.find(p => p.url === url);
+            if (painting && painting.storyData) {
+                matchedStory = painting.storyData;
+            }
+        }
+    } catch(err) {
+        console.error('Erro ao buscar detalhes da história:', err);
+    }
+
+    if (!matchedStory) {
+        showToast('Não foi possível carregar o conteúdo desta história.', 'error');
+        viewerModal.classList.remove('open');
+        return;
+    }
+
+    viewerModalTitle.textContent = `📖 ${matchedStory.title}`;
+    
+    let html = `
+        <div class="cover-page-card" style="margin-top: 10px;">
+            <div class="cover-header">
+                <h2 class="cover-title">${matchedStory.title}</h2>
+                <div class="cover-subtitle">Uma história incrível criada no KidCanvas</div>
+            </div>
+            <div class="cover-art-frame">
+                <img src="${matchedStory.coverUrl || matchedStory.imageUrl || url}" alt="Capa da História Mágica">
+            </div>
+        </div>
+    `;
+
+    (matchedStory.paragraphs || []).forEach((page, idx) => {
+        html += `
+            <div class="story-page" style="margin-top: 20px;">
+                <div class="page-grid">
+                    <div class="page-text">
+                        <span class="page-number">Página ${idx + 1}</span>
+                        <p>${page.text}</p>
+                    </div>
+                    <div class="page-art">
+                        <div class="art-frame">
+                            <img src="${page.imageUrl}" alt="Ilustração da Página ${idx + 1}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+        <div style="margin-top: 30px; display: flex; gap: 10px; justify-content: center; width: 100%;">
+            <button class="btn btn-secondary" id="btnDownloadPublicPDF" style="background-color: var(--color-blue); color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: var(--radius-sm); cursor: pointer;"><i class="fa-solid fa-file-pdf"></i> Baixar PDF</button>
+            <button class="btn btn-secondary" id="btnPrintPublicBook" style="background-color: var(--color-green); color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: var(--radius-sm); cursor: pointer;"><i class="fa-solid fa-print"></i> Imprimir</button>
+        </div>
+    `;
+
+    viewerContent.innerHTML = html;
+
+    const btnDownload = document.getElementById('btnDownloadPublicPDF');
+    if (btnDownload) {
+        btnDownload.onclick = () => {
+            generatePDFFromData(matchedStory.title, matchedStory.coverUrl || matchedStory.imageUrl || url, matchedStory.paragraphs, 'btnDownloadPublicPDF');
+        };
+    }
+    
+    const btnPrint = document.getElementById('btnPrintPublicBook');
+    if (btnPrint) {
+        btnPrint.onclick = () => {
+            const printWindow = window.open('', '_blank');
+            let printHtml = `
+                <html>
+                <head>
+                    <title>${matchedStory.title} — KidCanvas</title>
+                    <style>
+                        body { font-family: 'Quicksand', 'Nunito', sans-serif; margin: 20px; background: white; }
+                        h1 { text-align: center; color: #7B4FA6; }
+                        .cover { text-align: center; page-break-after: always; margin-bottom: 50px; }
+                        .cover img { max-width: 80%; border-radius: 12px; }
+                        .page { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; page-break-inside: avoid; }
+                        .page img { max-width: 60%; border-radius: 12px; margin-bottom: 20px; }
+                        .text { font-size: 1.25rem; line-height: 1.6; text-align: justify; max-width: 700px; }
+                        @media print {
+                            body { margin: 0; }
+                            .page { margin-bottom: 0; page-break-after: always; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="cover">
+                        <h1>${matchedStory.title}</h1>
+                        <img src="${matchedStory.coverUrl || matchedStory.imageUrl || url}">
+                    </div>
+            `;
+
+            (matchedStory.paragraphs || []).forEach((p, idx) => {
+                printHtml += `
+                    <div class="page">
+                        <img src="${p.imageUrl}">
+                        <div class="text"><strong>Página ${idx + 1}:</strong> ${p.text}</div>
+                    </div>
+                `;
+            });
+
+            printHtml += `
+                </body>
+                </html>
+            `;
+            printWindow.document.write(printHtml);
+            printWindow.document.close();
+            printWindow.onload = () => {
+                printWindow.print();
+                printWindow.close();
+            };
+        };
+    }
+}
+window.viewPublicStory = viewPublicStory;
+
+async function shareStoryToHall() {
+    if (!currentUser) {
+        showToast('Faça login ou crie uma conta grátis para compartilhar sua história no Hall da Fama! 🧙‍♂️', 'info');
+        openAuthModal();
+        return;
+    }
+    
+    if (typeof generatedCoverUrl === 'undefined' || typeof generatedParagraphs === 'undefined' || !generatedCoverUrl || !generatedParagraphs || generatedParagraphs.length === 0) {
+        showToast('Nenhuma história gerada para compartilhar.', 'error');
+        return;
+    }
+
+    const coverTitleEl = document.getElementById('coverTitle');
+    const title = coverTitleEl ? coverTitleEl.textContent : 'O Livro Mágico';
+    const firstLines = generatedParagraphs[0].text;
+    
+    let creatorName = prompt('Qual o nome ou apelido do pequeno autor que criou esta história?', currentUser.name || currentUser.email.split('@')[0]);
+    if (creatorName === null) {
+        return;
+    }
+    creatorName = creatorName.trim() || currentUser.name || currentUser.email.split('@')[0];
+
+    showToast('Compartilhando sua história no Hall... ⏳', 'info');
+
+    try {
+        const sessionToken = localStorage.getItem('sessionToken') || currentUser.token;
+        const response = await fetch('/api/user/save-painting', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': sessionToken
+            },
+            body: JSON.stringify({
+                imageUrl: generatedCoverUrl,
+                prompt: title,
+                isPublic: true,
+                category: 'Histórias Mágicas',
+                creatorName: creatorName,
+                firstLines: firstLines,
+                storyData: {
+                    title: title,
+                    coverUrl: generatedCoverUrl,
+                    paragraphs: generatedParagraphs
+                }
+            })
+        });
+
+        const resData = await response.json();
+        if (response.ok && resData.success) {
+            showToast('Sua história foi enviada para o Hall da Fama! Ela passará por moderação antes de aparecer. 🎉', 'success');
+        } else {
+            showToast(resData.message || 'Erro ao compartilhar história.', 'error');
+        }
+    } catch (err) {
+        console.error(err);
+        showToast('Erro ao enviar história para o servidor.', 'error');
+    }
+}
+window.shareStoryToHall = shareStoryToHall;
 
 
