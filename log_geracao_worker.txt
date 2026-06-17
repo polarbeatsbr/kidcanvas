@@ -439,3 +439,58 @@
 [2026-06-17 03:38:49] Rebuilding catalog and drawings database...
 [2026-06-17 03:38:50] Build successful!
 [2026-06-17 03:38:50] Committing and pushing to origin main...
+[2026-06-17 03:38:53] Push successful! Vercel will deploy in production.
+[2026-06-17 03:38:54] [401/3680] Generated: aves/01-passarinho-canario-cantando-no-galho__canary_singing_on_a_branch.png
+[2026-06-17 03:38:55] [402/3680] Generated: aves/02-passarinho-canario-na-casinha-de-madeira__canary_in_a_wooden_birdhouse.png
+[2026-06-17 03:38:57] [403/3680] Generated: aves/04-passarinho-canario-voando-nas-nuvens__canary_flying_among_soft_clouds.png
+[2026-06-17 03:38:58] [404/3680] Generated: aves/03-passarinho-canario-comendo-sementes__canary_eating_seeds_from_a_feeder.png
+[2026-06-17 03:38:59] [405/3680] Generated: aves/05-passarinho-canario-descansando-no-ninho__canary_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:39:00] [406/3680] Generated: aves/06-passarinho-azulao-cantando-no-galho__blue_jay_singing_on_a_branch.png
+[2026-06-17 03:39:02] [407/3680] Generated: aves/07-passarinho-azulao-na-casinha-de-madeira__blue_jay_in_a_wooden_birdhouse.png
+[2026-06-17 03:39:03] [408/3680] Generated: aves/08-passarinho-azulao-comendo-sementes__blue_jay_eating_seeds_from_a_feeder.png
+[2026-06-17 03:39:04] [409/3680] Generated: aves/09-passarinho-azulao-voando-nas-nuvens__blue_jay_flying_among_soft_clouds.png
+[2026-06-17 03:39:06] [410/3680] Generated: aves/10-passarinho-azulao-descansando-no-ninho__blue_jay_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:39:07] [411/3680] Generated: aves/11-passarinho-cardeal-cantando-no-galho__cardinal_bird_singing_on_a_branch.png
+[2026-06-17 03:39:09] [412/3680] Generated: aves/12-passarinho-cardeal-na-casinha-de-madeira__cardinal_bird_in_a_wooden_birdhouse.png
+[2026-06-17 03:39:11] [413/3680] Generated: aves/13-passarinho-cardeal-comendo-sementes__cardinal_bird_eating_seeds_from_a_feeder.png
+[2026-06-17 03:39:13] [414/3680] Generated: aves/14-passarinho-cardeal-voando-nas-nuvens__cardinal_bird_flying_among_soft_clouds.png
+[2026-06-17 03:39:14] [415/3680] Generated: aves/15-passarinho-cardeal-descansando-no-ninho__cardinal_bird_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:39:16] [416/3680] Generated: aves/16-passarinho-petroica-cantando-no-galho__robin_bird_singing_on_a_branch.png
+[2026-06-17 03:39:17] [417/3680] Generated: aves/17-passarinho-petroica-na-casinha-de-madeira__robin_bird_in_a_wooden_birdhouse.png
+[2026-06-17 03:39:18] [418/3680] Generated: aves/18-passarinho-petroica-comendo-sementes__robin_bird_eating_seeds_from_a_feeder.png
+[2026-06-17 03:39:19] [419/3680] Generated: aves/19-passarinho-petroica-voando-nas-nuvens__robin_bird_flying_among_soft_clouds.png
+[2026-06-17 03:39:21] [420/3680] Generated: aves/20-passarinho-petroica-descansando-no-ninho__robin_bird_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:39:22] [421/3680] Generated: aves/21-passarinho-pardal-cantando-no-galho__sparrow_singing_on_a_branch.png
+[2026-06-17 03:39:24] [422/3680] Generated: aves/22-passarinho-pardal-na-casinha-de-madeira__sparrow_in_a_wooden_birdhouse.png
+[2026-06-17 03:39:25] [423/3680] Generated: aves/23-passarinho-pardal-comendo-sementes__sparrow_eating_seeds_from_a_feeder.png
+[2026-06-17 03:39:27] [424/3680] Generated: aves/24-passarinho-pardal-voando-nas-nuvens__sparrow_flying_among_soft_clouds.png
+[2026-06-17 03:39:28] [425/3680] Generated: aves/25-passarinho-pardal-descansando-no-ninho__sparrow_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:39:30] [426/3680] Generated: aves/26-passarinho-pintassilgo-cantando-no-galho__goldfinch_singing_on_a_branch.png
+[2026-06-17 03:39:31] [427/3680] Generated: aves/27-passarinho-pintassilgo-na-casinha-de-madeira__goldfinch_in_a_wooden_birdhouse.png
+[2026-06-17 03:39:33] [428/3680] Generated: aves/28-passarinho-pintassilgo-comendo-sementes__goldfinch_eating_seeds_from_a_feeder.png
+[2026-06-17 03:39:34] [429/3680] Generated: aves/29-passarinho-pintassilgo-voando-nas-nuvens__goldfinch_flying_among_soft_clouds.png
+[2026-06-17 03:39:35] [430/3680] Generated: aves/30-passarinho-pintassilgo-descansando-no-ninho__goldfinch_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:39:36] [431/3680] Generated: aves/31-passarinho-pintinho-fofinho-cantando-no-galho__cute_baby_chick_singing_on_a_branch.png
+[2026-06-17 03:39:37] [432/3680] Generated: aves/32-passarinho-pintinho-fofinho-na-casinha-de-madeira__cute_baby_chick_in_a_wooden_birdhouse.png
+[2026-06-17 03:39:39] [433/3680] Generated: aves/33-passarinho-pintinho-fofinho-comendo-sementes__cute_baby_chick_eating_seeds_from_a_feeder.png
+[2026-06-17 03:39:40] [434/3680] Generated: aves/34-passarinho-pintinho-fofinho-voando-nas-nuvens__cute_baby_chick_flying_among_soft_clouds.png
+[2026-06-17 03:39:41] [435/3680] Generated: aves/35-passarinho-pintinho-fofinho-descansando-no-ninho__cute_baby_chick_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:39:42] [436/3680] Generated: aves/36-passarinho-azulzinho-amigavel-cantando-no-galho__friendly_bluebird_singing_on_a_branch.png
+[2026-06-17 03:39:43] [437/3680] Generated: aves/37-passarinho-azulzinho-amigavel-na-casinha-de-madeira__friendly_bluebird_in_a_wooden_birdhouse.png
+[2026-06-17 03:39:44] [438/3680] Generated: aves/38-passarinho-azulzinho-amigavel-comendo-sementes__friendly_bluebird_eating_seeds_from_a_feeder.png
+[2026-06-17 03:39:46] [439/3680] Generated: aves/39-passarinho-azulzinho-amigavel-voando-nas-nuvens__friendly_bluebird_flying_among_soft_clouds.png
+[2026-06-17 03:39:47] [440/3680] Generated: aves/40-passarinho-azulzinho-amigavel-descansando-no-ninho__friendly_bluebird_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:39:49] [441/3680] Generated: aves/41-passarinho-passarinho-de-desenho-cantando-no-galho__whimsical_cartoon_bird_singing_on_a_branch.png
+[2026-06-17 03:39:51] [442/3680] Generated: aves/42-passarinho-passarinho-de-desenho-na-casinha-de-madeira__whimsical_cartoon_bird_in_a_wooden_birdhouse.png
+[2026-06-17 03:39:52] [443/3680] Generated: aves/43-passarinho-passarinho-de-desenho-comendo-sementes__whimsical_cartoon_bird_eating_seeds_from_a_feeder.png
+[2026-06-17 03:39:53] [444/3680] Generated: aves/44-passarinho-passarinho-de-desenho-voando-nas-nuvens__whimsical_cartoon_bird_flying_among_soft_clouds.png
+[2026-06-17 03:39:55] [445/3680] Generated: aves/45-passarinho-passarinho-de-desenho-descansando-no-ninho__whimsical_cartoon_bird_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:39:56] [446/3680] Generated: aves/46-passarinho-andorinha-feliz-cantando-no-galho__happy_little_swallow_singing_on_a_branch.png
+[2026-06-17 03:39:57] [447/3680] Generated: aves/47-passarinho-andorinha-feliz-na-casinha-de-madeira__happy_little_swallow_in_a_wooden_birdhouse.png
+[2026-06-17 03:39:58] [448/3680] Generated: aves/48-passarinho-andorinha-feliz-comendo-sementes__happy_little_swallow_eating_seeds_from_a_feeder.png
+[2026-06-17 03:39:59] [449/3680] Generated: aves/49-passarinho-andorinha-feliz-voando-nas-nuvens__happy_little_swallow_flying_among_soft_clouds.png
+[2026-06-17 03:40:01] [450/3680] Generated: aves/50-passarinho-andorinha-feliz-descansando-no-ninho__happy_little_swallow_resting_in_a_small_cozy_nest.png
+[2026-06-17 03:40:01] Batch 9 completed (450 drawings). Triggering build & push...
+[2026-06-17 03:40:01] Rebuilding catalog and drawings database...
+[2026-06-17 03:40:02] Build successful!
+[2026-06-17 03:40:02] Committing and pushing to origin main...
