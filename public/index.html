@@ -244,53 +244,61 @@
                 </div>
             </div>
             
-            <!-- ÁREA DO CRIADOR (Logados e Visitantes) -->
-            <div id="creator-dashboard-panel" class="creator-dashboard-panel" style="background: #ffffff; border-bottom: var(--border-medium); padding: 30px 20px; margin-bottom: 15px;">
-                <!-- Estado Logado -->
-                <div id="creator-dashboard-logged-in" class="container" style="max-width: 1000px; margin: 0 auto; text-align: center; display: none;">
-                    <h2 class="creator-welcome-title" style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-dark); margin-bottom: 8px;">
-                        Olá, <span id="creator-dashboard-name">Artista</span>! 🎨
+            <!-- ÁREA DO CRIADOR / DESCOBERTA -->
+            <div id="creator-dashboard-panel" class="creator-dashboard-panel" style="background: #ffffff; border-bottom: var(--border-medium); padding: 40px 20px; margin-bottom: 15px; text-align: center;">
+                <div class="container" style="max-width: 1000px; margin: 0 auto;">
+                    <h2 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-dark); margin-bottom: 10px;">
+                        ✨ Descubra o Mundo KidCanvas
                     </h2>
-                    <p class="creator-credits-info" style="font-size: 1.2rem; color: var(--color-dark-light); font-weight: 700; margin-bottom: 25px;">
-                        Você possui <span id="creator-dashboard-credits" style="color: var(--color-orange); background: #fff0d4; padding: 4px 12px; border-radius: 20px; border: var(--border-thin);">0</span> créditos mágicos.
-                    </p>
-                    <div class="creator-quick-cards" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                        <!-- Card 1: Desenho -->
-                        <div class="creator-quick-card" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 20px; width: 280px; box-shadow: var(--shadow-cartoon); text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center; transition: transform 0.2s;">
-                            <div>
-                                <span style="font-size: 3rem; display: block; margin-bottom: 10px;">🎨</span>
-                                <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--color-dark); margin-bottom: 8px;">Gere sua Imagem</h3>
-                                <p style="font-size: 0.9rem; color: var(--color-dark-light); margin-bottom: 15px; min-height: 40px;">Escreva uma descrição e crie um desenho exclusivo via IA para colorir!</p>
-                            </div>
-                            <a href="/gerar-desenho" class="btn btn-secondary" style="width: 100%; justify-content: center; font-size: 1rem; padding: 10px 15px;">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 c.)
-                            </a>
+                    
+                    <!-- Estado Logado: Exibe Boas-vindas e Créditos -->
+                    <div id="creator-dashboard-logged-in" style="display: none; margin-bottom: 30px;">
+                        <p style="font-size: 1.25rem; color: var(--color-dark-light); font-weight: 700; margin: 0;">
+                            Olá, <span id="creator-dashboard-name" style="color: var(--color-purple);">Artista</span>! 🎨 
+                            Você possui <span id="creator-dashboard-credits" style="color: var(--color-orange); background: #fff0d4; padding: 4px 14px; border-radius: 20px; border: var(--border-thin); margin-left: 5px;">0</span> créditos mágicos.
+                        </p>
+                    </div>
+
+                    <!-- Estado Não Logado: Mensagem convidativa e botão de Login -->
+                    <div id="creator-dashboard-logged-out" style="display: none; margin-bottom: 30px;">
+                        <p style="font-size: 1.15rem; color: var(--color-dark-light); font-weight: 600; margin-bottom: 15px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                            Faça login para salvar suas pinturas online, ver suas criações com Inteligência Artificial e acompanhar o Hall da Fama!
+                        </p>
+                        <button class="btn btn-primary" onclick="openAuthModal()" style="display: inline-flex; align-items: center; gap: 8px; font-size: 1.1rem; padding: 10px 24px; box-shadow: 0 3px 0 var(--color-dark);">
+                            <i class="fa-solid fa-right-to-bracket"></i> Entrar na Minha Conta
+                        </button>
+                    </div>
+
+                    <!-- Grid de Descoberta -->
+                    <div class="discovery-grid" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <!-- Card 1: Minhas Criações -->
+                        <div class="discovery-card" onclick="openCreationsTab('drawings')" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 20px; width: 220px; box-shadow: var(--shadow-cartoon); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                            <span style="font-size: 2.8rem; display: block; margin-bottom: 12px;">🎨</span>
+                            <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: var(--color-dark); margin-bottom: 5px;">Minhas Criações</h3>
+                            <p style="font-size: 0.85rem; color: var(--color-dark-light); margin: 0; font-weight: 600;">Desenhos gerados com IA</p>
                         </div>
-                        <!-- Card 2: História Mágica -->
-                        <div class="creator-quick-card" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 20px; width: 280px; box-shadow: var(--shadow-cartoon); text-align: center; display: flex; flex-direction: column; justify-content: space-between; align-items: center; transition: transform 0.2s;">
-                            <div>
-                                <span style="font-size: 3rem; display: block; margin-bottom: 10px;">📖</span>
-                                <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--color-dark); margin-bottom: 8px;">Histórias Mágicas</h3>
-                                <p style="font-size: 0.9rem; color: var(--color-dark-light); margin-bottom: 15px; min-height: 40px;">Crie histórias ilustradas e personalizadas de 2 a 10 páginas!</p>
-                            </div>
-                            <a href="/historias-magicas" class="btn btn-primary" style="width: 100%; justify-content: center; font-size: 1rem; padding: 10px 15px; background-color: var(--color-purple);">
-                                <i class="fa-solid fa-book-open"></i> Criar História (N c.)
-                            </a>
+
+                        <!-- Card 2: Pinturas Salvas -->
+                        <div class="discovery-card" onclick="openCreationsTab('paintings')" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 20px; width: 220px; box-shadow: var(--shadow-cartoon); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                            <span style="font-size: 2.8rem; display: block; margin-bottom: 12px;">🖌️</span>
+                            <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: var(--color-dark); margin-bottom: 5px;">Pinturas Salvas</h3>
+                            <p style="font-size: 0.85rem; color: var(--color-dark-light); margin: 0; font-weight: 600;">Pintados por você online</p>
+                        </div>
+
+                        <!-- Card 3: Livros Criados -->
+                        <div class="discovery-card" onclick="openCreationsTab('stories')" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 20px; width: 220px; box-shadow: var(--shadow-cartoon); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                            <span style="font-size: 2.8rem; display: block; margin-bottom: 12px;">📖</span>
+                            <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: var(--color-dark); margin-bottom: 5px;">Livros Criados</h3>
+                            <p style="font-size: 0.85rem; color: var(--color-dark-light); margin: 0; font-weight: 600;">Histórias mágicas ilustradas</p>
+                        </div>
+
+                        <!-- Card 4: Hall da Fama -->
+                        <div class="discovery-card" onclick="navigate('/hall-da-fama')" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 20px; width: 220px; box-shadow: var(--shadow-cartoon); text-align: center; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                            <span style="font-size: 2.8rem; display: block; margin-bottom: 12px;">🏆</span>
+                            <h3 style="font-family: var(--font-heading); font-size: 1.2rem; color: var(--color-dark); margin-bottom: 5px;">Hall da Fama</h3>
+                            <p style="font-size: 0.85rem; color: var(--color-dark-light); margin: 0; font-weight: 600;">Galeria pública de arte</p>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Estado Não Logado -->
-                <div id="creator-dashboard-logged-out" class="container" style="max-width: 1000px; margin: 0 auto; text-align: center; display: none;">
-                    <h2 style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-purple); margin-bottom: 12px;">
-                        Crie seu desenho exclusivo
-                    </h2>
-                    <p style="font-size: 1.15rem; color: var(--color-dark-light); margin-bottom: 25px; max-width: 600px; margin-left: auto; margin-right: auto; font-weight: 500;">
-                        Transforme qualquer ideia em um desenho lindo e pronto para colorir com a nossa varinha mágica de Inteligência Artificial!
-                    </p>
-                    <a href="/gerar-desenho" class="btn btn-primary btn-hero-primary" style="display: inline-flex; align-items: center; gap: 10px; font-size: 1.25rem; padding: 14px 32px; text-decoration: none;">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> Crie seu desenho exclusivo
-                    </a>
                 </div>
             </div>
             

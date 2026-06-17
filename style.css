@@ -4611,3 +4611,18 @@ button, input, select, textarea {
         padding: 14px 20px;
     }
 }
+
+/* Discovery Section Styles */
+.discovery-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.discovery-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-cartoon-hover) !important;
+}
+
+.discovery-card:active {
+    transform: translateY(2px);
+    box-shadow: var(--shadow-cartoon-active) !important;
+}

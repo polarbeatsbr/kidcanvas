@@ -5429,6 +5429,24 @@ window.printSavedImage = printSavedImage;
 window.openSavedStoryViewer = openSavedStoryViewer;
 window.switchCreationsTab = switchCreationsTab;
 
+function openCreationsTab(tab) {
+    if (!currentUser) {
+        if (typeof openAuthModal === 'function') {
+            openAuthModal();
+        } else {
+            alert('Por favor, faça login para ver suas criações.');
+        }
+        return;
+    }
+    navigate('/minhas-criacoes');
+    setTimeout(() => {
+        if (typeof switchCreationsTab === 'function') {
+            switchCreationsTab(tab);
+        }
+    }, 50);
+}
+window.openCreationsTab = openCreationsTab;
+
 // === PINTAR ONLINE LOGIC ===
 let paintCanvas = null;
 let pCtx = null;
