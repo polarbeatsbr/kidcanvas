@@ -1504,6 +1504,89 @@ function renderHomeView() {
             triggerSearch(query);
         };
     });
+    
+    // Buscar criações do Hall da Fama para os cards de destaque
+    fetch('/api/paintings/public')
+        .then(response => response.json())
+        .then(result => {
+            if (result.success && result.paintings) {
+                updateFeaturedHomeCards(result.paintings);
+            }
+        })
+        .catch(err => console.error('Erro ao carregar os destaques da home:', err));
+}
+
+// Atualiza os cards de destaque na home baseado nas pinturas do Hall da Fama
+function updateFeaturedHomeCards(paintings) {
+    if (!paintings || paintings.length === 0) return;
+
+    // 1. Destaque Geral (Mais Votado de todos)
+    const sortedAll = [...paintings].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+    const topGeral = sortedAll[0];
+
+    // 2. Campeão de Colorir
+    const colorirOnly = paintings.filter(p => p.category !== 'Mão Livre');
+    const sortedColorir = [...colorirOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+    const topColorir = sortedColorir[0];
+
+    // 3. Campeão Mão Livre
+    const maolivreOnly = paintings.filter(p => p.category === 'Mão Livre');
+    const sortedMaoLivre = [...maolivreOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+    const topMaoLivre = sortedMaoLivre[0];
+
+    // Atualizar Card Geral
+    if (topGeral) {
+        const cardGeral = document.getElementById('featured-card-geral');
+        if (cardGeral) {
+            const img = cardGeral.querySelector('.featured-img');
+            const title = cardGeral.querySelector('.featured-card-title');
+            const author = cardGeral.querySelector('p');
+            const starsText = (topGeral.stars || topGeral.likes) ? `⭐ ${topGeral.stars || topGeral.likes} estrelas` : '⭐ 0 estrelas';
+            
+            if (img) {
+                img.src = topGeral.url;
+                img.alt = topGeral.prompt;
+            }
+            if (title) title.textContent = topGeral.prompt || 'Desenho sem título';
+            if (author) author.innerHTML = `Por: <strong>${topGeral.creatorName || topGeral.userName || 'Artista'}</strong> &bull; ${starsText}`;
+        }
+    }
+
+    // Atualizar Card Colorir
+    if (topColorir) {
+        const cardColorir = document.getElementById('featured-card-colorir');
+        if (cardColorir) {
+            const img = cardColorir.querySelector('.featured-img');
+            const title = cardColorir.querySelector('.featured-card-title');
+            const author = cardColorir.querySelector('p');
+            const starsText = (topColorir.stars || topColorir.likes) ? `⭐ ${topColorir.stars || topColorir.likes} estrelas` : '⭐ 0 estrelas';
+            
+            if (img) {
+                img.src = topColorir.url;
+                img.alt = topColorir.prompt;
+            }
+            if (title) title.textContent = topColorir.prompt || 'Desenho sem título';
+            if (author) author.innerHTML = `Por: <strong>${topColorir.creatorName || topColorir.userName || 'Artista'}</strong> &bull; ${starsText}`;
+        }
+    }
+
+    // Atualizar Card Mão Livre
+    if (topMaoLivre) {
+        const cardMaoLivre = document.getElementById('featured-card-maolivre');
+        if (cardMaoLivre) {
+            const img = cardMaoLivre.querySelector('.featured-img');
+            const title = cardMaoLivre.querySelector('.featured-card-title');
+            const author = cardMaoLivre.querySelector('p');
+            const starsText = (topMaoLivre.stars || topMaoLivre.likes) ? `⭐ ${topMaoLivre.stars || topMaoLivre.likes} estrelas` : '⭐ 0 estrelas';
+            
+            if (img) {
+                img.src = topMaoLivre.url;
+                img.alt = topMaoLivre.prompt;
+            }
+            if (title) title.textContent = topMaoLivre.prompt || 'Desenho sem título';
+            if (author) author.innerHTML = `Por: <strong>${topMaoLivre.creatorName || topMaoLivre.userName || 'Artista'}</strong> &bull; ${starsText}`;
+        }
+    }
 }
 
 // 2. CATEGORIAS VIEW
