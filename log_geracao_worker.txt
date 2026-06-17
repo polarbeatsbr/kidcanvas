@@ -2104,3 +2104,58 @@
 [2026-06-17 04:16:52] Rebuilding catalog and drawings database...
 [2026-06-17 04:16:53] Build successful!
 [2026-06-17 04:16:53] Committing and pushing to origin main...
+[2026-06-17 04:16:56] Push successful! Vercel will deploy in production.
+[2026-06-17 04:16:58] [351/4400] Generated: animais-domesticos/919-hamster-hamster-roborovski-correndo-na-rodinha__roborovski_hamster_running_inside_a_wheel.png
+[2026-06-17 04:16:59] [352/4400] Generated: animais-domesticos/920-hamster-hamster-roborovski-comendo-semente__roborovski_hamster_eating_a_sunflower_seed.png
+[2026-06-17 04:17:00] [353/4400] Generated: animais-domesticos/921-hamster-hamster-roborovski-saindo-do-tunel__roborovski_hamster_peeking_out_of_a_tunnel.png
+[2026-06-17 04:17:02] [354/4400] Generated: animais-domesticos/923-hamster-hamster-roborovski-bochecha-cheia-de-comida__roborovski_hamster_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:17:04] [355/4400] Generated: animais-domesticos/922-hamster-hamster-roborovski-dormindo-no-ninho__roborovski_hamster_sleeping_in_a_soft_nest.png
+[2026-06-17 04:17:05] [356/4400] Generated: animais-domesticos/924-hamster-hamster-sirio-correndo-na-rodinha__syrian_hamster_running_inside_a_wheel.png
+[2026-06-17 04:17:07] [357/4400] Generated: animais-domesticos/925-hamster-hamster-sirio-comendo-semente__syrian_hamster_eating_a_sunflower_seed.png
+[2026-06-17 04:17:08] [358/4400] Generated: animais-domesticos/926-hamster-hamster-sirio-saindo-do-tunel__syrian_hamster_peeking_out_of_a_tunnel.png
+[2026-06-17 04:17:09] [359/4400] Generated: animais-domesticos/927-hamster-hamster-sirio-dormindo-no-ninho__syrian_hamster_sleeping_in_a_soft_nest.png
+[2026-06-17 04:17:10] [360/4400] Generated: animais-domesticos/928-hamster-hamster-sirio-bochecha-cheia-de-comida__syrian_hamster_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:17:12] [361/4400] Generated: animais-domesticos/929-hamster-hamster-anao-correndo-na-rodinha__dwarf_hamster_running_inside_a_wheel.png
+[2026-06-17 04:17:13] [362/4400] Generated: animais-domesticos/930-hamster-hamster-anao-comendo-semente__dwarf_hamster_eating_a_sunflower_seed.png
+[2026-06-17 04:17:15] [363/4400] Generated: animais-domesticos/931-hamster-hamster-anao-saindo-do-tunel__dwarf_hamster_peeking_out_of_a_tunnel.png
+[2026-06-17 04:17:16] [364/4400] Generated: animais-domesticos/932-hamster-hamster-anao-dormindo-no-ninho__dwarf_hamster_sleeping_in_a_soft_nest.png
+[2026-06-17 04:17:17] [365/4400] Generated: animais-domesticos/933-hamster-hamster-anao-bochecha-cheia-de-comida__dwarf_hamster_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:17:20] [366/4400] Generated: animais-domesticos/934-hamster-hamster-gordinho-correndo-na-rodinha__cute_chubby_hamster_running_inside_a_wheel.png
+[2026-06-17 04:17:21] [367/4400] Generated: animais-domesticos/935-hamster-hamster-gordinho-comendo-semente__cute_chubby_hamster_eating_a_sunflower_seed.png
+[2026-06-17 04:17:22] [368/4400] Generated: animais-domesticos/936-hamster-hamster-gordinho-saindo-do-tunel__cute_chubby_hamster_peeking_out_of_a_tunnel.png
+[2026-06-17 04:17:23] [369/4400] Generated: animais-domesticos/937-hamster-hamster-gordinho-dormindo-no-ninho__cute_chubby_hamster_sleeping_in_a_soft_nest.png
+[2026-06-17 04:17:25] [370/4400] Generated: animais-domesticos/938-hamster-hamster-gordinho-bochecha-cheia-de-comida__cute_chubby_hamster_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:17:27] [371/4400] Generated: animais-domesticos/939-hamster-bebe-hamster-correndo-na-rodinha__happy_baby_hamster_running_inside_a_wheel.png
+[2026-06-17 04:17:28] [372/4400] Generated: animais-domesticos/940-hamster-bebe-hamster-comendo-semente__happy_baby_hamster_eating_a_sunflower_seed.png
+[2026-06-17 04:17:29] [373/4400] Generated: animais-domesticos/941-hamster-bebe-hamster-saindo-do-tunel__happy_baby_hamster_peeking_out_of_a_tunnel.png
+[2026-06-17 04:17:31] [374/4400] Generated: animais-domesticos/943-hamster-bebe-hamster-bochecha-cheia-de-comida__happy_baby_hamster_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:17:33] [375/4400] Generated: animais-domesticos/942-hamster-bebe-hamster-dormindo-no-ninho__happy_baby_hamster_sleeping_in_a_soft_nest.png
+[2026-06-17 04:17:35] [376/4400] Generated: animais-domesticos/944-hamster-hamster-amigavel-correndo-na-rodinha__friendly_tiny_hamster_running_inside_a_wheel.png
+[2026-06-17 04:17:36] [377/4400] Generated: animais-domesticos/945-hamster-hamster-amigavel-comendo-semente__friendly_tiny_hamster_eating_a_sunflower_seed.png
+[2026-06-17 04:17:37] [378/4400] Generated: animais-domesticos/946-hamster-hamster-amigavel-saindo-do-tunel__friendly_tiny_hamster_peeking_out_of_a_tunnel.png
+[2026-06-17 04:17:39] [379/4400] Generated: animais-domesticos/948-hamster-hamster-amigavel-bochecha-cheia-de-comida__friendly_tiny_hamster_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:17:40] [380/4400] Generated: animais-domesticos/947-hamster-hamster-amigavel-dormindo-no-ninho__friendly_tiny_hamster_sleeping_in_a_soft_nest.png
+[2026-06-17 04:17:41] [381/4400] Generated: animais-domesticos/949-hamster-hamster-fofinho-correndo-na-rodinha__fluffy_little_hamster_running_inside_a_wheel.png
+[2026-06-17 04:17:42] [382/4400] Generated: animais-domesticos/950-hamster-hamster-fofinho-comendo-semente__fluffy_little_hamster_eating_a_sunflower_seed.png
+[2026-06-17 04:17:43] [383/4400] Generated: animais-domesticos/951-hamster-hamster-fofinho-saindo-do-tunel__fluffy_little_hamster_peeking_out_of_a_tunnel.png
+[2026-06-17 04:17:45] [384/4400] Generated: animais-domesticos/953-hamster-hamster-fofinho-bochecha-cheia-de-comida__fluffy_little_hamster_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:17:46] [385/4400] Generated: animais-domesticos/952-hamster-hamster-fofinho-dormindo-no-ninho__fluffy_little_hamster_sleeping_in_a_soft_nest.png
+[2026-06-17 04:17:47] [386/4400] Generated: animais-domesticos/954-hamster-hamster-de-desenho-correndo-na-rodinha__whimsical_cartoon_hamster_running_inside_a_wheel.png
+[2026-06-17 04:17:49] [387/4400] Generated: animais-domesticos/955-hamster-hamster-de-desenho-comendo-semente__whimsical_cartoon_hamster_eating_a_sunflower_seed.png
+[2026-06-17 04:17:50] [388/4400] Generated: animais-domesticos/956-hamster-hamster-de-desenho-saindo-do-tunel__whimsical_cartoon_hamster_peeking_out_of_a_tunnel.png
+[2026-06-17 04:17:51] [389/4400] Generated: animais-domesticos/957-hamster-hamster-de-desenho-dormindo-no-ninho__whimsical_cartoon_hamster_sleeping_in_a_soft_nest.png
+[2026-06-17 04:17:53] [390/4400] Generated: animais-domesticos/958-hamster-hamster-de-desenho-bochecha-cheia-de-comida__whimsical_cartoon_hamster_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:17:54] [391/4400] Generated: animais-domesticos/959-hamster-hamster-bochechudo-correndo-na-rodinha__hamster_with_big_cheeks_running_inside_a_wheel.png
+[2026-06-17 04:17:55] [392/4400] Generated: animais-domesticos/960-hamster-hamster-bochechudo-comendo-semente__hamster_with_big_cheeks_eating_a_sunflower_seed.png
+[2026-06-17 04:17:56] [393/4400] Generated: animais-domesticos/961-hamster-hamster-bochechudo-saindo-do-tunel__hamster_with_big_cheeks_peeking_out_of_a_tunnel.png
+[2026-06-17 04:17:58] [394/4400] Generated: animais-domesticos/962-hamster-hamster-bochechudo-dormindo-no-ninho__hamster_with_big_cheeks_sleeping_in_a_soft_nest.png
+[2026-06-17 04:18:00] [395/4400] Generated: animais-domesticos/963-hamster-hamster-bochechudo-bochecha-cheia-de-comida__hamster_with_big_cheeks_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:18:02] [396/4400] Generated: animais-domesticos/964-hamster-hamster-brincalhao-correndo-na-rodinha__playful_hamster_running_inside_a_wheel.png
+[2026-06-17 04:18:03] [397/4400] Generated: animais-domesticos/965-hamster-hamster-brincalhao-comendo-semente__playful_hamster_eating_a_sunflower_seed.png
+[2026-06-17 04:18:04] [398/4400] Generated: animais-domesticos/966-hamster-hamster-brincalhao-saindo-do-tunel__playful_hamster_peeking_out_of_a_tunnel.png
+[2026-06-17 04:18:06] [399/4400] Generated: animais-domesticos/967-hamster-hamster-brincalhao-dormindo-no-ninho__playful_hamster_sleeping_in_a_soft_nest.png
+[2026-06-17 04:18:07] [400/4400] Generated: animais-domesticos/968-hamster-hamster-brincalhao-bochecha-cheia-de-comida__playful_hamster_stuffing_its_cheeks_with_food.png
+[2026-06-17 04:18:07] Batch 8 completed (400 drawings). Triggering build & push...
+[2026-06-17 04:18:07] Rebuilding catalog and drawings database...
+[2026-06-17 04:18:08] Build successful!
+[2026-06-17 04:18:08] Committing and pushing to origin main...
