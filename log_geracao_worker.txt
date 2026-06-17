@@ -4360,3 +4360,58 @@
 [2026-06-17 05:07:23] Rebuilding catalog and drawings database...
 [2026-06-17 05:07:24] Build successful!
 [2026-06-17 05:07:24] Committing and pushing to origin main...
+[2026-06-17 05:07:27] Push successful! Vercel will deploy in production.
+[2026-06-17 05:07:29] [2401/4400] Generated: animais-selvagens/401-ave-selvagem-tucano-exotico-andando-na-natureza__exotic_toucan_walking_in_the_wild.png
+[2026-06-17 05:07:31] [2402/4400] Generated: animais-selvagens/402-ave-selvagem-tucano-exotico-acenando-alegre__exotic_toucan_waving_friendly.png
+[2026-06-17 05:07:32] [2403/4400] Generated: animais-selvagens/403-ave-selvagem-tucano-exotico-sorrindo-sob-o-sol__exotic_toucan_smiling_under_a_sunny_sky.png
+[2026-06-17 05:07:34] [2404/4400] Generated: animais-selvagens/404-ave-selvagem-tucano-exotico-entre-flores-lindas__exotic_toucan_surrounded_by_nice_flowers.png
+[2026-06-17 05:07:36] [2405/4400] Generated: animais-selvagens/405-ave-selvagem-coruja-sabia-voando-alto-no-ceu__wise_old_owl_soaring_high_in_the_sky.png
+[2026-06-17 05:07:37] [2406/4400] Generated: animais-selvagens/406-ave-selvagem-coruja-sabia-no-galho-tropical__wise_old_owl_perched_on_a_tropical_branch.png
+[2026-06-17 05:07:38] [2407/4400] Generated: animais-selvagens/407-ave-selvagem-coruja-sabia-nadando-na-lagoa__wise_old_owl_swimming_gracefully_in_a_pond.png
+[2026-06-17 05:07:39] [2408/4400] Generated: animais-selvagens/408-ave-selvagem-coruja-sabia-explorando-a-floresta__wise_old_owl_exploring_the_forest.png
+[2026-06-17 05:07:41] [2409/4400] Generated: animais-selvagens/409-ave-selvagem-coruja-sabia-andando-na-natureza__wise_old_owl_walking_in_the_wild.png
+[2026-06-17 05:07:42] [2410/4400] Generated: animais-selvagens/410-ave-selvagem-coruja-sabia-acenando-alegre__wise_old_owl_waving_friendly.png
+[2026-06-17 05:07:43] [2411/4400] Generated: animais-selvagens/411-ave-selvagem-coruja-sabia-sorrindo-sob-o-sol__wise_old_owl_smiling_under_a_sunny_sky.png
+[2026-06-17 05:07:44] [2412/4400] Generated: animais-selvagens/412-ave-selvagem-coruja-sabia-entre-flores-lindas__wise_old_owl_surrounded_by_nice_flowers.png
+[2026-06-17 05:07:45] [2413/4400] Generated: animais-selvagens/413-ave-selvagem-flamingo-rosa-voando-alto-no-ceu__pink_flamingo_soaring_high_in_the_sky.png
+[2026-06-17 05:07:47] [2414/4400] Generated: animais-selvagens/414-ave-selvagem-flamingo-rosa-no-galho-tropical__pink_flamingo_perched_on_a_tropical_branch.png
+[2026-06-17 05:07:48] [2415/4400] Generated: animais-selvagens/415-ave-selvagem-flamingo-rosa-nadando-na-lagoa__pink_flamingo_swimming_gracefully_in_a_pond.png
+[2026-06-17 05:07:49] [2416/4400] Generated: animais-selvagens/416-ave-selvagem-flamingo-rosa-explorando-a-floresta__pink_flamingo_exploring_the_forest.png
+[2026-06-17 05:07:50] [2417/4400] Generated: animais-selvagens/417-ave-selvagem-flamingo-rosa-andando-na-natureza__pink_flamingo_walking_in_the_wild.png
+[2026-06-17 05:07:52] [2418/4400] Generated: animais-selvagens/418-ave-selvagem-flamingo-rosa-acenando-alegre__pink_flamingo_waving_friendly.png
+[2026-06-17 05:07:53] [2419/4400] Generated: animais-selvagens/419-ave-selvagem-flamingo-rosa-sorrindo-sob-o-sol__pink_flamingo_smiling_under_a_sunny_sky.png
+[2026-06-17 05:07:55] [2420/4400] Generated: animais-selvagens/420-ave-selvagem-flamingo-rosa-entre-flores-lindas__pink_flamingo_surrounded_by_nice_flowers.png
+[2026-06-17 05:07:57] [2421/4400] Generated: animais-selvagens/421-ave-selvagem-cisne-gracioso-voando-alto-no-ceu__graceful_swan_soaring_high_in_the_sky.png
+[2026-06-17 05:07:58] [2422/4400] Generated: animais-selvagens/422-ave-selvagem-cisne-gracioso-no-galho-tropical__graceful_swan_perched_on_a_tropical_branch.png
+[2026-06-17 05:07:59] [2423/4400] Generated: animais-selvagens/423-ave-selvagem-cisne-gracioso-nadando-na-lagoa__graceful_swan_swimming_gracefully_in_a_pond.png
+[2026-06-17 05:08:00] [2424/4400] Generated: animais-selvagens/424-ave-selvagem-cisne-gracioso-explorando-a-floresta__graceful_swan_exploring_the_forest.png
+[2026-06-17 05:08:02] [2425/4400] Generated: animais-selvagens/425-ave-selvagem-cisne-gracioso-andando-na-natureza__graceful_swan_walking_in_the_wild.png
+[2026-06-17 05:08:03] [2426/4400] Generated: animais-selvagens/426-ave-selvagem-cisne-gracioso-acenando-alegre__graceful_swan_waving_friendly.png
+[2026-06-17 05:08:04] [2427/4400] Generated: animais-selvagens/427-ave-selvagem-cisne-gracioso-sorrindo-sob-o-sol__graceful_swan_smiling_under_a_sunny_sky.png
+[2026-06-17 05:08:05] [2428/4400] Generated: animais-selvagens/428-ave-selvagem-cisne-gracioso-entre-flores-lindas__graceful_swan_surrounded_by_nice_flowers.png
+[2026-06-17 05:08:07] [2429/4400] Generated: animais-selvagens/429-ave-selvagem-pavao-lindo-voando-alto-no-ceu__friendly_peacock_soaring_high_in_the_sky.png
+[2026-06-17 05:08:08] [2430/4400] Generated: animais-selvagens/430-ave-selvagem-pavao-lindo-no-galho-tropical__friendly_peacock_perched_on_a_tropical_branch.png
+[2026-06-17 05:08:10] [2431/4400] Generated: animais-selvagens/431-ave-selvagem-pavao-lindo-nadando-na-lagoa__friendly_peacock_swimming_gracefully_in_a_pond.png
+[2026-06-17 05:08:12] [2432/4400] Generated: animais-selvagens/432-ave-selvagem-pavao-lindo-explorando-a-floresta__friendly_peacock_exploring_the_forest.png
+[2026-06-17 05:08:13] [2433/4400] Generated: animais-selvagens/433-ave-selvagem-pavao-lindo-andando-na-natureza__friendly_peacock_walking_in_the_wild.png
+[2026-06-17 05:08:15] [2434/4400] Generated: animais-selvagens/434-ave-selvagem-pavao-lindo-acenando-alegre__friendly_peacock_waving_friendly.png
+[2026-06-17 05:08:16] [2435/4400] Generated: animais-selvagens/435-ave-selvagem-pavao-lindo-sorrindo-sob-o-sol__friendly_peacock_smiling_under_a_sunny_sky.png
+[2026-06-17 05:08:17] [2436/4400] Generated: animais-selvagens/436-ave-selvagem-pavao-lindo-entre-flores-lindas__friendly_peacock_surrounded_by_nice_flowers.png
+[2026-06-17 05:08:18] [2437/4400] Generated: animais-selvagens/437-ave-selvagem-pinguim-fofo-voando-alto-no-ceu__cute_penguin_soaring_high_in_the_sky.png
+[2026-06-17 05:08:20] [2438/4400] Generated: animais-selvagens/438-ave-selvagem-pinguim-fofo-no-galho-tropical__cute_penguin_perched_on_a_tropical_branch.png
+[2026-06-17 05:08:22] [2439/4400] Generated: animais-selvagens/439-ave-selvagem-pinguim-fofo-nadando-na-lagoa__cute_penguin_swimming_gracefully_in_a_pond.png
+[2026-06-17 05:08:24] [2440/4400] Generated: animais-selvagens/440-ave-selvagem-pinguim-fofo-explorando-a-floresta__cute_penguin_exploring_the_forest.png
+[2026-06-17 05:08:25] [2441/4400] Generated: animais-selvagens/441-ave-selvagem-pinguim-fofo-andando-na-natureza__cute_penguin_walking_in_the_wild.png
+[2026-06-17 05:08:27] [2442/4400] Generated: animais-selvagens/442-ave-selvagem-pinguim-fofo-acenando-alegre__cute_penguin_waving_friendly.png
+[2026-06-17 05:08:28] [2443/4400] Generated: animais-selvagens/443-ave-selvagem-pinguim-fofo-sorrindo-sob-o-sol__cute_penguin_smiling_under_a_sunny_sky.png
+[2026-06-17 05:08:29] [2444/4400] Generated: animais-selvagens/444-ave-selvagem-pinguim-fofo-entre-flores-lindas__cute_penguin_surrounded_by_nice_flowers.png
+[2026-06-17 05:08:30] [2445/4400] Generated: animais-selvagens/445-ave-selvagem-patinho-feliz-voando-alto-no-ceu__happy_duckling_soaring_high_in_the_sky.png
+[2026-06-17 05:08:32] [2446/4400] Generated: animais-selvagens/446-ave-selvagem-patinho-feliz-no-galho-tropical__happy_duckling_perched_on_a_tropical_branch.png
+[2026-06-17 05:08:33] [2447/4400] Generated: animais-selvagens/447-ave-selvagem-patinho-feliz-nadando-na-lagoa__happy_duckling_swimming_gracefully_in_a_pond.png
+[2026-06-17 05:08:34] [2448/4400] Generated: animais-selvagens/448-ave-selvagem-patinho-feliz-explorando-a-floresta__happy_duckling_exploring_the_forest.png
+[2026-06-17 05:08:35] [2449/4400] Generated: animais-selvagens/449-ave-selvagem-patinho-feliz-andando-na-natureza__happy_duckling_walking_in_the_wild.png
+[2026-06-17 05:08:37] [2450/4400] Generated: animais-selvagens/450-ave-selvagem-patinho-feliz-acenando-alegre__happy_duckling_waving_friendly.png
+[2026-06-17 05:08:37] Batch 49 completed (2450 drawings). Triggering build & push...
+[2026-06-17 05:08:37] Rebuilding catalog and drawings database...
+[2026-06-17 05:08:38] Build successful!
+[2026-06-17 05:08:38] Committing and pushing to origin main...
