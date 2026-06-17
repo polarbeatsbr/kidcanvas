@@ -7037,7 +7037,6 @@ async function renderHallDaFamaView() {
             }
 
             // Renderizar Rankings
-            const oneWeekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
             const weekPaintings = allPaintings.filter(p => p.date >= oneWeekAgo);
             weekPaintings.sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
             renderRankingList(weekPaintings.slice(0, 5), 'ranking-week-list');
