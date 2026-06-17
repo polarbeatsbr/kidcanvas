@@ -8555,7 +8555,7 @@
     "en": "Roborovski hamster running inside a wheel",
     "slug": "hamster-hamster-roborovski-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 52,
@@ -8577,7 +8577,7 @@
     "en": "Roborovski hamster eating a sunflower seed",
     "slug": "hamster-hamster-roborovski-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 521,
@@ -8588,7 +8588,7 @@
     "en": "Roborovski hamster peeking out of a tunnel",
     "slug": "hamster-hamster-roborovski-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 522,
@@ -8599,7 +8599,7 @@
     "en": "Roborovski hamster sleeping in a soft nest",
     "slug": "hamster-hamster-roborovski-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 523,
@@ -8610,7 +8610,7 @@
     "en": "Roborovski hamster stuffing its cheeks with food",
     "slug": "hamster-hamster-roborovski-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 524,
@@ -8621,7 +8621,7 @@
     "en": "Syrian hamster running inside a wheel",
     "slug": "hamster-hamster-sirio-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 525,
@@ -8632,7 +8632,7 @@
     "en": "Syrian hamster eating a sunflower seed",
     "slug": "hamster-hamster-sirio-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 526,
@@ -8643,7 +8643,7 @@
     "en": "Syrian hamster peeking out of a tunnel",
     "slug": "hamster-hamster-sirio-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 527,
@@ -8654,7 +8654,7 @@
     "en": "Syrian hamster sleeping in a soft nest",
     "slug": "hamster-hamster-sirio-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 528,
@@ -8665,7 +8665,7 @@
     "en": "Syrian hamster stuffing its cheeks with food",
     "slug": "hamster-hamster-sirio-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 529,
@@ -8676,7 +8676,7 @@
     "en": "Dwarf hamster running inside a wheel",
     "slug": "hamster-hamster-anao-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 53,
@@ -8698,7 +8698,7 @@
     "en": "Dwarf hamster eating a sunflower seed",
     "slug": "hamster-hamster-anao-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 531,
@@ -8709,7 +8709,7 @@
     "en": "Dwarf hamster peeking out of a tunnel",
     "slug": "hamster-hamster-anao-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 532,
@@ -8720,7 +8720,7 @@
     "en": "Dwarf hamster sleeping in a soft nest",
     "slug": "hamster-hamster-anao-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 533,
@@ -8731,7 +8731,7 @@
     "en": "Dwarf hamster stuffing its cheeks with food",
     "slug": "hamster-hamster-anao-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 534,
@@ -8742,7 +8742,7 @@
     "en": "Cute chubby hamster running inside a wheel",
     "slug": "hamster-hamster-gordinho-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 535,
@@ -8753,7 +8753,7 @@
     "en": "Cute chubby hamster eating a sunflower seed",
     "slug": "hamster-hamster-gordinho-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 536,
@@ -8764,7 +8764,7 @@
     "en": "Cute chubby hamster peeking out of a tunnel",
     "slug": "hamster-hamster-gordinho-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 537,
@@ -8775,7 +8775,7 @@
     "en": "Cute chubby hamster sleeping in a soft nest",
     "slug": "hamster-hamster-gordinho-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 538,
@@ -8786,7 +8786,7 @@
     "en": "Cute chubby hamster stuffing its cheeks with food",
     "slug": "hamster-hamster-gordinho-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 539,
@@ -8797,7 +8797,7 @@
     "en": "Happy baby hamster running inside a wheel",
     "slug": "hamster-bebe-hamster-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 54,
@@ -8819,7 +8819,7 @@
     "en": "Happy baby hamster eating a sunflower seed",
     "slug": "hamster-bebe-hamster-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 541,
@@ -8830,7 +8830,7 @@
     "en": "Happy baby hamster peeking out of a tunnel",
     "slug": "hamster-bebe-hamster-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 542,
@@ -8841,7 +8841,7 @@
     "en": "Happy baby hamster sleeping in a soft nest",
     "slug": "hamster-bebe-hamster-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 543,
@@ -8852,7 +8852,7 @@
     "en": "Happy baby hamster stuffing its cheeks with food",
     "slug": "hamster-bebe-hamster-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 544,
@@ -8863,7 +8863,7 @@
     "en": "Friendly tiny hamster running inside a wheel",
     "slug": "hamster-hamster-amigavel-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 545,
@@ -8874,7 +8874,7 @@
     "en": "Friendly tiny hamster eating a sunflower seed",
     "slug": "hamster-hamster-amigavel-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 546,
@@ -8885,7 +8885,7 @@
     "en": "Friendly tiny hamster peeking out of a tunnel",
     "slug": "hamster-hamster-amigavel-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 547,
@@ -8896,7 +8896,7 @@
     "en": "Friendly tiny hamster sleeping in a soft nest",
     "slug": "hamster-hamster-amigavel-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 548,
@@ -8907,7 +8907,7 @@
     "en": "Friendly tiny hamster stuffing its cheeks with food",
     "slug": "hamster-hamster-amigavel-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 549,
@@ -8918,7 +8918,7 @@
     "en": "Fluffy little hamster running inside a wheel",
     "slug": "hamster-hamster-fofinho-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 55,
@@ -8940,7 +8940,7 @@
     "en": "Fluffy little hamster eating a sunflower seed",
     "slug": "hamster-hamster-fofinho-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 551,
@@ -8951,7 +8951,7 @@
     "en": "Fluffy little hamster peeking out of a tunnel",
     "slug": "hamster-hamster-fofinho-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 552,
@@ -8962,7 +8962,7 @@
     "en": "Fluffy little hamster sleeping in a soft nest",
     "slug": "hamster-hamster-fofinho-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 553,
@@ -8973,7 +8973,7 @@
     "en": "Fluffy little hamster stuffing its cheeks with food",
     "slug": "hamster-hamster-fofinho-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 554,
@@ -8984,7 +8984,7 @@
     "en": "Whimsical cartoon hamster running inside a wheel",
     "slug": "hamster-hamster-de-desenho-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 555,
@@ -8995,7 +8995,7 @@
     "en": "Whimsical cartoon hamster eating a sunflower seed",
     "slug": "hamster-hamster-de-desenho-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 556,
@@ -9006,7 +9006,7 @@
     "en": "Whimsical cartoon hamster peeking out of a tunnel",
     "slug": "hamster-hamster-de-desenho-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 557,
@@ -9017,7 +9017,7 @@
     "en": "Whimsical cartoon hamster sleeping in a soft nest",
     "slug": "hamster-hamster-de-desenho-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 558,
@@ -9028,7 +9028,7 @@
     "en": "Whimsical cartoon hamster stuffing its cheeks with food",
     "slug": "hamster-hamster-de-desenho-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 559,
@@ -9039,7 +9039,7 @@
     "en": "Hamster with big cheeks running inside a wheel",
     "slug": "hamster-hamster-bochechudo-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 56,
@@ -9061,7 +9061,7 @@
     "en": "Hamster with big cheeks eating a sunflower seed",
     "slug": "hamster-hamster-bochechudo-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 561,
@@ -9072,7 +9072,7 @@
     "en": "Hamster with big cheeks peeking out of a tunnel",
     "slug": "hamster-hamster-bochechudo-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 562,
@@ -9083,7 +9083,7 @@
     "en": "Hamster with big cheeks sleeping in a soft nest",
     "slug": "hamster-hamster-bochechudo-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 563,
@@ -9094,7 +9094,7 @@
     "en": "Hamster with big cheeks stuffing its cheeks with food",
     "slug": "hamster-hamster-bochechudo-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 564,
@@ -9105,7 +9105,7 @@
     "en": "Playful hamster running inside a wheel",
     "slug": "hamster-hamster-brincalhao-correndo-na-rodinha",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 565,
@@ -9116,7 +9116,7 @@
     "en": "Playful hamster eating a sunflower seed",
     "slug": "hamster-hamster-brincalhao-comendo-semente",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 566,
@@ -9127,7 +9127,7 @@
     "en": "Playful hamster peeking out of a tunnel",
     "slug": "hamster-hamster-brincalhao-saindo-do-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 567,
@@ -9138,7 +9138,7 @@
     "en": "Playful hamster sleeping in a soft nest",
     "slug": "hamster-hamster-brincalhao-dormindo-no-ninho",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 568,
@@ -9149,7 +9149,7 @@
     "en": "Playful hamster stuffing its cheeks with food",
     "slug": "hamster-hamster-brincalhao-bochecha-cheia-de-comida",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 57,
@@ -12276,6 +12276,39 @@
     "isNew": false
   },
   {
+    "index": 127,
+    "filename": "127-ave-galo-orgulhoso-andando-na-natureza__proud_rooster_walking_in_the_wild.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/127-ave-galo-orgulhoso-andando-na-natureza__proud_rooster_walking_in_the_wild.png",
+    "category": "aves",
+    "pt": "Ave galo orgulhoso andando na natureza",
+    "en": "Proud rooster walking in the wild",
+    "slug": "ave-galo-orgulhoso-andando-na-natureza",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 128,
+    "filename": "128-ave-galo-orgulhoso-acenando-alegre__proud_rooster_waving_friendly.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/128-ave-galo-orgulhoso-acenando-alegre__proud_rooster_waving_friendly.png",
+    "category": "aves",
+    "pt": "Ave galo orgulhoso acenando alegre",
+    "en": "Proud rooster waving friendly",
+    "slug": "ave-galo-orgulhoso-acenando-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 129,
+    "filename": "129-ave-galo-orgulhoso-sorrindo-sob-o-sol__proud_rooster_smiling_under_a_sunny_sky.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/129-ave-galo-orgulhoso-sorrindo-sob-o-sol__proud_rooster_smiling_under_a_sunny_sky.png",
+    "category": "aves",
+    "pt": "Ave galo orgulhoso sorrindo sob o sol",
+    "en": "Proud rooster smiling under a sunny sky",
+    "slug": "ave-galo-orgulhoso-sorrindo-sob-o-sol",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 13,
     "filename": "13-passarinho-cardeal-comendo-sementes__cardinal_bird_eating_seeds_from_a_feeder.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/13-passarinho-cardeal-comendo-sementes__cardinal_bird_eating_seeds_from_a_feeder.png",
@@ -12283,6 +12316,17 @@
     "pt": "Passarinho cardeal comendo sementes",
     "en": "Cardinal bird eating seeds from a feeder",
     "slug": "passarinho-cardeal-comendo-sementes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 130,
+    "filename": "130-ave-galo-orgulhoso-entre-flores-lindas__proud_rooster_surrounded_by_nice_flowers.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/aves/130-ave-galo-orgulhoso-entre-flores-lindas__proud_rooster_surrounded_by_nice_flowers.png",
+    "category": "aves",
+    "pt": "Ave galo orgulhoso entre flores lindas",
+    "en": "Proud rooster surrounded by nice flowers",
+    "slug": "ave-galo-orgulhoso-entre-flores-lindas",
     "tier": "free",
     "isNew": false
   },
@@ -50490,6 +50534,94 @@
     "isNew": true
   },
   {
+    "index": 172,
+    "filename": "172-fada-bebe-fada-com-varinha-de-condao__baby_fairy_waving_a_magic_wand.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/172-fada-bebe-fada-com-varinha-de-condao__baby_fairy_waving_a_magic_wand.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada com varinha de condao",
+    "en": "Baby fairy waving a magic wand",
+    "slug": "fada-bebe-fada-com-varinha-de-condao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 173,
+    "filename": "173-fada-bebe-fada-cogumelo-gigante__baby_fairy_sitting_on_a_giant_mushroom.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/173-fada-bebe-fada-cogumelo-gigante__baby_fairy_sitting_on_a_giant_mushroom.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada cogumelo gigante",
+    "en": "Baby fairy sitting on a giant mushroom",
+    "slug": "fada-bebe-fada-cogumelo-gigante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 174,
+    "filename": "174-fada-bebe-fada-perto-do-arco-iris__baby_fairy_flying_near_a_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/174-fada-bebe-fada-perto-do-arco-iris__baby_fairy_flying_near_a_rainbow.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada perto do arco iris",
+    "en": "Baby fairy flying near a rainbow",
+    "slug": "fada-bebe-fada-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 175,
+    "filename": "175-fada-bebe-fada-regando-flor-magica__baby_fairy_watering_a_magical_flower.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/175-fada-bebe-fada-regando-flor-magica__baby_fairy_watering_a_magical_flower.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada regando flor magica",
+    "en": "Baby fairy watering a magical flower",
+    "slug": "fada-bebe-fada-regando-flor-magica",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 176,
+    "filename": "176-fada-bebe-fada-dormindo-na-nuvem__baby_fairy_sleeping_on_a_soft_cloud.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/176-fada-bebe-fada-dormindo-na-nuvem__baby_fairy_sleeping_on_a_soft_cloud.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada dormindo na nuvem",
+    "en": "Baby fairy sleeping on a soft cloud",
+    "slug": "fada-bebe-fada-dormindo-na-nuvem",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 177,
+    "filename": "177-fada-bebe-fada-dancando-com-borboletas__baby_fairy_dancing_with_butterflies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/177-fada-bebe-fada-dancando-com-borboletas__baby_fairy_dancing_with_butterflies.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada dancando com borboletas",
+    "en": "Baby fairy dancing with butterflies",
+    "slug": "fada-bebe-fada-dancando-com-borboletas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 178,
+    "filename": "178-fada-bebe-fada-com-estrela-brilhante__baby_fairy_holding_a_shining_star.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/178-fada-bebe-fada-com-estrela-brilhante__baby_fairy_holding_a_shining_star.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada com estrela brilhante",
+    "en": "Baby fairy holding a shining star",
+    "slug": "fada-bebe-fada-com-estrela-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 179,
+    "filename": "179-fada-bebe-fada-conversando-com-joaninha__baby_fairy_whispering_to_a_ladybug.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/179-fada-bebe-fada-conversando-com-joaninha__baby_fairy_whispering_to_a_ladybug.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada conversando com joaninha",
+    "en": "Baby fairy whispering to a ladybug",
+    "slug": "fada-bebe-fada-conversando-com-joaninha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 18,
     "filename": "18-dragao-voando-pipas-coloridas__dragon_flying_kites.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/18-dragao-voando-pipas-coloridas__dragon_flying_kites.png",
@@ -50497,6 +50629,116 @@
     "pt": "Dragao voando pipas coloridas",
     "en": "Dragon flying kites",
     "slug": "dragao-voando-pipas-coloridas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 180,
+    "filename": "180-fada-bebe-fada-colhendo-po-magico__baby_fairy_gathering_stardust.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/180-fada-bebe-fada-colhendo-po-magico__baby_fairy_gathering_stardust.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada colhendo po magico",
+    "en": "Baby fairy gathering stardust",
+    "slug": "fada-bebe-fada-colhendo-po-magico",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 181,
+    "filename": "181-fada-bebe-fada-sorrindo-feliz__baby_fairy_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/181-fada-bebe-fada-sorrindo-feliz__baby_fairy_smiling_happily.png",
+    "category": "fantasia",
+    "pt": "Fada bebe fada sorrindo feliz",
+    "en": "Baby fairy smiling happily",
+    "slug": "fada-bebe-fada-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 182,
+    "filename": "182-fada-princesa-fada-com-varinha-de-condao__princess_fairy_waving_a_magic_wand.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/182-fada-princesa-fada-com-varinha-de-condao__princess_fairy_waving_a_magic_wand.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada com varinha de condao",
+    "en": "Princess fairy waving a magic wand",
+    "slug": "fada-princesa-fada-com-varinha-de-condao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 183,
+    "filename": "183-fada-princesa-fada-cogumelo-gigante__princess_fairy_sitting_on_a_giant_mushroom.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/183-fada-princesa-fada-cogumelo-gigante__princess_fairy_sitting_on_a_giant_mushroom.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada cogumelo gigante",
+    "en": "Princess fairy sitting on a giant mushroom",
+    "slug": "fada-princesa-fada-cogumelo-gigante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 184,
+    "filename": "184-fada-princesa-fada-perto-do-arco-iris__princess_fairy_flying_near_a_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/184-fada-princesa-fada-perto-do-arco-iris__princess_fairy_flying_near_a_rainbow.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada perto do arco iris",
+    "en": "Princess fairy flying near a rainbow",
+    "slug": "fada-princesa-fada-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 185,
+    "filename": "185-fada-princesa-fada-regando-flor-magica__princess_fairy_watering_a_magical_flower.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/185-fada-princesa-fada-regando-flor-magica__princess_fairy_watering_a_magical_flower.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada regando flor magica",
+    "en": "Princess fairy watering a magical flower",
+    "slug": "fada-princesa-fada-regando-flor-magica",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 186,
+    "filename": "186-fada-princesa-fada-dormindo-na-nuvem__princess_fairy_sleeping_on_a_soft_cloud.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/186-fada-princesa-fada-dormindo-na-nuvem__princess_fairy_sleeping_on_a_soft_cloud.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada dormindo na nuvem",
+    "en": "Princess fairy sleeping on a soft cloud",
+    "slug": "fada-princesa-fada-dormindo-na-nuvem",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 187,
+    "filename": "187-fada-princesa-fada-dancando-com-borboletas__princess_fairy_dancing_with_butterflies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/187-fada-princesa-fada-dancando-com-borboletas__princess_fairy_dancing_with_butterflies.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada dancando com borboletas",
+    "en": "Princess fairy dancing with butterflies",
+    "slug": "fada-princesa-fada-dancando-com-borboletas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 188,
+    "filename": "188-fada-princesa-fada-com-estrela-brilhante__princess_fairy_holding_a_shining_star.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/188-fada-princesa-fada-com-estrela-brilhante__princess_fairy_holding_a_shining_star.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada com estrela brilhante",
+    "en": "Princess fairy holding a shining star",
+    "slug": "fada-princesa-fada-com-estrela-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 189,
+    "filename": "189-fada-princesa-fada-conversando-com-joaninha__princess_fairy_whispering_to_a_ladybug.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/189-fada-princesa-fada-conversando-com-joaninha__princess_fairy_whispering_to_a_ladybug.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada conversando com joaninha",
+    "en": "Princess fairy whispering to a ladybug",
+    "slug": "fada-princesa-fada-conversando-com-joaninha",
     "tier": "free",
     "isNew": false
   },
@@ -50512,6 +50754,116 @@
     "isNew": false
   },
   {
+    "index": 190,
+    "filename": "190-fada-princesa-fada-colhendo-po-magico__princess_fairy_gathering_stardust.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/190-fada-princesa-fada-colhendo-po-magico__princess_fairy_gathering_stardust.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada colhendo po magico",
+    "en": "Princess fairy gathering stardust",
+    "slug": "fada-princesa-fada-colhendo-po-magico",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 191,
+    "filename": "191-fada-princesa-fada-sorrindo-feliz__princess_fairy_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/191-fada-princesa-fada-sorrindo-feliz__princess_fairy_smiling_happily.png",
+    "category": "fantasia",
+    "pt": "Fada princesa fada sorrindo feliz",
+    "en": "Princess fairy smiling happily",
+    "slug": "fada-princesa-fada-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 192,
+    "filename": "192-fada-fada-da-floresta-com-varinha-de-condao__forest_fairy_waving_a_magic_wand.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/192-fada-fada-da-floresta-com-varinha-de-condao__forest_fairy_waving_a_magic_wand.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta com varinha de condao",
+    "en": "Forest fairy waving a magic wand",
+    "slug": "fada-fada-da-floresta-com-varinha-de-condao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 193,
+    "filename": "193-fada-fada-da-floresta-cogumelo-gigante__forest_fairy_sitting_on_a_giant_mushroom.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/193-fada-fada-da-floresta-cogumelo-gigante__forest_fairy_sitting_on_a_giant_mushroom.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta cogumelo gigante",
+    "en": "Forest fairy sitting on a giant mushroom",
+    "slug": "fada-fada-da-floresta-cogumelo-gigante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 194,
+    "filename": "194-fada-fada-da-floresta-perto-do-arco-iris__forest_fairy_flying_near_a_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/194-fada-fada-da-floresta-perto-do-arco-iris__forest_fairy_flying_near_a_rainbow.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta perto do arco iris",
+    "en": "Forest fairy flying near a rainbow",
+    "slug": "fada-fada-da-floresta-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 195,
+    "filename": "195-fada-fada-da-floresta-regando-flor-magica__forest_fairy_watering_a_magical_flower.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/195-fada-fada-da-floresta-regando-flor-magica__forest_fairy_watering_a_magical_flower.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta regando flor magica",
+    "en": "Forest fairy watering a magical flower",
+    "slug": "fada-fada-da-floresta-regando-flor-magica",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 196,
+    "filename": "196-fada-fada-da-floresta-dormindo-na-nuvem__forest_fairy_sleeping_on_a_soft_cloud.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/196-fada-fada-da-floresta-dormindo-na-nuvem__forest_fairy_sleeping_on_a_soft_cloud.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta dormindo na nuvem",
+    "en": "Forest fairy sleeping on a soft cloud",
+    "slug": "fada-fada-da-floresta-dormindo-na-nuvem",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 197,
+    "filename": "197-fada-fada-da-floresta-dancando-com-borboletas__forest_fairy_dancing_with_butterflies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/197-fada-fada-da-floresta-dancando-com-borboletas__forest_fairy_dancing_with_butterflies.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta dancando com borboletas",
+    "en": "Forest fairy dancing with butterflies",
+    "slug": "fada-fada-da-floresta-dancando-com-borboletas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 198,
+    "filename": "198-fada-fada-da-floresta-com-estrela-brilhante__forest_fairy_holding_a_shining_star.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/198-fada-fada-da-floresta-com-estrela-brilhante__forest_fairy_holding_a_shining_star.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta com estrela brilhante",
+    "en": "Forest fairy holding a shining star",
+    "slug": "fada-fada-da-floresta-com-estrela-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 199,
+    "filename": "199-fada-fada-da-floresta-conversando-com-joaninha__forest_fairy_whispering_to_a_ladybug.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/199-fada-fada-da-floresta-conversando-com-joaninha__forest_fairy_whispering_to_a_ladybug.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta conversando com joaninha",
+    "en": "Forest fairy whispering to a ladybug",
+    "slug": "fada-fada-da-floresta-conversando-com-joaninha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 20,
     "filename": "20-sereia-construindo-castelo-de-areia-submarino__mermaid_sandcastle.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/20-sereia-construindo-castelo-de-areia-submarino__mermaid_sandcastle.png",
@@ -50519,6 +50871,116 @@
     "pt": "Sereia construindo castelo de areia submarino",
     "en": "Mermaid sandcastle",
     "slug": "sereia-construindo-castelo-de-areia-submarino",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 200,
+    "filename": "200-fada-fada-da-floresta-colhendo-po-magico__forest_fairy_gathering_stardust.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/200-fada-fada-da-floresta-colhendo-po-magico__forest_fairy_gathering_stardust.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta colhendo po magico",
+    "en": "Forest fairy gathering stardust",
+    "slug": "fada-fada-da-floresta-colhendo-po-magico",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 201,
+    "filename": "201-fada-fada-da-floresta-sorrindo-feliz__forest_fairy_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/201-fada-fada-da-floresta-sorrindo-feliz__forest_fairy_smiling_happily.png",
+    "category": "fantasia",
+    "pt": "Fada fada da floresta sorrindo feliz",
+    "en": "Forest fairy smiling happily",
+    "slug": "fada-fada-da-floresta-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 202,
+    "filename": "202-fada-fada-das-flores-com-varinha-de-condao__flower_fairy_waving_a_magic_wand.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/202-fada-fada-das-flores-com-varinha-de-condao__flower_fairy_waving_a_magic_wand.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores com varinha de condao",
+    "en": "Flower fairy waving a magic wand",
+    "slug": "fada-fada-das-flores-com-varinha-de-condao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 203,
+    "filename": "203-fada-fada-das-flores-cogumelo-gigante__flower_fairy_sitting_on_a_giant_mushroom.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/203-fada-fada-das-flores-cogumelo-gigante__flower_fairy_sitting_on_a_giant_mushroom.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores cogumelo gigante",
+    "en": "Flower fairy sitting on a giant mushroom",
+    "slug": "fada-fada-das-flores-cogumelo-gigante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 204,
+    "filename": "204-fada-fada-das-flores-perto-do-arco-iris__flower_fairy_flying_near_a_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/204-fada-fada-das-flores-perto-do-arco-iris__flower_fairy_flying_near_a_rainbow.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores perto do arco iris",
+    "en": "Flower fairy flying near a rainbow",
+    "slug": "fada-fada-das-flores-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 205,
+    "filename": "205-fada-fada-das-flores-regando-flor-magica__flower_fairy_watering_a_magical_flower.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/205-fada-fada-das-flores-regando-flor-magica__flower_fairy_watering_a_magical_flower.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores regando flor magica",
+    "en": "Flower fairy watering a magical flower",
+    "slug": "fada-fada-das-flores-regando-flor-magica",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 206,
+    "filename": "206-fada-fada-das-flores-dormindo-na-nuvem__flower_fairy_sleeping_on_a_soft_cloud.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/206-fada-fada-das-flores-dormindo-na-nuvem__flower_fairy_sleeping_on_a_soft_cloud.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores dormindo na nuvem",
+    "en": "Flower fairy sleeping on a soft cloud",
+    "slug": "fada-fada-das-flores-dormindo-na-nuvem",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 207,
+    "filename": "207-fada-fada-das-flores-dancando-com-borboletas__flower_fairy_dancing_with_butterflies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/207-fada-fada-das-flores-dancando-com-borboletas__flower_fairy_dancing_with_butterflies.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores dancando com borboletas",
+    "en": "Flower fairy dancing with butterflies",
+    "slug": "fada-fada-das-flores-dancando-com-borboletas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 208,
+    "filename": "208-fada-fada-das-flores-com-estrela-brilhante__flower_fairy_holding_a_shining_star.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/208-fada-fada-das-flores-com-estrela-brilhante__flower_fairy_holding_a_shining_star.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores com estrela brilhante",
+    "en": "Flower fairy holding a shining star",
+    "slug": "fada-fada-das-flores-com-estrela-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 209,
+    "filename": "209-fada-fada-das-flores-conversando-com-joaninha__flower_fairy_whispering_to_a_ladybug.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/209-fada-fada-das-flores-conversando-com-joaninha__flower_fairy_whispering_to_a_ladybug.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores conversando com joaninha",
+    "en": "Flower fairy whispering to a ladybug",
+    "slug": "fada-fada-das-flores-conversando-com-joaninha",
     "tier": "free",
     "isNew": false
   },
@@ -50534,6 +50996,116 @@
     "isNew": false
   },
   {
+    "index": 210,
+    "filename": "210-fada-fada-das-flores-colhendo-po-magico__flower_fairy_gathering_stardust.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/210-fada-fada-das-flores-colhendo-po-magico__flower_fairy_gathering_stardust.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores colhendo po magico",
+    "en": "Flower fairy gathering stardust",
+    "slug": "fada-fada-das-flores-colhendo-po-magico",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 211,
+    "filename": "211-fada-fada-das-flores-sorrindo-feliz__flower_fairy_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/211-fada-fada-das-flores-sorrindo-feliz__flower_fairy_smiling_happily.png",
+    "category": "fantasia",
+    "pt": "Fada fada das flores sorrindo feliz",
+    "en": "Flower fairy smiling happily",
+    "slug": "fada-fada-das-flores-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 212,
+    "filename": "212-fada-fada-da-estrela-com-varinha-de-condao__star_fairy_waving_a_magic_wand.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/212-fada-fada-da-estrela-com-varinha-de-condao__star_fairy_waving_a_magic_wand.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela com varinha de condao",
+    "en": "Star fairy waving a magic wand",
+    "slug": "fada-fada-da-estrela-com-varinha-de-condao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 213,
+    "filename": "213-fada-fada-da-estrela-cogumelo-gigante__star_fairy_sitting_on_a_giant_mushroom.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/213-fada-fada-da-estrela-cogumelo-gigante__star_fairy_sitting_on_a_giant_mushroom.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela cogumelo gigante",
+    "en": "Star fairy sitting on a giant mushroom",
+    "slug": "fada-fada-da-estrela-cogumelo-gigante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 214,
+    "filename": "214-fada-fada-da-estrela-perto-do-arco-iris__star_fairy_flying_near_a_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/214-fada-fada-da-estrela-perto-do-arco-iris__star_fairy_flying_near_a_rainbow.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela perto do arco iris",
+    "en": "Star fairy flying near a rainbow",
+    "slug": "fada-fada-da-estrela-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 215,
+    "filename": "215-fada-fada-da-estrela-regando-flor-magica__star_fairy_watering_a_magical_flower.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/215-fada-fada-da-estrela-regando-flor-magica__star_fairy_watering_a_magical_flower.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela regando flor magica",
+    "en": "Star fairy watering a magical flower",
+    "slug": "fada-fada-da-estrela-regando-flor-magica",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 216,
+    "filename": "216-fada-fada-da-estrela-dormindo-na-nuvem__star_fairy_sleeping_on_a_soft_cloud.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/216-fada-fada-da-estrela-dormindo-na-nuvem__star_fairy_sleeping_on_a_soft_cloud.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela dormindo na nuvem",
+    "en": "Star fairy sleeping on a soft cloud",
+    "slug": "fada-fada-da-estrela-dormindo-na-nuvem",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 217,
+    "filename": "217-fada-fada-da-estrela-dancando-com-borboletas__star_fairy_dancing_with_butterflies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/217-fada-fada-da-estrela-dancando-com-borboletas__star_fairy_dancing_with_butterflies.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela dancando com borboletas",
+    "en": "Star fairy dancing with butterflies",
+    "slug": "fada-fada-da-estrela-dancando-com-borboletas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 218,
+    "filename": "218-fada-fada-da-estrela-com-estrela-brilhante__star_fairy_holding_a_shining_star.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/218-fada-fada-da-estrela-com-estrela-brilhante__star_fairy_holding_a_shining_star.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela com estrela brilhante",
+    "en": "Star fairy holding a shining star",
+    "slug": "fada-fada-da-estrela-com-estrela-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 219,
+    "filename": "219-fada-fada-da-estrela-conversando-com-joaninha__star_fairy_whispering_to_a_ladybug.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/219-fada-fada-da-estrela-conversando-com-joaninha__star_fairy_whispering_to_a_ladybug.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela conversando com joaninha",
+    "en": "Star fairy whispering to a ladybug",
+    "slug": "fada-fada-da-estrela-conversando-com-joaninha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 22,
     "filename": "22-elfos-brincando-na-casa-da-arvore__elf_treehouse.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/22-elfos-brincando-na-casa-da-arvore__elf_treehouse.png",
@@ -50541,6 +51113,116 @@
     "pt": "Elfos brincando na casa da arvore",
     "en": "Elf treehouse",
     "slug": "elfos-brincando-na-casa-da-arvore",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 220,
+    "filename": "220-fada-fada-da-estrela-colhendo-po-magico__star_fairy_gathering_stardust.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/220-fada-fada-da-estrela-colhendo-po-magico__star_fairy_gathering_stardust.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela colhendo po magico",
+    "en": "Star fairy gathering stardust",
+    "slug": "fada-fada-da-estrela-colhendo-po-magico",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 221,
+    "filename": "221-fada-fada-da-estrela-sorrindo-feliz__star_fairy_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/221-fada-fada-da-estrela-sorrindo-feliz__star_fairy_smiling_happily.png",
+    "category": "fantasia",
+    "pt": "Fada fada da estrela sorrindo feliz",
+    "en": "Star fairy smiling happily",
+    "slug": "fada-fada-da-estrela-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 222,
+    "filename": "222-fada-fada-do-inverno-com-varinha-de-condao__winter_fairy_waving_a_magic_wand.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/222-fada-fada-do-inverno-com-varinha-de-condao__winter_fairy_waving_a_magic_wand.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno com varinha de condao",
+    "en": "Winter fairy waving a magic wand",
+    "slug": "fada-fada-do-inverno-com-varinha-de-condao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 223,
+    "filename": "223-fada-fada-do-inverno-cogumelo-gigante__winter_fairy_sitting_on_a_giant_mushroom.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/223-fada-fada-do-inverno-cogumelo-gigante__winter_fairy_sitting_on_a_giant_mushroom.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno cogumelo gigante",
+    "en": "Winter fairy sitting on a giant mushroom",
+    "slug": "fada-fada-do-inverno-cogumelo-gigante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 224,
+    "filename": "224-fada-fada-do-inverno-perto-do-arco-iris__winter_fairy_flying_near_a_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/224-fada-fada-do-inverno-perto-do-arco-iris__winter_fairy_flying_near_a_rainbow.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno perto do arco iris",
+    "en": "Winter fairy flying near a rainbow",
+    "slug": "fada-fada-do-inverno-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 225,
+    "filename": "225-fada-fada-do-inverno-regando-flor-magica__winter_fairy_watering_a_magical_flower.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/225-fada-fada-do-inverno-regando-flor-magica__winter_fairy_watering_a_magical_flower.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno regando flor magica",
+    "en": "Winter fairy watering a magical flower",
+    "slug": "fada-fada-do-inverno-regando-flor-magica",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 226,
+    "filename": "226-fada-fada-do-inverno-dormindo-na-nuvem__winter_fairy_sleeping_on_a_soft_cloud.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/226-fada-fada-do-inverno-dormindo-na-nuvem__winter_fairy_sleeping_on_a_soft_cloud.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno dormindo na nuvem",
+    "en": "Winter fairy sleeping on a soft cloud",
+    "slug": "fada-fada-do-inverno-dormindo-na-nuvem",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 227,
+    "filename": "227-fada-fada-do-inverno-dancando-com-borboletas__winter_fairy_dancing_with_butterflies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/227-fada-fada-do-inverno-dancando-com-borboletas__winter_fairy_dancing_with_butterflies.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno dancando com borboletas",
+    "en": "Winter fairy dancing with butterflies",
+    "slug": "fada-fada-do-inverno-dancando-com-borboletas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 228,
+    "filename": "228-fada-fada-do-inverno-com-estrela-brilhante__winter_fairy_holding_a_shining_star.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/228-fada-fada-do-inverno-com-estrela-brilhante__winter_fairy_holding_a_shining_star.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno com estrela brilhante",
+    "en": "Winter fairy holding a shining star",
+    "slug": "fada-fada-do-inverno-com-estrela-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 229,
+    "filename": "229-fada-fada-do-inverno-conversando-com-joaninha__winter_fairy_whispering_to_a_ladybug.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/229-fada-fada-do-inverno-conversando-com-joaninha__winter_fairy_whispering_to_a_ladybug.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno conversando com joaninha",
+    "en": "Winter fairy whispering to a ladybug",
+    "slug": "fada-fada-do-inverno-conversando-com-joaninha",
     "tier": "free",
     "isNew": false
   },
@@ -50556,6 +51238,116 @@
     "isNew": false
   },
   {
+    "index": 230,
+    "filename": "230-fada-fada-do-inverno-colhendo-po-magico__winter_fairy_gathering_stardust.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/230-fada-fada-do-inverno-colhendo-po-magico__winter_fairy_gathering_stardust.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno colhendo po magico",
+    "en": "Winter fairy gathering stardust",
+    "slug": "fada-fada-do-inverno-colhendo-po-magico",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 231,
+    "filename": "231-fada-fada-do-inverno-sorrindo-feliz__winter_fairy_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/231-fada-fada-do-inverno-sorrindo-feliz__winter_fairy_smiling_happily.png",
+    "category": "fantasia",
+    "pt": "Fada fada do inverno sorrindo feliz",
+    "en": "Winter fairy smiling happily",
+    "slug": "fada-fada-do-inverno-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 232,
+    "filename": "232-fada-fada-da-agua-com-varinha-de-condao__water_fairy_waving_a_magic_wand.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/232-fada-fada-da-agua-com-varinha-de-condao__water_fairy_waving_a_magic_wand.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua com varinha de condao",
+    "en": "Water fairy waving a magic wand",
+    "slug": "fada-fada-da-agua-com-varinha-de-condao",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 233,
+    "filename": "233-fada-fada-da-agua-cogumelo-gigante__water_fairy_sitting_on_a_giant_mushroom.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/233-fada-fada-da-agua-cogumelo-gigante__water_fairy_sitting_on_a_giant_mushroom.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua cogumelo gigante",
+    "en": "Water fairy sitting on a giant mushroom",
+    "slug": "fada-fada-da-agua-cogumelo-gigante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 234,
+    "filename": "234-fada-fada-da-agua-perto-do-arco-iris__water_fairy_flying_near_a_rainbow.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/234-fada-fada-da-agua-perto-do-arco-iris__water_fairy_flying_near_a_rainbow.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua perto do arco iris",
+    "en": "Water fairy flying near a rainbow",
+    "slug": "fada-fada-da-agua-perto-do-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 235,
+    "filename": "235-fada-fada-da-agua-regando-flor-magica__water_fairy_watering_a_magical_flower.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/235-fada-fada-da-agua-regando-flor-magica__water_fairy_watering_a_magical_flower.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua regando flor magica",
+    "en": "Water fairy watering a magical flower",
+    "slug": "fada-fada-da-agua-regando-flor-magica",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 236,
+    "filename": "236-fada-fada-da-agua-dormindo-na-nuvem__water_fairy_sleeping_on_a_soft_cloud.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/236-fada-fada-da-agua-dormindo-na-nuvem__water_fairy_sleeping_on_a_soft_cloud.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua dormindo na nuvem",
+    "en": "Water fairy sleeping on a soft cloud",
+    "slug": "fada-fada-da-agua-dormindo-na-nuvem",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 237,
+    "filename": "237-fada-fada-da-agua-dancando-com-borboletas__water_fairy_dancing_with_butterflies.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/237-fada-fada-da-agua-dancando-com-borboletas__water_fairy_dancing_with_butterflies.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua dancando com borboletas",
+    "en": "Water fairy dancing with butterflies",
+    "slug": "fada-fada-da-agua-dancando-com-borboletas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 238,
+    "filename": "238-fada-fada-da-agua-com-estrela-brilhante__water_fairy_holding_a_shining_star.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/238-fada-fada-da-agua-com-estrela-brilhante__water_fairy_holding_a_shining_star.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua com estrela brilhante",
+    "en": "Water fairy holding a shining star",
+    "slug": "fada-fada-da-agua-com-estrela-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 239,
+    "filename": "239-fada-fada-da-agua-conversando-com-joaninha__water_fairy_whispering_to_a_ladybug.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/239-fada-fada-da-agua-conversando-com-joaninha__water_fairy_whispering_to_a_ladybug.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua conversando com joaninha",
+    "en": "Water fairy whispering to a ladybug",
+    "slug": "fada-fada-da-agua-conversando-com-joaninha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 24,
     "filename": "24-tesouro-pirata-em-ilha-magica__pirate_treasure_island.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/24-tesouro-pirata-em-ilha-magica__pirate_treasure_island.png",
@@ -50563,6 +51355,39 @@
     "pt": "Tesouro pirata em ilha magica",
     "en": "Pirate treasure island",
     "slug": "tesouro-pirata-em-ilha-magica",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 240,
+    "filename": "240-fada-fada-da-agua-colhendo-po-magico__water_fairy_gathering_stardust.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/240-fada-fada-da-agua-colhendo-po-magico__water_fairy_gathering_stardust.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua colhendo po magico",
+    "en": "Water fairy gathering stardust",
+    "slug": "fada-fada-da-agua-colhendo-po-magico",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 241,
+    "filename": "241-fada-fada-da-agua-sorrindo-feliz__water_fairy_smiling_happily.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/241-fada-fada-da-agua-sorrindo-feliz__water_fairy_smiling_happily.png",
+    "category": "fantasia",
+    "pt": "Fada fada da agua sorrindo feliz",
+    "en": "Water fairy smiling happily",
+    "slug": "fada-fada-da-agua-sorrindo-feliz",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 242,
+    "filename": "242-fada-fada-dos-sonhos-com-varinha-de-condao__dream_fairy_waving_a_magic_wand.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/242-fada-fada-dos-sonhos-com-varinha-de-condao__dream_fairy_waving_a_magic_wand.png",
+    "category": "fantasia",
+    "pt": "Fada fada dos sonhos com varinha de condao",
+    "en": "Dream fairy waving a magic wand",
+    "slug": "fada-fada-dos-sonhos-com-varinha-de-condao",
     "tier": "free",
     "isNew": false
   },
