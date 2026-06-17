@@ -9303,17 +9303,15 @@ window.openAlbumModal = async function() {
     closeEventModal();
     if (!currentUser) return;
     
-    showMagicLoading('Carregando seu Álbum...');
     try {
         const res = await fetch('/api/store/catalog');
         const data = await res.json();
-        hideMagicLoading();
         
         if (data.success) {
             window.globalCatalog = data.catalog;
         }
     } catch(e) {
-        hideMagicLoading();
+        console.log('Erro ao carregar catálogo:', e);
     }
     
     const catalog = window.globalCatalog || [];
@@ -9444,7 +9442,7 @@ window.buyCardPack = async function() {
         return;
     }
     
-    showMagicLoading('Abrindo pacotinho mágico...');
+    // Loading visual
     try {
         const res = await fetch('/api/store/buy-card', {
             method: 'POST',
@@ -9454,7 +9452,7 @@ window.buyCardPack = async function() {
             }
         });
         const data = await res.json();
-        hideMagicLoading();
+        // loaded
         
         if (data.success) {
             currentUser.stars = data.stars;
@@ -9474,7 +9472,7 @@ window.buyCardPack = async function() {
             Swal.fire('Erro', data.message || 'Erro ao comprar carta.', 'error');
         }
     } catch(e) {
-        hideMagicLoading();
+        // loaded
         Swal.fire('Erro', 'Falha na conexão.', 'error');
     }
 };
