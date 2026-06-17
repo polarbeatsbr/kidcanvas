@@ -4250,3 +4250,58 @@
 [2026-06-17 05:04:51] Rebuilding catalog and drawings database...
 [2026-06-17 05:04:52] Build successful!
 [2026-06-17 05:04:52] Committing and pushing to origin main...
+[2026-06-17 05:04:56] Push successful! Vercel will deploy in production.
+[2026-06-17 05:04:57] [2301/4400] Generated: animais-selvagens/301-safari-hipopotamo-na-agua-perto-de-acacia__hippo_in_water_standing_under_an_acacia_tree.png
+[2026-06-17 05:04:58] [2302/4400] Generated: animais-selvagens/302-safari-hipopotamo-na-agua-andando-na-planicie__hippo_in_water_walking_across_the_grassy_plains.png
+[2026-06-17 05:05:00] [2303/4400] Generated: animais-selvagens/303-safari-hipopotamo-na-agua-na-beira-do-lago__hippo_in_water_resting_near_a_watering_hole.png
+[2026-06-17 05:05:01] [2304/4400] Generated: animais-selvagens/304-safari-hipopotamo-na-agua-acenando-alegre__hippo_in_water_waving_friendly_to_kids.png
+[2026-06-17 05:05:02] [2305/4400] Generated: animais-selvagens/305-safari-hipopotamo-na-agua-sorrindo-sob-o-sol__hippo_in_water_smiling_under_a_hot_savanna_sun.png
+[2026-06-17 05:05:03] [2306/4400] Generated: animais-selvagens/306-safari-rinocerontes-na-grama-perto-de-acacia__rhinoceros_in_grass_standing_under_an_acacia_tree.png
+[2026-06-17 05:05:04] [2307/4400] Generated: animais-selvagens/307-safari-rinocerontes-na-grama-andando-na-planicie__rhinoceros_in_grass_walking_across_the_grassy_plains.png
+[2026-06-17 05:05:06] [2308/4400] Generated: animais-selvagens/308-safari-rinocerontes-na-grama-na-beira-do-lago__rhinoceros_in_grass_resting_near_a_watering_hole.png
+[2026-06-17 05:05:07] [2309/4400] Generated: animais-selvagens/309-safari-rinocerontes-na-grama-acenando-alegre__rhinoceros_in_grass_waving_friendly_to_kids.png
+[2026-06-17 05:05:09] [2310/4400] Generated: animais-selvagens/310-safari-rinocerontes-na-grama-sorrindo-sob-o-sol__rhinoceros_in_grass_smiling_under_a_hot_savanna_sun.png
+[2026-06-17 05:05:10] [2311/4400] Generated: animais-selvagens/311-safari-guepardo-veloz-perto-de-acacia__swift_cheetah_standing_under_an_acacia_tree.png
+[2026-06-17 05:05:11] [2312/4400] Generated: animais-selvagens/312-safari-guepardo-veloz-andando-na-planicie__swift_cheetah_walking_across_the_grassy_plains.png
+[2026-06-17 05:05:13] [2313/4400] Generated: animais-selvagens/314-safari-guepardo-veloz-acenando-alegre__swift_cheetah_waving_friendly_to_kids.png
+[2026-06-17 05:05:14] [2314/4400] Generated: animais-selvagens/313-safari-guepardo-veloz-na-beira-do-lago__swift_cheetah_resting_near_a_watering_hole.png
+[2026-06-17 05:05:16] [2315/4400] Generated: animais-selvagens/315-safari-guepardo-veloz-sorrindo-sob-o-sol__swift_cheetah_smiling_under_a_hot_savanna_sun.png
+[2026-06-17 05:05:17] [2316/4400] Generated: animais-selvagens/316-safari-leopardo-pintado-perto-de-acacia__spotted_leopard_standing_under_an_acacia_tree.png
+[2026-06-17 05:05:18] [2317/4400] Generated: animais-selvagens/317-safari-leopardo-pintado-andando-na-planicie__spotted_leopard_walking_across_the_grassy_plains.png
+[2026-06-17 05:05:20] [2318/4400] Generated: animais-selvagens/319-safari-leopardo-pintado-acenando-alegre__spotted_leopard_waving_friendly_to_kids.png
+[2026-06-17 05:05:23] [2319/4400] Generated: animais-selvagens/318-safari-leopardo-pintado-na-beira-do-lago__spotted_leopard_resting_near_a_watering_hole.png
+[2026-06-17 05:05:24] [2320/4400] Generated: animais-selvagens/320-safari-leopardo-pintado-sorrindo-sob-o-sol__spotted_leopard_smiling_under_a_hot_savanna_sun.png
+[2026-06-17 05:05:25] [2321/4400] Generated: animais-selvagens/321-safari-avestruz-alta-perto-de-acacia__tall_ostrich_standing_under_an_acacia_tree.png
+[2026-06-17 05:05:26] [2322/4400] Generated: animais-selvagens/322-safari-avestruz-alta-andando-na-planicie__tall_ostrich_walking_across_the_grassy_plains.png
+[2026-06-17 05:05:28] [2323/4400] Generated: animais-selvagens/324-safari-avestruz-alta-acenando-alegre__tall_ostrich_waving_friendly_to_kids.png
+[2026-06-17 05:05:29] [2324/4400] Generated: animais-selvagens/323-safari-avestruz-alta-na-beira-do-lago__tall_ostrich_resting_near_a_watering_hole.png
+[2026-06-17 05:05:30] [2325/4400] Generated: animais-selvagens/325-safari-avestruz-alta-sorrindo-sob-o-sol__tall_ostrich_smiling_under_a_hot_savanna_sun.png
+[2026-06-17 05:05:32] [2326/4400] Generated: animais-selvagens/326-safari-suricato-amigavel-perto-de-acacia__friendly_meerkat_standing_under_an_acacia_tree.png
+[2026-06-17 05:05:34] [2327/4400] Generated: animais-selvagens/327-safari-suricato-amigavel-andando-na-planicie__friendly_meerkat_walking_across_the_grassy_plains.png
+[2026-06-17 05:05:35] [2328/4400] Generated: animais-selvagens/329-safari-suricato-amigavel-acenando-alegre__friendly_meerkat_waving_friendly_to_kids.png
+[2026-06-17 05:05:36] [2329/4400] Generated: animais-selvagens/328-safari-suricato-amigavel-na-beira-do-lago__friendly_meerkat_resting_near_a_watering_hole.png
+[2026-06-17 05:05:37] [2330/4400] Generated: animais-selvagens/330-safari-suricato-amigavel-sorrindo-sob-o-sol__friendly_meerkat_smiling_under_a_hot_savanna_sun.png
+[2026-06-17 05:05:39] [2331/4400] Generated: animais-selvagens/331-amazonia-onca-pintada-no-galho-da-selva__jaguar_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:05:41] [2332/4400] Generated: animais-selvagens/332-amazonia-onca-pintada-nadando-no-rio-amazonas__jaguar_swimming_in_the_amazon_river.png
+[2026-06-17 05:05:42] [2333/4400] Generated: animais-selvagens/333-amazonia-onca-pintada-abracado-na-arvore__jaguar_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:05:44] [2334/4400] Generated: animais-selvagens/334-amazonia-onca-pintada-entre-folhas-gigantes__jaguar_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:05:46] [2335/4400] Generated: animais-selvagens/335-amazonia-onca-pintada-com-orquideas-em-volta__jaguar_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:05:48] [2336/4400] Generated: animais-selvagens/337-amazonia-arara-vermelha-nadando-no-rio-amazonas__macaw_parrot_swimming_in_the_amazon_river.png
+[2026-06-17 05:05:49] [2337/4400] Generated: animais-selvagens/336-amazonia-arara-vermelha-no-galho-da-selva__macaw_parrot_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:05:51] [2338/4400] Generated: animais-selvagens/338-amazonia-arara-vermelha-abracado-na-arvore__macaw_parrot_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:05:53] [2339/4400] Generated: animais-selvagens/339-amazonia-arara-vermelha-entre-folhas-gigantes__macaw_parrot_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:05:54] [2340/4400] Generated: animais-selvagens/340-amazonia-arara-vermelha-com-orquideas-em-volta__macaw_parrot_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:05:55] [2341/4400] Generated: animais-selvagens/341-amazonia-tucano-do-bico-grande-no-galho-da-selva__toucan_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:05:56] [2342/4400] Generated: animais-selvagens/342-amazonia-tucano-do-bico-grande-nadando-no-rio-amazonas__toucan_swimming_in_the_amazon_river.png
+[2026-06-17 05:05:58] [2343/4400] Generated: animais-selvagens/343-amazonia-tucano-do-bico-grande-abracado-na-arvore__toucan_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:06:00] [2344/4400] Generated: animais-selvagens/344-amazonia-tucano-do-bico-grande-entre-folhas-gigantes__toucan_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:06:01] [2345/4400] Generated: animais-selvagens/345-amazonia-tucano-do-bico-grande-com-orquideas-em-volta__toucan_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:06:03] [2346/4400] Generated: animais-selvagens/347-amazonia-bicho-preguica-nadando-no-rio-amazonas__sloth_swimming_in_the_amazon_river.png
+[2026-06-17 05:06:04] [2347/4400] Generated: animais-selvagens/346-amazonia-bicho-preguica-no-galho-da-selva__sloth_perched_on_a_thick_jungle_vine.png
+[2026-06-17 05:06:05] [2348/4400] Generated: animais-selvagens/348-amazonia-bicho-preguica-abracado-na-arvore__sloth_hugging_a_tall_tree_trunk.png
+[2026-06-17 05:06:06] [2349/4400] Generated: animais-selvagens/349-amazonia-bicho-preguica-entre-folhas-gigantes__sloth_resting_among_giant_tropical_leaves.png
+[2026-06-17 05:06:08] [2350/4400] Generated: animais-selvagens/350-amazonia-bicho-preguica-com-orquideas-em-volta__sloth_smiling_with_jungle_orchids_around.png
+[2026-06-17 05:06:08] Batch 47 completed (2350 drawings). Triggering build & push...
+[2026-06-17 05:06:08] Rebuilding catalog and drawings database...
+[2026-06-17 05:06:09] Build successful!
+[2026-06-17 05:06:09] Committing and pushing to origin main...
