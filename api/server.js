@@ -3409,16 +3409,6 @@ app.get(['/historias-magicas', '/historia'], (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'historia.html'));
 });
 
-// Rota catch-all para servir index.html e dar suporte ao roteamento SPA (histórico pushState)
-app.get('*', (req, res) => {
-    // Ignorar chamadas de API ou arquivos estáticos com extensão que caíram aqui por erro
-    if (req.path.startsWith('/api') || req.path.includes('.')) {
-        return res.status(404).send('Recurso não encontrado');
-    }
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
-});
-
-// Inicializar o servidor
 // ==========================================
 // EVENTOS - SEXTA MÁGICA
 // ==========================================
@@ -3553,6 +3543,18 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
     await saveUsers();
     res.json({ success: true, reward: mission.reward, inventory: user.eventInventory, stars: user.stars });
 });
+
+// Rota catch-all para servir index.html e dar suporte ao roteamento SPA (histórico pushState)
+app.get('*', (req, res) => {
+    // Ignorar chamadas de API ou arquivos estáticos com extensão que caíram aqui por erro
+    if (req.path.startsWith('/api') || req.path.includes('.')) {
+        return res.status(404).send('Recurso não encontrado');
+    }
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
+// Inicializar o servidor
+
 
 app.listen(PORT, () => {
     console.log('\n==================================================');

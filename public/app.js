@@ -187,6 +187,7 @@ async function syncUserProfile() {
             currentUser = data.user;
             updateHeaderAuthDisplay();
             checkNewAchievements();
+            if(typeof checkActiveEvent === 'function') checkActiveEvent();
         } else {
             sessionToken = null;
             currentUser = null;
@@ -7530,7 +7531,7 @@ async function savePaintingToGallery() {
             } else {
                 showToast('Pintura salva com sucesso na sua galeria! 🎉', 'success');
             }
-            openCertificateModal(data.name);
+            if(typeof confetti !== 'undefined') confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } }); openCertificateModal(data.name);
         } else {
             showToast(resData.message || 'Erro ao salvar pintura.', 'error');
         }
@@ -9169,40 +9170,40 @@ function renderEventMissions() {
         const isCompleted = p.current >= m.req;
         const isClaimed = p.claimed;
         
+        // Progress Visuals (Eggs or Stars)
+        let visualProgressHtml = '<div style="display: flex; gap: 10px; margin-top: 10px; justify-content: center;">';
+        let icon = m.id.includes('dino') ? '🥚' : '⭐'; // default to egg for dinos
+        if (m.type === 'complete_all') icon = '👑';
+        
+        for (let i = 0; i < m.req; i++) {
+            const isDone = p.current > i;
+            const filter = isDone ? 'none' : 'grayscale(100%) opacity(40%)';
+            const scale = isDone ? 'scale(1.1)' : 'scale(1)';
+            visualProgressHtml += `<div style="font-size: 2rem; filter: ${filter}; transform: ${scale}; transition: all 0.3s ease;">${icon}</div>`;
+        }
+        visualProgressHtml += '</div>';
+        
         let rewardHtml = '';
-        if (m.reward.type === 'stars') rewardHtml = `<div style="font-weight: bold; color: var(--color-orange);"><i class="fa-solid fa-star"></i> ${m.reward.value}</div>`;
-        if (m.reward.type === 'badge') rewardHtml = `<div style="font-weight: bold; color: var(--color-purple);"><i class="fa-solid fa-award"></i> Selo Especial</div>`;
+        if (m.reward.type === 'stars') rewardHtml = `<div style="font-weight: 900; color: #ff9f43; font-size: 1.2rem; text-shadow: 1px 1px 0px rgba(0,0,0,0.1);"><i class="fa-solid fa-star"></i> +${m.reward.value}</div>`;
+        if (m.reward.type === 'badge') rewardHtml = `<div style="font-weight: 900; color: #9b59b6; font-size: 1.2rem; text-shadow: 1px 1px 0px rgba(0,0,0,0.1);"><i class="fa-solid fa-award"></i> Selo</div>`;
         
         let btnHtml = '';
         if (isClaimed) {
-            btnHtml = `<button disabled style="background: #ccc; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; color: white;">Resgatado</button>`;
+            btnHtml = `<div style="font-size: 2.5rem; text-align: center;">✅</div>`;
         } else if (isCompleted) {
-            btnHtml = `<button onclick="claimEventMission('${m.id}')" style="background: var(--color-green); border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; color: white; cursor: pointer; box-shadow: 0 4px 0 #27ae60;">Resgatar</button>`;
+            btnHtml = `<button onclick="claimEventMission('${m.id}')" style="background: linear-gradient(135deg, #FFD700, #F39C12); border: 4px solid #fff; padding: 10px 20px; border-radius: 20px; font-weight: 900; color: white; cursor: pointer; box-shadow: 0 6px 15px rgba(243, 156, 18, 0.4); font-size: 1.2rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">✨ Abrir! ✨</button>`;
         } else {
-            btnHtml = `<button disabled style="background: #eee; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; color: #999;">${p.current} / ${m.req}</button>`;
+            btnHtml = `<div style="font-size: 2.5rem; text-align: center; filter: grayscale(100%) opacity(50%);">🎁</div>`;
         }
         
-        const percent = Math.min(100, Math.round((p.current / m.req) * 100));
-        
-        // Progress Bar
-        const barHtml = `
-            <div style="background: #eee; height: 12px; border-radius: 6px; margin-top: 10px; overflow: hidden; position: relative;">
-                <div style="background: var(--color-blue); width: ${percent}%; height: 100%; transition: width 0.5s;"></div>
-            </div>
-        `;
-        
         container.innerHTML += `
-            <div style="background: white; border-radius: 12px; padding: 15px; display: flex; align-items: center; justify-content: space-between; border: 2px solid ${isClaimed ? '#2ecc71' : '#eee'};">
-                <div style="flex: 1; margin-right: 15px;">
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <span style="background: var(--color-purple); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; text-transform: uppercase;">${m.tier}</span>
-                        <h4 style="margin: 0; font-size: 1.1rem; color: #333;">${m.title}</h4>
-                    </div>
-                    <p style="margin: 5px 0 0; font-size: 0.9rem; color: #666;">${m.desc}</p>
-                    ${barHtml}
+            <div style="background: ${isClaimed ? '#f0fff0' : 'white'}; border-radius: 20px; padding: 20px; display: flex; align-items: center; justify-content: space-between; border: 4px solid ${isCompleted && !isClaimed ? '#f1c40f' : '#eee'}; box-shadow: 0 4px 10px rgba(0,0,0,0.05); flex-wrap: wrap; gap: 15px;">
+                <div style="flex: 1; min-width: 200px; text-align: center;">
+                    <h4 style="margin: 0; font-size: 1.3rem; color: #333; font-weight: 900;">${m.title}</h4>
+                    ${visualProgressHtml}
                 </div>
-                <div style="text-align: right; min-width: 100px;">
-                    <div style="margin-bottom: 8px; font-size: 0.9rem;">Recompensa:</div>
+                <div style="text-align: center; min-width: 120px; background: #fff5eb; padding: 10px; border-radius: 15px; border: 2px dashed #ffdcb0;">
+                    <div style="margin-bottom: 5px; font-size: 0.9rem; color: #888; font-weight: bold;">Prêmio:</div>
                     ${rewardHtml}
                     <div style="margin-top: 10px;">${btnHtml}</div>
                 </div>

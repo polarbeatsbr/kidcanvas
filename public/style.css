@@ -188,7 +188,7 @@ button, input, select, textarea {
     align-items: center;
     position: relative;
     transition: var(--transition-smooth);
-    border: 2px solid transparent;
+    border: 4px solid transparent;
     border-radius: var(--radius-sm);
 }
 
@@ -3809,7 +3809,7 @@ button, input, select, textarea {
 
         .preloaded-cover-title {
             font-family: var(--font-heading);
-            font-size: 1.25rem;
+            font-size: 2rem;
             color: var(--color-dark);
             font-weight: 700;
             margin-bottom: 6px;
@@ -4165,8 +4165,8 @@ button, input, select, textarea {
 }
 
 .paint-tool-btn {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: 2px solid transparent;
     background: #ffffff;
@@ -6372,4 +6372,7 @@ button, input, select, textarea {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
     }
-}
+}
+
+@keyframes pulse-magic { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 154, 158, 0.7); } 70% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(255, 154, 158, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 154, 158, 0); } }
+.pulse-btn { animation: pulse-magic 2s infinite; }
