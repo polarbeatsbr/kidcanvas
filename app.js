@@ -143,6 +143,32 @@ function getRequiredPlanForDrawing(dw) {
     return 'Aprendiz';
 }
 
+// --- LIMITE DE DESENHOS POR PLANO ---
+// Visitante (sem login): 500 | Aprendiz: 2.000 | Artista+: todos
+function getDrawingsLimit() {
+    if (!currentUser) return 500;
+    const plan = currentUser.plan || 'Aprendiz';
+    if (plan === 'Aprendiz' || plan === 'Grátis') return 2000;
+    return Infinity; // Artista, Mago, Lenda = todos
+}
+
+// Filtra os desenhos visíveis respeitando o limite do plano do usuário
+// Exclui novidades para não-Artista e aplica o teto de quantidade
+function getVisibleDrawings(drawingsArray, categorySlug) {
+    // Novidades é 100% bloqueado para não-Artista
+    if (categorySlug === 'novidades') {
+        const userPlan = currentUser ? (currentUser.plan || 'Aprendiz') : 'Grátis';
+        if (!currentUser || userPlan === 'Aprendiz' || userPlan === 'Grátis') {
+            return []; // Bloqueado totalmente
+        }
+    }
+    
+    const limit = getDrawingsLimit();
+    if (limit === Infinity) return drawingsArray;
+    return drawingsArray.slice(0, limit);
+}
+
+
 // --- SISTEMA DE AUTENTICAÇÃO E SESSÃO ---
 let sessionToken = localStorage.getItem("kidcanvas_session_token") || null;
 let currentUser = null;
@@ -1822,14 +1848,53 @@ function renderCategoriaDetalheView(categorySlug) {
     document.getElementById('category-detail-title').textContent = catInfo.name;
     document.getElementById('category-detail-desc').textContent = catInfo.desc;
     
-    const filteredDrawings = categorySlug === 'novidades'
+    const allCategoryDrawings = categorySlug === 'novidades'
         ? allDrawings.filter(d => d.isNew)
         : allDrawings.filter(d => d.category === categorySlug);
+    
+    // Aplicar limite de desenhos por plano
+    const visibleDrawings = getVisibleDrawings(allCategoryDrawings, categorySlug);
+    const totalCount = allCategoryDrawings.length;
+    const visibleCount = visibleDrawings.length;
+    const limit = getDrawingsLimit();
+    const isLimited = visibleCount < totalCount;
+    
     const countEl = document.getElementById('category-drawings-count');
-    countEl.textContent = `${filteredDrawings.length} desenhos disponíveis`;
+    if (isLimited) {
+        countEl.textContent = `Mostrando ${visibleCount} de ${totalCount} desenhos`;
+    } else {
+        countEl.textContent = `${totalCount} desenhos disponíveis`;
+    }
     
     const grid = document.getElementById('category-drawings-grid');
-    renderDrawingsInGrid(filteredDrawings, grid, 4);
+    renderDrawingsInGrid(visibleDrawings, grid, 4);
+    
+    // Mostrar banner de upgrade quando o limite é atingido
+    let upgradeBanner = document.getElementById('category-upgrade-banner');
+    if (!upgradeBanner) {
+        upgradeBanner = document.createElement('div');
+        upgradeBanner.id = 'category-upgrade-banner';
+        grid.parentNode.insertBefore(upgradeBanner, grid.nextSibling);
+    }
+    
+    if (isLimited) {
+        const planMsg = !currentUser 
+            ? { action: 'Crie sua conta grátis', nextPlan: 'Aprendiz', nextLimit: '2.000', btnText: 'Criar Conta Grátis', btnAction: 'openAuthModal()' }
+            : { action: 'Faça upgrade', nextPlan: 'Artista', nextLimit: 'todos os 13.000+', btnText: 'Ver Planos', btnAction: "navigate('/planos')" };
+        
+        upgradeBanner.style.cssText = 'background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px solid #f59e0b; border-radius: 16px; padding: 24px 28px; text-align: center; margin-top: 24px;';
+        upgradeBanner.innerHTML = `
+            <div style="font-size: 2rem; margin-bottom: 8px;">🔒</div>
+            <h3 style="font-size: 1.1rem; font-weight: 800; color: #92400e; margin: 0 0 6px;">Você está vendo ${visibleCount} de ${totalCount} desenhos</h3>
+            <p style="color: #a16207; font-size: 0.9rem; margin: 0 0 14px;">${planMsg.action} para o plano <strong>${planMsg.nextPlan}</strong> e desbloqueie ${planMsg.nextLimit} desenhos!</p>
+            <button onclick="${planMsg.btnAction}" class="btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; border-radius: 12px; padding: 12px 28px; font-weight: 800; font-size: 0.95rem; cursor: pointer;">
+                <i class="fa-solid fa-rocket"></i> ${planMsg.btnText}
+            </button>
+        `;
+    } else {
+        upgradeBanner.innerHTML = '';
+        upgradeBanner.style.cssText = '';
+    }
     
     // Configurar busca interna da categoria
     const categorySearchInput = document.getElementById('category-drawings-search');
@@ -1837,12 +1902,13 @@ function renderCategoriaDetalheView(categorySlug) {
         categorySearchInput.value = '';
         categorySearchInput.oninput = () => {
             const val = categorySearchInput.value.trim().toLowerCase();
-            const searched = filteredDrawings.filter(d => d.pt.toLowerCase().includes(val) || d.en.toLowerCase().includes(val));
+            const searched = visibleDrawings.filter(d => d.pt.toLowerCase().includes(val) || d.en.toLowerCase().includes(val));
             renderDrawingsInGrid(searched, grid, 4);
             countEl.textContent = `${searched.length} desenhos encontrados`;
         };
     }
 }
+
 
 // Identifica a categoria/pool correta de frases para um desenho com base no título e na pasta
 function getPhrasePoolKeyForDrawing(drawing) {
@@ -3027,12 +3093,13 @@ function renderDrawingsInGrid(drawings, gridContainer, showTrendingFirstN = 0) {
 function triggerSearch(query) {
     const cleanQuery = query.trim().toLowerCase();
     
-    // Filtrar desenhos
-    const matched = allDrawings.filter(d => 
+    // Filtrar desenhos (respeitando limite do plano)
+    const allMatched = allDrawings.filter(d => 
         d.pt.toLowerCase().includes(cleanQuery) || 
         d.en.toLowerCase().includes(cleanQuery) ||
         CATEGORIES_DATA[d.category].name.toLowerCase().includes(cleanQuery)
     );
+    const matched = getVisibleDrawings(allMatched);
     
     // Navegar para uma view de categorias que exibe a busca
     document.title = `Busca por "${query}" — KidCanvas 🎨`;
