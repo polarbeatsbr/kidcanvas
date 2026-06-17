@@ -9296,6 +9296,7 @@ window.showPerigoMessage = function(title, text) {
 };
 
 window.openAlbumModal = function() {
+    closeEventModal();
     if (!currentUser || !currentUser.cards || currentUser.cards.length === 0) {
         Swal.fire('Álbum Vazio', 'Você ainda não encontrou nenhuma Carta da Imaginação. Participe da Sexta Mágica para ganhar!', 'info');
         return;
