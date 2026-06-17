@@ -274,3 +274,58 @@
 [2026-06-17 03:35:11] Rebuilding catalog and drawings database...
 [2026-06-17 03:35:12] Build successful!
 [2026-06-17 03:35:12] Committing and pushing to origin main...
+[2026-06-17 03:35:16] Push successful! Vercel will deploy in production.
+[2026-06-17 03:35:17] [251/3680] Generated: animais-domesticos/418-gato-gato-azul-russo-brincando-com-bolhas__russian_blue_cat_chasing_bubbles.png
+[2026-06-17 03:35:18] [252/3680] Generated: animais-domesticos/420-gato-gatinho-de-bengala-dormindo-na-almofada__bengal_kitten_sleeping_on_a_cushion.png
+[2026-06-17 03:35:19] [253/3680] Generated: animais-domesticos/421-gato-gatinho-de-bengala-com-novelo-de-la__bengal_kitten_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:35:21] [254/3680] Generated: animais-domesticos/422-gato-gatinho-de-bengala-na-beira-da-janela__bengal_kitten_sitting_on_a_window_sill.png
+[2026-06-17 03:35:22] [255/3680] Generated: animais-domesticos/423-gato-gatinho-de-bengala-com-mini-coroa__bengal_kitten_wearing_a_tiny_crown.png
+[2026-06-17 03:35:23] [256/3680] Generated: animais-domesticos/424-gato-gatinho-de-bengala-subindo-arranhador__bengal_kitten_climbing_a_cat_tree.png
+[2026-06-17 03:35:25] [257/3680] Generated: animais-domesticos/425-gato-gatinho-de-bengala-bebendo-leite__bengal_kitten_drinking_milk_from_a_saucer.png
+[2026-06-17 03:35:26] [258/3680] Generated: animais-domesticos/426-gato-gatinho-de-bengala-olhando-curioso__bengal_kitten_looking_curious.png
+[2026-06-17 03:35:27] [259/3680] Generated: animais-domesticos/427-gato-gatinho-de-bengala-perto-de-planta__bengal_kitten_sitting_next_to_a_plant.png
+[2026-06-17 03:35:28] [260/3680] Generated: animais-domesticos/428-gato-gatinho-de-bengala-brincando-com-bolhas__bengal_kitten_chasing_bubbles.png
+[2026-06-17 03:35:29] [261/3680] Generated: animais-domesticos/429-gato-gato-da-birmania-com-brinquedo-de-rato__birman_cat_chasing_a_mouse_toy.png
+[2026-06-17 03:35:31] [262/3680] Generated: animais-domesticos/430-gato-gato-da-birmania-dormindo-na-almofada__birman_cat_sleeping_on_a_cushion.png
+[2026-06-17 03:35:32] [263/3680] Generated: animais-domesticos/431-gato-gato-da-birmania-com-novelo-de-la__birman_cat_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:35:33] [264/3680] Generated: animais-domesticos/432-gato-gato-da-birmania-na-beira-da-janela__birman_cat_sitting_on_a_window_sill.png
+[2026-06-17 03:35:34] [265/3680] Generated: animais-domesticos/433-gato-gato-da-birmania-com-mini-coroa__birman_cat_wearing_a_tiny_crown.png
+[2026-06-17 03:35:36] [266/3680] Generated: animais-domesticos/434-gato-gato-da-birmania-subindo-arranhador__birman_cat_climbing_a_cat_tree.png
+[2026-06-17 03:35:37] [267/3680] Generated: animais-domesticos/435-gato-gato-da-birmania-bebendo-leite__birman_cat_drinking_milk_from_a_saucer.png
+[2026-06-17 03:35:39] [268/3680] Generated: animais-domesticos/436-gato-gato-da-birmania-olhando-curioso__birman_cat_looking_curious.png
+[2026-06-17 03:35:41] [269/3680] Generated: animais-domesticos/438-gato-gato-da-birmania-brincando-com-bolhas__birman_cat_chasing_bubbles.png
+[2026-06-17 03:35:42] [270/3680] Generated: animais-domesticos/437-gato-gato-da-birmania-perto-de-planta__birman_cat_sitting_next_to_a_plant.png
+[2026-06-17 03:35:43] [271/3680] Generated: animais-domesticos/439-gato-gato-siberiano-com-brinquedo-de-rato__siberian_cat_chasing_a_mouse_toy.png
+[2026-06-17 03:35:44] [272/3680] Generated: animais-domesticos/440-gato-gato-siberiano-dormindo-na-almofada__siberian_cat_sleeping_on_a_cushion.png
+[2026-06-17 03:35:45] [273/3680] Generated: animais-domesticos/441-gato-gato-siberiano-com-novelo-de-la__siberian_cat_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:35:47] [274/3680] Generated: animais-domesticos/442-gato-gato-siberiano-na-beira-da-janela__siberian_cat_sitting_on_a_window_sill.png
+[2026-06-17 03:35:48] [275/3680] Generated: animais-domesticos/443-gato-gato-siberiano-com-mini-coroa__siberian_cat_wearing_a_tiny_crown.png
+[2026-06-17 03:35:50] [276/3680] Generated: animais-domesticos/444-gato-gato-siberiano-subindo-arranhador__siberian_cat_climbing_a_cat_tree.png
+[2026-06-17 03:35:52] [277/3680] Generated: animais-domesticos/445-gato-gato-siberiano-bebendo-leite__siberian_cat_drinking_milk_from_a_saucer.png
+[2026-06-17 03:35:54] [278/3680] Generated: animais-domesticos/446-gato-gato-siberiano-olhando-curioso__siberian_cat_looking_curious.png
+[2026-06-17 03:35:56] [279/3680] Generated: animais-domesticos/447-gato-gato-siberiano-perto-de-planta__siberian_cat_sitting_next_to_a_plant.png
+[2026-06-17 03:35:57] [280/3680] Generated: animais-domesticos/448-gato-gato-siberiano-brincando-com-bolhas__siberian_cat_chasing_bubbles.png
+[2026-06-17 03:35:58] [281/3680] Generated: animais-domesticos/449-gato-gato-pelo-curto-americano-com-brinquedo-de-rato__american_shorthair_cat_chasing_a_mouse_toy.png
+[2026-06-17 03:36:00] [282/3680] Generated: animais-domesticos/450-gato-gato-pelo-curto-americano-dormindo-na-almofada__american_shorthair_cat_sleeping_on_a_cushion.png
+[2026-06-17 03:36:01] [283/3680] Generated: animais-domesticos/451-gato-gato-pelo-curto-americano-com-novelo-de-la__american_shorthair_cat_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:36:02] [284/3680] Generated: animais-domesticos/454-gato-gato-pelo-curto-americano-subindo-arranhador__american_shorthair_cat_climbing_a_cat_tree.png
+[2026-06-17 03:36:03] [285/3680] Generated: animais-domesticos/453-gato-gato-pelo-curto-americano-com-mini-coroa__american_shorthair_cat_wearing_a_tiny_crown.png
+[2026-06-17 03:36:04] [286/3680] Generated: animais-domesticos/452-gato-gato-pelo-curto-americano-na-beira-da-janela__american_shorthair_cat_sitting_on_a_window_sill.png
+[2026-06-17 03:36:06] [287/3680] Generated: animais-domesticos/455-gato-gato-pelo-curto-americano-bebendo-leite__american_shorthair_cat_drinking_milk_from_a_saucer.png
+[2026-06-17 03:36:07] [288/3680] Generated: animais-domesticos/456-gato-gato-pelo-curto-americano-olhando-curioso__american_shorthair_cat_looking_curious.png
+[2026-06-17 03:36:08] [289/3680] Generated: animais-domesticos/457-gato-gato-pelo-curto-americano-perto-de-planta__american_shorthair_cat_sitting_next_to_a_plant.png
+[2026-06-17 03:36:09] [290/3680] Generated: animais-domesticos/458-gato-gato-pelo-curto-americano-brincando-com-bolhas__american_shorthair_cat_chasing_bubbles.png
+[2026-06-17 03:36:11] [291/3680] Generated: animais-domesticos/459-gato-gatinho-listrado-com-brinquedo-de-rato__cute_tabby_kitten_chasing_a_mouse_toy.png
+[2026-06-17 03:36:12] [292/3680] Generated: animais-domesticos/460-gato-gatinho-listrado-dormindo-na-almofada__cute_tabby_kitten_sleeping_on_a_cushion.png
+[2026-06-17 03:36:13] [293/3680] Generated: animais-domesticos/461-gato-gatinho-listrado-com-novelo-de-la__cute_tabby_kitten_playing_with_a_ball_of_yarn.png
+[2026-06-17 03:36:14] [294/3680] Generated: animais-domesticos/462-gato-gatinho-listrado-na-beira-da-janela__cute_tabby_kitten_sitting_on_a_window_sill.png
+[2026-06-17 03:36:16] [295/3680] Generated: animais-domesticos/463-gato-gatinho-listrado-com-mini-coroa__cute_tabby_kitten_wearing_a_tiny_crown.png
+[2026-06-17 03:36:17] [296/3680] Generated: animais-domesticos/464-gato-gatinho-listrado-subindo-arranhador__cute_tabby_kitten_climbing_a_cat_tree.png
+[2026-06-17 03:36:18] [297/3680] Generated: animais-domesticos/465-gato-gatinho-listrado-bebendo-leite__cute_tabby_kitten_drinking_milk_from_a_saucer.png
+[2026-06-17 03:36:19] [298/3680] Generated: animais-domesticos/466-gato-gatinho-listrado-olhando-curioso__cute_tabby_kitten_looking_curious.png
+[2026-06-17 03:36:20] [299/3680] Generated: animais-domesticos/467-gato-gatinho-listrado-perto-de-planta__cute_tabby_kitten_sitting_next_to_a_plant.png
+[2026-06-17 03:36:22] [300/3680] Generated: animais-domesticos/468-gato-gatinho-listrado-brincando-com-bolhas__cute_tabby_kitten_chasing_bubbles.png
+[2026-06-17 03:36:22] Batch 6 completed (300 drawings). Triggering build & push...
+[2026-06-17 03:36:22] Rebuilding catalog and drawings database...
+[2026-06-17 03:36:22] Build successful!
+[2026-06-17 03:36:22] Committing and pushing to origin main...
