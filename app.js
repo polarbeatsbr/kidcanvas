@@ -1288,7 +1288,7 @@ async function handlePayWithCard() {
         const data = await res.json();
         if (res.ok && data.success && data.url) {
             localStorage.removeItem("kidcanvas_pending_upgrade");
-            window.location.href = data.url;
+            window.open(data.url, '_blank');
         } else {
             showToast(`Erro ao abrir checkout: ${data.message || 'Erro desconhecido'}`, 'error');
             if (res.status === 401 || (data.message && (data.message.includes('Sessão inválida') || data.message.includes('Sessão expirada') || data.message.includes('Faça login novamente')))) {
