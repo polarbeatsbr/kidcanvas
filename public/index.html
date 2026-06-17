@@ -717,107 +717,218 @@
                 </div>
                 
                 <div class="plans-header-text" style="text-align: center; margin-bottom: 30px;">
-                    <h1 class="page-title" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-dark); margin-bottom: 10px;">Escolha o plano ideal para a sua família! 🎨</h1>
-                    <p class="section-subtitle" style="font-size: 1.1rem; color: var(--color-dark-light); font-weight: 500;">Acesso a desenhos exclusivos com fins pedagógicos e histórias mágicas personalizadas.</p>
+                    <h1 class="page-title" style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--color-dark); margin-bottom: 10px;">Escolha o plano ideal<br><span style="color: var(--color-purple);">para soltar a imaginação</span></h1>
+                    <p class="section-subtitle" style="font-size: 1.1rem; color: var(--color-dark-light); font-weight: 500;">Mais desenhos, mais criação, mais magia. Sempre do jeitinho das crianças.</p>
+                </div>
+
+                <!-- Toggle Mensal / Anual -->
+                <div class="billing-toggle-container" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 40px;">
+                    <div class="billing-toggle-wrapper" style="background-color: #f0f0f5; padding: 4px; border-radius: 30px; display: inline-flex; border: 2px solid var(--color-dark); box-shadow: 0 4px 0 var(--color-dark);">
+                        <button type="button" id="toggle-mensal" class="billing-toggle-btn active" onclick="setBillingCycle('mensal')" style="padding: 10px 24px; border: none; border-radius: 20px; font-family: var(--font-heading); font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.2s ease;">Mensal</button>
+                        <button type="button" id="toggle-anual" class="billing-toggle-btn" onclick="setBillingCycle('anual')" style="padding: 10px 24px; border: none; border-radius: 20px; font-family: var(--font-heading); font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; gap: 6px;">Anual <span class="discount-badge" style="background-color: var(--color-green); color: white; font-size: 0.75rem; padding: 2px 6px; border-radius: 10px; font-weight: 800;">-20%</span></button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Seção GRAACC movida para a homepage para melhor visibilidade -->
-
-            <div class="container" style="padding-bottom: 40px;">
-                <div class="spotify-plans-grid" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                    <!-- Card 1: Grátis -->
-                    <div class="spotify-plan-card" id="plan-card-gratis">
-                        <div class="plan-card-header">
-                            <span class="plan-badge-gratis">Grátis</span>
-                            <h3 class="plan-title">Grátis</h3>
-                            <div class="plan-price">R$ 0</div>
-                            <span class="plan-frequency">para sempre</span>
-                        </div>
-                        <div class="plan-card-body">
-                            <ul class="plan-features-list">
-                                <li><i class="fa-solid fa-check text-green"></i> <span>2.000 desenhos disponíveis</span></li>
-                                <li><i class="fa-solid fa-check text-green"></i> <span>Todas as categorias liberadas</span></li>
-                                <li><i class="fa-solid fa-check text-green"></i> <span>1 história ilustrada de 4 páginas grátis</span></li>
-                                <li><i class="fa-solid fa-check text-green"></i> <span>Histórias em Português (PT-BR)</span></li>
-                            </ul>
-                        </div>
-                        <div class="plan-card-footer">
-                            <button class="btn btn-secondary btn-full-width" id="btn-plan-gratis" disabled>Seu plano atual 🎨</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Card 2: Família -->
-                    <div class="spotify-plan-card highlighted" id="plan-card-familia">
-                        <div class="plan-tag-highlighted">Disponível agora</div>
-                        <div class="plan-card-header">
-                            <span class="plan-badge-familia">Mais Popular</span>
-                            <h3 class="plan-title">Família</h3>
-                            <div class="plan-price">R$ 19,90<span class="price-cent">/mês</span></div>
-                            <span class="plan-frequency">Assinatura mensal</span>
-                        </div>
-                        <div class="plan-card-body">
-                            <ul class="plan-features-list">
-                                <li><i class="fa-solid fa-check text-green"></i> <span><strong>2.000 desenhos disponíveis</strong> + novos toda semana</span></li>
-                                <li><i class="fa-solid fa-check text-green"></i> <span><strong>20 páginas</strong> de histórias ilustradas</span></li>
-                                <li><i class="fa-solid fa-check text-green"></i> <span>Idiomas PT-BR e EN nos desenhos</span></li>
-                                <li><i class="fa-solid fa-check text-green"></i> <span>Histórias em Português (PT-BR)</span></li>
-                                <li><i class="fa-solid fa-check text-green"></i> <span>Sem anúncios na plataforma</span></li>
-                            </ul>
-                        </div>
-                        <div class="plan-card-footer">
-                            <button class="btn btn-primary btn-full-width" id="btn-plan-familia" onclick="handlePlanUpgrade('Família', 20)">Assinar Agora</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Planos Professor/Colégio desabilitados (Ocultos da visualização direta, mas mantidos no DOM por compatibilidade) -->
-                    <div style="display: none;">
-                        <!-- Card 3: Professor -->
-                        <div class="spotify-plan-card" id="plan-card-professor">
-                            <div class="plan-card-header">
-                                <span class="plan-badge-professor">Recomendado</span>
-                                <h3 class="plan-title">Professor</h3>
-                                <div class="plan-price">R$ 39,90</div>
-                            </div>
-                            <div class="plan-card-footer">
-                                <button class="btn btn-primary btn-full-width" id="btn-plan-professor">Assinar</button>
-                            </div>
-                        </div>
+            <!-- Grade de Planos Escura Premium -->
+            <div class="plans-dark-section" style="background-color: #0b081b; padding: 60px 0; border-top: var(--border-thick); border-bottom: var(--border-thick);">
+                <div class="container">
+                    <div class="new-plans-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; justify-content: center; align-items: stretch; margin-top: 40px;">
                         
-                        <!-- Card 4: Colégio -->
-                        <div class="spotify-plan-card" id="plan-card-colegio">
-                            <div class="plan-card-header">
-                                <span class="plan-badge-colegio">Escolas</span>
-                                <h3 class="plan-title">Colégio</h3>
-                                <div class="plan-price">R$ 119,90</div>
+                        <!-- Card 1: Aprendiz (Grátis) -->
+                        <div class="new-plan-card card-aprendiz" id="plan-card-aprendiz" style="background-color: #1a172b; border: var(--border-thick); border-radius: var(--radius-md); padding: 30px 20px; position: relative; color: white; display: flex; flex-direction: column; box-shadow: 0 8px 0 var(--color-dark); transition: transform 0.2s ease;">
+                            <div class="plan-card-mascot-container" style="text-align: center; margin-top: -65px; margin-bottom: 15px;">
+                                <img src="/mascot_aprendiz.png" alt="Mascote Aprendiz" style="width: 110px; height: 110px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">
                             </div>
-                            <div class="plan-card-footer">
-                                <button class="btn btn-primary btn-full-width" id="btn-plan-colegio">Assinar</button>
+                            <span class="plan-badge-tag-new" style="background-color: var(--color-green); color: white; border: var(--border-thin); padding: 3px 10px; border-radius: 8px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; position: absolute; top: 15px; right: 15px; font-family: var(--font-heading);">Grátis</span>
+                            <h3 class="new-plan-title" style="font-family: var(--font-heading); font-size: 1.8rem; margin: 10px 0 5px 0;">Aprendiz</h3>
+                            <div class="new-plan-price-row" style="margin-bottom: 20px; font-family: var(--font-heading);">
+                                <span style="font-size: 1.1rem; font-weight: bold;">R$ </span>
+                                <span class="price-val" style="font-size: 2.2rem; font-weight: 900; line-height: 1;">0</span>
+                                <span style="font-size: 0.9rem; color: #a09eb5;">/mês</span>
+                            </div>
+                            <ul class="new-plan-features" style="list-style: none; padding: 0; margin: 0 0 30px 0; flex-grow: 1; display: flex; flex-direction: column; gap: 12px; font-size: 0.95rem; text-align: left;">
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> 2.000 desenhos</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Colorir online</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Hall da Fama</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Avatares e Conquistas</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Ler histórias da comunidade</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Download em PNG e PDF</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Impressão</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> <strong style="color: #2ecc71;">3 créditos por mês</strong> <i class="fa-solid fa-circle-info" style="font-size: 0.8rem; cursor: pointer; color: #a09eb5;" title="Renovam todo mês e não são cumulativos."></i></li>
+                            </ul>
+                            <div class="new-plan-footer" style="margin-top: auto;">
+                                <div style="font-size: 0.85rem; color: #a09eb5; margin-bottom: 12px; text-align: center; font-weight: 500;">Anúncios inclusos</div>
+                                <button class="btn btn-full-width" id="btn-plan-aprendiz" style="background-color: transparent; color: white; border: 2px solid white; font-weight: bold; border-radius: var(--radius-sm); padding: 12px; cursor: pointer; font-family: var(--font-heading); font-size: 1.1rem; box-shadow: 0 4px 0 white;" onclick="handlePlanUpgrade('Aprendiz', 3)">Começar grátis</button>
                             </div>
                         </div>
+
+                        <!-- Card 2: Artista (Mais Escolhido) -->
+                        <div class="new-plan-card card-artista highlighted" id="plan-card-artista" style="background-color: #1a172b; border: 4px solid var(--color-purple); border-radius: var(--radius-md); padding: 30px 20px; position: relative; color: white; display: flex; flex-direction: column; box-shadow: 0 8px 0 var(--color-purple); transition: transform 0.2s ease;">
+                            <div class="plan-card-mascot-container" style="text-align: center; margin-top: -65px; margin-bottom: 15px;">
+                                <img src="/mascot_artista.png" alt="Mascote Artista" style="width: 110px; height: 110px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">
+                            </div>
+                            <span class="plan-badge-tag-new" style="background-color: var(--color-purple); color: white; border: var(--border-thin); padding: 3px 10px; border-radius: 8px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-family: var(--font-heading); box-shadow: 0 3px 0 var(--color-dark); white-space: nowrap;"><i class="fa-solid fa-star" style="color: var(--color-yellow);"></i> Mais Escolhido</span>
+                            <h3 class="new-plan-title" style="font-family: var(--font-heading); font-size: 1.8rem; margin: 10px 0 5px 0;">Artista</h3>
+                            <div class="new-plan-price-row" style="margin-bottom: 10px; font-family: var(--font-heading);">
+                                <span style="font-size: 1.1rem; font-weight: bold;">R$ </span>
+                                <span class="price-val" id="price-artista" style="font-size: 2.2rem; font-weight: 900; line-height: 1;">9,90</span>
+                                <span class="price-freq" style="font-size: 0.9rem; color: #a09eb5;">/mês</span>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--color-purple-light); font-weight: 700; margin-bottom: 15px; text-align: left; text-transform: uppercase;">Tudo do plano Aprendiz, e mais:</div>
+                            <ul class="new-plan-features" style="list-style: none; padding: 0; margin: 0 0 30px 0; flex-grow: 1; display: flex; flex-direction: column; gap: 12px; font-size: 0.95rem; text-align: left;">
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-purple); margin-right: 8px;"></i> <strong>Biblioteca completa</strong> (10.000+ desenhos)</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-purple); margin-right: 8px;"></i> Criar Histórias Mágicas</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-purple); margin-right: 8px;"></i> <strong style="color: var(--color-purple-light);">30 créditos por mês</strong> <i class="fa-solid fa-circle-info" style="font-size: 0.8rem; cursor: pointer; color: #a09eb5;" title="Renovam todo mês e não são cumulativos."></i></li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-purple); margin-right: 8px;"></i> Menos anúncios</li>
+                            </ul>
+                            <div class="new-plan-footer" style="margin-top: auto;">
+                                <button class="btn btn-full-width btn-new-upgrade" id="btn-plan-artista" style="background-color: var(--color-purple); color: white; border: 2px solid var(--color-dark); font-weight: bold; border-radius: var(--radius-sm); padding: 14px; cursor: pointer; font-family: var(--font-heading); font-size: 1.1rem; box-shadow: 0 4px 0 var(--color-dark);" onclick="handlePlanUpgrade('Artista', 30)">Assinar Artista</button>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Mago Criador -->
+                        <div class="new-plan-card card-mago" id="plan-card-mago" style="background-color: #1a172b; border: var(--border-thick); border-radius: var(--radius-md); padding: 30px 20px; position: relative; color: white; display: flex; flex-direction: column; box-shadow: 0 8px 0 var(--color-dark); transition: transform 0.2s ease;">
+                            <div class="plan-card-mascot-container" style="text-align: center; margin-top: -65px; margin-bottom: 15px;">
+                                <img src="/mascot_mago.png" alt="Mascote Mago" style="width: 110px; height: 110px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">
+                            </div>
+                            <h3 class="new-plan-title" style="font-family: var(--font-heading); font-size: 1.8rem; margin: 10px 0 5px 0;">Mago Criador</h3>
+                            <div class="new-plan-price-row" style="margin-bottom: 10px; font-family: var(--font-heading);">
+                                <span style="font-size: 1.1rem; font-weight: bold;">R$ </span>
+                                <span class="price-val" id="price-mago" style="font-size: 2.2rem; font-weight: 900; line-height: 1;">19,90</span>
+                                <span class="price-freq" style="font-size: 0.9rem; color: #a09eb5;">/mês</span>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--color-blue); font-weight: 700; margin-bottom: 15px; text-align: left; text-transform: uppercase;">Tudo do plano Artista, e mais:</div>
+                            <ul class="new-plan-features" style="list-style: none; padding: 0; margin: 0 0 30px 0; flex-grow: 1; display: flex; flex-direction: column; gap: 12px; font-size: 0.95rem; text-align: left;">
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> <strong style="color: var(--color-blue);">100 créditos por mês</strong> <i class="fa-solid fa-circle-info" style="font-size: 0.8rem; cursor: pointer; color: #a09eb5;" title="Renovam todo mês e não são cumulativos."></i></li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> Geração Ultra disponível</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> Poucos anúncios</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> Selo especial no perfil</li>
+                            </ul>
+                            <div class="new-plan-footer" style="margin-top: auto;">
+                                <button class="btn btn-full-width btn-new-upgrade" id="btn-plan-mago" style="background-color: var(--color-blue); color: white; border: 2px solid var(--color-dark); font-weight: bold; border-radius: var(--radius-sm); padding: 14px; cursor: pointer; font-family: var(--font-heading); font-size: 1.1rem; box-shadow: 0 4px 0 var(--color-dark);" onclick="handlePlanUpgrade('Mago Criador', 100)">Assinar Mago</button>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Lenda KidCanvas -->
+                        <div class="new-plan-card card-lenda" id="plan-card-lenda" style="background-color: #1a172b; border: 4px solid var(--color-yellow); border-radius: var(--radius-md); padding: 30px 20px; position: relative; color: white; display: flex; flex-direction: column; box-shadow: 0 8px 0 var(--color-yellow); transition: transform 0.2s ease;">
+                            <div class="plan-card-mascot-container" style="text-align: center; margin-top: -65px; margin-bottom: 15px;">
+                                <img src="/mascot_lenda.png" alt="Mascote Lenda" style="width: 110px; height: 110px; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">
+                            </div>
+                            <span class="plan-badge-tag-new" style="background-color: var(--color-yellow); color: var(--color-dark); border: var(--border-thin); padding: 3px 10px; border-radius: 8px; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-family: var(--font-heading); box-shadow: 0 3px 0 var(--color-dark); white-space: nowrap;"><i class="fa-solid fa-crown" style="color: var(--color-white);"></i> Melhor Oferta</span>
+                            <h3 class="new-plan-title" style="font-family: var(--font-heading); font-size: 1.8rem; margin: 10px 0 5px 0;">Lenda KidCanvas</h3>
+                            <div class="new-plan-price-row" style="margin-bottom: 10px; font-family: var(--font-heading);">
+                                <span style="font-size: 1.1rem; font-weight: bold;">R$ </span>
+                                <span class="price-val" id="price-lenda" style="font-size: 2.2rem; font-weight: 900; line-height: 1;">39,90</span>
+                                <span class="price-freq" style="font-size: 0.9rem; color: #a09eb5;">/mês</span>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--color-yellow); font-weight: 700; margin-bottom: 15px; text-align: left; text-transform: uppercase;">Tudo do plano Mago Criador, e mais:</div>
+                            <ul class="new-plan-features" style="list-style: none; padding: 0; margin: 0 0 30px 0; flex-grow: 1; display: flex; flex-direction: column; gap: 12px; font-size: 0.95rem; text-align: left;">
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> <strong style="color: var(--color-yellow);">250 créditos por mês</strong> <i class="fa-solid fa-circle-info" style="font-size: 0.8rem; cursor: pointer; color: #a09eb5;" title="Renovam todo mês e não são cumulativos."></i></li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> Geração Ultra disponível</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> Sem anúncios</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> Selo exclusivo Lenda</li>
+                                <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> Destaque no Hall da Fama</li>
+                            </ul>
+                            <div class="new-plan-footer" style="margin-top: auto;">
+                                <button class="btn btn-full-width btn-new-upgrade" id="btn-plan-lenda" style="background-color: var(--color-yellow); color: var(--color-dark); border: 2px solid var(--color-dark); font-weight: bold; border-radius: var(--radius-sm); padding: 14px; cursor: pointer; font-family: var(--font-heading); font-size: 1.1rem; box-shadow: 0 4px 0 var(--color-dark);" onclick="handlePlanUpgrade('Lenda KidCanvas', 250)">Assinar Lenda</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+            </div>
 
-                <!-- Seção Separada "Em breve" com formulário de interesse para Professores e Escolas -->
-                <div class="coming-soon-plans-card" style="margin-top: 50px; background: #fdfaf2; border: var(--border-medium); border-radius: var(--radius-md); padding: 35px 25px; box-shadow: var(--shadow-cartoon); text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
-                    <span style="font-size: 3rem; display: block; margin-bottom: 10px;">🏫</span>
-                    <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-purple); margin-bottom: 12px;">Planos Professor e Colégio (Em breve!)</h3>
-                    <p style="font-size: 1.05rem; color: var(--color-dark-light); max-width: 600px; margin: 0 auto 25px auto; font-weight: 500; line-height: 1.5;">
-                        Estamos preparando recursos exclusivos para educadores (painel de turmas e ferramentas pedagógicas) e escolas. Registre seu e-mail para ter acesso prioritário e receber o aviso de lançamento!
-                    </p>
-                    <form id="plans-interest-form" onsubmit="handlePlansInterestSubmit(event)" style="display: flex; gap: 12px; max-width: 500px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
-                        <input type="email" id="interest-email" required placeholder="Seu e-mail profissional..." style="flex: 1; min-width: 250px; padding: 14px 20px; border: var(--border-medium); border-radius: var(--radius-sm); font-size: 1rem; outline: none; font-family: inherit;">
-                        <button type="submit" class="btn btn-primary" style="background-color: var(--color-purple); font-size: 1.05rem; padding: 14px 25px; font-weight: bold; border-radius: var(--radius-sm);">Tenho Interesse</button>
-                    </form>
-                    <div id="interest-success-msg" style="display: none; color: var(--color-green); font-weight: bold; margin-top: 15px; font-size: 1.05rem;">
-                        ✨ E-mail cadastrado com sucesso! Te avisaremos assim que os planos forem liberados! 🏫
+            <!-- Seção de Créditos Avulsos -->
+            <div class="credits-avulsos-section" style="background-color: #0d0a21; padding: 50px 0; border-bottom: var(--border-thick); color: white;">
+                <div class="container">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 30px;">
+                        <span style="font-size: 1.8rem;">⚡</span>
+                        <h2 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-white); margin: 0; text-align: center;">Créditos avulsos</h2>
+                    </div>
+                    <p style="font-size: 1.05rem; color: #a09eb5; text-align: center; margin-bottom: 30px; font-weight: 500;">Precisa de mais créditos? Compre pacotes e continue criando!</p>
+                    
+                    <div class="credits-packages-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; justify-content: center; max-width: 960px; margin: 0 auto 40px auto;">
+                        
+                        <!-- Pacote 20 -->
+                        <div class="credit-package-card" style="background-color: #1a172b; border: var(--border-thick); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-dark); cursor: pointer; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(20, 4.90)">
+                            <div>
+                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-purple);">⚡ 20</div>
+                                <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: #a09eb5;">créditos</div>
+                            </div>
+                            <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; color: white;">R$ 4,90</div>
+                        </div>
+
+                        <!-- Pacote 50 (Popular) -->
+                        <div class="credit-package-card highlighted" style="background-color: #1a172b; border: 3px solid var(--color-pink, #e74c3c); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-pink, #e74c3c); cursor: pointer; position: relative; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(50, 9.90)">
+                            <span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background-color: var(--color-red); color: white; font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border-radius: 10px; border: var(--border-thin); text-transform: uppercase;">Popular</span>
+                            <div>
+                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-red);">⚡ 50</div>
+                                <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: #a09eb5;">créditos</div>
+                            </div>
+                            <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; color: white;">R$ 9,90</div>
+                        </div>
+
+                        <!-- Pacote 120 -->
+                        <div class="credit-package-card" style="background-color: #1a172b; border: var(--border-thick); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-dark); cursor: pointer; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(120, 19.90)">
+                            <div>
+                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-blue);">⚡ 120</div>
+                                <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: #a09eb5;">créditos</div>
+                            </div>
+                            <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; color: white;">R$ 19,90</div>
+                        </div>
+
+                        <!-- Pacote 300 (Melhor Oferta) -->
+                        <div class="credit-package-card highlighted" style="background-color: #1a172b; border: 3px solid var(--color-yellow); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-yellow); cursor: pointer; position: relative; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(300, 39.90)">
+                            <span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background-color: var(--color-yellow); color: var(--color-dark); font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border-radius: 10px; border: var(--border-thin); text-transform: uppercase;">Melhor Oferta</span>
+                            <div>
+                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-yellow);">⚡ 300</div>
+                                <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: #a09eb5;">créditos</div>
+                            </div>
+                            <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; color: white;">R$ 39,90</div>
+                        </div>
+
                     </div>
                 </div>
+            </div>
 
-                <!-- Recomendação da Vovó Sônia nos Planos -->
-                <div class="vovo-recommendation-banner" style="display: flex; align-items: center; justify-content: center; gap: 15px; background: #fffdf5; border: var(--border-medium); border-radius: var(--radius-md); padding: 15px 25px; margin-top: 40px; box-shadow: var(--shadow-cartoon); max-width: 650px; margin-left: auto; margin-right: auto; text-align: left;">
-                    <span style="font-size: 2.8rem; flex-shrink: 0;">👵</span>
-                    <p style="font-size: 1.05rem; color: var(--color-dark); font-weight: 700; margin: 0; font-family: var(--font-heading); line-height: 1.4;">
+            <!-- Termos e Explicativos de Consumo -->
+            <div class="plans-footer-rules" style="background-color: #090716; padding: 40px 0; color: #a09eb5; border-bottom: var(--border-thick);">
+                <div class="container">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; text-align: center; font-size: 0.9rem;">
+                        <div>
+                            <span style="font-size: 1.8rem; display: block; margin-bottom: 8px;">📅</span>
+                            <strong style="color: white; display: block; margin-bottom: 5px;">Créditos do plano</strong>
+                            Renovam todo mês e não são cumulativos.
+                        </div>
+                        <div>
+                            <span style="font-size: 1.8rem; display: block; margin-bottom: 8px;">🔄</span>
+                            <strong style="color: white; display: block; margin-bottom: 5px;">Como funciona</strong>
+                            Usou, não usou... no próximo ciclo você recebe novos créditos.
+                        </div>
+                        <div>
+                            <span style="font-size: 1.8rem; display: block; margin-bottom: 8px;">🕒</span>
+                            <strong style="color: white; display: block; margin-bottom: 5px;">Créditos avulsos</strong>
+                            Têm validade de 30 dias após a compra.
+                        </div>
+                        <div>
+                            <span style="font-size: 1.8rem; display: block; margin-bottom: 8px;">🔀</span>
+                            <strong style="color: white; display: block; margin-bottom: 5px;">Ordem de consumo</strong>
+                            Primeiro os créditos do plano, depois os créditos avulsos.
+                        </div>
+                        <div>
+                            <span style="font-size: 1.8rem; display: block; margin-bottom: 8px;">🛡️</span>
+                            <strong style="color: white; display: block; margin-bottom: 5px;">Ambiente seguro</strong>
+                            Pagamento 100% seguro e dados protegidos.
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 40px; font-size: 0.95rem; font-weight: bold;">
+                        Dúvidas? Acesse nossa <a href="/ajuda" onclick="navigate('/ajuda'); return false;" style="color: var(--color-purple); text-decoration: underline;">Central de Ajuda</a>
+                    </div>
+                </div>
+            </div>
+        </section>ize: 1.05rem; color: var(--color-dark); font-weight: 700; margin: 0; font-family: var(--font-heading); line-height: 1.4;">
                         "A Vovó Sônia lembra: criamos as histórias e desenhos usando inteligência artificial. Embora seja raríssimo acontecer, o sistema pode eventualmente apresentar pequenas falhas de ortografia ou pequenos erros visuais nas imagens! 🎨✨"
                     </p>
                 </div>
