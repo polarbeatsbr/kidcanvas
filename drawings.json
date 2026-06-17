@@ -11965,7 +11965,7 @@
     "en": "Friendly peacock perched on a tropical branch",
     "slug": "ave-pavao-lindo-no-galho-tropical",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 101,
@@ -12746,7 +12746,7 @@
     "en": "Majestic eagle soaring high in the sky",
     "slug": "ave-aguia-majestosa-voando-alto-no-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 52,
@@ -12757,7 +12757,7 @@
     "en": "Majestic eagle perched on a tropical branch",
     "slug": "ave-aguia-majestosa-no-galho-tropical",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 53,
@@ -12768,7 +12768,7 @@
     "en": "Majestic eagle swimming gracefully in a pond",
     "slug": "ave-aguia-majestosa-nadando-na-lagoa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 54,
@@ -12779,7 +12779,7 @@
     "en": "Majestic eagle exploring the forest",
     "slug": "ave-aguia-majestosa-explorando-a-floresta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 55,
@@ -12790,7 +12790,7 @@
     "en": "Majestic eagle walking in the wild",
     "slug": "ave-aguia-majestosa-andando-na-natureza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 56,
@@ -12801,7 +12801,7 @@
     "en": "Majestic eagle waving friendly",
     "slug": "ave-aguia-majestosa-acenando-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 57,
@@ -12812,7 +12812,7 @@
     "en": "Majestic eagle smiling under a sunny sky",
     "slug": "ave-aguia-majestosa-sorrindo-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 58,
@@ -12823,7 +12823,7 @@
     "en": "Majestic eagle surrounded by nice flowers",
     "slug": "ave-aguia-majestosa-entre-flores-lindas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 59,
@@ -12834,7 +12834,7 @@
     "en": "Colorful parrot soaring high in the sky",
     "slug": "ave-arara-colorida-voando-alto-no-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 60,
@@ -12845,7 +12845,7 @@
     "en": "Colorful parrot perched on a tropical branch",
     "slug": "ave-arara-colorida-no-galho-tropical",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 61,
@@ -12856,7 +12856,7 @@
     "en": "Colorful parrot swimming gracefully in a pond",
     "slug": "ave-arara-colorida-nadando-na-lagoa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 62,
@@ -12867,7 +12867,7 @@
     "en": "Colorful parrot exploring the forest",
     "slug": "ave-arara-colorida-explorando-a-floresta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 63,
@@ -12878,7 +12878,7 @@
     "en": "Colorful parrot walking in the wild",
     "slug": "ave-arara-colorida-andando-na-natureza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 64,
@@ -12889,7 +12889,7 @@
     "en": "Colorful parrot waving friendly",
     "slug": "ave-arara-colorida-acenando-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 65,
@@ -12900,7 +12900,7 @@
     "en": "Colorful parrot smiling under a sunny sky",
     "slug": "ave-arara-colorida-sorrindo-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 66,
@@ -12911,7 +12911,7 @@
     "en": "Colorful parrot surrounded by nice flowers",
     "slug": "ave-arara-colorida-entre-flores-lindas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 67,
@@ -12922,7 +12922,7 @@
     "en": "Exotic toucan soaring high in the sky",
     "slug": "ave-tucano-exotico-voando-alto-no-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 68,
@@ -12933,7 +12933,7 @@
     "en": "Exotic toucan perched on a tropical branch",
     "slug": "ave-tucano-exotico-no-galho-tropical",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 69,
@@ -12944,7 +12944,7 @@
     "en": "Exotic toucan swimming gracefully in a pond",
     "slug": "ave-tucano-exotico-nadando-na-lagoa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 70,
@@ -12955,7 +12955,7 @@
     "en": "Exotic toucan exploring the forest",
     "slug": "ave-tucano-exotico-explorando-a-floresta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 71,
@@ -12966,7 +12966,7 @@
     "en": "Exotic toucan walking in the wild",
     "slug": "ave-tucano-exotico-andando-na-natureza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 72,
@@ -12977,7 +12977,7 @@
     "en": "Exotic toucan waving friendly",
     "slug": "ave-tucano-exotico-acenando-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 73,
@@ -12988,7 +12988,7 @@
     "en": "Exotic toucan smiling under a sunny sky",
     "slug": "ave-tucano-exotico-sorrindo-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 74,
@@ -12999,7 +12999,7 @@
     "en": "Exotic toucan surrounded by nice flowers",
     "slug": "ave-tucano-exotico-entre-flores-lindas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 75,
@@ -13010,7 +13010,7 @@
     "en": "Wise old owl soaring high in the sky",
     "slug": "ave-coruja-sabia-voando-alto-no-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 76,
@@ -13021,7 +13021,7 @@
     "en": "Wise old owl perched on a tropical branch",
     "slug": "ave-coruja-sabia-no-galho-tropical",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 77,
@@ -13032,7 +13032,7 @@
     "en": "Wise old owl swimming gracefully in a pond",
     "slug": "ave-coruja-sabia-nadando-na-lagoa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 78,
@@ -13043,7 +13043,7 @@
     "en": "Wise old owl exploring the forest",
     "slug": "ave-coruja-sabia-explorando-a-floresta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 79,
@@ -13054,7 +13054,7 @@
     "en": "Wise old owl walking in the wild",
     "slug": "ave-coruja-sabia-andando-na-natureza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 80,
@@ -13065,7 +13065,7 @@
     "en": "Wise old owl waving friendly",
     "slug": "ave-coruja-sabia-acenando-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 81,
@@ -13076,7 +13076,7 @@
     "en": "Wise old owl smiling under a sunny sky",
     "slug": "ave-coruja-sabia-sorrindo-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 82,
@@ -13087,7 +13087,7 @@
     "en": "Wise old owl surrounded by nice flowers",
     "slug": "ave-coruja-sabia-entre-flores-lindas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 83,
@@ -13098,7 +13098,7 @@
     "en": "Pink flamingo soaring high in the sky",
     "slug": "ave-flamingo-rosa-voando-alto-no-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 84,
@@ -13109,7 +13109,7 @@
     "en": "Pink flamingo perched on a tropical branch",
     "slug": "ave-flamingo-rosa-no-galho-tropical",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 85,
@@ -13120,7 +13120,7 @@
     "en": "Pink flamingo swimming gracefully in a pond",
     "slug": "ave-flamingo-rosa-nadando-na-lagoa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 86,
@@ -13131,7 +13131,7 @@
     "en": "Pink flamingo exploring the forest",
     "slug": "ave-flamingo-rosa-explorando-a-floresta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 87,
@@ -13142,7 +13142,7 @@
     "en": "Pink flamingo walking in the wild",
     "slug": "ave-flamingo-rosa-andando-na-natureza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 88,
@@ -13153,7 +13153,7 @@
     "en": "Pink flamingo waving friendly",
     "slug": "ave-flamingo-rosa-acenando-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 89,
@@ -13164,7 +13164,7 @@
     "en": "Pink flamingo smiling under a sunny sky",
     "slug": "ave-flamingo-rosa-sorrindo-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 90,
@@ -13175,7 +13175,7 @@
     "en": "Pink flamingo surrounded by nice flowers",
     "slug": "ave-flamingo-rosa-entre-flores-lindas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 91,
@@ -13186,7 +13186,7 @@
     "en": "Graceful swan soaring high in the sky",
     "slug": "ave-cisne-gracioso-voando-alto-no-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 92,
@@ -13197,7 +13197,7 @@
     "en": "Graceful swan perched on a tropical branch",
     "slug": "ave-cisne-gracioso-no-galho-tropical",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 93,
@@ -13208,7 +13208,7 @@
     "en": "Graceful swan swimming gracefully in a pond",
     "slug": "ave-cisne-gracioso-nadando-na-lagoa",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 94,
@@ -13219,7 +13219,7 @@
     "en": "Graceful swan exploring the forest",
     "slug": "ave-cisne-gracioso-explorando-a-floresta",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 95,
@@ -13230,7 +13230,7 @@
     "en": "Graceful swan walking in the wild",
     "slug": "ave-cisne-gracioso-andando-na-natureza",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 96,
@@ -13241,7 +13241,7 @@
     "en": "Graceful swan waving friendly",
     "slug": "ave-cisne-gracioso-acenando-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 97,
@@ -13252,7 +13252,7 @@
     "en": "Graceful swan smiling under a sunny sky",
     "slug": "ave-cisne-gracioso-sorrindo-sob-o-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 98,
@@ -13263,7 +13263,7 @@
     "en": "Graceful swan surrounded by nice flowers",
     "slug": "ave-cisne-gracioso-entre-flores-lindas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 99,
@@ -13274,7 +13274,7 @@
     "en": "Friendly peacock soaring high in the sky",
     "slug": "ave-pavao-lindo-voando-alto-no-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 1,
@@ -52294,6 +52294,28 @@
     "isNew": false
   },
   {
+    "index": 318,
+    "filename": "318-sereia-sereia-do-oceano-com-bau-de-tesouro__ocean_mermaid_exploring_a_treasure_chest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/318-sereia-sereia-do-oceano-com-bau-de-tesouro__ocean_mermaid_exploring_a_treasure_chest.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do oceano com bau de tesouro",
+    "en": "Ocean mermaid exploring a treasure chest",
+    "slug": "sereia-sereia-do-oceano-com-bau-de-tesouro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 319,
+    "filename": "319-sereia-sereia-do-oceano-dancando-com-peixinhos__ocean_mermaid_dancing_with_little_fish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/319-sereia-sereia-do-oceano-dancando-com-peixinhos__ocean_mermaid_dancing_with_little_fish.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do oceano dancando com peixinhos",
+    "en": "Ocean mermaid dancing with little fish",
+    "slug": "sereia-sereia-do-oceano-dancando-com-peixinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 32,
     "filename": "32-fenix-bebe-brincando-com-dragao-bebe__phoenix_dragon_babies.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/32-fenix-bebe-brincando-com-dragao-bebe__phoenix_dragon_babies.png",
@@ -52301,6 +52323,116 @@
     "pt": "Fenix bebe brincando com dragao bebe",
     "en": "Phoenix dragon babies",
     "slug": "fenix-bebe-brincando-com-dragao-bebe",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 320,
+    "filename": "320-sereia-sereia-do-oceano-na-praia-de-areia__ocean_mermaid_resting_on_a_sandy_beach.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/320-sereia-sereia-do-oceano-na-praia-de-areia__ocean_mermaid_resting_on_a_sandy_beach.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do oceano na praia de areia",
+    "en": "Ocean mermaid resting on a sandy beach",
+    "slug": "sereia-sereia-do-oceano-na-praia-de-areia",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 321,
+    "filename": "321-sereia-sereia-do-oceano-olhando-arrecife__ocean_mermaid_looking_at_a_coral_reef.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/321-sereia-sereia-do-oceano-olhando-arrecife__ocean_mermaid_looking_at_a_coral_reef.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do oceano olhando arrecife",
+    "en": "Ocean mermaid looking at a coral reef",
+    "slug": "sereia-sereia-do-oceano-olhando-arrecife",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 322,
+    "filename": "322-sereia-sereia-amigavel-com-golfinho-amigo__friendly_mermaid_swimming_with_a_friendly_dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/322-sereia-sereia-amigavel-com-golfinho-amigo__friendly_mermaid_swimming_with_a_friendly_dolphin.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel com golfinho amigo",
+    "en": "Friendly mermaid swimming with a friendly dolphin",
+    "slug": "sereia-sereia-amigavel-com-golfinho-amigo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 323,
+    "filename": "323-sereia-sereia-amigavel-na-rocha-do-mar__friendly_mermaid_sitting_on_a_sea_rock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/323-sereia-sereia-amigavel-na-rocha-do-mar__friendly_mermaid_sitting_on_a_sea_rock.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel na rocha do mar",
+    "en": "Friendly mermaid sitting on a sea rock",
+    "slug": "sereia-sereia-amigavel-na-rocha-do-mar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 324,
+    "filename": "324-sereia-sereia-amigavel-penteando-cabelo-longo__friendly_mermaid_combing_her_long_hair.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/324-sereia-sereia-amigavel-penteando-cabelo-longo__friendly_mermaid_combing_her_long_hair.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel penteando cabelo longo",
+    "en": "Friendly mermaid combing her long hair",
+    "slug": "sereia-sereia-amigavel-penteando-cabelo-longo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 325,
+    "filename": "325-sereia-sereia-amigavel-com-perola-brilhante__friendly_mermaid_holding_a_shiny_pearl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/325-sereia-sereia-amigavel-com-perola-brilhante__friendly_mermaid_holding_a_shiny_pearl.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel com perola brilhante",
+    "en": "Friendly mermaid holding a shiny pearl",
+    "slug": "sereia-sereia-amigavel-com-perola-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 326,
+    "filename": "326-sereia-sereia-amigavel-com-polvo-amigavel__friendly_mermaid_playing_with_a_friendly_octopus.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/326-sereia-sereia-amigavel-com-polvo-amigavel__friendly_mermaid_playing_with_a_friendly_octopus.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel com polvo amigavel",
+    "en": "Friendly mermaid playing with a friendly octopus",
+    "slug": "sereia-sereia-amigavel-com-polvo-amigavel",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 327,
+    "filename": "327-sereia-sereia-amigavel-acenando-para-tartaruga__friendly_mermaid_waving_to_a_sea_turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/327-sereia-sereia-amigavel-acenando-para-tartaruga__friendly_mermaid_waving_to_a_sea_turtle.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel acenando para tartaruga",
+    "en": "Friendly mermaid waving to a sea turtle",
+    "slug": "sereia-sereia-amigavel-acenando-para-tartaruga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 328,
+    "filename": "328-sereia-sereia-amigavel-com-bau-de-tesouro__friendly_mermaid_exploring_a_treasure_chest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/328-sereia-sereia-amigavel-com-bau-de-tesouro__friendly_mermaid_exploring_a_treasure_chest.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel com bau de tesouro",
+    "en": "Friendly mermaid exploring a treasure chest",
+    "slug": "sereia-sereia-amigavel-com-bau-de-tesouro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 329,
+    "filename": "329-sereia-sereia-amigavel-dancando-com-peixinhos__friendly_mermaid_dancing_with_little_fish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/329-sereia-sereia-amigavel-dancando-com-peixinhos__friendly_mermaid_dancing_with_little_fish.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel dancando com peixinhos",
+    "en": "Friendly mermaid dancing with little fish",
+    "slug": "sereia-sereia-amigavel-dancando-com-peixinhos",
     "tier": "free",
     "isNew": false
   },
@@ -52316,6 +52448,116 @@
     "isNew": false
   },
   {
+    "index": 330,
+    "filename": "330-sereia-sereia-amigavel-na-praia-de-areia__friendly_mermaid_resting_on_a_sandy_beach.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/330-sereia-sereia-amigavel-na-praia-de-areia__friendly_mermaid_resting_on_a_sandy_beach.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel na praia de areia",
+    "en": "Friendly mermaid resting on a sandy beach",
+    "slug": "sereia-sereia-amigavel-na-praia-de-areia",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 331,
+    "filename": "331-sereia-sereia-amigavel-olhando-arrecife__friendly_mermaid_looking_at_a_coral_reef.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/331-sereia-sereia-amigavel-olhando-arrecife__friendly_mermaid_looking_at_a_coral_reef.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia amigavel olhando arrecife",
+    "en": "Friendly mermaid looking at a coral reef",
+    "slug": "sereia-sereia-amigavel-olhando-arrecife",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 332,
+    "filename": "332-sereia-sereia-da-estrela-com-golfinho-amigo__starfish_mermaid_swimming_with_a_friendly_dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/332-sereia-sereia-da-estrela-com-golfinho-amigo__starfish_mermaid_swimming_with_a_friendly_dolphin.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela com golfinho amigo",
+    "en": "Starfish mermaid swimming with a friendly dolphin",
+    "slug": "sereia-sereia-da-estrela-com-golfinho-amigo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 333,
+    "filename": "333-sereia-sereia-da-estrela-na-rocha-do-mar__starfish_mermaid_sitting_on_a_sea_rock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/333-sereia-sereia-da-estrela-na-rocha-do-mar__starfish_mermaid_sitting_on_a_sea_rock.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela na rocha do mar",
+    "en": "Starfish mermaid sitting on a sea rock",
+    "slug": "sereia-sereia-da-estrela-na-rocha-do-mar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 334,
+    "filename": "334-sereia-sereia-da-estrela-penteando-cabelo-longo__starfish_mermaid_combing_her_long_hair.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/334-sereia-sereia-da-estrela-penteando-cabelo-longo__starfish_mermaid_combing_her_long_hair.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela penteando cabelo longo",
+    "en": "Starfish mermaid combing her long hair",
+    "slug": "sereia-sereia-da-estrela-penteando-cabelo-longo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 335,
+    "filename": "335-sereia-sereia-da-estrela-com-perola-brilhante__starfish_mermaid_holding_a_shiny_pearl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/335-sereia-sereia-da-estrela-com-perola-brilhante__starfish_mermaid_holding_a_shiny_pearl.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela com perola brilhante",
+    "en": "Starfish mermaid holding a shiny pearl",
+    "slug": "sereia-sereia-da-estrela-com-perola-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 336,
+    "filename": "336-sereia-sereia-da-estrela-com-polvo-amigavel__starfish_mermaid_playing_with_a_friendly_octopus.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/336-sereia-sereia-da-estrela-com-polvo-amigavel__starfish_mermaid_playing_with_a_friendly_octopus.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela com polvo amigavel",
+    "en": "Starfish mermaid playing with a friendly octopus",
+    "slug": "sereia-sereia-da-estrela-com-polvo-amigavel",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 337,
+    "filename": "337-sereia-sereia-da-estrela-acenando-para-tartaruga__starfish_mermaid_waving_to_a_sea_turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/337-sereia-sereia-da-estrela-acenando-para-tartaruga__starfish_mermaid_waving_to_a_sea_turtle.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela acenando para tartaruga",
+    "en": "Starfish mermaid waving to a sea turtle",
+    "slug": "sereia-sereia-da-estrela-acenando-para-tartaruga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 338,
+    "filename": "338-sereia-sereia-da-estrela-com-bau-de-tesouro__starfish_mermaid_exploring_a_treasure_chest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/338-sereia-sereia-da-estrela-com-bau-de-tesouro__starfish_mermaid_exploring_a_treasure_chest.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela com bau de tesouro",
+    "en": "Starfish mermaid exploring a treasure chest",
+    "slug": "sereia-sereia-da-estrela-com-bau-de-tesouro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 339,
+    "filename": "339-sereia-sereia-da-estrela-dancando-com-peixinhos__starfish_mermaid_dancing_with_little_fish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/339-sereia-sereia-da-estrela-dancando-com-peixinhos__starfish_mermaid_dancing_with_little_fish.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela dancando com peixinhos",
+    "en": "Starfish mermaid dancing with little fish",
+    "slug": "sereia-sereia-da-estrela-dancando-com-peixinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 34,
     "filename": "34-unicornio-alado-em-arco-iris__unicorn_with_wings.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/34-unicornio-alado-em-arco-iris__unicorn_with_wings.png",
@@ -52323,6 +52565,116 @@
     "pt": "Unicornio alado em arco iris",
     "en": "Unicorn with wings",
     "slug": "unicornio-alado-em-arco-iris",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 340,
+    "filename": "340-sereia-sereia-da-estrela-na-praia-de-areia__starfish_mermaid_resting_on_a_sandy_beach.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/340-sereia-sereia-da-estrela-na-praia-de-areia__starfish_mermaid_resting_on_a_sandy_beach.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela na praia de areia",
+    "en": "Starfish mermaid resting on a sandy beach",
+    "slug": "sereia-sereia-da-estrela-na-praia-de-areia",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 341,
+    "filename": "341-sereia-sereia-da-estrela-olhando-arrecife__starfish_mermaid_looking_at_a_coral_reef.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/341-sereia-sereia-da-estrela-olhando-arrecife__starfish_mermaid_looking_at_a_coral_reef.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da estrela olhando arrecife",
+    "en": "Starfish mermaid looking at a coral reef",
+    "slug": "sereia-sereia-da-estrela-olhando-arrecife",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 342,
+    "filename": "342-sereia-sereia-do-coral-com-golfinho-amigo__coral_reef_mermaid_swimming_with_a_friendly_dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/342-sereia-sereia-do-coral-com-golfinho-amigo__coral_reef_mermaid_swimming_with_a_friendly_dolphin.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral com golfinho amigo",
+    "en": "Coral reef mermaid swimming with a friendly dolphin",
+    "slug": "sereia-sereia-do-coral-com-golfinho-amigo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 343,
+    "filename": "343-sereia-sereia-do-coral-na-rocha-do-mar__coral_reef_mermaid_sitting_on_a_sea_rock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/343-sereia-sereia-do-coral-na-rocha-do-mar__coral_reef_mermaid_sitting_on_a_sea_rock.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral na rocha do mar",
+    "en": "Coral reef mermaid sitting on a sea rock",
+    "slug": "sereia-sereia-do-coral-na-rocha-do-mar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 344,
+    "filename": "344-sereia-sereia-do-coral-penteando-cabelo-longo__coral_reef_mermaid_combing_her_long_hair.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/344-sereia-sereia-do-coral-penteando-cabelo-longo__coral_reef_mermaid_combing_her_long_hair.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral penteando cabelo longo",
+    "en": "Coral reef mermaid combing her long hair",
+    "slug": "sereia-sereia-do-coral-penteando-cabelo-longo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 345,
+    "filename": "345-sereia-sereia-do-coral-com-perola-brilhante__coral_reef_mermaid_holding_a_shiny_pearl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/345-sereia-sereia-do-coral-com-perola-brilhante__coral_reef_mermaid_holding_a_shiny_pearl.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral com perola brilhante",
+    "en": "Coral reef mermaid holding a shiny pearl",
+    "slug": "sereia-sereia-do-coral-com-perola-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 346,
+    "filename": "346-sereia-sereia-do-coral-com-polvo-amigavel__coral_reef_mermaid_playing_with_a_friendly_octopus.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/346-sereia-sereia-do-coral-com-polvo-amigavel__coral_reef_mermaid_playing_with_a_friendly_octopus.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral com polvo amigavel",
+    "en": "Coral reef mermaid playing with a friendly octopus",
+    "slug": "sereia-sereia-do-coral-com-polvo-amigavel",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 347,
+    "filename": "347-sereia-sereia-do-coral-acenando-para-tartaruga__coral_reef_mermaid_waving_to_a_sea_turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/347-sereia-sereia-do-coral-acenando-para-tartaruga__coral_reef_mermaid_waving_to_a_sea_turtle.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral acenando para tartaruga",
+    "en": "Coral reef mermaid waving to a sea turtle",
+    "slug": "sereia-sereia-do-coral-acenando-para-tartaruga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 348,
+    "filename": "348-sereia-sereia-do-coral-com-bau-de-tesouro__coral_reef_mermaid_exploring_a_treasure_chest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/348-sereia-sereia-do-coral-com-bau-de-tesouro__coral_reef_mermaid_exploring_a_treasure_chest.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral com bau de tesouro",
+    "en": "Coral reef mermaid exploring a treasure chest",
+    "slug": "sereia-sereia-do-coral-com-bau-de-tesouro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 349,
+    "filename": "349-sereia-sereia-do-coral-dancando-com-peixinhos__coral_reef_mermaid_dancing_with_little_fish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/349-sereia-sereia-do-coral-dancando-com-peixinhos__coral_reef_mermaid_dancing_with_little_fish.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral dancando com peixinhos",
+    "en": "Coral reef mermaid dancing with little fish",
+    "slug": "sereia-sereia-do-coral-dancando-com-peixinhos",
     "tier": "free",
     "isNew": false
   },
@@ -52338,6 +52690,116 @@
     "isNew": false
   },
   {
+    "index": 350,
+    "filename": "350-sereia-sereia-do-coral-na-praia-de-areia__coral_reef_mermaid_resting_on_a_sandy_beach.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/350-sereia-sereia-do-coral-na-praia-de-areia__coral_reef_mermaid_resting_on_a_sandy_beach.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral na praia de areia",
+    "en": "Coral reef mermaid resting on a sandy beach",
+    "slug": "sereia-sereia-do-coral-na-praia-de-areia",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 351,
+    "filename": "351-sereia-sereia-do-coral-olhando-arrecife__coral_reef_mermaid_looking_at_a_coral_reef.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/351-sereia-sereia-do-coral-olhando-arrecife__coral_reef_mermaid_looking_at_a_coral_reef.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia do coral olhando arrecife",
+    "en": "Coral reef mermaid looking at a coral reef",
+    "slug": "sereia-sereia-do-coral-olhando-arrecife",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 352,
+    "filename": "352-sereia-sereia-feliz-com-golfinho-amigo__happy_cartoon_mermaid_swimming_with_a_friendly_dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/352-sereia-sereia-feliz-com-golfinho-amigo__happy_cartoon_mermaid_swimming_with_a_friendly_dolphin.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz com golfinho amigo",
+    "en": "Happy cartoon mermaid swimming with a friendly dolphin",
+    "slug": "sereia-sereia-feliz-com-golfinho-amigo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 353,
+    "filename": "353-sereia-sereia-feliz-na-rocha-do-mar__happy_cartoon_mermaid_sitting_on_a_sea_rock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/353-sereia-sereia-feliz-na-rocha-do-mar__happy_cartoon_mermaid_sitting_on_a_sea_rock.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz na rocha do mar",
+    "en": "Happy cartoon mermaid sitting on a sea rock",
+    "slug": "sereia-sereia-feliz-na-rocha-do-mar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 354,
+    "filename": "354-sereia-sereia-feliz-penteando-cabelo-longo__happy_cartoon_mermaid_combing_her_long_hair.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/354-sereia-sereia-feliz-penteando-cabelo-longo__happy_cartoon_mermaid_combing_her_long_hair.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz penteando cabelo longo",
+    "en": "Happy cartoon mermaid combing her long hair",
+    "slug": "sereia-sereia-feliz-penteando-cabelo-longo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 355,
+    "filename": "355-sereia-sereia-feliz-com-perola-brilhante__happy_cartoon_mermaid_holding_a_shiny_pearl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/355-sereia-sereia-feliz-com-perola-brilhante__happy_cartoon_mermaid_holding_a_shiny_pearl.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz com perola brilhante",
+    "en": "Happy cartoon mermaid holding a shiny pearl",
+    "slug": "sereia-sereia-feliz-com-perola-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 356,
+    "filename": "356-sereia-sereia-feliz-com-polvo-amigavel__happy_cartoon_mermaid_playing_with_a_friendly_octopus.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/356-sereia-sereia-feliz-com-polvo-amigavel__happy_cartoon_mermaid_playing_with_a_friendly_octopus.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz com polvo amigavel",
+    "en": "Happy cartoon mermaid playing with a friendly octopus",
+    "slug": "sereia-sereia-feliz-com-polvo-amigavel",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 357,
+    "filename": "357-sereia-sereia-feliz-acenando-para-tartaruga__happy_cartoon_mermaid_waving_to_a_sea_turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/357-sereia-sereia-feliz-acenando-para-tartaruga__happy_cartoon_mermaid_waving_to_a_sea_turtle.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz acenando para tartaruga",
+    "en": "Happy cartoon mermaid waving to a sea turtle",
+    "slug": "sereia-sereia-feliz-acenando-para-tartaruga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 358,
+    "filename": "358-sereia-sereia-feliz-com-bau-de-tesouro__happy_cartoon_mermaid_exploring_a_treasure_chest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/358-sereia-sereia-feliz-com-bau-de-tesouro__happy_cartoon_mermaid_exploring_a_treasure_chest.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz com bau de tesouro",
+    "en": "Happy cartoon mermaid exploring a treasure chest",
+    "slug": "sereia-sereia-feliz-com-bau-de-tesouro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 359,
+    "filename": "359-sereia-sereia-feliz-dancando-com-peixinhos__happy_cartoon_mermaid_dancing_with_little_fish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/359-sereia-sereia-feliz-dancando-com-peixinhos__happy_cartoon_mermaid_dancing_with_little_fish.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz dancando com peixinhos",
+    "en": "Happy cartoon mermaid dancing with little fish",
+    "slug": "sereia-sereia-feliz-dancando-com-peixinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 36,
     "filename": "36-castelo-flutuante-com-baloes-gigantes__floating_castle_balloons.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/36-castelo-flutuante-com-baloes-gigantes__floating_castle_balloons.png",
@@ -52345,6 +52807,116 @@
     "pt": "Castelo flutuante com baloes gigantes",
     "en": "Floating castle balloons",
     "slug": "castelo-flutuante-com-baloes-gigantes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 360,
+    "filename": "360-sereia-sereia-feliz-na-praia-de-areia__happy_cartoon_mermaid_resting_on_a_sandy_beach.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/360-sereia-sereia-feliz-na-praia-de-areia__happy_cartoon_mermaid_resting_on_a_sandy_beach.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz na praia de areia",
+    "en": "Happy cartoon mermaid resting on a sandy beach",
+    "slug": "sereia-sereia-feliz-na-praia-de-areia",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 361,
+    "filename": "361-sereia-sereia-feliz-olhando-arrecife__happy_cartoon_mermaid_looking_at_a_coral_reef.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/361-sereia-sereia-feliz-olhando-arrecife__happy_cartoon_mermaid_looking_at_a_coral_reef.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia feliz olhando arrecife",
+    "en": "Happy cartoon mermaid looking at a coral reef",
+    "slug": "sereia-sereia-feliz-olhando-arrecife",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 362,
+    "filename": "362-sereia-sereinha-fofa-com-golfinho-amigo__cute_little_mermaid_swimming_with_a_friendly_dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/362-sereia-sereinha-fofa-com-golfinho-amigo__cute_little_mermaid_swimming_with_a_friendly_dolphin.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa com golfinho amigo",
+    "en": "Cute little mermaid swimming with a friendly dolphin",
+    "slug": "sereia-sereinha-fofa-com-golfinho-amigo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 363,
+    "filename": "363-sereia-sereinha-fofa-na-rocha-do-mar__cute_little_mermaid_sitting_on_a_sea_rock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/363-sereia-sereinha-fofa-na-rocha-do-mar__cute_little_mermaid_sitting_on_a_sea_rock.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa na rocha do mar",
+    "en": "Cute little mermaid sitting on a sea rock",
+    "slug": "sereia-sereinha-fofa-na-rocha-do-mar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 364,
+    "filename": "364-sereia-sereinha-fofa-penteando-cabelo-longo__cute_little_mermaid_combing_her_long_hair.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/364-sereia-sereinha-fofa-penteando-cabelo-longo__cute_little_mermaid_combing_her_long_hair.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa penteando cabelo longo",
+    "en": "Cute little mermaid combing her long hair",
+    "slug": "sereia-sereinha-fofa-penteando-cabelo-longo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 365,
+    "filename": "365-sereia-sereinha-fofa-com-perola-brilhante__cute_little_mermaid_holding_a_shiny_pearl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/365-sereia-sereinha-fofa-com-perola-brilhante__cute_little_mermaid_holding_a_shiny_pearl.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa com perola brilhante",
+    "en": "Cute little mermaid holding a shiny pearl",
+    "slug": "sereia-sereinha-fofa-com-perola-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 366,
+    "filename": "366-sereia-sereinha-fofa-com-polvo-amigavel__cute_little_mermaid_playing_with_a_friendly_octopus.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/366-sereia-sereinha-fofa-com-polvo-amigavel__cute_little_mermaid_playing_with_a_friendly_octopus.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa com polvo amigavel",
+    "en": "Cute little mermaid playing with a friendly octopus",
+    "slug": "sereia-sereinha-fofa-com-polvo-amigavel",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 367,
+    "filename": "367-sereia-sereinha-fofa-acenando-para-tartaruga__cute_little_mermaid_waving_to_a_sea_turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/367-sereia-sereinha-fofa-acenando-para-tartaruga__cute_little_mermaid_waving_to_a_sea_turtle.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa acenando para tartaruga",
+    "en": "Cute little mermaid waving to a sea turtle",
+    "slug": "sereia-sereinha-fofa-acenando-para-tartaruga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 368,
+    "filename": "368-sereia-sereinha-fofa-com-bau-de-tesouro__cute_little_mermaid_exploring_a_treasure_chest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/368-sereia-sereinha-fofa-com-bau-de-tesouro__cute_little_mermaid_exploring_a_treasure_chest.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa com bau de tesouro",
+    "en": "Cute little mermaid exploring a treasure chest",
+    "slug": "sereia-sereinha-fofa-com-bau-de-tesouro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 369,
+    "filename": "369-sereia-sereinha-fofa-dancando-com-peixinhos__cute_little_mermaid_dancing_with_little_fish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/369-sereia-sereinha-fofa-dancando-com-peixinhos__cute_little_mermaid_dancing_with_little_fish.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa dancando com peixinhos",
+    "en": "Cute little mermaid dancing with little fish",
+    "slug": "sereia-sereinha-fofa-dancando-com-peixinhos",
     "tier": "free",
     "isNew": false
   },
@@ -52360,6 +52932,116 @@
     "isNew": false
   },
   {
+    "index": 370,
+    "filename": "370-sereia-sereinha-fofa-na-praia-de-areia__cute_little_mermaid_resting_on_a_sandy_beach.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/370-sereia-sereinha-fofa-na-praia-de-areia__cute_little_mermaid_resting_on_a_sandy_beach.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa na praia de areia",
+    "en": "Cute little mermaid resting on a sandy beach",
+    "slug": "sereia-sereinha-fofa-na-praia-de-areia",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 371,
+    "filename": "371-sereia-sereinha-fofa-olhando-arrecife__cute_little_mermaid_looking_at_a_coral_reef.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/371-sereia-sereinha-fofa-olhando-arrecife__cute_little_mermaid_looking_at_a_coral_reef.png",
+    "category": "fantasia",
+    "pt": "Sereia sereinha fofa olhando arrecife",
+    "en": "Cute little mermaid looking at a coral reef",
+    "slug": "sereia-sereinha-fofa-olhando-arrecife",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 372,
+    "filename": "372-sereia-sereia-da-concha-com-golfinho-amigo__sea_shell_mermaid_swimming_with_a_friendly_dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/372-sereia-sereia-da-concha-com-golfinho-amigo__sea_shell_mermaid_swimming_with_a_friendly_dolphin.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha com golfinho amigo",
+    "en": "Sea shell mermaid swimming with a friendly dolphin",
+    "slug": "sereia-sereia-da-concha-com-golfinho-amigo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 373,
+    "filename": "373-sereia-sereia-da-concha-na-rocha-do-mar__sea_shell_mermaid_sitting_on_a_sea_rock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/373-sereia-sereia-da-concha-na-rocha-do-mar__sea_shell_mermaid_sitting_on_a_sea_rock.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha na rocha do mar",
+    "en": "Sea shell mermaid sitting on a sea rock",
+    "slug": "sereia-sereia-da-concha-na-rocha-do-mar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 374,
+    "filename": "374-sereia-sereia-da-concha-penteando-cabelo-longo__sea_shell_mermaid_combing_her_long_hair.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/374-sereia-sereia-da-concha-penteando-cabelo-longo__sea_shell_mermaid_combing_her_long_hair.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha penteando cabelo longo",
+    "en": "Sea shell mermaid combing her long hair",
+    "slug": "sereia-sereia-da-concha-penteando-cabelo-longo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 375,
+    "filename": "375-sereia-sereia-da-concha-com-perola-brilhante__sea_shell_mermaid_holding_a_shiny_pearl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/375-sereia-sereia-da-concha-com-perola-brilhante__sea_shell_mermaid_holding_a_shiny_pearl.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha com perola brilhante",
+    "en": "Sea shell mermaid holding a shiny pearl",
+    "slug": "sereia-sereia-da-concha-com-perola-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 376,
+    "filename": "376-sereia-sereia-da-concha-com-polvo-amigavel__sea_shell_mermaid_playing_with_a_friendly_octopus.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/376-sereia-sereia-da-concha-com-polvo-amigavel__sea_shell_mermaid_playing_with_a_friendly_octopus.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha com polvo amigavel",
+    "en": "Sea shell mermaid playing with a friendly octopus",
+    "slug": "sereia-sereia-da-concha-com-polvo-amigavel",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 377,
+    "filename": "377-sereia-sereia-da-concha-acenando-para-tartaruga__sea_shell_mermaid_waving_to_a_sea_turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/377-sereia-sereia-da-concha-acenando-para-tartaruga__sea_shell_mermaid_waving_to_a_sea_turtle.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha acenando para tartaruga",
+    "en": "Sea shell mermaid waving to a sea turtle",
+    "slug": "sereia-sereia-da-concha-acenando-para-tartaruga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 378,
+    "filename": "378-sereia-sereia-da-concha-com-bau-de-tesouro__sea_shell_mermaid_exploring_a_treasure_chest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/378-sereia-sereia-da-concha-com-bau-de-tesouro__sea_shell_mermaid_exploring_a_treasure_chest.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha com bau de tesouro",
+    "en": "Sea shell mermaid exploring a treasure chest",
+    "slug": "sereia-sereia-da-concha-com-bau-de-tesouro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 379,
+    "filename": "379-sereia-sereia-da-concha-dancando-com-peixinhos__sea_shell_mermaid_dancing_with_little_fish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/379-sereia-sereia-da-concha-dancando-com-peixinhos__sea_shell_mermaid_dancing_with_little_fish.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha dancando com peixinhos",
+    "en": "Sea shell mermaid dancing with little fish",
+    "slug": "sereia-sereia-da-concha-dancando-com-peixinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 38,
     "filename": "38-mago-aprendiz-tentando-feitiço__apprentice_wizard.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/38-mago-aprendiz-tentando-feitiço__apprentice_wizard.png",
@@ -52371,6 +53053,116 @@
     "isNew": false
   },
   {
+    "index": 380,
+    "filename": "380-sereia-sereia-da-concha-na-praia-de-areia__sea_shell_mermaid_resting_on_a_sandy_beach.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/380-sereia-sereia-da-concha-na-praia-de-areia__sea_shell_mermaid_resting_on_a_sandy_beach.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha na praia de areia",
+    "en": "Sea shell mermaid resting on a sandy beach",
+    "slug": "sereia-sereia-da-concha-na-praia-de-areia",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 381,
+    "filename": "381-sereia-sereia-da-concha-olhando-arrecife__sea_shell_mermaid_looking_at_a_coral_reef.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/381-sereia-sereia-da-concha-olhando-arrecife__sea_shell_mermaid_looking_at_a_coral_reef.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia da concha olhando arrecife",
+    "en": "Sea shell mermaid looking at a coral reef",
+    "slug": "sereia-sereia-da-concha-olhando-arrecife",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 382,
+    "filename": "382-sereia-sereia-tropical-com-golfinho-amigo__tropical_mermaid_swimming_with_a_friendly_dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/382-sereia-sereia-tropical-com-golfinho-amigo__tropical_mermaid_swimming_with_a_friendly_dolphin.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical com golfinho amigo",
+    "en": "Tropical mermaid swimming with a friendly dolphin",
+    "slug": "sereia-sereia-tropical-com-golfinho-amigo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 383,
+    "filename": "383-sereia-sereia-tropical-na-rocha-do-mar__tropical_mermaid_sitting_on_a_sea_rock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/383-sereia-sereia-tropical-na-rocha-do-mar__tropical_mermaid_sitting_on_a_sea_rock.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical na rocha do mar",
+    "en": "Tropical mermaid sitting on a sea rock",
+    "slug": "sereia-sereia-tropical-na-rocha-do-mar",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 384,
+    "filename": "384-sereia-sereia-tropical-penteando-cabelo-longo__tropical_mermaid_combing_her_long_hair.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/384-sereia-sereia-tropical-penteando-cabelo-longo__tropical_mermaid_combing_her_long_hair.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical penteando cabelo longo",
+    "en": "Tropical mermaid combing her long hair",
+    "slug": "sereia-sereia-tropical-penteando-cabelo-longo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 385,
+    "filename": "385-sereia-sereia-tropical-com-perola-brilhante__tropical_mermaid_holding_a_shiny_pearl.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/385-sereia-sereia-tropical-com-perola-brilhante__tropical_mermaid_holding_a_shiny_pearl.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical com perola brilhante",
+    "en": "Tropical mermaid holding a shiny pearl",
+    "slug": "sereia-sereia-tropical-com-perola-brilhante",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 386,
+    "filename": "386-sereia-sereia-tropical-com-polvo-amigavel__tropical_mermaid_playing_with_a_friendly_octopus.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/386-sereia-sereia-tropical-com-polvo-amigavel__tropical_mermaid_playing_with_a_friendly_octopus.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical com polvo amigavel",
+    "en": "Tropical mermaid playing with a friendly octopus",
+    "slug": "sereia-sereia-tropical-com-polvo-amigavel",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 387,
+    "filename": "387-sereia-sereia-tropical-acenando-para-tartaruga__tropical_mermaid_waving_to_a_sea_turtle.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/387-sereia-sereia-tropical-acenando-para-tartaruga__tropical_mermaid_waving_to_a_sea_turtle.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical acenando para tartaruga",
+    "en": "Tropical mermaid waving to a sea turtle",
+    "slug": "sereia-sereia-tropical-acenando-para-tartaruga",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 388,
+    "filename": "388-sereia-sereia-tropical-com-bau-de-tesouro__tropical_mermaid_exploring_a_treasure_chest.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/388-sereia-sereia-tropical-com-bau-de-tesouro__tropical_mermaid_exploring_a_treasure_chest.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical com bau de tesouro",
+    "en": "Tropical mermaid exploring a treasure chest",
+    "slug": "sereia-sereia-tropical-com-bau-de-tesouro",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 389,
+    "filename": "389-sereia-sereia-tropical-dancando-com-peixinhos__tropical_mermaid_dancing_with_little_fish.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/389-sereia-sereia-tropical-dancando-com-peixinhos__tropical_mermaid_dancing_with_little_fish.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical dancando com peixinhos",
+    "en": "Tropical mermaid dancing with little fish",
+    "slug": "sereia-sereia-tropical-dancando-com-peixinhos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 39,
     "filename": "39-elfos-cantando-sob-arvore-luminosa__elves_singing_tree.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/39-elfos-cantando-sob-arvore-luminosa__elves_singing_tree.png",
@@ -52378,6 +53170,50 @@
     "pt": "Elfos cantando sob arvore luminosa",
     "en": "Elves singing tree",
     "slug": "elfos-cantando-sob-arvore-luminosa",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 390,
+    "filename": "390-sereia-sereia-tropical-na-praia-de-areia__tropical_mermaid_resting_on_a_sandy_beach.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/390-sereia-sereia-tropical-na-praia-de-areia__tropical_mermaid_resting_on_a_sandy_beach.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical na praia de areia",
+    "en": "Tropical mermaid resting on a sandy beach",
+    "slug": "sereia-sereia-tropical-na-praia-de-areia",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 391,
+    "filename": "391-sereia-sereia-tropical-olhando-arrecife__tropical_mermaid_looking_at_a_coral_reef.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/391-sereia-sereia-tropical-olhando-arrecife__tropical_mermaid_looking_at_a_coral_reef.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia tropical olhando arrecife",
+    "en": "Tropical mermaid looking at a coral reef",
+    "slug": "sereia-sereia-tropical-olhando-arrecife",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 392,
+    "filename": "392-sereia-sereia-magica-com-golfinho-amigo__magical_mermaid_swimming_with_a_friendly_dolphin.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/392-sereia-sereia-magica-com-golfinho-amigo__magical_mermaid_swimming_with_a_friendly_dolphin.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia magica com golfinho amigo",
+    "en": "Magical mermaid swimming with a friendly dolphin",
+    "slug": "sereia-sereia-magica-com-golfinho-amigo",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 393,
+    "filename": "393-sereia-sereia-magica-na-rocha-do-mar__magical_mermaid_sitting_on_a_sea_rock.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fantasia/393-sereia-sereia-magica-na-rocha-do-mar__magical_mermaid_sitting_on_a_sea_rock.png",
+    "category": "fantasia",
+    "pt": "Sereia sereia magica na rocha do mar",
+    "en": "Magical mermaid sitting on a sea rock",
+    "slug": "sereia-sereia-magica-na-rocha-do-mar",
     "tier": "free",
     "isNew": false
   },
