@@ -4427,3 +4427,98 @@ button, input, select, textarea {
     50% { transform: scale(1.04); }
     100% { transform: scale(1); }
 }
+
+/* Paint Splatter Button & Hero Features Badge Line */
+.btn-paint-splatter {
+    position: relative !important;
+    overflow: visible !important;
+    background-color: var(--color-purple) !important;
+    z-index: 1;
+}
+
+.btn-paint-splatter .splat {
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.9;
+    filter: drop-shadow(0px 2px 0px var(--color-dark));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.btn-paint-splatter .splat-yellow {
+    top: -16px;
+    left: -20px;
+    width: 44px;
+    height: 44px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,30 C60,20 70,35 75,40 C85,45 90,60 80,70 C70,80 50,85 40,75 C30,65 20,60 30,45 C35,35 40,40 50,30 Z' fill='%23F39C12'/><circle cx='15' cy='35' r='5' fill='%23F39C12'/><circle cx='80' cy='25' r='4' fill='%23F39C12'/></svg>");
+    transform: rotate(-15deg);
+}
+
+.btn-paint-splatter .splat-orange {
+    bottom: -16px;
+    right: -14px;
+    width: 48px;
+    height: 48px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,25 C65,15 75,30 80,45 C85,60 70,80 55,80 C40,80 30,70 25,55 C20,40 35,35 50,25 Z' fill='%23E67E22'/><circle cx='85' cy='85' r='6' fill='%23E67E22'/><circle cx='15' cy='70' r='4' fill='%23E67E22'/></svg>");
+    transform: rotate(20deg);
+}
+
+.btn-paint-splatter .splat-blue {
+    top: -22px;
+    right: 25px;
+    width: 36px;
+    height: 36px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50,30 C60,20 80,40 70,60 C60,80 40,75 30,60 C20,45 40,40 50,30 Z' fill='%233498DB'/><circle cx='50' cy='10' r='4' fill='%233498DB'/></svg>");
+    transform: rotate(45deg);
+}
+
+.btn-paint-splatter:hover .splat-yellow {
+    transform: rotate(-25deg) scale(1.18);
+    filter: drop-shadow(0px 3px 0px var(--color-dark));
+}
+
+.btn-paint-splatter:hover .splat-orange {
+    transform: rotate(35deg) scale(1.18);
+    filter: drop-shadow(0px 3px 0px var(--color-dark));
+}
+
+.btn-paint-splatter:hover .splat-blue {
+    transform: rotate(65deg) scale(1.22);
+    filter: drop-shadow(0px 3px 0px var(--color-dark));
+}
+
+.hero-features-badge-line {
+    margin-top: 30px;
+    font-size: 1.05rem;
+    color: var(--color-dark-light);
+    font-weight: 700;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .hero-features-badge-line {
+        justify-content: center;
+        text-align: center;
+        gap: 10px 14px;
+        margin-top: 25px;
+    }
+    
+    .hero-features-badge-line .badge-separator {
+        display: none;
+    }
+    
+    .hero-features-badge-line .badge-item {
+        background-color: var(--color-white);
+        border: var(--border-thin);
+        padding: 5px 12px;
+        border-radius: 20px;
+        box-shadow: 0 3px 0 var(--color-dark);
+        font-size: 0.9rem;
+        display: inline-block;
+    }
+}
