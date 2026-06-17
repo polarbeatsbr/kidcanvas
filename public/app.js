@@ -9298,7 +9298,9 @@ window.showPerigoMessage = function(title, text) {
 window.openAlbumModal = function() {
     closeEventModal();
     if (!currentUser || !currentUser.cards || currentUser.cards.length === 0) {
-        Swal.fire('Álbum Vazio', 'Você ainda não encontrou nenhuma Carta da Imaginação. Participe da Sexta Mágica para ganhar!', 'info');
+        setTimeout(() => {
+            Swal.fire('Álbum Vazio', 'Você ainda não encontrou nenhuma Carta da Imaginação. Participe da Sexta Mágica para ganhar!', 'info');
+        }, 100);
         return;
     }
     
@@ -9313,14 +9315,16 @@ window.openAlbumModal = function() {
     });
     html += '</div>';
     
-    Swal.fire({
-        title: '📖 Seu Álbum de Cartas',
-        html: html,
-        width: '80%',
-        showCloseButton: true,
-        showConfirmButton: false,
-        background: '#f4f6f7'
-    });
+    setTimeout(() => {
+        Swal.fire({
+            title: '📖 Seu Álbum de Cartas',
+            html: html,
+            width: '80%',
+            showCloseButton: true,
+            showConfirmButton: false,
+            background: '#f4f6f7'
+        });
+    }, 100);
 };
 
 window.showMagicLoading = function(message) {
