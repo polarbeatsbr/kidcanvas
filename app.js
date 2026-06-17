@@ -8202,44 +8202,16 @@ async function openPublicProfile(name, userEmail = '') {
             if (storiesEl) storiesEl.textContent = profile.storiesCount;
             if (aiImagesEl) aiImagesEl.textContent = profile.aiImagesCount;
             
-            // Renderizar grade de conquistas/selos
-            const achievements = profile.achievements || {
-                primeira_participacao: false,
-                destaque_semana: false,
-                campeao_categoria: false,
-                lenda_kidcanvas: false
-            };
+            // Renderizar grade de conquistas/selos — usa os MESMOS badges do Sticker Console
+            const stars = profile.stars || 0;
 
-            const list = [
-                {
-                    key: 'primeira_participacao',
-                    title: 'Primeira Participação',
-                    desc: 'Primeiro desenho publicado',
-                    emoji: '🥉',
-                    isUnlocked: achievements.primeira_participacao
-                },
-                {
-                    key: 'destaque_semana',
-                    title: 'Destaque da Semana',
-                    desc: 'Top 10 semanal',
-                    emoji: '🥈',
-                    isUnlocked: achievements.destaque_semana
-                },
-                {
-                    key: 'campeao_categoria',
-                    title: 'Campeão da Categoria',
-                    desc: 'Mais votado do mês',
-                    emoji: '🥇',
-                    isUnlocked: achievements.campeao_categoria
-                },
-                {
-                    key: 'lenda_kidcanvas',
-                    title: 'Lenda KidCanvas',
-                    desc: '500 estrelas acumuladas',
-                    emoji: '👑',
-                    isUnlocked: achievements.lenda_kidcanvas
-                }
-            ];
+            const list = unlockableBadges.map(badge => ({
+                title: badge.name,
+                desc: badge.stars === 0 ? 'Participar do Hall da Fama' : `${badge.stars} estrelas acumuladas`,
+                emoji: badge.emoji,
+                starsNeeded: badge.stars,
+                isUnlocked: stars >= badge.stars
+            }));
 
             let unlockedCount = 0;
             const gridHtml = list.map(item => {
@@ -8259,13 +8231,13 @@ async function openPublicProfile(name, userEmail = '') {
                             <span style="font-size: 0.8rem; color: ${descColor}; font-weight: 500;">${item.desc}</span>
                         </div>
                         <span style="margin-left: auto; font-size: 0.85rem; font-weight: 800; color: ${item.isUnlocked ? '#2e7d32' : '#9e9e9e'};">
-                            ${item.isUnlocked ? '✅ Conquistado' : '🔒 Bloqueado'}
+                            ${item.isUnlocked ? '✅ Conquistado' : '🔒 ' + item.starsNeeded + '⭐'}
                         </span>
                     </div>
                 `;
             }).join('');
             
-            document.getElementById('profile-modal-badges').textContent = `${unlockedCount}/4`;
+            document.getElementById('profile-modal-badges').textContent = `${unlockedCount}/${unlockableBadges.length}`;
             document.getElementById('profile-modal-badges-grid').innerHTML = gridHtml;
         } else {
             showToast('Erro ao carregar dados do perfil.', 'error');
