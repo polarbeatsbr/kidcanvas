@@ -9296,37 +9296,82 @@ window.showPerigoMessage = function(title, text) {
 };
 
 
-window.openAlbumModal = function() {
+
+window.globalCatalog = [];
+
+window.openAlbumModal = async function() {
     closeEventModal();
-    if (!currentUser || !currentUser.cards || currentUser.cards.length === 0) {
-        setTimeout(() => {
-            Swal.fire('Álbum Vazio', 'Você ainda não encontrou nenhuma Carta da Imaginação. Participe da Sexta Mágica para ganhar!', 'info');
-        }, 100);
-        return;
+    if (!currentUser) return;
+    
+    showMagicLoading('Carregando seu Álbum...');
+    try {
+        const res = await fetch('/api/store/catalog');
+        const data = await res.json();
+        hideMagicLoading();
+        
+        if (data.success) {
+            window.globalCatalog = data.catalog;
+        }
+    } catch(e) {
+        hideMagicLoading();
     }
     
-    let html = '<div class="album-grid">';
-    currentUser.cards.forEach((c, idx) => {
-        // Fallbacks para cartas antigas
-        const emoji = c.emoji || (c.value === 't_rex' ? '🦖' : '🃏');
-        const rarity = c.rarity || 'Comum';
-        const cssClass = 'rarity-' + rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
-        const cardId = c.id || c.value;
-        
-        html += `
-        <div class="album-card-mini" onclick="openCardDetails('${idx}')">
-            <div class="rarity-dot ${cssClass}"></div>
-            <div class="emoji">${emoji}</div>
-            <div class="name">${c.name}</div>
-        </div>`;
+    const catalog = window.globalCatalog || [];
+    const userCards = currentUser.cards || [];
+    
+    // Agrupar por coleção
+    const collections = {};
+    catalog.forEach(c => {
+        // Ex: "Dinossauros 1/20" -> "Dinossauros"
+        const colName = c.collection ? c.collection.split(' ')[0] : 'Geral';
+        if (!collections[colName]) collections[colName] = [];
+        collections[colName].push(c);
     });
+    
+    let html = '<div style="text-align:center; margin-bottom:15px;">';
+    html += '<button onclick="buyCardPack()" style="background: linear-gradient(135deg, #f1c40f, #f39c12); border:none; padding:10px 20px; border-radius:8px; font-weight:bold; color:#fff; cursor:pointer; box-shadow: 0 4px 10px rgba(243,156,18,0.4);">🪄 Comprar Pacotinho Mágico (5 ⭐)</button>';
     html += '</div>';
+    
+    html += '<div style="max-height: 60vh; overflow-y: auto; padding-right: 10px;">';
+    
+    for (const [colName, cardsInCol] of Object.entries(collections)) {
+        html += `<h3 style="text-align: left; margin: 20px 0 10px 0; color: #333; font-weight: 900; text-transform: uppercase;">${colName}</h3>`;
+        html += '<div class="album-grid" style="justify-content: flex-start;">';
+        
+        cardsInCol.forEach(c => {
+            const hasCard = userCards.some(uc => (uc.id === c.id) || (uc.value === c.value));
+            const emoji = c.emoji || '🃏';
+            const rarity = c.rarity || 'Comum';
+            const cssClass = hasCard ? 'rarity-' + rarity.toLowerCase().replace('á', 'a').replace('é', 'e') : '';
+            const cardIdStr = c.id || c.value;
+            const code = c.collection ? c.collection.split(' ')[1] : '';
+            
+            if (hasCard) {
+                html += `
+                <div class="album-card-mini" onclick="openCardDetails('${cardIdStr}')">
+                    <div class="rarity-dot ${cssClass}"></div>
+                    <div class="emoji">${emoji}</div>
+                    <div class="name">${c.name}</div>
+                    <div style="font-size: 0.6rem; margin-top:3px; opacity: 0.8;">${code}</div>
+                </div>`;
+            } else {
+                html += `
+                <div class="album-card-mini" style="filter: grayscale(100%); opacity: 0.5; cursor: not-allowed;" onclick="Swal.fire('Carta Bloqueada', 'Você ainda não possui essa carta. Compre pacotinhos para tentar tirar ela!', 'info')">
+                    <div class="emoji">❓</div>
+                    <div class="name">???</div>
+                    <div style="font-size: 0.6rem; margin-top:3px; opacity: 0.8;">${code}</div>
+                </div>`;
+            }
+        });
+        html += '</div>';
+    }
+    html += '</div>'; // end scroll area
     
     setTimeout(() => {
         Swal.fire({
             title: '📖 Seu Álbum de Cartas',
             html: html,
-            width: '80%',
+            width: '85%',
             showCloseButton: true,
             showConfirmButton: false,
             background: '#f4f6f7'
@@ -9334,9 +9379,10 @@ window.openAlbumModal = function() {
     }, 100);
 };
 
-window.openCardDetails = function(index) {
-    if (!currentUser || !currentUser.cards || !currentUser.cards[index]) return;
-    const c = currentUser.cards[index];
+window.openCardDetails = function(cardIdStr) {
+    if (!currentUser || !currentUser.cards) return;
+    const c = currentUser.cards.find(uc => (uc.id === cardIdStr) || (uc.value === cardIdStr));
+    if (!c) return;
     
     const emoji = c.emoji || (c.value === 't_rex' ? '🦖' : '🃏');
     const rarity = c.rarity || 'Comum';
@@ -9385,55 +9431,10 @@ window.openCardDetails = function(index) {
         background: 'transparent',
         backdrop: 'rgba(0,0,0,0.8)',
         customClass: {
-            popup: 'transparent-popup' // Will add to CSS
+            popup: 'transparent-popup'
         }
     });
 };
-
-
-window.showMagicLoading = function(message) {
-    let overlay = document.getElementById('magic-loading-overlay');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.id = 'magic-loading-overlay';
-        overlay.style.position = 'fixed';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.width = '100vw';
-        overlay.style.height = '100vh';
-        overlay.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
-        overlay.style.zIndex = '999999';
-        overlay.style.display = 'flex';
-        overlay.style.flexDirection = 'column';
-        overlay.style.alignItems = 'center';
-        overlay.style.justifyContent = 'center';
-        
-        overlay.innerHTML = `
-            <div style="font-size: 5rem; animation: float 2s ease-in-out infinite;">✨</div>
-            <h2 id="magic-loading-text" style="color: #8e44ad; font-weight: 900; margin-top: 20px; text-transform: uppercase; letter-spacing: 2px;"></h2>
-        `;
-        document.body.appendChild(overlay);
-        
-        // Add float animation dynamically if not exists
-        if (!document.getElementById('magic-loading-style')) {
-            const style = document.createElement('style');
-            style.id = 'magic-loading-style';
-            style.innerHTML = `@keyframes float { 0% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-20px) scale(1.1); } 100% { transform: translateY(0px) scale(1); } }`;
-            document.head.appendChild(style);
-        }
-    }
-    
-    document.getElementById('magic-loading-text').innerText = message;
-    overlay.style.display = 'flex';
-};
-
-window.hideMagicLoading = function() {
-    const overlay = document.getElementById('magic-loading-overlay');
-    if (overlay) {
-        overlay.style.display = 'none';
-    }
-};
-
 
 window.buyCardPack = async function() {
     if (!currentUser) return;

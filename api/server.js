@@ -3515,6 +3515,19 @@ app.get('/api/events/current', requireAuth, (req, res) => {
 });
 
 
+
+// Obter catálogo de cartas
+app.get('/api/store/catalog', async (req, res) => {
+    try {
+        const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
+        const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
+        res.json({ success: true, catalog });
+    } catch (err) {
+        console.error('Erro ao ler catalogo:', err);
+        res.status(500).json({ success: false });
+    }
+});
+
 // Loja: Comprar Pacotinho de Cartas
 app.post('/api/store/buy-card', requireAuth, async (req, res) => {
     try {
