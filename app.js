@@ -32,7 +32,16 @@ const CATEGORIES_DATA = {
     'bandeiras': { name: 'Bandeiras', emoji: '🚩', desc: 'Desenhos de bandeiras de países para colorir e imprimir grátis! Pinte a bandeira do Brasil, Estados Unidos, Japão e muitas outras.' },
     'instrumentos-musicais': { name: 'Instrumentos Musicais', emoji: '🎸', desc: 'Desenhos de instrumentos musicais para colorir e imprimir grátis! Baixe desenhos de violão, piano, bateria, flauta e outros instrumentos.' },
     'brinquedos': { name: 'Brinquedos', emoji: '🧸', desc: 'Desenhos de brinquedos para colorir e imprimir grátis! Pinte ursinhos de pelúcia, bonecas, carrinhos, blocos de montar e muito mais.' },
-    'fan-art': { name: 'Fan Art', emoji: '🎨', desc: 'Desenhos de Fan Art dos seus personagens favoritos para colorir! Pinte o Goku, Stitch, Pikachu, Super Mario, Homem-Aranha e muitos outros.' }
+    'fan-art': { name: 'Fan Art', emoji: '🎨', desc: 'Desenhos de Fan Art dos seus personagens favoritos para colorir! Pinte o Goku, Stitch, Pikachu, Super Mario, Homem-Aranha e muitos outros.' },
+    'aves': { name: 'Aves', emoji: '🦜', desc: 'Desenhos de Aves e Passarinhos fofos para colorir e imprimir grátis! Pinte araras, papagaios, corujas, tucanos e outros passarinhos lindos.' },
+    'bailarinas': { name: 'Bailarinas', emoji: '🩰', desc: 'Desenhos de Bailarinas para colorir e imprimir grátis! Pinte dançarinas fofas com sapatilhas, tutus brilhantes e poses clássicas de ballet.' },
+    'salao-de-beleza': { name: 'Salão de Beleza', emoji: '💅', desc: 'Desenhos de Salão de Beleza e maquiagem para colorir grátis! Pinte esmaltes, batons, secadores de cabelo, espelhos e acessórios fofos.' },
+    'guerreiros-e-lendas': { name: 'Guerreiros e Lendas', emoji: '⚔️', desc: 'Desenhos de Guerreiros e Lendas para colorir e imprimir grátis! Divirta-se pintando Cavaleiros medievais, Ninjas silenciosos, Vikings corajosos e Samurais.' },
+    'paises-e-viagens': { name: 'Países e Viagens', emoji: '🌎', desc: 'Desenhos de Viagens e Países para colorir e imprimir grátis! Viaje pelo mundo colorindo pontos turísticos famosos, monumentos históricos e malas de viagem.' },
+    'ciencias-e-corpo-humano': { name: 'Ciências e Corpo Humano', emoji: '🔬', desc: 'Desenhos de Ciências e Corpo Humano para colorir e aprender! Pinte órgãos humanos de forma divertida, telescópios, átomos e tubos de ensaio.' },
+    'praia-e-estacoes': { name: 'Praia e Estações', emoji: '🏖️', desc: 'Desenhos de Praia, Férias e Estações do Ano para colorir grátis! Pinte dias ensolarados de verão, bonecos de neve no inverno, acampamentos e conchas.' },
+    'fazenda': { name: 'Fazenda', emoji: '🚜', desc: 'Desenhos de Fazenda para colorir e imprimir grátis! Divirta-se pintando vaquinhas, porquinhos, ovelhas, tratores trabalhando e a vida no campo.' },
+    'mundo-gamer': { name: 'Mundo Gamer', emoji: '🎮', desc: 'Desenhos de Mundo Gamer para colorir e imprimir grátis! Encontre controles de videogame, consoles modernos, personagens de pixel e cenários de jogos.' }
 };
 
 const POPULAR_SUGGESTIONS = ['unicórnio', 'dinossauro', 'borboleta', 'leão', 'golfinho'];
