@@ -3528,7 +3528,32 @@ app.get('/api/store/catalog', async (req, res) => {
     }
 });
 
-// Loja: Comprar Pacotinho de Cartas
+// Função reutilizável: sortear carta com pesos de raridade 70/20/8/2
+function drawRandomCard(catalog, userCards = []) {
+    if (!catalog || catalog.length === 0) return null;
+    
+    // Pesos corretos: Comum 70%, Rara 20%, Épica 8%, Lendária 2%
+    const rand = Math.random() * 100;
+    let selectedRarity;
+    if (rand < 2) selectedRarity = 'Lendária';
+    else if (rand < 10) selectedRarity = 'Épica';      // 2..10 = 8%
+    else if (rand < 30) selectedRarity = 'Rara';        // 10..30 = 20%
+    else selectedRarity = 'Comum';                       // 30..100 = 70%
+    
+    // Priorizar cartas que o usuário ainda não tem
+    const owned = new Set(userCards.map(c => c.id));
+    const pool = catalog.filter(c => c.rarity === selectedRarity && !owned.has(c.id));
+    
+    // Se não tiver carta nova nessa raridade, abre para qualquer carta dessa raridade
+    const fallbackPool = pool.length > 0 ? pool : catalog.filter(c => c.rarity === selectedRarity);
+    
+    // Se ainda vazio (sem cartas dessa raridade), usa catálogo completo
+    const finalPool = fallbackPool.length > 0 ? fallbackPool : catalog;
+    
+    return finalPool[Math.floor(Math.random() * finalPool.length)];
+}
+
+// Loja: Comprar Pacotinho de Cartas (mantido por compatibilidade, mas botão removido da UI)
 app.post('/api/store/buy-card', requireAuth, async (req, res) => {
     try {
         const users = await loadUsers();
@@ -3541,28 +3566,14 @@ app.post('/api/store/buy-card', requireAuth, async (req, res) => {
             return res.status(400).json({ success: false, message: 'Estrelas insuficientes. Pinte mais para ganhar!' });
         }
         
-        // Deduzir estrelas
         user.stars -= 5;
         
-        // Sortear carta
         const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
         const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
         if (catalog.length === 0) return res.status(500).json({ success: false, message: 'Catálogo vazio' });
         
-        // Sistema de Raridade simples com pesos
-        // Lendária (5%), Épica (15%), Rara (30%), Comum (50%)
-        const rand = Math.random() * 100;
-        let selectedRarity = 'Comum';
-        if (rand <= 5) selectedRarity = 'Lendária';
-        else if (rand <= 20) selectedRarity = 'Épica';
-        else if (rand <= 50) selectedRarity = 'Rara';
-        
-        const possibleCards = catalog.filter(c => c.rarity === selectedRarity);
-        const cardPool = possibleCards.length > 0 ? possibleCards : catalog;
-        
-        const randomCard = cardPool[Math.floor(Math.random() * cardPool.length)];
-        
         if (!user.cards) user.cards = [];
+        const randomCard = drawRandomCard(catalog, user.cards);
         user.cards.push(randomCard);
         
         await saveUsers(users);
