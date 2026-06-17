@@ -27412,6 +27412,28 @@
     "isNew": true
   },
   {
+    "index": 168,
+    "filename": "168-dino-marinho-plesiossauro-nadando-no-oceano__plesiosaur_swimming_deep_under_the_ocean.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/168-dino-marinho-plesiossauro-nadando-no-oceano__plesiosaur_swimming_deep_under_the_ocean.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho plesiossauro nadando no oceano",
+    "en": "Plesiosaur swimming deep under the ocean",
+    "slug": "dino-marinho-plesiossauro-nadando-no-oceano",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 169,
+    "filename": "169-dino-marinho-plesiossauro-saltando-da-agua__plesiosaur_jumping_out_of_the_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/169-dino-marinho-plesiossauro-saltando-da-agua__plesiosaur_jumping_out_of_the_water.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho plesiossauro saltando da agua",
+    "en": "Plesiosaur jumping out of the water",
+    "slug": "dino-marinho-plesiossauro-saltando-da-agua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 17,
     "filename": "17-triceratops-comendo-folhas__triceratops.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/17-triceratops-comendo-folhas__triceratops.png",
@@ -27419,6 +27441,116 @@
     "pt": "Triceratops comendo folhas",
     "en": "Triceratops",
     "slug": "triceratops-comendo-folhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 170,
+    "filename": "170-dino-marinho-plesiossauro-entre-arrecifes-de-corais__plesiosaur_playing_with_coral_reefs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/170-dino-marinho-plesiossauro-entre-arrecifes-de-corais__plesiosaur_playing_with_coral_reefs.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho plesiossauro entre arrecifes de corais",
+    "en": "Plesiosaur playing with coral reefs",
+    "slug": "dino-marinho-plesiossauro-entre-arrecifes-de-corais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 171,
+    "filename": "171-dino-marinho-plesiossauro-brincando-com-bolhas__plesiosaur_chasing_bubbles_in_the_sea.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/171-dino-marinho-plesiossauro-brincando-com-bolhas__plesiosaur_chasing_bubbles_in_the_sea.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho plesiossauro brincando com bolhas",
+    "en": "Plesiosaur chasing bubbles in the sea",
+    "slug": "dino-marinho-plesiossauro-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 172,
+    "filename": "172-dino-marinho-plesiossauro-na-caverna-submarina__plesiosaur_exploring_an_underwater_cave.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/172-dino-marinho-plesiossauro-na-caverna-submarina__plesiosaur_exploring_an_underwater_cave.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho plesiossauro na caverna submarina",
+    "en": "Plesiosaur exploring an underwater cave",
+    "slug": "dino-marinho-plesiossauro-na-caverna-submarina",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 173,
+    "filename": "173-dino-marinho-mossassauro-nadando-no-oceano__mosasaur_swimming_deep_under_the_ocean.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/173-dino-marinho-mossassauro-nadando-no-oceano__mosasaur_swimming_deep_under_the_ocean.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho mossassauro nadando no oceano",
+    "en": "Mosasaur swimming deep under the ocean",
+    "slug": "dino-marinho-mossassauro-nadando-no-oceano",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 174,
+    "filename": "174-dino-marinho-mossassauro-saltando-da-agua__mosasaur_jumping_out_of_the_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/174-dino-marinho-mossassauro-saltando-da-agua__mosasaur_jumping_out_of_the_water.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho mossassauro saltando da agua",
+    "en": "Mosasaur jumping out of the water",
+    "slug": "dino-marinho-mossassauro-saltando-da-agua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 175,
+    "filename": "175-dino-marinho-mossassauro-entre-arrecifes-de-corais__mosasaur_playing_with_coral_reefs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/175-dino-marinho-mossassauro-entre-arrecifes-de-corais__mosasaur_playing_with_coral_reefs.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho mossassauro entre arrecifes de corais",
+    "en": "Mosasaur playing with coral reefs",
+    "slug": "dino-marinho-mossassauro-entre-arrecifes-de-corais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 176,
+    "filename": "176-dino-marinho-mossassauro-brincando-com-bolhas__mosasaur_chasing_bubbles_in_the_sea.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/176-dino-marinho-mossassauro-brincando-com-bolhas__mosasaur_chasing_bubbles_in_the_sea.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho mossassauro brincando com bolhas",
+    "en": "Mosasaur chasing bubbles in the sea",
+    "slug": "dino-marinho-mossassauro-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 177,
+    "filename": "177-dino-marinho-mossassauro-na-caverna-submarina__mosasaur_exploring_an_underwater_cave.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/177-dino-marinho-mossassauro-na-caverna-submarina__mosasaur_exploring_an_underwater_cave.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho mossassauro na caverna submarina",
+    "en": "Mosasaur exploring an underwater cave",
+    "slug": "dino-marinho-mossassauro-na-caverna-submarina",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 178,
+    "filename": "178-dino-marinho-ictiossauro-nadando-no-oceano__ichthyosaur_swimming_deep_under_the_ocean.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/178-dino-marinho-ictiossauro-nadando-no-oceano__ichthyosaur_swimming_deep_under_the_ocean.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho ictiossauro nadando no oceano",
+    "en": "Ichthyosaur swimming deep under the ocean",
+    "slug": "dino-marinho-ictiossauro-nadando-no-oceano",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 179,
+    "filename": "179-dino-marinho-ictiossauro-saltando-da-agua__ichthyosaur_jumping_out_of_the_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/179-dino-marinho-ictiossauro-saltando-da-agua__ichthyosaur_jumping_out_of_the_water.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho ictiossauro saltando da agua",
+    "en": "Ichthyosaur jumping out of the water",
+    "slug": "dino-marinho-ictiossauro-saltando-da-agua",
     "tier": "free",
     "isNew": false
   },
@@ -27434,6 +27566,116 @@
     "isNew": false
   },
   {
+    "index": 180,
+    "filename": "180-dino-marinho-ictiossauro-entre-arrecifes-de-corais__ichthyosaur_playing_with_coral_reefs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/180-dino-marinho-ictiossauro-entre-arrecifes-de-corais__ichthyosaur_playing_with_coral_reefs.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho ictiossauro entre arrecifes de corais",
+    "en": "Ichthyosaur playing with coral reefs",
+    "slug": "dino-marinho-ictiossauro-entre-arrecifes-de-corais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 181,
+    "filename": "181-dino-marinho-ictiossauro-brincando-com-bolhas__ichthyosaur_chasing_bubbles_in_the_sea.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/181-dino-marinho-ictiossauro-brincando-com-bolhas__ichthyosaur_chasing_bubbles_in_the_sea.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho ictiossauro brincando com bolhas",
+    "en": "Ichthyosaur chasing bubbles in the sea",
+    "slug": "dino-marinho-ictiossauro-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 182,
+    "filename": "182-dino-marinho-ictiossauro-na-caverna-submarina__ichthyosaur_exploring_an_underwater_cave.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/182-dino-marinho-ictiossauro-na-caverna-submarina__ichthyosaur_exploring_an_underwater_cave.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho ictiossauro na caverna submarina",
+    "en": "Ichthyosaur exploring an underwater cave",
+    "slug": "dino-marinho-ictiossauro-na-caverna-submarina",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 183,
+    "filename": "183-dino-marinho-elasmossauro-nadando-no-oceano__elasmosaurus_swimming_deep_under_the_ocean.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/183-dino-marinho-elasmossauro-nadando-no-oceano__elasmosaurus_swimming_deep_under_the_ocean.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho elasmossauro nadando no oceano",
+    "en": "Elasmosaurus swimming deep under the ocean",
+    "slug": "dino-marinho-elasmossauro-nadando-no-oceano",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 184,
+    "filename": "184-dino-marinho-elasmossauro-saltando-da-agua__elasmosaurus_jumping_out_of_the_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/184-dino-marinho-elasmossauro-saltando-da-agua__elasmosaurus_jumping_out_of_the_water.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho elasmossauro saltando da agua",
+    "en": "Elasmosaurus jumping out of the water",
+    "slug": "dino-marinho-elasmossauro-saltando-da-agua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 185,
+    "filename": "185-dino-marinho-elasmossauro-entre-arrecifes-de-corais__elasmosaurus_playing_with_coral_reefs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/185-dino-marinho-elasmossauro-entre-arrecifes-de-corais__elasmosaurus_playing_with_coral_reefs.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho elasmossauro entre arrecifes de corais",
+    "en": "Elasmosaurus playing with coral reefs",
+    "slug": "dino-marinho-elasmossauro-entre-arrecifes-de-corais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 186,
+    "filename": "186-dino-marinho-elasmossauro-brincando-com-bolhas__elasmosaurus_chasing_bubbles_in_the_sea.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/186-dino-marinho-elasmossauro-brincando-com-bolhas__elasmosaurus_chasing_bubbles_in_the_sea.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho elasmossauro brincando com bolhas",
+    "en": "Elasmosaurus chasing bubbles in the sea",
+    "slug": "dino-marinho-elasmossauro-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 187,
+    "filename": "187-dino-marinho-elasmossauro-na-caverna-submarina__elasmosaurus_exploring_an_underwater_cave.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/187-dino-marinho-elasmossauro-na-caverna-submarina__elasmosaurus_exploring_an_underwater_cave.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho elasmossauro na caverna submarina",
+    "en": "Elasmosaurus exploring an underwater cave",
+    "slug": "dino-marinho-elasmossauro-na-caverna-submarina",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 188,
+    "filename": "188-dino-marinho-pliossauro-nadando-no-oceano__pliosaur_swimming_deep_under_the_ocean.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/188-dino-marinho-pliossauro-nadando-no-oceano__pliosaur_swimming_deep_under_the_ocean.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho pliossauro nadando no oceano",
+    "en": "Pliosaur swimming deep under the ocean",
+    "slug": "dino-marinho-pliossauro-nadando-no-oceano",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 189,
+    "filename": "189-dino-marinho-pliossauro-saltando-da-agua__pliosaur_jumping_out_of_the_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/189-dino-marinho-pliossauro-saltando-da-agua__pliosaur_jumping_out_of_the_water.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho pliossauro saltando da agua",
+    "en": "Pliosaur jumping out of the water",
+    "slug": "dino-marinho-pliossauro-saltando-da-agua",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 19,
     "filename": "19-pterodactilo-comendo-folhas__pterodactyl.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/19-pterodactilo-comendo-folhas__pterodactyl.png",
@@ -27441,6 +27683,50 @@
     "pt": "Pterodactilo comendo folhas",
     "en": "Pterodactyl",
     "slug": "pterodactilo-comendo-folhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 190,
+    "filename": "190-dino-marinho-pliossauro-entre-arrecifes-de-corais__pliosaur_playing_with_coral_reefs.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/190-dino-marinho-pliossauro-entre-arrecifes-de-corais__pliosaur_playing_with_coral_reefs.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho pliossauro entre arrecifes de corais",
+    "en": "Pliosaur playing with coral reefs",
+    "slug": "dino-marinho-pliossauro-entre-arrecifes-de-corais",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 191,
+    "filename": "191-dino-marinho-pliossauro-brincando-com-bolhas__pliosaur_chasing_bubbles_in_the_sea.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/191-dino-marinho-pliossauro-brincando-com-bolhas__pliosaur_chasing_bubbles_in_the_sea.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho pliossauro brincando com bolhas",
+    "en": "Pliosaur chasing bubbles in the sea",
+    "slug": "dino-marinho-pliossauro-brincando-com-bolhas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 192,
+    "filename": "192-dino-marinho-pliossauro-na-caverna-submarina__pliosaur_exploring_an_underwater_cave.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/192-dino-marinho-pliossauro-na-caverna-submarina__pliosaur_exploring_an_underwater_cave.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho pliossauro na caverna submarina",
+    "en": "Pliosaur exploring an underwater cave",
+    "slug": "dino-marinho-pliossauro-na-caverna-submarina",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 193,
+    "filename": "193-dino-marinho-tartaruga-pre-historica-nadando-no-oceano__prehistoric_sea_turtle_swimming_deep_under_the_ocean.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/193-dino-marinho-tartaruga-pre-historica-nadando-no-oceano__prehistoric_sea_turtle_swimming_deep_under_the_ocean.png",
+    "category": "dinossauros",
+    "pt": "Dino marinho tartaruga pre historica nadando no oceano",
+    "en": "Prehistoric sea turtle swimming deep under the ocean",
+    "slug": "dino-marinho-tartaruga-pre-historica-nadando-no-oceano",
     "tier": "free",
     "isNew": false
   },
@@ -66187,6 +66473,17 @@
     "isNew": false
   },
   {
+    "index": 169,
+    "filename": "169-fruta-morango-doce-com-chapeu-de-folha__sweet_strawberry_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/169-fruta-morango-doce-com-chapeu-de-folha__sweet_strawberry_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta morango doce com chapeu de folha",
+    "en": "Sweet strawberry wearing a tiny leaf hat",
+    "slug": "fruta-morango-doce-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 17,
     "filename": "17-kiwi-aventureiro__kiwi.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/17-kiwi-aventureiro__kiwi.png",
@@ -66196,6 +66493,116 @@
     "slug": "kiwi-aventureiro",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 170,
+    "filename": "170-fruta-fatia-de-melancia-com-rosto-alegre__juicy_watermelon_slice_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/170-fruta-fatia-de-melancia-com-rosto-alegre__juicy_watermelon_slice_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta fatia de melancia com rosto alegre",
+    "en": "Juicy watermelon slice with a happy cartoon face",
+    "slug": "fruta-fatia-de-melancia-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 171,
+    "filename": "171-fruta-fatia-de-melancia-pendurada-no-galho__juicy_watermelon_slice_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/171-fruta-fatia-de-melancia-pendurada-no-galho__juicy_watermelon_slice_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta fatia de melancia pendurada no galho",
+    "en": "Juicy watermelon slice hanging from a tree branch",
+    "slug": "fruta-fatia-de-melancia-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 172,
+    "filename": "172-fruta-fatia-de-melancia-na-cesta-de-frutas__juicy_watermelon_slice_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/172-fruta-fatia-de-melancia-na-cesta-de-frutas__juicy_watermelon_slice_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta fatia de melancia na cesta de frutas",
+    "en": "Juicy watermelon slice sitting in a fruit basket",
+    "slug": "fruta-fatia-de-melancia-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 173,
+    "filename": "173-fruta-fatia-de-melancia-com-folhas-verdes__juicy_watermelon_slice_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/173-fruta-fatia-de-melancia-com-folhas-verdes__juicy_watermelon_slice_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta fatia de melancia com folhas verdes",
+    "en": "Juicy watermelon slice surrounded by green leaves",
+    "slug": "fruta-fatia-de-melancia-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 174,
+    "filename": "174-fruta-fatia-de-melancia-olhos-de-desenho-fofos__juicy_watermelon_slice_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/174-fruta-fatia-de-melancia-olhos-de-desenho-fofos__juicy_watermelon_slice_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta fatia de melancia olhos de desenho fofos",
+    "en": "Juicy watermelon slice smiling with big friendly eyes",
+    "slug": "fruta-fatia-de-melancia-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 175,
+    "filename": "175-fruta-fatia-de-melancia-na-agua-fresca__juicy_watermelon_slice_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/175-fruta-fatia-de-melancia-na-agua-fresca__juicy_watermelon_slice_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta fatia de melancia na agua fresca",
+    "en": "Juicy watermelon slice splashing in water",
+    "slug": "fruta-fatia-de-melancia-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 176,
+    "filename": "176-fruta-fatia-de-melancia-com-chapeu-de-folha__juicy_watermelon_slice_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/176-fruta-fatia-de-melancia-com-chapeu-de-folha__juicy_watermelon_slice_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta fatia de melancia com chapeu de folha",
+    "en": "Juicy watermelon slice wearing a tiny leaf hat",
+    "slug": "fruta-fatia-de-melancia-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 177,
+    "filename": "177-fruta-laranja-madura-com-rosto-alegre__ripe_orange_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/177-fruta-laranja-madura-com-rosto-alegre__ripe_orange_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta laranja madura com rosto alegre",
+    "en": "Ripe orange with a happy cartoon face",
+    "slug": "fruta-laranja-madura-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 178,
+    "filename": "178-fruta-laranja-madura-pendurada-no-galho__ripe_orange_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/178-fruta-laranja-madura-pendurada-no-galho__ripe_orange_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta laranja madura pendurada no galho",
+    "en": "Ripe orange hanging from a tree branch",
+    "slug": "fruta-laranja-madura-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 179,
+    "filename": "179-fruta-laranja-madura-na-cesta-de-frutas__ripe_orange_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/179-fruta-laranja-madura-na-cesta-de-frutas__ripe_orange_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta laranja madura na cesta de frutas",
+    "en": "Ripe orange sitting in a fruit basket",
+    "slug": "fruta-laranja-madura-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 18,
@@ -66209,6 +66616,116 @@
     "isNew": true
   },
   {
+    "index": 180,
+    "filename": "180-fruta-laranja-madura-com-folhas-verdes__ripe_orange_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/180-fruta-laranja-madura-com-folhas-verdes__ripe_orange_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta laranja madura com folhas verdes",
+    "en": "Ripe orange surrounded by green leaves",
+    "slug": "fruta-laranja-madura-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 181,
+    "filename": "181-fruta-laranja-madura-olhos-de-desenho-fofos__ripe_orange_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/181-fruta-laranja-madura-olhos-de-desenho-fofos__ripe_orange_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta laranja madura olhos de desenho fofos",
+    "en": "Ripe orange smiling with big friendly eyes",
+    "slug": "fruta-laranja-madura-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 182,
+    "filename": "182-fruta-laranja-madura-na-agua-fresca__ripe_orange_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/182-fruta-laranja-madura-na-agua-fresca__ripe_orange_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta laranja madura na agua fresca",
+    "en": "Ripe orange splashing in water",
+    "slug": "fruta-laranja-madura-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 183,
+    "filename": "183-fruta-laranja-madura-com-chapeu-de-folha__ripe_orange_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/183-fruta-laranja-madura-com-chapeu-de-folha__ripe_orange_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta laranja madura com chapeu de folha",
+    "en": "Ripe orange wearing a tiny leaf hat",
+    "slug": "fruta-laranja-madura-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 184,
+    "filename": "184-fruta-cacho-de-uvas-com-rosto-alegre__bunch_of_grapes_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/184-fruta-cacho-de-uvas-com-rosto-alegre__bunch_of_grapes_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta cacho de uvas com rosto alegre",
+    "en": "Bunch of grapes with a happy cartoon face",
+    "slug": "fruta-cacho-de-uvas-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 185,
+    "filename": "185-fruta-cacho-de-uvas-pendurada-no-galho__bunch_of_grapes_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/185-fruta-cacho-de-uvas-pendurada-no-galho__bunch_of_grapes_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta cacho de uvas pendurada no galho",
+    "en": "Bunch of grapes hanging from a tree branch",
+    "slug": "fruta-cacho-de-uvas-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 186,
+    "filename": "186-fruta-cacho-de-uvas-na-cesta-de-frutas__bunch_of_grapes_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/186-fruta-cacho-de-uvas-na-cesta-de-frutas__bunch_of_grapes_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta cacho de uvas na cesta de frutas",
+    "en": "Bunch of grapes sitting in a fruit basket",
+    "slug": "fruta-cacho-de-uvas-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 187,
+    "filename": "187-fruta-cacho-de-uvas-com-folhas-verdes__bunch_of_grapes_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/187-fruta-cacho-de-uvas-com-folhas-verdes__bunch_of_grapes_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta cacho de uvas com folhas verdes",
+    "en": "Bunch of grapes surrounded by green leaves",
+    "slug": "fruta-cacho-de-uvas-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 188,
+    "filename": "188-fruta-cacho-de-uvas-olhos-de-desenho-fofos__bunch_of_grapes_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/188-fruta-cacho-de-uvas-olhos-de-desenho-fofos__bunch_of_grapes_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta cacho de uvas olhos de desenho fofos",
+    "en": "Bunch of grapes smiling with big friendly eyes",
+    "slug": "fruta-cacho-de-uvas-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 189,
+    "filename": "189-fruta-cacho-de-uvas-na-agua-fresca__bunch_of_grapes_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/189-fruta-cacho-de-uvas-na-agua-fresca__bunch_of_grapes_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta cacho de uvas na agua fresca",
+    "en": "Bunch of grapes splashing in water",
+    "slug": "fruta-cacho-de-uvas-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 19,
     "filename": "19-milho-cantor__corn.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/19-milho-cantor__corn.png",
@@ -66218,6 +66735,116 @@
     "slug": "milho-cantor",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 190,
+    "filename": "190-fruta-cacho-de-uvas-com-chapeu-de-folha__bunch_of_grapes_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/190-fruta-cacho-de-uvas-com-chapeu-de-folha__bunch_of_grapes_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta cacho de uvas com chapeu de folha",
+    "en": "Bunch of grapes wearing a tiny leaf hat",
+    "slug": "fruta-cacho-de-uvas-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 191,
+    "filename": "191-fruta-par-de-cerejas-com-rosto-alegre__sweet_cherry_pair_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/191-fruta-par-de-cerejas-com-rosto-alegre__sweet_cherry_pair_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta par de cerejas com rosto alegre",
+    "en": "Sweet cherry pair with a happy cartoon face",
+    "slug": "fruta-par-de-cerejas-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 192,
+    "filename": "192-fruta-par-de-cerejas-pendurada-no-galho__sweet_cherry_pair_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/192-fruta-par-de-cerejas-pendurada-no-galho__sweet_cherry_pair_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta par de cerejas pendurada no galho",
+    "en": "Sweet cherry pair hanging from a tree branch",
+    "slug": "fruta-par-de-cerejas-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 193,
+    "filename": "193-fruta-par-de-cerejas-na-cesta-de-frutas__sweet_cherry_pair_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/193-fruta-par-de-cerejas-na-cesta-de-frutas__sweet_cherry_pair_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta par de cerejas na cesta de frutas",
+    "en": "Sweet cherry pair sitting in a fruit basket",
+    "slug": "fruta-par-de-cerejas-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 194,
+    "filename": "194-fruta-par-de-cerejas-com-folhas-verdes__sweet_cherry_pair_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/194-fruta-par-de-cerejas-com-folhas-verdes__sweet_cherry_pair_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta par de cerejas com folhas verdes",
+    "en": "Sweet cherry pair surrounded by green leaves",
+    "slug": "fruta-par-de-cerejas-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 195,
+    "filename": "195-fruta-par-de-cerejas-olhos-de-desenho-fofos__sweet_cherry_pair_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/195-fruta-par-de-cerejas-olhos-de-desenho-fofos__sweet_cherry_pair_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta par de cerejas olhos de desenho fofos",
+    "en": "Sweet cherry pair smiling with big friendly eyes",
+    "slug": "fruta-par-de-cerejas-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 196,
+    "filename": "196-fruta-par-de-cerejas-na-agua-fresca__sweet_cherry_pair_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/196-fruta-par-de-cerejas-na-agua-fresca__sweet_cherry_pair_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta par de cerejas na agua fresca",
+    "en": "Sweet cherry pair splashing in water",
+    "slug": "fruta-par-de-cerejas-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 197,
+    "filename": "197-fruta-par-de-cerejas-com-chapeu-de-folha__sweet_cherry_pair_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/197-fruta-par-de-cerejas-com-chapeu-de-folha__sweet_cherry_pair_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta par de cerejas com chapeu de folha",
+    "en": "Sweet cherry pair wearing a tiny leaf hat",
+    "slug": "fruta-par-de-cerejas-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 198,
+    "filename": "198-fruta-abacaxi-tropical-com-rosto-alegre__tropical_pineapple_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/198-fruta-abacaxi-tropical-com-rosto-alegre__tropical_pineapple_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta abacaxi tropical com rosto alegre",
+    "en": "Tropical pineapple with a happy cartoon face",
+    "slug": "fruta-abacaxi-tropical-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 199,
+    "filename": "199-fruta-abacaxi-tropical-pendurada-no-galho__tropical_pineapple_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/199-fruta-abacaxi-tropical-pendurada-no-galho__tropical_pineapple_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta abacaxi tropical pendurada no galho",
+    "en": "Tropical pineapple hanging from a tree branch",
+    "slug": "fruta-abacaxi-tropical-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 20,
@@ -66231,6 +66858,116 @@
     "isNew": true
   },
   {
+    "index": 200,
+    "filename": "200-fruta-abacaxi-tropical-na-cesta-de-frutas__tropical_pineapple_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/200-fruta-abacaxi-tropical-na-cesta-de-frutas__tropical_pineapple_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta abacaxi tropical na cesta de frutas",
+    "en": "Tropical pineapple sitting in a fruit basket",
+    "slug": "fruta-abacaxi-tropical-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 201,
+    "filename": "201-fruta-abacaxi-tropical-com-folhas-verdes__tropical_pineapple_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/201-fruta-abacaxi-tropical-com-folhas-verdes__tropical_pineapple_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta abacaxi tropical com folhas verdes",
+    "en": "Tropical pineapple surrounded by green leaves",
+    "slug": "fruta-abacaxi-tropical-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 202,
+    "filename": "202-fruta-abacaxi-tropical-olhos-de-desenho-fofos__tropical_pineapple_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/202-fruta-abacaxi-tropical-olhos-de-desenho-fofos__tropical_pineapple_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta abacaxi tropical olhos de desenho fofos",
+    "en": "Tropical pineapple smiling with big friendly eyes",
+    "slug": "fruta-abacaxi-tropical-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 203,
+    "filename": "203-fruta-abacaxi-tropical-na-agua-fresca__tropical_pineapple_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/203-fruta-abacaxi-tropical-na-agua-fresca__tropical_pineapple_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta abacaxi tropical na agua fresca",
+    "en": "Tropical pineapple splashing in water",
+    "slug": "fruta-abacaxi-tropical-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 204,
+    "filename": "204-fruta-abacaxi-tropical-com-chapeu-de-folha__tropical_pineapple_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/204-fruta-abacaxi-tropical-com-chapeu-de-folha__tropical_pineapple_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta abacaxi tropical com chapeu de folha",
+    "en": "Tropical pineapple wearing a tiny leaf hat",
+    "slug": "fruta-abacaxi-tropical-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 205,
+    "filename": "205-fruta-pera-fofa-com-rosto-alegre__cute_pear_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/205-fruta-pera-fofa-com-rosto-alegre__cute_pear_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pera fofa com rosto alegre",
+    "en": "Cute pear with a happy cartoon face",
+    "slug": "fruta-pera-fofa-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 206,
+    "filename": "206-fruta-pera-fofa-pendurada-no-galho__cute_pear_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/206-fruta-pera-fofa-pendurada-no-galho__cute_pear_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pera fofa pendurada no galho",
+    "en": "Cute pear hanging from a tree branch",
+    "slug": "fruta-pera-fofa-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 207,
+    "filename": "207-fruta-pera-fofa-na-cesta-de-frutas__cute_pear_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/207-fruta-pera-fofa-na-cesta-de-frutas__cute_pear_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pera fofa na cesta de frutas",
+    "en": "Cute pear sitting in a fruit basket",
+    "slug": "fruta-pera-fofa-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 208,
+    "filename": "208-fruta-pera-fofa-com-folhas-verdes__cute_pear_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/208-fruta-pera-fofa-com-folhas-verdes__cute_pear_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pera fofa com folhas verdes",
+    "en": "Cute pear surrounded by green leaves",
+    "slug": "fruta-pera-fofa-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 209,
+    "filename": "209-fruta-pera-fofa-olhos-de-desenho-fofos__cute_pear_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/209-fruta-pera-fofa-olhos-de-desenho-fofos__cute_pear_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pera fofa olhos de desenho fofos",
+    "en": "Cute pear smiling with big friendly eyes",
+    "slug": "fruta-pera-fofa-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
     "index": 21,
     "filename": "21-tomate-jogador__tomato.png",
     "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/21-tomate-jogador__tomato.png",
@@ -66240,6 +66977,105 @@
     "slug": "tomate-jogador",
     "tier": "free",
     "isNew": true
+  },
+  {
+    "index": 210,
+    "filename": "210-fruta-pera-fofa-na-agua-fresca__cute_pear_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/210-fruta-pera-fofa-na-agua-fresca__cute_pear_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pera fofa na agua fresca",
+    "en": "Cute pear splashing in water",
+    "slug": "fruta-pera-fofa-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 211,
+    "filename": "211-fruta-pera-fofa-com-chapeu-de-folha__cute_pear_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/211-fruta-pera-fofa-com-chapeu-de-folha__cute_pear_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pera fofa com chapeu de folha",
+    "en": "Cute pear wearing a tiny leaf hat",
+    "slug": "fruta-pera-fofa-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 212,
+    "filename": "212-fruta-pessego-feliz-com-rosto-alegre__happy_cartoon_peach_with_a_happy_cartoon_face.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/212-fruta-pessego-feliz-com-rosto-alegre__happy_cartoon_peach_with_a_happy_cartoon_face.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pessego feliz com rosto alegre",
+    "en": "Happy cartoon peach with a happy cartoon face",
+    "slug": "fruta-pessego-feliz-com-rosto-alegre",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 213,
+    "filename": "213-fruta-pessego-feliz-pendurada-no-galho__happy_cartoon_peach_hanging_from_a_tree_branch.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/213-fruta-pessego-feliz-pendurada-no-galho__happy_cartoon_peach_hanging_from_a_tree_branch.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pessego feliz pendurada no galho",
+    "en": "Happy cartoon peach hanging from a tree branch",
+    "slug": "fruta-pessego-feliz-pendurada-no-galho",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 214,
+    "filename": "214-fruta-pessego-feliz-na-cesta-de-frutas__happy_cartoon_peach_sitting_in_a_fruit_basket.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/214-fruta-pessego-feliz-na-cesta-de-frutas__happy_cartoon_peach_sitting_in_a_fruit_basket.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pessego feliz na cesta de frutas",
+    "en": "Happy cartoon peach sitting in a fruit basket",
+    "slug": "fruta-pessego-feliz-na-cesta-de-frutas",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 215,
+    "filename": "215-fruta-pessego-feliz-com-folhas-verdes__happy_cartoon_peach_surrounded_by_green_leaves.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/215-fruta-pessego-feliz-com-folhas-verdes__happy_cartoon_peach_surrounded_by_green_leaves.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pessego feliz com folhas verdes",
+    "en": "Happy cartoon peach surrounded by green leaves",
+    "slug": "fruta-pessego-feliz-com-folhas-verdes",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 216,
+    "filename": "216-fruta-pessego-feliz-olhos-de-desenho-fofos__happy_cartoon_peach_smiling_with_big_friendly_eyes.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/216-fruta-pessego-feliz-olhos-de-desenho-fofos__happy_cartoon_peach_smiling_with_big_friendly_eyes.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pessego feliz olhos de desenho fofos",
+    "en": "Happy cartoon peach smiling with big friendly eyes",
+    "slug": "fruta-pessego-feliz-olhos-de-desenho-fofos",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 217,
+    "filename": "217-fruta-pessego-feliz-na-agua-fresca__happy_cartoon_peach_splashing_in_water.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/217-fruta-pessego-feliz-na-agua-fresca__happy_cartoon_peach_splashing_in_water.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pessego feliz na agua fresca",
+    "en": "Happy cartoon peach splashing in water",
+    "slug": "fruta-pessego-feliz-na-agua-fresca",
+    "tier": "free",
+    "isNew": false
+  },
+  {
+    "index": 218,
+    "filename": "218-fruta-pessego-feliz-com-chapeu-de-folha__happy_cartoon_peach_wearing_a_tiny_leaf_hat.png",
+    "url": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/frutas-e-legumes/218-fruta-pessego-feliz-com-chapeu-de-folha__happy_cartoon_peach_wearing_a_tiny_leaf_hat.png",
+    "category": "frutas-e-legumes",
+    "pt": "Fruta pessego feliz com chapeu de folha",
+    "en": "Happy cartoon peach wearing a tiny leaf hat",
+    "slug": "fruta-pessego-feliz-com-chapeu-de-folha",
+    "tier": "free",
+    "isNew": false
   },
   {
     "index": 22,
@@ -91055,7 +91891,7 @@
     "en": "Cute toy airplane soaring near a beautiful rainbow",
     "slug": "aviao-aviao-de-brinquedo-perto-do-arco-iris",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 484,
@@ -91066,7 +91902,7 @@
     "en": "Cute toy airplane flying past a smiling sun",
     "slug": "aviao-aviao-de-brinquedo-passando-pelo-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 485,
@@ -91077,7 +91913,7 @@
     "en": "Cute toy airplane taking off into the sky",
     "slug": "aviao-aviao-de-brinquedo-decolando-para-o-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 486,
@@ -91088,7 +91924,7 @@
     "en": "Cute toy airplane waving its wings",
     "slug": "aviao-aviao-de-brinquedo-acenando-as-asas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 487,
@@ -91099,7 +91935,7 @@
     "en": "Friendly cartoon airplane flying high above soft clouds",
     "slug": "aviao-aviao-de-desenho-voando-nas-nuvens",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 488,
@@ -91110,7 +91946,7 @@
     "en": "Friendly cartoon airplane landing on an airport runway",
     "slug": "aviao-aviao-de-desenho-pousando-na-pista",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 489,
@@ -91121,7 +91957,7 @@
     "en": "Friendly cartoon airplane floating on calm water",
     "slug": "aviao-aviao-de-desenho-flutuando-na-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 49,
@@ -91143,7 +91979,7 @@
     "en": "Friendly cartoon airplane performing an airshow loop",
     "slug": "aviao-aviao-de-desenho-fazendo-acrobacias",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 491,
@@ -91154,7 +91990,7 @@
     "en": "Friendly cartoon airplane soaring near a beautiful rainbow",
     "slug": "aviao-aviao-de-desenho-perto-do-arco-iris",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 492,
@@ -91165,7 +92001,7 @@
     "en": "Friendly cartoon airplane flying past a smiling sun",
     "slug": "aviao-aviao-de-desenho-passando-pelo-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 493,
@@ -91176,7 +92012,7 @@
     "en": "Friendly cartoon airplane taking off into the sky",
     "slug": "aviao-aviao-de-desenho-decolando-para-o-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 494,
@@ -91187,7 +92023,7 @@
     "en": "Friendly cartoon airplane waving its wings",
     "slug": "aviao-aviao-de-desenho-acenando-as-asas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 495,
@@ -91198,7 +92034,7 @@
     "en": "Stunt airplane flying high above soft clouds",
     "slug": "aviao-aviao-de-acrobacia-voando-nas-nuvens",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 496,
@@ -91209,7 +92045,7 @@
     "en": "Stunt airplane landing on an airport runway",
     "slug": "aviao-aviao-de-acrobacia-pousando-na-pista",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 497,
@@ -91220,7 +92056,7 @@
     "en": "Stunt airplane floating on calm water",
     "slug": "aviao-aviao-de-acrobacia-flutuando-na-agua",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 498,
@@ -91231,7 +92067,7 @@
     "en": "Stunt airplane performing an airshow loop",
     "slug": "aviao-aviao-de-acrobacia-fazendo-acrobacias",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 499,
@@ -91242,7 +92078,7 @@
     "en": "Stunt airplane soaring near a beautiful rainbow",
     "slug": "aviao-aviao-de-acrobacia-perto-do-arco-iris",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 50,
@@ -91264,7 +92100,7 @@
     "en": "Stunt airplane flying past a smiling sun",
     "slug": "aviao-aviao-de-acrobacia-passando-pelo-sol",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 501,
@@ -91275,7 +92111,7 @@
     "en": "Stunt airplane taking off into the sky",
     "slug": "aviao-aviao-de-acrobacia-decolando-para-o-ceu",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 502,
@@ -91286,7 +92122,7 @@
     "en": "Stunt airplane waving its wings",
     "slug": "aviao-aviao-de-acrobacia-acenando-as-asas",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 503,
@@ -91297,7 +92133,7 @@
     "en": "Steam locomotive puffing steam along mountain tracks",
     "slug": "trem-locomotiva-a-vapor-soltando-fumaca-nos-trilhos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 504,
@@ -91308,7 +92144,7 @@
     "en": "Steam locomotive speeding through a tunnel",
     "slug": "trem-locomotiva-a-vapor-correndo-no-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 505,
@@ -91319,7 +92155,7 @@
     "en": "Steam locomotive crossing a high stone bridge",
     "slug": "trem-locomotiva-a-vapor-cruzando-a-ponte",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 506,
@@ -91330,7 +92166,7 @@
     "en": "Steam locomotive carrying logs and cargo",
     "slug": "trem-locomotiva-a-vapor-levando-toras-e-carga",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 507,
@@ -91341,7 +92177,7 @@
     "en": "Steam locomotive parked at a cozy station",
     "slug": "trem-locomotiva-a-vapor-parado-na-estacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 508,
@@ -91352,7 +92188,7 @@
     "en": "Steam locomotive driving through a green forest",
     "slug": "trem-locomotiva-a-vapor-pela-floresta-verde",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 509,
@@ -91363,7 +92199,7 @@
     "en": "Steam locomotive blowing its whistle happily",
     "slug": "trem-locomotiva-a-vapor-apitando-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 51,
@@ -91385,7 +92221,7 @@
     "en": "Steam locomotive riding on a play rug",
     "slug": "trem-locomotiva-a-vapor-andando-no-tapete",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 511,
@@ -91396,7 +92232,7 @@
     "en": "Bullet train puffing steam along mountain tracks",
     "slug": "trem-trem-bala-soltando-fumaca-nos-trilhos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 512,
@@ -91407,7 +92243,7 @@
     "en": "Bullet train speeding through a tunnel",
     "slug": "trem-trem-bala-correndo-no-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 513,
@@ -91418,7 +92254,7 @@
     "en": "Bullet train crossing a high stone bridge",
     "slug": "trem-trem-bala-cruzando-a-ponte",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 514,
@@ -91429,7 +92265,7 @@
     "en": "Bullet train carrying logs and cargo",
     "slug": "trem-trem-bala-levando-toras-e-carga",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 515,
@@ -91440,7 +92276,7 @@
     "en": "Bullet train parked at a cozy station",
     "slug": "trem-trem-bala-parado-na-estacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 516,
@@ -91451,7 +92287,7 @@
     "en": "Bullet train driving through a green forest",
     "slug": "trem-trem-bala-pela-floresta-verde",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 517,
@@ -91462,7 +92298,7 @@
     "en": "Bullet train blowing its whistle happily",
     "slug": "trem-trem-bala-apitando-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 518,
@@ -91473,7 +92309,7 @@
     "en": "Bullet train riding on a play rug",
     "slug": "trem-trem-bala-andando-no-tapete",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 519,
@@ -91484,7 +92320,7 @@
     "en": "Freight train puffing steam along mountain tracks",
     "slug": "trem-trem-de-carga-soltando-fumaca-nos-trilhos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 52,
@@ -91506,7 +92342,7 @@
     "en": "Freight train speeding through a tunnel",
     "slug": "trem-trem-de-carga-correndo-no-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 521,
@@ -91517,7 +92353,7 @@
     "en": "Freight train crossing a high stone bridge",
     "slug": "trem-trem-de-carga-cruzando-a-ponte",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 522,
@@ -91528,7 +92364,7 @@
     "en": "Freight train carrying logs and cargo",
     "slug": "trem-trem-de-carga-levando-toras-e-carga",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 523,
@@ -91539,7 +92375,7 @@
     "en": "Freight train parked at a cozy station",
     "slug": "trem-trem-de-carga-parado-na-estacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 524,
@@ -91550,7 +92386,7 @@
     "en": "Freight train driving through a green forest",
     "slug": "trem-trem-de-carga-pela-floresta-verde",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 525,
@@ -91561,7 +92397,7 @@
     "en": "Freight train blowing its whistle happily",
     "slug": "trem-trem-de-carga-apitando-alegre",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 526,
@@ -91572,7 +92408,7 @@
     "en": "Freight train riding on a play rug",
     "slug": "trem-trem-de-carga-andando-no-tapete",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 527,
@@ -91583,7 +92419,7 @@
     "en": "Passenger train puffing steam along mountain tracks",
     "slug": "trem-trem-de-passageiros-soltando-fumaca-nos-trilhos",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 528,
@@ -91594,7 +92430,7 @@
     "en": "Passenger train speeding through a tunnel",
     "slug": "trem-trem-de-passageiros-correndo-no-tunel",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 529,
@@ -91605,7 +92441,7 @@
     "en": "Passenger train crossing a high stone bridge",
     "slug": "trem-trem-de-passageiros-cruzando-a-ponte",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 53,
@@ -91627,7 +92463,7 @@
     "en": "Passenger train carrying logs and cargo",
     "slug": "trem-trem-de-passageiros-levando-toras-e-carga",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 531,
@@ -91638,7 +92474,7 @@
     "en": "Passenger train parked at a cozy station",
     "slug": "trem-trem-de-passageiros-parado-na-estacao",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 532,
@@ -91649,7 +92485,7 @@
     "en": "Passenger train driving through a green forest",
     "slug": "trem-trem-de-passageiros-pela-floresta-verde",
     "tier": "free",
-    "isNew": false
+    "isNew": true
   },
   {
     "index": 533,
