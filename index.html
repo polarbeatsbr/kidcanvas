@@ -186,10 +186,140 @@
 
     <!-- MAIN APP WRAPPER (SPA Views) -->
     <main id="app-wrapper">
+        <section id="view-home" class="page-view">
+            <!-- HERO SECTION COM MASCOTES -->
+            <div class="hero-bg">
+                <div class="container hero-container">
+                    <div class="hero-text">
+                        <!-- Rounded Purple Badge -->
+                        <div class="hero-badge-top">
+                            <span>Onde cada desenho vira</span>
+                            <span class="stars-deco">✨</span>
+                        </div>
+                        
+                        <!-- Huge Purple Heading -->
+                        <h1 class="hero-title-huge">
+                            aventura! <span class="header-star-1">⭐</span><span class="header-star-2">✨</span>
+                        </h1>
+                        
+                        <!-- Subtitle -->
+                        <p class="hero-desc-new">
+                            Mais de 14.000 desenhos para colorir, livros mágicos personalizados e ferramentas criativas para transformar a imaginação em diversão.
+                        </p>
+                        
+                        <!-- Stats Badge -->
+                        <div class="hero-stats-badge">
+                            <span class="stats-badge-icon"><i class="fa-solid fa-images"></i></span>
+                            <span class="stats-badge-text"><strong>14.000+</strong> Desenhos para colorir e biblioteca grátis</span>
+                        </div>
+                        
+                        <!-- The 4 CTA Cards Grid -->
+                        <div class="hero-cta-grid-new">
+                            <!-- 1. Desenho com IA -->
+                            <a href="/gerar-desenho" class="hero-cta-card-new card-ia-drawing-new">
+                                <span class="cta-icon-new"><i class="fa-solid fa-pencil"></i></span>
+                                <div class="cta-info-new">
+                                    <span class="cta-title-new">Desenho com IA</span>
+                                    <span class="cta-subtitle-new">Desenhos Personalizados</span>
+                                </div>
+                            </a>
 
-        <!-- ==============================================
-             1. HOME VIEW
-             ============================================== -->
+                            <!-- 2. História Mágica -->
+                            <a href="/historias-magicas" class="hero-cta-card-new card-ia-story-new">
+                                <span class="cta-icon-new"><i class="fa-solid fa-book-open"></i></span>
+                                <div class="cta-info-new">
+                                    <span class="cta-title-new">História Mágica</span>
+                                    <span class="cta-subtitle-new">Livros Personalizados</span>
+                                </div>
+                            </a>
+
+                            <!-- 3. Pintura Online -->
+                            <a href="/pintar-online" onclick="startFreeHandDrawing(event); return false;" class="hero-cta-card-new card-free-paint-new">
+                                <span class="cta-icon-new"><i class="fa-solid fa-palette"></i></span>
+                                <div class="cta-info-new">
+                                    <span class="cta-title-new">Pintura Online</span>
+                                    <span class="cta-subtitle-new">Pintar e Desenhar</span>
+                                </div>
+                            </a>
+
+                            <!-- 4. Biblioteca Grátis -->
+                            <a href="#home-drawings-grid" class="hero-cta-card-new card-free-library-new">
+                                <span class="cta-icon-new"><i class="fa-solid fa-images"></i></span>
+                                <div class="cta-info-new">
+                                    <span class="cta-title-new">Biblioteca Grátis</span>
+                                    <span class="cta-subtitle-new">14.000+ Desenhos</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Illustration Column with Speech Bubbles -->
+                    <div class="hero-mascots-new">
+                        <div class="speech-bubble bubble-pedrinho">
+                            Oi! Eu sou o Pedrinho!
+                            <div class="bubble-arrow"></div>
+                        </div>
+                        <div class="speech-bubble bubble-sonia">
+                            E eu sou a Vovó Sônia! Vamos colorir juntinhos? 💜
+                            <div class="bubble-arrow"></div>
+                        </div>
+                        <img src="/hero_mascots.jpg" alt="Vovó Sônia e Pedrinho colorindo juntinhos" class="hero-image-new">
+                    </div>
+                </div>
+
+                <!-- Bottom Features Bar -->
+                <div class="container">
+                    <div class="hero-features-bar">
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <span class="feature-icon icon-shield"><i class="fa-solid fa-shield-halved"></i></span>
+                                <div class="feature-text">
+                                    <strong>Seguro para crianças</strong>
+                                    <span>Ambiente protegido</span>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon icon-star"><i class="fa-solid fa-star"></i></span>
+                                <div class="feature-text">
+                                    <strong>Conteúdo educativo</strong>
+                                    <span>Diversão que ensina</span>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon icon-family"><i class="fa-solid fa-user-group"></i></span>
+                                <div class="feature-text">
+                                    <strong>Para toda a família</strong>
+                                    <span>Pais e filhos juntos</span>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <span class="feature-icon icon-sparkles"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                                <div class="feature-text">
+                                    <strong>Novos desenhos</strong>
+                                    <span>Toda semana</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="features-cta">
+                            <a href="/gerar-desenho" class="btn-features-cta">
+                                Comece agora ✨
+                            </a>
+                            <span class="features-cta-sub">A imaginação não tem limites! 💜</span>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Tags -->
+                    <div class="hero-benefits-tags">
+                        <span class="benefit-tag"><i class="fa-solid fa-circle-check text-green-check"></i> Sem anúncios</span>
+                        <span class="benefit-tag-divider">|</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-infinity text-green-check"></i> Acesso ilimitado</span>
+                        <span class="benefit-tag-divider">|</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-lock text-orange-lock"></i> Conteúdo exclusivo</span>
+                        <span class="benefit-tag-divider">|</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-heart text-red-heart"></i> Suporte humano</span>
+                    </div>
+                </div>
 
                 <!-- Efeito de tinta escorrendo no hero (SVG shape divider) -->
                 <div class="hero-drip-divider" aria-hidden="true">
