@@ -5238,14 +5238,14 @@ button, input, select, textarea {
     border-color: var(--color-dark) transparent transparent transparent;
     bottom: -15px;
     right: 30px;
-    transform: skewX(-25deg); /* Inclina a seta para apontar para a direita (Pedrinho) */
+    transform: skewX(25deg); /* Inclina a seta para a direita em direção à cabeça do Pedrinho */
 }
 .bubble-pedrinho-hero::after {
     border-width: 13px 7px 0 7px;
     border-color: var(--color-white) transparent transparent transparent;
     bottom: -11px;
     right: 31px;
-    transform: skewX(-25deg);
+    transform: skewX(25deg);
 }
 
 /* Balão da Vovó Sônia */
@@ -5260,14 +5260,14 @@ button, input, select, textarea {
     border-color: var(--color-dark) transparent transparent transparent;
     bottom: -15px;
     left: 45px;
-    transform: skewX(25deg); /* Inclina a seta para apontar para a esquerda (Vovó Sônia) */
+    transform: skewX(-25deg); /* Inclina a seta para a esquerda em direção à cabeça da Vovó */
 }
 .bubble-sonia-hero::after {
     border-width: 13px 7px 0 7px;
     border-color: var(--color-white) transparent transparent transparent;
     bottom: -11px;
     left: 46px;
-    transform: skewX(25deg);
+    transform: skewX(-25deg);
 }
 
 /* Features Bottom Bar */
@@ -5511,14 +5511,18 @@ button, input, select, textarea {
         max-width: 125px;
     }
     .bubble-pedrinho-hero::before {
-        border-width: 10px 0 10px 12px;
-        bottom: -13px;
-        right: 15px;
+        border-width: 12px 7px 0 7px;
+        border-color: var(--color-dark) transparent transparent transparent;
+        bottom: -12px;
+        right: 20px;
+        transform: skewX(20deg); /* Aponta para a direita (Pedrinho) */
     }
     .bubble-pedrinho-hero::after {
-        border-width: 8px 0 8px 10px;
+        border-width: 10px 5px 0 5px;
+        border-color: var(--color-white) transparent transparent transparent;
         bottom: -9px;
-        right: 16px;
+        right: 21px;
+        transform: skewX(20deg);
     }
     
     .bubble-sonia-hero {
@@ -5527,14 +5531,18 @@ button, input, select, textarea {
         max-width: 195px;
     }
     .bubble-sonia-hero::before {
-        border-width: 10px 12px 10px 0;
-        bottom: -13px;
-        left: 30px;
+        border-width: 12px 7px 0 7px;
+        border-color: var(--color-dark) transparent transparent transparent;
+        bottom: -12px;
+        left: 35px;
+        transform: skewX(-20deg); /* Aponta para a esquerda (Vovó Sônia) */
     }
     .bubble-sonia-hero::after {
-        border-width: 8px 10px 8px 0;
+        border-width: 10px 5px 0 5px;
+        border-color: var(--color-white) transparent transparent transparent;
         bottom: -9px;
-        left: 31px;
+        left: 36px;
+        transform: skewX(-20deg);
     }
 
     
