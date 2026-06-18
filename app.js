@@ -3862,6 +3862,101 @@ function setupCustomDrawingActionListeners(imageUrl) {
             navigate('/pintar-online');
         };
     }
+
+    const saveGalleryBtn = document.getElementById('btn-save-custom-gallery');
+    if (saveGalleryBtn) {
+        if (currentUser) {
+            saveGalleryBtn.style.display = 'inline-flex';
+            saveGalleryBtn.onclick = async () => {
+                if (!currentUser) {
+                    showToast('Por favor, faça login para salvar desenhos na galeria.', 'error');
+                    openAuthModal();
+                    return;
+                }
+                
+                try {
+                    saveGalleryBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
+                    saveGalleryBtn.disabled = true;
+                    
+                    const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+                    const response = await fetch('/api/user/save-painting', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-session-token': sessionToken
+                        },
+                        body: JSON.stringify({
+                            imageUrl: imageUrl,
+                            prompt: promptText,
+                            isPublic: false,
+                            category: 'Criação com IA'
+                        })
+                    });
+                    
+                    const resData = await response.json();
+                    
+                    if (response.ok && resData.success) {
+                        currentUser.myPaintings = resData.myPaintings;
+                        if (resData.cards) currentUser.cards = resData.cards;
+                        if (resData.stars) {
+                            currentUser.stars = resData.stars;
+                            updateStarsUI();
+                        }
+                        checkNewAchievements();
+                        
+                        showToast('Desenho salvo na sua galeria com sucesso! 🎉', 'success');
+                        saveGalleryBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> ✅ Salvo!';
+                        
+                        // Animar revelações de descobertas recém-desbloqueadas
+                        if (resData.newlyUnlocked && resData.newlyUnlocked.length > 0) {
+                            resData.newlyUnlocked.forEach((card, index) => {
+                                setTimeout(() => {
+                                    revealCardAnimation(
+                                        card.name,
+                                        card.rarity,
+                                        card.imageUrl,
+                                        card.curiosity,
+                                        card.collection ? card.collection.split(' ')[0] : null
+                                    );
+                                }, index * 4000 + 1500);
+                            });
+                        }
+                        
+                        // Animar revelações de Mítica (completou coleção)
+                        if (resData.completionRewards && resData.completionRewards.length > 0) {
+                            resData.completionRewards.forEach((comp, index) => {
+                                const mythic = comp.mythicCard;
+                                const colName = comp.colName;
+                                const delay = (resData.newlyUnlocked ? resData.newlyUnlocked.length : 0) * 4000 + (index * 4000) + 2500;
+                                setTimeout(() => {
+                                    revealCardAnimation(mythic.name, 'Mítica', mythic.imageUrl, mythic.curiosity, colName);
+                                }, delay);
+                            });
+                        }
+                        
+                        setTimeout(() => {
+                            saveGalleryBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> 💾 Salvar na Galeria';
+                            saveGalleryBtn.disabled = false;
+                        }, 2000);
+                    } else {
+                        showToast(resData.message || 'Erro ao salvar desenho na galeria.', 'error');
+                        saveGalleryBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> 💾 Salvar na Galeria';
+                        saveGalleryBtn.disabled = false;
+                        if (resData.limitExceeded) {
+                            openCreditsModal(resData.message || 'Você atingiu o limite do seu plano. Faça upgrade para salvar mais!', 'Limite do Plano Atingido! 🚀');
+                        }
+                    }
+                } catch (err) {
+                    console.error('[Save Custom Drawing Error]:', err);
+                    showToast('Erro de conexão ao salvar na galeria.', 'error');
+                    saveGalleryBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> 💾 Salvar na Galeria';
+                    saveGalleryBtn.disabled = false;
+                }
+            };
+        } else {
+            saveGalleryBtn.style.display = 'none';
+        }
+    }
 }
 
 async function handleWaitlistSubmit(event) {
