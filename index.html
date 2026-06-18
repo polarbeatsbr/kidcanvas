@@ -35,7 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=18062026_02">
+    <link rel="stylesheet" href="/style.css?v=1781720475169.2">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -65,11 +65,6 @@
                         <div class="search-suggestions-dropdown" id="global-suggestions-dropdown" style="display: none;"></div>
                     </div>
                 </div>
-
-                <!-- Botão de Busca Mobile (exibido apenas no celular) -->
-                <button class="mobile-search-toggle-btn" id="mobile-search-toggle-btn" aria-label="Buscar desenho" onclick="openMobileSearchModal()">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
 
                 <!-- Botão Menu Hambúrguer (Mobile) -->
                 <button class="menu-toggle" id="menu-toggle-btn" aria-label="Abrir menu">
@@ -144,47 +139,52 @@
                         <!-- Contador de Selos/Conquistas -->
                         <span id="header-achievement-count" class="header-achievement-count" style="display: none;" title="Álbum de Conquistas">🏆 0 Selos</span>
                         
-                        <!-- Menu Dropdown de Ações da Conta (abre ao clicar em qualquer parte do widget de perfil) -->
-                        <div class="profile-dropdown-menu" id="profile-dropdown-menu">
-                            <div class="dropdown-user-header">
-                                <div id="dropdown-user-avatar-container" class="dropdown-user-avatar" style="display: flex; align-items: center; justify-content: center; font-size: 1.6rem; user-select: none; overflow: hidden;">
-                                    <img id="dropdown-user-avatar" src="" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                                    <span id="dropdown-user-avatar-emoji" style="display: none;">👤</span>
+                        <!-- Engrenagem que abre o dropdown de configurações/ações -->
+                        <div class="profile-settings-dropdown-wrapper">
+                            <button id="btn-profile-settings" class="btn-profile-settings" title="Menu da Conta">
+                                <i class="fa-solid fa-gear"></i>
+                            </button>
+                            <div class="profile-dropdown-menu" id="profile-dropdown-menu">
+                                <div class="dropdown-user-header">
+                                    <div id="dropdown-user-avatar-container" class="dropdown-user-avatar" style="display: flex; align-items: center; justify-content: center; font-size: 1.6rem; user-select: none; overflow: hidden;">
+                                        <img id="dropdown-user-avatar" src="" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                        <span id="dropdown-user-avatar-emoji" style="display: none;">👤</span>
+                                    </div>
+                                    <div class="dropdown-user-info">
+                                        <span id="dropdown-user-display-name" class="dropdown-user-name">Nome</span>
+                                        <span id="dropdown-user-plan-badge" class="dropdown-user-plan">Plano</span>
+                                    </div>
                                 </div>
-                                <div class="dropdown-user-info">
-                                    <span id="dropdown-user-display-name" class="dropdown-user-name">Nome</span>
-                                    <span id="dropdown-user-plan-badge" class="dropdown-user-plan">Plano</span>
-                                </div>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" onclick="navigate('/minhas-criacoes'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-image"></i> Minhas Criações
+                                </a>
+                                <a href="#" onclick="openAlbumModal(); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-book"></i> Livro das Descobertas
+                                </a>
+                                <a href="#" onclick="openAvatarSelectionModal(); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-face-smile"></i> Escolher Avatar
+                                </a>
+                                <a href="#" onclick="navigate('/gerar-desenho'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho IA
+                                </a>
+                                <a href="#" onclick="navigate('/historias-magicas'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-book-open"></i> Histórias Mágicas
+                                </a>
+                                <a href="#" onclick="navigate('/planos'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Upgrade de Plano
+                                </a>
+                                <a href="#" onclick="navigate('/politica-de-privacidade'); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-shield-halved"></i> Política de Privacidade
+                                </a>
+                                <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" class="dropdown-menu-item" style="color: #e74c3c;">
+                                    <i class="fa-solid fa-bug"></i> Reportar Bug
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" onclick="handleHeaderLogout(); return false;" class="dropdown-menu-item logout-item">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Deslogar
+                                </a>
                             </div>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" onclick="navigate('/minhas-criacoes'); return false;" class="dropdown-menu-item">
-                                <i class="fa-solid fa-image"></i> Minhas Criações
-                            </a>
-                            <a href="#" onclick="openAlbumModal(); return false;" class="dropdown-menu-item">
-                                <i class="fa-solid fa-book"></i> Livro das Descobertas
-                            </a>
-                            <a href="#" onclick="openAvatarSelectionModal(); return false;" class="dropdown-menu-item">
-                                <i class="fa-solid fa-face-smile"></i> Escolher Avatar
-                            </a>
-                            <a href="#" onclick="navigate('/gerar-desenho'); return false;" class="dropdown-menu-item">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho IA
-                            </a>
-                            <a href="#" onclick="navigate('/historias-magicas'); return false;" class="dropdown-menu-item">
-                                <i class="fa-solid fa-book-open"></i> Histórias Mágicas
-                            </a>
-                            <a href="#" onclick="navigate('/planos'); return false;" class="dropdown-menu-item">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Upgrade de Plano
-                            </a>
-                            <a href="#" onclick="navigate('/politica-de-privacidade'); return false;" class="dropdown-menu-item">
-                                <i class="fa-solid fa-shield-halved"></i> Política de Privacidade
-                            </a>
-                            <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" class="dropdown-menu-item" style="color: #e74c3c;">
-                                <i class="fa-solid fa-bug"></i> Reportar Bug
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" onclick="handleHeaderLogout(); return false;" class="dropdown-menu-item logout-item">
-                                <i class="fa-solid fa-right-from-bracket"></i> Deslogar
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -215,13 +215,13 @@
                         
                         <!-- Subtitle -->
                         <p class="hero-desc-new">
-                            📖 Cada desenho pode revelar uma nova descoberta. Pinte, explore e complete capítulos cheios de criaturas, lugares e aventuras incríveis!
+                            Um mundo interativo onde você coleciona cartas, ganha conquistas e vive aventuras mágicas pintando e brincando!
                         </p>
                         
                         <!-- Stats Badge -->
-                        <div class="hero-stats-badge" onclick="openAlbumModal(); return false;" style="background: linear-gradient(135deg, #f1c40f, #f39c12); color: white; border: none; box-shadow: 0 4px 10px rgba(243,156,18,0.3); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)';" onmouseout="this.style.transform='none';">
-                            <span class="stats-badge-icon" style="color: white;"><i class="fa-solid fa-book-open"></i></span>
-                            <span class="stats-badge-text" style="color: white; font-weight: 900;">📖 Começar Minha Aventura</span>
+                        <div class="hero-stats-badge" style="background: linear-gradient(135deg, #f1c40f, #f39c12); color: white; border: none; box-shadow: 0 4px 10px rgba(243,156,18,0.3);">
+                            <span class="stats-badge-icon" style="color: white;"><i class="fa-solid fa-star"></i></span>
+                            <span class="stats-badge-text" style="color: white; font-weight: 900;">Um mundo de cores e aventuras te espera!</span>
                         </div>
                         
                         <!-- BANNER EXPEDIÇÃO MÁGICA DA SEMANA (Missões) -->
@@ -337,13 +337,13 @@
 
                     <!-- Bottom Tags -->
                     <div class="hero-benefits-tags">
-                        <span class="benefit-tag"><i class="fa-solid fa-book-open text-purple-book"></i> Livro das Descobertas</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-circle-check text-green-check"></i> Sem anúncios</span>
                         <span class="benefit-tag-divider">|</span>
-                        <span class="benefit-tag"><i class="fa-solid fa-infinity text-green-check"></i> Mais de 14.000 desenhos</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-infinity text-green-check"></i> Acesso ilimitado</span>
                         <span class="benefit-tag-divider">|</span>
-                        <span class="benefit-tag"><i class="fa-solid fa-lock text-orange-lock"></i> Ambiente infantil seguro</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-lock text-orange-lock"></i> Conteúdo exclusivo</span>
                         <span class="benefit-tag-divider">|</span>
-                        <span class="benefit-tag"><i class="fa-solid fa-heart text-red-heart"></i> Feito para toda a família</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-heart text-red-heart"></i> Suporte humano</span>
                     </div>
                 </div>
 
@@ -2824,45 +2824,7 @@
     </div>
 </div>
 
-<!-- MODAL DE BUSCA FULLSCREEN (MOBILE) -->
-<div id="mobile-search-modal" class="mobile-search-modal" style="display: none;">
-    <div class="mobile-search-modal-header">
-        <button class="mobile-search-close-btn" onclick="closeMobileSearchModal()" aria-label="Fechar busca">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-    </div>
-    <div class="mobile-search-modal-content">
-        <h2 class="mobile-search-title">O que você quer colorir hoje?</h2>
-        
-        <div class="mobile-search-input-box">
-            <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
-            <input type="text" id="mobile-search-input" placeholder="Buscar desenhos..." autocomplete="off">
-        </div>
-
-        <!-- Pesquisas Populares -->
-        <div class="mobile-search-popular-wrapper" id="mobile-search-popular-wrapper">
-            <h3 class="mobile-search-section-title">Pesquisas populares</h3>
-            <div class="mobile-search-tags-grid">
-                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Unicórnios')">🦄 Unicórnios</button>
-                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Dinossauros')">🦖 Dinossauros</button>
-                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Borboletas')">🦋 Borboletas</button>
-                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Cachorros')">🐶 Cachorros</button>
-                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Veículos')">🚒 Veículos</button>
-                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Princesas')">👸 Princesas</button>
-            </div>
-        </div>
-
-        <!-- Resultados da busca -->
-        <div class="mobile-search-results-wrapper" id="mobile-search-results-wrapper" style="display: none;">
-            <h3 class="mobile-search-section-title">Resultados</h3>
-            <div class="mobile-search-results-grid" id="mobile-search-results-grid">
-                <!-- Preenchido via JS -->
-            </div>
-        </div>
-    </div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/app.js?v=18062026_02"></script>
+<script src="/app.js?v=1781758556845"></script>
 </body>
 </html>

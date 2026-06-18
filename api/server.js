@@ -653,9 +653,8 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
 
 
 // Servir os arquivos estáticos do frontend da raiz do projeto e da pasta public
-// maxAge: 0 e etag: false para desenvolvimento — sem cache no navegador
-app.use(express.static(path.join(__dirname, '..'), { maxAge: 0, etag: false, lastModified: false }));
-app.use(express.static(path.join(__dirname, '..', 'public'), { maxAge: 0, etag: false, lastModified: false }));
+app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Rate Limit Helper for anti-bot
 const ipRequestCounts = {}; // { ip: [timestamp1, timestamp2, ...] }
@@ -3637,36 +3636,17 @@ async function requireAuth(req, res, next) {
     next();
 }
 
-app.get('/api/events/current', async (req, res) => {
-    const token = req.headers['x-session-token'];
-    let user = null;
-    if (token) {
-        const users = await loadUsers();
-        user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
-    }
-
+app.get('/api/events/current', requireAuth, (req, res) => {
+    console.log(`[EVENTS] /api/events/current called by user=${req.user.email}`);
     const activeEvent = getActiveEvent();
     if (!activeEvent) {
         console.log('[EVENTS] No active event, returning active=false');
         return res.json({ success: true, active: false });
     }
     
+    const user = req.user;
     const week = activeEvent.week;
     
-    if (!user) {
-        console.log('[EVENTS] /api/events/current called by guest');
-        return res.json({
-            success: true,
-            active: true,
-            season: activeEvent.season,
-            week: week,
-            progress: {},
-            inventory: [],
-            isGuest: true
-        });
-    }
-    
-    console.log(`[EVENTS] /api/events/current called by user=${user.email}`);
     if (!user.eventProgress || user.eventProgress.eventId !== week.id) {
         user.eventProgress = {
             eventId: week.id,

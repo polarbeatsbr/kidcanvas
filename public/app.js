@@ -176,7 +176,6 @@ let currentUser = null;
 async function syncUserProfile() {
     if (!sessionToken) {
         updateHeaderAuthDisplay();
-        if (typeof checkActiveEvent === 'function') checkActiveEvent();
         return;
     }
     try {
@@ -959,22 +958,18 @@ function initGlobalEventListeners() {
         });
     }
 
-    // Toggle settings dropdown ao clicar no card de perfil
-    const userProfileWidget = document.getElementById('user-profile-widget');
+    // Toggle engrenagem settings dropdown
+    const btnProfileSettings = document.getElementById('btn-profile-settings');
     const profileDropdownMenu = document.getElementById('profile-dropdown-menu');
-    if (userProfileWidget && profileDropdownMenu) {
-        userProfileWidget.addEventListener('click', (e) => {
-            // Se o clique foi dentro do dropdown de ações, não faça toggle
-            if (e.target.closest('#profile-dropdown-menu')) {
-                return;
-            }
+    if (btnProfileSettings && profileDropdownMenu) {
+        btnProfileSettings.addEventListener('click', (e) => {
             e.stopPropagation();
             profileDropdownMenu.classList.toggle('open');
         });
         
         // Fechar dropdown de perfil ao clicar fora
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('#user-profile-widget')) {
+            if (!e.target.closest('.profile-settings-dropdown-wrapper')) {
                 profileDropdownMenu.classList.remove('open');
             }
         });
@@ -987,29 +982,7 @@ function initGlobalEventListeners() {
             loadNextCategoryDrawings();
         });
     }
-window.updateActiveBottomNav = function(activeId = null) {
-    document.querySelectorAll('.mobile-bottom-nav .mobile-nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    
-    if (activeId) {
-        const activeNav = document.getElementById(activeId);
-        if (activeNav) activeNav.classList.add('active');
-        return;
-    }
-    
-    const cleanPath = window.location.pathname.trim();
-    if (cleanPath === '/' || cleanPath === '/home' || cleanPath === '') {
-        const activeNav = document.getElementById('mobile-nav-home');
-        if (activeNav) activeNav.classList.add('active');
-    } else if (cleanPath === '/categorias' || cleanPath.startsWith('/categoria/')) {
-        const activeNav = document.getElementById('mobile-nav-categorias');
-        if (activeNav) activeNav.classList.add('active');
-    } else if (cleanPath === '/historias-magicas' || cleanPath === '/historia' || cleanPath === '/historias-exemplo') {
-        const activeNav = document.getElementById('mobile-nav-historia');
-        if (activeNav) activeNav.classList.add('active');
-    }
-};
+}
 
 function navigate(path, pushState = true) {
     let cleanPath = path.trim();
@@ -1143,8 +1116,16 @@ function navigate(path, pushState = true) {
     }
     
     // Atualizar classe ativa na barra de navegação inferior mobile (SPA)
-    if (typeof window.updateActiveBottomNav === 'function') {
-        window.updateActiveBottomNav();
+    document.querySelectorAll('.mobile-bottom-nav .mobile-nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    if (cleanPath === '/' || cleanPath === '/home' || cleanPath === '') {
+        const activeNav = document.getElementById('mobile-nav-home');
+        if (activeNav) activeNav.classList.add('active');
+    } else if (cleanPath === '/categorias' || cleanPath.startsWith('/categoria/')) {
+        const activeNav = document.getElementById('mobile-nav-categorias');
+        if (activeNav) activeNav.classList.add('active');
     }
     
     // Salvar no histórico
@@ -1720,20 +1701,17 @@ function renderHomeView() {
 function updateFeaturedHomeCards(paintings) {
     if (!paintings || paintings.length === 0) return;
 
-    // Filter out stories from featured drawings (since stories are books, not drawings to color/print)
-    const drawingsOnly = paintings.filter(p => p.category !== 'Histórias Mágicas');
-
     // 1. Destaque Geral (Mais Votado de todos)
-    const sortedAll = [...drawingsOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+    const sortedAll = [...paintings].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
     const topGeral = sortedAll[0];
 
-    // 2. Campeão de Colorir (actual colored drawing pages only)
-    const colorirOnly = drawingsOnly.filter(p => p.category === 'Colorir' || !p.category);
+    // 2. Campeão de Colorir
+    const colorirOnly = paintings.filter(p => p.category !== 'Mão Livre');
     const sortedColorir = [...colorirOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
     const topColorir = sortedColorir[0];
 
     // 3. Campeão Mão Livre
-    const maolivreOnly = drawingsOnly.filter(p => p.category === 'Mão Livre');
+    const maolivreOnly = paintings.filter(p => p.category === 'Mão Livre');
     const sortedMaoLivre = [...maolivreOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
     const topMaoLivre = sortedMaoLivre[0];
 
@@ -2830,139 +2808,11 @@ function initSearchAutocomplete() {
         setupAutocompleteEvents(homeSearch, homeDropdown);
     }
     
-    // Configurar busca mobile
-    const mobileSearchInput = document.getElementById('mobile-search-input');
-    if (mobileSearchInput) {
-        mobileSearchInput.addEventListener('input', updateMobileSearchResults);
-    }
-    
-    // Fechar modal de busca mobile ao clicar no fundo
-    const mobileSearchModal = document.getElementById('mobile-search-modal');
-    if (mobileSearchModal) {
-        mobileSearchModal.addEventListener('click', (e) => {
-            if (e.target === mobileSearchModal) {
-                closeMobileSearchModal();
-            }
-        });
-    }
-    
     // Fechar dropdowns ao clicar fora
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.header-search-box') && !e.target.closest('.search-form')) {
             closeAllSuggestions();
         }
-    });
-}
-
-// Funções de Busca Mobile Fullscreen
-function openMobileSearchModal() {
-    const modal = document.getElementById('mobile-search-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-        document.body.style.overflow = 'hidden'; // Evita scroll de fundo
-        if (typeof window.updateActiveBottomNav === 'function') {
-            window.updateActiveBottomNav('mobile-nav-search-trigger');
-        }
-        
-        setTimeout(() => {
-            const input = document.getElementById('mobile-search-input');
-            if (input) {
-                input.value = '';
-                input.focus();
-                updateMobileSearchResults();
-            }
-        }, 100);
-    }
-}
-window.openMobileSearchModal = openMobileSearchModal;
-
-function closeMobileSearchModal() {
-    const modal = document.getElementById('mobile-search-modal');
-    if (modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = '';
-        if (typeof window.updateActiveBottomNav === 'function') {
-            window.updateActiveBottomNav();
-        }
-    }
-}
-window.closeMobileSearchModal = closeMobileSearchModal;
-
-function triggerMobilePopularSearch(tag) {
-    const input = document.getElementById('mobile-search-input');
-    if (input) {
-        input.value = tag;
-        updateMobileSearchResults();
-    }
-}
-window.triggerMobilePopularSearch = triggerMobilePopularSearch;
-
-function updateMobileSearchResults() {
-    const query = document.getElementById('mobile-search-input').value.trim().toLowerCase();
-    const popularWrapper = document.getElementById('mobile-search-popular-wrapper');
-    const resultsWrapper = document.getElementById('mobile-search-results-wrapper');
-    const grid = document.getElementById('mobile-search-results-grid');
-    
-    if (query.length < 2) {
-        popularWrapper.style.display = 'block';
-        resultsWrapper.style.display = 'none';
-        grid.innerHTML = '';
-        return;
-    }
-    
-    popularWrapper.style.display = 'none';
-    resultsWrapper.style.display = 'block';
-    
-    const allMatched = allDrawings.filter(d => 
-        d.pt.toLowerCase().includes(query) || 
-        d.en.toLowerCase().includes(query) ||
-        CATEGORIES_DATA[d.category].name.toLowerCase().includes(query)
-    );
-    const matched = getVisibleDrawings(allMatched).slice(0, 20);
-    
-    grid.innerHTML = '';
-    if (matched.length === 0) {
-        grid.innerHTML = '<div style="grid-column: span 2; text-align: center; padding: 20px; font-weight: bold; color: #7f8c8d;">Nenhum desenho encontrado 🦖</div>';
-        return;
-    }
-    
-    matched.forEach(dw => {
-        const isLocked = !isDrawingAccessible(dw);
-        const card = document.createElement('div');
-        card.className = 'mobile-search-result-card';
-        
-        let badgeHtml = '<span class="badge-free" style="background: #2ecc71; color: white; border: none; font-size: 0.75rem; padding: 2px 6px; border-radius: 8px; font-weight: 700;">Grátis</span>';
-        if (isLocked) {
-            const requiredPlan = getRequiredPlanForDrawing(dw);
-            badgeHtml = `<span class="badge-free" style="background: #e67e22; color: white; border: none; font-size: 0.75rem; padding: 2px 6px; border-radius: 8px; font-weight: 700;"><i class="fa-solid fa-lock"></i> ${requiredPlan}</span>`;
-        }
-        
-        card.innerHTML = `
-            <div class="mobile-search-result-thumb-wrapper">
-                <img class="mobile-search-result-thumb" src="${dw.url}" alt="${dw.pt}">
-            </div>
-            <h4 class="mobile-search-result-title">${dw.pt}</h4>
-            <div style="padding: 0 10px 8px 10px; display: flex; justify-content: space-between; align-items: center;">
-                ${badgeHtml}
-            </div>
-        `;
-        
-        card.onclick = () => {
-            closeMobileSearchModal();
-            if (isLocked) {
-                if (!currentUser) {
-                    showToast('Faça login ou cadastre-se grátis para liberar este desenho! 🎨', 'info');
-                    openAuthModal();
-                } else {
-                    const requiredPlan = getRequiredPlanForDrawing(dw);
-                    showToast(`Este desenho requer o plano ${requiredPlan}! Redirecionando para planos... 🚀`, 'info');
-                    navigate('/planos');
-                }
-            } else {
-                navigate(`/${dw.category}/${dw.slug}`);
-            }
-        };
-        grid.appendChild(card);
     });
 }
 
@@ -9286,11 +9136,9 @@ let currentActiveEvent = null;
 
 async function checkActiveEvent() {
     try {
-        const headers = {};
-        if (sessionToken) {
-            headers['X-Session-Token'] = sessionToken;
-        }
-        const res = await fetch('/api/events/current', { headers });
+        const res = await fetch('/api/events/current', {
+            headers: { 'X-Session-Token': sessionToken }
+        });
         const data = await res.json();
         
         if (data.success && data.active) {
@@ -9996,9 +9844,6 @@ window.openAlbumModal = async function() {
         overlay.classList.add('active');
         const wrap = overlay.querySelector('.livro-paginas-wrap');
         if (wrap) wrap.scrollLeft = 0;
-        if (typeof window.updateActiveBottomNav === 'function') {
-            window.updateActiveBottomNav('mobile-nav-album');
-        }
     }
 };
 
@@ -10303,9 +10148,6 @@ window.closeAlbumModal = function() {
     if (window.livroDicasInterval) {
         clearInterval(window.livroDicasInterval);
         window.livroDicasInterval = null;
-    }
-    if (typeof window.updateActiveBottomNav === 'function') {
-        window.updateActiveBottomNav();
     }
 };
 

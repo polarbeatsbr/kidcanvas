@@ -1212,37 +1212,28 @@ button, input, select, textarea {
 }
 
 /* Prevenir quebras no menu em resoluções intermediárias (desktop menor/tablet horizontal) */
-@media (max-width: 1400px) and (min-width: 901px) {
+@media (max-width: 1250px) and (min-width: 901px) {
     .header-right-wrapper {
-        gap: 6px;
+        gap: 10px;
     }
     #navbar ul {
-        gap: 4px;
+        gap: 6px;
     }
     .nav-link {
-        font-size: 0.8rem;
-        padding: 4px 6px;
+        font-size: 0.85rem;
+        padding: 5px 8px;
     }
-    #navbar .nav-link i {
-        display: none !important;
+    #navbar .nav-link i:not(.fa-book-open) {
+        display: none;
     }
     .logo-dot {
         display: none;
     }
     .logo {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
     .logo-icon {
-        font-size: 1.6rem;
-    }
-    .user-profile-widget {
-        padding: 4px 8px;
-        gap: 6px;
-    }
-    .iphone-battery-wrapper {
-        padding: 3px 6px;
-        gap: 4px;
-        height: 28px;
+        font-size: 1.7rem;
     }
 }
 
@@ -2003,7 +1994,6 @@ button, input, select, textarea {
     display: flex;
     align-items: center;
     margin-left: 15px;
-    margin-right: 10px;
     flex-shrink: 0;
 }
 
@@ -2017,8 +2007,6 @@ button, input, select, textarea {
     padding: 6px 12px;
     box-shadow: var(--shadow-cartoon-active);
     transition: var(--transition-bounce);
-    position: relative;
-    cursor: pointer;
 }
 
 .user-profile-widget:hover {
@@ -2093,9 +2081,10 @@ button, input, select, textarea {
 /* Ajustes responsivos adicionais para o header-auth no celular */
 @media (max-width: 768px) {
     .header-auth {
-        position: static;
-        margin-left: auto;
-        order: 2;
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        margin-left: 0;
     }
     
     .user-profile-widget {
@@ -4114,29 +4103,22 @@ button, input, select, textarea {
         /* --- RESPONSIVIDADE DO PERFIL --- */
         @media (max-width: 768px) {
             .header-auth {
-                position: static;
-                margin-left: auto;
+                position: absolute;
+                top: 10px;
+                right: 50px; /* dar espaço para o menu hambúrguer */
+                margin-left: 0;
                 z-index: 1050;
             }
             .user-profile-widget {
-                padding: 4px 6px;
+                padding: 4px;
                 gap: 5px;
-                border: var(--border-thin);
-                background: var(--color-purple-light);
-                box-shadow: 0 2px 0 rgba(61, 40, 26, 0.15);
-                border-radius: var(--radius-sm);
+                border: none;
+                background: none;
+                box-shadow: none;
             }
             .user-profile-widget:hover {
                 transform: none;
-                box-shadow: 0 2px 0 rgba(61, 40, 26, 0.15);
-            }
-            .profile-dropdown-menu {
-                position: fixed;
-                top: auto;
-                right: 10px;
-                left: auto;
-                width: calc(100vw - 20px);
-                max-width: 300px;
+                box-shadow: none;
             }
         }
 
@@ -5637,6 +5619,7 @@ button, input, select, textarea {
     .hero-benefits-tags .benefit-tag-divider {
         display: none;
     }
+}
 }
 
 /* ==============================================
@@ -8576,214 +8559,3 @@ button, input, select, textarea {
 }
 
 
-
-
-/* ==========================================================================
-   MODAL DE BUSCA FULLSCREEN (MOBILE)
-   ========================================================================== */
-.mobile-search-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #fcfaf2; /* Fundo bege suave da identidade KidCanvas */
-    z-index: 9999; /* Fica acima de tudo */
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
-}
-
-.mobile-search-modal-header {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.mobile-search-close-btn {
-    background: #fff;
-    border: var(--border-thin);
-    border-radius: 50%;
-    width: 44px; /* Acessibilidade toque */
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 1.35rem;
-    color: var(--color-dark);
-    box-shadow: var(--shadow-cartoon-active);
-}
-
-.mobile-search-modal-content {
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.mobile-search-title {
-    font-family: var(--font-heading);
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--color-purple);
-    text-align: center;
-    margin: 0;
-}
-
-.mobile-search-input-box {
-    position: relative;
-    width: 100%;
-}
-
-.mobile-search-input-box input {
-    width: 100%;
-    height: 54px; /* Grande e fácil de tocar */
-    border: var(--border-medium);
-    border-radius: 27px; /* Estilo arredondado infantil */
-    padding: 0 20px 0 50px;
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-dark);
-    background-color: var(--color-white);
-    box-shadow: var(--shadow-cartoon);
-    outline: none;
-    box-sizing: border-box;
-}
-
-.mobile-search-input-box input:focus {
-    border-color: var(--color-purple);
-}
-
-.mobile-search-input-box .search-input-icon {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.25rem;
-    color: #a29bfe;
-}
-
-.mobile-search-section-title {
-    font-family: var(--font-heading);
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: var(--color-dark);
-    margin: 0 0 15px 0;
-}
-
-/* Grid de Pesquisas Populares */
-.mobile-search-tags-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.mobile-search-tag-btn {
-    background-color: var(--color-white);
-    border: var(--border-thin);
-    border-radius: 16px;
-    padding: 12px 15px;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--color-dark-light);
-    cursor: pointer;
-    box-shadow: var(--shadow-cartoon-active);
-    text-align: center;
-    min-height: 48px; /* Touch friendly */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    transition: transform 0.1s ease;
-}
-
-.mobile-search-tag-btn:active {
-    transform: scale(0.95);
-}
-
-/* Grid de Resultados */
-.mobile-search-results-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.mobile-search-result-card {
-    background-color: var(--color-white);
-    border: var(--border-thin);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    box-shadow: var(--shadow-cartoon-active);
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.1s ease;
-    min-height: 140px;
-}
-
-.mobile-search-result-card:active {
-    transform: scale(0.97);
-}
-
-.mobile-search-result-thumb-wrapper {
-    width: 100%;
-    height: 100px;
-    background-color: #faf8f0;
-    border-bottom: var(--border-thin);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.mobile-search-result-thumb {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.mobile-search-result-title {
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--color-dark);
-    padding: 6px 10px;
-    text-align: center;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* Botão de Busca no Cabeçalho */
-.mobile-search-toggle-btn {
-    display: none; /* Escondido por padrão no desktop */
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.35rem;
-    color: var(--color-dark);
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-}
-
-@media (max-width: 768px) {
-    .header-search-box {
-        display: none !important;
-    }
-    .mobile-search-toggle-btn {
-        display: flex;
-        margin-right: 5px;
-    }
-}
