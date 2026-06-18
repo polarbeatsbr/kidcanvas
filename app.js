@@ -3867,6 +3867,8 @@ function setupCustomDrawingActionListeners(imageUrl) {
     if (saveGalleryBtn) {
         if (currentUser) {
             saveGalleryBtn.style.display = 'inline-flex';
+            saveGalleryBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> 💾 Salvar na Galeria';
+            saveGalleryBtn.disabled = false;
             saveGalleryBtn.onclick = async () => {
                 if (!currentUser) {
                     showToast('Por favor, faça login para salvar desenhos na galeria.', 'error');
@@ -3902,13 +3904,19 @@ function setupCustomDrawingActionListeners(imageUrl) {
                             currentUser.stars = resData.stars;
                             updateStarsUI();
                         }
-                        checkNewAchievements();
                         
-                        showToast('Desenho salvo na sua galeria com sucesso! 🎉', 'success');
+                        if (resData.alreadySaved) {
+                            showToast('Desenho já salvo na sua galeria! 🎉', 'success');
+                        } else {
+                            checkNewAchievements();
+                            showToast('Desenho salvo na sua galeria com sucesso! 🎉', 'success');
+                        }
+                        
                         saveGalleryBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> ✅ Salvo!';
+                        saveGalleryBtn.disabled = true;
                         
                         // Animar revelações de descobertas recém-desbloqueadas
-                        if (resData.newlyUnlocked && resData.newlyUnlocked.length > 0) {
+                        if (!resData.alreadySaved && resData.newlyUnlocked && resData.newlyUnlocked.length > 0) {
                             resData.newlyUnlocked.forEach((card, index) => {
                                 setTimeout(() => {
                                     revealCardAnimation(
@@ -3923,7 +3931,7 @@ function setupCustomDrawingActionListeners(imageUrl) {
                         }
                         
                         // Animar revelações de Mítica (completou coleção)
-                        if (resData.completionRewards && resData.completionRewards.length > 0) {
+                        if (!resData.alreadySaved && resData.completionRewards && resData.completionRewards.length > 0) {
                             resData.completionRewards.forEach((comp, index) => {
                                 const mythic = comp.mythicCard;
                                 const colName = comp.colName;
@@ -3933,11 +3941,6 @@ function setupCustomDrawingActionListeners(imageUrl) {
                                 }, delay);
                             });
                         }
-                        
-                        setTimeout(() => {
-                            saveGalleryBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> 💾 Salvar na Galeria';
-                            saveGalleryBtn.disabled = false;
-                        }, 2000);
                     } else {
                         showToast(resData.message || 'Erro ao salvar desenho na galeria.', 'error');
                         saveGalleryBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> 💾 Salvar na Galeria';
@@ -9560,15 +9563,45 @@ window.revealCardAnimation = function(name, rarity, imageUrl, curiosity, collect
         // Disparar efeitos de partículas
         dispararParticulasMagicas(colTheme, rarity);
         
-        // Confetes se for Rara ou superior
+        // Confetes e show de fogos de artifício no fundo do card
         if (typeof confetti !== 'undefined') {
-            if (rarity === 'Rara') {
-                confetti({ particleCount: 50, spread: 60, colors: ['#74b9ff', '#ffffff'] });
-            } else if (rarity === 'Épica') {
-                confetti({ particleCount: 90, spread: 85, colors: ['#a29bfe', '#6c5ce7', '#ffffff'] });
-            } else if (rarity === 'Mítica') {
-                confetti({ particleCount: 180, spread: 100, colors: ['#ffeaa7', '#fdcb6e', '#fd9644', '#00b894', '#ffffff'] });
-            }
+            const duration = 2.5 * 1000;
+            const end = Date.now() + duration;
+            
+            let colors = ['#2ecc71', '#f1c40f', '#e67e22', '#e74c3c', '#3498db'];
+            if (rarity === 'Rara') colors = ['#74b9ff', '#0984e3', '#ffffff'];
+            else if (rarity === 'Épica') colors = ['#a29bfe', '#6c5ce7', '#ffffff'];
+            else if (rarity === 'Mítica') colors = ['#ffeaa7', '#fdcb6e', '#fd9644', '#00b894', '#ffffff'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 4,
+                    angle: 60,
+                    spread: 55,
+                    colors: colors,
+                    origin: { x: 0, y: 0.8 }
+                });
+                confetti({
+                    particleCount: 4,
+                    angle: 120,
+                    spread: 55,
+                    colors: colors,
+                    origin: { x: 1, y: 0.8 }
+                });
+                
+                if (Math.random() > 0.75) {
+                    confetti({
+                        particleCount: 15,
+                        spread: 80,
+                        colors: colors,
+                        origin: { x: Math.random() * 0.4 + 0.3, y: Math.random() * 0.3 + 0.3 }
+                    });
+                }
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
         }
         
         // Exibir o botão salvar após a animação de folheamento

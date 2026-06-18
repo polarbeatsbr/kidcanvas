@@ -2217,6 +2217,22 @@ app.post('/api/user/save-painting', async (req, res) => {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
 
+        // Evitar salvamento duplicado
+        if (imageUrl) {
+            const alreadyExists = (user.myPaintings || []).some(p => p.url === imageUrl);
+            if (alreadyExists) {
+                console.log(`[Save Painting] Pintura duplicada ignorada (já salva): ${imageUrl}`);
+                return res.json({
+                    success: true,
+                    alreadySaved: true,
+                    imageUrl: imageUrl,
+                    myPaintings: user.myPaintings,
+                    cards: user.cards,
+                    stars: user.stars
+                });
+            }
+        }
+
         // Verificar limite de armazenamento por plano (Pinturas)
         const plan = user.plan || 'Aprendiz';
         let limit = 5;
