@@ -13,7 +13,7 @@
         { "id": "dino_facil", "type": "paint_category", "target": "dinossauros", "req": 3, "reward": { "type": "stars", "value": 5 }, "tier": "facil", "title": "Ovos de Dinossauro", "desc": "Pinte 3 dinossauros" },
         { "id": "dino_media", "type": "paint_category", "target": "dinossauros", "req": 5, "reward": { "type": "badge", "value": "cacador_jurassico" }, "tier": "media", "title": "Caçador Jurássico", "desc": "Pinte 5 dinossauros" },
         { "id": "dino_dificil", "type": "paint_category", "target": "dinossauros", "req": 10, "reward": { "type": "stars", "value": 20 }, "tier": "dificil", "title": "Explorador Perdido", "desc": "Pinte 10 dinossauros" },
-        { "id": "dino_epica", "type": "complete_all", "target": "semana_dinos", "req": 3, "reward": { "type": "card", "value": "t_rex", "name": "T-REX", "curiosity": "O T-Rex podia medir até 12 metros.", "collection": "Dinossauros 1/20" }, "tier": "epica", "title": "Mestre Jurássico", "desc": "Complete todas as missões" }
+        { "id": "dino_epica", "type": "complete_all", "target": "semana_dinos", "req": 3, "reward": { "type": "card", "id": "dino_19", "value": "dino_19", "name": "T-REX IMPERIAL", "curiosity": "O T-Rex Imperial é o mais temido de todos! Seus dentes tinham o tamanho de uma banana.", "collection": "Dinossauros 19/20" }, "tier": "epica", "title": "Mestre Jurássico", "desc": "Complete todas as missões" }
       ]
     },
     {

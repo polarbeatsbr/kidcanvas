@@ -35,7 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1781720475169.2">
+    <link rel="stylesheet" href="/style.css?v=18062026_02">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -43,7 +43,7 @@
 <body>
     <!-- Banner Global de Evento -->
     <div id="global-event-banner" style="display: none; background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); color: #fff; text-align: center; padding: 10px; font-weight: bold; font-size: 1rem; cursor: pointer; border-bottom: 2px solid rgba(255,255,255,0.5); text-shadow: 1px 1px 2px rgba(0,0,0,0.2);" onclick="openEventModal()">
-        ✨ <span id="global-event-text">Sexta Mágica termina em: ⏰ ...</span> ✨
+        ✨ <span id="global-event-text">Expedição Mágica da Semana termina em: ⏰ ...</span> ✨
     </div>
 
     <!-- HEADER / NAVBAR -->
@@ -65,6 +65,11 @@
                         <div class="search-suggestions-dropdown" id="global-suggestions-dropdown" style="display: none;"></div>
                     </div>
                 </div>
+
+                <!-- Botão de Busca Mobile (exibido apenas no celular) -->
+                <button class="mobile-search-toggle-btn" id="mobile-search-toggle-btn" aria-label="Buscar desenho" onclick="openMobileSearchModal()">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
 
                 <!-- Botão Menu Hambúrguer (Mobile) -->
                 <button class="menu-toggle" id="menu-toggle-btn" aria-label="Abrir menu">
@@ -104,7 +109,7 @@
                         <li><a href="/gerar-desenho" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho</a></li>
                         <li><a href="/pintura-livre" class="nav-link" id="nav-free-paint"><i class="fa-solid fa-paintbrush"></i> Pintura Livre</a></li>
                         <li><a href="/historias-magicas" class="nav-link"><i class="fa-solid fa-book-open"></i> Histórias Mágicas</a></li>
-                        <li><a href="#" onclick="openAlbumModal(); return false;" class="nav-link"><i class="fa-solid fa-trophy"></i> Álbum de Cartas</a></li>
+                        <li><a href="#" onclick="openAlbumModal(); return false;" class="nav-link"><i class="fa-solid fa-book-open"></i> Livro das Descobertas</a></li>
                         <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
                         <li><a href="/hall-da-fama" class="nav-link"><i class="fa-solid fa-camera"></i> Hall da Fama</a></li>
                     </ul>
@@ -139,52 +144,47 @@
                         <!-- Contador de Selos/Conquistas -->
                         <span id="header-achievement-count" class="header-achievement-count" style="display: none;" title="Álbum de Conquistas">🏆 0 Selos</span>
                         
-                        <!-- Engrenagem que abre o dropdown de configurações/ações -->
-                        <div class="profile-settings-dropdown-wrapper">
-                            <button id="btn-profile-settings" class="btn-profile-settings" title="Menu da Conta">
-                                <i class="fa-solid fa-gear"></i>
-                            </button>
-                            <div class="profile-dropdown-menu" id="profile-dropdown-menu">
-                                <div class="dropdown-user-header">
-                                    <div id="dropdown-user-avatar-container" class="dropdown-user-avatar" style="display: flex; align-items: center; justify-content: center; font-size: 1.6rem; user-select: none; overflow: hidden;">
-                                        <img id="dropdown-user-avatar" src="" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                                        <span id="dropdown-user-avatar-emoji" style="display: none;">👤</span>
-                                    </div>
-                                    <div class="dropdown-user-info">
-                                        <span id="dropdown-user-display-name" class="dropdown-user-name">Nome</span>
-                                        <span id="dropdown-user-plan-badge" class="dropdown-user-plan">Plano</span>
-                                    </div>
+                        <!-- Menu Dropdown de Ações da Conta (abre ao clicar em qualquer parte do widget de perfil) -->
+                        <div class="profile-dropdown-menu" id="profile-dropdown-menu">
+                            <div class="dropdown-user-header">
+                                <div id="dropdown-user-avatar-container" class="dropdown-user-avatar" style="display: flex; align-items: center; justify-content: center; font-size: 1.6rem; user-select: none; overflow: hidden;">
+                                    <img id="dropdown-user-avatar" src="" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                    <span id="dropdown-user-avatar-emoji" style="display: none;">👤</span>
                                 </div>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" onclick="navigate('/minhas-criacoes'); return false;" class="dropdown-menu-item">
-                                    <i class="fa-solid fa-image"></i> Minhas Criações
-                                </a>
-                                <a href="#" onclick="openAlbumModal(); return false;" class="dropdown-menu-item">
-                                    <i class="fa-solid fa-trophy"></i> Álbum de Cartas
-                                </a>
-                                <a href="#" onclick="openAvatarSelectionModal(); return false;" class="dropdown-menu-item">
-                                    <i class="fa-solid fa-face-smile"></i> Escolher Avatar
-                                </a>
-                                <a href="#" onclick="navigate('/gerar-desenho'); return false;" class="dropdown-menu-item">
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho IA
-                                </a>
-                                <a href="#" onclick="navigate('/historias-magicas'); return false;" class="dropdown-menu-item">
-                                    <i class="fa-solid fa-book-open"></i> Histórias Mágicas
-                                </a>
-                                <a href="#" onclick="navigate('/planos'); return false;" class="dropdown-menu-item">
-                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Upgrade de Plano
-                                </a>
-                                <a href="#" onclick="navigate('/politica-de-privacidade'); return false;" class="dropdown-menu-item">
-                                    <i class="fa-solid fa-shield-halved"></i> Política de Privacidade
-                                </a>
-                                <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" class="dropdown-menu-item" style="color: #e74c3c;">
-                                    <i class="fa-solid fa-bug"></i> Reportar Bug
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a href="#" onclick="handleHeaderLogout(); return false;" class="dropdown-menu-item logout-item">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Deslogar
-                                </a>
+                                <div class="dropdown-user-info">
+                                    <span id="dropdown-user-display-name" class="dropdown-user-name">Nome</span>
+                                    <span id="dropdown-user-plan-badge" class="dropdown-user-plan">Plano</span>
+                                </div>
                             </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" onclick="navigate('/minhas-criacoes'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-image"></i> Minhas Criações
+                            </a>
+                            <a href="#" onclick="openAlbumModal(); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-book"></i> Livro das Descobertas
+                            </a>
+                            <a href="#" onclick="openAvatarSelectionModal(); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-face-smile"></i> Escolher Avatar
+                            </a>
+                            <a href="#" onclick="navigate('/gerar-desenho'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho IA
+                            </a>
+                            <a href="#" onclick="navigate('/historias-magicas'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-book-open"></i> Histórias Mágicas
+                            </a>
+                            <a href="#" onclick="navigate('/planos'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Upgrade de Plano
+                            </a>
+                            <a href="#" onclick="navigate('/politica-de-privacidade'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-shield-halved"></i> Política de Privacidade
+                            </a>
+                            <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" class="dropdown-menu-item" style="color: #e74c3c;">
+                                <i class="fa-solid fa-bug"></i> Reportar Bug
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" onclick="handleHeaderLogout(); return false;" class="dropdown-menu-item logout-item">
+                                <i class="fa-solid fa-right-from-bracket"></i> Deslogar
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -215,22 +215,22 @@
                         
                         <!-- Subtitle -->
                         <p class="hero-desc-new">
-                            Um mundo interativo onde você coleciona cartas, ganha conquistas e vive aventuras mágicas pintando e brincando!
+                            📖 Cada desenho pode revelar uma nova descoberta. Pinte, explore e complete capítulos cheios de criaturas, lugares e aventuras incríveis!
                         </p>
                         
                         <!-- Stats Badge -->
-                        <div class="hero-stats-badge" style="background: linear-gradient(135deg, #f1c40f, #f39c12); color: white; border: none; box-shadow: 0 4px 10px rgba(243,156,18,0.3);">
-                            <span class="stats-badge-icon" style="color: white;"><i class="fa-solid fa-star"></i></span>
-                            <span class="stats-badge-text" style="color: white; font-weight: 900;">Um mundo de cores e aventuras te espera!</span>
+                        <div class="hero-stats-badge" onclick="openAlbumModal(); return false;" style="background: linear-gradient(135deg, #f1c40f, #f39c12); color: white; border: none; box-shadow: 0 4px 10px rgba(243,156,18,0.3); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)';" onmouseout="this.style.transform='none';">
+                            <span class="stats-badge-icon" style="color: white;"><i class="fa-solid fa-book-open"></i></span>
+                            <span class="stats-badge-text" style="color: white; font-weight: 900;">📖 Começar Minha Aventura</span>
                         </div>
                         
-                        <!-- BANNER SEXTA MÁGICA (Missões) -->
+                        <!-- BANNER EXPEDIÇÃO MÁGICA DA SEMANA (Missões) -->
                         <div id="hero-event-button" class="pulse-btn" style="display: none; background: linear-gradient(135deg, #FF9A9E, #FECFEF); border-radius: 16px; padding: 15px 20px; margin-top: 15px; margin-bottom: 25px; cursor: pointer; border: 3px solid #fff; box-shadow: 0 8px 20px rgba(255, 154, 158, 0.4); text-align: left; position: relative; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease;" onclick="openEventModal()" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 12px 25px rgba(255, 154, 158, 0.6)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 8px 20px rgba(255, 154, 158, 0.4)';">
                             <div style="display: flex; align-items: center; gap: 15px;">
                                 <div style="font-size: 2.5rem;">🐶</div>
                                 <div>
-                                    <h3 style="margin: 0; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-size: 1.2rem; font-weight: 800; letter-spacing: 0.5px;">✨ Missões da Semana ✨</h3>
-                                    <p style="margin: 3px 0 0; color: #fff; font-weight: 600; font-size: 0.9rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">O Perigo tem recompensas para você!</p>
+                                    <h3 style="margin: 0; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); font-size: 1.2rem; font-weight: 800; letter-spacing: 0.5px;">✨ Expedição Mágica da Semana ✨</h3>
+                                    <p style="margin: 3px 0 0; color: #fff; font-weight: 600; font-size: 0.9rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Complete desafios e ganhe prêmios no Livro!</p>
                                 </div>
                                 <div style="margin-left: auto; background: rgba(255,255,255,0.3); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
                                     <i class="fa-solid fa-chevron-right"></i>
@@ -240,21 +240,21 @@
                         
                         <!-- The 4 CTA Cards Grid -->
                         <div class="hero-cta-grid-new">
-                            <!-- 1. Aventuras (Missões) -->
+                            <!-- 1. Expedições (Missões) -->
                             <a href="#" onclick="openEventModal(); return false;" class="hero-cta-card-new card-free-library-new" style="background: #e8f8f5; border-color: #1abc9c;">
-                                <span class="cta-icon-new" style="color: #1abc9c;">🎯</span>
+                                <span class="cta-icon-new" style="color: #1abc9c;">✨</span>
                                 <div class="cta-info-new">
-                                    <span class="cta-title-new">Aventuras</span>
-                                    <span class="cta-subtitle-new">Sexta Mágica</span>
+                                    <span class="cta-title-new">Expedições</span>
+                                    <span class="cta-subtitle-new">Expedição da Semana</span>
                                 </div>
                             </a>
 
                             <!-- 2. Álbum -->
                             <a href="#" onclick="openAlbumModal(); return false;" class="hero-cta-card-new card-ia-drawing-new" style="background: #fdf2e9; border-color: #e67e22;">
-                                <span class="cta-icon-new" style="color: #e67e22;">🏆</span>
+                                <span class="cta-icon-new" style="color: #e67e22;">📖</span>
                                 <div class="cta-info-new">
-                                    <span class="cta-title-new">Álbum</span>
-                                    <span class="cta-subtitle-new">Minhas Cartas</span>
+                                    <span class="cta-title-new">Livro</span>
+                                    <span class="cta-subtitle-new">Minhas Descobertas</span>
                                 </div>
                             </a>
 
@@ -337,13 +337,13 @@
 
                     <!-- Bottom Tags -->
                     <div class="hero-benefits-tags">
-                        <span class="benefit-tag"><i class="fa-solid fa-circle-check text-green-check"></i> Sem anúncios</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-book-open text-purple-book"></i> Livro das Descobertas</span>
                         <span class="benefit-tag-divider">|</span>
-                        <span class="benefit-tag"><i class="fa-solid fa-infinity text-green-check"></i> Acesso ilimitado</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-infinity text-green-check"></i> Mais de 14.000 desenhos</span>
                         <span class="benefit-tag-divider">|</span>
-                        <span class="benefit-tag"><i class="fa-solid fa-lock text-orange-lock"></i> Conteúdo exclusivo</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-lock text-orange-lock"></i> Ambiente infantil seguro</span>
                         <span class="benefit-tag-divider">|</span>
-                        <span class="benefit-tag"><i class="fa-solid fa-heart text-red-heart"></i> Suporte humano</span>
+                        <span class="benefit-tag"><i class="fa-solid fa-heart text-red-heart"></i> Feito para toda a família</span>
                     </div>
                 </div>
 
@@ -2575,8 +2575,8 @@
             <span>Histórias Mágicas</span>
         </a>
         <a href="#" onclick="openAlbumModal(); return false;" class="mobile-nav-item" id="mobile-nav-album" style="color: var(--color-orange);">
-            <i class="fa-solid fa-trophy"></i>
-            <span>Álbum</span>
+            <i class="fa-solid fa-book-open"></i>
+            <span>Livro</span>
         </a>
         <a href="#" class="mobile-nav-item" id="mobile-nav-search-trigger">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -2593,12 +2593,12 @@
             <span class="close-modal" onclick="closeEventModal()" style="position: absolute; top: 15px; right: 20px; color: white; font-size: 32px; font-weight: bold; cursor:pointer; z-index: 9999;">&times;</span>
             <div style="font-size: 4rem; margin-bottom: 10px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));">🐶</div>
             <h2 style="color: white; margin: 0; font-size: 2rem; font-weight: 900; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);"><span id="event-modal-title">A Sexta Mágica Chegou!</span></h2>
-            <p id="event-modal-subtitle" style="color: white; font-weight: 600; margin-top: 5px; font-size: 1.1rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">O Perigo trouxe recompensas para você!</p>
+            <p id="event-modal-subtitle" style="color: white; font-weight: 600; margin-top: 5px; font-size: 1.1rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">✨ Complete as missões da semana para revelar uma nova página do Livro das Descobertas.</p>
         </div>
         <div style="padding: 20px; background-color: #f8f9fa; max-height: 60vh; overflow-y: auto;">
             <div style="text-align: center; margin-bottom: 20px;">
                 <button onclick="openAlbumModal()" style="background: linear-gradient(135deg, #9b59b6, #8e44ad); color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: 900; font-size: 1.1rem; cursor: pointer; box-shadow: 0 4px 10px rgba(155, 89, 182, 0.4);">
-                    📖 Meu Álbum de Cartas
+                    📖 Meu Livro das Descobertas
                 </button>
             </div>
             <h3 style="color: var(--color-dark); margin-top: 0; margin-bottom: 15px; text-align: center; font-size: 1.4rem;">🎯 Missões da Semana</h3>
@@ -2607,7 +2607,262 @@
     </div>
 </div>
 
+<!-- OVERLAY DO LIVRO DAS DESCOBERTAS -->
+<div id="livro-descobertas-overlay" class="livro-overlay">
+    <div class="livro-recipiente" id="livro-recipiente">
+        <button class="livro-fechar-btn" onclick="closeAlbumModal()">&times;</button>
+        <div class="livro-paginas-wrap">
+            <div class="livro-divisor-central"></div>
+            
+            <!-- Folha Esquerda (Sumário / Capítulos) -->
+            <div class="livro-folha-esquerda">
+                <h1 class="livro-titulo">📖 Livro das Descobertas</h1>
+                <p class="livro-subtitulo">Pinte, explore e descubra criaturas, lugares e aventuras incríveis.</p>
+
+                <!-- Estatística Global e Dicas Rotativas -->
+                <div class="livro-folha-esquerda-header-stats">
+                    <div class="livro-estatistica-global">
+                        <div class="livro-estatistica-info">
+                            <span class="livro-estatistica-label">📖 Descobertas:</span>
+                            <span class="livro-estatistica-valor" id="livro-global-stats-text">0 / 0</span>
+                        </div>
+                        <div class="livro-estatistica-progress-wrapper">
+                            <div class="livro-estatistica-progress-bar-bg">
+                                <div class="livro-estatistica-progress-bar-fill" id="livro-global-stats-bar" style="width: 0%;"></div>
+                            </div>
+                            <span class="livro-estatistica-pct" id="livro-global-stats-pct">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="livro-dicas-rotativas" id="livro-dicas-rotativas">
+                        <span class="livro-dicas-icon">✨</span>
+                        <span id="livro-dica-texto" class="livro-dica-texto">Cada pintura pode revelar uma nova descoberta.</span>
+                    </div>
+                </div>
+                
+                <!-- Novo: Mapa de Exploração / Seu Progresso -->
+                <div class="livro-progresso-geral-container">
+                    <h3 class="livro-progresso-geral-titulo">🗺️ Seu Progresso</h3>
+                    <div id="livro-progresso-geral-lista" class="livro-progresso-geral-lista">
+                        <!-- Gerado dinamicamente via JS -->
+                    </div>
+                </div>
+
+                <div class="livro-capitulos-lista" id="livro-capitulos-lista">
+                    <!-- Gerado dinamicamente via JS -->
+                </div>
+            </div>
+            
+            <!-- Folha Direita (Grid de Descobertas OU Detalhes) -->
+            <div class="livro-folha-direita">
+                <button class="livro-mobile-back-btn" onclick="voltarParaCapitulos()">
+                    <i class="fa-solid fa-arrow-left"></i> Voltar aos Capítulos
+                </button>
+                
+                <!-- Sub-página: Grade de Descobertas -->
+                <div id="livro-grade-conteudo" style="display: flex; flex-direction: column; height: 100%;">
+                    <h2 class="livro-capitulo-titulo" id="livro-capitulo-titulo">
+                        <!-- Título do capítulo e contagem -->
+                    </h2>
+                    <div class="livro-progresso-bar-wrap">
+                        <div class="livro-progresso-bar-preenchida" id="livro-progresso-bar-preenchida"></div>
+                    </div>
+                    
+                    <!-- Novo: Meta Recomendada (Próxima Descoberta) -->
+                    <div id="livro-proxima-descoberta-box" class="livro-proxima-descoberta-box" style="display: none;">
+                        <span class="livro-meta-estrela">⭐</span>
+                        <div class="livro-meta-texto-container">
+                            <div class="livro-meta-rotulo">PRÓXIMA DESCOBERTA</div>
+                            <div class="livro-meta-pista" id="livro-proxima-descoberta-pista">
+                                <!-- Gerado dinamicamente -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="livro-descobertas-grid" id="livro-descobertas-grid">
+                        <!-- Cards gerados dinamicamente -->
+                    </div>
+                </div>
+                
+                <!-- Sub-página: Detalhes da Descoberta -->
+                <div id="livro-detalhes-conteudo" style="display: none; flex-direction: column; height: 100%;">
+                    <!-- Gerado dinamicamente via JS -->
+                </div>
+
+                <!-- Sub-página: Expedição Mágica da Semana -->
+                <div id="livro-expedition-conteudo" style="display: none; flex-direction: column; height: auto; gap: 15px;">
+                    <!-- Gerado dinamicamente via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- OVERLAY DE REVELAÇÃO DA DESCOBERTA MÁGICA -->
+<div id="revelacao-descoberta-overlay" class="revelacao-overlay">
+    <div class="revelacao-livro-wrap">
+        <div class="magico-livro" id="magico-livro">
+            <!-- Capa da Frente -->
+            <div class="livro-revelacao-capa capa-frente">
+                <div class="livro-revelacao-capa-inner">📖</div>
+                <div class="livro-revelacao-capa-titulo">Livro das Descobertas</div>
+            </div>
+            
+            <!-- Páginas Internas Abertas -->
+            <div class="revelacao-paginas-container">
+                <!-- Esquerda: Informações & Curiosidade -->
+                <div class="revelacao-folha-esquerda">
+                    <div>
+                        <div class="revelacao-esquerda-header" id="revelacao-capitulo-label">Capítulo Dinossauros</div>
+                        <h2 class="revelacao-esquerda-titulo" id="revelacao-titulo-status">Nova descoberta encontrada!</h2>
+                    </div>
+                    <div class="revelacao-curiosidade-box">
+                        <div class="revelacao-curiosidade-header">
+                            <span>📚</span> SABIA QUE?
+                        </div>
+                        <div class="revelacao-curiosidade-texto" id="revelacao-curiosidade">
+                            O T-Rex foi um dos maiores predadores terrestres...
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Direita: Imagem e Nome -->
+                <div class="revelacao-folha-direita">
+                    <div class="revelacao-imagem-container">
+                        <img src="" alt="" class="revelacao-imagem" id="revelacao-img">
+                    </div>
+                    <div class="revelacao-nome-faixa" id="revelacao-nome">T-Rex</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="revelacao-share-highlight" id="revelacao-share-highlight" style="display: none;">
+        Compartilhe sua descoberta com outros exploradores.
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="revelacao-share-btn-wrap">
+        <button class="revelacao-salvar-btn" id="revelacao-salvar-btn" onclick="fecharRevelacao()">
+            ✨ Adicionar ao Meu Livro
+        </button>
+        <button class="revelacao-compartilhar-btn" id="revelacao-compartilhar-btn" style="display: none;">
+            👑 Compartilhar Mítica
+        </button>
+    </div>
+</div>
+
+<!-- OVERLAY PARA SELEÇÃO DE PLATAFORMA DE COMPARTILHAMENTO -->
+<div id="livro-share-platforms-overlay" class="livro-share-platforms-overlay">
+    <div class="livro-share-platforms-box">
+        <button class="livro-share-platforms-close" onclick="closeSharePlatformsModal()">&times;</button>
+        <h3 class="livro-share-platforms-title">🎁 Compartilhar Descoberta</h3>
+        <div class="livro-share-platforms-list">
+            <button class="livro-share-platform-item whatsapp" onclick="triggerPlatformShare('whatsapp')">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+            </button>
+            <button class="livro-share-platform-item telegram" onclick="triggerPlatformShare('telegram')">
+                <i class="fa-brands fa-telegram"></i> Telegram
+            </button>
+            <button class="livro-share-platform-item facebook" onclick="triggerPlatformShare('facebook')">
+                <i class="fa-brands fa-facebook"></i> Facebook
+            </button>
+            <button class="livro-share-platform-item copiar" onclick="triggerPlatformShare('copy')">
+                <i class="fa-solid fa-copy"></i> Copiar Link
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- OVERLAY PARA MISTÉRIOS: COMO DESBLOQUEAR -->
+<div id="livro-unlock-guide-overlay" class="livro-unlock-guide-overlay">
+    <div class="livro-unlock-guide-content">
+        <button class="livro-unlock-guide-close" onclick="closeUnlockGuideModal()">&times;</button>
+        <h3 class="livro-unlock-guide-title">🎯 Como Desbloquear</h3>
+        <div id="livro-unlock-guide-body">
+            <!-- Dinâmico -->
+        </div>
+    </div>
+</div>
+
+<!-- OVERLAY DE CELEBRAÇÃO DE CAPÍTULO COMPLETO -->
+<div id="livro-celebration-overlay" class="livro-celebration-overlay">
+    <div class="livro-celebration-card">
+        <div class="livro-celebration-badge-container">
+            <span class="livro-celebration-trophy">🏆</span>
+        </div>
+        <h2 class="livro-celebration-title">PARABÉNS!</h2>
+        <p class="livro-celebration-subtitle">Você completou o <span id="livro-celebration-chapter-name" style="font-weight: 800; color: #ff7675;">Capítulo</span>!</p>
+        
+        <div class="livro-celebration-rewards-list">
+            <div class="livro-celebration-reward-item">
+                <span class="reward-icon">👑</span>
+                <div class="reward-details">
+                    <span class="reward-title">Descoberta Mítica Revelada</span>
+                    <span class="reward-desc">A última criatura secreta foi revelada!</span>
+                </div>
+            </div>
+            <div class="livro-celebration-reward-item">
+                <span class="reward-icon">⭐</span>
+                <div class="reward-details">
+                    <span class="reward-title">+50 Estrelas</span>
+                    <span class="reward-desc">Adicionadas ao seu saldo!</span>
+                </div>
+            </div>
+            <div class="livro-celebration-reward-item">
+                <span class="reward-icon">🏅</span>
+                <div class="reward-details">
+                    <span class="reward-title" id="livro-celebration-badge-title">Selo Mestre</span>
+                    <span class="reward-desc">Nova conquista desbloqueada no seu perfil!</span>
+                </div>
+            </div>
+        </div>
+        
+        <button class="livro-celebration-btn" onclick="closeChapterCelebrationModal()">
+            📖 Continuar Explorando
+        </button>
+    </div>
+</div>
+
+<!-- MODAL DE BUSCA FULLSCREEN (MOBILE) -->
+<div id="mobile-search-modal" class="mobile-search-modal" style="display: none;">
+    <div class="mobile-search-modal-header">
+        <button class="mobile-search-close-btn" onclick="closeMobileSearchModal()" aria-label="Fechar busca">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <div class="mobile-search-modal-content">
+        <h2 class="mobile-search-title">O que você quer colorir hoje?</h2>
+        
+        <div class="mobile-search-input-box">
+            <i class="fa-solid fa-magnifying-glass search-input-icon"></i>
+            <input type="text" id="mobile-search-input" placeholder="Buscar desenhos..." autocomplete="off">
+        </div>
+
+        <!-- Pesquisas Populares -->
+        <div class="mobile-search-popular-wrapper" id="mobile-search-popular-wrapper">
+            <h3 class="mobile-search-section-title">Pesquisas populares</h3>
+            <div class="mobile-search-tags-grid">
+                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Unicórnios')">🦄 Unicórnios</button>
+                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Dinossauros')">🦖 Dinossauros</button>
+                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Borboletas')">🦋 Borboletas</button>
+                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Cachorros')">🐶 Cachorros</button>
+                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Veículos')">🚒 Veículos</button>
+                <button class="mobile-search-tag-btn" onclick="triggerMobilePopularSearch('Princesas')">👸 Princesas</button>
+            </div>
+        </div>
+
+        <!-- Resultados da busca -->
+        <div class="mobile-search-results-wrapper" id="mobile-search-results-wrapper" style="display: none;">
+            <h3 class="mobile-search-section-title">Resultados</h3>
+            <div class="mobile-search-results-grid" id="mobile-search-results-grid">
+                <!-- Preenchido via JS -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/app.js?v=1781758556845"></script>
+<script src="/app.js?v=18062026_02"></script>
 </body>
 </html>

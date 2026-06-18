@@ -1,1202 +1,1962 @@
 [
-  {
-    "id": "dino_01",
-    "name": "IGUANODONTE",
-    "emoji": "🦴",
-    "rarity": "Comum",
-    "collection": "Dinossauros 1/20",
-    "curiosity": "O Iguanodonte foi um dos primeiros dinossauros descobertos! Ele tinha um dedão pontudo como uma faca.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_14.jpg"
-  },
-  {
-    "id": "dino_02",
-    "name": "TRICERÁTOPS",
-    "emoji": "🦕",
-    "rarity": "Comum",
-    "collection": "Dinossauros 2/20",
-    "curiosity": "O Tricerátops tinha 3 chifres e um escudo ósseo enorme na cabeça para se proteger!",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_02.jpg"
-  },
-  {
-    "id": "dino_03",
-    "name": "ESTEGOSSAURO",
-    "emoji": "🐊",
-    "rarity": "Comum",
-    "collection": "Dinossauros 3/20",
-    "curiosity": "O Estegossauro tinha placas nas costas que serviam para regular a temperatura do corpo!",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_05.jpg"
-  },
-  {
-    "id": "dino_04",
-    "name": "ANQUILOSSAURO",
-    "emoji": "🐢",
-    "rarity": "Comum",
-    "collection": "Dinossauros 4/20",
-    "curiosity": "O Anquilossauro era como um tanque de guerra! Tinha armadura óssea e uma bola na ponta da cauda.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_08.jpg"
-  },
-  {
-    "id": "dino_05",
-    "name": "DIPLODOCO",
-    "emoji": "🦕",
-    "rarity": "Comum",
-    "collection": "Dinossauros 5/20",
-    "curiosity": "O Diplodoco tinha o pescoço tão longo que podia beber água de um lago sem sair do lugar!",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_10.jpg"
-  },
-  {
-    "id": "dino_06",
-    "name": "COMPSOGNATO",
-    "emoji": "🐁",
-    "rarity": "Comum",
-    "collection": "Dinossauros 6/20",
-    "curiosity": "O Compsognato era do tamanho de uma galinha! Um dos menores dinossauros já encontrados.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_11.jpg"
-  },
-  {
-    "id": "dino_07",
-    "name": "PAQUICEFALOSSAURO",
-    "emoji": "💥",
-    "rarity": "Comum",
-    "collection": "Dinossauros 7/20",
-    "curiosity": "O Paquicefalossauro tinha um crânio super grosso e dava cabeçadas para lutar!",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_15.jpg"
-  },
-  {
-    "id": "dino_08",
-    "name": "DILOFOSSAURO",
-    "emoji": "🌈",
-    "rarity": "Comum",
-    "collection": "Dinossauros 8/20",
-    "curiosity": "O Dilofossauro tinha duas cristas coloridas na cabeça que serviam para atrair parceiros!",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_16.jpg"
-  },
-  {
-    "id": "dino_09",
-    "name": "TERÓPODE",
-    "emoji": "🦶",
-    "rarity": "Comum",
-    "collection": "Dinossauros 9/20",
-    "curiosity": "Os Terópodes andavam sobre duas patas! Todos os dinossauros carnívoros eram Terópodes.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_09_v2.jpg"
-  },
-  {
-    "id": "dino_10",
-    "name": "OVO DE DINO",
-    "emoji": "🥚",
-    "rarity": "Comum",
-    "collection": "Dinossauros 10/20",
-    "curiosity": "O maior ovo de dinossauro já encontrado tinha 60cm! Quase do tamanho de uma bola de futebol.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_10_v2.jpg"
-  },
-  {
-    "id": "dino_11",
-    "name": "VELOCIRAPTOR",
-    "emoji": "🦎",
-    "rarity": "Comum",
-    "collection": "Dinossauros 11/20",
-    "curiosity": "O Velociraptor era do tamanho de um peru! Bem menor do que mostram nos filmes.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_04.jpg"
-  },
-  {
-    "id": "dino_12",
-    "name": "PARASAUROLOFUS",
-    "emoji": "🎺",
-    "rarity": "Comum",
-    "collection": "Dinossauros 12/20",
-    "curiosity": "O Parasaurolofus tinha uma crista oca na cabeça que funcionava como uma trombeta!",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_09.jpg"
-  },
-  {
-    "id": "dino_13",
-    "name": "CARNOTAURO",
-    "emoji": "🐂",
-    "rarity": "Comum",
-    "collection": "Dinossauros 13/20",
-    "curiosity": "O Carnotauro tinha chifres de touro e bracinhos ainda menores que os do T-Rex!",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_12.jpg"
-  },
-  {
-    "id": "dino_14",
-    "name": "BRAQUIOSSAURO",
-    "emoji": "🦒",
-    "rarity": "Comum",
-    "collection": "Dinossauros 14/20",
-    "curiosity": "O Braquiossauro era tão alto quanto um prédio de 4 andares! Ele comia folhas do topo das árvores.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_06.jpg"
-  },
-  {
-    "id": "dino_15",
-    "name": "PTERODÁCTILO",
-    "emoji": "🦅",
-    "rarity": "Rara",
-    "collection": "Dinossauros 15/20",
-    "curiosity": "O Pterodáctilo não era dinossauro! Era um réptil voador com asas de até 10 metros.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_03.jpg"
-  },
-  {
-    "id": "dino_16",
-    "name": "ARCHAEOPTERYX",
-    "emoji": "🐦",
-    "rarity": "Rara",
-    "collection": "Dinossauros 16/20",
-    "curiosity": "O Archaeopteryx é o elo entre dinossauros e pássaros! Tinha dentes, garras e penas ao mesmo tempo.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_17.jpg"
-  },
-  {
-    "id": "dino_17",
-    "name": "MOSASSAURO",
-    "emoji": "🐋",
-    "rarity": "Rara",
-    "collection": "Dinossauros 17/20",
-    "curiosity": "O Mosassauro vivia no mar e podia engolir um tubarão inteiro!",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_13.jpg"
-  },
-  {
-    "id": "dino_18",
-    "name": "ESPINOSSAURO",
-    "emoji": "🐉",
-    "rarity": "Rara",
-    "collection": "Dinossauros 18/20",
-    "curiosity": "O Espinossauro é o maior dinossauro carnívoro já descoberto! Maior que o T-Rex!",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_07.jpg"
-  },
-  {
-    "id": "dino_19",
-    "name": "T-REX IMPERIAL",
-    "emoji": "🦖",
-    "rarity": "Épica",
-    "collection": "Dinossauros 19/20",
-    "curiosity": "O T-Rex Imperial é o mais temido de todos! Seus dentes tinham o tamanho de uma banana e ele enxergava movimento a 100 metros de distância.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_19.jpg"
-  },
-  {
-    "id": "dino_20",
-    "name": "REI DOS DINOSSAUROS",
-    "emoji": "👑",
-    "rarity": "Lendária",
-    "collection": "Dinossauros 20/20",
-    "curiosity": "O Megalodon era 3 vezes maior que um tubarão branco e seus dentes tinham 18cm! O verdadeiro rei das eras extintas.",
-    "obtidoEm": "Semana dos Dinossauros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_20.jpg"
-  },
-  {
-    "id": "animal_01",
-    "name": "CACHORRO",
-    "emoji": "🐶",
-    "rarity": "Comum",
-    "collection": "Animais 1/20",
-    "curiosity": "O faro do cachorro é 40 vezes melhor que o do ser humano! Eles podem sentir cheiro de medo.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_04.jpg"
-  },
-  {
-    "id": "animal_02",
-    "name": "GATINHO",
-    "emoji": "🐱",
-    "rarity": "Comum",
-    "collection": "Animais 2/20",
-    "curiosity": "Gatos dormem até 16 horas por dia e conseguem girar as orelhas em 180 graus!",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_03.jpg"
-  },
-  {
-    "id": "animal_03",
-    "name": "ZEBRA",
-    "emoji": "🦓",
-    "rarity": "Comum",
-    "collection": "Animais 3/20",
-    "curiosity": "Nenhuma zebra tem listras iguais a outra. É como uma impressão digital!",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_05.jpg"
-  },
-  {
-    "id": "animal_04",
-    "name": "PINGUIM",
-    "emoji": "🐧",
-    "rarity": "Comum",
-    "collection": "Animais 4/20",
-    "curiosity": "Pinguins pedem a namorada em casamento dando uma pedrinha bonita de presente!",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_08.jpg"
-  },
-  {
-    "id": "animal_05",
-    "name": "BORBOLETA",
-    "emoji": "🦋",
-    "rarity": "Comum",
-    "collection": "Animais 5/20",
-    "curiosity": "Borboletas sentem o gosto das coisas com os pés! Elas pousam na comida para experimentar.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_11.jpg"
-  },
-  {
-    "id": "animal_06",
-    "name": "PAPAGAIO",
-    "emoji": "🦜",
-    "rarity": "Comum",
-    "collection": "Animais 6/20",
-    "curiosity": "Papagaios podem viver até 80 anos! E alguns aprendem mais de 100 palavras.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_13.jpg"
-  },
-  {
-    "id": "animal_07",
-    "name": "TARTARUGA",
-    "emoji": "🐢",
-    "rarity": "Comum",
-    "collection": "Animais 7/20",
-    "curiosity": "Tartarugas marinhas existem há 200 milhões de anos e podem viver até 150 anos!",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_14.jpg"
-  },
-  {
-    "id": "animal_08",
-    "name": "KOALA",
-    "emoji": "🐨",
-    "rarity": "Comum",
-    "collection": "Animais 8/20",
-    "curiosity": "Koalas dormem 22 horas por dia! São os animais mais dorminhocos do mundo.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_15.jpg"
-  },
-  {
-    "id": "animal_09",
-    "name": "ABELHA",
-    "emoji": "🐝",
-    "rarity": "Comum",
-    "collection": "Animais 9/20",
-    "curiosity": "Uma abelha visita 5.000 flores por dia! Sem elas, não teríamos frutas.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_17.jpg"
-  },
-  {
-    "id": "animal_10",
-    "name": "TUBARÃO",
-    "emoji": "🦈",
-    "rarity": "Comum",
-    "collection": "Animais 10/20",
-    "curiosity": "Tubarões existem há mais tempo que as árvores! São mais antigos que os dinossauros.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_12.jpg"
-  },
-  {
-    "id": "animal_11",
-    "name": "GIRAFA",
-    "emoji": "🦒",
-    "rarity": "Comum",
-    "collection": "Animais 11/20",
-    "curiosity": "A língua da girafa tem 45cm e é roxa! Ela usa para pegar folhas sem se machucar.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_07.jpg"
-  },
-  {
-    "id": "animal_12",
-    "name": "LEÃO",
-    "emoji": "🦁",
-    "rarity": "Comum",
-    "collection": "Animais 12/20",
-    "curiosity": "O rugido de um leão pode ser ouvido a 8 quilômetros de distância!",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_01.jpg"
-  },
-  {
-    "id": "animal_13",
-    "name": "ELEFANTE",
-    "emoji": "🐘",
-    "rarity": "Comum",
-    "collection": "Animais 13/20",
-    "curiosity": "Elefantes são os únicos animais que não conseguem pular! Mas têm memória incrível.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_06.jpg"
-  },
-  {
-    "id": "animal_14",
-    "name": "CORUJA",
-    "emoji": "🦉",
-    "rarity": "Comum",
-    "collection": "Animais 14/20",
-    "curiosity": "A coruja pode girar a cabeça quase toda volta: 270 graus! Mas não consegue mexer os olhos.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_10.jpg"
-  },
-  {
-    "id": "animal_15",
-    "name": "GOLFINHO",
-    "emoji": "🐬",
-    "rarity": "Rara",
-    "collection": "Animais 15/20",
-    "curiosity": "Golfinhos dormem com apenas metade do cérebro. A outra metade fica acordada!",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_02.jpg"
-  },
-  {
-    "id": "animal_16",
-    "name": "CAMALEÃO",
-    "emoji": "🦎",
-    "rarity": "Rara",
-    "collection": "Animais 16/20",
-    "curiosity": "Os olhos do camaleão se movem independentes! Um pode olhar pra frente e outro pra trás.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_16.jpg"
-  },
-  {
-    "id": "animal_17",
-    "name": "ÁGUIA",
-    "emoji": "🦅",
-    "rarity": "Rara",
-    "collection": "Animais 17/20",
-    "curiosity": "A águia enxerga 8 vezes melhor que o ser humano! Ela vê um coelho a 3km de distância.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_18.jpg"
-  },
-  {
-    "id": "animal_18",
-    "name": "POLVO",
-    "emoji": "🐙",
-    "rarity": "Rara",
-    "collection": "Animais 18/20",
-    "curiosity": "O polvo tem 3 corações e sangue azul! E pode mudar de cor em menos de 1 segundo.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_09.jpg"
-  },
-  {
-    "id": "animal_19",
-    "name": "BALEIA AZUL",
-    "emoji": "🐋",
-    "rarity": "Épica",
-    "collection": "Animais 19/20",
-    "curiosity": "A baleia azul é o maior animal que já existiu! Seu coração é do tamanho de um carro e seu rugido chega a 188 decibéis.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_19.jpg"
-  },
-  {
-    "id": "animal_20",
-    "name": "PANDA IMPERIAL",
-    "emoji": "🐼",
-    "rarity": "Lendária",
-    "collection": "Animais 20/20",
-    "curiosity": "O Panda Imperial é tão raro que cada nascimento é um evento mundial! Comem 38kg de bambu por dia e são símbolo de paz na China.",
-    "obtidoEm": "Semana dos Animais",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_20.jpg"
-  },
-  {
-    "id": "fant_01",
-    "name": "ELFO",
-    "emoji": "🧝",
-    "rarity": "Comum",
-    "collection": "Fantasia 1/20",
-    "curiosity": "Na Islândia, 54% da população acredita que elfos existem de verdade!",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_07.jpg"
-  },
-  {
-    "id": "fant_02",
-    "name": "CASTELO",
-    "emoji": "🏰",
-    "rarity": "Comum",
-    "collection": "Fantasia 2/20",
-    "curiosity": "O castelo de Neuschwanstein na Alemanha inspirou o castelo da Disney!",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_08.jpg"
-  },
-  {
-    "id": "fant_03",
-    "name": "VARINHA MÁGICA",
-    "emoji": "🪄",
-    "rarity": "Comum",
-    "collection": "Fantasia 3/20",
-    "curiosity": "A varinha mágica mais famosa da ficção é a Varinha das Varinhas de Harry Potter!",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_09.jpg"
-  },
-  {
-    "id": "fant_04",
-    "name": "POÇÃO MÁGICA",
-    "emoji": "🧪",
-    "rarity": "Comum",
-    "collection": "Fantasia 4/20",
-    "curiosity": "Na Idade Média, alquimistas tentaram criar a 'Pedra Filosofal' por 300 anos!",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_10.jpg"
-  },
-  {
-    "id": "fant_05",
-    "name": "DUENDE",
-    "emoji": "🍀",
-    "rarity": "Comum",
-    "collection": "Fantasia 5/20",
-    "curiosity": "Na Irlanda dizem que se você pegar um duende, ele revela onde escondeu um pote de ouro!",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_11.jpg"
-  },
-  {
-    "id": "fant_06",
-    "name": "GRIMÓRIO",
-    "emoji": "📖",
-    "rarity": "Comum",
-    "collection": "Fantasia 6/20",
-    "curiosity": "Um grimório é um livro de feitiços! O mais famoso tem 400 anos e está em um museu em Londres.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_17.jpg"
-  },
-  {
-    "id": "fant_07",
-    "name": "COROA REAL",
-    "emoji": "👑",
-    "rarity": "Comum",
-    "collection": "Fantasia 7/20",
-    "curiosity": "A coroa mais pesada do mundo pesa 2,2kg! Os reis tinham dor de cabeça de verdade.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_07_v2.jpg"
-  },
-  {
-    "id": "fant_08",
-    "name": "LOBO MÁGICO",
-    "emoji": "🐺",
-    "rarity": "Comum",
-    "collection": "Fantasia 8/20",
-    "curiosity": "Lobos uivam para se comunicar! O uivo pode ser ouvido a 16km de distância na floresta.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_15.jpg"
-  },
-  {
-    "id": "fant_09",
-    "name": "SEREIA",
-    "emoji": "🧜‍♀️",
-    "rarity": "Comum",
-    "collection": "Fantasia 9/20",
-    "curiosity": "Marinheiros antigos confundiam peixes-boi com sereias! Cristóvão Colombo escreveu sobre isso.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_04.jpg"
-  },
-  {
-    "id": "fant_10",
-    "name": "MAGO",
-    "emoji": "🧙",
-    "rarity": "Comum",
-    "collection": "Fantasia 10/20",
-    "curiosity": "A palavra 'mago' vem do persa 'magus', que significa 'sábio'. Magos eram cientistas antigos!",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_05.jpg"
-  },
-  {
-    "id": "fant_11",
-    "name": "BRUXA BOA",
-    "emoji": "🧹",
-    "rarity": "Comum",
-    "collection": "Fantasia 11/20",
-    "curiosity": "Na Itália existe a Befana, uma bruxa boa que traz presentes para as crianças no dia 6 de janeiro!",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_12.jpg"
-  },
-  {
-    "id": "fant_12",
-    "name": "GÊNIO DA LÂMPADA",
-    "emoji": "🪔",
-    "rarity": "Comum",
-    "collection": "Fantasia 12/20",
-    "curiosity": "O Gênio das 1001 Noites concede 3 desejos! O conto original vem da Síria.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_13.jpg"
-  },
-  {
-    "id": "fant_13",
-    "name": "ESPADA ENCANTADA",
-    "emoji": "⚔️",
-    "rarity": "Comum",
-    "collection": "Fantasia 13/20",
-    "curiosity": "A Excalibur é a espada mais famosa do mundo! Só o Rei Arthur conseguiu tirá-la da pedra.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_16.jpg"
-  },
-  {
-    "id": "fant_14",
-    "name": "TESOURO",
-    "emoji": "💎",
-    "rarity": "Comum",
-    "collection": "Fantasia 14/20",
-    "curiosity": "O maior diamante do mundo pesa 530 gramas e está na coroa da rainha da Inglaterra!",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_14.jpg"
-  },
-  {
-    "id": "fant_15",
-    "name": "FADA MÁGICA",
-    "emoji": "🧚",
-    "rarity": "Rara",
-    "collection": "Fantasia 15/20",
-    "curiosity": "Na Irlanda existem mais de 40 mil 'fortes de fadas'! Ninguém tem coragem de demolir.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_03.jpg"
-  },
-  {
-    "id": "fant_16",
-    "name": "PEGASUS",
-    "emoji": "🪽",
-    "rarity": "Rara",
-    "collection": "Fantasia 16/20",
-    "curiosity": "Pégaso é o cavalo voador da mitologia grega! Nasceu do sangue da Medusa.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_18.jpg"
-  },
-  {
-    "id": "fant_17",
-    "name": "BOLA DE CRISTAL",
-    "emoji": "🔮",
-    "rarity": "Rara",
-    "collection": "Fantasia 17/20",
-    "curiosity": "Na Idade Média, as bolas de cristal eram feitas de berilo, uma pedra preciosa verde!",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_17_v2.jpg"
-  },
-  {
-    "id": "fant_18",
-    "name": "FÊNIX",
-    "emoji": "🔥",
-    "rarity": "Rara",
-    "collection": "Fantasia 18/20",
-    "curiosity": "A Fênix renasce das próprias cinzas! Esse mito existe no Egito, Grécia e China.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_06.jpg"
-  },
-  {
-    "id": "fant_19",
-    "name": "DRAGÃO DE CRISTAL",
-    "emoji": "🐉",
-    "rarity": "Épica",
-    "collection": "Fantasia 19/20",
-    "curiosity": "Dizem que o Dragão de Cristal só aparece uma vez por século! Seu corpo brilha como mil diamantes e seu rugido ecoa por todo o reino.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_19.jpg"
-  },
-  {
-    "id": "fant_20",
-    "name": "GUARDIÃO DA FANTASIA",
-    "emoji": "🦄",
-    "rarity": "Lendária",
-    "collection": "Fantasia 20/20",
-    "curiosity": "O Unicórnio Guardião é o protetor de todos os reinos mágicos! Aparece no brasão da Escócia desde 1300 e dizem que seu chifre cura qualquer mágoa.",
-    "obtidoEm": "Semana da Fantasia",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_20.jpg"
-  },
-  {
-    "id": "carro_01",
-    "name": "FUSCA",
-    "emoji": "🚗",
-    "rarity": "Comum",
-    "collection": "Carros 1/20",
-    "curiosity": "O Fusca é o carro mais vendido da história! Foram mais de 21 milhões de unidades.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_02.jpg"
-  },
-  {
-    "id": "carro_02",
-    "name": "CAMINHÃO",
-    "emoji": "🚚",
-    "rarity": "Comum",
-    "collection": "Carros 2/20",
-    "curiosity": "O maior caminhão do mundo tem 20 metros de comprimento e carrega 450 toneladas!",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_03.jpg"
-  },
-  {
-    "id": "carro_03",
-    "name": "AMBULÂNCIA",
-    "emoji": "🚑",
-    "rarity": "Comum",
-    "collection": "Carros 3/20",
-    "curiosity": "A palavra AMBULÂNCIA é escrita ao contrário na frente do veículo para você ler pelo retrovisor!",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_04.jpg"
-  },
-  {
-    "id": "carro_04",
-    "name": "ÔNIBUS",
-    "emoji": "🚌",
-    "rarity": "Comum",
-    "collection": "Carros 4/20",
-    "curiosity": "O ônibus mais longo do mundo tem 30 metros e carrega 300 passageiros! Fica na Alemanha.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_07.jpg"
-  },
-  {
-    "id": "carro_05",
-    "name": "TRATOR",
-    "emoji": "🚜",
-    "rarity": "Comum",
-    "collection": "Carros 5/20",
-    "curiosity": "O primeiro trator foi inventado em 1892! Antes disso, fazendeiros usavam bois e cavalos.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_08.jpg"
-  },
-  {
-    "id": "carro_06",
-    "name": "JIPE",
-    "emoji": "🚙",
-    "rarity": "Comum",
-    "collection": "Carros 6/20",
-    "curiosity": "O Jipe foi criado para a guerra! Precisavam de um carro que andasse em qualquer terreno.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_11.jpg"
-  },
-  {
-    "id": "carro_07",
-    "name": "VIATURA",
-    "emoji": "🚓",
-    "rarity": "Comum",
-    "collection": "Carros 7/20",
-    "curiosity": "Em Dubai, a polícia usa Lamborghinis como viaturas! Para perseguir carros de luxo.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_13.jpg"
-  },
-  {
-    "id": "carro_08",
-    "name": "KART",
-    "emoji": "🏎️",
-    "rarity": "Comum",
-    "collection": "Carros 8/20",
-    "curiosity": "Ayrton Senna começou a correr de kart aos 4 anos! Muitos pilotos famosos começaram assim.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_15.jpg"
-  },
-  {
-    "id": "carro_09",
-    "name": "BICICLETA",
-    "emoji": "🚲",
-    "rarity": "Comum",
-    "collection": "Carros 9/20",
-    "curiosity": "Existem mais bicicletas que carros no mundo! Na Holanda tem mais bikes que pessoas.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_16.jpg"
-  },
-  {
-    "id": "carro_10",
-    "name": "CARRO DE BOMBEIRO",
-    "emoji": "🚒",
-    "rarity": "Comum",
-    "collection": "Carros 10/20",
-    "curiosity": "O primeiro carro de bombeiro era puxado por cavalos! Só em 1906 virou motorizado.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_06.jpg"
-  },
-  {
-    "id": "carro_11",
-    "name": "MOTO",
-    "emoji": "🏍️",
-    "rarity": "Comum",
-    "collection": "Carros 11/20",
-    "curiosity": "A moto mais rápida do mundo chega a 560km/h! É mais veloz que muitos aviões pequenos.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_12.jpg"
-  },
-  {
-    "id": "carro_12",
-    "name": "KOMBI",
-    "emoji": "🚐",
-    "rarity": "Comum",
-    "collection": "Carros 12/20",
-    "curiosity": "A Kombi virou símbolo dos hippies nos anos 60! Eles pintavam flores e viajavam o mundo.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_12_v2.jpg"
-  },
-  {
-    "id": "carro_13",
-    "name": "BUGATTI",
-    "emoji": "💨",
-    "rarity": "Comum",
-    "collection": "Carros 13/20",
-    "curiosity": "O Bugatti Chiron chega a 420km/h e custa 15 milhões de reais!",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_18.jpg"
-  },
-  {
-    "id": "carro_14",
-    "name": "CARRO DE CORRIDA",
-    "emoji": "🏁",
-    "rarity": "Comum",
-    "collection": "Carros 14/20",
-    "curiosity": "Na Fórmula 1, os carros trocam de pneu em menos de 2 segundos! O pit stop é cronometrado.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_05.jpg"
-  },
-  {
-    "id": "carro_15",
-    "name": "FERRARI",
-    "emoji": "🏎️",
-    "rarity": "Rara",
-    "collection": "Carros 15/20",
-    "curiosity": "A Ferrari mais rápida já feita chega a 340km/h! O logotipo é um cavalo empinado.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_01.jpg"
-  },
-  {
-    "id": "carro_16",
-    "name": "LAMBORGHINI",
-    "emoji": "🐂",
-    "rarity": "Rara",
-    "collection": "Carros 16/20",
-    "curiosity": "O dono da Lamborghini criou carros de luxo porque ficou bravo com a Ferrari! Foi por vingança.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_09.jpg"
-  },
-  {
-    "id": "carro_17",
-    "name": "CARRO ELÉTRICO",
-    "emoji": "🔋",
-    "rarity": "Rara",
-    "collection": "Carros 17/20",
-    "curiosity": "O primeiro carro elétrico foi inventado em 1832! Antes do carro a gasolina.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_10.jpg"
-  },
-  {
-    "id": "carro_18",
-    "name": "MONSTER TRUCK",
-    "emoji": "🛻",
-    "rarity": "Rara",
-    "collection": "Carros 18/20",
-    "curiosity": "As rodas de um Monster Truck têm 1,7 metro de altura! Maiores que muitas pessoas.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_17.jpg"
-  },
-  {
-    "id": "carro_19",
-    "name": "LIMOUSINE IMPERIAL",
-    "emoji": "🚐",
-    "rarity": "Épica",
-    "collection": "Carros 19/20",
-    "curiosity": "A limousine mais longa do mundo tem 30 metros com piscina e heliponto! Só presidentes e estrelas de cinema andam nessa versão imperial.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_19.jpg"
-  },
-  {
-    "id": "carro_20",
-    "name": "DELOREAN DO TEMPO",
-    "emoji": "⚡",
-    "rarity": "Lendária",
-    "collection": "Carros 20/20",
-    "curiosity": "O DeLorean do filme De Volta pro Futuro viaja no tempo a 141km/h! A lenda diz que ainda existe um em algum lugar do espaço-tempo esperando ser encontrado.",
-    "obtidoEm": "Semana dos Carros",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_20.jpg"
-  },
-  {
-    "id": "aviao_01",
-    "name": "AVIÃO",
-    "emoji": "✈️",
-    "rarity": "Comum",
-    "collection": "Céu 1/20",
-    "curiosity": "O primeiro voo dos irmãos Wright durou apenas 12 segundos! Em 1903.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_01.jpg"
-  },
-  {
-    "id": "aviao_02",
-    "name": "HELICÓPTERO",
-    "emoji": "🚁",
-    "rarity": "Comum",
-    "collection": "Céu 2/20",
-    "curiosity": "Helicópteros podem voar para trás, para os lados e ficar parados no ar!",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_02.jpg"
-  },
-  {
-    "id": "aviao_03",
-    "name": "BALÃO",
-    "emoji": "🎈",
-    "rarity": "Comum",
-    "collection": "Céu 3/20",
-    "curiosity": "O primeiro voo tripulado da história foi num balão de ar quente em 1783! Na França.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_04.jpg"
-  },
-  {
-    "id": "aviao_04",
-    "name": "PIPA",
-    "emoji": "🪁",
-    "rarity": "Comum",
-    "collection": "Céu 4/20",
-    "curiosity": "A pipa foi inventada na China há 2.800 anos! Benjamin Franklin usou uma para estudar raios.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_06.jpg"
-  },
-  {
-    "id": "aviao_05",
-    "name": "NUVEM",
-    "emoji": "☁️",
-    "rarity": "Comum",
-    "collection": "Céu 5/20",
-    "curiosity": "Uma nuvem pesa em média 500 toneladas! Ela flutua porque o ar quente embaixo a empurra.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_07.jpg"
-  },
-  {
-    "id": "aviao_06",
-    "name": "PARAQUEDAS",
-    "emoji": "🪂",
-    "rarity": "Comum",
-    "collection": "Céu 6/20",
-    "curiosity": "Leonardo da Vinci desenhou o primeiro paraquedas em 1485! Mas nunca testou.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_14.jpg"
-  },
-  {
-    "id": "aviao_07",
-    "name": "SATÉLITE",
-    "emoji": "🛰️",
-    "rarity": "Comum",
-    "collection": "Céu 7/20",
-    "curiosity": "Existem mais de 7.000 satélites orbitando a Terra agora! O GPS do celular usa 4 deles.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_10.jpg"
-  },
-  {
-    "id": "aviao_08",
-    "name": "PLANETA TERRA",
-    "emoji": "🌍",
-    "rarity": "Comum",
-    "collection": "Céu 8/20",
-    "curiosity": "A Terra gira a 1.670km/h! Mas a gente não sente porque tudo gira junto.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_19.jpg"
-  },
-  {
-    "id": "aviao_09",
-    "name": "DRONE",
-    "emoji": "🛸",
-    "rarity": "Comum",
-    "collection": "Céu 9/20",
-    "curiosity": "Drones já entregam pizza e remédios em alguns países! No futuro vão substituir os motoboys.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_05.jpg"
-  },
-  {
-    "id": "aviao_10",
-    "name": "ASTRONAUTA",
-    "emoji": "👨‍🚀",
-    "rarity": "Comum",
-    "collection": "Céu 10/20",
-    "curiosity": "No espaço, astronautas crescem 5cm! Sem gravidade, a coluna estica.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_18.jpg"
-  },
-  {
-    "id": "aviao_11",
-    "name": "AVIÃO A JATO",
-    "emoji": "🛩️",
-    "rarity": "Comum",
-    "collection": "Céu 11/20",
-    "curiosity": "O jato mais rápido já feito alcançou 11.000km/h! Era o X-15 da NASA.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_13.jpg"
-  },
-  {
-    "id": "aviao_12",
-    "name": "LUA",
-    "emoji": "🌙",
-    "rarity": "Comum",
-    "collection": "Céu 12/20",
-    "curiosity": "A Lua se afasta da Terra 3,8cm por ano! Daqui a bilhões de anos ela vai escapar.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_11.jpg"
-  },
-  {
-    "id": "aviao_13",
-    "name": "COMETA",
-    "emoji": "☄️",
-    "rarity": "Comum",
-    "collection": "Céu 13/20",
-    "curiosity": "O cometa Halley passa pela Terra a cada 76 anos! A próxima vez será em 2061.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_16.jpg"
-  },
-  {
-    "id": "aviao_14",
-    "name": "ARCO-ÍRIS",
-    "emoji": "🌈",
-    "rarity": "Comum",
-    "collection": "Céu 14/20",
-    "curiosity": "O arco-íris é na verdade um círculo completo! Do chão a gente só vê metade.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_08.jpg"
-  },
-  {
-    "id": "aviao_15",
-    "name": "FOGUETE",
-    "emoji": "🚀",
-    "rarity": "Rara",
-    "collection": "Céu 15/20",
-    "curiosity": "Um foguete precisa ir a 28.000km/h para escapar da gravidade da Terra!",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_03.jpg"
-  },
-  {
-    "id": "aviao_16",
-    "name": "ESTRELA CADENTE",
-    "emoji": "🌠",
-    "rarity": "Rara",
-    "collection": "Céu 16/20",
-    "curiosity": "Estrelas cadentes não são estrelas! São pedaços de rocha pegando fogo ao entrar na atmosfera.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_09.jpg"
-  },
-  {
-    "id": "aviao_17",
-    "name": "AURORA BOREAL",
-    "emoji": "💚",
-    "rarity": "Rara",
-    "collection": "Céu 17/20",
-    "curiosity": "A aurora boreal acontece quando partículas do Sol batem nos gases da atmosfera! Um show de luzes natural.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_15.jpg"
-  },
-  {
-    "id": "aviao_18",
-    "name": "SOL",
-    "emoji": "☀️",
-    "rarity": "Rara",
-    "collection": "Céu 18/20",
-    "curiosity": "A luz do Sol demora 8 minutos para chegar na Terra! E dentro dele cabem 1,3 milhão de Terras.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_12.jpg"
-  },
-  {
-    "id": "aviao_19",
-    "name": "VIA LÁCTEA",
-    "emoji": "🌌",
-    "rarity": "Épica",
-    "collection": "Céu 19/20",
-    "curiosity": "Nossa galáxia tem 200 bilhões de estrelas! Se você contasse 1 por segundo levaria 6.000 anos para contar todas.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_17.jpg"
-  },
-  {
-    "id": "aviao_20",
-    "name": "BURACO NEGRO ETERNO",
-    "emoji": "⚫",
-    "rarity": "Lendária",
-    "collection": "Céu 20/20",
-    "curiosity": "Dentro de um buraco negro, o tempo para de verdade! Nem a luz consegue escapar. O maior já descoberto tem 40 bilhões de sóis de tamanho.",
-    "obtidoEm": "Semana do Céu",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_20.jpg"
-  },
-  {
-    "id": "pais_01",
-    "name": "BRASIL",
-    "emoji": "🇧🇷",
-    "rarity": "Comum",
-    "collection": "Países 1/20",
-    "curiosity": "O Brasil tem a maior floresta tropical do mundo! A Amazônia produz 20% do oxigênio da Terra.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_01.jpg"
-  },
-  {
-    "id": "pais_02",
-    "name": "ITÁLIA",
-    "emoji": "🇮🇹",
-    "rarity": "Comum",
-    "collection": "Países 2/20",
-    "curiosity": "A pizza foi inventada em Nápoles, Itália! A primeira foi a Margherita, em 1889.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_04.jpg"
-  },
-  {
-    "id": "pais_03",
-    "name": "ESTADOS UNIDOS",
-    "emoji": "🇺🇸",
-    "rarity": "Comum",
-    "collection": "Países 3/20",
-    "curiosity": "A Estátua da Liberdade foi um presente da França! Chegou em 350 pedaços.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_07.jpg"
-  },
-  {
-    "id": "pais_04",
-    "name": "MÉXICO",
-    "emoji": "🇲🇽",
-    "rarity": "Comum",
-    "collection": "Países 4/20",
-    "curiosity": "O chocolate foi inventado pelos Maias no México! Eles bebiam chocolate amargo e apimentado.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_08.jpg"
-  },
-  {
-    "id": "pais_05",
-    "name": "CANADÁ",
-    "emoji": "🇨🇦",
-    "rarity": "Comum",
-    "collection": "Países 5/20",
-    "curiosity": "O Canadá produz 71% de todo o xarope de bordo do mundo! Eles até têm reserva estratégica.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_12.jpg"
-  },
-  {
-    "id": "pais_06",
-    "name": "NORUEGA",
-    "emoji": "🇳🇴",
-    "rarity": "Comum",
-    "collection": "Países 6/20",
-    "curiosity": "Na Noruega, no verão, o sol não se põe por meses! É chamado de Sol da Meia-Noite.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_14.jpg"
-  },
-  {
-    "id": "pais_07",
-    "name": "ARGENTINA",
-    "emoji": "🇦🇷",
-    "rarity": "Comum",
-    "collection": "Países 7/20",
-    "curiosity": "A Argentina tem a rua mais larga do mundo! A Avenida 9 de Julho tem 140 metros de largura.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_16.jpg"
-  },
-  {
-    "id": "pais_08",
-    "name": "COREIA DO SUL",
-    "emoji": "🇰🇷",
-    "rarity": "Comum",
-    "collection": "Países 8/20",
-    "curiosity": "A Coreia do Sul tem internet mais rápida que qualquer país! E inventou o K-Pop.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_17.jpg"
-  },
-  {
-    "id": "pais_09",
-    "name": "QUÊNIA",
-    "emoji": "🇰🇪",
-    "rarity": "Comum",
-    "collection": "Países 9/20",
-    "curiosity": "O Quênia tem os melhores corredores de maratona do mundo! Eles treinam a 2.400m de altitude.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_18.jpg"
-  },
-  {
-    "id": "pais_10",
-    "name": "NOVA ZELÂNDIA",
-    "emoji": "🇳🇿",
-    "rarity": "Comum",
-    "collection": "Países 10/20",
-    "curiosity": "A Nova Zelândia tem mais ovelhas que pessoas! 6 ovelhas para cada humano. E filmaram O Senhor dos Anéis lá!",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_10_v2.jpg"
-  },
-  {
-    "id": "pais_11",
-    "name": "FRANÇA",
-    "emoji": "🇫🇷",
-    "rarity": "Comum",
-    "collection": "Países 11/20",
-    "curiosity": "A Torre Eiffel cresce 15cm no verão! O calor faz o metal dilatar.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_09.jpg"
-  },
-  {
-    "id": "pais_12",
-    "name": "JAPÃO",
-    "emoji": "🇯🇵",
-    "rarity": "Comum",
-    "collection": "Países 12/20",
-    "curiosity": "No Japão existem mais de 5 milhões de máquinas de venda automática! Até de pizza.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_02.jpg"
-  },
-  {
-    "id": "pais_13",
-    "name": "PERU",
-    "emoji": "🇵🇪",
-    "rarity": "Comum",
-    "collection": "Países 13/20",
-    "curiosity": "Machu Picchu fica a 2.430m de altitude nos Andes! Os Incas construíram sem usar roda.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_13.jpg"
-  },
-  {
-    "id": "pais_14",
-    "name": "GRÉCIA",
-    "emoji": "🇬🇷",
-    "rarity": "Comum",
-    "collection": "Países 14/20",
-    "curiosity": "Os Jogos Olímpicos foram inventados na Grécia em 776 a.C.! Os atletas competiam pelados.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_11.jpg"
-  },
-  {
-    "id": "pais_15",
-    "name": "CHINA",
-    "emoji": "🇨🇳",
-    "rarity": "Rara",
-    "collection": "Países 15/20",
-    "curiosity": "A Muralha da China tem 21.000km! É a maior estrutura já construída pelo ser humano.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_06.jpg"
-  },
-  {
-    "id": "pais_16",
-    "name": "ÍNDIA",
-    "emoji": "🇮🇳",
-    "rarity": "Rara",
-    "collection": "Países 16/20",
-    "curiosity": "A Índia tem 22 idiomas oficiais! E o Taj Mahal demorou 22 anos para ser construído.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_10.jpg"
-  },
-  {
-    "id": "pais_17",
-    "name": "AUSTRÁLIA",
-    "emoji": "🇦🇺",
-    "rarity": "Rara",
-    "collection": "Países 17/20",
-    "curiosity": "Na Austrália existem 3 vezes mais cangurus que pessoas! São 50 milhões de cangurus.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_05.jpg"
-  },
-  {
-    "id": "pais_18",
-    "name": "ISLÂNDIA",
-    "emoji": "🇮🇸",
-    "rarity": "Rara",
-    "collection": "Países 18/20",
-    "curiosity": "Na Islândia tem gêiseres que cospem água quente a 30 metros de altura! E vulcões ativos.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_15.jpg"
-  },
-  {
-    "id": "pais_19",
-    "name": "EGITO MISTERIOSO",
-    "emoji": "🇪🇬",
-    "rarity": "Épica",
-    "collection": "Países 19/20",
-    "curiosity": "As pirâmides do Egito foram construídas há 4.500 anos e ainda ninguém sabe exatamente como! São um dos grandes mistérios da humanidade.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_19.jpg"
-  },
-  {
-    "id": "pais_20",
-    "name": "ANTÁRTIDA INEXPLORADA",
-    "emoji": "🧊",
-    "rarity": "Lendária",
-    "collection": "Países 20/20",
-    "curiosity": "A Antártida não pertence a nenhum país! Embaixo do gelo existem mais de 400 lagos escondidos. É o lugar mais frio, mais ventoso e mais isolado da Terra.",
-    "obtidoEm": "Semana dos Países",
-    "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_20.jpg"
-  }
+    {
+        "id": "dino_01",
+        "name": "IGUANODONTE",
+        "emoji": "🦴",
+        "rarity": "Comum",
+        "collection": "Dinossauros 1/20",
+        "curiosity": "O Iguanodonte foi um dos primeiros dinossauros descobertos! Ele tinha um dedão pontudo como uma faca.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_01.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 1
+        },
+        "unlockHint": "Salve 1 pintura na galeria para descobrir."
+    },
+    {
+        "id": "dino_02",
+        "name": "TRICERÁTOPS",
+        "emoji": "🦕",
+        "rarity": "Comum",
+        "collection": "Dinossauros 2/20",
+        "curiosity": "O Tricerátops tinha 3 chifres e um escudo ósseo enorme na cabeça para se proteger!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_02.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 desenhos no total para descobrir."
+    },
+    {
+        "id": "dino_03",
+        "name": "ESTEGOSSAURO",
+        "emoji": "🐊",
+        "rarity": "Comum",
+        "collection": "Dinossauros 3/20",
+        "curiosity": "O Estegossauro tinha placas nas costas que serviam para regular a temperatura do corpo!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_03.jpg",
+        "unlockCondition": {
+            "type": "paint_colors",
+            "count": 5
+        },
+        "unlockHint": "Use 5 cores diferentes em uma pintura para descobrir."
+    },
+    {
+        "id": "dino_04",
+        "name": "ANQUILOSSAURO",
+        "emoji": "🐢",
+        "rarity": "Comum",
+        "collection": "Dinossauros 4/20",
+        "curiosity": "O Anquilossauro era como um tanque de guerra! Tinha armadura óssea e uma bola na ponta da cauda.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_04.jpg",
+        "unlockCondition": {
+            "type": "story_count",
+            "count": 1
+        },
+        "unlockHint": "Conclua sua primeira história para descobrir."
+    },
+    {
+        "id": "dino_05",
+        "name": "DIPLODOCO",
+        "emoji": "🦕",
+        "rarity": "Comum",
+        "collection": "Dinossauros 5/20",
+        "curiosity": "O Diplodoco tinha o pescoço tão longo que podia beber água de um lago sem sair do lugar!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_05.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 1
+        },
+        "unlockHint": "Pinte 1 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_06",
+        "name": "COMPSOGNATO",
+        "emoji": "🐁",
+        "rarity": "Comum",
+        "collection": "Dinossauros 6/20",
+        "curiosity": "O Compsognato era do tamanho de uma galinha! Um dos menores dinossauros já encontrados.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_06.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 2
+        },
+        "unlockHint": "Pinte 2 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_07",
+        "name": "PAQUICEFALOSSAURO",
+        "emoji": "💥",
+        "rarity": "Comum",
+        "collection": "Dinossauros 7/20",
+        "curiosity": "O Paquicefalossauro tinha um crânio super grosso e dava cabeçadas para lutar!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_07.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_08",
+        "name": "DILOFOSSAURO",
+        "emoji": "🌈",
+        "rarity": "Comum",
+        "collection": "Dinossauros 8/20",
+        "curiosity": "O Dilofossauro tinha duas cristas coloridas na cabeça que serviam para atrair parceiros!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_08.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 4
+        },
+        "unlockHint": "Pinte 4 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_09",
+        "name": "TERÓPODE",
+        "emoji": "🦶",
+        "rarity": "Comum",
+        "collection": "Dinossauros 9/20",
+        "curiosity": "Os Terópodes andavam sobre duas patas! Todos os dinossauros carnívoros eram Terópodes.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_09.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_10",
+        "name": "OVO DE DINO",
+        "emoji": "🥚",
+        "rarity": "Comum",
+        "collection": "Dinossauros 10/20",
+        "curiosity": "O maior ovo de dinossauro já encontrado tinha 60cm! Quase do tamanho de uma bola de futebol.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_10.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_11",
+        "name": "VELOCIRAPTOR",
+        "emoji": "🦎",
+        "rarity": "Comum",
+        "collection": "Dinossauros 11/20",
+        "curiosity": "O Velociraptor era do tamanho de um peru! Bem menor do que mostram nos filmes.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_11.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_12",
+        "name": "PARASAUROLOFUS",
+        "emoji": "🎺",
+        "rarity": "Comum",
+        "collection": "Dinossauros 12/20",
+        "curiosity": "O Parasaurolofus tinha uma crista oca na cabeça que funcionava como uma trombeta!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_12.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 6
+        },
+        "unlockHint": "Pinte 6 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_13",
+        "name": "CARNOTAURO",
+        "emoji": "🐂",
+        "rarity": "Comum",
+        "collection": "Dinossauros 13/20",
+        "curiosity": "O Carnotauro tinha chifres de touro e bracinhos ainda menores que os do T-Rex!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_13.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 7
+        },
+        "unlockHint": "Pinte 7 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_14",
+        "name": "BRAQUIOSSAURO",
+        "emoji": "🦒",
+        "rarity": "Comum",
+        "collection": "Dinossauros 14/20",
+        "curiosity": "O Braquiossauro era tão alto quanto um prédio de 4 andares! Ele comia folhas do topo das árvores.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_14.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 8
+        },
+        "unlockHint": "Pinte 8 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_15",
+        "name": "PTERODÁCTILO",
+        "emoji": "🦅",
+        "rarity": "Rara",
+        "collection": "Dinossauros 15/20",
+        "curiosity": "O Pterodáctilo não era dinossauro! Era um réptil voador com asas de até 10 metros.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_15.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 10
+        },
+        "unlockHint": "Pinte 10 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_16",
+        "name": "ARCHAEOPTERYX",
+        "emoji": "🐦",
+        "rarity": "Rara",
+        "collection": "Dinossauros 16/20",
+        "curiosity": "O Archaeopteryx é o elo entre dinossauros e pássaros! Tinha dentes, garras e penas ao mesmo tempo.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_16.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 12
+        },
+        "unlockHint": "Pinte 12 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_17",
+        "name": "MOSASSAURO",
+        "emoji": "🐋",
+        "rarity": "Rara",
+        "collection": "Dinossauros 17/20",
+        "curiosity": "O Mosassauro vivia no mar e podia engolir um tubarão inteiro!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_17.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 14
+        },
+        "unlockHint": "Pinte 14 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_18",
+        "name": "ESPINOSSAURO",
+        "emoji": "🐉",
+        "rarity": "Rara",
+        "collection": "Dinossauros 18/20",
+        "curiosity": "O Espinossauro é o maior dinossauro carnívoro já descoberto! Maior que o T-Rex!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_18.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 16
+        },
+        "unlockHint": "Pinte 16 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_19",
+        "name": "T-REX IMPERIAL",
+        "emoji": "🦖",
+        "rarity": "Épica",
+        "collection": "Dinossauros 19/20",
+        "curiosity": "O T-Rex Imperial é o mais temido de todos! Seus dentes tinham o tamanho de uma banana e ele enxergava movimento a 100 metros de distância.",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_19.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "dinossauros",
+            "count": 18
+        },
+        "unlockHint": "Pinte 18 dinossauros para descobrir."
+    },
+    {
+        "id": "dino_20",
+        "name": "REI DOS DINOSSAUROS",
+        "emoji": "👑",
+        "rarity": "Mítica",
+        "collection": "Dinossauros 20/20",
+        "curiosity": "O T-Rex foi um dos maiores predadores terrestres que já existiram, com dentes enormes e uma mordida extremamente poderosa!",
+        "obtidoEm": "Semana dos Dinossauros",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/dino_20.jpg",
+        "unlockCondition": {
+            "type": "complete_collection"
+        },
+        "unlockHint": "Uma grande descoberta ainda está escondida neste capítulo. Continue explorando para revelar este segredo."
+    },
+    {
+        "id": "animal_01",
+        "name": "CACHORRO",
+        "emoji": "🐶",
+        "rarity": "Comum",
+        "collection": "Animais 1/20",
+        "curiosity": "O faro do cachorro é 40 vezes melhor que o do ser humano! Eles podem sentir cheiro de medo.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_01.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 1
+        },
+        "unlockHint": "Salve 1 pintura na galeria para descobrir."
+    },
+    {
+        "id": "animal_02",
+        "name": "GATINHO",
+        "emoji": "🐱",
+        "rarity": "Comum",
+        "collection": "Animais 2/20",
+        "curiosity": "Gatos dormem até 16 horas por dia e conseguem girar as orelhas em 180 graus!",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_02.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 desenhos no total para descobrir."
+    },
+    {
+        "id": "animal_03",
+        "name": "ZEBRA",
+        "emoji": "🦓",
+        "rarity": "Comum",
+        "collection": "Animais 3/20",
+        "curiosity": "Nenhuma zebra tem listras iguais a outra. É como uma impressão digital!",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_03.jpg",
+        "unlockCondition": {
+            "type": "paint_colors",
+            "count": 5
+        },
+        "unlockHint": "Use 5 cores diferentes em uma pintura para descobrir."
+    },
+    {
+        "id": "animal_04",
+        "name": "PINGUIM",
+        "emoji": "🐧",
+        "rarity": "Comum",
+        "collection": "Animais 4/20",
+        "curiosity": "Pinguins pedem a namorada em casamento dando uma pedrinha bonita de presente!",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_04.jpg",
+        "unlockCondition": {
+            "type": "story_count",
+            "count": 1
+        },
+        "unlockHint": "Conclua sua primeira história para descobrir."
+    },
+    {
+        "id": "animal_05",
+        "name": "BORBOLETA",
+        "emoji": "🦋",
+        "rarity": "Comum",
+        "collection": "Animais 5/20",
+        "curiosity": "Borboletas sentem o gosto das coisas com os pés! Elas pousam na comida para experimentar.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_05.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 1
+        },
+        "unlockHint": "Pinte 1 animais para descobrir."
+    },
+    {
+        "id": "animal_06",
+        "name": "PAPAGAIO",
+        "emoji": "🦜",
+        "rarity": "Comum",
+        "collection": "Animais 6/20",
+        "curiosity": "Papagaios podem viver até 80 anos! E alguns aprendem mais de 100 palavras.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_06.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 2
+        },
+        "unlockHint": "Pinte 2 animais para descobrir."
+    },
+    {
+        "id": "animal_07",
+        "name": "TARTARUGA",
+        "emoji": "🐢",
+        "rarity": "Comum",
+        "collection": "Animais 7/20",
+        "curiosity": "Tartarugas marinhas existem há 200 milhões de anos e podem viver até 150 anos!",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_07.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 animais para descobrir."
+    },
+    {
+        "id": "animal_08",
+        "name": "KOALA",
+        "emoji": "🐨",
+        "rarity": "Comum",
+        "collection": "Animais 8/20",
+        "curiosity": "Koalas dormem 22 horas por dia! São os animais mais dorminhocos do mundo.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_08.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 4
+        },
+        "unlockHint": "Pinte 4 animais para descobrir."
+    },
+    {
+        "id": "animal_09",
+        "name": "ABELHA",
+        "emoji": "🐝",
+        "rarity": "Comum",
+        "collection": "Animais 9/20",
+        "curiosity": "Uma abelha visita 5.000 flores por dia! Sem elas, não teríamos frutas.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_09.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 animais para descobrir."
+    },
+    {
+        "id": "animal_10",
+        "name": "TUBARÃO",
+        "emoji": "🦈",
+        "rarity": "Comum",
+        "collection": "Animais 10/20",
+        "curiosity": "Tubarões existem há mais tempo que as árvores! São mais antigos que os dinossauros.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_10.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 animais para descobrir."
+    },
+    {
+        "id": "animal_11",
+        "name": "GIRAFA",
+        "emoji": "🦒",
+        "rarity": "Comum",
+        "collection": "Animais 11/20",
+        "curiosity": "A língua da girafa tem 45cm e é roxa! Ela usa para pegar folhas sem se machucar.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_11.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 animais para descobrir."
+    },
+    {
+        "id": "animal_12",
+        "name": "LEÃO",
+        "emoji": "🦁",
+        "rarity": "Comum",
+        "collection": "Animais 12/20",
+        "curiosity": "O rugido de um leão pode ser ouvido a 8 quilômetros de distância!",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_12.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 6
+        },
+        "unlockHint": "Pinte 6 animais para descobrir."
+    },
+    {
+        "id": "animal_13",
+        "name": "ELEFANTE",
+        "emoji": "🐘",
+        "rarity": "Comum",
+        "collection": "Animais 13/20",
+        "curiosity": "Elefantes são os únicos animais que não conseguem pular! Mas têm memória incrível.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_13.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 7
+        },
+        "unlockHint": "Pinte 7 animais para descobrir."
+    },
+    {
+        "id": "animal_14",
+        "name": "CORUJA",
+        "emoji": "🦉",
+        "rarity": "Comum",
+        "collection": "Animais 14/20",
+        "curiosity": "A coruja pode girar a cabeça quase toda volta: 270 graus! Mas não consegue mexer os olhos.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_14.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 8
+        },
+        "unlockHint": "Pinte 8 animais para descobrir."
+    },
+    {
+        "id": "animal_15",
+        "name": "GOLFINHO",
+        "emoji": "🐬",
+        "rarity": "Rara",
+        "collection": "Animais 15/20",
+        "curiosity": "Golfinhos dormem com apenas metade do cérebro. A outra metade fica acordada!",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_15.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 10
+        },
+        "unlockHint": "Pinte 10 animais para descobrir."
+    },
+    {
+        "id": "animal_16",
+        "name": "CAMALEÃO",
+        "emoji": "🦎",
+        "rarity": "Rara",
+        "collection": "Animais 16/20",
+        "curiosity": "Os olhos do camaleão se movem independentes! Um pode olhar pra frente e outro pra trás.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_16.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 12
+        },
+        "unlockHint": "Pinte 12 animais para descobrir."
+    },
+    {
+        "id": "animal_17",
+        "name": "ÁGUIA",
+        "emoji": "🦅",
+        "rarity": "Rara",
+        "collection": "Animais 17/20",
+        "curiosity": "A águia enxerga 8 vezes melhor que o ser humano! Ela vê um coelho a 3km de distância.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_17.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 14
+        },
+        "unlockHint": "Pinte 14 animais para descobrir."
+    },
+    {
+        "id": "animal_18",
+        "name": "POLVO",
+        "emoji": "🐙",
+        "rarity": "Rara",
+        "collection": "Animais 18/20",
+        "curiosity": "O polvo tem 3 corações e sangue azul! E pode mudar de cor em menos de 1 segundo.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_18.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 16
+        },
+        "unlockHint": "Pinte 16 animais para descobrir."
+    },
+    {
+        "id": "animal_19",
+        "name": "BALEIA AZUL",
+        "emoji": "🐋",
+        "rarity": "Épica",
+        "collection": "Animais 19/20",
+        "curiosity": "A baleia azul é o maior animal que já existiu! Seu coração é do tamanho de um carro e seu rugido chega a 188 decibéis.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_19.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais",
+            "count": 18
+        },
+        "unlockHint": "Pinte 18 animais para descobrir."
+    },
+    {
+        "id": "animal_20",
+        "name": "PANDA IMPERIAL",
+        "emoji": "🐼",
+        "rarity": "Mítica",
+        "collection": "Animais 20/20",
+        "curiosity": "O Panda Imperial é tão raro que cada nascimento é um evento mundial! Comem 38kg de bambu por dia e são símbolo de paz na China.",
+        "obtidoEm": "Semana dos Animais",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/animal_20.jpg",
+        "unlockCondition": {
+            "type": "complete_collection"
+        },
+        "unlockHint": "Uma grande descoberta ainda está escondida neste capítulo. Continue explorando para revelar este segredo."
+    },
+    {
+        "id": "fant_01",
+        "name": "ELFO",
+        "emoji": "🧝",
+        "rarity": "Comum",
+        "collection": "Fantasia 1/20",
+        "curiosity": "Na Islândia, 54% da população acredita que elfos existem de verdade!",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_01.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 1
+        },
+        "unlockHint": "Salve 1 pintura na galeria para descobrir."
+    },
+    {
+        "id": "fant_02",
+        "name": "CASTELO",
+        "emoji": "🏰",
+        "rarity": "Comum",
+        "collection": "Fantasia 2/20",
+        "curiosity": "O castelo de Neuschwanstein na Alemanha inspirou o castelo da Disney!",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_02.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 desenhos no total para descobrir."
+    },
+    {
+        "id": "fant_03",
+        "name": "VARINHA MÁGICA",
+        "emoji": "🪄",
+        "rarity": "Comum",
+        "collection": "Fantasia 3/20",
+        "curiosity": "A varinha mágica mais famosa da ficção é a Varinha das Varinhas de Harry Potter!",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_03.jpg",
+        "unlockCondition": {
+            "type": "paint_colors",
+            "count": 5
+        },
+        "unlockHint": "Use 5 cores diferentes em uma pintura para descobrir."
+    },
+    {
+        "id": "fant_04",
+        "name": "POÇÃO MÁGICA",
+        "emoji": "🧪",
+        "rarity": "Comum",
+        "collection": "Fantasia 4/20",
+        "curiosity": "Na Idade Média, alquimistas tentaram criar a 'Pedra Filosofal' por 300 anos!",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_04.jpg",
+        "unlockCondition": {
+            "type": "story_count",
+            "count": 1
+        },
+        "unlockHint": "Conclua sua primeira história para descobrir."
+    },
+    {
+        "id": "fant_05",
+        "name": "DUENDE",
+        "emoji": "🍀",
+        "rarity": "Comum",
+        "collection": "Fantasia 5/20",
+        "curiosity": "Na Irlanda dizem que se você pegar um duende, ele revela onde escondeu um pote de ouro!",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_05.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 1
+        },
+        "unlockHint": "Pinte 1 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_06",
+        "name": "GRIMÓRIO",
+        "emoji": "📖",
+        "rarity": "Comum",
+        "collection": "Fantasia 6/20",
+        "curiosity": "Um grimório é um livro de feitiços! O mais famoso tem 400 anos e está em um museu em Londres.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_06.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 2
+        },
+        "unlockHint": "Pinte 2 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_07",
+        "name": "COROA REAL",
+        "emoji": "👑",
+        "rarity": "Comum",
+        "collection": "Fantasia 7/20",
+        "curiosity": "A coroa mais pesada do mundo pesa 2,2kg! Os reis tinham dor de cabeça de verdade.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_07.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_08",
+        "name": "LOBO MÁGICO",
+        "emoji": "🐺",
+        "rarity": "Comum",
+        "collection": "Fantasia 8/20",
+        "curiosity": "Lobos uivam para se comunicar! O uivo pode ser ouvido a 16km de distância na floresta.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_08.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 4
+        },
+        "unlockHint": "Pinte 4 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_09",
+        "name": "SEREIA",
+        "emoji": "🧜‍♀️",
+        "rarity": "Comum",
+        "collection": "Fantasia 9/20",
+        "curiosity": "Marinheiros antigos confundiam peixes-boi com sereias! Cristóvão Colombo escreveu sobre isso.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_09.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_10",
+        "name": "MAGO",
+        "emoji": "🧙",
+        "rarity": "Comum",
+        "collection": "Fantasia 10/20",
+        "curiosity": "A palavra 'mago' vem do persa 'magus', que significa 'sábio'. Magos eram cientistas antigos!",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_10.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_11",
+        "name": "BRUXA BOA",
+        "emoji": "🧹",
+        "rarity": "Comum",
+        "collection": "Fantasia 11/20",
+        "curiosity": "Na Itália existe a Befana, uma bruxa boa que traz presentes para as crianças no dia 6 de janeiro!",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_11.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_12",
+        "name": "GÊNIO DA LÂMPADA",
+        "emoji": "🪔",
+        "rarity": "Comum",
+        "collection": "Fantasia 12/20",
+        "curiosity": "O Gênio das 1001 Noites concede 3 desejos! O conto original vem da Síria.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_12.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 6
+        },
+        "unlockHint": "Pinte 6 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_13",
+        "name": "ESPADA ENCANTADA",
+        "emoji": "⚔️",
+        "rarity": "Comum",
+        "collection": "Fantasia 13/20",
+        "curiosity": "A Excalibur é a espada mais famosa do mundo! Só o Rei Arthur conseguiu tirá-la da pedra.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_13.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 7
+        },
+        "unlockHint": "Pinte 7 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_14",
+        "name": "TESOURO",
+        "emoji": "💎",
+        "rarity": "Comum",
+        "collection": "Fantasia 14/20",
+        "curiosity": "O maior diamante do mundo pesa 530 gramas e está na coroa da rainha da Inglaterra!",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_14.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 8
+        },
+        "unlockHint": "Pinte 8 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_15",
+        "name": "FADA MÁGICA",
+        "emoji": "🧚",
+        "rarity": "Rara",
+        "collection": "Fantasia 15/20",
+        "curiosity": "Na Irlanda existem mais de 40 mil 'fortes de fadas'! Ninguém tem coragem de demolir.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_15.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 10
+        },
+        "unlockHint": "Pinte 10 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_16",
+        "name": "PEGASUS",
+        "emoji": "🪽",
+        "rarity": "Rara",
+        "collection": "Fantasia 16/20",
+        "curiosity": "Pégaso é o cavalo voador da mitologia grega! Nasceu do sangue da Medusa.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_16.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 12
+        },
+        "unlockHint": "Uma criatura mágica aparece para grandes exploradores."
+    },
+    {
+        "id": "fant_17",
+        "name": "BOLA DE CRISTAL",
+        "emoji": "🔮",
+        "rarity": "Rara",
+        "collection": "Fantasia 17/20",
+        "curiosity": "Na Idade Média, as bolas de cristal eram feitas de berilo, uma pedra preciosa verde!",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_17.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 14
+        },
+        "unlockHint": "Pinte 14 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_18",
+        "name": "FÊNIX",
+        "emoji": "🔥",
+        "rarity": "Rara",
+        "collection": "Fantasia 18/20",
+        "curiosity": "A Fênix renasce das próprias cinzas! Esse mito existe no Egito, Grécia e China.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_18.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 16
+        },
+        "unlockHint": "Pinte 16 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_19",
+        "name": "DRAGÃO DE CRISTAL",
+        "emoji": "🐉",
+        "rarity": "Épica",
+        "collection": "Fantasia 19/20",
+        "curiosity": "Dizem que o Dragão de Cristal só aparece uma vez por século! Seu corpo brilha como mil diamantes e seu rugido ecoa por todo o reino.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_19.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "fantasia",
+            "count": 18
+        },
+        "unlockHint": "Pinte 18 desenhos de Fantasia para descobrir."
+    },
+    {
+        "id": "fant_20",
+        "name": "GUARDIÃO DA FANTASIA",
+        "emoji": "🦄",
+        "rarity": "Mítica",
+        "collection": "Fantasia 20/20",
+        "curiosity": "O Unicórnio Guardião é o protetor de todos os reinos mágicos! Aparece no brasão da Escócia desde 1300 e dizem que seu chifre cura qualquer mágoa.",
+        "obtidoEm": "Semana da Fantasia",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/fant_20.jpg",
+        "unlockCondition": {
+            "type": "complete_collection"
+        },
+        "unlockHint": "Uma grande descoberta ainda está escondida neste capítulo. Continue explorando para revelar este segredo."
+    },
+    {
+        "id": "carro_01",
+        "name": "FUSCA",
+        "emoji": "🚗",
+        "rarity": "Comum",
+        "collection": "Veículos 1/20",
+        "curiosity": "O Fusca é o carro mais vendido da história! Foram mais de 21 milhões de unidades.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_01.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 1
+        },
+        "unlockHint": "Salve 1 pintura na galeria para descobrir."
+    },
+    {
+        "id": "carro_02",
+        "name": "CAMINHÃO",
+        "emoji": "🚚",
+        "rarity": "Comum",
+        "collection": "Veículos 2/20",
+        "curiosity": "O maior caminhão do mundo tem 20 metros de comprimento e carrega 450 toneladas!",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_02.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 desenhos no total para descobrir."
+    },
+    {
+        "id": "carro_03",
+        "name": "AMBULÂNCIA",
+        "emoji": "🚑",
+        "rarity": "Comum",
+        "collection": "Veículos 3/20",
+        "curiosity": "A palavra AMBULÂNCIA é escrita ao contrário na frente do veículo para você ler pelo retrovisor!",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_03.jpg",
+        "unlockCondition": {
+            "type": "paint_colors",
+            "count": 5
+        },
+        "unlockHint": "Use 5 cores diferentes em uma pintura para descobrir."
+    },
+    {
+        "id": "carro_04",
+        "name": "ÔNIBUS",
+        "emoji": "🚌",
+        "rarity": "Comum",
+        "collection": "Veículos 4/20",
+        "curiosity": "O ônibus mais longo do mundo tem 30 metros e carrega 300 passageiros! Fica na Alemanha.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_04.jpg",
+        "unlockCondition": {
+            "type": "story_count",
+            "count": 1
+        },
+        "unlockHint": "Conclua sua primeira história para descobrir."
+    },
+    {
+        "id": "carro_05",
+        "name": "TRATOR",
+        "emoji": "🚜",
+        "rarity": "Comum",
+        "collection": "Veículos 5/20",
+        "curiosity": "O primeiro trator foi inventado em 1892! Antes disso, fazendeiros usavam bois e cavalos.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_05.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 1
+        },
+        "unlockHint": "Pinte 1 veículos para descobrir."
+    },
+    {
+        "id": "carro_06",
+        "name": "JIPE",
+        "emoji": "🚙",
+        "rarity": "Comum",
+        "collection": "Veículos 6/20",
+        "curiosity": "O Jipe foi criado para a guerra! Precisavam de um carro que andasse em qualquer terreno.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_06.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 2
+        },
+        "unlockHint": "Pinte 2 veículos para descobrir."
+    },
+    {
+        "id": "carro_07",
+        "name": "VIATURA",
+        "emoji": "🚓",
+        "rarity": "Comum",
+        "collection": "Veículos 7/20",
+        "curiosity": "Em Dubai, a polícia usa Lamborghinis como viaturas! Para perseguir carros de luxo.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_07.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 veículos para descobrir."
+    },
+    {
+        "id": "carro_08",
+        "name": "KART",
+        "emoji": "🏎️",
+        "rarity": "Comum",
+        "collection": "Veículos 8/20",
+        "curiosity": "Ayrton Senna começou a correr de kart aos 4 anos! Muitos pilotos famosos começaram assim.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_08.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 4
+        },
+        "unlockHint": "Pinte 4 veículos para descobrir."
+    },
+    {
+        "id": "carro_09",
+        "name": "BICICLETA",
+        "emoji": "🚲",
+        "rarity": "Comum",
+        "collection": "Veículos 9/20",
+        "curiosity": "Existem mais bicicletas que carros no mundo! Na Holanda tem mais bikes que pessoas.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_09.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 veículos para descobrir."
+    },
+    {
+        "id": "carro_10",
+        "name": "CARRO DE BOMBEIRO",
+        "emoji": "🚒",
+        "rarity": "Comum",
+        "collection": "Veículos 10/20",
+        "curiosity": "O primeiro carro de bombeiro era puxado por cavalos! Só em 1906 virou motorizado.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_10.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 veículos para descobrir."
+    },
+    {
+        "id": "carro_11",
+        "name": "MOTO",
+        "emoji": "🏍️",
+        "rarity": "Comum",
+        "collection": "Veículos 11/20",
+        "curiosity": "A moto mais rápida do mundo chega a 560km/h! É mais veloz que muitos aviões pequenos.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_11.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 veículos para descobrir."
+    },
+    {
+        "id": "carro_12",
+        "name": "KOMBI",
+        "emoji": "🚐",
+        "rarity": "Comum",
+        "collection": "Veículos 12/20",
+        "curiosity": "A Kombi virou símbolo dos hippies nos anos 60! Eles pintavam flores e viajavam o mundo.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_12.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 6
+        },
+        "unlockHint": "Pinte 6 veículos para descobrir."
+    },
+    {
+        "id": "carro_13",
+        "name": "BUGATTI",
+        "emoji": "💨",
+        "rarity": "Comum",
+        "collection": "Veículos 13/20",
+        "curiosity": "O Bugatti Chiron chega a 420km/h e custa 15 milhões de reais!",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_13.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 7
+        },
+        "unlockHint": "Pinte 7 veículos para descobrir."
+    },
+    {
+        "id": "carro_14",
+        "name": "CARRO DE CORRIDA",
+        "emoji": "🏁",
+        "rarity": "Comum",
+        "collection": "Veículos 14/20",
+        "curiosity": "Na Fórmula 1, os carros trocam de pneu em menos de 2 segundos! O pit stop é cronometrado.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_14.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 8
+        },
+        "unlockHint": "Complete desafios de veículos."
+    },
+    {
+        "id": "carro_15",
+        "name": "FERRARI",
+        "emoji": "🏎️",
+        "rarity": "Rara",
+        "collection": "Veículos 15/20",
+        "curiosity": "A Ferrari mais rápida já feita chega a 340km/h! O logotipo é um cavalo empinado.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_15.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 10
+        },
+        "unlockHint": "Pinte 10 veículos para descobrir."
+    },
+    {
+        "id": "carro_16",
+        "name": "LAMBORGHINI",
+        "emoji": "🐂",
+        "rarity": "Rara",
+        "collection": "Veículos 16/20",
+        "curiosity": "O dono da Lamborghini criou carros de luxo porque ficou bravo com a Ferrari! Foi por vingança.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_16.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 12
+        },
+        "unlockHint": "Pinte 12 veículos para descobrir."
+    },
+    {
+        "id": "carro_17",
+        "name": "CARRO ELÉTRICO",
+        "emoji": "🔋",
+        "rarity": "Rara",
+        "collection": "Veículos 17/20",
+        "curiosity": "O primeiro carro elétrico foi inventado em 1832! Antes do carro a gasolina.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_17.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 14
+        },
+        "unlockHint": "Pinte 14 veículos para descobrir."
+    },
+    {
+        "id": "carro_18",
+        "name": "MONSTER TRUCK",
+        "emoji": "🛻",
+        "rarity": "Rara",
+        "collection": "Veículos 18/20",
+        "curiosity": "As rodas de um Monster Truck têm 1,7 metro de altura! Maiores que muitas pessoas.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_18.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 16
+        },
+        "unlockHint": "Pinte 16 veículos para descobrir."
+    },
+    {
+        "id": "carro_19",
+        "name": "LIMOUSINE IMPERIAL",
+        "emoji": "🚐",
+        "rarity": "Épica",
+        "collection": "Veículos 19/20",
+        "curiosity": "A limousine mais longa do mundo tem 30 metros com piscina e heliponto! Só presidentes e estrelas de cinema andam nessa versão imperial.",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_19.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "veiculos",
+            "count": 18
+        },
+        "unlockHint": "Pinte 18 veículos para descobrir."
+    },
+    {
+        "id": "carro_20",
+        "name": "CORREDOR DO TEMPO",
+        "emoji": "🚗",
+        "rarity": "Mítica",
+        "collection": "Veículos 20/20",
+        "curiosity": "O Corredor do Tempo é um veículo lendário que viaja pelo espaço-tempo deixando rastros de fogo e eletricidade por onde passa!",
+        "obtidoEm": "Semana dos Veículos",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/carro_20.jpg",
+        "unlockCondition": {
+            "type": "complete_collection"
+        },
+        "unlockHint": "Uma grande descoberta ainda está escondida neste capítulo. Continue explorando para revelar este segredo."
+    },
+    {
+        "id": "aviao_01",
+        "name": "LUA",
+        "emoji": "🌙",
+        "rarity": "Comum",
+        "collection": "Espaço 1/20",
+        "curiosity": "A Lua é o único satélite natural da Terra! Ela não tem luz própria, apenas reflete a luz do Sol.",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_01.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 1
+        },
+        "unlockHint": "Salve 1 pintura na galeria para descobrir."
+    },
+    {
+        "id": "aviao_02",
+        "name": "SOL",
+        "emoji": "☀️",
+        "rarity": "Comum",
+        "collection": "Espaço 2/20",
+        "curiosity": "O Sol é a estrela mais próxima da Terra! Ele é tão grande que caberiam mais de 1 milhão de Terras dentro dele.",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_02.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 desenhos no total para descobrir."
+    },
+    {
+        "id": "aviao_03",
+        "name": "MARTE",
+        "emoji": "🔴",
+        "rarity": "Comum",
+        "collection": "Espaço 3/20",
+        "curiosity": "Marte é conhecido como o Planeta Vermelho por causa do ferro em seu solo, que parece ferrugem!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_03.jpg",
+        "unlockCondition": {
+            "type": "paint_colors",
+            "count": 5
+        },
+        "unlockHint": "Use 5 cores diferentes em uma pintura para descobrir."
+    },
+    {
+        "id": "aviao_04",
+        "name": "SATURNO",
+        "emoji": "🪐",
+        "rarity": "Comum",
+        "collection": "Espaço 4/20",
+        "curiosity": "Saturno é famoso por seus lindos anéis feitos de pedaços de gelo e rocha!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_04.jpg",
+        "unlockCondition": {
+            "type": "story_count",
+            "count": 1
+        },
+        "unlockHint": "Conclua sua primeira história para descobrir."
+    },
+    {
+        "id": "aviao_05",
+        "name": "PLANETA TERRA",
+        "emoji": "🌍",
+        "rarity": "Comum",
+        "collection": "Espaço 5/20",
+        "curiosity": "A Terra é o nosso lar e o único planeta conhecido com vida! Cerca de 70% de sua superfície é coberta por água.",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_05.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 1
+        },
+        "unlockHint": "Pinte 1 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_06",
+        "name": "JÚPITER",
+        "emoji": "🌀",
+        "rarity": "Comum",
+        "collection": "Espaço 6/20",
+        "curiosity": "Júpiter é o maior planeta do Sistema Solar! Ele é um gigante gasoso e tem uma tempestade gigante que dura há séculos.",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_06.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 2
+        },
+        "unlockHint": "Pinte 2 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_07",
+        "name": "ASTRONAUTA",
+        "emoji": "🧑‍🚀",
+        "rarity": "Comum",
+        "collection": "Espaço 7/20",
+        "curiosity": "Os astronautas usam roupas especiais que os protegem do frio extremo e fornecem oxigênio no espaço!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_07.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_08",
+        "name": "FOGUETE",
+        "emoji": "🚀",
+        "rarity": "Comum",
+        "collection": "Espaço 8/20",
+        "curiosity": "Os foguetes precisam de muita força para vencer a gravidade da Terra e ir para o espaço!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_08.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 4
+        },
+        "unlockHint": "Pinte 4 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_09",
+        "name": "SATÉLITE",
+        "emoji": "🛰️",
+        "rarity": "Comum",
+        "collection": "Espaço 9/20",
+        "curiosity": "Os satélites artificiais orbitam a Terra e nos ajudam a usar GPS, internet e ver a previsão do tempo!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_09.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_10",
+        "name": "ESTAÇÃO ESPACIAL",
+        "emoji": "🛸",
+        "rarity": "Comum",
+        "collection": "Espaço 10/20",
+        "curiosity": "A Estação Espacial Internacional (ISS) é um laboratório gigante no espaço onde astronautas moram e trabalham!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_10.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_11",
+        "name": "COMETA",
+        "emoji": "☄️",
+        "rarity": "Comum",
+        "collection": "Espaço 11/20",
+        "curiosity": "Os cometas são bolas gigantes de gelo e poeira! Quando chegam perto do Sol, o gelo derrete e forma uma cauda brilhante.",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_11.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_12",
+        "name": "ASTEROIDE",
+        "emoji": "🪨",
+        "rarity": "Comum",
+        "collection": "Espaço 12/20",
+        "curiosity": "Asteroides são pedregulhos espaciais que orbitam o Sol! A maioria deles fica em um 'cinturão' entre Marte e Júpiter.",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_12.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 6
+        },
+        "unlockHint": "Pinte 6 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_13",
+        "name": "URANO",
+        "emoji": "🪐",
+        "rarity": "Comum",
+        "collection": "Espaço 13/20",
+        "curiosity": "Urano é um gigante de gelo azul-esverdeado e é o único planeta do Sistema Solar que gira totalmente de lado!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_13.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 7
+        },
+        "unlockHint": "Pinte 7 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_14",
+        "name": "NETUNO",
+        "emoji": "🔵",
+        "rarity": "Comum",
+        "collection": "Espaço 14/20",
+        "curiosity": "Netuno é o planeta mais distante do Sol e tem os ventos mais rápidos e violentos do Sistema Solar!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_14.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 8
+        },
+        "unlockHint": "Pinte 8 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_15",
+        "name": "ESTRELA CADENTE",
+        "emoji": "💫",
+        "rarity": "Rara",
+        "collection": "Espaço 15/20",
+        "curiosity": "Estrelas cadentes não são estrelas! São pequenos pedaços de rocha que queimam ao entrar na atmosfera da Terra.",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_15.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 10
+        },
+        "unlockHint": "Pinte 10 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_16",
+        "name": "AURORA BOREAL",
+        "emoji": "✨",
+        "rarity": "Rara",
+        "collection": "Espaço 16/20",
+        "curiosity": "As auroras são luzes coloridas mágicas que aparecem no céu perto dos polos da Terra, causadas por ventos solares!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_16.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 12
+        },
+        "unlockHint": "Pinte 12 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_17",
+        "name": "NEBULOSA",
+        "emoji": "🌌",
+        "rarity": "Rara",
+        "collection": "Espaço 17/20",
+        "curiosity": "Nebulosas são nuvens gigantes de gás e poeira no espaço onde novas estrelas nascem! Elas parecem pinturas coloridas.",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_17.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 14
+        },
+        "unlockHint": "Continue explorando o Espaço."
+    },
+    {
+        "id": "aviao_18",
+        "name": "MARTE ROVER",
+        "emoji": "🤖",
+        "rarity": "Rara",
+        "collection": "Espaço 18/20",
+        "curiosity": "Os rovers são pequenos robôs cientistas enviados para explorar outros planetas e tirar fotos incríveis para nós!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_18.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 16
+        },
+        "unlockHint": "Pinte 16 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_19",
+        "name": "BURACO NEGRO",
+        "emoji": "🕳️",
+        "rarity": "Épica",
+        "collection": "Espaço 19/20",
+        "curiosity": "Um buraco negro tem uma gravidade tão forte que suga tudo o que chega perto, até mesmo a luz!",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_19.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "espaco",
+            "count": 18
+        },
+        "unlockHint": "Pinte 18 desenhos do Espaço para descobrir."
+    },
+    {
+        "id": "aviao_20",
+        "name": "UNIVERSO INFINITO",
+        "emoji": "🚀",
+        "rarity": "Mítica",
+        "collection": "Espaço 20/20",
+        "curiosity": "O Universo é tudo o que existe! Bilhões de galáxias, estrelas e nebulosas majestosas dançando no infinito.",
+        "obtidoEm": "Semana do Espaço",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/aviao_20.jpg",
+        "unlockCondition": {
+            "type": "complete_collection"
+        },
+        "unlockHint": "Uma grande descoberta ainda está escondida neste capítulo. Continue explorando para revelar este segredo."
+    },
+    {
+        "id": "pais_01",
+        "name": "GOLFINHO FELIZ",
+        "emoji": "🐬",
+        "rarity": "Comum",
+        "collection": "Oceano 1/20",
+        "curiosity": "Os golfinhos são super inteligentes e se comunicam através de assobios e cliques!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_01.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 1
+        },
+        "unlockHint": "Explore mais o Oceano."
+    },
+    {
+        "id": "pais_02",
+        "name": "TARTARUGA MARINHA",
+        "emoji": "🐢",
+        "rarity": "Comum",
+        "collection": "Oceano 2/20",
+        "curiosity": "As tartarugas marinhas viajam milhares de quilômetros pelos oceanos e sempre voltam para a mesma praia onde nasceram!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_02.jpg",
+        "unlockCondition": {
+            "type": "paint_count",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 desenhos no total para descobrir."
+    },
+    {
+        "id": "pais_03",
+        "name": "PEIXE-PALHAÇO",
+        "emoji": "🐠",
+        "rarity": "Comum",
+        "collection": "Oceano 3/20",
+        "curiosity": "O peixe-palhaço vive protegido entre os tentáculos venenosos das anêmonas, pois é imune ao veneno delas!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_03.jpg",
+        "unlockCondition": {
+            "type": "paint_colors",
+            "count": 5
+        },
+        "unlockHint": "Use 5 cores diferentes em uma pintura para descobrir."
+    },
+    {
+        "id": "pais_04",
+        "name": "ESTRELA-DO-MAR",
+        "emoji": "⭐",
+        "rarity": "Comum",
+        "collection": "Oceano 4/20",
+        "curiosity": "As estrelas-do-mar não têm cérebro nem sangue, e conseguem regenerar seus braços se forem perdidos!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_04.jpg",
+        "unlockCondition": {
+            "type": "story_count",
+            "count": 1
+        },
+        "unlockHint": "Conclua sua primeira história para descobrir."
+    },
+    {
+        "id": "pais_05",
+        "name": "CAVALO-MARINHO",
+        "emoji": "🦄",
+        "rarity": "Comum",
+        "collection": "Oceano 5/20",
+        "curiosity": "Os cavalos-marinhos nadam na vertical e são os papais que carregam os ovinhos até nascerem!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_05.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 1
+        },
+        "unlockHint": "Pinte 1 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_06",
+        "name": "CARANGUEJO BRINCALHÃO",
+        "emoji": "🦀",
+        "rarity": "Comum",
+        "collection": "Oceano 6/20",
+        "curiosity": "Os caranguejos andam de lado porque suas articulações dobram apenas para os lados!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_06.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 2
+        },
+        "unlockHint": "Pinte 2 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_07",
+        "name": "ÁGUA-VIVA BRILHANTE",
+        "emoji": "🎐",
+        "rarity": "Comum",
+        "collection": "Oceano 7/20",
+        "curiosity": "As águas-vivas são feitas de 95% de água e algumas conseguem brilhar no escuro (bioluminescência)!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_07.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 3
+        },
+        "unlockHint": "Pinte 3 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_08",
+        "name": "POLVO CURIOSO",
+        "emoji": "🐙",
+        "rarity": "Comum",
+        "collection": "Oceano 8/20",
+        "curiosity": "Os polvos têm três corações, sangue azul e conseguem mudar de cor para se camuflar em segundos!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_08.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 4
+        },
+        "unlockHint": "Pinte 4 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_09",
+        "name": "NUDIBRÂNQUIO",
+        "emoji": "🐌",
+        "rarity": "Comum",
+        "collection": "Oceano 9/20",
+        "curiosity": "Os nudibrânquios são lesmas do mar extremamente coloridas que usam suas cores para avisar que são venenosas!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_09.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_10",
+        "name": "RAIA JAMANTA",
+        "emoji": "🐟",
+        "rarity": "Comum",
+        "collection": "Oceano 10/20",
+        "curiosity": "A raia jamanta é a maior de todas as raias e pode chegar a ter 7 metros de largura!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_10.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_11",
+        "name": "FOCA BRINCALHONA",
+        "emoji": "🦭",
+        "rarity": "Comum",
+        "collection": "Oceano 11/20",
+        "curiosity": "As focas conseguem dormir debaixo d'água, subindo para respirar sem precisar acordar!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_11.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 5
+        },
+        "unlockHint": "Pinte 5 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_12",
+        "name": "LEÃO-MARINHO",
+        "emoji": "🦁",
+        "rarity": "Comum",
+        "collection": "Oceano 12/20",
+        "curiosity": "Diferente das focas, os leões-marinhos têm orelhas visíveis e usam suas nadadeiras para andar na terra!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_12.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 6
+        },
+        "unlockHint": "Pinte 6 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_13",
+        "name": "PEIXE-ESPADARTE",
+        "emoji": "⚔️",
+        "rarity": "Comum",
+        "collection": "Oceano 13/20",
+        "curiosity": "O peixe-espadarte usa seu bico longo em forma de espada para caçar e cortar seus peixes!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_13.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 7
+        },
+        "unlockHint": "Pinte 7 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_14",
+        "name": "RECIFE DE CORAL",
+        "emoji": "🪸",
+        "rarity": "Comum",
+        "collection": "Oceano 14/20",
+        "curiosity": "Os recifes de coral parecem rochas, mas são formados por milhões de minúsculos animais vivos chamados pólipos!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_14.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 8
+        },
+        "unlockHint": "Pinte 8 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_15",
+        "name": "TUBARÃO DA AREIA",
+        "emoji": "🦈",
+        "rarity": "Rara",
+        "collection": "Oceano 15/20",
+        "curiosity": "Os tubarões da areia perdem e trocam milhares de dentes durante a vida!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_15.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 10
+        },
+        "unlockHint": "Pinte 10 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_16",
+        "name": "BALEIA JUBARTE",
+        "emoji": "🐋",
+        "rarity": "Rara",
+        "collection": "Oceano 16/20",
+        "curiosity": "As baleias jubartes são famosas por seus cantos complexos que podem durar até 20 minutos!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_16.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 12
+        },
+        "unlockHint": "Pinte 12 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_17",
+        "name": "TUBARÃO-BALEIA",
+        "emoji": "🐳",
+        "rarity": "Rara",
+        "collection": "Oceano 17/20",
+        "curiosity": "O tubarão-baleia é o maior peixe do mundo! Ele se alimenta apenas de plâncton e pequenos peixes.",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_17.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 14
+        },
+        "unlockHint": "Pinte 14 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_18",
+        "name": "PEIXE-LANTERNA",
+        "emoji": "💡",
+        "rarity": "Rara",
+        "collection": "Oceano 18/20",
+        "curiosity": "O peixe-lanterna vive nas profundezas do oceano e tem sua própria luz para iluminar o caminho!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_18.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 16
+        },
+        "unlockHint": "Pinte 16 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_19",
+        "name": "NAVIO NAUFRAGADO",
+        "emoji": "🚢",
+        "rarity": "Épica",
+        "collection": "Oceano 19/20",
+        "curiosity": "Navios antigos afundados se tornam recifes artificiais e servem de lar para milhares de espécies marinhas!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_19.jpg",
+        "unlockCondition": {
+            "type": "category_paint",
+            "category": "animais-do-mar",
+            "count": 18
+        },
+        "unlockHint": "Pinte 18 criaturas marinhas para descobrir."
+    },
+    {
+        "id": "pais_20",
+        "name": "REINO ABISSAL",
+        "emoji": "👑",
+        "rarity": "Mítica",
+        "collection": "Oceano 20/20",
+        "curiosity": "O fundo do oceano abriga criaturas misteriosas que vivem em completa escuridão sob pressões extremas!",
+        "obtidoEm": "Semana do Oceano",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/pais_20.jpg",
+        "unlockCondition": {
+            "type": "complete_collection"
+        },
+        "unlockHint": "Uma grande descoberta ainda está escondida neste capítulo. Continue explorando para revelar este segredo."
+    },
+    {
+        "id": "social_01",
+        "name": "EXPLORADOR AMIGO",
+        "emoji": "🤝",
+        "rarity": "Comum",
+        "collection": "Social 1/5",
+        "curiosity": "Você convidou seu primeiro amigo para se divertir colorindo e criando no KidCanvas!",
+        "obtidoEm": "Desafio de Convite",
+        "imageUrl": "/mascot_aprendiz.png",
+        "unlockCondition": {
+            "type": "invite",
+            "count": 1
+        },
+        "unlockHint": "Convide 1 amigo para descobrir."
+    },
+    {
+        "id": "social_02",
+        "name": "GRUPO DE EXPLORADORES",
+        "emoji": "🌟",
+        "rarity": "Rara",
+        "collection": "Social 2/5",
+        "curiosity": "Três amigos entraram no KidCanvas pelo seu código de convite! Formamos um verdadeiro grupo de exploradores.",
+        "obtidoEm": "Super Convidador",
+        "imageUrl": "/mascot_mago.png",
+        "unlockCondition": {
+            "type": "invite",
+            "count": 3
+        },
+        "unlockHint": "Convide 3 amigos para descobrir."
+    },
+    {
+        "id": "social_03",
+        "name": "COMPARTILHADOR",
+        "emoji": "📣",
+        "rarity": "Comum",
+        "collection": "Social 3/5",
+        "curiosity": "Você compartilhou 3 de suas obras de arte com o mundo!",
+        "obtidoEm": "Compartilhamento de Arte",
+        "imageUrl": "/mascot_artista.png",
+        "unlockCondition": {
+            "type": "share_painting",
+            "count": 3
+        },
+        "unlockHint": "Compartilhe 3 pinturas para descobrir."
+    },
+    {
+        "id": "social_04",
+        "name": "ARTISTA POPULAR",
+        "emoji": "🎨",
+        "rarity": "Rara",
+        "collection": "Social 4/5",
+        "curiosity": "Você compartilhou 10 pinturas da sua galeria. Todo mundo está admirando seu talento!",
+        "obtidoEm": "Galeria Compartilhada",
+        "imageUrl": "/mascot_lenda.png",
+        "unlockCondition": {
+            "type": "share_painting",
+            "count": 10
+        },
+        "unlockHint": "Compartilhe 10 pinturas para descobrir."
+    },
+    {
+        "id": "social_05",
+        "name": "CONTADOR DE HISTÓRIAS",
+        "emoji": "📖",
+        "rarity": "Épica",
+        "collection": "Social 5/5",
+        "curiosity": "Você compartilhou 5 de suas histórias mágicas geradas pela IA!",
+        "obtidoEm": "Histórias Compartilhadas",
+        "imageUrl": "/magician_icon.png",
+        "unlockCondition": {
+            "type": "share_story",
+            "count": 5
+        },
+        "unlockHint": "Compartilhe 5 histórias mágicas para descobrir."
+    }
 ]
