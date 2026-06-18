@@ -1127,7 +1127,7 @@ app.post('/api/generate-full-story', async (req, res) => {
 
         // Verificar limite de armazenamento por plano (Histórias)
         const plan = user.plan || 'Aprendiz';
-        let limit = 3;
+        let limit = 0;
         if (plan === 'Artista' || plan === 'Família') limit = 10;
         else if (plan === 'Mago' || plan === 'Mago Criador' || plan === 'Professor' || plan === 'Premium') limit = 30;
         else if (plan === 'Lenda' || plan === 'Lenda KidCanvas' || plan === 'Ultra' || plan === 'Colégio') limit = Infinity;
@@ -2238,7 +2238,7 @@ app.post('/api/user/save-painting', async (req, res) => {
 
         // Verificar limite de armazenamento por plano (Pinturas)
         const plan = user.plan || 'Aprendiz';
-        let limit = 5;
+        let limit = 3;
         if (plan === 'Artista' || plan === 'Família') limit = 30;
         else if (plan === 'Mago' || plan === 'Mago Criador' || plan === 'Professor' || plan === 'Premium') limit = 100;
         else if (plan === 'Lenda' || plan === 'Lenda KidCanvas' || plan === 'Ultra' || plan === 'Colégio') limit = Infinity;
