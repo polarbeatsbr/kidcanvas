@@ -3637,17 +3637,36 @@ async function requireAuth(req, res, next) {
     next();
 }
 
-app.get('/api/events/current', requireAuth, (req, res) => {
-    console.log(`[EVENTS] /api/events/current called by user=${req.user.email}`);
+app.get('/api/events/current', async (req, res) => {
+    const token = req.headers['x-session-token'];
+    let user = null;
+    if (token) {
+        const users = await loadUsers();
+        user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+    }
+
     const activeEvent = getActiveEvent();
     if (!activeEvent) {
         console.log('[EVENTS] No active event, returning active=false');
         return res.json({ success: true, active: false });
     }
     
-    const user = req.user;
     const week = activeEvent.week;
     
+    if (!user) {
+        console.log('[EVENTS] /api/events/current called by guest');
+        return res.json({
+            success: true,
+            active: true,
+            season: activeEvent.season,
+            week: week,
+            progress: {},
+            inventory: [],
+            isGuest: true
+        });
+    }
+    
+    console.log(`[EVENTS] /api/events/current called by user=${user.email}`);
     if (!user.eventProgress || user.eventProgress.eventId !== week.id) {
         user.eventProgress = {
             eventId: week.id,

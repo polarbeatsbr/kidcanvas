@@ -176,6 +176,7 @@ let currentUser = null;
 async function syncUserProfile() {
     if (!sessionToken) {
         updateHeaderAuthDisplay();
+        if (typeof checkActiveEvent === 'function') checkActiveEvent();
         return;
     }
     try {
@@ -986,7 +987,29 @@ function initGlobalEventListeners() {
             loadNextCategoryDrawings();
         });
     }
-}
+window.updateActiveBottomNav = function(activeId = null) {
+    document.querySelectorAll('.mobile-bottom-nav .mobile-nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    if (activeId) {
+        const activeNav = document.getElementById(activeId);
+        if (activeNav) activeNav.classList.add('active');
+        return;
+    }
+    
+    const cleanPath = window.location.pathname.trim();
+    if (cleanPath === '/' || cleanPath === '/home' || cleanPath === '') {
+        const activeNav = document.getElementById('mobile-nav-home');
+        if (activeNav) activeNav.classList.add('active');
+    } else if (cleanPath === '/categorias' || cleanPath.startsWith('/categoria/')) {
+        const activeNav = document.getElementById('mobile-nav-categorias');
+        if (activeNav) activeNav.classList.add('active');
+    } else if (cleanPath === '/historias-magicas' || cleanPath === '/historia' || cleanPath === '/historias-exemplo') {
+        const activeNav = document.getElementById('mobile-nav-historia');
+        if (activeNav) activeNav.classList.add('active');
+    }
+};
 
 function navigate(path, pushState = true) {
     let cleanPath = path.trim();
@@ -1120,16 +1143,8 @@ function navigate(path, pushState = true) {
     }
     
     // Atualizar classe ativa na barra de navegação inferior mobile (SPA)
-    document.querySelectorAll('.mobile-bottom-nav .mobile-nav-item').forEach(item => {
-        item.classList.remove('active');
-    });
-    
-    if (cleanPath === '/' || cleanPath === '/home' || cleanPath === '') {
-        const activeNav = document.getElementById('mobile-nav-home');
-        if (activeNav) activeNav.classList.add('active');
-    } else if (cleanPath === '/categorias' || cleanPath.startsWith('/categoria/')) {
-        const activeNav = document.getElementById('mobile-nav-categorias');
-        if (activeNav) activeNav.classList.add('active');
+    if (typeof window.updateActiveBottomNav === 'function') {
+        window.updateActiveBottomNav();
     }
     
     // Salvar no histórico
@@ -1705,17 +1720,20 @@ function renderHomeView() {
 function updateFeaturedHomeCards(paintings) {
     if (!paintings || paintings.length === 0) return;
 
+    // Filter out stories from featured drawings (since stories are books, not drawings to color/print)
+    const drawingsOnly = paintings.filter(p => p.category !== 'Histórias Mágicas');
+
     // 1. Destaque Geral (Mais Votado de todos)
-    const sortedAll = [...paintings].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
+    const sortedAll = [...drawingsOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
     const topGeral = sortedAll[0];
 
-    // 2. Campeão de Colorir
-    const colorirOnly = paintings.filter(p => p.category !== 'Mão Livre');
+    // 2. Campeão de Colorir (actual colored drawing pages only)
+    const colorirOnly = drawingsOnly.filter(p => p.category === 'Colorir' || !p.category);
     const sortedColorir = [...colorirOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
     const topColorir = sortedColorir[0];
 
     // 3. Campeão Mão Livre
-    const maolivreOnly = paintings.filter(p => p.category === 'Mão Livre');
+    const maolivreOnly = drawingsOnly.filter(p => p.category === 'Mão Livre');
     const sortedMaoLivre = [...maolivreOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
     const topMaoLivre = sortedMaoLivre[0];
 
@@ -2842,6 +2860,9 @@ function openMobileSearchModal() {
     if (modal) {
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden'; // Evita scroll de fundo
+        if (typeof window.updateActiveBottomNav === 'function') {
+            window.updateActiveBottomNav('mobile-nav-search-trigger');
+        }
         
         setTimeout(() => {
             const input = document.getElementById('mobile-search-input');
@@ -2860,6 +2881,9 @@ function closeMobileSearchModal() {
     if (modal) {
         modal.style.display = 'none';
         document.body.style.overflow = '';
+        if (typeof window.updateActiveBottomNav === 'function') {
+            window.updateActiveBottomNav();
+        }
     }
 }
 window.closeMobileSearchModal = closeMobileSearchModal;
@@ -9262,9 +9286,11 @@ let currentActiveEvent = null;
 
 async function checkActiveEvent() {
     try {
-        const res = await fetch('/api/events/current', {
-            headers: { 'X-Session-Token': sessionToken }
-        });
+        const headers = {};
+        if (sessionToken) {
+            headers['X-Session-Token'] = sessionToken;
+        }
+        const res = await fetch('/api/events/current', { headers });
         const data = await res.json();
         
         if (data.success && data.active) {
@@ -9970,6 +9996,9 @@ window.openAlbumModal = async function() {
         overlay.classList.add('active');
         const wrap = overlay.querySelector('.livro-paginas-wrap');
         if (wrap) wrap.scrollLeft = 0;
+        if (typeof window.updateActiveBottomNav === 'function') {
+            window.updateActiveBottomNav('mobile-nav-album');
+        }
     }
 };
 
@@ -10274,6 +10303,9 @@ window.closeAlbumModal = function() {
     if (window.livroDicasInterval) {
         clearInterval(window.livroDicasInterval);
         window.livroDicasInterval = null;
+    }
+    if (typeof window.updateActiveBottomNav === 'function') {
+        window.updateActiveBottomNav();
     }
 };
 
