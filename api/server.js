@@ -258,7 +258,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 
 // Rota Stripe Webhook (deve vir antes do express.json() geral)
-app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+app.post(['/api/stripe/webhook', '/api/stripc/webhook'], express.raw({type: 'application/json'}), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     let event;
 

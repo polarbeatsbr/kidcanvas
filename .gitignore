@@ -39,3 +39,6 @@ public/pintai-biblioteca-backup/
 saved_images/
 suspeitas/
 
+
+.vercel
+.env*
