@@ -1,0 +1,34 @@
+{
+  "currentSeason": "misterio_ovo",
+  "currentWeek": 1,
+  "weeks": [
+    {
+      "id": "semana_dinos",
+      "weekNumber": 1,
+      "theme": "Dinossauros",
+      "startDate": "2026-06-15T00:00:00.000Z",
+      "endDate": "2026-06-22T23:59:59.999Z",
+      "chainItem": "egg_1",
+      "missions": [
+        { "id": "dino_facil", "type": "paint_category", "target": "dinossauros", "req": 3, "reward": { "type": "stars", "value": 5 }, "tier": "facil", "title": "Ovos de Dinossauro", "desc": "Pinte 3 dinossauros" },
+        { "id": "dino_media", "type": "paint_category", "target": "dinossauros", "req": 5, "reward": { "type": "badge", "value": "cacador_jurassico" }, "tier": "media", "title": "Caçador Jurássico", "desc": "Pinte 5 dinossauros" },
+        { "id": "dino_dificil", "type": "paint_category", "target": "dinossauros", "req": 10, "reward": { "type": "stars", "value": 20 }, "tier": "dificil", "title": "Explorador Perdido", "desc": "Pinte 10 dinossauros" },
+        { "id": "dino_epica", "type": "complete_all", "target": "semana_dinos", "req": 3, "reward": { "type": "card", "value": "t_rex", "name": "T-REX", "curiosity": "O T-Rex podia medir até 12 metros.", "collection": "Dinossauros 1/20" }, "tier": "epica", "title": "Mestre Jurássico", "desc": "Complete todas as missões" }
+      ]
+    },
+    {
+      "id": "semana_piratas",
+      "weekNumber": 2,
+      "theme": "Piratas",
+      "startDate": "2026-06-23T00:00:00.000Z",
+      "endDate": "2026-06-30T23:59:59.999Z",
+      "chainItem": "egg_2",
+      "missions": [
+        { "id": "pirata_facil", "type": "paint_category", "target": "piratas", "req": 3, "reward": { "type": "stars", "value": 5 }, "tier": "facil", "title": "Marujo", "desc": "Pinte 3 piratas" },
+        { "id": "pirata_media", "type": "paint_category", "target": "piratas", "req": 5, "reward": { "type": "badge", "value": "pirata_valente" }, "tier": "media", "title": "Pirata Valente", "desc": "Pinte 5 piratas" },
+        { "id": "pirata_dificil", "type": "paint_category_public", "target": "piratas", "req": 10, "reward": { "type": "stars", "value": 20 }, "tier": "dificil", "title": "Capitão dos Sete Mares", "desc": "Pinte 10 piratas e compartilhe 1" },
+        { "id": "pirata_epica", "type": "complete_all", "target": "semana_piratas", "req": 3, "reward": { "type": "badge", "value": "lenda_dos_mares" }, "tier": "epica", "title": "Lenda dos Mares", "desc": "Complete as 3 missões" }
+      ]
+    }
+  ]
+}

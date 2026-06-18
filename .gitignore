@@ -27,6 +27,8 @@ C:\\Users\\foneo\\.gemini\antigravity\brain/
 !vercel.json
 !creation_dates.json
 !drawings.json
+!events.json
+!examples_metadata.json
 
 # Markdown files in root
 *.md

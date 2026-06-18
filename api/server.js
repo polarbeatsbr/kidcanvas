@@ -3448,19 +3448,27 @@ const eventsPath = path.join(__dirname, '..', 'events.json');
 
 function getActiveEvent() {
     try {
-        if (!fs.existsSync(eventsPath)) return null;
+        const exists = fs.existsSync(eventsPath);
+        console.log(`[EVENTS] eventsPath=${eventsPath} exists=${exists}`);
+        if (!exists) {
+            console.log('[EVENTS] events.json NOT FOUND - returning null');
+            return null;
+        }
         const eventsData = JSON.parse(fs.readFileSync(eventsPath, 'utf8'));
         const now = new Date();
+        console.log(`[EVENTS] now=${now.toISOString()} weeks=${eventsData.weeks.length}`);
         const activeWeek = eventsData.weeks.find(w => new Date(w.startDate) <= now && new Date(w.endDate) >= now);
         if (activeWeek) {
+            console.log(`[EVENTS] Active week found: ${activeWeek.id} theme=${activeWeek.theme}`);
             return {
                 season: eventsData.currentSeason,
                 week: activeWeek
             };
         }
+        console.log('[EVENTS] No active week found for current date');
         return null;
     } catch (err) {
-        console.error('Erro ao ler events.json:', err);
+        console.error('[EVENTS] Erro ao ler events.json:', err);
         return null;
     }
 }
@@ -3476,8 +3484,10 @@ async function requireAuth(req, res, next) {
 }
 
 app.get('/api/events/current', requireAuth, (req, res) => {
+    console.log(`[EVENTS] /api/events/current called by user=${req.user.email}`);
     const activeEvent = getActiveEvent();
     if (!activeEvent) {
+        console.log('[EVENTS] No active event, returning active=false');
         return res.json({ success: true, active: false });
     }
     
