@@ -2605,14 +2605,14 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
                 e.preventDefault();
                 // Forçar a seleção de volta para o PT
                 document.querySelector('input[name="phrase-lang-mode"][value="pt"]').checked = true;
-                showToast('A legenda bilíngue em inglês está disponível a partir do plano Família! 🚀', 'info');
+                showToast('A legenda bilíngue em inglês está disponível a partir do plano Artista! 🚀', 'info');
                 return false;
             }
             if (val === 'es' && !hasEs) {
                 e.preventDefault();
                 // Forçar a seleção de volta para o PT
                 document.querySelector('input[name="phrase-lang-mode"][value="pt"]').checked = true;
-                showToast('A legenda trilíngue em espanhol está disponível no plano Colégio! 🚀', 'info');
+                showToast('A legenda trilíngue em espanhol está disponível a partir do plano Mago Criador! 🚀', 'info');
                 return false;
             }
         };

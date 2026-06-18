@@ -1931,8 +1931,8 @@
         const lockEnIcon = document.getElementById('book-lang-lock-en');
         const lockEsIcon = document.getElementById('book-lang-lock-es');
         
-        const hasEn = ['Professor', 'Colégio', 'Premium', 'Ultra'].includes(plan);
-        const hasEs = ['Colégio', 'Premium', 'Ultra'].includes(plan);
+        const hasEn = ['Artista', 'Mago Criador', 'Lenda KidCanvas', 'Ultra', 'Família', 'Professor', 'Colégio', 'Premium'].includes(plan);
+        const hasEs = ['Mago Criador', 'Lenda KidCanvas', 'Ultra', 'Colégio', 'Premium'].includes(plan);
         
         if (lockEnIcon) lockEnIcon.style.display = hasEn ? 'none' : 'inline-block';
         if (lockEsIcon) lockEsIcon.style.display = hasEs ? 'none' : 'inline-block';
@@ -1947,7 +1947,7 @@
                         radioPt.checked = true;
                         document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
                         langCardPt.classList.add('active');
-                        alert("A criação de livros em Inglês está disponível a partir do plano Professor!");
+                        alert("A criação de livros em Inglês está disponível a partir do plano Artista!");
                         return false;
                     }
                     if (!isEn && !hasEs) {
@@ -1956,7 +1956,7 @@
                         radioPt.checked = true;
                         document.querySelectorAll('.lang-card').forEach(c => c.classList.remove('active'));
                         langCardPt.classList.add('active');
-                        alert("A criação de livros em Espanhol está disponível no plano Colégio!");
+                        alert("A criação de livros em Espanhol está disponível a partir do plano Mago Criador!");
                         return false;
                     }
                 };
