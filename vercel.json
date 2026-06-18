@@ -1,0 +1,78 @@
+{
+  "functions": {
+    "api/server.js": {
+      "includeFiles": "{index.html,admin.html,historia.html,creation_dates.json,drawings.json,events.json,api/cards_catalog.json,public_paintings.json,ratings.json}",
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/server.js"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/reportar-bug",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/historias-magicas",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/historia",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/historias-exemplo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/politica-de-privacidade",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/categorias",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/top50",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/planos",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/hall-da-fama",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/gerar-desenho",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pintura-livre",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/conquistas",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/categoria/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/:category/:drawing",
+      "destination": "/index.html"
+    }
+  ]
+}
