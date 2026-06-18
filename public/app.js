@@ -9144,32 +9144,31 @@ async function checkActiveEvent() {
         if (data.success && data.active) {
             currentActiveEvent = data;
             
-            // Show global banner
-            const banner = document.getElementById('global-event-banner');
-            const bannerText = document.getElementById('global-event-text');
             const heroBtn = document.getElementById('hero-event-button');
+            const heroTimer = document.getElementById('hero-event-timer');
             
-            if (banner && bannerText) {
-                banner.style.display = 'block';
+            if (heroBtn) {
+                heroBtn.style.display = 'block';
+            }
+            
+            if (heroTimer) {
                 const endDate = new Date(data.week.endDate);
                 
-                // Simple countdown update
-                setInterval(() => {
+                const updateTimer = () => {
                     const now = new Date();
                     const diff = endDate - now;
                     if (diff <= 0) {
-                        bannerText.innerHTML = '✨ A Expedição Mágica da Semana acabou! Volte na próxima sexta! ✨';
+                        heroTimer.innerHTML = '⏰ Terminou! Nova expedição em breve! ✨';
                         return;
                     }
                     const d = Math.floor(diff / (1000 * 60 * 60 * 24));
                     const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
                     const m = Math.floor((diff / 1000 / 60) % 60);
-                    bannerText.innerHTML = `✨ Expedição Mágica dos ${data.week.theme} termina em: ⏰ ${d}d ${h}h ${m}m`;
-                }, 1000);
-            }
-            
-            if (heroBtn) {
-                heroBtn.style.display = 'block';
+                    heroTimer.innerHTML = `⏰ Termina em ${d}d ${h}h ${m}m`;
+                };
+                
+                updateTimer();
+                setInterval(updateTimer, 1000);
             }
         }
     } catch (e) {

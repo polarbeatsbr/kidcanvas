@@ -41,10 +41,6 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-    <!-- Banner Global de Evento -->
-    <div id="global-event-banner" style="display: none; background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); color: #fff; text-align: center; padding: 10px; font-weight: bold; font-size: 1rem; cursor: pointer; border-bottom: 2px solid rgba(255,255,255,0.5); text-shadow: 1px 1px 2px rgba(0,0,0,0.2);" onclick="openEventModal()">
-        ✨ <span id="global-event-text">Expedição Mágica da Semana termina em: ⏰ ...</span> ✨
-    </div>
 
     <!-- HEADER / NAVBAR -->
     <header class="main-header">
@@ -229,6 +225,11 @@
                             <h3 style="margin: 0 0 8px 0; color: var(--color-dark); font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; line-height: 1.2;">
                                 Expedição Mágica dos Dinossauros
                             </h3>
+                            
+                            <!-- Contador Regressivo -->
+                            <div id="hero-event-timer" style="font-family: var(--font-body); font-weight: 700; font-size: 0.95rem; color: #E74C3C; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; min-height: 1.2rem;">
+                                ⏰ Termina em: --
+                            </div>
                             
                             <!-- Lista de Características -->
                             <ul style="list-style: none; padding: 0; margin: 0 0 12px 0; display: flex; flex-direction: column; gap: 4px;">
