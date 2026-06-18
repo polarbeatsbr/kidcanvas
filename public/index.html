@@ -218,26 +218,20 @@
                             </a>
                         </div>
                         
-                        <!-- Stats Badge -->
-                        <div class="hero-stats-badge" style="background: linear-gradient(135deg, #f1c40f, #f39c12); color: white; border: none; box-shadow: 0 4px 10px rgba(243,156,18,0.3);">
-                            <span class="stats-badge-icon" style="color: white;"><i class="fa-solid fa-star"></i></span>
-                            <span class="stats-badge-text" style="color: white; font-weight: 900;">Um mundo de cores e aventuras te espera!</span>
-                        </div>
-                        
                         <!-- ÁREA DA EXPEDIÇÃO MÁGICA (Transformada em Evento) -->
-                        <div id="hero-event-button" class="pulse-btn" style="display: none; background: linear-gradient(135deg, #FFF5E6 0%, #FFEBE6 100%); border-radius: var(--radius-sm); padding: 22px; margin-top: 15px; margin-bottom: 25px; cursor: pointer; border: var(--border-medium); box-shadow: var(--shadow-cartoon); text-align: left; position: relative; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease;" onclick="openEventModal()" onmouseover="this.style.transform='translateY(-5px)';" onmouseout="this.style.transform='none';">
+                        <div id="hero-event-button" class="pulse-btn" style="display: none; background: linear-gradient(135deg, #FFF5E6 0%, #FFEBE6 100%); border-radius: var(--radius-sm); padding: 16px; margin-top: 12px; margin-bottom: 15px; cursor: pointer; border: var(--border-medium); box-shadow: var(--shadow-cartoon); text-align: left; position: relative; overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease;" onclick="openEventModal()" onmouseover="this.style.transform='translateY(-5px)';" onmouseout="this.style.transform='none';">
                             <!-- Badge no topo -->
-                            <div style="display: inline-flex; align-items: center; gap: 6px; background-color: var(--color-orange); color: white; border: var(--border-thin); padding: 6px 14px; border-radius: 20px; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 800; margin-bottom: 12px; box-shadow: 0 2px 0 var(--color-dark);">
+                            <div style="display: inline-flex; align-items: center; gap: 6px; background-color: var(--color-orange); color: white; border: var(--border-thin); padding: 6px 14px; border-radius: 20px; font-family: var(--font-heading); font-size: 0.85rem; font-weight: 800; margin-bottom: 8px; box-shadow: 0 2px 0 var(--color-dark);">
                                 🦖 EXPEDIÇÃO DA SEMANA
                             </div>
                             
                             <!-- Título Principal -->
-                            <h3 style="margin: 0 0 12px 0; color: var(--color-dark); font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; line-height: 1.2;">
+                            <h3 style="margin: 0 0 8px 0; color: var(--color-dark); font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; line-height: 1.2;">
                                 Expedição Mágica dos Dinossauros
                             </h3>
                             
                             <!-- Lista de Características -->
-                            <ul style="list-style: none; padding: 0; margin: 0 0 18px 0; display: flex; flex-direction: column; gap: 8px;">
+                            <ul style="list-style: none; padding: 0; margin: 0 0 12px 0; display: flex; flex-direction: column; gap: 4px;">
                                 <li style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.95rem; color: var(--color-dark-light);">
                                     <span style="color: #2ECC71; font-weight: 900; font-size: 1.1rem;">✓</span> Missões especiais
                                 </li>
@@ -371,6 +365,124 @@
                     </svg>
                 </div>
             </div>
+
+            <!-- SEÇÃO DE DESENHOS POPULARES -->
+            <section class="popular-drawings-section" style="padding: 50px 20px; background-color: #FCF9F5; border-bottom: var(--border-medium);">
+                <div class="container">
+                    <div class="section-title-wrapper" style="text-align: center; margin-bottom: 35px;">
+                        <h2 class="section-title" style="display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-dark); margin-bottom: 8px; margin-top: 0;">
+                            🌟 Desenhos Populares
+                        </h2>
+                        <p class="section-subtitle" style="font-size: 1.15rem; color: var(--color-dark-light); font-weight: 600; margin: 0;">
+                            Os desenhos favoritos das crianças esta semana.
+                        </p>
+                    </div>
+                    
+                    <div class="popular-drawings-grid">
+                        <!-- Card 1: Dinossauro -->
+                        <div class="drawing-card" data-id="t-rex-correndo-feliz" data-category="dinossauros">
+                            <a href="/dinossauros/t-rex-correndo-feliz" onclick="navigate('/dinossauros/t-rex-correndo-feliz'); return false;" class="drawing-card-link">
+                                <div class="card-img-wrapper">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/01-t-rex-correndo-feliz__t-rex.png" alt="T-Rex Feliz" loading="lazy">
+                                </div>
+                            </a>
+                            <div class="card-bottom-info">
+                                <span class="drawing-card-category">Dinossauros</span>
+                                <h4 class="drawing-card-title">T-Rex Feliz</h4>
+                            </div>
+                            <div class="card-bottom">
+                                <span class="badge-free">Grátis</span>
+                                <a href="/dinossauros/t-rex-correndo-feliz" onclick="navigate('/dinossauros/t-rex-correndo-feliz'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Unicórnio -->
+                        <div class="drawing-card" data-id="unicornio-feliz-na-nuvem" data-category="unicornios">
+                            <a href="/unicornios/unicornio-feliz-na-nuvem" onclick="navigate('/unicornios/unicornio-feliz-na-nuvem'); return false;" class="drawing-card-link">
+                                <div class="card-img-wrapper">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/unicornios/01-unicornio-feliz-na-nuvem__unicorn.png" alt="Unicórnio Mágico" loading="lazy">
+                                </div>
+                            </a>
+                            <div class="card-bottom-info">
+                                <span class="drawing-card-category">Unicórnios</span>
+                                <h4 class="drawing-card-title">Unicórnio Mágico</h4>
+                            </div>
+                            <div class="card-bottom">
+                                <span class="badge-free">Grátis</span>
+                                <a href="/unicornios/unicornio-feliz-na-nuvem" onclick="navigate('/unicornios/unicornio-feliz-na-nuvem'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Cachorro -->
+                        <div class="drawing-card" data-id="cachorro-brincando-com-novelo" data-category="animais-domesticos">
+                            <a href="/animais-domesticos/cachorro-brincando-com-novelo" onclick="navigate('/animais-domesticos/cachorro-brincando-com-novelo'); return false;" class="drawing-card-link">
+                                <div class="card-img-wrapper">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/animais-domesticos/02-cachorro-brincando-com-novelo__dog.png" alt="Cachorrinho Brincando" loading="lazy">
+                                </div>
+                            </a>
+                            <div class="card-bottom-info">
+                                <span class="drawing-card-category">Animais Domésticos</span>
+                                <h4 class="drawing-card-title">Cachorrinho Brincando</h4>
+                            </div>
+                            <div class="card-bottom">
+                                <span class="badge-free">Grátis</span>
+                                <a href="/animais-domesticos/cachorro-brincando-com-novelo" onclick="navigate('/animais-domesticos/cachorro-brincando-com-novelo'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            </div>
+                        </div>
+
+                        <!-- Card 4: Princesa -->
+                        <div class="drawing-card" data-id="princesa-dancando-cervo" data-category="princesas">
+                            <a href="/princesas/princesa-dancando-cervo" onclick="navigate('/princesas/princesa-dancando-cervo'); return false;" class="drawing-card-link">
+                                <div class="card-img-wrapper">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/princesas/01-princesa-dancando-cervo__princess.png" alt="Princesa e Cervo" loading="lazy">
+                                </div>
+                            </a>
+                            <div class="card-bottom-info">
+                                <span class="drawing-card-category">Princesas</span>
+                                <h4 class="drawing-card-title">Princesa e Cervo</h4>
+                            </div>
+                            <div class="card-bottom">
+                                <span class="badge-free">Grátis</span>
+                                <a href="/princesas/princesa-dancando-cervo" onclick="navigate('/princesas/princesa-dancando-cervo'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            </div>
+                        </div>
+
+                        <!-- Card 5: Carro -->
+                        <div class="drawing-card" data-id="carro-na-estrada" data-category="veiculos">
+                            <a href="/veiculos/carro-na-estrada" onclick="navigate('/veiculos/carro-na-estrada'); return false;" class="drawing-card-link">
+                                <div class="card-img-wrapper">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/veiculos/01-carro-na-estrada__car.png" alt="Carro de Corrida" loading="lazy">
+                                </div>
+                            </a>
+                            <div class="card-bottom-info">
+                                <span class="drawing-card-category">Veículos</span>
+                                <h4 class="drawing-card-title">Carro de Corrida</h4>
+                            </div>
+                            <div class="card-bottom">
+                                <span class="badge-free">Grátis</span>
+                                <a href="/veiculos/carro-na-estrada" onclick="navigate('/veiculos/carro-na-estrada'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            </div>
+                        </div>
+
+                        <!-- Card 6: Fazenda -->
+                        <div class="drawing-card" data-id="fazenda-vaca-malhada-comendo-grama" data-category="fazenda">
+                            <a href="/fazenda/fazenda-vaca-malhada-comendo-grama" onclick="navigate('/fazenda/fazenda-vaca-malhada-comendo-grama'); return false;" class="drawing-card-link">
+                                <div class="card-img-wrapper">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/fazenda/01-fazenda-vaca-malhada-comendo-grama__milky_cow_eating_grass_in_the_meadow.png" alt="Vaquinha na Fazenda" loading="lazy">
+                                </div>
+                            </a>
+                            <div class="card-bottom-info">
+                                <span class="drawing-card-category">Fazenda</span>
+                                <h4 class="drawing-card-title">Vaquinha na Fazenda</h4>
+                            </div>
+                            <div class="card-bottom">
+                                <span class="badge-free">Grátis</span>
+                                <a href="/fazenda/fazenda-vaca-malhada-comendo-grama" onclick="navigate('/fazenda/fazenda-vaca-malhada-comendo-grama'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             
             <!-- ÁREA DO CRIADOR / DESCOBERTA -->
             <div id="creator-dashboard-panel" class="creator-dashboard-panel" style="background: #ffffff; border-bottom: var(--border-medium); padding: 40px 20px; margin-bottom: 15px; text-align: center;">

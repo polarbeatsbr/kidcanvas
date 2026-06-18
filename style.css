@@ -5179,6 +5179,7 @@ button, input, select, textarea {
     align-items: center;
     position: relative;
     width: 100%;
+    margin-top: -50px;
 }
 
 .hero-image-new {
@@ -5229,9 +5230,9 @@ button, input, select, textarea {
 
 /* Balão do Pedrinho */
 .bubble-pedrinho-hero {
-    top: 25%;
-    left: -2%; /* Trazido para mais perto do Pedrinho para evitar corte nas bordas */
-    max-width: 220px;
+    top: 22%;
+    left: -10%;
+    max-width: 185px;
 }
 .bubble-pedrinho-hero::before {
     border-width: 15px 9px 0 9px;
@@ -5250,9 +5251,9 @@ button, input, select, textarea {
 
 /* Balão da Vovó Sônia */
 .bubble-sonia-hero {
-    top: 12%;
-    right: -4%; /* Trazido para mais perto da Vovó */
-    max-width: 280px;
+    top: 10%;
+    right: -10%;
+    max-width: 240px;
     animation-delay: 0.5s;
 }
 .bubble-sonia-hero::before {
@@ -5517,8 +5518,8 @@ button, input, select, textarea {
     
     .bubble-pedrinho-hero {
         top: 25%;
-        left: 2%;
-        max-width: 145px;
+        left: -5%;
+        max-width: 125px;
     }
     .bubble-pedrinho-hero::before {
         border-width: 12px 7px 0 7px;
@@ -5537,8 +5538,8 @@ button, input, select, textarea {
     
     .bubble-sonia-hero {
         top: 12%;
-        right: 2%;
-        max-width: 220px;
+        right: -5%;
+        max-width: 185px;
     }
     .bubble-sonia-hero::before {
         border-width: 12px 7px 0 7px;
@@ -7160,6 +7161,7 @@ button, input, select, textarea {
     pointer-events: auto;
 }
 
+
 /* Animação do Livro Mágico */
 .revelacao-livro-wrap {
     perspective: 1200px;
@@ -8629,3 +8631,18 @@ button, input, select, textarea {
 }
 
 
+
+
+/* Seção de Desenhos Populares */
+.popular-drawings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+@media (max-width: 900px) {
+    .popular-drawings-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+}
