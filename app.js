@@ -2658,7 +2658,9 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
             window.currentPaintingData = {
                 imgUrl: drawing.url,
                 name: drawing.title || drawing.pt || 'Desenho',
-                backUrl: `/${categorySlug}/${drawingSlug}`
+                backUrl: `/${categorySlug}/${drawingSlug}`,
+                category: categorySlug,
+                originalCategory: categorySlug
             };
             navigate('/pintar-online');
         });
@@ -7634,16 +7636,23 @@ async function savePaintingToGallery() {
         creatorName = creatorName.trim() || currentUser.name || currentUser.email.split('@')[0];
     }
 
-    showMagicLoading('Mágica acontecendo... ⏳');
+    const btnSave = document.getElementById('paint-btn-save');
+    let oldBtnHtml = '';
+    if (btnSave) {
+        oldBtnHtml = btnSave.innerHTML;
+        btnSave.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
+        btnSave.disabled = true;
+    }
 
     try {
         // Exportar como JPEG (qualidade 0.85) - muito menor que PNG para envio ao servidor
         const imageBase64 = paintCanvas.toDataURL('image/jpeg', 0.85);
         const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
         const isCustomAI = data.isCustomAI || false;
+        const isPinturaLivre = data.isPinturaLivre || false;
         const category = isCustomAI ? 'Criação com IA' : (data.imgUrl === 'blank' ? 'Mão Livre' : 'Colorir');
 
-        const originalCategory = data.category || null;
+        const originalCategory = data.originalCategory || data.category || null;
         const colorsCount = window.colorsUsedInPainting ? window.colorsUsedInPainting.size : 1;
 
         const response = await fetch('/api/user/save-painting', {
@@ -7659,7 +7668,8 @@ async function savePaintingToGallery() {
                 category: category,
                 creatorName: creatorName,
                 originalCategory: originalCategory,
-                colorsCount: colorsCount
+                colorsCount: colorsCount,
+                fromPinturaLivre: isPinturaLivre
             })
         });
 
@@ -7672,13 +7682,24 @@ async function savePaintingToGallery() {
                 currentUser.stars = resData.stars;
                 updateStarsUI();
             }
-            checkNewAchievements();
+            if (!isPinturaLivre) {
+                checkNewAchievements();
+            }
             if (isPublic) {
                 showToast('Pintura enviada para o Hall da Fama! Ela passará por moderação antes de aparecer publicamente. 🎉', 'success');
             } else {
                 showToast('Pintura salva com sucesso na sua galeria! 🎉', 'success');
             }
-            hideMagicLoading(); 
+            
+            if (btnSave) {
+                btnSave.innerHTML = '<i class="fa-solid fa-circle-check"></i> ✅ Salvo!';
+                btnSave.disabled = true;
+                setTimeout(() => {
+                    btnSave.innerHTML = oldBtnHtml || '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
+                    btnSave.disabled = false;
+                }, 3000);
+            }
+            
             openCertificateModal(data.name);
 
             // Animar revelações de descobertas recém-desbloqueadas
@@ -7708,7 +7729,10 @@ async function savePaintingToGallery() {
                 });
             }
         } else {
-            hideMagicLoading();
+            if (btnSave) {
+                btnSave.innerHTML = oldBtnHtml || '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
+                btnSave.disabled = false;
+            }
             showToast(resData.message || 'Erro ao salvar pintura.', 'error');
             if (resData.limitExceeded) {
                 openCreditsModal(resData.message || 'Você atingiu o limite do seu plano. Faça upgrade para salvar mais!', 'Limite do Plano Atingido! 🚀');
@@ -7716,7 +7740,11 @@ async function savePaintingToGallery() {
         }
     } catch(err) {
         console.error(err);
-        hideMagicLoading(); showToast('Erro ao se conectar ao servidor.', 'error');
+        if (btnSave) {
+            btnSave.innerHTML = oldBtnHtml || '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
+            btnSave.disabled = false;
+        }
+        showToast('Erro ao se conectar ao servidor.', 'error');
     }
 }
 
@@ -7825,7 +7853,9 @@ function startFreeHandDrawing(e) {
     window.currentPaintingData = {
         imgUrl: 'blank',
         name: 'Desenho Livre',
-        backUrl: '/'
+        backUrl: '/',
+        category: 'Mão Livre',
+        isPinturaLivre: true
     };
     navigate('/pintar-online');
 }
@@ -7962,7 +7992,9 @@ function selectRouletteDrawing(index) {
     window.currentPaintingData = {
         imgUrl: drawing.url,
         name: drawing.pt,
-        backUrl: '/pintura-livre'
+        backUrl: '/pintura-livre',
+        category: drawing.category,
+        isPinturaLivre: true
     };
     navigate('/pintar-online');
 }
@@ -7971,7 +8003,9 @@ function startBlankCanvas() {
     window.currentPaintingData = {
         imgUrl: 'blank',
         name: 'Desenho Livre',
-        backUrl: '/pintura-livre'
+        backUrl: '/pintura-livre',
+        category: 'Mão Livre',
+        isPinturaLivre: true
     };
     navigate('/pintar-online');
 }

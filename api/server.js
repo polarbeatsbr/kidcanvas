@@ -2198,7 +2198,7 @@ app.get('/api/proxy-image', async (req, res) => {
 app.post('/api/user/save-painting', async (req, res) => {
     try {
         const token = req.headers['x-session-token'];
-        const { imageBase64, imageUrl, drawingId, prompt, isPublic, category, creatorName, firstLines, storyData } = req.body;
+        const { imageBase64, imageUrl, drawingId, prompt, isPublic, category, creatorName, firstLines, storyData, fromPinturaLivre } = req.body;
         
         if (!token) {
             return res.status(401).json({ success: false, message: 'Não autorizado.' });
@@ -2281,7 +2281,8 @@ app.post('/api/user/save-painting', async (req, res) => {
             originalCategory: originalCategory,
             colorsCount: colorsCount,
             firstLines: firstLines || null,
-            storyData: storyData || null
+            storyData: storyData || null,
+            fromPinturaLivre: !!fromPinturaLivre
         };
         user.myPaintings.push(paintingItem);
         
@@ -3910,6 +3911,9 @@ function evaluateCardCondition(user, card, context = {}) {
 
     const countPaintingsOfCategory = (cats) => {
         return user.myPaintings.filter(p => {
+            // Pinturas salvas pela Pintura Livre NÃO contam progresso nas Descobertas
+            if (p.fromPinturaLivre === true || p.category === 'Mão Livre') return false;
+            
             if (p.originalCategory && cats.includes(p.originalCategory)) return true;
             if (p.category && cats.includes(p.category.toLowerCase())) return true;
             return false;
@@ -3927,14 +3931,19 @@ function evaluateCardCondition(user, card, context = {}) {
     };
 
     switch (condition.type) {
-        case 'paint_count':
-            return user.myPaintings.length >= condition.count;
+        case 'paint_count': {
+            // Só desenhos gerados pelo "Gerar Desenho" contam (Criação com IA)
+            const count = user.myPaintings.filter(p => p.category === 'Criação com IA').length;
+            return count >= condition.count;
+        }
             
         case 'category_paint':
             return getCategoryCount(condition.category) >= condition.count;
             
         case 'categories_painted': {
-            const categories = new Set(user.myPaintings.map(p => p.originalCategory || (p.category ? p.category.toLowerCase() : null)).filter(Boolean));
+            // Pinturas salvas pela Pintura Livre NÃO contam progresso nas Descobertas
+            const validPaintings = user.myPaintings.filter(p => p.fromPinturaLivre !== true && p.category !== 'Mão Livre');
+            const categories = new Set(validPaintings.map(p => p.originalCategory || (p.category ? p.category.toLowerCase() : null)).filter(Boolean));
             return categories.size >= condition.count;
         }
         
@@ -3955,7 +3964,7 @@ function evaluateCardCondition(user, card, context = {}) {
             return (user.paintingShareCount || 0) >= condition.count;
             
         case 'hall_count':
-            return user.myPaintings.filter(p => p.isPublic).length >= condition.count;
+            return user.myPaintings.filter(p => p.isPublic && p.fromPinturaLivre !== true && p.category !== 'Mão Livre').length >= condition.count;
             
         case 'likes_count':
             return (context.likesCount || 0) >= condition.count;
