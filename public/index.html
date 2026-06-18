@@ -1070,8 +1070,9 @@
                                         </div>
                                     </li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> ⭐ Geração Ultra disponível</li>
+                                    <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> Criar Histórias Mágicas</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> <strong style="color: var(--color-blue);">100 créditos por mês</strong> <i class="fa-solid fa-circle-info" style="font-size: 0.8rem; cursor: pointer; color: #a09eb5;" title="Renovam todo mês e não são cumulativos."></i></li>
-                                    <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> Poucos anúncios</li>
+                                    <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> Sem anúncios</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-blue); margin-right: 8px;"></i> Selo especial no perfil</li>
                                 </ul>
                                 <div class="new-plan-footer" style="margin-top: auto;">
@@ -1106,7 +1107,7 @@
                                         </div>
                                     </li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> <strong style="color: var(--color-yellow);">250 créditos por mês</strong> <i class="fa-solid fa-circle-info" style="font-size: 0.8rem; cursor: pointer; color: #a09eb5;" title="Renovam todo mês e não são cumulativos."></i></li>
-                                    <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> Geração Ultra disponível</li>
+                                    <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> Criar Histórias Mágicas</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> Sem anúncios</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> Selo exclusivo Lenda</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-yellow); margin-right: 8px;"></i> 🏆 Destaque especial no Hall da Fama</li>
@@ -1117,6 +1118,10 @@
                             </div>
                         </div>
 
+                    </div>
+                    <!-- Nota explicativa sobre consumo de créditos -->
+                    <div class="plans-credit-note" style="text-align: center; margin-top: 40px; color: #a09eb5; font-size: 0.95rem; font-weight: 500;">
+                        Normal: 1 crédito | Ultra: 3 créditos | História: 3 × páginas
                     </div>
                 </div>
             </div>
@@ -1132,39 +1137,39 @@
                     
                     <div class="credits-packages-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; justify-content: center; max-width: 960px; margin: 0 auto 40px auto;">
                         
-                        <!-- Pacote 20 -->
-                        <div class="credit-package-card" style="background-color: #1a172b; border: var(--border-thick); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-dark); cursor: pointer; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(20, 4.90)">
+                        <!-- Pacote 15 -->
+                        <div class="credit-package-card" style="background-color: #1a172b; border: var(--border-thick); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-dark); cursor: pointer; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(15, 4.90)">
                             <div>
-                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-purple);">⚡ 20</div>
+                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-purple);">⚡ 15</div>
                                 <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: #a09eb5;">créditos</div>
                             </div>
                             <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; color: white;">R$ 4,90</div>
                         </div>
 
-                        <!-- Pacote 50 (Popular) -->
-                        <div class="credit-package-card highlighted" style="background-color: #1a172b; border: 3px solid var(--color-pink, #e74c3c); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-pink, #e74c3c); cursor: pointer; position: relative; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(50, 9.90)">
+                        <!-- Pacote 35 (Popular) -->
+                        <div class="credit-package-card highlighted" style="background-color: #1a172b; border: 3px solid var(--color-pink, #e74c3c); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-pink, #e74c3c); cursor: pointer; position: relative; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(35, 9.90)">
                             <span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background-color: var(--color-red); color: white; font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border-radius: 10px; border: var(--border-thin); text-transform: uppercase;">Popular</span>
                             <div>
-                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-red);">⚡ 50</div>
+                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-red);">⚡ 35</div>
                                 <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: #a09eb5;">créditos</div>
                             </div>
                             <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; color: white;">R$ 9,90</div>
                         </div>
 
-                        <!-- Pacote 120 -->
-                        <div class="credit-package-card" style="background-color: #1a172b; border: var(--border-thick); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-dark); cursor: pointer; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(120, 19.90)">
+                        <!-- Pacote 80 -->
+                        <div class="credit-package-card" style="background-color: #1a172b; border: var(--border-thick); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-dark); cursor: pointer; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(80, 19.90)">
                             <div>
-                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-blue);">⚡ 120</div>
+                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-blue);">⚡ 80</div>
                                 <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: #a09eb5;">créditos</div>
                             </div>
                             <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; color: white;">R$ 19,90</div>
                         </div>
 
-                        <!-- Pacote 300 (Melhor Oferta) -->
-                        <div class="credit-package-card highlighted" style="background-color: #1a172b; border: 3px solid var(--color-yellow); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-yellow); cursor: pointer; position: relative; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(300, 39.90)">
+                        <!-- Pacote 180 (Melhor Oferta) -->
+                        <div class="credit-package-card highlighted" style="background-color: #1a172b; border: 3px solid var(--color-yellow); border-radius: var(--radius-sm); padding: 25px 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 6px 0 var(--color-yellow); cursor: pointer; position: relative; transition: transform 0.2s ease;" onclick="handleCreditPackagePurchase(180, 39.90)">
                             <span style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background-color: var(--color-yellow); color: var(--color-dark); font-size: 0.7rem; font-weight: bold; padding: 2px 8px; border-radius: 10px; border: var(--border-thin); text-transform: uppercase;">Melhor Oferta</span>
                             <div>
-                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-yellow);">⚡ 300</div>
+                                <div style="font-size: 2.2rem; margin-bottom: 5px; color: var(--color-yellow);">⚡ 180</div>
                                 <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; color: #a09eb5;">créditos</div>
                             </div>
                             <div style="font-family: var(--font-heading); font-size: 1.4rem; font-weight: 900; color: white;">R$ 39,90</div>
@@ -1653,21 +1658,13 @@
         <div class="form-group">
             <label>📚 Número de Páginas (Consome saldo do plano)</label>
             <div class="pages-grid">
-                <label class="page-card" id="card2">
-                    <input type="radio" name="pageCount" value="2">
-                    <div class="page-card-title">2 Páginas</div>
+                <label class="page-card active" id="card3">
+                    <input type="radio" name="pageCount" value="3" checked>
+                    <div class="page-card-title">3 Páginas</div>
                 </label>
-                <label class="page-card active" id="card4">
-                    <input type="radio" name="pageCount" value="4" checked>
-                    <div class="page-card-title">4 Páginas</div>
-                </label>
-                <label class="page-card" id="card6">
-                    <input type="radio" name="pageCount" value="6">
-                    <div class="page-card-title">6 Páginas</div>
-                </label>
-                <label class="page-card" id="card8">
-                    <input type="radio" name="pageCount" value="8">
-                    <div class="page-card-title">8 Páginas</div>
+                <label class="page-card" id="card5">
+                    <input type="radio" name="pageCount" value="5">
+                    <div class="page-card-title">5 Páginas</div>
                 </label>
                 <label class="page-card" id="card10">
                     <input type="radio" name="pageCount" value="10">

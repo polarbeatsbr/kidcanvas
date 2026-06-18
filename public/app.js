@@ -390,9 +390,9 @@ function updateCustomDrawingSubmitButtonText() {
     const checkedQuality = document.querySelector('input[name="customDrawingQuality"]:checked');
     const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
     if (imageQuality === 'high') {
-        submitBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (2 créditos mágicos)';
+        submitBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (3 créditos)';
     } else {
-        submitBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 crédito mágico)';
+        submitBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho (1 crédito)';
     }
 }
 window.updateCustomDrawingSubmitButtonText = updateCustomDrawingSubmitButtonText;
@@ -3562,7 +3562,7 @@ async function handleCustomDrawingSubmit(event) {
     // Obter a qualidade escolhida (medium ou high)
     const checkedQuality = document.querySelector('input[name="customDrawingQuality"]:checked');
     const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
-    const cost = imageQuality === 'high' ? 2 : 1;
+    const cost = imageQuality === 'high' ? 3 : 1;
     
     if (!currentUser) {
         showToast('Cadastre-se grátis para criar desenhos mágicos! 🎨', 'info');
@@ -4180,20 +4180,16 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         const plan = currentUser ? currentUser.plan : 'Grátis';
         
         // --- 1. Restrição de Páginas do Livro ---
-        const card2 = document.getElementById('card2');
-        const card4 = document.getElementById('card4');
-        const card6 = document.getElementById('card6');
-        const card8 = document.getElementById('card8');
+        const card3 = document.getElementById('card3');
+        const card5 = document.getElementById('card5');
         const card10 = document.getElementById('card10');
         
-        const radio2 = document.querySelector('input[name="pageCount"][value="2"]');
-        const radio4 = document.querySelector('input[name="pageCount"][value="4"]');
-        const radio6 = document.querySelector('input[name="pageCount"][value="6"]');
-        const radio8 = document.querySelector('input[name="pageCount"][value="8"]');
+        const radio3 = document.querySelector('input[name="pageCount"][value="3"]');
+        const radio5 = document.querySelector('input[name="pageCount"][value="5"]');
         const radio10 = document.querySelector('input[name="pageCount"][value="10"]');
         
         // Resetar bloqueios
-        [card2, card4, card6, card8, card10].forEach(card => {
+        [card3, card5, card10].forEach(card => {
             if (card) {
                 card.classList.remove('locked-option');
                 card.style.opacity = '1';
@@ -4215,29 +4211,27 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         };
         
         if (plan === 'Grátis') {
-            lockCard(card6, radio6, 'Família');
-            lockCard(card8, radio8, 'Professor');
+            lockCard(card5, radio5, 'Família');
             lockCard(card10, radio10, 'Colégio');
         } else if (plan === 'Família') {
-            lockCard(card8, radio8, 'Professor');
             lockCard(card10, radio10, 'Colégio');
         } else if (plan === 'Professor') {
             lockCard(card10, radio10, 'Colégio');
         }
         
         // Escutar cliques para interceptar opções bloqueadas
-        [card2, card4, card6, card8, card10].forEach(card => {
+        [card3, card5, card10].forEach(card => {
             if (card) {
                 card.onclick = (e) => {
                     if (card.classList.contains('locked-option')) {
                         e.preventDefault();
                         e.stopPropagation();
-                        radio4.checked = true;
+                        if (radio3) radio3.checked = true;
                         document.querySelectorAll('.page-card').forEach(c => c.classList.remove('active'));
-                        card4.classList.add('active');
+                        if (card3) card3.classList.add('active');
                         updateGenerateButtonText();
                         
-                        const requiredPlan = card === card6 ? 'Família' : (card === card8 ? 'Professor' : 'Colégio');
+                        const requiredPlan = card === card5 ? 'Família' : 'Colégio';
                         alert(`Esta quantidade de páginas requer o plano ${requiredPlan}! Acesse os Planos para fazer upgrade.`);
                         return false;
                     }
@@ -4364,12 +4358,10 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         }
         
         const checkedRadio = document.querySelector('input[name="pageCount"]:checked');
-        const pageCount = checkedRadio ? parseInt(checkedRadio.value, 10) : 4;
-        const checkedQuality = document.querySelector('input[name="imageQuality"]:checked');
-        const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
-        const cost = imageQuality === 'high' ? pageCount * 2 : pageCount;
+        const pageCount = checkedRadio ? parseInt(checkedRadio.value, 10) : 3;
+        const cost = pageCount * 3;
         
-        btnGenerate.textContent = `🧙‍♂️ Criar História Ilustrada (${cost} créditos mágicos)`;
+        btnGenerate.textContent = `Gerar História (${cost} créditos)`;
         const chkCiente = document.getElementById('chkCiente');
         btnGenerate.disabled = chkCiente ? !chkCiente.checked : false;
     }
@@ -4548,7 +4540,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         const synopsis = storySynopsis.value.trim();
         const checkedQuality = document.querySelector('input[name="imageQuality"]:checked');
         const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
-        const cost = imageQuality === 'high' ? pageCount * 2 : pageCount;
+        const cost = pageCount * 3;
         
         let finalTheme = themeSelect.value;
         if (finalTheme === 'custom') {
@@ -4722,10 +4714,12 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
             themeSelect.selectedIndex = 0;
             customThemeWrapper.classList.remove('open');
             
-            // reset page count to 4
+            // reset page count to 3
             pageCards.forEach(c => c.classList.remove('active'));
-            document.getElementById('card4').classList.add('active');
-            document.querySelector('input[name="pageCount"][value="4"]').checked = true;
+            const defaultCard = document.getElementById('card3');
+            if (defaultCard) defaultCard.classList.add('active');
+            const defaultRadio = document.querySelector('input[name="pageCount"][value="3"]');
+            if (defaultRadio) defaultRadio.checked = true;
             updateGenerateButtonText();
             
             // reset radios to color

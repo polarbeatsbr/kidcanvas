@@ -1306,21 +1306,13 @@
         <div class="form-group">
             <label>📚 Número de Páginas (Consome saldo do plano)</label>
             <div class="pages-grid">
-                <label class="page-card" id="card2">
-                    <input type="radio" name="pageCount" value="2">
-                    <div class="page-card-title">2 Páginas</div>
+                <label class="page-card active" id="card3">
+                    <input type="radio" name="pageCount" value="3" checked>
+                    <div class="page-card-title">3 Páginas</div>
                 </label>
-                <label class="page-card active" id="card4">
-                    <input type="radio" name="pageCount" value="4" checked>
-                    <div class="page-card-title">4 Páginas</div>
-                </label>
-                <label class="page-card" id="card6">
-                    <input type="radio" name="pageCount" value="6">
-                    <div class="page-card-title">6 Páginas</div>
-                </label>
-                <label class="page-card" id="card8">
-                    <input type="radio" name="pageCount" value="8">
-                    <div class="page-card-title">8 Páginas</div>
+                <label class="page-card" id="card5">
+                    <input type="radio" name="pageCount" value="5">
+                    <div class="page-card-title">5 Páginas</div>
                 </label>
                 <label class="page-card" id="card10">
                     <input type="radio" name="pageCount" value="10">
@@ -1868,20 +1860,16 @@
         const plan = currentUser ? currentUser.plan : 'Grátis';
         
         // --- 1. Restrição de Páginas do Livro ---
-        const card2 = document.getElementById('card2');
-        const card4 = document.getElementById('card4');
-        const card6 = document.getElementById('card6');
-        const card8 = document.getElementById('card8');
+        const card3 = document.getElementById('card3');
+        const card5 = document.getElementById('card5');
         const card10 = document.getElementById('card10');
         
-        const radio2 = document.querySelector('input[name="pageCount"][value="2"]');
-        const radio4 = document.querySelector('input[name="pageCount"][value="4"]');
-        const radio6 = document.querySelector('input[name="pageCount"][value="6"]');
-        const radio8 = document.querySelector('input[name="pageCount"][value="8"]');
+        const radio3 = document.querySelector('input[name="pageCount"][value="3"]');
+        const radio5 = document.querySelector('input[name="pageCount"][value="5"]');
         const radio10 = document.querySelector('input[name="pageCount"][value="10"]');
         
         // Resetar bloqueios
-        [card2, card4, card6, card8, card10].forEach(card => {
+        [card3, card5, card10].forEach(card => {
             if (card) {
                 card.classList.remove('locked-option');
                 card.style.opacity = '1';
@@ -1903,29 +1891,27 @@
         };
         
         if (plan === 'Grátis') {
-            lockCard(card6, radio6, 'Família');
-            lockCard(card8, radio8, 'Professor');
+            lockCard(card5, radio5, 'Família');
             lockCard(card10, radio10, 'Colégio');
         } else if (plan === 'Família') {
-            lockCard(card8, radio8, 'Professor');
             lockCard(card10, radio10, 'Colégio');
         } else if (plan === 'Professor') {
             lockCard(card10, radio10, 'Colégio');
         }
         
         // Escutar cliques para interceptar opções bloqueadas
-        [card2, card4, card6, card8, card10].forEach(card => {
+        [card3, card5, card10].forEach(card => {
             if (card) {
                 card.onclick = (e) => {
                     if (card.classList.contains('locked-option')) {
                         e.preventDefault();
                         e.stopPropagation();
-                        radio4.checked = true;
+                        if (radio3) radio3.checked = true;
                         document.querySelectorAll('.page-card').forEach(c => c.classList.remove('active'));
-                        card4.classList.add('active');
+                        if (card3) card3.classList.add('active');
                         updateGenerateButtonText();
                         
-                        const requiredPlan = card === card6 ? 'Família' : (card === card8 ? 'Professor' : 'Colégio');
+                        const requiredPlan = card === card5 ? 'Família' : 'Colégio';
                         alert(`Esta quantidade de páginas requer o plano ${requiredPlan}! Acesse os Planos para fazer upgrade.`);
                         return false;
                     }
@@ -2401,13 +2387,11 @@
 
     function updateGenerateButtonText() {
         const checkedRadio = document.querySelector('input[name="pageCount"]:checked');
-        const pageCount = checkedRadio ? parseInt(checkedRadio.value, 10) : 4;
-        const qualityRadio = document.querySelector('input[name="imageQuality"]:checked');
-        const quality = qualityRadio ? qualityRadio.value : 'medium';
-        const cost = quality === 'high' ? pageCount * 2 : pageCount;
+        const pageCount = checkedRadio ? parseInt(checkedRadio.value, 10) : 3;
+        const cost = pageCount * 3;
         const btnGenerate = document.getElementById('btnGenerate');
         if (btnGenerate) {
-            btnGenerate.textContent = `🧙‍♂️ Criar Livro (${cost} c.)`;
+            btnGenerate.textContent = `Gerar História (${cost} créditos)`;
         }
     }
     updateGenerateButtonText();
@@ -2544,7 +2528,7 @@
             switchAuthTab('register');
             return;
         }
-        const cost = imageQuality === 'high' ? pageCount * 2 : pageCount;
+        const cost = pageCount * 3;
         if (currentUser.paginasRestantes < cost) {
             openCreditsModal('Seus créditos mágicos acabaram! Faça upgrade de plano para adicionar saldo.');
             return;
@@ -2681,10 +2665,12 @@
             themeSelect.selectedIndex = 0;
             customThemeWrapper.classList.remove('open');
             
-            // reset page count to 4
+            // reset page count to 3
             pageCards.forEach(c => c.classList.remove('active'));
-            document.getElementById('card4').classList.add('active');
-            document.querySelector('input[name="pageCount"][value="4"]').checked = true;
+            const defaultCard = document.getElementById('card3');
+            if (defaultCard) defaultCard.classList.add('active');
+            const defaultRadio = document.querySelector('input[name="pageCount"][value="3"]');
+            if (defaultRadio) defaultRadio.checked = true;
             updateGenerateButtonText();
             
             // reset radios to color

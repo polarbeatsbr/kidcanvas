@@ -373,13 +373,13 @@ app.post('/api/stripe/create-checkout-session', async (req, res) => {
             priceId = process.env.STRIPE_PRICE_LENDA_MENSAL || 'price_1TjEkoBRjUzKEXHuJPZlMPLe';
         } else if (planName === 'Lenda KidCanvas (Anual)') {
             priceId = process.env.STRIPE_PRICE_LENDA_ANUAL || 'price_1TjEkoBRjUzKEXHuVQdUB7Cc';
-        } else if (planName === '20 Créditos Avulsos') {
+        } else if (planName === '15 Créditos Avulsos') {
             priceId = process.env.STRIPE_PRICE_AVULSO_20 || 'price_1TjEkpBRjUzKEXHuhMV2rSUO';
-        } else if (planName === '50 Créditos Avulsos') {
+        } else if (planName === '35 Créditos Avulsos') {
             priceId = process.env.STRIPE_PRICE_AVULSO_50 || 'price_1TjEkqBRjUzKEXHulU6qJWac';
-        } else if (planName === '120 Créditos Avulsos') {
+        } else if (planName === '80 Créditos Avulsos') {
             priceId = process.env.STRIPE_PRICE_AVULSO_120 || 'price_1TjEkqBRjUzKEXHuJk8jtccc';
-        } else if (planName === '300 Créditos Avulsos') {
+        } else if (planName === '180 Créditos Avulsos') {
             priceId = process.env.STRIPE_PRICE_AVULSO_300 || 'price_1TjEkrBRjUzKEXHuZVngcwK1';
         } else {
             // Suporte legado
@@ -470,13 +470,13 @@ app.post('/api/mercadopago/create-pix-payment', async (req, res) => {
             amount = 39.90;
         } else if (planName === 'Lenda KidCanvas (Anual)') {
             amount = 382.80;
-        } else if (planName === '20 Créditos Avulsos') {
+        } else if (planName === '15 Créditos Avulsos') {
             amount = 4.90;
-        } else if (planName === '50 Créditos Avulsos') {
+        } else if (planName === '35 Créditos Avulsos') {
             amount = 9.90;
-        } else if (planName === '120 Créditos Avulsos') {
+        } else if (planName === '80 Créditos Avulsos') {
             amount = 19.90;
-        } else if (planName === '300 Créditos Avulsos') {
+        } else if (planName === '180 Créditos Avulsos') {
             amount = 39.90;
         } else {
             // Suporte legado
@@ -1166,7 +1166,7 @@ app.post('/api/generate-full-story', async (req, res) => {
         }
 
         const engine = imageQuality === 'medium' ? 'flux' : 'ideogram';
-        const cost = engine === 'flux' ? numPages : numPages * 2;
+        const cost = numPages * 3;
 
         if (getUserTotalCredits(user) < cost) {
             return res.status(400).json({
@@ -2820,7 +2820,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         }
 
         const engine = imageQuality === 'high' ? 'ideogram' : 'flux';
-        const cost = engine === 'flux' ? 1 : 2;
+        const cost = engine === 'flux' ? 1 : 3;
 
         if (getUserTotalCredits(user) < cost) {
             return res.status(400).json({
@@ -2838,9 +2838,9 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             : userPrompt.trim();
         let finalPrompt = '';
         if (style === 'color') {
-            finalPrompt = `A ${subject}. Vibrant 2D cartoon children's book illustration of a ${subject}. Cute friendly ${subject} centered on white background, simple clean composition, bold outlines, flat colors, no shadows, no gradients. Kids illustration style, clear recognizable ${subject}, age 3-8 audience. Watermark text "www.kidcanvas.com.br" small gray at bottom right corner. No other text.`;
+            finalPrompt = `A ${subject}. Cute 2D cartoon illustration of a ${subject} for children age 3-8. Vibrant flat colors, bold black outlines, white background. The ${subject} is centered, large, friendly expression, simple details. Disney/Pixar inspired style, no gradients, no shadows, no complex backgrounds. Professional children's book illustration. Watermark text "www.kidcanvas.com.br" small gray at bottom right corner. No other text.`;
         } else {
-            finalPrompt = `A ${subject}. Black and white coloring book page of a ${subject} for kids. Clean thick black outlines of ${subject} on pure white background. No fill, no shading, no gray tones. Simple flat line art, easy to color. Centered large ${subject}, minimal background details. Watermark text "www.kidcanvas.com.br" small gray at bottom right corner. No other text.`;
+            finalPrompt = `A ${subject}. Children's coloring book page featuring a ${subject}. Bold thick black outlines only, pure white background, no gray fills, no shading, no textures. The ${subject} should be large, centered, friendly and cute, easy for kids age 3-8 to color. Simple clean line art. Style: professional coloring book illustration. Watermark text "www.kidcanvas.com.br" small gray at bottom right corner. No other text.`;
         }
 
         let bytesBase64 = '';
