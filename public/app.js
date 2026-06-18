@@ -53,7 +53,8 @@ const CATEGORIES_DATA = {
     'anime-fantasia': { name: 'Fantasia Anime', emoji: '✨', desc: 'Desenhos de Fantasia estilo anime para colorir grátis! Baixe desenhos de reinos mágicos, castelos voadores, cristais e portais encantados.' },
     'anime-futurista': { name: 'Sci-Fi e Futurista Anime', emoji: '🚀', desc: 'Desenhos de Sci-Fi e Futurismo estilo anime para colorir! Pinte cidades futuristas, motos voadoras, naves e estações espaciais.' },
     'anime-gamer': { name: 'Gamer Anime', emoji: '🎮', desc: 'Desenhos Gamer estilo anime para colorir grátis! Encontre avatares de jogadores, guerreiros digitais, monstros de pixel e mundos virtuais.' },
-    'lutas': { name: 'Lutas', emoji: '🥋', desc: 'Desenhos de Lutas e Artes Marciais para colorir e imprimir grátis! Encontre desenhos de karatê, judô, boxe, capoeira, kung fu e muito mais para pintar.' }
+    'lutas': { name: 'Lutas', emoji: '🥋', desc: 'Desenhos de Lutas e Artes Marciais para colorir e imprimir grátis! Encontre desenhos de karatê, judô, boxe, capoeira, kung fu e muito mais para pintar.' },
+    'destaques': { name: 'Destaques', emoji: '✨', desc: 'Os desenhos favoritos e mais populares no KidCanvas! Descubra e pinte ilustrações incríveis recomendadas por nossa comunidade.' }
 };
 
 const POPULAR_SUGGESTIONS = ['unicórnio', 'dinossauro', 'borboleta', 'leão', 'golfinho'];
@@ -1700,7 +1701,6 @@ function renderHomeView() {
 
 // Atualiza os cards de destaque na home baseado nas pinturas do Hall da Fama
 function updateFeaturedHomeCards(paintings) {
-    return; // Desativado para manter a curadoria fixa dos destaques (Astronauta, Gatinhos, Buzz, etc.)
     if (!paintings || paintings.length === 0) return;
 
     // 1. Destaque Geral (Mais Votado de todos)
