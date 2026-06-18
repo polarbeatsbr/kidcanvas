@@ -1212,7 +1212,7 @@ button, input, select, textarea {
 }
 
 /* Prevenir quebras no menu em resoluções intermediárias (desktop menor/tablet horizontal) */
-@media (max-width: 1250px) and (min-width: 901px) {
+@media (max-width: 1250px) and (min-width: 769px) {
     .header-right-wrapper {
         gap: 10px;
     }
