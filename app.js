@@ -984,6 +984,20 @@ function initGlobalEventListeners() {
             loadNextCategoryDrawings();
         });
     }
+
+    // Clique no avatar ou nome do usuário no header leva ao perfil
+    const userAvatarContainer = document.getElementById('user-avatar-container');
+    const userMetaInfo = document.querySelector('.user-meta-info');
+    if (userAvatarContainer) {
+        userAvatarContainer.addEventListener('click', () => {
+            navigate('/perfil');
+        });
+    }
+    if (userMetaInfo) {
+        userMetaInfo.addEventListener('click', () => {
+            navigate('/perfil');
+        });
+    }
 }
 
 function navigate(path, pushState = true) {
@@ -1072,6 +1086,15 @@ function navigate(path, pushState = true) {
         renderPinturaLivreChooser();
     } else if (cleanPath === '/conquistas') {
         renderConquistasView();
+    } else if (cleanPath === '/perfil') {
+        if (!currentUser) {
+            showToast('Faça login ou cadastre-se para ver seu perfil! 👤', 'info');
+            openAuthModal();
+            renderHomeView();
+            cleanPath = '/';
+        } else {
+            renderPerfilView();
+        }
     } else if (cleanPath.startsWith('/categoria/')) {
         const categorySlug = cleanPath.replace('/categoria/', '');
         const isNovidades = categorySlug === 'novidades';
@@ -8781,6 +8804,88 @@ async function openPublicProfile(name, userEmail = '') {
                     avatarEl.style.fontSize = '3.5rem';
                 }
             }
+
+            // Atualizar contorno de avatar público baseado no plano
+            const modalWrapper = document.getElementById('profile-modal-avatar-wrapper');
+            if (modalWrapper) {
+                modalWrapper.className = 'avatar-wrapper';
+                const planName = profile.plan || 'Aprendiz';
+                if (planName === 'Aprendiz' || planName === 'Grátis') {
+                    modalWrapper.classList.add('plan-aprendiz');
+                } else if (planName === 'Artista') {
+                    modalWrapper.classList.add('plan-artista');
+                } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
+                    modalWrapper.classList.add('plan-mago');
+                } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
+                    modalWrapper.classList.add('plan-lenda');
+                } else {
+                    modalWrapper.classList.add('plan-aprendiz');
+                }
+            }
+
+            // Atualizar Badge de Plano do Perfil Público
+            const modalPlanBadge = document.getElementById('profile-modal-plan-badge');
+            if (modalPlanBadge) {
+                const planName = profile.plan || 'Aprendiz';
+                modalPlanBadge.textContent = planName;
+                if (planName === 'Aprendiz' || planName === 'Grátis') {
+                    modalPlanBadge.style.backgroundColor = 'var(--color-green)';
+                    modalPlanBadge.textContent = '🌱 APRENDIZ';
+                } else if (planName === 'Artista') {
+                    modalPlanBadge.style.backgroundColor = 'var(--color-purple)';
+                    modalPlanBadge.textContent = '🎨 ARTISTA';
+                } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
+                    modalPlanBadge.style.backgroundColor = 'var(--color-blue)';
+                    modalPlanBadge.textContent = '🧙 MAGO CRIADOR';
+                } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
+                    modalPlanBadge.style.backgroundColor = 'var(--color-yellow)';
+                    modalPlanBadge.textContent = '👑 LENDA';
+                } else {
+                    modalPlanBadge.style.backgroundColor = 'var(--color-dark-light)';
+                    modalPlanBadge.textContent = planName.toUpperCase();
+                }
+            }
+
+            // Renderizar Selos em Destaque do Perfil Público
+            const featuredContainer = document.getElementById('profile-modal-featured-container');
+            const featuredBadgesGrid = document.getElementById('profile-modal-featured-badges');
+            if (featuredBadgesGrid) {
+                featuredBadgesGrid.innerHTML = '';
+                const featured = profile.featuredCards || [null, null, null];
+                const hasFeatured = featured.some(id => id !== null);
+                
+                if (hasFeatured) {
+                    if (featuredContainer) featuredContainer.style.display = 'block';
+                    featured.forEach(cardId => {
+                        if (cardId) {
+                            const badge = ACHIEVEMENTS_CATALOG.find(a => a.id === cardId);
+                            if (badge) {
+                                featuredBadgesGrid.innerHTML += `
+                                    <div style="width: 70px; height: 70px; border: 2.5px solid var(--color-purple); border-radius: var(--radius-sm); display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fffdf5; box-shadow: var(--shadow-button-secondary);" title="${badge.name}: ${badge.desc}">
+                                        <span style="font-size: 1.8rem;">${badge.emoji}</span>
+                                        <span style="font-size: 0.6rem; font-weight: 800; color: var(--color-dark); text-align: center; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 2px;">${badge.name}</span>
+                                    </div>
+                                `;
+                            } else {
+                                featuredBadgesGrid.innerHTML += `
+                                    <div style="width: 70px; height: 70px; border: 2px dashed #ccc; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; background: #fafafa;">
+                                        <span style="font-size: 1.2rem; color: #bbb;">🔒</span>
+                                    </div>
+                                `;
+                            }
+                        } else {
+                            featuredBadgesGrid.innerHTML += `
+                                <div style="width: 70px; height: 70px; border: 2px dashed #ccc; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; background: #fafafa;">
+                                    <span style="font-size: 1.2rem; color: #bbb;">-</span>
+                                </div>
+                            `;
+                        }
+                    });
+                } else {
+                    if (featuredContainer) featuredContainer.style.display = 'none';
+                }
+            }
+
             document.getElementById('profile-modal-name').textContent = profile.name;
             document.getElementById('profile-modal-paintings').textContent = profile.paintingsCount;
             
@@ -11625,4 +11730,590 @@ window.openDiscoveriesHelpModal = function() {
             popup: 'swal-kidcanvas-popup'
         }
     });
+};
+
+/* ==========================================================================
+   PÁGINA DE PERFIL (/perfil) - LÓGICA E INTERAÇÕES
+   ========================================================================== */
+
+let nameEditing = false;
+let selectedSlotForFeatured = null;
+
+// Iniciar edição de nome com cooldown
+window.startEditingName = function() {
+    if (currentUser.lastUsernameChangeDate) {
+        const lastChange = new Date(currentUser.lastUsernameChangeDate);
+        const diffTime = Math.abs(new Date() - lastChange);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (diffDays <= 30) {
+            const daysRemaining = 30 - Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            showToast(`Você só pode alterar seu nome uma vez por mês. Próxima troca disponível em ${daysRemaining} dias.`, 'error');
+            return;
+        }
+    }
+
+    nameEditing = true;
+    document.getElementById('profile-display-name').style.display = 'none';
+    document.getElementById('profile-edit-name-btn').style.display = 'none';
+    document.getElementById('profile-username-input-container').style.display = 'flex';
+    document.getElementById('profile-username-input').value = currentUser.name || '';
+    document.getElementById('profile-username-input').focus();
+};
+
+window.cancelEditingName = function() {
+    nameEditing = false;
+    document.getElementById('profile-display-name').style.display = 'block';
+    document.getElementById('profile-edit-name-btn').style.display = 'inline';
+    document.getElementById('profile-username-input-container').style.display = 'none';
+};
+
+window.saveEditedName = async function() {
+    const input = document.getElementById('profile-username-input');
+    const newName = input.value.trim();
+    
+    if (newName.length < 2 || newName.length > 25) {
+        showToast('O nome de exibição deve ter entre 2 e 25 caracteres.', 'error');
+        return;
+    }
+
+    try {
+        const token = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const res = await fetch('/api/user/update-username', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': token
+            },
+            body: JSON.stringify({ name: newName })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            currentUser.name = data.name;
+            currentUser.lastUsernameChangeDate = data.lastUsernameChangeDate;
+            
+            // Atualizar no header
+            const shortName = data.name.split(' ')[0];
+            const userDisplayName = document.getElementById('user-display-name');
+            const dropdownDisplayName = document.getElementById('dropdown-user-display-name');
+            if (userDisplayName) userDisplayName.textContent = shortName;
+            if (dropdownDisplayName) dropdownDisplayName.textContent = shortName;
+            
+            renderPerfilView();
+            cancelEditingName();
+            showToast('Nome de exibição atualizado com sucesso!', 'success');
+        } else {
+            showToast(data.message || 'Erro ao atualizar nome.', 'error');
+        }
+    } catch (e) {
+        console.error(e);
+        showToast('Erro de conexão com o servidor.', 'error');
+    }
+};
+
+window.saveProfileSettings = async function() {
+    const ageInput = document.getElementById('profile-age-input');
+    const showAgeToggle = document.getElementById('profile-show-age-toggle');
+    const notificationsToggle = document.getElementById('profile-notifications-toggle');
+    
+    const ageValue = ageInput ? ageInput.value.trim() : '';
+    const showAge = showAgeToggle ? showAgeToggle.checked : false;
+    const notifications = notificationsToggle ? notificationsToggle.checked : true;
+
+    try {
+        const token = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const res = await fetch('/api/user/update-profile-settings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': token
+            },
+            body: JSON.stringify({
+                age: ageValue === '' ? null : parseInt(ageValue, 10),
+                showAge,
+                notifications
+            })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            currentUser.age = data.profileSettings.age;
+            currentUser.showAge = data.profileSettings.showAge;
+            currentUser.notifications = data.profileSettings.notifications;
+            
+            showToast('Configurações atualizadas com sucesso!', 'success');
+        } else {
+            showToast(data.message || 'Erro ao atualizar configurações.', 'error');
+        }
+    } catch (e) {
+        console.error(e);
+        showToast('Erro de conexão ao salvar configurações.', 'error');
+    }
+};
+
+window.clickFeaturedSlot = function(slotIndex) {
+    const featured = currentUser.featuredCards || [null, null, null];
+    if (featured[slotIndex]) {
+        Swal.fire({
+            title: 'Selo em Destaque',
+            text: 'O que deseja fazer com este selo?',
+            icon: 'question',
+            showCancelButton: true,
+            showDenyButton: true,
+            confirmButtonText: 'Substituir',
+            denyButtonText: 'Remover',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#6c5ce7',
+            denyButtonColor: '#e74c3c'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                openFeaturedSelectionModal(slotIndex);
+            } else if (result.isDenied) {
+                removeFeaturedCard(slotIndex);
+            }
+        });
+    } else {
+        openFeaturedSelectionModal(slotIndex);
+    }
+};
+
+window.openFeaturedSelectionModal = function(slotIndex) {
+    selectedSlotForFeatured = slotIndex;
+    const modal = document.getElementById('featuredSelectionModal');
+    if (!modal) return;
+
+    const grid = document.getElementById('featured-selection-grid');
+    grid.innerHTML = '';
+
+    const unlocked = getUnlockedAchievements(currentUser);
+    if (unlocked.length === 0) {
+        grid.innerHTML = '<div style="text-align:center; padding: 20px; font-weight: bold; color: var(--color-dark-light);">Você ainda não desbloqueou nenhum selo. Pinte e crie histórias para desbloquear! 🎨</div>';
+        modal.classList.add('open');
+        return;
+    }
+
+    const featured = currentUser.featuredCards || [null, null, null];
+    const available = unlocked.filter(badge => !featured.includes(badge.id));
+
+    if (available.length === 0) {
+        grid.innerHTML = '<div style="text-align:center; padding: 20px; font-weight: bold; color: var(--color-dark-light);">Todos os seus selos desbloqueados já estão em destaque! 🌟</div>';
+    } else {
+        grid.innerHTML = available.map(badge => {
+            const rarity = ACHIEVEMENT_RARITIES[badge.rarity] || { color: '#9e9e9e' };
+            return `
+                <div onclick="selectFeaturedCard('${badge.id}')" style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 2px solid ${rarity.color}; border-radius: var(--radius-sm); background: #fffde7; cursor: pointer; transition: all 0.2s;" class="hover-bounce">
+                    <span style="font-size: 2.2rem; min-width: 40px; text-align: center;">${badge.emoji}</span>
+                    <div style="display: flex; flex-direction: column; text-align: left;">
+                        <span style="font-weight: 800; font-size: 0.95rem; color: ${rarity.color};">${badge.name}</span>
+                        <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 500;">${badge.desc}</span>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    modal.classList.add('open');
+};
+
+window.closeFeaturedSelectionModal = function() {
+    const modal = document.getElementById('featuredSelectionModal');
+    if (modal) modal.classList.remove('open');
+    selectedSlotForFeatured = null;
+};
+
+window.selectFeaturedCard = async function(cardId) {
+    if (selectedSlotForFeatured === null) return;
+    
+    const featured = [...(currentUser.featuredCards || [null, null, null])];
+    featured[selectedSlotForFeatured] = cardId;
+
+    try {
+        const token = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const res = await fetch('/api/user/update-featured-cards', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': token
+            },
+            body: JSON.stringify({ featuredCards: featured })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            currentUser.featuredCards = data.featuredCards;
+            closeFeaturedSelectionModal();
+            renderPerfilView();
+            showToast('Selo colocado em destaque!', 'success');
+        } else {
+            showToast(data.message || 'Erro ao destacar selo.', 'error');
+        }
+    } catch(e) {
+        console.error(e);
+        showToast('Erro ao atualizar destaques.', 'error');
+    }
+};
+
+window.removeFeaturedCard = async function(slotIndex) {
+    const featured = [...(currentUser.featuredCards || [null, null, null])];
+    featured[slotIndex] = null;
+
+    try {
+        const token = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const res = await fetch('/api/user/update-featured-cards', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': token
+            },
+            body: JSON.stringify({ featuredCards: featured })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            currentUser.featuredCards = data.featuredCards;
+            renderPerfilView();
+            showToast('Selo removido dos destaques.', 'success');
+        } else {
+            showToast(data.message || 'Erro ao remover destaque.', 'error');
+        }
+    } catch(e) {
+        console.error(e);
+        showToast('Erro ao atualizar destaques.', 'error');
+    }
+};
+
+window.copyProfileInviteLink = function() {
+    const input = document.getElementById('profile-invite-link-input');
+    if (!input) return;
+    
+    input.select();
+    input.setSelectionRange(0, 99999);
+    
+    navigator.clipboard.writeText(input.value)
+        .then(() => {
+            const msg = document.getElementById('profile-invite-link-copied-msg');
+            if (msg) {
+                msg.style.display = 'block';
+                setTimeout(() => msg.style.display = 'none', 3000);
+            }
+            showToast('Link de convite copiado com sucesso!', 'success');
+        })
+        .catch(err => {
+            console.error('Erro ao copiar link:', err);
+            showToast('Não foi possível copiar o link automaticamente.', 'error');
+        });
+};
+
+window.openChangePasswordModal = function() {
+    document.getElementById('change-pwd-current').value = '';
+    document.getElementById('change-pwd-new').value = '';
+    document.getElementById('change-pwd-confirm').value = '';
+    const modal = document.getElementById('changePasswordModal');
+    if (modal) modal.classList.add('open');
+};
+
+window.closeChangePasswordModal = function() {
+    const modal = document.getElementById('changePasswordModal');
+    if (modal) modal.classList.remove('open');
+};
+
+window.submitChangePassword = async function() {
+    const currentPwd = document.getElementById('change-pwd-current').value;
+    const newPwd = document.getElementById('change-pwd-new').value;
+    const confirmPwd = document.getElementById('change-pwd-confirm').value;
+
+    if (!currentPwd || !newPwd || !confirmPwd) {
+        showToast('Preencha todos os campos.', 'error');
+        return;
+    }
+    if (newPwd.length < 6) {
+        showToast('A nova senha deve ter no mínimo 6 caracteres.', 'error');
+        return;
+    }
+    if (newPwd !== confirmPwd) {
+        showToast('A nova senha e a confirmação não conferem.', 'error');
+        return;
+    }
+
+    try {
+        const token = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const res = await fetch('/api/user/change-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': token
+            },
+            body: JSON.stringify({
+                currentPassword: currentPwd,
+                newPassword: newPwd
+            })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            closeChangePasswordModal();
+            showToast('Senha alterada com sucesso!', 'success');
+        } else {
+            showToast(data.message || 'Erro ao alterar a senha.', 'error');
+        }
+    } catch (e) {
+        console.error(e);
+        showToast('Erro ao conectar com o servidor.', 'error');
+    }
+};
+
+window.openDeleteAccountModal = function() {
+    document.getElementById('delete-account-step-1').style.display = 'block';
+    document.getElementById('delete-account-step-2').style.display = 'none';
+    document.getElementById('delete-account-password').value = '';
+    const modal = document.getElementById('deleteAccountModal');
+    if (modal) modal.classList.add('open');
+};
+
+window.closeDeleteAccountModal = function() {
+    const modal = document.getElementById('deleteAccountModal');
+    if (modal) modal.classList.remove('open');
+};
+
+window.goToDeleteAccountStep2 = function() {
+    document.getElementById('delete-account-step-1').style.display = 'none';
+    document.getElementById('delete-account-step-2').style.display = 'block';
+    document.getElementById('delete-account-password').focus();
+};
+
+window.submitDeleteAccount = async function() {
+    const password = document.getElementById('delete-account-password').value;
+    if (!password) {
+        showToast('Senha é necessária para confirmar.', 'error');
+        return;
+    }
+
+    try {
+        const token = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const res = await fetch('/api/user/delete-account', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': token
+            },
+            body: JSON.stringify({ password })
+        });
+        const data = await res.json();
+        
+        if (data.success) {
+            closeDeleteAccountModal();
+            showToast('Sua conta foi excluída permanentemente. Sentiremos sua falta! 😢', 'success');
+            handleHeaderLogout();
+        } else {
+            showToast(data.message || 'Erro ao excluir conta.', 'error');
+        }
+    } catch (e) {
+        console.error(e);
+        showToast('Erro de conexão ao excluir conta.', 'error');
+    }
+};
+
+window.renderPerfilView = function() {
+    document.title = "Meu Perfil 👤 — KidCanvas";
+    setMetaDescription("Gerencie sua identidade, visualize suas estatísticas de conquistas, confira selos em destaque e mude suas configurações no KidCanvas.");
+    
+    const view = document.getElementById('view-perfil');
+    if (!view) return;
+    view.style.display = 'block';
+
+    if (!currentUser) {
+        showToast('Faça login para acessar seu perfil!', 'info');
+        openAuthModal();
+        navigate('/');
+        return;
+    }
+
+    // Avatar wrapper
+    const wrapper = document.getElementById('my-profile-avatar-wrapper');
+    if (wrapper) {
+        wrapper.className = 'avatar-wrapper';
+        const planName = currentUser.plan || 'Aprendiz';
+        if (planName === 'Aprendiz' || planName === 'Grátis') {
+            wrapper.classList.add('plan-aprendiz');
+        } else if (planName === 'Artista') {
+            wrapper.classList.add('plan-artista');
+        } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
+            wrapper.classList.add('plan-mago');
+        } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
+            wrapper.classList.add('plan-lenda');
+        } else {
+            wrapper.classList.add('plan-aprendiz');
+        }
+    }
+
+    const imgEl = document.getElementById('my-profile-avatar-img');
+    const emojiEl = document.getElementById('my-profile-avatar-emoji');
+    const avatarVal = currentUser.avatar || '👤';
+    const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
+    if (isUrl) {
+        if (imgEl) {
+            imgEl.src = avatarVal;
+            imgEl.style.display = 'block';
+        }
+        if (emojiEl) emojiEl.style.display = 'none';
+    } else {
+        if (imgEl) imgEl.style.display = 'none';
+        if (emojiEl) {
+            emojiEl.textContent = avatarVal;
+            emojiEl.style.display = 'block';
+        }
+    }
+
+    // Nome
+    const nameEl = document.getElementById('profile-display-name');
+    if (nameEl) nameEl.textContent = currentUser.name || 'Nome';
+    
+    // Cooldown
+    const cooldownEl = document.getElementById('profile-name-cooldown');
+    if (cooldownEl) {
+        if (currentUser.lastUsernameChangeDate) {
+            const lastChange = new Date(currentUser.lastUsernameChangeDate);
+            const diffTime = Math.abs(new Date() - lastChange);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            if (diffDays <= 30) {
+                const daysRemaining = 30 - Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                cooldownEl.textContent = `Próxima troca de nome disponível em ${daysRemaining} dias`;
+            } else {
+                cooldownEl.textContent = 'Troca de nome disponível';
+            }
+        } else {
+            cooldownEl.textContent = 'Você pode alterar seu nome uma vez por mês';
+        }
+    }
+
+    // Plano badge
+    const planBadge = document.getElementById('profile-plan-badge');
+    if (planBadge) {
+        const planName = currentUser.plan || 'Aprendiz';
+        planBadge.textContent = planName;
+        if (planName === 'Aprendiz' || planName === 'Grátis') {
+            planBadge.style.backgroundColor = 'var(--color-green)';
+            planBadge.textContent = '🌱 APRENDIZ';
+        } else if (planName === 'Artista') {
+            planBadge.style.backgroundColor = 'var(--color-purple)';
+            planBadge.textContent = '🎨 ARTISTA';
+        } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
+            planBadge.style.backgroundColor = 'var(--color-blue)';
+            planBadge.textContent = '🧙 MAGO CRIADOR';
+        } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
+            planBadge.style.backgroundColor = 'var(--color-yellow)';
+            planBadge.textContent = '👑 LENDA';
+        } else {
+            planBadge.style.backgroundColor = 'var(--color-dark-light)';
+            planBadge.textContent = planName.toUpperCase();
+        }
+    }
+
+    // Membro desde
+    let memberSince = "Explorando desde Junho 2025";
+    if (currentUser.createdAt) {
+        const date = new Date(currentUser.createdAt);
+        const months = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+        memberSince = `Explorando desde ${months[date.getMonth()]} de ${date.getFullYear()}`;
+    }
+    const memberSinceEl = document.getElementById('profile-member-since');
+    if (memberSinceEl) memberSinceEl.textContent = memberSince;
+
+    // Idade e privacidade
+    const ageInput = document.getElementById('profile-age-input');
+    const showAgeToggle = document.getElementById('profile-show-age-toggle');
+    if (ageInput) ageInput.value = currentUser.age || '';
+    if (showAgeToggle) showAgeToggle.checked = !!currentUser.showAge;
+
+    // Estatísticas
+    const paintingsCount = currentUser.myPaintings?.length || 0;
+    const storiesCount = currentUser.myStories?.length || 0;
+    const starsCount = currentUser.stars || 0;
+    const streakCount = currentUser.consecutiveDays || 1;
+    const creditsCount = currentUser.paginasRestantes || 0;
+    const unlockedBadges = getUnlockedAchievements(currentUser).length;
+    const totalBadges = ACHIEVEMENTS_CATALOG.length;
+
+    document.getElementById('stat-paintings-count').textContent = paintingsCount;
+    document.getElementById('stat-stories-count').textContent = storiesCount;
+    document.getElementById('stat-stars-count').textContent = starsCount;
+    document.getElementById('stat-badges-count').textContent = `${unlockedBadges}/${totalBadges}`;
+    document.getElementById('stat-streak-count').textContent = streakCount;
+    document.getElementById('stat-credits-count').textContent = creditsCount;
+
+    // Selos em Destaque
+    const featured = currentUser.featuredCards || [null, null, null];
+    for (let i = 0; i < 3; i++) {
+        const slot = document.getElementById(`featured-slot-${i}`);
+        if (!slot) continue;
+        
+        slot.innerHTML = '';
+        slot.className = 'featured-badge-slot';
+        
+        const cardId = featured[i];
+        if (cardId) {
+            const badge = ACHIEVEMENTS_CATALOG.find(a => a.id === cardId);
+            if (badge) {
+                slot.classList.add('filled');
+                slot.innerHTML = `
+                    <span style="font-size: 2.2rem;">${badge.emoji}</span>
+                    <span style="font-size: 0.7rem; font-weight: 800; color: var(--color-dark); margin-top: 4px; text-align: center; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${badge.name}</span>
+                    <div class="remove-btn" onclick="event.stopPropagation(); removeFeaturedCard(${i})">&times;</div>
+                `;
+            } else {
+                slot.innerHTML = '<span style="font-size: 1.8rem; color: #bbb;">+</span>';
+            }
+        } else {
+            slot.innerHTML = '<span style="font-size: 1.8rem; color: #bbb;">+</span>';
+        }
+    }
+
+    // Conquistas Recentes
+    const recentList = document.getElementById('profile-recent-achievements-list');
+    if (recentList) {
+        recentList.innerHTML = '';
+        const userBadges = getUnlockedAchievements(currentUser);
+        const recent4 = [...userBadges].reverse().slice(0, 4);
+
+        if (recent4.length === 0) {
+            recentList.innerHTML = '<div style="text-align: center; padding: 15px; font-weight: bold; color: var(--color-dark-light);">Nenhum selo conquistado ainda. Comece sua aventura! 🚀</div>';
+        } else {
+            recentList.innerHTML = recent4.map(badge => {
+                const rarity = ACHIEVEMENT_RARITIES[badge.rarity] || { color: '#9e9e9e' };
+                const userCardObj = currentUser.cards ? currentUser.cards.find(c => c.id === badge.id) : null;
+                const unlockDate = userCardObj && userCardObj.unlockedAt 
+                    ? new Date(userCardObj.unlockedAt).toLocaleDateString('pt-BR')
+                    : new Date(currentUser.createdAt || Date.now()).toLocaleDateString('pt-BR');
+                
+                return `
+                    <div style="display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 2.5px solid ${rarity.color}; border-radius: var(--radius-sm); background: #fffdf5;">
+                        <span style="font-size: 2.2rem; min-width: 40px; text-align: center;">${badge.emoji}</span>
+                        <div style="display: flex; flex-direction: column; text-align: left;">
+                            <span style="font-weight: 800; font-size: 0.95rem; color: ${rarity.color};">${badge.name}</span>
+                            <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 600;">Desbloqueado em ${unlockDate}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    // Convites
+    const inviteLinkInput = document.getElementById('profile-invite-link-input');
+    if (inviteLinkInput) {
+        const hostname = window.location.origin;
+        const code = currentUser.inviteCode || currentUser.id || '';
+        inviteLinkInput.value = `${hostname}/?ref=${code}`;
+    }
+    
+    const activeFriendsEl = document.getElementById('profile-active-friends-count');
+    if (activeFriendsEl) {
+        activeFriendsEl.textContent = currentUser.activeReferredUsers || 0;
+    }
+
+    // Configurações
+    const notificationsToggle = document.getElementById('profile-notifications-toggle');
+    if (notificationsToggle) {
+        notificationsToggle.checked = currentUser.notifications !== undefined ? !!currentUser.notifications : true;
+    }
 };

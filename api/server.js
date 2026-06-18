@@ -236,7 +236,14 @@ function formatUserProfile(user, users) {
             const s = (refUser.myStories || []).length;
             const i = (refUser.myImages || []).length;
             return (p + s + i) > 0;
-        }).length : 0
+        }).length : 0,
+        lastUsernameChangeDate: user.lastUsernameChangeDate || null,
+        age: user.age || null,
+        showAge: !!user.showAge,
+        notifications: user.notifications !== undefined ? !!user.notifications : true,
+        featuredCards: user.featuredCards || [null, null, null],
+        createdAt: user.createdAt || user.created_at || '2025-06-01T00:00:00.000Z',
+        achievements: user.achievements || []
     };
 }
 
@@ -2552,16 +2559,251 @@ app.get('/api/user/public-profile', async (req, res) => {
             profile: {
                 name: user ? (user.name || name) : name,
                 avatar: user ? (user.avatar || '👤') : '👤',
-                stars: totalStars,
+                stars: user ? (user.stars || totalStars) : totalStars,
                 paintingsCount: paintingsCount,
                 storiesCount: storiesCount,
                 aiImagesCount: aiImagesCount,
-                unlockedAchievements: user ? (user.achievements || []) : []
+                unlockedAchievements: user ? (user.achievements || []) : [],
+                plan: user ? (user.plan || 'Aprendiz') : 'Aprendiz',
+                featuredCards: user ? (user.featuredCards || [null, null, null]) : [null, null, null],
+                age: user && user.showAge ? user.age : null,
+                showAge: user ? !!user.showAge : false,
+                createdAt: user ? (user.createdAt || user.created_at || '2025-06-01T00:00:00.000Z') : '2025-06-01T00:00:00.000Z'
             }
         });
     } catch(err) {
         console.error('Erro ao buscar perfil público:', err);
         return res.status(500).json({ success: false, message: 'Erro ao buscar dados do perfil.' });
+    }
+});
+
+// Endpoint para atualizar o nome de exibição com cooldown de 30 dias
+app.post('/api/user/update-username', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { name } = req.body;
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado. Faça login novamente.' });
+        }
+        if (!name || name.trim().length < 2 || name.trim().length > 25) {
+            return res.status(400).json({ success: false, message: 'O nome de exibição deve ter entre 2 e 25 caracteres.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        // Cooldown de 30 dias
+        const now = new Date();
+        if (user.lastUsernameChangeDate) {
+            const lastChange = new Date(user.lastUsernameChangeDate);
+            const diffTime = Math.abs(now - lastChange);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            if (diffDays <= 30) {
+                const daysRemaining = 30 - Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                return res.status(400).json({ 
+                    success: false, 
+                    message: `Você só pode alterar seu nome uma vez por mês. Próxima troca disponível em ${daysRemaining} dias.` 
+                });
+            }
+        }
+
+        user.name = name.trim();
+        user.lastUsernameChangeDate = now.toISOString();
+        await saveUsers(users);
+
+        // Sincronizar nome em public_paintings.json
+        try {
+            const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
+            const publicPaintings = await loadPublicPaintings();
+            let changed = false;
+            publicPaintings.forEach(p => {
+                if (p.userEmail && p.userEmail.toLowerCase() === user.email.toLowerCase()) {
+                    p.creatorName = user.name;
+                    p.userName = user.name;
+                    changed = true;
+                }
+            });
+            if (changed) {
+                await savePublicPaintings(publicPaintings);
+            }
+        } catch (e) {
+            console.error('Erro ao sincronizar nome nas pinturas públicas:', e);
+        }
+
+        return res.json({ 
+            success: true, 
+            message: 'Nome de exibição atualizado com sucesso!', 
+            name: user.name,
+            lastUsernameChangeDate: user.lastUsernameChangeDate
+        });
+    } catch(err) {
+        console.error('Erro ao atualizar nome de exibição:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao atualizar o nome de exibição.' });
+    }
+});
+
+// Endpoint para atualizar configurações de perfil (idade, privacidade da idade, notificações)
+app.post('/api/user/update-profile-settings', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { age, showAge, notifications } = req.body;
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        if (age !== undefined) {
+            user.age = age === null || age === '' ? null : parseInt(age, 10);
+        }
+        if (showAge !== undefined) {
+            user.showAge = !!showAge;
+        }
+        if (notifications !== undefined) {
+            user.notifications = !!notifications;
+        }
+
+        await saveUsers(users);
+        return res.json({ 
+            success: true, 
+            message: 'Configurações de perfil atualizadas com sucesso!',
+            profileSettings: {
+                age: user.age,
+                showAge: user.showAge,
+                notifications: user.notifications
+            }
+        });
+    } catch (err) {
+        console.error('Erro ao salvar configurações de perfil:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao atualizar as configurações do perfil.' });
+    }
+});
+
+// Endpoint para atualizar selos em destaque
+app.post('/api/user/update-featured-cards', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { featuredCards } = req.body;
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!Array.isArray(featuredCards)) {
+            return res.status(400).json({ success: false, message: 'Formato inválido.' });
+        }
+        if (featuredCards.length > 3) {
+            return res.status(400).json({ success: false, message: 'Você pode escolher no máximo 3 selos em destaque.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        const userAchievements = user.achievements || [];
+        const validatedCards = featuredCards.map(cardId => {
+            if (cardId === null || cardId === undefined || cardId === '') return null;
+            if (userAchievements.includes(cardId)) return cardId;
+            return null;
+        });
+
+        while (validatedCards.length < 3) {
+            validatedCards.push(null);
+        }
+
+        user.featuredCards = validatedCards;
+        await saveUsers(users);
+
+        return res.json({ 
+            success: true, 
+            message: 'Selos em destaque atualizados!',
+            featuredCards: user.featuredCards
+        });
+    } catch(err) {
+        console.error('Erro ao atualizar selos em destaque:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao atualizar selos em destaque.' });
+    }
+});
+
+// Endpoint para trocar a senha
+app.post('/api/user/change-password', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { currentPassword, newPassword } = req.body;
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({ success: false, message: 'Senha atual e nova senha são obrigatórias.' });
+        }
+        if (newPassword.length < 6) {
+            return res.status(400).json({ success: false, message: 'A nova senha deve ter no mínimo 6 caracteres.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        const currentHash = hashPassword(currentPassword);
+        if (user.passwordHash !== currentHash) {
+            return res.status(400).json({ success: false, message: 'A senha atual está incorreta.' });
+        }
+
+        user.passwordHash = hashPassword(newPassword);
+        await saveUsers(users);
+
+        return res.json({ success: true, message: 'Senha alterada com sucesso!' });
+    } catch (err) {
+        console.error('Erro ao alterar senha:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno ao alterar a senha.' });
+    }
+});
+
+// Endpoint para exclusão de conta em 2 etapas
+app.post('/api/user/delete-account', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { password } = req.body;
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!password) {
+            return res.status(400).json({ success: false, message: 'Digite sua senha para confirmar.' });
+        }
+
+        const users = await loadUsers();
+        const userIdx = users.findIndex(u => u.token === token && u.tokenExpiry > Date.now());
+        if (userIdx === -1) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        const user = users[userIdx];
+        const hash = hashPassword(password);
+        if (user.passwordHash !== hash) {
+            return res.status(400).json({ success: false, message: 'A senha digitada está incorreta.' });
+        }
+
+        users.splice(userIdx, 1);
+        await saveUsers(users);
+
+        return res.json({ success: true, message: 'Sua conta foi excluída definitivamente.' });
+    } catch (err) {
+        console.error('Erro ao excluir conta:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno ao excluir a conta.' });
     }
 });
 

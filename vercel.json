@@ -67,6 +67,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/perfil",
+      "destination": "/index.html"
+    },
+    {
       "source": "/categoria/:path*",
       "destination": "/index.html"
     },
