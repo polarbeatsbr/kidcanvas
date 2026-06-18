@@ -169,6 +169,35 @@ function getUserTotalCredits(user) {
     return (user.paginasRestantes || 0) + (hasAvulsos ? parseInt(user.creditosAvulsos, 10) : 0);
 }
 
+function formatUserProfile(user, users) {
+    if (!user) return null;
+    return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        photo: user.photo || '',
+        avatar: user.avatar || '',
+        cards: user.cards || [],
+        unlockedAchievements: user.unlockedAchievements || [],
+        stars: user.stars || 0,
+        plan: user.plan,
+        paginasRestantes: getUserTotalCredits(user),
+        myImages: user.myImages || [],
+        myStories: user.myStories || [],
+        myPaintings: user.myPaintings || [],
+        consecutiveDays: user.consecutiveDays || 1,
+        inviteCode: user.inviteCode || '',
+        activeReferredUsers: users ? (user.referredUsers || []).filter(refId => {
+            const refUser = users.find(u => u.id === refId);
+            if (!refUser) return false;
+            const p = (refUser.myPaintings || []).length;
+            const s = (refUser.myStories || []).length;
+            const i = (refUser.myImages || []).length;
+            return (p + s + i) > 0;
+        }).length : 0
+    };
+}
+
 function deductUserCredits(user, cost) {
     const hasAvulsos = user.creditosAvulsos && user.creditosAvulsosExpiry && new Date(user.creditosAvulsosExpiry) > Date.now();
     if (user.paginasRestantes >= cost) {
@@ -1096,6 +1125,21 @@ app.post('/api/generate-full-story', async (req, res) => {
             });
         }
 
+        // Verificar limite de armazenamento por plano (Histórias)
+        const plan = user.plan || 'Aprendiz';
+        let limit = 3;
+        if (plan === 'Artista' || plan === 'Família') limit = 10;
+        else if (plan === 'Mago' || plan === 'Mago Criador' || plan === 'Professor' || plan === 'Premium') limit = 30;
+        else if (plan === 'Lenda' || plan === 'Lenda KidCanvas' || plan === 'Ultra' || plan === 'Colégio') limit = Infinity;
+
+        if ((user.myStories || []).length >= limit) {
+            return res.status(400).json({
+                success: false,
+                limitExceeded: true,
+                message: "Você atingiu o limite do seu plano. Faça upgrade para salvar mais!"
+            });
+        }
+
         // Rate Limit Check (anti-bot)
         const isPaidUser = user.plan && user.plan !== 'Grátis' && user.plan !== 'Aprendiz';
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
@@ -1374,7 +1418,38 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
                     if (!url) {
                         throw new Error(`Sem URL na resposta do Ideogram para imagem ${i + 1}`);
                     }
-                    return url;
+
+                    // Baixar os bytes da imagem gerada pelo Ideogram para salvar permanentemente no R2
+                    console.log(`[Full Story Ideogram] Baixando bytes de ${url} para imagem ${i + 1}...`);
+                    const downloadRes = await fetch(url);
+                    if (!downloadRes.ok) {
+                        throw new Error(`Erro ao baixar bytes da imagem do Ideogram: ${downloadRes.status}`);
+                    }
+                    const buffer = await downloadRes.arrayBuffer();
+                    const nodeBuffer = Buffer.from(buffer);
+
+                    // Upload para R2
+                    const imageId = `story_${user.id}_${Date.now()}_${i}.jpg`;
+                    const r2Url = await uploadImage(nodeBuffer, imageId, 'image/jpeg');
+                    if (r2Url) {
+                        console.log(`[Full Story Ideogram] Imagem ${i + 1} salva no R2: ${r2Url}`);
+                        return r2Url;
+                    } else {
+                        // Fallback local se falhar ou nao estiver configurado
+                        try {
+                            const savedImagesDir = path.join(__dirname, '..', 'saved_images');
+                            if (!fs.existsSync(savedImagesDir)) {
+                                fs.mkdirSync(savedImagesDir, { recursive: true });
+                            }
+                            const filePath = path.join(savedImagesDir, imageId);
+                            fs.writeFileSync(filePath, nodeBuffer);
+                            return `/saved_images/${imageId}`;
+                        } catch (err) {
+                            console.warn('[Full Story Warning] Falha ao salvar localmente. Usando Base64:', err.message);
+                            const base64 = nodeBuffer.toString('base64');
+                            return `data:image/jpeg;base64,${base64}`;
+                        }
+                    }
                 }
             } catch (err) {
                 console.error(`Erro ao gerar imagem ${i + 1} com ${engine}:`, err.message);
@@ -1830,17 +1905,7 @@ app.post('/api/auth/google', async (req, res) => {
 
         return res.json({
             success: true,
-            user: {
-                name: user.name,
-                email: user.email,
-                photo: user.photo || '',
-                avatar: user.avatar || '',
-                cards: user.cards || [],
-                unlockedAchievements: user.unlockedAchievements || [],
-                stars: user.stars || 0,
-                plan: user.plan,
-                paginasRestantes: getUserTotalCredits(user)
-            },
+            user: formatUserProfile(user, users),
             token: sessionToken,
             isNewUser: isNewUser
         });
@@ -1911,14 +1976,7 @@ app.post('/api/auth/signup', async (req, res) => {
         
         return res.json({
             success: true,
-            user: {
-                name: newUser.name,
-                email: newUser.email,
-                photo: newUser.photo || '',
-                avatar: newUser.avatar || '',
-                plan: newUser.plan,
-                paginasRestantes: newUser.paginasRestantes
-            },
+            user: formatUserProfile(newUser, users),
             token: sessionToken,
             isNewUser: true
         });
@@ -1958,20 +2016,7 @@ app.post('/api/auth/login', async (req, res) => {
 
         return res.json({
             success: true,
-            user: {
-                name: user.name,
-                email: user.email,
-                photo: user.photo || '',
-                avatar: user.avatar || '',
-                cards: user.cards || [],
-                unlockedAchievements: user.unlockedAchievements || [],
-                stars: user.stars || 0,
-                plan: user.plan,
-                paginasRestantes: getUserTotalCredits(user),
-                myImages: user.myImages || [],
-                myStories: user.myStories || [],
-                myPaintings: user.myPaintings || []
-            },
+            user: formatUserProfile(user, users),
             token: sessionToken
         });
     } catch(err) {
@@ -2074,31 +2119,7 @@ app.get('/api/auth/me', async (req, res) => {
         return res.json({
             success: true,
             newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null),
-            user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                photo: user.photo || '',
-                avatar: user.avatar || '',
-                cards: user.cards || [],
-                unlockedAchievements: user.unlockedAchievements || [],
-                stars: user.stars || 0,
-                plan: user.plan,
-                paginasRestantes: getUserTotalCredits(user),
-                myImages: user.myImages || [],
-                myStories: user.myStories || [],
-                myPaintings: user.myPaintings || [],
-                consecutiveDays: user.consecutiveDays || 1,
-                inviteCode: user.inviteCode || '',
-                activeReferredUsers: (user.referredUsers || []).filter(refId => {
-                    const refUser = users.find(u => u.id === refId);
-                    if (!refUser) return false;
-                    const p = (refUser.myPaintings || []).length;
-                    const s = (refUser.myStories || []).length;
-                    const i = (refUser.myImages || []).length;
-                    return (p + s + i) > 0;
-                }).length
-            }
+            user: formatUserProfile(user, users)
         });
     } catch(err) {
         console.error('Erro ao buscar perfil:', err);
@@ -2135,13 +2156,7 @@ app.post('/api/user/upgrade', async (req, res) => {
         
         return res.json({
             success: true,
-            user: {
-                name: user.name,
-                email: user.email,
-                photo: user.photo || '',
-                plan: user.plan,
-                paginasRestantes: getUserTotalCredits(user)
-            }
+            user: formatUserProfile(user, users)
         });
     } catch(err) {
         console.error('Erro no upgrade de plano:', err);
@@ -2200,6 +2215,21 @@ app.post('/api/user/save-painting', async (req, res) => {
         
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        // Verificar limite de armazenamento por plano (Pinturas)
+        const plan = user.plan || 'Aprendiz';
+        let limit = 5;
+        if (plan === 'Artista' || plan === 'Família') limit = 30;
+        else if (plan === 'Mago' || plan === 'Mago Criador' || plan === 'Professor' || plan === 'Premium') limit = 100;
+        else if (plan === 'Lenda' || plan === 'Lenda KidCanvas' || plan === 'Ultra' || plan === 'Colégio') limit = Infinity;
+
+        if ((user.myPaintings || []).length >= limit) {
+            return res.status(400).json({
+                success: false,
+                limitExceeded: true,
+                message: "Você atingiu o limite do seu plano. Faça upgrade para salvar mais!"
+            });
         }
         
         let r2Url = imageUrl;
@@ -2741,6 +2771,20 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             return res.status(401).json({
                 success: false,
                 message: 'Sessão inválida ou expirada. Faça login novamente.'
+            });
+        }
+
+        // Verificar limite de armazenamento por plano (Desenhos Favoritos / myImages)
+        const plan = user.plan || 'Aprendiz';
+        let limit = 10;
+        if (plan === 'Artista' || plan === 'Família') limit = 50;
+        else if (plan === 'Mago' || plan === 'Mago Criador' || plan === 'Professor' || plan === 'Premium' || plan === 'Lenda' || plan === 'Lenda KidCanvas' || plan === 'Ultra' || plan === 'Colégio') limit = Infinity;
+
+        if ((user.myImages || []).length >= limit) {
+            return res.status(400).json({
+                success: false,
+                limitExceeded: true,
+                message: "Você atingiu o limite do seu plano. Faça upgrade para salvar mais!"
             });
         }
 

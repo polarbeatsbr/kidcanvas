@@ -3509,12 +3509,16 @@ function renderHistoriasMagicasView() {
     }
 }
 
-function openCreditsModal(message) {
+function openCreditsModal(message, title) {
     const modal = document.getElementById('creditsModal');
     const msgEl = document.getElementById('creditsModalMessage');
+    const titleEl = modal ? modal.querySelector('h3') : null;
     if (modal) {
         if (msgEl && message) {
             msgEl.textContent = message;
+        }
+        if (titleEl) {
+            titleEl.textContent = title || "Seus créditos mágicos acabaram!";
         }
         modal.classList.add('open');
     }
@@ -3610,6 +3614,9 @@ async function handleCustomDrawingSubmit(event) {
             showToast('Desenho gerado com sucesso! Divirta-se colorindo! 🎨', 'success');
         } else {
             showToast(data.message || 'Ocorreu um erro ao gerar a imagem.', 'error');
+            if (data.limitExceeded) {
+                openCreditsModal(data.message || 'Você atingiu o limite do seu plano. Faça upgrade para salvar mais!', 'Limite do Plano Atingido! 🚀');
+            }
             if (placeholder) placeholder.style.display = 'block';
             if (response.status === 401 || (data.message && (data.message.includes('Sessão inválida') || data.message.includes('Sessão expirada') || data.message.includes('Faça login novamente')))) {
                 setTimeout(() => {
@@ -4518,6 +4525,10 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
             clearInterval(loadInt);
             
             if (!response.ok || !result.success) {
+                if (result.limitExceeded) {
+                    showToast(result.message || 'Você atingiu o limite do seu plano. Faça upgrade para salvar mais!', 'error');
+                    openCreditsModal(result.message || 'Você atingiu o limite do seu plano. Faça upgrade para salvar mais!', 'Limite do Plano Atingido! 🚀');
+                }
                 throw new Error(result.message || "Ocorreu um erro ao gerar a história ilustrada.");
             }
             
@@ -6210,7 +6221,10 @@ function renderPintarOnlineView() {
                     shareSavedDrawingOnWhatsApp(result.imageUrl, window.currentPaintingData.name);
                     showToast('Compartilhando no WhatsApp! 📲', 'success');
                 } else {
-                    showToast('Erro ao preparar compartilhamento.', 'error');
+                    showToast(result.message || 'Erro ao preparar compartilhamento.', 'error');
+                    if (result.limitExceeded) {
+                        openCreditsModal(result.message || 'Você atingiu o limite do seu plano. Faça upgrade para salvar mais!', 'Limite do Plano Atingido! 🚀');
+                    }
                 }
             } catch (err) {
                 console.error(err);
@@ -7595,7 +7609,11 @@ async function savePaintingToGallery() {
                 });
             }
         } else {
-            hideMagicLoading(); showToast(resData.message || 'Erro ao salvar pintura.', 'error');
+            hideMagicLoading();
+            showToast(resData.message || 'Erro ao salvar pintura.', 'error');
+            if (resData.limitExceeded) {
+                openCreditsModal(resData.message || 'Você atingiu o limite do seu plano. Faça upgrade para salvar mais!', 'Limite do Plano Atingido! 🚀');
+            }
         }
     } catch(err) {
         console.error(err);
@@ -8951,6 +8969,9 @@ async function shareStoryToHall() {
             showToast('Sua história foi enviada para o Hall da Fama! Ela passará por moderação antes de aparecer. 🎉', 'success');
         } else {
             showToast(resData.message || 'Erro ao compartilhar história.', 'error');
+            if (resData.limitExceeded) {
+                openCreditsModal(resData.message || 'Você atingiu o limite do seu plano. Faça upgrade para salvar mais!', 'Limite do Plano Atingido! 🚀');
+            }
         }
     } catch (err) {
         console.error(err);
@@ -9850,7 +9871,7 @@ window.openAlbumModal = async function() {
         };
 
         for (const [colName, cardsInCol] of Object.entries(collections)) {
-            const owned = cardsInCol.filter(c => userCards.some(uc => (uc.id === c.id) || (uc.value === c.value))).length;
+            const owned = cardsInCol.filter(c => window.isDiscoveryOwned(c)).length;
             const total = cardsInCol.length;
             const pct = Math.round((owned / total) * 100);
             const firstCard = cardsInCol[0];
@@ -9925,7 +9946,7 @@ window.openAlbumModal = async function() {
         for (const [colName, cardsInCol] of Object.entries(collections)) {
             if (!firstCol) firstCol = colName;
             
-            const owned = cardsInCol.filter(c => userCards.some(uc => (uc.id === c.id) || (uc.value === c.value))).length;
+            const owned = cardsInCol.filter(c => window.isDiscoveryOwned(c)).length;
             const total = cardsInCol.length;
             const firstCard = cardsInCol[0];
             const emoji = firstCard && firstCard.collection ? firstCard.collection.split(' ')[0] : '🃏';
