@@ -1284,7 +1284,21 @@
                         <div style="background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; border:1px solid var(--border-card);">
                             <p style="color:var(--text-muted); font-size:0.85rem; font-weight:600; text-transform:uppercase;">Custo Estimado da API de IA</p>
                             <h2 style="font-size:2.2rem; font-weight:700; margin-top:5px; color:var(--secondary);" id="gen-estimated-cost">$0.00</h2>
-                            <p style="color:var(--text-muted); font-size:0.75rem; margin-top:4px;">Ideogram ($0.015/turbo) + Flux ($0.003/std) + Stories ($0.01/std)</p>
+                            
+                            <div style="display:flex; flex-direction:column; gap:10px; margin-top:15px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top:15px; font-size:0.85rem;">
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="color:var(--text-muted);"><i class="fa-solid fa-bolt" style="color:#10b981; margin-right:6px;"></i> Flux (Normal)</span>
+                                    <span style="font-weight:600;" id="cost-flux-val">0 gerações (~$0.00)</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="color:var(--text-muted);"><i class="fa-solid fa-wand-magic-sparkles" style="color:#8b5cf6; margin-right:6px;"></i> Ideogram (Ultra)</span>
+                                    <span style="font-weight:600;" id="cost-ideogram-val">0 gerações (~$0.00)</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <span style="color:var(--text-muted);"><i class="fa-solid fa-book-open" style="color:#f59e0b; margin-right:6px;"></i> Histórias</span>
+                                    <span style="font-weight:600;" id="cost-stories-val">0 histórias (~$0.00)</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1882,6 +1896,14 @@
             const total = gens.normal + gens.ultra + gens.stories;
             document.getElementById('gen-total-count').textContent = total;
             document.getElementById('gen-estimated-cost').textContent = `U$ ${statsData.credits.estimatedAICost.toFixed(3)}`;
+
+            const fluxCost = gens.normal * 0.003;
+            const ideogramCost = gens.ultra * 0.015;
+            const storiesCost = gens.stories * 0.01;
+
+            document.getElementById('cost-flux-val').textContent = `${gens.normal} gerações (~$${fluxCost.toFixed(3)})`;
+            document.getElementById('cost-ideogram-val').textContent = `${gens.ultra} gerações (~$${ideogramCost.toFixed(3)})`;
+            document.getElementById('cost-stories-val').textContent = `${gens.stories} histórias (~$${storiesCost.toFixed(3)})`;
 
             // Top consumers
             const topTbody = document.getElementById('top-consumers-tbody');
