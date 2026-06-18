@@ -52,7 +52,8 @@ const CATEGORIES_DATA = {
     'anime-vida-escolar': { name: 'Vida Escolar Anime', emoji: '🏫', desc: 'Desenhos de Vida Escolar estilo anime para colorir e imprimir! Pinte salas de aula, festivais escolares, clubes de artes e amigos da escola.' },
     'anime-fantasia': { name: 'Fantasia Anime', emoji: '✨', desc: 'Desenhos de Fantasia estilo anime para colorir grátis! Baixe desenhos de reinos mágicos, castelos voadores, cristais e portais encantados.' },
     'anime-futurista': { name: 'Sci-Fi e Futurista Anime', emoji: '🚀', desc: 'Desenhos de Sci-Fi e Futurismo estilo anime para colorir! Pinte cidades futuristas, motos voadoras, naves e estações espaciais.' },
-    'anime-gamer': { name: 'Gamer Anime', emoji: '🎮', desc: 'Desenhos Gamer estilo anime para colorir grátis! Encontre avatares de jogadores, guerreiros digitais, monstros de pixel e mundos virtuais.' }
+    'anime-gamer': { name: 'Gamer Anime', emoji: '🎮', desc: 'Desenhos Gamer estilo anime para colorir grátis! Encontre avatares de jogadores, guerreiros digitais, monstros de pixel e mundos virtuais.' },
+    'lutas': { name: 'Lutas', emoji: '🥋', desc: 'Desenhos de Lutas e Artes Marciais para colorir e imprimir grátis! Encontre desenhos de karatê, judô, boxe, capoeira, kung fu e muito mais para pintar.' }
 };
 
 const POPULAR_SUGGESTIONS = ['unicórnio', 'dinossauro', 'borboleta', 'leão', 'golfinho'];
