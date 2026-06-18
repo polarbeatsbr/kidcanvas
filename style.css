@@ -5231,7 +5231,7 @@ button, input, select, textarea {
 .bubble-pedrinho-hero {
     top: 25%;
     left: -2%; /* Trazido para mais perto do Pedrinho para evitar corte nas bordas */
-    max-width: 170px;
+    max-width: 220px;
 }
 .bubble-pedrinho-hero::before {
     border-width: 15px 9px 0 9px;
@@ -5252,7 +5252,7 @@ button, input, select, textarea {
 .bubble-sonia-hero {
     top: 12%;
     right: -4%; /* Trazido para mais perto da Vovó */
-    max-width: 240px;
+    max-width: 280px;
     animation-delay: 0.5s;
 }
 .bubble-sonia-hero::before {
@@ -5437,6 +5437,16 @@ button, input, select, textarea {
         align-self: center;
     }
     
+    .hero-title-long {
+        font-size: 2.2rem;
+        align-self: center;
+        text-align: center;
+    }
+    
+    .hero-cta-buttons {
+        justify-content: center;
+    }
+    
     .hero-title-huge .header-star-1 {
         right: -18px;
         top: -6px;
@@ -5508,7 +5518,7 @@ button, input, select, textarea {
     .bubble-pedrinho-hero {
         top: 25%;
         left: 2%;
-        max-width: 125px;
+        max-width: 145px;
     }
     .bubble-pedrinho-hero::before {
         border-width: 12px 7px 0 7px;
@@ -5528,7 +5538,7 @@ button, input, select, textarea {
     .bubble-sonia-hero {
         top: 12%;
         right: 2%;
-        max-width: 195px;
+        max-width: 220px;
     }
     .bubble-sonia-hero::before {
         border-width: 12px 7px 0 7px;
@@ -5588,6 +5598,11 @@ button, input, select, textarea {
     .hero-title-huge {
         font-size: 2.4rem;
         letter-spacing: -1px;
+    }
+    
+    .hero-title-long {
+        font-size: 1.8rem;
+        letter-spacing: -0.5px;
     }
     .hero-title-huge .header-star-1 {
         right: -15px;
@@ -8498,6 +8513,61 @@ button, input, select, textarea {
     right: 10px;
     font-size: 2.2rem;
     opacity: 0.15;
+}
+.hero-desc-new {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: var(--color-dark-light);
+    font-weight: 600;
+    line-height: 1.5;
+    max-width: 580px;
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+/* Título Longo Refinado */
+.hero-title-long {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    line-height: 1.25;
+    color: var(--color-purple);
+    font-weight: 900;
+    margin: 5px 0 15px 0;
+    position: relative;
+    display: inline-block;
+    letter-spacing: -0.5px;
+    align-self: flex-start;
+}
+
+.hero-title-long .header-star-1,
+.hero-title-long .header-star-2 {
+    position: relative;
+    display: inline-block;
+    animation: buttonPulse 2.5s infinite;
+}
+
+.hero-title-long .header-star-1 {
+    color: var(--color-yellow);
+    font-size: 1.6rem;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.hero-title-long .header-star-2 {
+    color: var(--color-orange);
+    font-size: 1.2rem;
+    margin-left: 2px;
+    vertical-align: middle;
+    animation-delay: 0.5s;
+}
+
+/* Wrapper de botões CTA */
+.hero-cta-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
 }
 .livro-expedition-final-title {
     font-size: 1.25rem;
