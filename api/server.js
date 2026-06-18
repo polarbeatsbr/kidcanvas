@@ -1518,6 +1518,8 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             theme: themesList,
             coverUrl: coverUrl,
             paragraphs: finalParagraphs,
+            imageQuality: imageQuality || 'medium',
+            engine: engine || 'flux',
             createdAt: new Date().toISOString()
         });
 
@@ -3169,10 +3171,20 @@ app.get('/api/admin/stats', isAdmin, async (req, res) => {
             }
             if (u.myStories) {
                 u.myStories.forEach(st => {
+                    const pageCount = st.paragraphs ? st.paragraphs.length : 0;
                     if (st.createdAt && st.createdAt.startsWith(todayStr)) {
-                        creditsUsedToday += 2;
+                        creditsUsedToday += pageCount * 3;
                     }
                     storiesGenerated++;
+                    
+                    // Cada história gera capa + páginas (pageCount + 1 imagens)
+                    const imgCount = pageCount + 1;
+                    const isUltra = st.engine === 'ideogram' || st.imageQuality === 'high' || (u.plan && (u.plan.toLowerCase() === 'ultra' || u.plan.toLowerCase().includes('lenda') || u.plan.toLowerCase().includes('colégio')));
+                    if (isUltra) {
+                        ultraGenerations += imgCount;
+                    } else {
+                        normalGenerations += imgCount;
+                    }
                 });
             }
         });
