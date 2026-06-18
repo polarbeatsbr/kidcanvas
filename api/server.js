@@ -892,6 +892,25 @@ async function generateGeminiContent(apiKey, prompt, responseMimeType = "applica
     return { success: false, status: lastStatus, message: lastError || 'Todos os modelos do Gemini falharam.' };
 }
 
+// Traduz o prompt do usuário para inglês usando Gemini (melhora muito a qualidade do Flux)
+async function translatePromptToEnglish(userText) {
+    const apiKey = process.env.NANOBANANA_API_KEY || '';
+    if (!apiKey) return userText;
+
+    const hasPtChars = /[ãõáéíóúàâêôçÃÕÁÉÍÓÚÀÂÊÔÇ]/i.test(userText);
+    const commonPtWords = /\b(um|uma|com|de|do|da|no|na|em|e|o|a|os|as|seu|sua|para|que|isto|isso|este|esta)\b/i.test(userText);
+    if (!hasPtChars && !commonPtWords) return userText;
+
+    const translationPrompt = `Translate the following image description from Portuguese (or any language) to English. Return ONLY the translated text, nothing else, no quotes, no explanation.\n\nText: ${userText}`;
+    const result = await generateGeminiContent(apiKey, translationPrompt, 'text/plain');
+    if (result.success && result.text) {
+        const translated = result.text.trim().replace(/^["']|["']$/g, '');
+        console.log(`[Translate] "${userText}" → "${translated}"`);
+        return translated;
+    }
+    return userText;
+}
+
 // Helper para fazer parse de JSON de forma muito robusta, tratando blocos de código markdown e chaves extras no final
 function robustParseJSON(str) {
     let clean = str.trim();
@@ -2660,11 +2679,14 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
 
         // Construir prompt baseado no estilo escolhido (bw ou color)
         const style = styleType || 'bw';
+        const subject = engine === 'flux'
+            ? await translatePromptToEnglish(userPrompt.trim())
+            : userPrompt.trim();
         let finalPrompt = '';
         if (style === 'color') {
-            finalPrompt = `Vibrant 2D children's book illustration cartoon style, detailed and colorful. The drawing shows ${userPrompt.trim()}. Centralized and large, clear objects, friendly characters, simple backgrounds suitable for kids, rich colors, soft lighting. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No text in the image.`;
+            finalPrompt = `A ${subject}. Vibrant 2D cartoon children's book illustration of a ${subject}. Cute friendly ${subject} centered on white background, simple clean composition, bold outlines, flat colors, no shadows, no gradients. Kids illustration style, clear recognizable ${subject}, age 3-8 audience. Watermark text "www.kidcanvas.com.br" small gray at bottom right corner. No other text.`;
         } else {
-            finalPrompt = `black and white coloring page, thick outlines, no shading, white background. Digital 2D coloring book page for kids, flat vector line art, black contours. The drawing shows ${userPrompt.trim()}. Centralized and large, no busy backgrounds, simple shapes, clean lines, no gradient, no shadows, no paper texture. No border, no frame. A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image. No other text, no titles in the image. Top-down straight view, no perspective.`;
+            finalPrompt = `A ${subject}. Black and white coloring book page of a ${subject} for kids. Clean thick black outlines of ${subject} on pure white background. No fill, no shading, no gray tones. Simple flat line art, easy to color. Centered large ${subject}, minimal background details. Watermark text "www.kidcanvas.com.br" small gray at bottom right corner. No other text.`;
         }
 
         let bytesBase64 = '';
