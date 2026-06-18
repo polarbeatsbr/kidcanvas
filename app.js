@@ -10228,6 +10228,34 @@ window.showDiscoveryDetails = function(discoveryId) {
             `;
         }
         
+        let actionButtonHtml = '';
+        if (c.unlockCondition) {
+            const condType = c.unlockCondition.type || '';
+            const target = c.unlockCondition.category || c.unlockCondition.target || '';
+            
+            let btnText = '';
+            let btnPath = '';
+            
+            if (condType === 'paint_count' || condType === 'categories_painted' || condType === 'paint' || (condType === 'category_paint' && !target) || (condType === 'paint_category' && !target)) {
+                btnText = '🎨 Ir Pintar Agora';
+                btnPath = '/gerar-desenho';
+            } else if ((condType === 'category_paint' || condType === 'paint_category') && target) {
+                btnText = '🎨 Ir Pintar Agora';
+                btnPath = `/categoria/${target}`;
+            } else if (condType === 'share_count' || condType === 'hall_count' || condType === 'likes_count' || condType === 'share' || condType === 'paint_category_public') {
+                btnText = '🌟 Compartilhar Pintura';
+                btnPath = '/hall-da-fama';
+            }
+            
+            if (btnText && btnPath) {
+                actionButtonHtml = `
+                    <button class="livro-detalhes-action-btn" onclick="handleDiscoveryActionClick('${btnPath}')" style="margin-top: 15px; width: 100%; padding: 12px; background: #6c5ce7; color: white; border: none; border-radius: 12px; font-weight: 900; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 4px 6px rgba(108, 92, 231, 0.2);" onmouseover="this.style.background='#5b4bc4'; this.style.transform='scale(1.02)';" onmouseout="this.style.background='#6c5ce7'; this.style.transform='scale(1)';">
+                        ${btnText}
+                    </button>
+                `;
+            }
+        }
+        
         detailsEl.innerHTML = `
             <div class="livro-detalhes-container details-rarity-${rarity.toLowerCase().replace('á', 'a').replace('é', 'e')}">
                 <div class="livro-detalhes-header">
@@ -10251,6 +10279,8 @@ window.showDiscoveryDetails = function(discoveryId) {
                     <div style="font-weight: 800; color: #5d4037; font-size: 0.95rem;">${c.unlockHint}</div>
                 </div>
 
+                ${actionButtonHtml}
+
                 ${progressHtml}
                 
                 <button class="livro-detalhes-voltar-btn" onclick="voltarParaGrade()" style="margin-top:20px; width: 100%;">
@@ -10262,6 +10292,24 @@ window.showDiscoveryDetails = function(discoveryId) {
     
     document.getElementById('livro-grade-conteudo').style.display = 'none';
     detailsEl.style.display = 'flex';
+};
+
+window.handleDiscoveryActionClick = function(targetPath) {
+    if (typeof closeAlbumModal === 'function') {
+        closeAlbumModal();
+    } else if (typeof window.closeAlbumModal === 'function') {
+        window.closeAlbumModal();
+    }
+    
+    const currentPath = window.location.pathname.replace(/\/$/, '');
+    const cleanTarget = targetPath.replace(/\/$/, '');
+    if (currentPath !== cleanTarget) {
+        if (typeof navigate === 'function') {
+            navigate(targetPath);
+        } else {
+            window.location.href = targetPath;
+        }
+    }
 };
 
 window.voltarParaGrade = function() {
