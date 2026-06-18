@@ -1403,12 +1403,16 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
 
         // Deduce user balance and save
         deductUserCredits(user, cost);
+        const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
         await saveUsers(users);
 
         return res.json({
             success: true,
             coverUrl: coverUrl,
-            paragraphs: finalParagraphs
+            paragraphs: finalParagraphs,
+            newlyUnlocked: newlyUnlocked,
+            completionRewards: completionRewards,
+            cards: user.cards
         });
 
     } catch (error) {
@@ -1777,17 +1781,7 @@ app.post('/api/auth/google', async (req, res) => {
                     inviter.referredUsers = inviter.referredUsers || [];
                     inviter.referredUsers.push(user.id);
                     
-                    const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
-                    const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
-                    inviter.cards = inviter.cards || [];
-                    catalog.forEach(card => {
-                        if (!inviter.cards.some(uc => uc.id === card.id) && card.rarity !== 'Mítica') {
-                            if (evaluateCardCondition(inviter, card)) {
-                                inviter.cards.push(card);
-                            }
-                        }
-                    });
-                    checkCardCollectionCompletions(inviter, catalog);
+                    await refreshUserDiscoveries(inviter);
                 }
             }
             
@@ -1907,17 +1901,7 @@ app.post('/api/auth/signup', async (req, res) => {
                 inviter.referredUsers = inviter.referredUsers || [];
                 inviter.referredUsers.push(newUser.id);
                 
-                const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
-                const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
-                inviter.cards = inviter.cards || [];
-                catalog.forEach(card => {
-                    if (!inviter.cards.some(uc => uc.id === card.id) && card.rarity !== 'Mítica') {
-                        if (evaluateCardCondition(inviter, card)) {
-                            inviter.cards.push(card);
-                        }
-                    }
-                });
-                checkCardCollectionCompletions(inviter, catalog);
+                await refreshUserDiscoveries(inviter);
             }
         }
         
@@ -2081,27 +2065,8 @@ app.get('/api/auth/me', async (req, res) => {
         }
         
         // Verificação retroativa de desbloqueios do livro
-        const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
-        const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
-        let userUpdated = false;
-        user.cards = user.cards || [];
-        
-        catalog.forEach(card => {
-            const alreadyHas = user.cards.some(uc => uc.id === card.id);
-            if (!alreadyHas && card.rarity !== 'Mítica') {
-                if (evaluateCardCondition(user, card)) {
-                    user.cards.push(card);
-                    userUpdated = true;
-                }
-            }
-        });
-        
-        const completionRewards = checkCardCollectionCompletions(user, catalog);
-        if (completionRewards && completionRewards.length > 0) {
-            userUpdated = true;
-        }
-
-        if (userUpdated) {
+        const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
+        if (newlyUnlocked.length > 0 || completionRewards.length > 0) {
             await saveUsers(users);
         }
         
@@ -2269,24 +2234,7 @@ app.post('/api/user/save-painting', async (req, res) => {
         user.myPaintings.push(paintingItem);
         
         // Avaliar e desbloquear descobertas progressivas
-        const newlyUnlocked = [];
-        const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
-        const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
-        
-        user.cards = user.cards || [];
-        catalog.forEach(card => {
-            const alreadyHas = user.cards.some(uc => uc.id === card.id);
-            if (!alreadyHas && card.rarity !== 'Mítica') {
-                if (evaluateCardCondition(user, card)) {
-                    user.cards.push(card);
-                    newlyUnlocked.push(card);
-                }
-            }
-        });
-
-        // Verificar conclusões de coleções do álbum (ganha Mítica + 50 estrelas + badge)
-        const completionRewards = checkCardCollectionCompletions(user, catalog);
-
+        const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
         await saveUsers(users);
         console.log(`[Save Painting] Pintura para "${prompt}" salva para "${user.email}". URL: ${r2Url} (Public: ${isPublic})`);
         
@@ -2401,23 +2349,7 @@ app.post('/api/user/record-share', async (req, res) => {
         }
         
         // Avaliar e desbloquear descobertas progressivas
-        const newlyUnlocked = [];
-        const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
-        const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
-        
-        user.cards = user.cards || [];
-        catalog.forEach(card => {
-            const alreadyHas = user.cards.some(uc => uc.id === card.id);
-            if (!alreadyHas && card.rarity !== 'Mítica') {
-                if (evaluateCardCondition(user, card)) {
-                    user.cards.push(card);
-                    newlyUnlocked.push(card);
-                }
-            }
-        });
-
-        const completionRewards = checkCardCollectionCompletions(user, catalog);
-        
+        const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
         await saveUsers(users);
         
         return res.json({ 
@@ -3823,9 +3755,7 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
     }
     
     // Verificar se completou alguma coleção de cartas e premiar com Mítica e estrelas
-    const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
-    const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
-    const completionRewards = checkCardCollectionCompletions(user, catalog);
+    const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
 
     const users = await loadUsers();
     const userIndex = users.findIndex(u => u.email === user.email);
@@ -3840,11 +3770,11 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
         cards: user.cards, 
         stars: user.stars,
         unlockedAchievements: user.unlockedAchievements,
+        newlyUnlocked: newlyUnlocked,
         completionRewards: completionRewards 
     });
 });
 
-// Helper para verificar conclusões de coleções do álbum (ganha Mítica + 50 estrelas + badge)
 function checkCardCollectionCompletions(user, catalog) {
     if (!user.cards) user.cards = [];
     if (!user.unlockedAchievements) user.unlockedAchievements = [];
@@ -3852,7 +3782,7 @@ function checkCardCollectionCompletions(user, catalog) {
     
     const collections = {};
     catalog.forEach(c => {
-        const colName = c.collection ? c.collection.split(' ')[0] : 'Geral';
+        const colName = c.collection ? c.collection.replace(/\s+\d+\/\d+$/, '').trim() : 'Geral';
         if (!collections[colName]) collections[colName] = [];
         collections[colName].push(c);
     });
@@ -3872,21 +3802,23 @@ function checkCardCollectionCompletions(user, catalog) {
                 user.cards.push(mythicCard);
                 user.stars = (user.stars || 0) + 50;
                 
-                const badgeId = 'completou_' + colName.toLowerCase()
-                    .replace('á', 'a')
-                    .replace('í', 'i')
-                    .replace('ç', 'c')
-                    .replace('õ', 'o')
-                    .replace('ê', 'e')
-                    .replace('aço', 'aco');
+                const cleanName = colName.toLowerCase()
+                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove acentos
+                    .replace(/[^\w\s]/g, '') // remove emojis e caracteres especiais
+                    .trim()
+                    .replace(/\s+/g, '_');
+                const badgeId = 'completou_' + cleanName;
+                
                 if (!user.unlockedAchievements.includes(badgeId)) {
                     user.unlockedAchievements.push(badgeId);
                 }
                 
                 rewards.push({
-                    colName: colName,
-                    mythicCard: mythicCard,
-                    badgeId: badgeId
+                    type: 'collection_complete',
+                    collection: colName,
+                    card: mythicCard,
+                    stars: 50,
+                    badge: badgeId
                 });
             }
         }
@@ -3895,113 +3827,118 @@ function checkCardCollectionCompletions(user, catalog) {
     return rewards;
 }
 
-function evaluateCardCondition(user, card) {
+function evaluateCardCondition(user, card, context = {}) {
     if (!user.myPaintings) user.myPaintings = [];
     if (!user.myStories) user.myStories = [];
     if (!user.unlockedAchievements) user.unlockedAchievements = [];
     if (!user.cards) user.cards = [];
 
-    const parts = card.id.split('_');
-    const type = parts[0]; // dino, animal, fant, carro, aviao, pais, social
-    const num = parseInt(parts[1], 10); // 1 to 20
+    const condition = card.unlockCondition;
+    if (!condition) return false;
 
     const countPaintingsOfCategory = (cats) => {
-        return user.myPaintings.filter(p => cats.includes(p.originalCategory)).length;
+        return user.myPaintings.filter(p => {
+            if (p.originalCategory && cats.includes(p.originalCategory)) return true;
+            if (p.category && cats.includes(p.category.toLowerCase())) return true;
+            return false;
+        }).length;
     };
 
-    const dinoCount = countPaintingsOfCategory(['dinossauros']);
-    const oceanoCount = countPaintingsOfCategory(['animais-do-mar']);
-    const fantasiaCount = countPaintingsOfCategory(['fantasia', 'unicornios', 'contos-de-fada']);
-    const animalCount = countPaintingsOfCategory(['animais-selvagens', 'animais-domesticos', 'aves', 'fazenda']);
-    const veiculoCount = countPaintingsOfCategory(['veiculos']);
-    const espacoCount = countPaintingsOfCategory(['espaco']);
+    const getCategoryCount = (cat) => {
+        if (cat === 'dinossauros') return countPaintingsOfCategory(['dinossauros']);
+        if (cat === 'unicornios') return countPaintingsOfCategory(['unicornios']);
+        if (cat === 'veiculos') return countPaintingsOfCategory(['veiculos']);
+        if (cat === 'espaco') return countPaintingsOfCategory(['espaco']);
+        if (cat === 'fantasia') return countPaintingsOfCategory(['fantasia', 'contos-de-fada']);
+        if (cat === 'animais') return countPaintingsOfCategory(['animais-selvagens', 'animais-domesticos', 'aves', 'fazenda', 'animais-do-mar']);
+        return countPaintingsOfCategory([cat]);
+    };
 
-    const totalPaintings = user.myPaintings.length;
-    const totalStories = user.myPaintings.filter(p => p.category === 'Histórias Mágicas' || p.storyData).length;
-    const maxColors = Math.max(0, ...user.myPaintings.map(p => p.colorsCount || 0));
+    switch (condition.type) {
+        case 'paint_count':
+            return user.myPaintings.length >= condition.count;
+            
+        case 'category_paint':
+            return getCategoryCount(condition.category) >= condition.count;
+            
+        case 'categories_painted': {
+            const categories = new Set(user.myPaintings.map(p => p.originalCategory || (p.category ? p.category.toLowerCase() : null)).filter(Boolean));
+            return categories.size >= condition.count;
+        }
+        
+        case 'story_count':
+            return user.myStories.length >= condition.count;
+            
+        case 'story_pages_count': {
+            const booksWithPages = user.myStories.filter(s => s.paragraphs && s.paragraphs.length >= condition.pages).length;
+            return booksWithPages >= condition.count;
+        }
+        
+        case 'expedition_count': {
+            const completedExpeditions = user.eventInventory ? user.eventInventory.length : 0;
+            return completedExpeditions >= condition.count;
+        }
+        
+        case 'share_count':
+            return (user.paintingShareCount || 0) >= condition.count;
+            
+        case 'hall_count':
+            return user.myPaintings.filter(p => p.isPublic).length >= condition.count;
+            
+        case 'likes_count':
+            return (context.likesCount || 0) >= condition.count;
+            
+        case 'all_cards_unlocked':
+            return user.cards.length >= condition.count;
+            
+        case 'login_streak':
+            return (user.consecutiveDays || 1) >= condition.count;
+            
+        case 'invite':
+            return (user.referredUsers ? user.referredUsers.length : 0) >= condition.count;
+            
+        case 'collection_complete':
+        default:
+            return false;
+    }
+}
 
-    if (num === 20) {
-        return false; // Mythic is completed via checkCardCollectionCompletions
+async function refreshUserDiscoveries(user) {
+    if (!user.cards) user.cards = [];
+    if (!user.unlockedAchievements) user.unlockedAchievements = [];
+    
+    const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
+    if (!fs.existsSync(catalogPath)) return { newlyUnlocked: [], completionRewards: [] };
+    const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+    
+    // Precalcular likesCount
+    let likesCount = 0;
+    try {
+        const { loadPublicPaintings } = require('./r2db');
+        const publicPaintings = await loadPublicPaintings();
+        likesCount = publicPaintings
+            .filter(p => p.userEmail && p.userEmail.toLowerCase() === user.email.toLowerCase())
+            .reduce((sum, p) => sum + (p.stars || p.likes || 0), 0);
+    } catch (e) {
+        console.error('[refreshUserDiscoveries] Error loading public paintings:', e);
     }
-
-    // Descobertas Sociais
-    if (type === 'social') {
-        const inviteCount = user.referredUsers ? user.referredUsers.length : 0;
-        const paintingShares = user.paintingShareCount || 0;
-        const storyShares = user.storyShareCount || 0;
-
-        if (num === 1) return inviteCount >= 1; // 🤝 Explorador Amigo
-        if (num === 2) return inviteCount >= 3; // 🌟 Grupo de Exploradores
-        if (num === 3) return paintingShares >= 3; // 📣 Compartilhador
-        if (num === 4) return paintingShares >= 10; // 🎨 Artista Popular
-        if (num === 5) return storyShares >= 5; // 📖 Contador de Histórias
-        return false;
-    }
-
-    // Épicas (19): Completar 18 descobertas do capítulo (excluindo a própria épica e mítica)
-    if (num === 19) {
-        const ownedOtherCards = user.cards.filter(uc => {
-            const ucId = uc.id || uc.value;
-            return ucId.startsWith(type + '_') && ucId !== card.id && !ucId.endsWith('_20');
-        }).length;
-        return ownedOtherCards >= 18;
-    }
-
-    // Comuns Básicas
-    if (num === 1) {
-        return totalPaintings >= 1;
-    }
-    if (num === 2) {
-        return totalPaintings >= 3;
-    }
-    if (num === 3) {
-        return maxColors >= 10;
-    }
-    if (num === 4) {
-        return totalStories >= 1;
-    }
-
-    // Raras Específicas (15 a 18)
-    if (num >= 15 && num <= 18) {
-        if (type === 'fant') {
-            if (num === 15) return totalStories >= 3;
-            if (num === 16) return totalStories >= 5;
-            // Fallback para 17 e 18
-        } else {
-            // Dinossauros, Animais, Oceano, Veículos, Espaço
-            if (num === 15) {
-                if (type === 'dino') return dinoCount >= 10;
-                if (type === 'animal') return animalCount >= 10;
-                if (type === 'pais') return oceanoCount >= 10;
-                if (type === 'carro') return veiculoCount >= 10;
-                if (type === 'aviao') return espacoCount >= 10;
-            }
-            if (num === 16) {
-                if (type === 'dino') return dinoCount >= 20;
-                if (type === 'animal') return animalCount >= 20;
+    user.likesReceived = likesCount;
+    
+    const newlyUnlocked = [];
+    catalog.forEach(card => {
+        const alreadyHas = user.cards.some(uc => uc.id === card.id);
+        if (!alreadyHas && card.rarity !== 'Mítica') {
+            if (evaluateCardCondition(user, card, { likesCount })) {
+                user.cards.push(card);
+                newlyUnlocked.push(card);
             }
         }
-    }
-
-    // Dynamic counts fallback
-    const getCountNeeded = (n) => {
-        const mapping = {
-            5: 1, 6: 2, 7: 3, 8: 4, 9: 5, 10: 5, 11: 5,
-            12: 6, 13: 7, 14: 8, 15: 10, 16: 12, 17: 14, 18: 16
-        };
-        return mapping[n] || (n - 4);
-    };
-
-    const countNeeded = getCountNeeded(num);
-
-    if (type === 'dino') return dinoCount >= countNeeded;
-    if (type === 'pais') return oceanoCount >= countNeeded;
-    if (type === 'fant') return fantasiaCount >= countNeeded;
-    if (type === 'carro') return veiculoCount >= countNeeded;
-    if (type === 'aviao') return espacoCount >= countNeeded;
-    if (type === 'animal') return animalCount >= countNeeded;
-
-    return false;
+    });
+    
+    // Verificar conclusões de coleções
+    const completionRewards = checkCardCollectionCompletions(user, catalog);
+    
+    return { newlyUnlocked, completionRewards };
 }
 
 // Rota catch-all para servir index.html e dar suporte ao roteamento SPA (histórico pushState)

@@ -9545,93 +9545,94 @@ window.fecharRevelacao = function() {
     }
 };
 
+window.getDiscoveryProgress = function(card) {
+    if (!currentUser) return { current: 0, target: 0 };
+    
+    const condition = card.unlockCondition;
+    if (!condition) return { current: 0, target: 0 };
+    
+    const myPaintings = currentUser.myPaintings || [];
+    const myStories = currentUser.myStories || [];
+    const userCards = currentUser.cards || [];
+    
+    const countPaintingsOfCategory = (cats) => {
+        return myPaintings.filter(p => {
+            if (p.originalCategory && cats.includes(p.originalCategory)) return true;
+            if (p.category && cats.includes(p.category.toLowerCase())) return true;
+            return false;
+        }).length;
+    };
+
+    const getCategoryCount = (cat) => {
+        if (cat === 'dinossauros') return countPaintingsOfCategory(['dinossauros']);
+        if (cat === 'unicornios') return countPaintingsOfCategory(['unicornios']);
+        if (cat === 'veiculos') return countPaintingsOfCategory(['veiculos']);
+        if (cat === 'espaco') return countPaintingsOfCategory(['espaco']);
+        if (cat === 'fantasia') return countPaintingsOfCategory(['fantasia', 'contos-de-fada']);
+        if (cat === 'animais') return countPaintingsOfCategory(['animais-selvagens', 'animais-domesticos', 'aves', 'fazenda', 'animais-do-mar']);
+        return countPaintingsOfCategory([cat]);
+    };
+
+    switch (condition.type) {
+        case 'paint_count':
+            return { current: myPaintings.length, target: condition.count };
+            
+        case 'category_paint':
+            return { current: getCategoryCount(condition.category), target: condition.count };
+            
+        case 'categories_painted': {
+            const categories = new Set(myPaintings.map(p => p.originalCategory || (p.category ? p.category.toLowerCase() : null)).filter(Boolean));
+            return { current: categories.size, target: condition.count };
+        }
+        
+        case 'story_count':
+            return { current: myStories.length, target: condition.count };
+            
+        case 'story_pages_count': {
+            const booksWithPages = myStories.filter(s => s.paragraphs && s.paragraphs.length >= condition.pages).length;
+            return { current: booksWithPages, target: condition.count };
+        }
+        
+        case 'expedition_count': {
+            const completedExpeditions = currentUser.eventInventory ? currentUser.eventInventory.length : 0;
+            return { current: completedExpeditions, target: condition.count };
+        }
+        
+        case 'share_count':
+            return { current: currentUser.paintingShareCount || 0, target: condition.count };
+            
+        case 'hall_count':
+            return { current: myPaintings.filter(p => p.isPublic).length, target: condition.count };
+            
+        case 'likes_count':
+            return { current: currentUser.likesReceived || 0, target: condition.count };
+            
+        case 'all_cards_unlocked':
+            return { current: userCards.length, target: condition.count };
+            
+        case 'login_streak':
+            return { current: currentUser.consecutiveDays || 1, target: condition.count };
+            
+        case 'invite':
+            return { current: currentUser.referredUsers ? currentUser.referredUsers.length : 0, target: condition.count };
+            
+        case 'collection_complete':
+        default:
+            return { current: 0, target: 0 };
+    }
+};
+
 window.getDynamicClueText = function(card) {
     if (!currentUser) return card.unlockHint || "Continue explorando para revelar!";
     if (card.rarity === 'Mítica') {
-        return "Uma grande descoberta ainda está escondida neste capítulo. Continue explorando para revelar este segredo.";
+        const colName = card.collection ? card.collection.replace(/\s+\d+\/\d+$/, '').trim() : '';
+        return `Desbloqueada ao obter todas as outras descobertas de ${colName || 'este capítulo'}.`;
     }
-
-    const myPaintings = currentUser.myPaintings || [];
-    const parts = card.id.split('_');
-    const type = parts[0];
-    const num = parseInt(parts[1], 10);
-    
-    const countPaintingsOfCategory = (cats) => {
-        return myPaintings.filter(p => cats.includes(p.originalCategory)).length;
-    };
-
-    const dinoCount = countPaintingsOfCategory(['dinossauros']);
-    const oceanoCount = countPaintingsOfCategory(['animais-do-mar']);
-    const fantasiaCount = countPaintingsOfCategory(['fantasia', 'unicornios', 'contos-de-fada']);
-    const animalCount = countPaintingsOfCategory(['animais-selvagens', 'animais-domesticos', 'aves', 'fazenda']);
-    const veiculoCount = countPaintingsOfCategory(['veiculos']);
-    const espacoCount = countPaintingsOfCategory(['espaco']);
-
-    const totalPaintings = myPaintings.length;
-    const totalStories = myPaintings.filter(p => p.category === 'Histórias Mágicas' || p.storyData).length;
-    const maxColors = Math.max(0, ...myPaintings.map(p => p.colorsCount || 0));
-
-    if (num === 1) {
-        const remaining = 1 - totalPaintings;
-        return remaining > 0 ? `Salve mais ${remaining} pintura na galeria para descobrir.` : "Pintura salva!";
+    const progress = window.getDiscoveryProgress(card);
+    if (progress && progress.target > 0) {
+        return `${card.unlockHint} (Progresso: ${progress.current}/${progress.target})`;
     }
-    if (num === 2) {
-        const remaining = 3 - totalPaintings;
-        return remaining > 0 ? `Pinte mais ${remaining} desenhos no total para descobrir.` : "Desenhos coloridos!";
-    }
-    if (num === 3) {
-        const remaining = 5 - maxColors;
-        return remaining > 0 ? `Use mais ${remaining} cores diferentes em uma pintura para descobrir.` : "Cores utilizadas!";
-    }
-    if (num === 4) {
-        const remaining = 1 - totalStories;
-        return remaining > 0 ? `Conclua sua primeira história para descobrir.` : "História concluída!";
-    }
-
-    // Dynamic counts
-    const getCountNeeded = (n) => {
-        const mapping = {
-            5: 1, 6: 2, 7: 3, 8: 4, 9: 5, 10: 5, 11: 5,
-            12: 6, 13: 7, 14: 8, 15: 10, 16: 12, 17: 14, 18: 16, 19: 18
-        };
-        return mapping[n] || (n - 4);
-    };
-
-    const countNeeded = getCountNeeded(num);
-
-    let current = 0;
-    let label = "desenhos";
-    if (type === 'dino') { current = dinoCount; label = "dinossauros"; }
-    else if (type === 'pais') { current = oceanoCount; label = "criaturas marinhas"; }
-    else if (type === 'fant') { current = fantasiaCount; label = "desenhos de Fantasia"; }
-    else if (type === 'carro') { current = veiculoCount; label = "veículos"; }
-    else if (type === 'aviao') { current = espacoCount; label = "desenhos do Espaço"; }
-    else if (type === 'animal') { current = animalCount; label = "animais"; }
-
-    const remaining = countNeeded - current;
-    
-    // Overrides específicos dos exemplos
-    if (card.id === 'pais_01') {
-        return "Explore mais o Oceano.";
-    }
-    if (card.id === 'fant_16') {
-        return "Uma criatura mágica aparece para grandes exploradores.";
-    }
-    if (card.id === 'dino_11') {
-        const remVelociraptor = 5 - dinoCount;
-        return remVelociraptor > 0 ? `Pinte mais ${remVelociraptor} dinossauros para descobrir.` : "Pinte 5 dinossauros para descobrir.";
-    }
-    if (card.id === 'carro_14') {
-        return "Complete desafios de veículos.";
-    }
-    if (card.id === 'aviao_17') {
-        return "Continue explorando o Espaço.";
-    }
-
-    if (remaining > 0) {
-        return `Pinte mais ${remaining} ${label} para descobrir.`;
-    }
-    return card.unlockHint || `Pinte ${countNeeded} ${label} para descobrir.`;
+    return card.unlockHint || "Continue explorando para revelar!";
 };
 
 window.openAlbumModal = async function() {
@@ -9699,7 +9700,7 @@ window.openAlbumModal = async function() {
     // Agrupar por coleção/capítulo
     const collections = {};
     catalog.forEach(c => {
-        const colName = c.collection ? c.collection.split(' ')[0] : 'Geral';
+        const colName = c.collection ? c.collection.split(' ')[1] : 'Geral';
         if (!collections[colName]) collections[colName] = [];
         collections[colName].push(c);
     });
@@ -9709,29 +9710,21 @@ window.openAlbumModal = async function() {
     if (progGeralListaEl) {
         progGeralListaEl.innerHTML = '';
         
-        const collectionEmojis = {
-            'Dinossauros': '🦖',
-            'Animais': '🦊',
-            'Fantasia': '✨',
-            'Veículos': '🚗',
-            'Oceano': '🌊',
-            'Espaço': '🚀'
-        };
-        
         const colors = {
+            'Pinturas': 'linear-gradient(90deg, #3498db, #2980b9)',
             'Dinossauros': 'linear-gradient(90deg, #2ecc71, #27ae60)',
-            'Animais': 'linear-gradient(90deg, #f1c40f, #e67e22)',
-            'Fantasia': 'linear-gradient(90deg, #fd79a8, #e84393)',
-            'Veículos': 'linear-gradient(90deg, #e17055, #d35400)',
-            'Oceano': 'linear-gradient(90deg, #74b9ff, #0984e3)',
-            'Espaço': 'linear-gradient(90deg, #a29bfe, #6c5ce7)'
+            'Livros': 'linear-gradient(90deg, #f1c40f, #e67e22)',
+            'Expedições': 'linear-gradient(90deg, #e74c3c, #c0392b)',
+            'Comunidade': 'linear-gradient(90deg, #9b59b6, #8e44ad)',
+            'Lendárias': 'linear-gradient(90deg, #f39c12, #d35400)'
         };
 
         for (const [colName, cardsInCol] of Object.entries(collections)) {
             const owned = cardsInCol.filter(c => userCards.some(uc => (uc.id === c.id) || (uc.value === c.value))).length;
             const total = cardsInCol.length;
             const pct = Math.round((owned / total) * 100);
-            const emoji = collectionEmojis[colName] || '🃏';
+            const firstCard = cardsInCol[0];
+            const emoji = firstCard && firstCard.collection ? firstCard.collection.split(' ')[0] : '🃏';
             const barBg = colors[colName] || 'linear-gradient(90deg, #6c5ce7, #a29bfe)';
 
             const item = document.createElement('div');
@@ -9789,22 +9782,13 @@ window.openAlbumModal = async function() {
             chaptersListEl.appendChild(expBtn);
         }
         
-        const collectionEmojis = {
-            'Dinossauros': '🦖',
-            'Animais': '🦊',
-            'Fantasia': '✨',
-            'Veículos': '🚗',
-            'Oceano': '🌊',
-            'Espaço': '🚀'
-        };
-
         const mestreNames = {
+            'Pinturas': 'Mestre das Pinturas',
             'Dinossauros': 'Mestre dos Dinossauros',
-            'Animais': 'Mestre dos Animais',
-            'Fantasia': 'Mestre da Fantasia',
-            'Veículos': 'Mestre dos Veículos',
-            'Espaço': 'Mestre do Espaço',
-            'Oceano': 'Mestre do Oceano'
+            'Livros': 'Mestre dos Livros',
+            'Expedições': 'Mestre das Expedições',
+            'Comunidade': 'Mestre da Comunidade',
+            'Lendárias': 'Lenda do KidCanvas'
         };
         
         let firstCol = null;
@@ -9813,7 +9797,8 @@ window.openAlbumModal = async function() {
             
             const owned = cardsInCol.filter(c => userCards.some(uc => (uc.id === c.id) || (uc.value === c.value))).length;
             const total = cardsInCol.length;
-            const emoji = collectionEmojis[colName] || '🃏';
+            const firstCard = cardsInCol[0];
+            const emoji = firstCard && firstCard.collection ? firstCard.collection.split(' ')[0] : '🃏';
             
             const isCompleted = owned === total && total > 0;
             const chapterTitle = isCompleted ? `🏆 ${mestreNames[colName] || 'Mestre de ' + colName}` : `Capítulo ${colName}`;
@@ -9884,21 +9869,14 @@ window.selectChapter = function(colName) {
 window.renderChapterGrid = function(colName) {
     const catalog = window.globalCatalog || [];
     const userCards = currentUser.cards || [];
-    const cardsInCol = catalog.filter(c => (c.collection ? c.collection.split(' ')[0] : 'Geral') === colName);
+    const cardsInCol = catalog.filter(c => (c.collection ? c.collection.split(' ')[1] : 'Geral') === colName);
     
     const owned = cardsInCol.filter(c => userCards.some(uc => (uc.id === c.id) || (uc.value === c.value))).length;
     const total = cardsInCol.length;
     const pct = Math.round((owned / total) * 100);
     
-    const collectionEmojis = {
-        'Dinossauros': '🦖',
-        'Animais': '🦊',
-        'Fantasia': '✨',
-        'Veículos': '🚗',
-        'Oceano': '🌊',
-        'Espaço': '🚀'
-    };
-    const emoji = collectionEmojis[colName] || '🃏';
+    const firstCard = cardsInCol[0];
+    const emoji = firstCard && firstCard.collection ? firstCard.collection.split(' ')[0] : '🃏';
     
     const remaining = total - owned;
     const subText = remaining === 0 ? "🏆 Capítulo Completo!" : `Faltam ${remaining} descobertas`;
@@ -9971,12 +9949,12 @@ window.renderChapterGrid = function(colName) {
                 
                 const isMythic = rarity === 'Mítica';
                 const lockEmoji = isMythic ? '👑' : '🔒';
-                const cardNameText = isMythic ? '👑 Descoberta Misteriosa' : '???';
+                const cardNameText = c.name;
                 
                 card.innerHTML = `
                     <div class="livro-card-rarity-tag">${rarityText}</div>
                     <div class="livro-card-img-container">
-                        <img src="${c.imageUrl}" class="livro-card-img" alt="Bloqueada">
+                        <img src="${c.imageUrl}" class="livro-card-img" alt="${c.name}" style="filter: grayscale(1) opacity(0.65);">
                         <div class="livro-cadeado-overlay">${lockEmoji}</div>
                     </div>
                     <div class="livro-card-nome">${cardNameText}</div>
@@ -10005,7 +9983,7 @@ window.showDiscoveryDetails = function(discoveryId) {
     
     const rarity = c.rarity || 'Comum';
     const colParts = c.collection ? c.collection.split(' ') : ['Geral', '1/20'];
-    const colName = colParts[0];
+    const colName = colParts[1] || colParts[0];
     
     let rarityColor = '#00b894';
     if (rarity === 'Rara') rarityColor = '#0984e3';
@@ -10017,7 +9995,8 @@ window.showDiscoveryDetails = function(discoveryId) {
 
     if (isOwned) {
         const obtidoEm = c.obtidoEm || 'Aventura Mágica';
-        const curiosity = c.curiosity || 'Uma descoberta misteriosa...';
+        const curiosity = c.curiosity || 'Uma grande conquista no KidCanvas!';
+        const dateStr = new Date().toLocaleDateString('pt-BR');
         
         detailsEl.innerHTML = `
             <div class="livro-detalhes-container details-rarity-${rarity.toLowerCase().replace('á', 'a').replace('é', 'e')}">
@@ -10043,20 +10022,14 @@ window.showDiscoveryDetails = function(discoveryId) {
                 
                 <div style="display:flex; gap:10px; width:100%;">
                     <div class="livro-detalhes-info-card" style="flex:1;">
-                        <div class="livro-detalhes-label">🏆 OBTIDA EM</div>
-                        <div class="livro-detalhes-val" style="font-size:0.85rem;">${obtidoEm}</div>
+                        <div class="livro-detalhes-label">🏆 STATUS</div>
+                        <div class="livro-detalhes-val" style="font-size:0.85rem; color:#00b894; font-weight:800;">✅ Desbloqueada</div>
                     </div>
                     <div class="livro-detalhes-info-card" style="flex:1;">
-                        <div class="livro-detalhes-label">🌎 DESCOBERTA POR</div>
-                        <div class="livro-detalhes-val" style="font-size:0.85rem;">
-                            ${Math.floor(Math.random() * 5000 + 1500).toLocaleString('pt-BR')} Exploradores
-                        </div>
+                        <div class="livro-detalhes-label">📅 DATA DE DESBLOQUEIO</div>
+                        <div class="livro-detalhes-val" style="font-size:0.85rem;">${dateStr}</div>
                     </div>
                 </div>
-                
-                <button class="livro-detalhes-ajuda-btn" onclick="openUnlockGuideModal('${discoveryId}')" style="margin-top:10px;">
-                    <i class="fa-solid fa-circle-question"></i> Como desbloquear
-                </button>
                 
                 <button class="livro-detalhes-voltar-btn" onclick="voltarParaGrade()">
                     ← Voltar às Descobertas
@@ -10080,17 +10053,32 @@ window.showDiscoveryDetails = function(discoveryId) {
         `;
     } else {
         // Modo Bloqueado: Ficha de Mistério / Pista
-        const dynamicHint = window.getDynamicClueText(c);
+        const cardName = c.name;
+        const cardImgStyle = "filter: grayscale(100%) opacity(0.65);";
         
-        let cardTitle = "Descoberta não encontrada";
-        let cardName = "???";
-        let displayHint = dynamicHint;
-        let cardImgStyle = "filter: grayscale(100%) blur(5px) brightness(0.7); opacity: 0.15;";
-        
-        if (rarity === 'Mítica') {
-            cardTitle = "Descoberta Misteriosa";
-            cardName = "???";
-            displayHint = "Uma grande descoberta ainda está escondida neste capítulo. Continue explorando para revelar este segredo.";
+        const progress = window.getDiscoveryProgress(c);
+        let progressHtml = '';
+        if (progress && progress.target > 0) {
+            progressHtml = `
+                <div class="livro-detalhes-progresso-box" style="margin-top: 15px; background: rgba(0, 0, 0, 0.03); padding: 12px; border-radius: 12px; text-align: center; width: 100%;">
+                    <div style="font-weight: 850; color: #555; font-size: 0.82rem; margin-bottom: 5px; letter-spacing: 0.5px; text-transform: uppercase;">Progresso Atual</div>
+                    <div style="font-size: 1.35rem; font-weight: 900; color: #6c5ce7; font-family: 'Fredoka-Variable', sans-serif;">
+                        ${progress.current} / ${progress.target}
+                    </div>
+                    <div style="width: 100%; height: 8px; background: #dfe6e9; border-radius: 10px; margin-top: 8px; overflow: hidden;">
+                        <div style="width: ${Math.min(100, Math.round((progress.current / progress.target) * 100))}%; height: 100%; background: linear-gradient(90deg, #6c5ce7, #a29bfe); border-radius: 10px;"></div>
+                    </div>
+                </div>
+            `;
+        } else if (rarity === 'Mítica') {
+            progressHtml = `
+                <div class="livro-detalhes-progresso-box" style="margin-top: 15px; background: rgba(0, 0, 0, 0.03); padding: 12px; border-radius: 12px; text-align: center; width: 100%;">
+                    <div style="font-weight: 850; color: #555; font-size: 0.82rem; margin-bottom: 5px; letter-spacing: 0.5px; text-transform: uppercase;">Requisito Especial</div>
+                    <div style="font-size: 0.95rem; font-weight: 800; color: #d35400; font-family: 'Fredoka-Variable', sans-serif;">
+                        Obtenha todas as outras descobertas deste capítulo!
+                    </div>
+                </div>
+            `;
         }
         
         detailsEl.innerHTML = `
@@ -10103,29 +10091,22 @@ window.showDiscoveryDetails = function(discoveryId) {
                 </div>
                 
                 <div class="livro-detalhes-img-box" style="position: relative; background: #f1f2f6;">
-                    <img src="${c.imageUrl}" alt="Bloqueado" class="livro-detalhes-img" style="${cardImgStyle}" onerror="this.src='/favicon-64x64.png'">
-                    <div style="position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:3rem; color:#a4b0be; text-shadow:0 2px 4px rgba(0,0,0,0.2);">🔒</div>
+                    <img src="${c.imageUrl}" alt="${c.name}" class="livro-detalhes-img" style="${cardImgStyle}" onerror="this.src='/favicon-64x64.png'">
+                    <div style="position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:3rem; color:#a4b0be; text-shadow:0 2px 4px rgba(0,0,0,0.2); pointer-events: none;">🔒</div>
                 </div>
                 
                 <h2 style="margin: 0; color:#7f8c8d; font-size:1.4rem; font-weight:900; font-family:'Fredoka-Variable',sans-serif; text-align:center;">
                     ${cardName}
                 </h2>
                 
-                <div class="livro-detalhes-bloqueado-curiosidade">
-                    <div class="livro-detalhes-bloqueado-pista-title">🔒 ${cardTitle.toUpperCase()}</div>
-                    <div>Você ainda não encontrou esta descoberta na sua jornada!</div>
+                <div class="livro-detalhes-bloqueado-curiosidade" style="margin-top: 15px; padding: 12px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 12px; width: 100%;">
+                    <div class="livro-detalhes-bloqueado-pista-title" style="font-weight: 900; color: #ff8f00; font-size: 0.8rem; margin-bottom: 4px; letter-spacing: 0.5px;">🤔 COMO DESBLOQUEAR</div>
+                    <div style="font-weight: 800; color: #5d4037; font-size: 0.95rem;">${c.unlockHint}</div>
                 </div>
 
-                <div class="livro-detalhes-bloqueado-hint-box">
-                    <div class="livro-detalhes-bloqueado-hint-title">⭐ PISTA DE EXPLORAÇÃO</div>
-                    <div style="font-weight: 800; color: #2d3436;">"${displayHint}"</div>
-                </div>
+                ${progressHtml}
                 
-                <button class="livro-detalhes-ajuda-btn" onclick="openUnlockGuideModal('${discoveryId}')" style="margin-top:10px;">
-                    <i class="fa-solid fa-circle-question"></i> Como desbloquear
-                </button>
-
-                <button class="livro-detalhes-voltar-btn" onclick="voltarParaGrade()" style="margin-top:10px;">
+                <button class="livro-detalhes-voltar-btn" onclick="voltarParaGrade()" style="margin-top:20px; width: 100%;">
                     ← Voltar às Descobertas
                 </button>
             </div>
@@ -11210,4 +11191,23 @@ window.updateExpeditionBadge = function() {
             badgeEl.innerText = `${completedMain}/${totalMain}`;
         }
     }
+};
+
+window.openDiscoveriesHelpModal = function() {
+    Swal.fire({
+        title: 'ℹ️ Como funciona?',
+        html: `
+            <div style="text-align: left; font-size: 0.95rem; line-height: 1.6; color: #2d3436; font-family: 'Fredoka-Variable', sans-serif; padding: 5px;">
+                <p style="margin-top:0;">O <strong>Livro das Descobertas</strong> registra tudo o que você conquista no KidCanvas.</p>
+                <p>Pinte desenhos, complete expedições, crie livros, compartilhe suas artes e participe da comunidade para desbloquear novas descobertas.</p>
+                <p style="margin-bottom:0; font-weight:800; color:#6c5ce7;">Cada descoberta mostra exatamente o que você precisa fazer para conquistá-la.</p>
+            </div>
+        `,
+        icon: 'info',
+        confirmButtonText: 'Entendi!',
+        confirmButtonColor: '#6c5ce7',
+        customClass: {
+            popup: 'swal-kidcanvas-popup'
+        }
+    });
 };
