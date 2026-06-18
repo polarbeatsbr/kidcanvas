@@ -1127,10 +1127,10 @@ app.post('/api/generate-full-story', async (req, res) => {
 
         // Verificar limite de armazenamento por plano (Histórias)
         const plan = user.plan || 'Aprendiz';
-        let limit = 0;
-        if (plan === 'Artista' || plan === 'Família') limit = 10;
-        else if (plan === 'Mago' || plan === 'Mago Criador' || plan === 'Professor' || plan === 'Premium') limit = 30;
-        else if (plan === 'Lenda' || plan === 'Lenda KidCanvas' || plan === 'Ultra' || plan === 'Colégio') limit = Infinity;
+        let limit = 0; // Aprendiz / Grátis não cria histórias
+        if (plan !== 'Aprendiz' && plan !== 'Grátis') {
+            limit = Infinity;
+        }
 
         if ((user.myStories || []).length >= limit) {
             return res.status(400).json({

@@ -9871,6 +9871,9 @@ window.getDiscoveryProgress = function(card) {
     
     const countPaintingsOfCategory = (cats) => {
         return myPaintings.filter(p => {
+            // Pinturas salvas pela Pintura Livre NÃO contam progresso nas Descobertas
+            if (p.fromPinturaLivre === true || p.category === 'Mão Livre') return false;
+            
             if (p.originalCategory && cats.includes(p.originalCategory)) return true;
             if (p.category && cats.includes(p.category.toLowerCase())) return true;
             return false;
@@ -9888,14 +9891,19 @@ window.getDiscoveryProgress = function(card) {
     };
 
     switch (condition.type) {
-        case 'paint_count':
-            return { current: myPaintings.length, target: condition.count };
+        case 'paint_count': {
+            // Só desenhos gerados pelo "Gerar Desenho" contam (Criação com IA)
+            const count = myPaintings.filter(p => p.category === 'Criação com IA').length;
+            return { current: count, target: condition.count };
+        }
             
         case 'category_paint':
             return { current: getCategoryCount(condition.category), target: condition.count };
             
         case 'categories_painted': {
-            const categories = new Set(myPaintings.map(p => p.originalCategory || (p.category ? p.category.toLowerCase() : null)).filter(Boolean));
+            // Pinturas salvas pela Pintura Livre NÃO contam progresso nas Descobertas
+            const validPaintings = myPaintings.filter(p => p.fromPinturaLivre !== true && p.category !== 'Mão Livre');
+            const categories = new Set(validPaintings.map(p => p.originalCategory || (p.category ? p.category.toLowerCase() : null)).filter(Boolean));
             return { current: categories.size, target: condition.count };
         }
         
@@ -9915,8 +9923,10 @@ window.getDiscoveryProgress = function(card) {
         case 'share_count':
             return { current: currentUser.paintingShareCount || 0, target: condition.count };
             
-        case 'hall_count':
-            return { current: myPaintings.filter(p => p.isPublic).length, target: condition.count };
+        case 'hall_count': {
+            const count = myPaintings.filter(p => p.isPublic && p.fromPinturaLivre !== true && p.category !== 'Mão Livre').length;
+            return { current: count, target: condition.count };
+        }
             
         case 'likes_count':
             return { current: currentUser.likesReceived || 0, target: condition.count };
