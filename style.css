@@ -81,6 +81,10 @@ button, input, select, textarea {
     padding: 0 20px;
 }
 
+.page-view {
+    display: none;
+}
+
 /* --- CABEÇALHO (NAVBAR) --- */
 .main-header {
     background-color: var(--color-white);
@@ -7031,11 +7035,13 @@ button, input, select, textarea {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 8px;
+    box-sizing: border-box;
 }
 .livro-card-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: transform 0.3s ease;
 }
 .livro-card-descoberta:hover .livro-card-img {
@@ -7312,11 +7318,13 @@ button, input, select, textarea {
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     background: #fff;
     margin-bottom: 12px;
+    padding: 12px;
+    box-sizing: border-box;
 }
 .revelacao-imagem {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 .revelacao-nome-faixa {
     background: #ffeaa7;
@@ -7416,12 +7424,14 @@ button, input, select, textarea {
     box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     background: #fff;
     border: 4px solid #fff;
+    padding: 12px;
+    box-sizing: border-box;
 }
 
 .livro-detalhes-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .livro-detalhes-info-card {
@@ -8698,8 +8708,8 @@ button, input, select, textarea {
 }
 .reveal-card-perspective {
     perspective: 1000px;
-    width: 210px;
-    height: 280px;
+    width: 240px;
+    height: 240px;
     margin-bottom: 20px;
 }
 .reveal-card-inner {
@@ -8722,6 +8732,7 @@ button, input, select, textarea {
     overflow: hidden;
     border: 5px solid #ffffff;
     box-sizing: border-box;
+    padding: 12px;
 }
 .reveal-card-front {
     z-index: 2;
@@ -8730,7 +8741,7 @@ button, input, select, textarea {
 .reveal-card-front img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     filter: blur(6px);
     opacity: 0.4;
 }
@@ -8743,7 +8754,7 @@ button, input, select, textarea {
 .reveal-card-back img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
 }
 .reveal-lock-icon {
     position: absolute;

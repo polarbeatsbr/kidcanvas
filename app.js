@@ -9786,6 +9786,45 @@ window.triggerDiscoveryReveal = function(card) {
     // Show overlay
     overlay.classList.add('active');
     
+    // Start celebration confetti falling from the top, z-indexed behind the card
+    if (typeof confetti !== 'undefined') {
+        const confettiCanvas = document.getElementById('discovery-confetti-canvas');
+        if (confettiCanvas) {
+            // Set explicit dimensions immediately to avoid 0x0 size bugs when shown
+            confettiCanvas.width = confettiCanvas.clientWidth || window.innerWidth;
+            confettiCanvas.height = confettiCanvas.clientHeight || window.innerHeight;
+            
+            try {
+                window.discoveryConfetti = confetti.create(confettiCanvas, { resize: true });
+            } catch (e) {
+                console.error("Erro ao instanciar local confetti:", e);
+            }
+        }
+        
+        if (window.discoveryConfetti) {
+            const end = Date.now() + 5000; // 5 seconds duration
+            const colors = ['#2ecc71', '#9b59b6', '#f1c40f', '#e67e22', '#e84393']; // verde, roxo, amarelo, laranja, rosa
+            
+            (function frame() {
+                window.discoveryConfetti({
+                    particleCount: 6, // 3x more particles
+                    angle: 270, // falling down
+                    spread: 80,
+                    startVelocity: Math.random() * 15 + 5, // varied fall speed
+                    gravity: Math.random() * 0.8 + 0.4, // varied gravity (some faster, some slower)
+                    scalar: Math.random() * 0.8 + 1.2, // larger size and varied scale
+                    drift: Math.random() * 2 - 1, // slight breeze drift
+                    colors: colors,
+                    origin: { x: Math.random(), y: -0.1 }
+                });
+                
+                if (Date.now() < end && overlay.classList.contains('active')) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    }
+    
     // Start Flip animation after a small delay (500ms)
     setTimeout(() => {
         inner.classList.add('flipped');
@@ -9794,22 +9833,22 @@ window.triggerDiscoveryReveal = function(card) {
         setTimeout(() => {
             if (rarity === 'Rara') {
                 backEl.classList.add('glow-rara');
-                if (typeof confetti !== 'undefined') {
-                    confetti({ particleCount: 50, spread: 60, colors: ['#3498db', '#ffffff'] });
+                if (typeof confetti !== 'undefined' && window.discoveryConfetti) {
+                    window.discoveryConfetti({ particleCount: 50, spread: 60, colors: ['#3498db', '#ffffff'], origin: { x: 0.5, y: 0.5 } });
                 }
             } else if (rarity === 'Épica') {
                 backEl.classList.add('glow-epica');
-                if (typeof confetti !== 'undefined') {
-                    confetti({ particleCount: 90, spread: 80, colors: ['#e67e22', '#ffffff'] });
+                if (typeof confetti !== 'undefined' && window.discoveryConfetti) {
+                    window.discoveryConfetti({ particleCount: 90, spread: 80, colors: ['#e67e22', '#ffffff'], origin: { x: 0.5, y: 0.5 } });
                 }
             } else if (rarity === 'Mítica') {
                 backEl.classList.add('glow-mitica');
-                if (typeof confetti !== 'undefined') {
-                    confetti({ particleCount: 150, spread: 100, colors: ['#9b59b6', '#ecf0f1', '#f1c40f'] });
+                if (typeof confetti !== 'undefined' && window.discoveryConfetti) {
+                    window.discoveryConfetti({ particleCount: 150, spread: 100, colors: ['#9b59b6', '#ecf0f1', '#f1c40f'], origin: { x: 0.5, y: 0.5 } });
                 }
             } else {
-                if (typeof confetti !== 'undefined') {
-                    confetti({ particleCount: 20, spread: 40, colors: ['#2ecc71', '#ffffff'] });
+                if (typeof confetti !== 'undefined' && window.discoveryConfetti) {
+                    window.discoveryConfetti({ particleCount: 20, spread: 40, colors: ['#2ecc71', '#ffffff'], origin: { x: 0.5, y: 0.5 } });
                 }
             }
         }, 600);
