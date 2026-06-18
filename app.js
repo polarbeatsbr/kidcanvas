@@ -10235,6 +10235,15 @@ window.showDiscoveryDetails = function(discoveryId) {
     const detailsEl = document.getElementById('livro-detalhes-conteudo');
     if (!detailsEl) return;
 
+    const activeTheme = (currentActiveEvent && currentActiveEvent.active && currentActiveEvent.week) ? currentActiveEvent.week.theme : null;
+    let hintText = c.unlockHint;
+    if (discoveryId === 'expedicao_01' && activeTheme) {
+        let themeName = 'Semana de ' + activeTheme;
+        if (activeTheme === 'Dinossauros') themeName = 'Semana dos Dinossauros';
+        else if (activeTheme === 'Piratas') themeName = 'Semana dos Piratas';
+        hintText = `Complete todas as missões da ${themeName}`;
+    }
+
     if (isOwned) {
         const obtidoEm = c.obtidoEm || 'Aventura Mágica';
         const curiosity = c.curiosity || 'Uma grande conquista no KidCanvas!';
@@ -10331,7 +10340,10 @@ window.showDiscoveryDetails = function(discoveryId) {
             let btnText = '';
             let btnPath = '';
             
-            if (condType === 'paint_count' || condType === 'categories_painted' || condType === 'paint' || (condType === 'category_paint' && !target) || (condType === 'paint_category' && !target)) {
+            if (discoveryId === 'expedicao_01' && activeTheme) {
+                btnText = '🗺️ Ver Expedição Atual';
+                btnPath = 'expedition';
+            } else if (condType === 'paint_count' || condType === 'categories_painted' || condType === 'paint' || (condType === 'category_paint' && !target) || (condType === 'paint_category' && !target)) {
                 btnText = '🎨 Ir Pintar Agora';
                 btnPath = '/gerar-desenho';
             } else if ((condType === 'category_paint' || condType === 'paint_category') && target) {
@@ -10371,7 +10383,7 @@ window.showDiscoveryDetails = function(discoveryId) {
                 
                 <div class="livro-detalhes-bloqueado-curiosidade" style="margin-top: 15px; padding: 12px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 12px; width: 100%;">
                     <div class="livro-detalhes-bloqueado-pista-title" style="font-weight: 900; color: #ff8f00; font-size: 0.8rem; margin-bottom: 4px; letter-spacing: 0.5px;">🤔 COMO DESBLOQUEAR</div>
-                    <div style="font-weight: 800; color: #5d4037; font-size: 0.95rem;">${c.unlockHint}</div>
+                    <div style="font-weight: 800; color: #5d4037; font-size: 0.95rem;">${hintText}</div>
                 </div>
 
                 ${actionButtonHtml}
