@@ -3606,7 +3606,7 @@ async function handleCustomDrawingSubmit(event) {
                 actions.style.display = 'flex';
             }
             
-            setupCustomDrawingActionListeners(data.imageUrl);
+            setupCustomDrawingActionListeners(data.imageUrl, data.drawingId);
             
             currentUser.paginasRestantes = data.paginasRestantes;
             updateHeaderAuthDisplay();
@@ -3751,7 +3751,7 @@ function renderReportarBugView() {
 }
 window.renderReportarBugView = renderReportarBugView;
 
-function setupCustomDrawingActionListeners(imageUrl) {
+function setupCustomDrawingActionListeners(imageUrl, drawingId) {
     const downloadBtn = document.getElementById('btn-download-custom');
     const downloadPdfBtn = document.getElementById('btn-download-pdf-custom');
     const printBtn = document.getElementById('btn-print-custom');
@@ -3889,6 +3889,7 @@ function setupCustomDrawingActionListeners(imageUrl) {
                         },
                         body: JSON.stringify({
                             imageUrl: imageUrl,
+                            drawingId: drawingId,
                             prompt: promptText,
                             isPublic: false,
                             category: 'Criação com IA'

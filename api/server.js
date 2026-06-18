@@ -2198,7 +2198,7 @@ app.get('/api/proxy-image', async (req, res) => {
 app.post('/api/user/save-painting', async (req, res) => {
     try {
         const token = req.headers['x-session-token'];
-        const { imageBase64, imageUrl, prompt, isPublic, category, creatorName, firstLines, storyData } = req.body;
+        const { imageBase64, imageUrl, drawingId, prompt, isPublic, category, creatorName, firstLines, storyData } = req.body;
         
         if (!token) {
             return res.status(401).json({ success: false, message: 'Não autorizado.' });
@@ -2218,10 +2218,13 @@ app.post('/api/user/save-painting', async (req, res) => {
         }
 
         // Evitar salvamento duplicado
-        if (imageUrl) {
-            const alreadyExists = (user.myPaintings || []).some(p => p.url === imageUrl);
+        if (drawingId || imageUrl) {
+            const alreadyExists = (user.myPaintings || []).some(p => 
+                (drawingId && p.drawingId === drawingId) || 
+                (imageUrl && p.url === imageUrl)
+            );
             if (alreadyExists) {
-                console.log(`[Save Painting] Pintura duplicada ignorada (já salva): ${imageUrl}`);
+                console.log(`[Save Painting] Pintura duplicada ignorada (já salva): ${drawingId || imageUrl}`);
                 return res.json({
                     success: true,
                     alreadySaved: true,
@@ -2269,6 +2272,7 @@ app.post('/api/user/save-painting', async (req, res) => {
         const colorsCount = req.body.colorsCount || 1;
         
         const paintingItem = {
+            drawingId: drawingId || null,
             url: r2Url,
             prompt: prompt,
             date: Date.now(),
@@ -3003,7 +3007,9 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         }
 
         if (!user.myImages) user.myImages = [];
+        const drawingId = `draw_${user.id}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         user.myImages.push({
+            id: drawingId,
             url: imageUrl,
             prompt: userPrompt,
             styleType: style,
@@ -3017,6 +3023,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         return res.json({
             success: true,
             imageUrl: imageUrl,
+            drawingId: drawingId,
             paginasRestantes: getUserTotalCredits(user)
         });
 
