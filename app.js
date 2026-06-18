@@ -9545,6 +9545,136 @@ window.fecharRevelacao = function() {
     }
 };
 
+window.isDiscoveryOwned = function(card) {
+    if (!currentUser || !currentUser.cards || !card) return false;
+    const cardId = card.id || card.value;
+    if (!cardId) return false;
+    return currentUser.cards.some(uc => {
+        if (!uc) return false;
+        if (typeof uc === 'string') return uc === cardId;
+        const ucId = uc.id || uc.value;
+        return ucId === cardId;
+    });
+};
+
+window.triggerDiscoveryReveal = function(card) {
+    if (!card) return;
+    
+    const overlay = document.getElementById('discovery-flip-reveal-overlay');
+    const inner = document.getElementById('reveal-card-inner-el');
+    const frontImg = document.getElementById('reveal-card-front-img');
+    const backEl = document.getElementById('reveal-card-back-el');
+    const backImg = document.getElementById('reveal-card-back-img');
+    const titleEl = document.getElementById('discovery-flip-title-el');
+    const rarityEl = document.getElementById('discovery-flip-rarity-el');
+    const curiosityEl = document.getElementById('discovery-flip-curiosity-el');
+    const btn = document.getElementById('discovery-flip-btn-el');
+    
+    if (!overlay || !inner) return;
+    
+    // Prevent double triggering if already showing
+    if (overlay.classList.contains('active')) return;
+    
+    // Reset classes and state
+    inner.classList.remove('flipped');
+    backEl.classList.remove('glow-rara', 'glow-epica', 'glow-mitica');
+    
+    // Set content
+    frontImg.src = card.imageUrl || '/favicon-64x64.png';
+    backImg.src = card.imageUrl || '/favicon-64x64.png';
+    titleEl.textContent = card.name;
+    
+    const rarity = card.rarity || 'Comum';
+    rarityEl.textContent = rarity;
+    
+    // Set rarity styling class
+    rarityEl.className = 'discovery-flip-rarity';
+    const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+    rarityEl.classList.add(`rarity-color-${rarityLower}`);
+    
+    curiosityEl.innerHTML = card.curiosity ? `<strong>📚 SABIA QUE?</strong><br>${card.curiosity}` : '';
+    
+    // Play sound depending on rarity
+    if (typeof playRaritySound === 'function') {
+        playRaritySound(rarity);
+    }
+    
+    // Show overlay
+    overlay.classList.add('active');
+    
+    // Start Flip animation after a small delay (500ms)
+    setTimeout(() => {
+        inner.classList.add('flipped');
+        
+        // After 600ms (duration of flip), add glow if applicable
+        setTimeout(() => {
+            if (rarity === 'Rara') {
+                backEl.classList.add('glow-rara');
+                if (typeof confetti !== 'undefined') {
+                    confetti({ particleCount: 50, spread: 60, colors: ['#3498db', '#ffffff'] });
+                }
+            } else if (rarity === 'Épica') {
+                backEl.classList.add('glow-epica');
+                if (typeof confetti !== 'undefined') {
+                    confetti({ particleCount: 90, spread: 80, colors: ['#e67e22', '#ffffff'] });
+                }
+            } else if (rarity === 'Mítica') {
+                backEl.classList.add('glow-mitica');
+                if (typeof confetti !== 'undefined') {
+                    confetti({ particleCount: 150, spread: 100, colors: ['#9b59b6', '#ecf0f1', '#f1c40f'] });
+                }
+            } else {
+                if (typeof confetti !== 'undefined') {
+                    confetti({ particleCount: 20, spread: 40, colors: ['#2ecc71', '#ffffff'] });
+                }
+            }
+        }, 600);
+    }, 500);
+    
+    // Configure close button
+    btn.onclick = function() {
+        overlay.classList.remove('active');
+        // If discoveries overlay is active, re-render grid
+        const albumOverlay = document.getElementById('livro-descobertas-overlay');
+        if (albumOverlay && albumOverlay.classList.contains('active') && window.activeChapterName) {
+            if (typeof renderChapterGrid === 'function') {
+                renderChapterGrid(window.activeChapterName);
+            }
+        }
+    };
+};
+
+window.revealCardAnimation = function(name, rarity, imageUrl, curiosity, collectionName = null) {
+    const card = {
+        name: name,
+        rarity: rarity,
+        imageUrl: imageUrl,
+        curiosity: curiosity,
+        collection: collectionName
+    };
+    window.triggerDiscoveryReveal(card);
+};
+
+// Fetch interceptor to automatically catch newDiscovery responses
+(function() {
+    const originalFetch = window.fetch;
+    window.fetch = async function(...args) {
+        const response = await originalFetch(...args);
+        try {
+            const clone = response.clone();
+            const data = await clone.json();
+            if (data && data.success && data.newDiscovery) {
+                setTimeout(() => {
+                    window.triggerDiscoveryReveal(data.newDiscovery);
+                }, 1000);
+            }
+        } catch (e) {
+            // Ignore non-json or failed parses
+        }
+        return response;
+    };
+})();
+
 window.getDiscoveryProgress = function(card) {
     if (!currentUser) return { current: 0, target: 0 };
     
@@ -9659,7 +9789,7 @@ window.openAlbumModal = async function() {
     
     // Calcular Estatística Global
     const globalTotal = catalog.length;
-    const globalOwned = catalog.filter(c => userCards.some(uc => (uc.id === c.id) || (uc.value === c.id))).length;
+    const globalOwned = catalog.filter(c => window.isDiscoveryOwned(c)).length;
     const globalPct = globalTotal > 0 ? Math.round((globalOwned / globalTotal) * 100) : 0;
     
     const statsTextEl = document.getElementById('livro-global-stats-text');
@@ -9868,10 +9998,9 @@ window.selectChapter = function(colName) {
 
 window.renderChapterGrid = function(colName) {
     const catalog = window.globalCatalog || [];
-    const userCards = currentUser.cards || [];
     const cardsInCol = catalog.filter(c => (c.collection ? c.collection.split(' ')[1] : 'Geral') === colName);
     
-    const owned = cardsInCol.filter(c => userCards.some(uc => (uc.id === c.id) || (uc.value === c.value))).length;
+    const owned = cardsInCol.filter(c => window.isDiscoveryOwned(c)).length;
     const total = cardsInCol.length;
     const pct = Math.round((owned / total) * 100);
     
@@ -9904,9 +10033,7 @@ window.renderChapterGrid = function(colName) {
     }
 
     // Identificar a primeira descoberta pendente do capítulo (para Meta Recomendada)
-    const firstLockedCard = cardsInCol.find(c => {
-        return !userCards.some(uc => (uc.id === c.id) || (uc.value === c.value));
-    });
+    const firstLockedCard = cardsInCol.find(c => !window.isDiscoveryOwned(c));
 
     const metaBox = document.getElementById('livro-proxima-descoberta-box');
     if (metaBox) {
@@ -9923,7 +10050,7 @@ window.renderChapterGrid = function(colName) {
     if (grid) {
         grid.innerHTML = '';
         cardsInCol.forEach(c => {
-            const hasCard = userCards.some(uc => (uc.id === c.id) || (uc.value === c.value));
+            const hasCard = window.isDiscoveryOwned(c);
             const rarity = c.rarity || 'Comum';
             const cssClass = 'rarity-' + rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
             const cardIdStr = c.id || c.value;
@@ -9954,7 +10081,7 @@ window.renderChapterGrid = function(colName) {
                 card.innerHTML = `
                     <div class="livro-card-rarity-tag">${rarityText}</div>
                     <div class="livro-card-img-container">
-                        <img src="${c.imageUrl}" class="livro-card-img" alt="${c.name}" style="filter: grayscale(1) opacity(0.65);">
+                        <img src="${c.imageUrl}" class="livro-card-img" alt="${c.name}">
                         <div class="livro-cadeado-overlay">${lockEmoji}</div>
                     </div>
                     <div class="livro-card-nome">${cardNameText}</div>
@@ -9976,10 +10103,9 @@ window.renderChapterGrid = function(colName) {
 
 window.showDiscoveryDetails = function(discoveryId) {
     if (!currentUser) return;
-    let isOwned = (currentUser.cards || []).some(uc => (uc.id === discoveryId) || (uc.value === discoveryId));
     let c = (window.globalCatalog || []).find(gc => (gc.id === discoveryId) || (gc.value === discoveryId));
-    
     if (!c) return;
+    let isOwned = window.isDiscoveryOwned(c);
     
     const rarity = c.rarity || 'Comum';
     const colParts = c.collection ? c.collection.split(' ') : ['Geral', '1/20'];
@@ -10054,7 +10180,7 @@ window.showDiscoveryDetails = function(discoveryId) {
     } else {
         // Modo Bloqueado: Ficha de Mistério / Pista
         const cardName = c.name;
-        const cardImgStyle = "filter: grayscale(100%) opacity(0.65);";
+        const cardImgStyle = "filter: blur(6px); opacity: 0.4;";
         
         const progress = window.getDiscoveryProgress(c);
         let progressHtml = '';
@@ -10092,7 +10218,7 @@ window.showDiscoveryDetails = function(discoveryId) {
                 
                 <div class="livro-detalhes-img-box" style="position: relative; background: #f1f2f6;">
                     <img src="${c.imageUrl}" alt="${c.name}" class="livro-detalhes-img" style="${cardImgStyle}" onerror="this.src='/favicon-64x64.png'">
-                    <div style="position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:3rem; color:#a4b0be; text-shadow:0 2px 4px rgba(0,0,0,0.2); pointer-events: none;">🔒</div>
+                    <div style="position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:3.5rem; color:#ffffff; text-shadow:0 2px 6px rgba(0,0,0,0.4); pointer-events: none;">🔒</div>
                 </div>
                 
                 <h2 style="margin: 0; color:#7f8c8d; font-size:1.4rem; font-weight:900; font-family:'Fredoka-Variable',sans-serif; text-align:center;">
@@ -10801,7 +10927,7 @@ window.openUnlockGuideModal = function(discoveryId) {
         targetVal = 19;
         const colCards = window.globalCatalog.filter(gc => gc.collection && gc.collection.startsWith(colName));
         const nonMythic = colCards.filter(gc => gc.rarity !== 'Mítica');
-        currentVal = nonMythic.filter(gc => (currentUser.cards || []).some(uc => (uc.id === gc.id) || (uc.value === gc.id))).length;
+        currentVal = nonMythic.filter(gc => window.isDiscoveryOwned(gc)).length;
         label = 'descobertas';
         tip = 'Continue coletando as outras descobertas deste capítulo!';
     } else if (type === 'social') {
@@ -10866,7 +10992,7 @@ window.openUnlockGuideModal = function(discoveryId) {
             targetVal = 18;
             const colCards = window.globalCatalog.filter(gc => gc.collection && gc.collection.startsWith(colName));
             const otherCards = colCards.filter(gc => gc.id !== c.id && gc.rarity !== 'Mítica');
-            currentVal = otherCards.filter(gc => (currentUser.cards || []).some(uc => (uc.id === gc.id) || (uc.value === gc.id))).length;
+            currentVal = otherCards.filter(gc => window.isDiscoveryOwned(gc)).length;
             label = 'descobertas obtidas';
             tip = 'Colete todas as cartas Comuns e Raras deste capítulo!';
         } else {

@@ -1412,6 +1412,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
             paragraphs: finalParagraphs,
             newlyUnlocked: newlyUnlocked,
             completionRewards: completionRewards,
+            newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null),
             cards: user.cards
         });
 
@@ -2072,6 +2073,7 @@ app.get('/api/auth/me', async (req, res) => {
         
         return res.json({
             success: true,
+            newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null),
             user: {
                 id: user.id,
                 name: user.name,
@@ -2271,6 +2273,7 @@ app.post('/api/user/save-painting', async (req, res) => {
             cards: user.cards,
             newlyUnlocked: newlyUnlocked,
             completionRewards: completionRewards,
+            newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null),
             stars: user.stars
         });
     } catch(err) {
@@ -2360,7 +2363,8 @@ app.post('/api/user/record-share', async (req, res) => {
             sharesTodayCount: user.sharesTodayCount,
             cards: user.cards,
             newlyUnlocked: newlyUnlocked,
-            completionRewards: completionRewards
+            completionRewards: completionRewards,
+            newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null)
         });
     } catch(err) {
         console.error('Erro ao registrar compartilhamento:', err);
@@ -3771,7 +3775,8 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
         stars: user.stars,
         unlockedAchievements: user.unlockedAchievements,
         newlyUnlocked: newlyUnlocked,
-        completionRewards: completionRewards 
+        completionRewards: completionRewards,
+        newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null)
     });
 });
 

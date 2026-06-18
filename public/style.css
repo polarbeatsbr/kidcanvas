@@ -7056,25 +7056,25 @@ button, input, select, textarea {
 /* Card Bloqueado (Silhueta) */
 .livro-card-descoberta.bloqueado {
     cursor: not-allowed;
-    background: #fcfcfc;
-}
-.livro-card-descoberta.bloqueado:hover {
-    transform: none;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background: #fcfc;
 }
 .livro-card-descoberta.bloqueado .livro-card-img {
-    opacity: 0.18;
-    filter: grayscale(100%) blur(1.5px);
+    filter: blur(6px);
+    opacity: 0.4;
 }
 .livro-card-descoberta.bloqueado:hover .livro-card-img {
     transform: none;
 }
 .livro-cadeado-overlay {
     position: absolute;
-    font-size: 1.4rem;
-    color: #a4b0be;
-    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.8rem;
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
     pointer-events: none;
+    z-index: 2;
 }
 .livro-card-descoberta.bloqueado .livro-card-nome {
     color: #a4b0be;
@@ -7510,8 +7510,8 @@ button, input, select, textarea {
     border-color: #ffeaa7 !important;
 }
 .livro-card-descoberta.bloqueado:hover .livro-card-img {
-    filter: grayscale(100%) blur(1.5px) scale(1.03) !important;
-    opacity: 0.28 !important;
+    filter: blur(6px) scale(1.03) !important;
+    opacity: 0.5 !important;
 }
 
 /* Seu Progresso Dashboard */
@@ -8645,4 +8645,235 @@ button, input, select, textarea {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 12px !important;
     }
+}
+
+/* --- 3D FLIP REVEAL ANIMATION SYSTEM --- */
+.discovery-flip-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 99999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.discovery-flip-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+.discovery-flip-content {
+    background: radial-gradient(circle, #2d3436 0%, #1e272e 100%);
+    border: 4px solid #ffeaa7;
+    border-radius: 24px;
+    padding: 30px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-family: 'Fredoka-Variable', sans-serif;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+.discovery-flip-overlay.active .discovery-flip-content {
+    transform: scale(1);
+}
+.discovery-flip-header {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #ffeaa7;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.reveal-card-perspective {
+    perspective: 1000px;
+    width: 210px;
+    height: 280px;
+    margin-bottom: 20px;
+}
+.reveal-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease-in-out;
+    transform-style: preserve-3d;
+}
+.reveal-card-inner.flipped {
+    transform: rotateY(180deg);
+}
+.reveal-card-front, .reveal-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 5px solid #ffffff;
+    box-sizing: border-box;
+}
+.reveal-card-front {
+    z-index: 2;
+    background: #2d3436;
+}
+.reveal-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(6px);
+    opacity: 0.4;
+}
+.reveal-card-back {
+    transform: rotateY(180deg);
+    z-index: 1;
+    background: #ffffff;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.reveal-card-back img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.reveal-lock-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3.5rem;
+    color: #ffffff;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+.discovery-flip-title {
+    margin: 10px 0 8px 0;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+.discovery-flip-rarity {
+    font-size: 0.85rem;
+    font-weight: 900;
+    padding: 5px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.discovery-flip-curiosity {
+    font-size: 0.85rem;
+    color: #dfe6e9;
+    line-height: 1.4;
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-height: 90px;
+    overflow-y: auto;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+}
+.discovery-flip-btn {
+    background: linear-gradient(135deg, #00b894, #00bec4);
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: 900;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-family: 'Fredoka-Variable', sans-serif;
+}
+.discovery-flip-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 184, 148, 0.6);
+}
+.discovery-flip-btn:active {
+    transform: scale(0.95);
+}
+
+/* Rarity Tag Colors */
+.rarity-color-comum {
+    background-color: #2ecc71;
+    color: #ffffff;
+}
+.rarity-color-rara {
+    background-color: #3498db;
+    color: #ffffff;
+}
+.rarity-color-epica {
+    background-color: #e67e22;
+    color: #ffffff;
+}
+.rarity-color-mitica {
+    background-color: #9b59b6;
+    color: #ffffff;
+}
+
+/* Pulsing Glow Animation Keyframes */
+@keyframes glow-gold-pulse {
+    0%, 100% {
+        box-shadow: 0 0 12px rgba(254, 202, 87, 0.6), 0 0 4px rgba(254, 202, 87, 0.4);
+        border-color: #feca57;
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(254, 202, 87, 1), 0 0 10px rgba(254, 202, 87, 0.6);
+        border-color: #ffffff;
+    }
+}
+
+@keyframes glow-orange-pulse {
+    0%, 100% {
+        box-shadow: 0 0 12px rgba(255, 159, 67, 0.6), 0 0 4px rgba(255, 159, 67, 0.4);
+        border-color: #ff9f43;
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(255, 159, 67, 1), 0 0 10px rgba(255, 159, 67, 0.6);
+        border-color: #ffffff;
+    }
+}
+
+@keyframes glow-purple-pulse-anim {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(155, 89, 182, 0.7), 0 0 5px rgba(142, 68, 173, 0.4);
+        border-color: #9b59b6;
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(155, 89, 182, 1), 0 0 15px rgba(236, 240, 241, 0.8);
+        border-color: #f1c40f;
+    }
+}
+
+@keyframes rainbow-border {
+    0% { border-color: #9b59b6; }
+    25% { border-color: #e74c3c; }
+    50% { border-color: #f1c40f; }
+    75% { border-color: #2ecc71; }
+    100% { border-color: #9b59b6; }
+}
+
+.reveal-card-back.glow-rara {
+    animation: glow-gold-pulse 2s infinite ease-in-out;
+}
+.reveal-card-back.glow-epica {
+    animation: glow-orange-pulse 2s infinite ease-in-out;
+}
+.reveal-card-back.glow-mitica {
+    animation: glow-purple-pulse-anim 2s infinite ease-in-out, rainbow-border 4s infinite linear;
 }
