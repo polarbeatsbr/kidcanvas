@@ -4212,6 +4212,12 @@ button, input, select, textarea {
     width: 100%;
 }
 
+#main-paint-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
 #paint-canvas-loader {
     position: absolute;
     top: 0;
