@@ -1700,6 +1700,7 @@ function renderHomeView() {
 
 // Atualiza os cards de destaque na home baseado nas pinturas do Hall da Fama
 function updateFeaturedHomeCards(paintings) {
+    return; // Desativado para manter a curadoria fixa dos destaques (Astronauta, Gatinhos, Buzz, etc.)
     if (!paintings || paintings.length === 0) return;
 
     // 1. Destaque Geral (Mais Votado de todos)
