@@ -18,6 +18,15 @@ async function trackEvent(type, data) {
             analytics[type] = [];
         }
         
+        // Evitar duplicar pagamentos reais
+        if (type === 'payments' && data.transactionId && data.transactionId !== 'stripe_webhook' && data.transactionId !== 'pix_webhook' && data.transactionId !== 'pix_polling') {
+            const exists = analytics.payments && analytics.payments.some(p => p.transactionId === data.transactionId);
+            if (exists) {
+                console.log(`[Analytics] Pagamento com transação ${data.transactionId} já rastreado anteriormente. Ignorando duplicado.`);
+                return;
+            }
+        }
+
         const eventData = {
             ...data,
             timestamp: new Date().toISOString()
@@ -123,6 +132,39 @@ async function initAnalyticsData() {
             ];
             
             updated = true;
+        }
+        
+        // 6. Limpeza e Deduplicação de pagamentos reais de produção
+        if (analytics.payments && analytics.payments.length > 0) {
+            const seenIds = new Set();
+            const uniquePayments = [];
+            let deduplicated = false;
+            
+            for (const p of analytics.payments) {
+                // Se o pagamento for real (tem ID de transação real)
+                if (p.transactionId && p.transactionId !== 'stripe_webhook' && p.transactionId !== 'pix_webhook' && p.transactionId !== 'pix_polling') {
+                    const idStr = p.transactionId.toString().trim();
+                    if (seenIds.has(idStr)) {
+                        deduplicated = true;
+                        continue;
+                    }
+                    seenIds.add(idStr);
+                }
+                
+                // Corrigir status ausente para approved
+                if (!p.status) {
+                    p.status = 'approved';
+                    deduplicated = true;
+                }
+                
+                uniquePayments.push(p);
+            }
+            
+            if (deduplicated) {
+                analytics.payments = uniquePayments;
+                updated = true;
+                console.log('[Analytics Cleanup] Pagamentos reais duplicados removidos e status normalizados.');
+            }
         }
         
         if (updated) {
