@@ -910,6 +910,9 @@
             <li class="menu-item active" data-tab="tab-overview">
                 <i class="fa-solid fa-chart-pie"></i> Visão Geral
             </li>
+            <li class="menu-item" data-tab="tab-payments">
+                <i class="fa-solid fa-money-bill-wave"></i> Vendas & Compras
+            </li>
             <li class="menu-item" data-tab="tab-users">
                 <i class="fa-solid fa-users"></i> Usuários
             </li>
@@ -1442,6 +1445,35 @@
         </div>
 
         <!-- ========================================== -->
+        <!-- TAB: PAYMENTS -->
+        <!-- ========================================== -->
+        <div id="tab-payments" class="dashboard-section">
+            <div class="panel">
+                <div class="panel-header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3 class="panel-title"><i class="fa-solid fa-money-bill-wave"></i> Transações Realizadas</h3>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Usuário</th>
+                                <th>Plano / Pacote</th>
+                                <th>Valor</th>
+                                <th>Método</th>
+                                <th>Status</th>
+                                <th>Transação ID</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payments-tbody">
+                            <tr><td colspan="7" style="text-align:center;">Carregando histórico de pagamentos...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
         <!-- TAB: WAITLIST -->
         <!-- ========================================== -->
         <div id="tab-waitlist" class="dashboard-section">
@@ -1609,6 +1641,7 @@
                     // Atualiza cabeçalho
                     const titleMap = {
                         'tab-overview': { t: 'Visão Geral', s: 'Métricas e estatísticas em tempo real' },
+                        'tab-payments': { t: 'Vendas & Compras', s: 'Histórico de transações recebidas e processadas' },
                         'tab-users': { t: 'Usuários Registrados', s: 'Gestão de usuários e créditos mágicos' },
                         'tab-stories': { t: 'Histórias Mágicas', s: 'Estatísticas e tendências de livros e histórias geradas' },
                         'tab-generations': { t: 'IA & Top Prompts', s: 'Controle de volume, custos de IA e prompts mais desejados' },
@@ -1653,6 +1686,7 @@
                     populateTopPrompts();
                     populateHallOfFame();
                     populateBugsTab();
+                    populatePaymentsTab();
                 }
 
                 // 2. Carregar Lista de Usuários
@@ -2031,6 +2065,49 @@
             } catch (err) {
                 alert('Falha de rede ao resolver bug.');
             }
+        }
+
+        // --- POPULATE PAYMENTS TAB ---
+        function populatePaymentsTab() {
+            if (!statsData) return;
+            const tbody = document.getElementById('payments-tbody');
+            tbody.innerHTML = '';
+            
+            const list = statsData.paymentsList || [];
+            if (list.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding: 20px;">Nenhum pagamento registrado no momento.</td></tr>';
+                return;
+            }
+            
+            // Sort by date desc
+            const sortedList = [...list].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            
+            sortedList.forEach(p => {
+                const date = p.timestamp ? new Date(p.timestamp).toLocaleDateString('pt-BR', {hour: '2-digit', minute:'2-digit'}) : 'Desconhecida';
+                const statusBadge = p.status === 'approved' 
+                    ? '<span class="badge" style="background-color:rgba(16, 185, 129, 0.15); color:#10b981; padding: 4px 8px; border-radius: 6px;">Aprovado</span>' 
+                    : p.status === 'pending'
+                        ? '<span class="badge" style="background-color:rgba(245, 158, 11, 0.15); color:#f59e0b; padding: 4px 8px; border-radius: 6px;">Pendente</span>'
+                        : `<span class="badge" style="background-color:rgba(239, 68, 68, 0.15); color:#ef4444; padding: 4px 8px; border-radius: 6px;">${p.status || 'Desconhecido'}</span>`;
+                
+                const methodBadge = p.method === 'pix' 
+                    ? '<span style="color:#00b4d8; font-weight:600;"><i class="fa-solid fa-qrcode"></i> PIX</span>' 
+                    : '<span style="color:#8b5cf6; font-weight:600;"><i class="fa-solid fa-credit-card"></i> Cartão</span>';
+                
+                const displayId = p.transactionId ? (p.transactionId.length > 15 ? p.transactionId.substring(0, 15) + '...' : p.transactionId) : '-';
+                
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="font-weight:600; padding: 14px 16px;">${p.email}</td>
+                        <td style="padding: 14px 16px;">${p.plan}</td>
+                        <td style="font-weight:600; color:var(--text-main); padding: 14px 16px;">R$ ${parseFloat(p.amount || 0).toFixed(2)}</td>
+                        <td style="padding: 14px 16px;">${methodBadge}</td>
+                        <td style="padding: 14px 16px;">${statusBadge}</td>
+                        <td style="font-family:monospace; font-size:0.8rem; color:var(--text-muted); padding: 14px 16px;" title="${p.transactionId || ''}">${displayId}</td>
+                        <td style="font-size:0.85rem; color:var(--text-muted); padding: 14px 16px;">${date}</td>
+                    </tr>
+                `;
+            });
         }
 
         // --- RENDER USERS TABLE ---

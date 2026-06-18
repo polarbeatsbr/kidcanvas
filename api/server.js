@@ -319,6 +319,7 @@ app.post(['/api/stripe/webhook', '/api/stripc/webhook'], express.raw({type: 'app
                     plan: planName,
                     amount: amount,
                     method: 'card',
+                    status: 'approved',
                     transactionId: session.id || 'stripe_webhook'
                 });
             } catch (trackErr) {
@@ -608,6 +609,7 @@ app.get('/api/mercadopago/payment-status/:paymentId', async (req, res) => {
                             plan: planName,
                             amount: amount,
                             method: 'pix',
+                            status: 'approved',
                             transactionId: paymentId ? paymentId.toString() : 'pix_polling'
                         });
                     } catch (trackErr) {
@@ -663,6 +665,7 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                                 plan: planName,
                                 amount: amount,
                                 method: 'pix',
+                                status: 'approved',
                                 transactionId: paymentId ? paymentId.toString() : 'pix_webhook'
                             });
                         } catch (trackErr) {
@@ -3409,7 +3412,8 @@ app.get('/api/admin/stats', isAdmin, async (req, res) => {
                 failedPDFs,
                 refusedPayments,
                 erroredGenerations
-            }
+            },
+            paymentsList: analytics.payments || []
         });
     } catch (err) {
         console.error('[Admin Stats Error]:', err);
