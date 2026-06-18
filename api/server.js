@@ -313,7 +313,7 @@ app.post('/api/stripe/webhook', express.raw({type: 'application/json'}), async (
             
             // Rastrear pagamento no Analytics
             try {
-                const amount = planName.includes('20') ? 4.90 : planName.includes('50') ? 9.90 : planName.includes('120') ? 19.90 : planName.includes('300') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
+                const amount = planName.includes('15') ? 4.90 : planName.includes('35') ? 9.90 : planName.includes('80') ? 19.90 : planName.includes('180') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
                 trackEvent('payments', {
                     email: user.email,
                     plan: planName,
@@ -602,7 +602,7 @@ app.get('/api/mercadopago/payment-status/:paymentId', async (req, res) => {
                     
                     // Rastrear pagamento no Analytics
                     try {
-                        const amount = planName.includes('20') ? 4.90 : planName.includes('50') ? 9.90 : planName.includes('120') ? 19.90 : planName.includes('300') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
+                        const amount = planName.includes('15') ? 4.90 : planName.includes('35') ? 9.90 : planName.includes('80') ? 19.90 : planName.includes('180') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
                         trackEvent('payments', {
                             email: targetUser.email,
                             plan: planName,
@@ -657,7 +657,7 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                         
                         // Rastrear pagamento no Analytics
                         try {
-                            const amount = planName.includes('20') ? 4.90 : planName.includes('50') ? 9.90 : planName.includes('120') ? 19.90 : planName.includes('300') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
+                            const amount = planName.includes('15') ? 4.90 : planName.includes('35') ? 9.90 : planName.includes('80') ? 19.90 : planName.includes('180') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
                             trackEvent('payments', {
                                 email: user.email,
                                 plan: planName,
