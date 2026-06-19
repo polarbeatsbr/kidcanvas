@@ -2181,7 +2181,11 @@
 
                         <!-- Paleta de Giz de Cera -->
                         <div class="paint-palette-card">
-                            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; color: var(--color-dark);"><i class="fa-solid fa-palette"></i> Paleta de Giz de Cera:</div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--color-dark);"><i class="fa-solid fa-palette"></i> Paleta de Giz de Cera:</div>
+                                <!-- Botão preparado para opção futura (Mais Cores) - Oculto por padrão -->
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-more-colors" style="display: none; font-size: 0.8rem; padding: 4px 8px; font-weight: 700;"><i class="fa-solid fa-circle-plus"></i> Mais Cores</button>
+                            </div>
                             <div class="paint-colors-grid" id="paint-colors-grid">
                                 <!-- Cores injetadas por JS -->
                             </div>

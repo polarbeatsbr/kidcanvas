@@ -4243,7 +4243,7 @@ button, input, select, textarea {
 
 .paint-colors-grid {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
 }
 

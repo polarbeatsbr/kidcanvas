@@ -6049,19 +6049,34 @@ let paintDrawingImage = null;
 
 // Crayons Paleta (RGB)
 const paintCrayons = [
-    { hex: '#ff5e7e', rgb: [255, 94, 126], name: 'Rosa' },
-    { hex: '#ff8138', rgb: [255, 129, 56], name: 'Laranja' },
-    { hex: '#ffd43b', rgb: [255, 212, 59], name: 'Amarelo' },
-    { hex: '#40c057', rgb: [64, 192, 87], name: 'Verde' },
-    { hex: '#12b886', rgb: [18, 184, 134], name: 'Menta' },
-    { hex: '#22b8cf', rgb: [34, 184, 207], name: 'Ciano' },
-    { hex: '#4dabf7', rgb: [77, 171, 247], name: 'Azul' },
-    { hex: '#7950f2', rgb: [121, 80, 242], name: 'Roxo' },
-    { hex: '#e64980', rgb: [230, 73, 128], name: 'Pink' },
-    { hex: '#a61e4d', rgb: [166, 30, 77], name: 'Bordô' },
-    { hex: '#868e96', rgb: [134, 142, 150], name: 'Cinza' },
-    { hex: '#212529', rgb: [33, 37, 41], name: 'Preto' },
-    { hex: '#ffffff', rgb: [255, 255, 255], name: 'Branco' }
+    // Linha 1 (Cores Principais)
+    { hex: '#ff5e7e', rgb: [255, 94, 126], name: 'Vermelho', row: 1 },
+    { hex: '#ff8138', rgb: [255, 129, 56], name: 'Laranja', row: 1 },
+    { hex: '#ffd43b', rgb: [255, 212, 59], name: 'Amarelo', row: 1 },
+    { hex: '#40c057', rgb: [64, 192, 87], name: 'Verde', row: 1 },
+    { hex: '#12b886', rgb: [18, 184, 134], name: 'Verde Água', row: 1 },
+    { hex: '#22b8cf', rgb: [34, 184, 207], name: 'Azul Claro', row: 1 },
+    { hex: '#4dabf7', rgb: [77, 171, 247], name: 'Azul', row: 1 },
+    { hex: '#7950f2', rgb: [121, 80, 242], name: 'Roxo', row: 1 },
+    { hex: '#e64980', rgb: [230, 73, 128], name: 'Rosa', row: 1 },
+    { hex: '#a61e4d', rgb: [166, 30, 77], name: 'Vinho', row: 1 },
+    { hex: '#868e96', rgb: [134, 142, 150], name: 'Cinza', row: 1 },
+    { hex: '#212529', rgb: [33, 37, 41], name: 'Preto', row: 1 },
+    { hex: '#ffffff', rgb: [255, 255, 255], name: 'Branco', row: 1 },
+    
+    // Linha 2 (Cores Complementares e Tons de Pele)
+    { hex: '#ffb3c6', rgb: [255, 179, 198], name: 'Rosa Claro', row: 2 },
+    { hex: '#d0bfff', rgb: [208, 191, 255], name: 'Lilás', row: 2 },
+    { hex: '#a5d8ff', rgb: [165, 216, 255], name: 'Azul Bebê', row: 2 },
+    { hex: '#b2f2bb', rgb: [178, 242, 187], name: 'Verde Claro', row: 2 },
+    { hex: '#2b8a3e', rgb: [43, 138, 62], name: 'Verde Escuro', row: 2 },
+    { hex: '#1864ab', rgb: [24, 100, 171], name: 'Azul Marinho', row: 2 },
+    { hex: '#f5e6d3', rgb: [245, 230, 211], name: 'Bege', row: 2 },
+    { hex: '#cd853f', rgb: [205, 133, 63], name: 'Marrom Claro', row: 2 },
+    { hex: '#5c3d2e', rgb: [92, 61, 46], name: 'Marrom Escuro', row: 2 },
+    { hex: '#fed7aa', rgb: [254, 215, 170], name: 'Pele Clara', row: 2 },
+    { hex: '#f0b878', rgb: [240, 184, 120], name: 'Pele Média', row: 2 },
+    { hex: '#8d5524', rgb: [141, 85, 36], name: 'Pele Morena', row: 2 }
 ];
 
 let paintHistory = [];
@@ -6213,6 +6228,23 @@ function renderPintarOnlineView() {
     const colorsGrid = document.getElementById('paint-colors-grid');
     if (colorsGrid) {
         colorsGrid.innerHTML = '';
+        
+        // Criar as duas linhas na interface
+        const row1El = document.createElement('div');
+        row1El.className = 'paint-colors-row';
+        row1El.style.display = 'flex';
+        row1El.style.flexWrap = 'wrap';
+        row1El.style.gap = '10px';
+        
+        const row2El = document.createElement('div');
+        row2El.className = 'paint-colors-row';
+        row2El.style.display = 'flex';
+        row2El.style.flexWrap = 'wrap';
+        row2El.style.gap = '10px';
+        
+        colorsGrid.appendChild(row1El);
+        colorsGrid.appendChild(row2El);
+        
         paintCrayons.forEach((crayon, index) => {
             const div = document.createElement('div');
             div.className = 'color-crayon' + (index === 0 ? ' selected' : '');
@@ -6224,6 +6256,7 @@ function renderPintarOnlineView() {
             div.style.cursor = 'pointer';
             div.style.boxShadow = '0 2px 5px rgba(0,0,0,0.15)';
             div.style.transition = 'all 0.2s ease';
+            div.title = crayon.name;
             
             div.addEventListener('click', () => {
                 document.querySelectorAll('#paint-colors-grid .color-crayon').forEach(c => c.classList.remove('selected'));
@@ -6234,7 +6267,12 @@ function renderPintarOnlineView() {
                 if (!window.colorsUsedInPainting) window.colorsUsedInPainting = new Set();
                 window.colorsUsedInPainting.add(crayon.hex);
             });
-            colorsGrid.appendChild(div);
+            
+            if (crayon.row === 1) {
+                row1El.appendChild(div);
+            } else {
+                row2El.appendChild(div);
+            }
         });
     }
 
