@@ -390,6 +390,26 @@ app.post(['/api/stripe/webhook', '/api/stripc/webhook'], express.raw({type: 'app
 // Middleware para processar JSON (limite aumentado para suportar imagens base64 do canvas)
 app.use(express.json({ limit: '10mb' }));
 
+// Middleware para verificar virada de mês e aplicar premiações automáticas
+app.use(async (req, res, next) => {
+    try {
+        const { loadEvents } = require('./r2db');
+        const eventsData = await loadEvents();
+        if (eventsData && eventsData.monthlyRewardConfig && eventsData.monthlyRewardConfig.autoEnabled) {
+            const now = new Date();
+            const prevDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+            const targetMonth = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}`;
+            if (eventsData.monthlyRewardConfig.lastExecutedMonth !== targetMonth) {
+                // Executar em segundo plano para não travar a requisição do usuário
+                processMonthlyRewards().catch(err => console.error('[Monthly Rewards Auto Error]:', err));
+            }
+        }
+    } catch (e) {
+        console.error('[Monthly Rewards Middleware Error]:', e);
+    }
+    next();
+});
+
 // Endpoint para criar sessão de Checkout do Stripe
 app.post('/api/stripe/create-checkout-session', async (req, res) => {
     try {
@@ -2559,6 +2579,7 @@ app.post('/api/user/record-share', async (req, res) => {
         if ((user.sharesTodayCount || 0) < MAX_DAILY_SHARE_REWARDS) {
             user.sharesTodayCount = (user.sharesTodayCount || 0) + 1;
             user.stars = (user.stars || 0) + 1;
+            user.monthlyStars = (user.monthlyStars || 0) + 1;
             rewardGiven = true;
         }
         
@@ -3204,6 +3225,201 @@ app.post('/api/admin/ban-user', isAdmin, async (req, res) => {
     } catch (err) {
         console.error('Erro ao banir usuário:', err);
         return res.status(500).json({ success: false, message: 'Erro ao banir usuário.' });
+    }
+});
+
+// Helper para processar a premiação mensal e reiniciar o ciclo
+async function processMonthlyRewards(forceManual = false) {
+    const { loadEvents, saveEvents } = require('./r2db');
+    let eventsData = await loadEvents();
+    if (!eventsData) {
+        eventsData = { currentSeason: 'aventura_magica', currentWeek: 0, weeks: [] };
+    }
+    if (!eventsData.monthlyRewardConfig) {
+        eventsData.monthlyRewardConfig = {
+            autoEnabled: false,
+            lastExecutedMonth: "",
+            lastExecutedDate: "",
+            nextExecutionDate: ""
+        };
+    }
+
+    const now = new Date();
+    // Identificar o mês a ser premiado (o mês anterior ao atual)
+    const prevDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const targetMonth = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}`; // Ex: "2026-05"
+
+    // Evitar execução duplicada para o mesmo mês
+    if (eventsData.monthlyRewardConfig.lastExecutedMonth === targetMonth && !forceManual) {
+        console.log(`[Monthly Rewards] Mês ${targetMonth} já foi premiado anteriormente. Pulando.`);
+        return { success: false, message: `Mês ${targetMonth} já foi premiado anteriormente.` };
+    }
+
+    console.log(`[Monthly Rewards] Iniciando processamento de premiação para o mês: ${targetMonth}`);
+    const users = await loadUsers();
+    
+    // Filtrar e ordenar usuários aptos para o ranking (com monthlyStars > 0 e não banidos)
+    const candidates = users
+        .filter(u => !u.isBanned && (u.monthlyStars || 0) > 0)
+        .sort((a, b) => (b.monthlyStars || 0) - (a.monthlyStars || 0));
+
+    console.log(`[Monthly Rewards] Encontrados ${candidates.length} usuários aptos para o ranking.`);
+
+    const payouts = [];
+    // Distribuir os prêmios para os 5 primeiros colocados
+    // 1º lugar: 20 créditos
+    // 2º lugar: 15 créditos
+    // 3º lugar: 10 créditos
+    // 4º e 5º lugar: 5 créditos cada
+    const rewards = [20, 15, 10, 5, 5];
+
+    for (let i = 0; i < Math.min(candidates.length, 5); i++) {
+        const u = candidates[i];
+        const creditAward = rewards[i];
+        
+        u.paginasRestantes = (u.paginasRestantes || 0) + creditAward;
+        u.lastMonthlyRewardClaimed = targetMonth;
+        
+        payouts.push({
+            position: i + 1,
+            name: u.name,
+            email: u.email,
+            monthlyStars: u.monthlyStars,
+            creditsAwarded: creditAward
+        });
+        
+        console.log(`[Monthly Rewards] Premiado ${u.email} (Posição ${i+1}) com +${creditAward} créditos.`);
+    }
+
+    // Zerar monthlyStars de todos os usuários
+    users.forEach(u => {
+        u.monthlyStars = 0;
+    });
+
+    await saveUsers(users);
+
+    // Salvar estado da premiação em events.json
+    eventsData.monthlyRewardConfig.lastExecutedMonth = targetMonth;
+    eventsData.monthlyRewardConfig.lastExecutedDate = now.toISOString();
+    // Calcular a próxima data de execução (primeiro dia do próximo mês)
+    const nextExec = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    eventsData.monthlyRewardConfig.nextExecutionDate = nextExec.toISOString();
+
+    await saveEvents(eventsData);
+    console.log(`[Monthly Rewards] Concluído processamento de premiação para o mês: ${targetMonth}`);
+
+    return {
+        success: true,
+        message: `Premiação do mês ${targetMonth} processada com sucesso!`,
+        targetMonth,
+        payouts
+    };
+}
+
+// Endpoint público para listar o Top Exploradores do Mês
+app.get('/api/paintings/top-explorers', async (req, res) => {
+    try {
+        const users = await loadUsers();
+        // Filtrar usuários não banidos e com monthlyStars > 0
+        const ranked = users
+            .filter(u => !u.isBanned && (u.monthlyStars || 0) > 0)
+            .sort((a, b) => (b.monthlyStars || 0) - (a.monthlyStars || 0))
+            .slice(0, 20)
+            .map(u => ({
+                name: u.name || 'Artista',
+                email: u.email,
+                avatar: u.avatar || '👤',
+                plan: u.plan || 'Aprendiz',
+                monthlyStars: u.monthlyStars || 0
+            }));
+            
+        return res.json({ success: true, explorers: ranked });
+    } catch (err) {
+        console.error('Erro ao buscar ranking de exploradores:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao buscar ranking de exploradores.' });
+    }
+});
+
+// Endpoint de Admin para buscar configurações da premiação mensal
+app.get('/api/admin/monthly-rewards/config', isAdmin, async (req, res) => {
+    try {
+        const { loadEvents } = require('./r2db');
+        let eventsData = await loadEvents();
+        if (!eventsData) {
+            eventsData = { currentSeason: 'aventura_magica', currentWeek: 0, weeks: [] };
+        }
+        if (!eventsData.monthlyRewardConfig) {
+            eventsData.monthlyRewardConfig = {
+                autoEnabled: false,
+                lastExecutedMonth: "",
+                lastExecutedDate: "",
+                nextExecutionDate: ""
+            };
+        }
+        
+        const users = await loadUsers();
+        const candidates = users
+            .filter(u => !u.isBanned && (u.monthlyStars || 0) > 0)
+            .sort((a, b) => (b.monthlyStars || 0) - (a.monthlyStars || 0))
+            .slice(0, 20)
+            .map(u => ({
+                name: u.name || 'Artista',
+                email: u.email,
+                monthlyStars: u.monthlyStars || 0
+            }));
+            
+        return res.json({
+            success: true,
+            config: eventsData.monthlyRewardConfig,
+            candidates
+        });
+    } catch (err) {
+        console.error('Erro ao carregar config de premiação:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno.' });
+    }
+});
+
+// Endpoint de Admin para alternar o modo automático
+app.post('/api/admin/monthly-rewards/toggle', isAdmin, async (req, res) => {
+    try {
+        const { autoEnabled } = req.body;
+        if (autoEnabled === undefined) {
+            return res.status(400).json({ success: false, message: 'Parâmetro autoEnabled é obrigatório.' });
+        }
+        
+        const { loadEvents, saveEvents } = require('./r2db');
+        let eventsData = await loadEvents();
+        if (!eventsData) {
+            eventsData = { currentSeason: 'aventura_magica', currentWeek: 0, weeks: [] };
+        }
+        if (!eventsData.monthlyRewardConfig) {
+            eventsData.monthlyRewardConfig = {
+                autoEnabled: false,
+                lastExecutedMonth: "",
+                lastExecutedDate: "",
+                nextExecutionDate: ""
+            };
+        }
+        
+        eventsData.monthlyRewardConfig.autoEnabled = !!autoEnabled;
+        await saveEvents(eventsData);
+        
+        console.log(`[Admin Moderation] Premiação mensal automática alterada para: ${eventsData.monthlyRewardConfig.autoEnabled}`);
+        return res.json({ success: true, message: `Premiação mensal automática alterada com sucesso!`, config: eventsData.monthlyRewardConfig });
+    } catch (err) {
+        console.error('Erro ao alternar modo automático:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno.' });
+    }
+});
+
+// Endpoint de Admin para disparar a premiação manual do mês anterior
+app.post('/api/admin/monthly-rewards/payout', isAdmin, async (req, res) => {
+    try {
+        const result = await processMonthlyRewards(true);
+        return res.json(result);
+    } catch (err) {
+        console.error('Erro ao processar premiação manual:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao processar premiação.' });
     }
 });
 
@@ -4389,6 +4605,7 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
     
     if (mission.reward.type === 'stars') {
         user.stars = (user.stars || 0) + mission.reward.value;
+        user.monthlyStars = (user.monthlyStars || 0) + mission.reward.value;
     } else if (mission.reward.type === 'badge') {
         user.unlockedAchievements = user.unlockedAchievements || [];
         if (!user.unlockedAchievements.includes(mission.reward.value)) {
@@ -4589,6 +4806,7 @@ function checkCardCollectionCompletions(user, catalog) {
             if (!alreadyHasMythic) {
                 user.cards.push(mythicCard);
                 user.stars = (user.stars || 0) + 50;
+                user.monthlyStars = (user.monthlyStars || 0) + 50;
                 
                 const cleanName = colName.toLowerCase()
                     .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // remove acentos

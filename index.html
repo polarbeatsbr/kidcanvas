@@ -1973,6 +1973,16 @@
                             </div>
                         </div>
 
+                        <!-- Top Exploradores do Mês -->
+                        <div class="ranking-panel-card" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 18px; box-shadow: var(--shadow-cartoon);">
+                            <h3 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 1.25rem; margin-top: 0; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; border-bottom: 2px dashed #f0f0f0; padding-bottom: 8px;">
+                                <i class="fa-solid fa-trophy" style="color: var(--color-yellow);"></i> Top Exploradores
+                            </h3>
+                            <div id="ranking-explorers-list" style="display: flex; flex-direction: column; gap: 12px;">
+                                <!-- Preenchido via JS -->
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -2291,6 +2301,11 @@
                                 <!-- Preenchido dinamicamente via JS (ex: ⭐ NÍVEL 2) -->
                             </div>
 
+                            <!-- Estrelas Totais -->
+                            <div id="profile-total-stars" style="margin-top: -4px; margin-bottom: 8px; font-family: var(--font-heading); font-size: 1.05rem; color: var(--color-orange); font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                ⭐ Estrelas Totais: <span id="profile-total-stars-val">0</span>
+                            </div>
+
                             <!-- Nome de exibição editável -->
                             <div class="profile-username-editor" style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 5px;">
                                 <h2 id="profile-display-name" style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--color-purple); margin: 0;">Nome</h2>
@@ -2358,7 +2373,7 @@
                                 <!-- Estrelas acumuladas -->
                                 <div class="stat-box" style="background: #fffdf5; border: var(--border-thin); border-radius: var(--radius-sm); padding: 12px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;">
                                     <span style="font-size: 1.8rem; color: #ffd700; animation: float-slow 3.5s infinite;">⭐</span>
-                                    <span style="font-size: 0.75rem; font-weight: bold; color: var(--color-dark-light); text-transform: uppercase;">Estrelas</span>
+                                    <span style="font-size: 0.75rem; font-weight: bold; color: var(--color-dark-light); text-transform: uppercase;">Estrelas Totais</span>
                                     <span id="stat-stars-count" style="font-size: 1.4rem; font-weight: 800; color: var(--color-purple);">0</span>
                                 </div>
                                 <!-- Selos conquistados -->
@@ -3357,6 +3372,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/app.js?v=1781868960000"></script>
+<script src="/app.js?v=1781868961000"></script>
 </body>
 </html>

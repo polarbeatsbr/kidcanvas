@@ -7122,6 +7122,58 @@ function renderRankingList(paintings, elementId) {
 }
 window.renderRankingList = renderRankingList;
 
+async function loadTopExplorers() {
+    const listEl = document.getElementById('ranking-explorers-list');
+    if (!listEl) return;
+    
+    listEl.innerHTML = '<div style="text-align: center; font-size: 0.8rem; color: #777; padding: 10px;"><i class="fa-solid fa-spinner fa-spin"></i> Carregando ranking...</div>';
+    
+    try {
+        const res = await fetch('/api/paintings/top-explorers');
+        const data = await res.json();
+        
+        if (data.success && data.explorers) {
+            listEl.innerHTML = '';
+            const explorers = data.explorers;
+            
+            if (explorers.length === 0) {
+                listEl.innerHTML = '<div style="text-align: center; font-size: 0.8rem; color: #999; padding: 10px;">Nenhum explorador ranqueado ainda.</div>';
+                return;
+            }
+            
+            explorers.forEach((user, idx) => {
+                const itemEl = document.createElement('div');
+                itemEl.style.display = 'flex';
+                itemEl.style.alignItems = 'center';
+                itemEl.style.gap = '8px';
+                itemEl.style.padding = '4px 0';
+                
+                let medal = '';
+                if (idx === 0) medal = '🥇 ';
+                else if (idx === 1) medal = '🥈 ';
+                else if (idx === 2) medal = '🥉 ';
+                else medal = `<span style="font-weight: 800; font-size: 0.85rem; color: var(--color-dark-light); width: 18px; display: inline-block;">${idx + 1}.</span> `;
+                
+                const avatarHtml = window.getAvatarHtml(user.avatar, '18px');
+                
+                itemEl.innerHTML = `
+                    ${medal}
+                    ${avatarHtml}
+                    <span style="font-weight: 700; font-size: 0.85rem; color: var(--color-purple); text-decoration: underline; cursor: pointer;" onclick="openPublicProfile('${user.name.replace(/'/g, "\\'")}', '${user.email.replace(/'/g, "\\'")}')">${user.name}</span>
+                    <span style="margin-left: auto; font-size: 0.85rem; font-weight: 800; color: var(--color-orange);">⭐ ${user.monthlyStars}</span>
+                `;
+                listEl.appendChild(itemEl);
+            });
+        } else {
+            listEl.innerHTML = '<div style="text-align: center; font-size: 0.8rem; color: red; padding: 10px;">Erro ao carregar exploradores.</div>';
+        }
+    } catch (err) {
+        console.error('Erro ao carregar top exploradores:', err);
+        listEl.innerHTML = '<div style="text-align: center; font-size: 0.8rem; color: red; padding: 10px;">Erro de conexão.</div>';
+    }
+}
+window.loadTopExplorers = loadTopExplorers;
+
 async function loadPendingPaintingsAdmin() {
     const pendingGrid = document.getElementById('admin-pending-grid');
     const pendingCount = document.getElementById('admin-pending-count');
@@ -7459,6 +7511,7 @@ async function renderHallDaFamaView() {
             const monthPaintings = allPaintings.filter(p => p.date >= oneMonthAgo);
             monthPaintings.sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
             renderRankingList(monthPaintings.slice(0, 5), 'ranking-month-list');
+            loadTopExplorers();
         } else {
             grid.innerHTML = '';
             if (emptyState) emptyState.style.display = 'block';
@@ -12929,6 +12982,12 @@ window.renderPerfilView = function() {
         const userCards = currentUser.cards || [];
         const level = Math.floor(userCards.length / 10) + 1;
         levelBlock.innerHTML = `⭐ NÍVEL ${level}`;
+    }
+
+    // Estrelas Totais do Jogador
+    const totalStarsVal = document.getElementById('profile-total-stars-val');
+    if (totalStarsVal) {
+        totalStarsVal.textContent = currentUser.stars || 0;
     }
     
     // Status do Card Equipado

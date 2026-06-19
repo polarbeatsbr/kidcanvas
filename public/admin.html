@@ -32,6 +32,45 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* --- SWITCH TOGGLE --- */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #374151;
+            transition: .3s;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background-color: #f3f4f6;
+            transition: .3s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -1424,6 +1463,46 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Painel de Premiação Mensal -->
+            <div class="panel" style="margin-top: 25px;">
+                <div class="panel-header" style="border-bottom: 2px dashed rgba(255,255,255,0.05); padding-bottom: 12px; margin-bottom: 15px;">
+                    <h3 class="panel-title"><i class="fa-solid fa-gift" style="color: var(--primary);"></i> Configuração da Premiação Mensal</h3>
+                </div>
+                <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:20px; line-height:1.4;">
+                    Gerencie a distribuição automática ou manual de créditos para os Top 5 Exploradores do Mês (1º: 20 cr, 2º: 15 cr, 3º: 10 cr, 4º e 5º: 5 cr). O sistema nunca premia duas vezes no mesmo mês.
+                </p>
+                <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+                    <!-- Config Status & Toggle -->
+                    <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid var(--border-card); display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <strong style="color: var(--text-main); font-size: 0.95rem;">Automação Mensal:</strong>
+                            <label class="switch">
+                                <input type="checkbox" id="admin-monthly-rewards-toggle" onchange="toggleMonthlyRewardsAuto(this.checked)">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div>
+                            <span id="admin-monthly-rewards-status-badge" class="badge" style="font-size: 0.8rem; padding: 4px 8px; border-radius: 6px;">Carregando status...</span>
+                        </div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 6px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
+                            <div>📅 Última premiação executada: <strong id="admin-monthly-rewards-last-exec" style="color: var(--text-main);">-</strong></div>
+                            <div>🔄 Próxima premiação: <strong id="admin-monthly-rewards-next-exec" style="color: var(--text-main);">-</strong></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Manual Trigger -->
+                    <div style="flex: 1.2; min-width: 300px; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px; border: 1px solid var(--border-card); display: flex; flex-direction: column; gap: 15px; min-height: 140px; justify-content: center;">
+                        <h4 style="margin: 0; color: var(--text-main); font-size: 1rem;"><i class="fa-solid fa-gears"></i> Processamento Manual</h4>
+                        <p style="margin: 0; color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">
+                            Use o botão abaixo para rodar a premiação do mês anterior agora. O sistema verificará as pontuações e depositará os prêmios imediatamente.
+                        </p>
+                        <button id="admin-monthly-rewards-btn" class="btn" onclick="triggerMonthlyRewardsPayout()" style="background-color: var(--primary); border: 1px solid var(--primary); color: white; padding: 10px 20px; font-weight: bold; width: 100%; border-radius: 6px; cursor: pointer; transition: var(--transition);">
+                            Finalizar e Premiar Mês
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ========================================== -->
@@ -2150,6 +2229,7 @@
                     });
                 }
             }
+            loadMonthlyRewardsConfig();
         }
 
         // --- POPULATE BUGS TAB ---
@@ -2693,6 +2773,111 @@
                 alert('Erro ao limpar curadoria no servidor.');
             }
         }
+
+        // --- PREMIAÇÃO MENSAL ADMIN CONTROLS ---
+        async function loadMonthlyRewardsConfig() {
+            try {
+                const res = await fetch('/api/admin/monthly-rewards/config', {
+                    headers: { 'X-Session-Token': adminToken }
+                });
+                const data = await res.json();
+                if (data.success && data.config) {
+                    const cfg = data.config;
+                    const toggleInput = document.getElementById('admin-monthly-rewards-toggle');
+                    if (toggleInput) {
+                        toggleInput.checked = !!cfg.autoEnabled;
+                    }
+                    
+                    const badge = document.getElementById('admin-monthly-rewards-status-badge');
+                    if (badge) {
+                        if (cfg.autoEnabled) {
+                            badge.textContent = '🟢 Automático Ativado';
+                            badge.style.backgroundColor = 'rgba(16, 185, 129, 0.15)';
+                            badge.style.color = '#10b981';
+                        } else {
+                            badge.textContent = '🟡 Processamento Manual';
+                            badge.style.backgroundColor = 'rgba(245, 158, 11, 0.15)';
+                            badge.style.color = '#f59e0b';
+                        }
+                    }
+                    
+                    const format = (dateStr) => {
+                        if (!dateStr) return 'Nunca';
+                        const d = new Date(dateStr);
+                        return d.toLocaleDateString('pt-BR') + ' ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+                    };
+                    
+                    document.getElementById('admin-monthly-rewards-last-exec').textContent = cfg.lastExecutedMonth ? `${cfg.lastExecutedMonth} (${format(cfg.lastExecutedDate)})` : 'Nunca';
+                    document.getElementById('admin-monthly-rewards-next-exec').textContent = format(cfg.nextExecutionDate);
+                }
+            } catch (err) {
+                console.error('Erro ao carregar config de premiação:', err);
+            }
+        }
+        window.loadMonthlyRewardsConfig = loadMonthlyRewardsConfig;
+
+        async function toggleMonthlyRewardsAuto(checked) {
+            try {
+                const res = await fetch('/api/admin/monthly-rewards/toggle', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-Session-Token': adminToken
+                    },
+                    body: JSON.stringify({ autoEnabled: checked })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadMonthlyRewardsConfig();
+                } else {
+                    alert('Erro ao alterar automação: ' + data.message);
+                }
+            } catch (err) {
+                console.error('Erro ao alterar automação:', err);
+                alert('Erro de conexão ao alterar configuração.');
+            }
+        }
+        window.toggleMonthlyRewardsAuto = toggleMonthlyRewardsAuto;
+
+        async function triggerMonthlyRewardsPayout() {
+            const confirmed = confirm('Deseja realmente processar a premiação manual do mês anterior agora? Isso depositará os créditos na conta dos vencedores e reiniciará o contador de todos os usuários.');
+            if (!confirmed) return;
+            
+            const btn = document.getElementById('admin-monthly-rewards-btn');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processando...';
+            
+            try {
+                const res = await fetch('/api/admin/monthly-rewards/payout', {
+                    method: 'POST',
+                    headers: { 'X-Session-Token': adminToken }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    let alertMsg = 'Premiação concluída com sucesso! 🎉\n\nResultados:\n';
+                    if (data.payouts && data.payouts.length > 0) {
+                        data.payouts.forEach(p => {
+                            alertMsg += `${p.position}º: ${p.name} (${p.email}) - ⭐ ${p.monthlyStars} - Ganhou +${p.creditsAwarded} créditos\n`;
+                        });
+                    } else {
+                        alertMsg += 'Nenhum usuário qualificado para premiação (todos com 0 estrelas no mês).\n';
+                    }
+                    alert(alertMsg);
+                    loadMonthlyRewardsConfig();
+                    loadDashboardData(); // Recarregar usuários e créditos
+                } else {
+                    alert('Erro ao processar premiação: ' + data.message);
+                }
+            } catch (err) {
+                console.error('Erro ao processar premiação:', err);
+                alert('Erro de conexão ao processar premiação.');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+        window.triggerMonthlyRewardsPayout = triggerMonthlyRewardsPayout;
     </script>
 </body>
 </html>
