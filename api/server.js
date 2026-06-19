@@ -829,7 +829,14 @@ app.post('/api/generate', async (req, res) => {
 
         console.log(`[Proxy] Tentando gerar imagem com Ideogram V4 Turbo...`);
         try {
-            const ideogramKey = process.env.IDEOGRAM_API_KEY || "dgMl5GIuY_0LI37ryASxbxkTJQs7w70u8kwN9-UhBkshgHvZh3IHmBzelDoeI9mMvSplNovDD87w5YH1DG08Mg";
+            const ideogramKey = process.env.IDEOGRAM_API_KEY;
+            if (!ideogramKey) {
+                console.error("ERRO: IDEOGRAM_API_KEY não configurada nas variáveis de ambiente!");
+                return res.status(500).json({
+                    success: false,
+                    message: "Erro de configuração no servidor: a chave IDEOGRAM_API_KEY está ausente nas variáveis de ambiente."
+                });
+            }
             const response = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
                 method: 'POST',
                 headers: {
@@ -1369,7 +1376,14 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
 
         // 3. Chamar a API de geração de imagens correspondente em paralelo
         console.log(`[Full Story V4] Iniciando geração concorrente de ${numPages + 1} imagens via ${engine.toUpperCase()}...`);
-        const ideogramKey = process.env.IDEOGRAM_API_KEY || "dgMl5GIuY_0LI37ryASxbxkTJQs7w70u8kwN9-UhBkshgHvZh3IHmBzelDoeI9mMvSplNovDD87w5YH1DG08Mg";
+        const ideogramKey = process.env.IDEOGRAM_API_KEY;
+        if (!ideogramKey && engine === 'ideogram') {
+            console.error("ERRO: IDEOGRAM_API_KEY não configurada nas variáveis de ambiente!");
+            return res.status(500).json({
+                success: false,
+                message: "Erro de configuração no servidor: a chave IDEOGRAM_API_KEY está ausente nas variáveis de ambiente."
+            });
+        }
 
         // Preparar lista de prompts: Capa em primeiro lugar, depois as N páginas
         const watermarkDescription = "A large, prominent, and highly visible watermark text 'www.kidcanvas.com.br' in a clean, bold, dark gray font is written at the bottom right corner of the image.";
@@ -1415,7 +1429,11 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
                     // Fallback para Fal.ai se Hugging Face falhar ou token não estiver configurado
                     if (!hfSuccess) {
                         console.log(`[Full Story V4] Tentando fallback para Fal.ai Flux Schnell para imagem ${i + 1}...`);
-                        const falKey = process.env.FAL_KEY || "c143ca28-99d8-4bd2-8d56-82870b0d28cd:e0e10d34e1477969e0f15660c3093a0e";
+                        const falKey = process.env.FAL_KEY;
+                        if (!falKey) {
+                            console.error("ERRO: FAL_KEY não configurada nas variáveis de ambiente!");
+                            throw new Error("Chave FAL_KEY ausente nas variáveis de ambiente. Não é possível usar o fallback para Fal.ai.");
+                        }
                         const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
                             method: "POST",
                             headers: {
@@ -2421,29 +2439,64 @@ app.post('/api/user/save-painting', async (req, res) => {
         const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
 
         const newlyUnlockedAI = [];
-        const pendingChallenges = catalog.filter(c => {
-            const hasCard = user.cards.some(uc => uc.id === c.id);
-            return !hasCard && c.unlockCondition && c.unlockCondition.type === 'drawing_challenge';
-        });
+        let activeChallengeFailed = false;
+        let activeChallengeSuccess = false;
 
-        if (pendingChallenges.length > 0 && imageBase64) {
-            console.log(`[AI Drawing] Verificando ${pendingChallenges.length} desafios pendentes...`);
-            const mockResponse = req.hostname === 'localhost' ? req.headers['x-mock-claude-response'] : null;
-            const aiResponse = await checkDrawingWithClaudeVision(imageBase64, mockResponse);
-            if (aiResponse) {
-                console.log(`[AI Drawing] Resposta da Claude: "${aiResponse}"`);
-                pendingChallenges.forEach(card => {
-                    const synonyms = card.unlockCondition.synonyms || [card.unlockCondition.subject];
-                    const isMatch = matchSubject(aiResponse, synonyms);
-                    console.log(`[AI Drawing Debug] Card: "${card.name}" | Tema esperado: "${card.unlockCondition.subject}" | Resposta da Claude: "${aiResponse}" | Resultado da comparação: ${isMatch ? 'MATCH' : 'NO MATCH'} | Desbloqueou: ${isMatch ? 'SIM' : 'NÃO'}`);
-                    if (isMatch) {
-                        console.log(`[AI Drawing] MATCH! Desbloqueando card "${card.name}" (ID: ${card.id})`);
-                        if (!user.cards.some(uc => uc.id === card.id)) {
-                            user.cards.push(card);
-                            newlyUnlockedAI.push(card);
+        if (req.body.activeChallengeId && imageBase64) {
+            const activeCard = catalog.find(c => c.id === req.body.activeChallengeId);
+            if (activeCard) {
+                const hasCard = user.cards.some(uc => uc.id === activeCard.id);
+                if (hasCard) {
+                    activeChallengeSuccess = true;
+                } else {
+                    console.log(`[AI Drawing] Verificando desafio específico ativo: ${activeCard.name} (${activeCard.id})...`);
+                    const mockResponse = req.hostname === 'localhost' ? (req.headers['x-mock-claude-response'] || req.headers['x-mock-ai-response']) : null;
+                    const aiResponse = await checkDrawingWithClaudeVision(imageBase64, mockResponse);
+                    if (aiResponse) {
+                        console.log(`[AI Drawing] Resposta da Claude para desafio ativo: "${aiResponse}"`);
+                        const synonyms = activeCard.unlockCondition.synonyms || [activeCard.unlockCondition.subject];
+                        const isMatch = matchSubject(aiResponse, synonyms);
+                        console.log(`[AI Drawing Debug] Card: "${activeCard.name}" | Tema esperado: "${activeCard.unlockCondition.subject}" | Resposta da Claude: "${aiResponse}" | Resultado da comparação: ${isMatch ? 'MATCH' : 'NO MATCH'}`);
+                        if (isMatch) {
+                            console.log(`[AI Drawing] MATCH! Desbloqueando card "${activeCard.name}" (ID: ${activeCard.id})`);
+                            if (!user.cards.some(uc => uc.id === activeCard.id)) {
+                                user.cards.push(activeCard);
+                                newlyUnlockedAI.push(activeCard);
+                            }
+                            activeChallengeSuccess = true;
+                        } else {
+                            activeChallengeFailed = true;
                         }
+                    } else {
+                        activeChallengeFailed = true;
                     }
-                });
+                }
+            }
+        } else if (imageBase64) {
+            const pendingChallenges = catalog.filter(c => {
+                const hasCard = user.cards.some(uc => uc.id === c.id);
+                return !hasCard && c.unlockCondition && c.unlockCondition.type === 'drawing_challenge';
+            });
+
+            if (pendingChallenges.length > 0) {
+                console.log(`[AI Drawing] Verificando ${pendingChallenges.length} desafios pendentes...`);
+                const mockResponse = req.hostname === 'localhost' ? (req.headers['x-mock-claude-response'] || req.headers['x-mock-ai-response']) : null;
+                const aiResponse = await checkDrawingWithClaudeVision(imageBase64, mockResponse);
+                if (aiResponse) {
+                    console.log(`[AI Drawing] Resposta da Claude: "${aiResponse}"`);
+                    pendingChallenges.forEach(card => {
+                        const synonyms = card.unlockCondition.synonyms || [card.unlockCondition.subject];
+                        const isMatch = matchSubject(aiResponse, synonyms);
+                        console.log(`[AI Drawing Debug] Card: "${card.name}" | Tema esperado: "${card.unlockCondition.subject}" | Resposta da Claude: "${aiResponse}" | Resultado da comparação: ${isMatch ? 'MATCH' : 'NO MATCH'} | Desbloqueou: ${isMatch ? 'SIM' : 'NÃO'}`);
+                        if (isMatch) {
+                            console.log(`[AI Drawing] MATCH! Desbloqueando card "${card.name}" (ID: ${card.id})`);
+                            if (!user.cards.some(uc => uc.id === card.id)) {
+                                user.cards.push(card);
+                                newlyUnlockedAI.push(card);
+                            }
+                        }
+                    });
+                }
             }
         }
 
@@ -2494,7 +2547,9 @@ app.post('/api/user/save-painting', async (req, res) => {
             completionRewards: completionRewards,
             newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null),
             stars: user.stars,
-            newlyUnlockedCertificates: newlyUnlockedCerts
+            newlyUnlockedCertificates: newlyUnlockedCerts,
+            activeChallengeSuccess: activeChallengeSuccess,
+            activeChallengeFailed: activeChallengeFailed
         });
     } catch(err) {
         console.error('Erro ao salvar pintura:', err);
@@ -3904,7 +3959,11 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                 // Fallback para Fal.ai se Hugging Face falhar
                 if (!hfSuccess) {
                     console.log(`[Custom Drawing] Tentando fallback para Fal.ai Flux Schnell...`);
-                    const falKey = process.env.FAL_KEY || "c143ca28-99d8-4bd2-8d56-82870b0d28cd:e0e10d34e1477969e0f15660c3093a0e";
+                    const falKey = process.env.FAL_KEY;
+                    if (!falKey) {
+                        console.error("ERRO: FAL_KEY não configurada nas variáveis de ambiente!");
+                        throw new Error("Chave FAL_KEY ausente nas variáveis de ambiente. Não é possível usar o fallback para Fal.ai.");
+                    }
                     const falRes = await fetch("https://fal.run/fal-ai/flux/schnell", {
                         method: 'POST',
                         headers: {
@@ -3945,7 +4004,11 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                 }
             } else {
                 console.log(`[Custom Drawing] Gerando imagem com Ideogram V4 Turbo...`);
-                const ideogramKey = process.env.IDEOGRAM_API_KEY || "dgMl5GIuY_0LI37ryASxbxkTJQs7w70u8kwN9-UhBkshgHvZh3IHmBzelDoeI9mMvSplNovDD87w5YH1DG08Mg";
+                const ideogramKey = process.env.IDEOGRAM_API_KEY;
+                if (!ideogramKey) {
+                    console.error("ERRO: IDEOGRAM_API_KEY não configurada nas variáveis de ambiente!");
+                    throw new Error("Chave IDEOGRAM_API_KEY ausente nas variáveis de ambiente. Não é possível gerar imagem via Ideogram.");
+                }
                 const response = await fetch("https://api.ideogram.ai/v1/ideogram-v4/generate", {
                     method: 'POST',
                     headers: {

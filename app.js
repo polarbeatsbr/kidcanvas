@@ -3,6 +3,17 @@
    Roteador SPA, Galeria 100% Grátis, Busca Global, Auto-Sugestões e Downloads
    ========================================================================== */
 
+function escapeHTML(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+window.escapeHTML = escapeHTML;
+
 // --- BASE DE DADOS DAS CATEGORIAS (12 ITENS) ---
 const CATEGORIES_DATA = {
     'novidades': { name: 'Novidades', emoji: '✨', desc: 'Confira os novos desenhos para colorir e imprimir grátis no KidCanvas! Desenhos fresquinhos adicionados nos últimos 30 dias para pintar e se divertir.' },
@@ -791,6 +802,16 @@ window.addEventListener('DOMContentLoaded', async () => {
         showToast('O checkout foi cancelado. Você pode tentar novamente a qualquer momento.', 'info');
         const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
         window.history.replaceState({}, document.title, cleanUrl);
+    }
+    
+    // Inicializar desafio ativo a partir do sessionStorage se existir
+    try {
+        const savedChallenge = sessionStorage.getItem('kidcanvas_active_challenge');
+        if (savedChallenge) {
+            window.activeDrawingChallenge = JSON.parse(savedChallenge);
+        }
+    } catch (err) {
+        console.error('Erro ao ler kidcanvas_active_challenge:', err);
     }
 
     // Carregar catálogo de cards na inicialização
@@ -7261,6 +7282,22 @@ function renderPintarOnlineView() {
 
     // Check for auto-save recovery prompt
     checkAndRestoreAutosave();
+
+    // Configurar barra de desafio de desenho se ativo
+    const challengeBar = document.getElementById('paint-challenge-bar');
+    const challengeText = document.getElementById('paint-challenge-text');
+    if (window.activeDrawingChallenge) {
+        if (challengeText) {
+            challengeText.textContent = `Desafio ativo: desenhe um ${window.activeDrawingChallenge.subject} para desbloquear ${window.activeDrawingChallenge.name}.`;
+        }
+        if (challengeBar) {
+            challengeBar.style.display = 'flex';
+        }
+    } else {
+        if (challengeBar) {
+            challengeBar.style.display = 'none';
+        }
+    }
 }
 
 // Atalhos do teclado para Desfazer/Refazer
@@ -8844,12 +8881,16 @@ function renderRankingList(paintings, elementId) {
         itemEl.onclick = () => {
             window.open(p.url, '_blank');
         };
+        const creatorEscaped = escapeHTML(p.creatorName || p.userName || 'Artista');
+        const emailEscaped = escapeHTML(p.userEmail || '');
+        const promptEscaped = escapeHTML(p.prompt || '');
+
         itemEl.innerHTML = `
             <span class="ranking-position">${medal}</span>
-            <img class="ranking-thumb" src="${p.url}" alt="${p.prompt}">
+            <img class="ranking-thumb" src="${p.url}" alt="${promptEscaped}">
             <div class="ranking-info">
-                <h4 class="ranking-title">${p.prompt}</h4>
-                <p class="ranking-creator">Por: <strong style="color: var(--color-purple); text-decoration: underline;" onclick="event.stopPropagation(); openPublicProfile('${(p.creatorName || p.userName || 'Artista').replace(/'/g, "\\'")}', '${(p.userEmail || '').replace(/'/g, "\\'")}')">${p.creatorName || p.userName || 'Artista'}</strong></p>
+                <h4 class="ranking-title">${promptEscaped}</h4>
+                <p class="ranking-creator">Por: <strong style="color: var(--color-purple); text-decoration: underline;" onclick="event.stopPropagation(); openPublicProfile('${creatorEscaped.replace(/'/g, "\\'")}', '${emailEscaped.replace(/'/g, "\\'")}')">${creatorEscaped}</strong></p>
             </div>
             <span class="ranking-stars">⭐ ${p.stars || 0}</span>
         `;
@@ -8892,10 +8933,13 @@ async function loadTopExplorers() {
                 
                 const avatarHtml = window.getAvatarHtml(user.avatar, '18px');
                 
+                const nameEscaped = escapeHTML(user.name);
+                const emailEscaped = escapeHTML(user.email);
+
                 itemEl.innerHTML = `
                     ${medal}
                     ${avatarHtml}
-                    <span style="font-weight: 700; font-size: 0.85rem; color: var(--color-purple); text-decoration: underline; cursor: pointer;" onclick="openPublicProfile('${user.name.replace(/'/g, "\\'")}', '${user.email.replace(/'/g, "\\'")}')">${user.name}</span>
+                    <span style="font-weight: 700; font-size: 0.85rem; color: var(--color-purple); text-decoration: underline; cursor: pointer;" onclick="openPublicProfile('${nameEscaped.replace(/'/g, "\\'")}', '${emailEscaped.replace(/'/g, "\\'")}')">${nameEscaped}</span>
                     <span style="margin-left: auto; font-size: 0.85rem; font-weight: 800; color: var(--color-orange);">⭐ ${user.monthlyStars}</span>
                 `;
                 listEl.appendChild(itemEl);
@@ -8939,23 +8983,29 @@ async function loadPendingPaintingsAdmin() {
                 card.style.flexDirection = 'column';
                 card.style.gap = '6px';
                 
+                const promptEscaped = escapeHTML(dw.prompt);
+                const creatorEscaped = escapeHTML(dw.creatorName || dw.userName || 'Artista');
+                const emailEscaped = escapeHTML(dw.userEmail || 'Desconhecido');
+                const categoryEscaped = escapeHTML(dw.category || 'Colorir');
+                const urlEscaped = escapeHTML(dw.url);
+
                 card.innerHTML = `
                     <div style="aspect-ratio: 4/3; background: #fafafa; border-radius: 4px; overflow: hidden;">
-                        <img src="${dw.url}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
+                        <img src="${urlEscaped}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${urlEscaped.replace(/'/g, "\\'")}', '_blank')">
                     </div>
                     <div style="font-size: 0.8rem; line-height: 1.3;">
-                        <strong>Título:</strong> ${dw.prompt}<br>
-                        <strong>Criador:</strong> ${dw.creatorName || dw.userName || 'Artista'}<br>
-                        <strong>Email:</strong> ${dw.userEmail || 'Desconhecido'}<br>
-                        <strong>Categoria:</strong> ${dw.category || 'Colorir'}
+                        <strong>Título:</strong> ${promptEscaped}<br>
+                        <strong>Criador:</strong> ${creatorEscaped}<br>
+                        <strong>Email:</strong> ${emailEscaped}<br>
+                        <strong>Categoria:</strong> ${categoryEscaped}
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: auto;">
-                        <button class="btn btn-sm btn-success" onclick="approvePublicPainting('${dw.url}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #2ecc71; border-color: #2ecc71; color: white; cursor: pointer; border-radius: 4px;">Aprovar ✅</button>
-                        <button class="btn btn-sm btn-danger" onclick="deletePublicPainting('${dw.url}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #e74c3c; border-color: #e74c3c; color: white; cursor: pointer; border-radius: 4px;">Deletar ❌</button>
+                        <button class="btn btn-sm btn-success" onclick="approvePublicPainting('${urlEscaped.replace(/'/g, "\\'")}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #2ecc71; border-color: #2ecc71; color: white; cursor: pointer; border-radius: 4px;">Aprovar ✅</button>
+                        <button class="btn btn-sm btn-danger" onclick="deletePublicPainting('${urlEscaped.replace(/'/g, "\\'")}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #e74c3c; border-color: #e74c3c; color: white; cursor: pointer; border-radius: 4px;">Deletar ❌</button>
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: 4px;">
-                        <button class="btn btn-sm" onclick="warnUserAdmin('${dw.url}', '${dw.userEmail || ''}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #f39c12; border: 1px solid #f39c12; color: white; cursor: pointer; border-radius: 4px;">⚠️ Advertir</button>
-                        <button class="btn btn-sm" onclick="banUserAdmin('${dw.url}', '${dw.userEmail || ''}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #c0392b; border: 1px solid #c0392b; color: white; cursor: pointer; border-radius: 4px;">🚫 Banir</button>
+                        <button class="btn btn-sm" onclick="warnUserAdmin('${urlEscaped.replace(/'/g, "\\'")}', '${emailEscaped.replace(/'/g, "\\'")}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #f39c12; border: 1px solid #f39c12; color: white; cursor: pointer; border-radius: 4px;">⚠️ Advertir</button>
+                        <button class="btn btn-sm" onclick="banUserAdmin('${urlEscaped.replace(/'/g, "\\'")}', '${emailEscaped.replace(/'/g, "\\'")}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #c0392b; border: 1px solid #c0392b; color: white; cursor: pointer; border-radius: 4px;">🚫 Banir</button>
                     </div>
                 `;
                 pendingGrid.appendChild(card);
@@ -9152,25 +9202,31 @@ async function renderHallDaFamaView() {
                         `;
                     }
 
+                    const creatorEscaped = escapeHTML(dw.creatorName || dw.userName || 'Artista');
+                    const emailEscaped = escapeHTML(dw.userEmail || '');
+                    const promptEscaped = escapeHTML(dw.prompt || '');
+                    const firstLinesEscaped = escapeHTML(dw.firstLines || 'Era uma vez...');
+                    const urlEscaped = escapeHTML(dw.url);
+
                     if (category === 'Histórias Mágicas') {
                         card.innerHTML = `
                             ${championBadgeHtml}
                             <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
-                                <img src="${dw.url}" alt="${dw.prompt}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
+                                <img src="${urlEscaped}" alt="${promptEscaped}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${urlEscaped.replace(/'/g, "\\'")}', '_blank')">
                                 <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
                                     ${category}
                                 </span>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 4px; flex-grow: 1;">
-                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">${avatarHtml} Autor: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
-                                <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0; line-height: 1.2;">📖 ${dw.prompt}</h4>
+                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">${avatarHtml} Autor: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${creatorEscaped.replace(/'/g, "\\'")}', '${emailEscaped.replace(/'/g, "\\'")}')">${creatorEscaped}</strong></span>
+                                <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0; line-height: 1.2;">📖 ${promptEscaped}</h4>
                                 <p style="font-size: 0.75rem; color: var(--color-dark-light); margin: 0;">Publicado ${timeStr}</p>
                                 
                                 <div style="background: #fdfdfd; border-left: 3px solid var(--color-purple); padding: 6px 10px; margin: 4px 0; font-size: 0.75rem; font-style: italic; color: #555; max-height: 50px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
-                                    "${dw.firstLines || 'Era uma vez...'}"
+                                    "${firstLinesEscaped}"
                                 </div>
                                 
-                                <button class="btn btn-primary btn-sm" onclick="viewPublicStory('${dw.url}')" style="width: 100%; font-size: 0.8rem; padding: 6px; font-weight: 700; border-radius: 8px; margin-top: auto; background-color: var(--color-purple); border-color: var(--color-purple); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                <button class="btn btn-primary btn-sm" onclick="viewPublicStory('${urlEscaped.replace(/'/g, "\\'")}')" style="width: 100%; font-size: 0.8rem; padding: 6px; font-weight: 700; border-radius: 8px; margin-top: auto; background-color: var(--color-purple); border-color: var(--color-purple); color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
                                     📖 Ler História
                                 </button>
                             </div>
@@ -9178,14 +9234,14 @@ async function renderHallDaFamaView() {
                             <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #f0f0f0;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                     <span style="font-weight: 800; color: var(--color-orange); font-size: 1.05rem;">⭐ <span class="like-count">${starsCount}</span></span>
-                                    <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${dw.url}', this)" style="font-size: 0.8rem; padding: 4px 10px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;">
+                                    <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${urlEscaped.replace(/'/g, "\\'")}', this)" style="font-size: 0.8rem; padding: 4px 10px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;">
                                         ⭐ Dar estrelinha
                                     </button>
                                 </div>
                                 <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
-                                    <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px;" title="Imprimir"><i class="fa-solid fa-print"></i></button>
-                                    <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px; background-color: #25d366; border-color: #25d366; color: white;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
-                                    <a href="#" onclick="reportPublicPainting(event, '${dw.url}')" style="color: #e74c3c; font-size: 0.7rem; font-weight: bold; text-decoration: none; padding: 4px; display: inline-flex; align-items: center; gap: 2px;" title="Denunciar esta história"><i class="fa-solid fa-flag"></i> Denunciar</a>
+                                    <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${urlEscaped.replace(/'/g, "\\'")}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px;" title="Imprimir"><i class="fa-solid fa-print"></i></button>
+                                    <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${urlEscaped.replace(/'/g, "\\'")}', '${promptEscaped.replace(/'/g, "\\'")}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px; background-color: #25d366; border-color: #25d366; color: white;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+                                    <a href="#" onclick="reportPublicPainting(event, '${urlEscaped.replace(/'/g, "\\'")}')" style="color: #e74c3c; font-size: 0.7rem; font-weight: bold; text-decoration: none; padding: 4px; display: inline-flex; align-items: center; gap: 2px;" title="Denunciar esta história"><i class="fa-solid fa-flag"></i> Denunciar</a>
                                 </div>
                             </div>
                         `;
@@ -9194,7 +9250,7 @@ async function renderHallDaFamaView() {
                         if (category === 'Criação com IA') {
                             extraContentHtml = `
                                 <div style="background: #f7f9fa; border: 1px dashed #ced4da; border-radius: 6px; padding: 8px; margin-bottom: 6px; font-size: 0.75rem; font-weight: 600; color: var(--color-dark); max-height: 70px; overflow-y: auto;">
-                                    <strong>Prompt:</strong> <span style="font-style: italic; color: #495057;">"${dw.prompt}"</span>
+                                    <strong>Prompt:</strong> <span style="font-style: italic; color: #495057;">"${promptEscaped}"</span>
                                 </div>
                             `;
                         }
@@ -9202,15 +9258,15 @@ async function renderHallDaFamaView() {
                         card.innerHTML = `
                             ${championBadgeHtml}
                             <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
-                                <img src="${dw.url}" alt="${dw.prompt}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${dw.url}', '_blank')">
+                                <img src="${urlEscaped}" alt="${promptEscaped}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${urlEscaped.replace(/'/g, "\\'")}', '_blank')">
                                 <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
                                     ${category}
                                 </span>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 2px;">
                                 ${extraContentHtml}
-                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">${avatarHtml} Por: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${(dw.creatorName || dw.userName || 'Artista').replace(/'/g, "\\'")}', '${(dw.userEmail || '').replace(/'/g, "\\'")}')">${dw.creatorName || dw.userName || 'Artista'}</strong></span>
-                                <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0;">${dw.prompt}</h4>
+                                <span style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">${avatarHtml} Por: <strong style="color: var(--color-purple); cursor: pointer; text-decoration: underline;" onclick="openPublicProfile('${creatorEscaped.replace(/'/g, "\\'")}', '${emailEscaped.replace(/'/g, "\\'")}')">${creatorEscaped}</strong></span>
+                                <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0;">${promptEscaped}</h4>
                                 <p style="font-size: 0.75rem; color: var(--color-dark-light); margin: 0;">Publicado ${timeStr}</p>
                                 
                                 <!-- Selo Automático -->
@@ -9222,14 +9278,14 @@ async function renderHallDaFamaView() {
                             <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 8px; border-top: 1px dashed #f0f0f0;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                     <span style="font-weight: 800; color: var(--color-orange); font-size: 1.05rem;">⭐ <span class="like-count">${starsCount}</span></span>
-                                    <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${dw.url}', this)" style="font-size: 0.8rem; padding: 4px 10px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;">
+                                    <button class="btn btn-secondary btn-sm like-btn" onclick="likePublicPainting('${urlEscaped.replace(/'/g, "\\'")}', this)" style="font-size: 0.8rem; padding: 4px 10px; font-weight: 700; border-radius: 8px; border: var(--border-medium); ${btnStyle} cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 4px;">
                                         ⭐ Dar estrelinha
                                     </button>
                                 </div>
                                 <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
-                                    <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${dw.url}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px;" title="Imprimir"><i class="fa-solid fa-print"></i></button>
-                                    <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${dw.url}', '${dw.prompt}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px; background-color: #25d366; border-color: #25d366; color: white;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
-                                    <a href="#" onclick="reportPublicPainting(event, '${dw.url}')" style="color: #e74c3c; font-size: 0.7rem; font-weight: bold; text-decoration: none; padding: 4px; display: inline-flex; align-items: center; gap: 2px;" title="Denunciar esta pintura"><i class="fa-solid fa-flag"></i> Denunciar</a>
+                                    <button class="btn btn-secondary btn-sm" onclick="printSavedImage('${urlEscaped.replace(/'/g, "\\'")}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px;" title="Imprimir"><i class="fa-solid fa-print"></i></button>
+                                    <button class="btn btn-success btn-sm" onclick="shareSavedDrawingOnWhatsApp('${urlEscaped.replace(/'/g, "\\'")}', '${promptEscaped.replace(/'/g, "\\'")}')" style="flex: 1; justify-content: center; font-size: 0.75rem; padding: 4px; background-color: #25d366; border-color: #25d366; color: white;" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></button>
+                                    <a href="#" onclick="reportPublicPainting(event, '${urlEscaped.replace(/'/g, "\\'")}')" style="color: #e74c3c; font-size: 0.7rem; font-weight: bold; text-decoration: none; padding: 4px; display: inline-flex; align-items: center; gap: 2px;" title="Denunciar esta pintura"><i class="fa-solid fa-flag"></i> Denunciar</a>
                                 </div>
                             </div>
                         `;
@@ -9532,7 +9588,8 @@ async function savePaintingToGallery() {
                 creatorName: creatorName,
                 originalCategory: originalCategory,
                 colorsCount: colorsCount,
-                fromPinturaLivre: isPinturaLivre
+                fromPinturaLivre: isPinturaLivre,
+                activeChallengeId: window.activeDrawingChallenge ? window.activeDrawingChallenge.id : null
             })
         });
 
@@ -9541,6 +9598,15 @@ async function savePaintingToGallery() {
         if (response.ok && resData.success) {
             currentUser.myPaintings = resData.myPaintings;
             if (resData.cards) currentUser.cards = resData.cards;
+            if (resData.activeChallengeSuccess) {
+                showToast(`Parabéns! Você concluiu o desafio e desbloqueou o card ${window.activeDrawingChallenge ? window.activeDrawingChallenge.name : ''}! 🏆`, 'success');
+                window.activeDrawingChallenge = null;
+                sessionStorage.removeItem('kidcanvas_active_challenge');
+                const challengeBar = document.getElementById('paint-challenge-bar');
+                if (challengeBar) challengeBar.style.display = 'none';
+            } else if (resData.activeChallengeFailed) {
+                showToast('Quase! Tente desenhar novamente para desbloquear este card. ✏️', 'info');
+            }
             if (resData.stars) {
                 currentUser.stars = resData.stars;
                 updateStarsUI();
@@ -13132,27 +13198,33 @@ window.showDiscoveryDetails = function(discoveryId) {
             
             let btnText = '';
             let btnPath = '';
+            let onclickAction = '';
             
             if (condType === 'drawing_challenge') {
                 btnText = '🎨 Ir Desenhar Agora';
                 btnPath = '/pintar-online';
+                onclickAction = `startDrawingChallenge('${discoveryId}')`;
             } else if (discoveryId === 'expedicao_01' && activeTheme) {
                 btnText = '🗺️ Ver Expedição Atual';
                 btnPath = 'expedition';
+                onclickAction = `handleDiscoveryActionClick('${btnPath}')`;
             } else if (condType === 'paint_count' || condType === 'categories_painted' || condType === 'paint' || (condType === 'category_paint' && !target) || (condType === 'paint_category' && !target)) {
                 btnText = '🎨 Ir Pintar Agora';
                 btnPath = '/gerar-desenho';
+                onclickAction = `handleDiscoveryActionClick('${btnPath}')`;
             } else if ((condType === 'category_paint' || condType === 'paint_category') && target) {
                 btnText = '🎨 Ir Pintar Agora';
                 btnPath = `/categoria/${target}`;
+                onclickAction = `handleDiscoveryActionClick('${btnPath}')`;
             } else if (condType === 'share_count' || condType === 'hall_count' || condType === 'likes_count' || condType === 'share' || condType === 'paint_category_public') {
                 btnText = '🌟 Compartilhar Pintura';
                 btnPath = '/hall-da-fama';
+                onclickAction = `handleDiscoveryActionClick('${btnPath}')`;
             }
             
             if (btnText && btnPath) {
                 actionButtonHtml = `
-                    <button class="livro-detalhes-action-btn" onclick="handleDiscoveryActionClick('${btnPath}')" style="margin-top: 15px; width: 100%; padding: 12px; background: #6c5ce7; color: white; border: none; border-radius: 12px; font-weight: 900; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 4px 6px rgba(108, 92, 231, 0.2);" onmouseover="this.style.background='#5b4bc4'; this.style.transform='scale(1.02)';" onmouseout="this.style.background='#6c5ce7'; this.style.transform='scale(1)';">
+                    <button class="livro-detalhes-action-btn" onclick="${onclickAction}" style="margin-top: 15px; width: 100%; padding: 12px; background: #6c5ce7; color: white; border: none; border-radius: 12px; font-weight: 900; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 4px 6px rgba(108, 92, 231, 0.2);" onmouseover="this.style.background='#5b4bc4'; this.style.transform='scale(1.02)';" onmouseout="this.style.background='#6c5ce7'; this.style.transform='scale(1)';">
                         ${btnText}
                     </button>
                 `;
@@ -13196,6 +13268,39 @@ window.showDiscoveryDetails = function(discoveryId) {
     
     document.getElementById('livro-grade-conteudo').style.display = 'none';
     detailsEl.style.display = 'flex';
+window.startDrawingChallenge = function(discoveryId) {
+    if (!currentUser || !window.globalCatalog) return;
+    const c = window.globalCatalog.find(gc => gc.id === discoveryId);
+    if (!c) return;
+    
+    // Fechar o modal
+    if (typeof closeAlbumModal === 'function') {
+        closeAlbumModal();
+    } else if (typeof window.closeAlbumModal === 'function') {
+        window.closeAlbumModal();
+    }
+    
+    // Configurar o desafio ativo
+    const subject = (c.unlockCondition && c.unlockCondition.subject) || c.drawingSubject || '';
+    window.activeDrawingChallenge = {
+        id: c.id,
+        name: c.name,
+        subject: subject
+    };
+    sessionStorage.setItem('kidcanvas_active_challenge', JSON.stringify(window.activeDrawingChallenge));
+    
+    // Iniciar desenho livre
+    startFreeHandDrawing();
+};
+
+window.cancelActiveDrawingChallenge = function() {
+    window.activeDrawingChallenge = null;
+    sessionStorage.removeItem('kidcanvas_active_challenge');
+    const challengeBar = document.getElementById('paint-challenge-bar');
+    if (challengeBar) {
+        challengeBar.style.display = 'none';
+    }
+    showToast('Desafio de desenho cancelado.', 'info');
 };
 
 window.handleDiscoveryActionClick = function(targetPath) {
