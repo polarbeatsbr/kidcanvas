@@ -4038,25 +4038,27 @@ async function getActiveEvent() {
         const lastWeek = eventsData.weeks.length > 0 ? eventsData.weeks[eventsData.weeks.length - 1] : null;
         const lastEndDate = lastWeek ? new Date(lastWeek.endDate) : new Date(0);
         
-        // Se a última semana já acabou (ou nunca teve), gerar automaticamente
+        // Se a última semana já acabou (ou nunca teve), verificar auto-geração
         if (now > lastEndDate) {
-            console.log('[EVENTS] Nenhuma semana ativa e última já expirou — auto-gerando...');
+            // Calcular deadline para o admin decidir: segunda-feira 23:30 BRT (UTC-3 = terça 02:30 UTC)
+            const lastEnd = new Date(lastEndDate);
+            const dayAfterEnd = new Date(lastEnd);
+            dayAfterEnd.setUTCDate(lastEnd.getUTCDate() + 1); // segunda-feira
+            dayAfterEnd.setUTCHours(2, 30, 0, 0); // 23:30 BRT = 02:30 UTC da terça
+            
+            // Se ainda estamos antes do deadline, dar tempo ao admin
+            if (now < dayAfterEnd) {
+                const minsLeft = Math.round((dayAfterEnd - now) / 60000);
+                console.log(`[EVENTS] Sem expedição ativa. Admin tem ${minsLeft} min para criar. Deadline: ${dayAfterEnd.toISOString()}`);
+                return null;
+            }
+            
+            // Deadline passou — auto-gerar!
+            console.log('[EVENTS] Deadline do admin expirou — auto-gerando expedição...');
             const newWeek = generateAutoExpedition(eventsData);
             
-            // Ajustar datas: se estamos no meio da semana, começar de agora
-            const weekStart = new Date(newWeek.startDate);
-            if (weekStart > now) {
-                // A próxima segunda é no futuro, verificar se faltam <= 30 min
-                const diff = weekStart - now;
-                if (diff > 30 * 60 * 1000) {
-                    console.log(`[EVENTS] Próxima segunda em ${Math.round(diff/60000)} min — aguardando.`);
-                    return null;
-                }
-            }
-            // Se já estamos na janela, ajustar start para agora
-            if (weekStart > now) {
-                newWeek.startDate = now.toISOString();
-            }
+            // Ajustar startDate para agora (já estamos na semana)
+            newWeek.startDate = now.toISOString();
             
             eventsData.weeks.push(newWeek);
             eventsData.currentWeek = newWeek.weekNumber;
