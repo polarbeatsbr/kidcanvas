@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, loadBugs, saveBugs, loadAnalytics, saveAnalytics, hashPassword, uploadImage, loadPublicPaintings } = require('./r2db');
 const stripe = process.env.STRIPE_SECRET_KEY ? require('stripe')(process.env.STRIPE_SECRET_KEY) : null;
+const { sendWelcomeEmail, sendPaymentConfirmationEmail, sendLowCreditsEmail, sendPasswordResetEmail } = require('./mailer');
 
 
 // Analytics helpers & Admin configuration
@@ -360,6 +361,9 @@ app.post(['/api/stripe/webhook', '/api/stripc/webhook'], express.raw({type: 'app
 
             await activateUserPlanOrCredits(user, planName, users);
             
+            // Enviar email de confirmação de pagamento
+            sendPaymentConfirmationEmail(user, planName, getUserTotalCredits(user));
+            
             // Rastrear pagamento no Analytics
             try {
                 const amount = planName.includes('15') ? 4.90 : planName.includes('35') ? 9.90 : planName.includes('80') ? 19.90 : planName.includes('180') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
@@ -650,6 +654,9 @@ app.get('/api/mercadopago/payment-status/:paymentId', async (req, res) => {
                 if (targetUser) {
                     await activateUserPlanOrCredits(targetUser, planName, users);
                     
+                    // Enviar email de confirmação de pagamento
+                    sendPaymentConfirmationEmail(targetUser, planName, getUserTotalCredits(targetUser));
+                    
                     // Rastrear pagamento no Analytics
                     try {
                         const amount = planName.includes('15') ? 4.90 : planName.includes('35') ? 9.90 : planName.includes('80') ? 19.90 : planName.includes('180') ? 39.90 : planName.includes('Artista') ? (planName.includes('Anual') ? 94.80 : 9.90) : planName.includes('Mago') ? (planName.includes('Anual') ? 190.80 : 19.90) : planName.includes('Lenda') ? (planName.includes('Anual') ? 382.80 : 39.90) : 19.90;
@@ -705,6 +712,9 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
                     const user = users.find(u => u.id === userId || u.email === userId);
                     if (user) {
                         await activateUserPlanOrCredits(user, planName, users);
+                        
+                        // Enviar email de confirmação de pagamento
+                        sendPaymentConfirmationEmail(user, planName, getUserTotalCredits(user));
                         
                         // Rastrear pagamento no Analytics
                         try {
@@ -1532,6 +1542,13 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
 
         // Deduce user balance and save
         deductUserCredits(user, cost);
+        
+        // Alerta de créditos baixos
+        const totalAfterStory = getUserTotalCredits(user);
+        if (totalAfterStory <= 2) {
+            sendLowCreditsEmail(user, totalAfterStory);
+        }
+        
         const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
         await saveUsers(users);
 
@@ -1825,6 +1842,11 @@ app.get('/api/auth/google/callback', async (req, res) => {
         
         await saveUsers(users);
         
+        // Enviar email de boas-vindas para novos usuários
+        if (isNew) {
+            sendWelcomeEmail(user);
+        }
+        
         return res.redirect(`${protocol}://${host}/?google_token=${sessionToken}${isNew ? '&is_new_user=true' : ''}`);
     } catch (err) {
         console.error('[Google OAuth Callback Error]:', err);
@@ -1957,6 +1979,11 @@ app.post('/api/auth/google', async (req, res) => {
 
         await saveUsers(users);
 
+        // Enviar email de boas-vindas para novos usuários
+        if (isNewUser) {
+            sendWelcomeEmail(user);
+        }
+
         return res.json({
             success: true,
             user: formatUserProfile(user, users),
@@ -2027,6 +2054,9 @@ app.post('/api/auth/signup', async (req, res) => {
         
         users.push(newUser);
         await saveUsers(users);
+        
+        // Enviar email de boas-vindas
+        sendWelcomeEmail(newUser);
         
         return res.json({
             success: true,
@@ -2101,14 +2131,20 @@ app.post('/api/auth/forgot-password', async (req, res) => {
         
         await saveUsers(users);
         
-        // Em desenvolvimento/ambiente local, retornamos o link no corpo para facilitar testes
-        const mockLink = `${req.protocol}://${req.get('host')}/reset-password?token=${resetToken}`;
-        console.log(`[Recuperação de Senha] Link gerado para ${cleanEmail}: ${mockLink}`);
+        // Construir link seguro de reset
+        const host = req.get('host');
+        const protocol = host.includes('localhost') ? 'http' : 'https';
+        const resetLink = `${protocol}://${host}/reset-password?token=${resetToken}`;
+        console.log(`[Recuperação de Senha] Link gerado para ${cleanEmail}`);
+        
+        // Enviar email com o link (NÃO retorna o link na resposta por segurança)
+        const emailSent = await sendPasswordResetEmail(user, resetLink);
         
         return res.json({
             success: true,
-            message: 'Um link de recuperação foi gerado.',
-            mockLink: mockLink
+            message: emailSent 
+                ? 'Enviamos um link de recuperação para o seu e-mail. Verifique sua caixa de entrada e spam.' 
+                : 'Erro ao enviar email. Tente novamente em alguns minutos.'
         });
     } catch(err) {
         console.error('Erro ao solicitar recuperação de senha:', err);
@@ -3308,6 +3344,13 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
 
         // Deduce user credits and save
         deductUserCredits(user, cost);
+        
+        // Alerta de créditos baixos
+        const totalAfterDraw = getUserTotalCredits(user);
+        if (totalAfterDraw <= 2) {
+            sendLowCreditsEmail(user, totalAfterDraw);
+        }
+        
         await saveUsers(users);
 
         return res.json({
