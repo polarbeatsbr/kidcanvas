@@ -5315,6 +5315,66 @@ function evaluateCardCondition(user, card, context = {}) {
     }
 }
 
+async function checkDrawingWithGeminiVision(base64Image) {
+    const apiKey = process.env.NANOBANANA_API_KEY;
+    if (!apiKey) {
+        console.warn('[Gemini Vision] NANOBANANA_API_KEY não está configurada no ambiente.');
+        return null;
+    }
+
+    try {
+        let rawBase64 = base64Image;
+        let mimeType = 'image/jpeg';
+        if (base64Image.startsWith('data:')) {
+            const match = base64Image.match(/^data:(image\/\w+);base64,(.+)$/);
+            if (match) {
+                mimeType = match[1];
+                rawBase64 = match[2];
+            }
+        }
+
+        console.log(`[Gemini Vision] Enviando desenho para o modelo gemini-2.5-flash...`);
+        const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+        const response = await fetch(googleUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                contents: [
+                    {
+                        parts: [
+                            {
+                                inlineData: {
+                                    mimeType: mimeType,
+                                    data: rawBase64
+                                }
+                            },
+                            {
+                                text: 'Look at this drawing made by a child. In one or two words, what animal or object is drawn? Answer only the subject, nothing else.'
+                            }
+                        ]
+                    }
+                ]
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
+            console.log(`[Gemini Vision] Resposta bruta do Gemini: "${textResult}"`);
+            return textResult ? textResult.trim() : null;
+        } else {
+            const errText = await response.text();
+            console.error(`[Gemini Vision] Erro na API (Status ${response.status}):`, errText);
+            return null;
+        }
+    } catch (err) {
+        console.error('[Gemini Vision] Erro durante chamada à API:', err);
+        return null;
+    }
+}
+
 async function checkDrawingWithClaudeVision(base64Image, mockResponse = null) {
     if (mockResponse || process.env.MOCK_CLAUDE_RESPONSE) {
         const resVal = mockResponse || process.env.MOCK_CLAUDE_RESPONSE;
@@ -5324,8 +5384,8 @@ async function checkDrawingWithClaudeVision(base64Image, mockResponse = null) {
 
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
-        console.warn('[Claude Vision] ANTHROPIC_API_KEY não está configurada no ambiente.');
-        return null;
+        console.warn('[Claude Vision] ANTHROPIC_API_KEY não está configurada no ambiente. Tentando fallback para Gemini Vision...');
+        return checkDrawingWithGeminiVision(base64Image);
     }
 
     try {
