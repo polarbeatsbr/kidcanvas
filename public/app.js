@@ -65,6 +65,7 @@ const CATEGORIES_DATA = {
     'anime-futurista': { name: 'Sci-Fi e Futurista Anime', emoji: '🚀', desc: 'Desenhos de Sci-Fi e Futurismo estilo anime para colorir! Pinte cidades futuristas, motos voadoras, naves e estações espaciais.' },
     'anime-gamer': { name: 'Gamer Anime', emoji: '🎮', desc: 'Desenhos Gamer estilo anime para colorir grátis! Encontre avatares de jogadores, guerreiros digitais, monstros de pixel e mundos virtuais.' },
     'lutas': { name: 'Lutas', emoji: '🥋', desc: 'Desenhos de Lutas e Artes Marciais para colorir e imprimir grátis! Encontre desenhos de karatê, judô, boxe, capoeira, kung fu e muito mais para pintar.' },
+    'magico': { name: 'Mágico', emoji: '🔮', desc: 'Desenhos do mundo da mágica para colorir e imprimir grátis! Pinte magos fofos, varinhas mágicas, chapéus de bruxo, poções e truques incríveis.' },
     'destaques': { name: 'Destaques', emoji: '✨', desc: 'Os desenhos favoritos e mais populares no KidCanvas! Descubra e pinte ilustrações incríveis recomendadas por nossa comunidade.' }
 };
 
