@@ -189,6 +189,9 @@ async function syncUserProfile() {
             currentUser = data.user;
             updateHeaderAuthDisplay();
             checkNewAchievements();
+            if (data.newlyUnlockedCertificates && data.newlyUnlockedCertificates.length > 0) {
+                checkNewlyUnlockedCertificates(data.newlyUnlockedCertificates);
+            }
             if(typeof checkActiveEvent === 'function') checkActiveEvent();
         } else {
             sessionToken = null;
@@ -1103,6 +1106,15 @@ function navigate(path, pushState = true) {
         renderPinturaLivreChooser();
     } else if (cleanPath === '/conquistas') {
         renderConquistasView();
+    } else if (cleanPath === '/certificados') {
+        if (!currentUser) {
+            showToast('Faça login ou cadastre-se para ver seus certificados! 📜', 'info');
+            openAuthModal();
+            renderHomeView();
+            cleanPath = '/';
+        } else {
+            renderCertificadosView();
+        }
     } else if (cleanPath === '/perfil') {
         if (!currentUser) {
             showToast('Faça login ou cadastre-se para ver seu perfil! 👤', 'info');
@@ -3953,6 +3965,12 @@ function setupCustomDrawingActionListeners(imageUrl, drawingId) {
                                     revealCardAnimation(mythic.name, 'Mítica', mythic.imageUrl, mythic.curiosity, colName);
                                 }, delay);
                             });
+                        }
+                        
+                        if (resData.newlyUnlockedCertificates && resData.newlyUnlockedCertificates.length > 0) {
+                            setTimeout(() => {
+                                checkNewlyUnlockedCertificates(resData.newlyUnlockedCertificates);
+                            }, 1000);
                         }
                     } else {
                         showToast(resData.message || 'Erro ao salvar desenho na galeria.', 'error');
@@ -7845,6 +7863,12 @@ async function savePaintingToGallery() {
                     }, delay);
                 });
             }
+
+            if (resData.newlyUnlockedCertificates && resData.newlyUnlockedCertificates.length > 0) {
+                setTimeout(() => {
+                    checkNewlyUnlockedCertificates(resData.newlyUnlockedCertificates);
+                }, 1000);
+            }
         } else {
             if (btnSave) {
                 btnSave.innerHTML = oldBtnHtml || '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
@@ -8903,32 +8927,67 @@ async function openPublicProfile(name, userEmail = '') {
         
         if (data.success && data.profile) {
             const profile = data.profile;
-            if (avatarEl) {
-                const avatarVal = profile.avatar || '👤';
-                const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
-                if (isUrl) {
-                    avatarEl.innerHTML = `<img src="${avatarVal}" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: var(--border-medium); display: inline-block;">`;
-                } else {
-                    avatarEl.innerHTML = avatarVal;
-                    avatarEl.style.fontSize = '3.5rem';
-                }
-            }
-
-            // Atualizar contorno de avatar público baseado no plano
             const modalWrapper = document.getElementById('profile-modal-avatar-wrapper');
             if (modalWrapper) {
                 modalWrapper.className = 'avatar-wrapper';
-                const planName = profile.plan || 'Aprendiz';
-                if (planName === 'Aprendiz' || planName === 'Grátis') {
-                    modalWrapper.classList.add('plan-aprendiz');
-                } else if (planName === 'Artista') {
-                    modalWrapper.classList.add('plan-artista');
-                } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
-                    modalWrapper.classList.add('plan-mago');
-                } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
-                    modalWrapper.classList.add('plan-lenda');
+                modalWrapper.style.border = '';
+                modalWrapper.style.boxShadow = '';
+                modalWrapper.style.animation = '';
+            }
+
+            if (avatarEl) {
+                avatarEl.style.width = '100%';
+                avatarEl.style.height = '100%';
+                avatarEl.style.display = 'flex';
+                avatarEl.style.alignItems = 'center';
+                avatarEl.style.justifyContent = 'center';
+
+                const avatarVal = profile.avatar || 'avatar_default_1';
+                const defaultEmojis = {
+                    'avatar_default_1': '👦',
+                    'avatar_default_2': '👧',
+                    'avatar_default_3': '👦🏽',
+                    'avatar_default_4': '👧🏽',
+                    '👦': '👦',
+                    '👧': '👧',
+                    '👦🏽': '👦🏽',
+                    '👧🏽': '👧🏽'
+                };
+                
+                const card = (window.globalCatalog || []).find(c => c.id === avatarVal);
+                if (card) {
+                    const rarity = card.rarity || 'Comum';
+                    const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
+                    const borderClass = `rarity-border-${rarityLower}`;
+                    if (modalWrapper) modalWrapper.classList.add(borderClass);
+                    
+                    avatarEl.innerHTML = `<img src="${card.imageUrl}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                    avatarEl.style.fontSize = '';
                 } else {
-                    modalWrapper.classList.add('plan-aprendiz');
+                    if (modalWrapper) {
+                        const planName = profile.plan || 'Aprendiz';
+                        if (planName === 'Aprendiz' || planName === 'Grátis') {
+                            modalWrapper.classList.add('plan-aprendiz');
+                        } else if (planName === 'Artista') {
+                            modalWrapper.classList.add('plan-artista');
+                        } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
+                            modalWrapper.classList.add('plan-mago');
+                        } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
+                            modalWrapper.classList.add('plan-lenda');
+                        } else {
+                            modalWrapper.classList.add('plan-aprendiz');
+                        }
+                    }
+                    
+                    const emojiValue = defaultEmojis[avatarVal] || '👦';
+                    const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
+                    if (isUrl) {
+                        avatarEl.innerHTML = `<img src="${avatarVal}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                        avatarEl.style.fontSize = '';
+                    } else {
+                        avatarEl.innerHTML = emojiValue;
+                        avatarEl.style.fontSize = '3.5rem';
+                    }
                 }
             }
 
@@ -9349,31 +9408,30 @@ function openAvatarSelectionModal() {
     const totalCount = catalog.length > 0 ? catalog.length : 165;
     const percent = totalCount > 0 ? Math.round((ownedCount / totalCount) * 100) : 0;
     
-    // Contagem por raridade
-    const countComum = unlockedCatalogCards.filter(c => c.rarity === 'Comum').length;
-    const totalComum = catalog.filter(c => c.rarity === 'Comum').length;
-    const countRaro = unlockedCatalogCards.filter(c => c.rarity === 'Rara').length;
-    const totalRaro = catalog.filter(c => c.rarity === 'Rara').length;
-    const countEpico = unlockedCatalogCards.filter(c => c.rarity === 'Épica').length;
-    const totalEpico = catalog.filter(c => c.rarity === 'Épica').length;
-    const countLendario = unlockedCatalogCards.filter(c => c.rarity === 'Lendária').length;
-    const totalLendario = catalog.filter(c => c.rarity === 'Lendária').length;
-    const countMitico = unlockedCatalogCards.filter(c => c.rarity === 'Mítica').length;
-    const totalMitico = catalog.filter(c => c.rarity === 'Mítica').length;
-    
     // Avatares Padrão (Menino, Menina e Morenos)
     const defaults = [
-        { emoji: '👦', label: 'Menino' },
-        { emoji: '👧', label: 'Menina' },
-        { emoji: '👦🏽', label: 'Menino Moreno' },
-        { emoji: '👧🏽', label: 'Menina Morena' }
+        { id: 'avatar_default_1', emoji: '👦', label: 'Menino' },
+        { id: 'avatar_default_2', emoji: '👧', label: 'Menina' },
+        { id: 'avatar_default_3', emoji: '👦🏽', label: 'Menino Moreno' },
+        { id: 'avatar_default_4', emoji: '👧🏽', label: 'Menina Morena' }
     ];
+    
+    // Mapeamento bidirecional para compatibilidade de emojis legados no banco
+    const oldEmojiToId = {
+        '👦': 'avatar_default_1',
+        '👧': 'avatar_default_2',
+        '👦🏽': 'avatar_default_3',
+        '👧🏽': 'avatar_default_4'
+    };
+    
+    const currentAvatar = currentUser ? currentUser.avatar : 'avatar_default_1';
+    const resolvedAvatarId = oldEmojiToId[currentAvatar] || currentAvatar;
     
     // Construir lista linear de itens pré-visualizáveis (Padrão + Desbloqueados)
     const previewItems = [
         ...defaults.map(item => ({
             type: 'default',
-            id: item.emoji,
+            id: item.id,
             name: item.label,
             rarity: 'Comum'
         })),
@@ -9388,21 +9446,20 @@ function openAvatarSelectionModal() {
     
     // Configurar estado no escopo global/window
     window.avatarPreviewItems = previewItems;
-    const currentAvatar = currentUser ? currentUser.avatar : '👦';
-    let currentIdx = previewItems.findIndex(item => item.id === currentAvatar);
+    let currentIdx = previewItems.findIndex(item => item.id === resolvedAvatarId);
     if (currentIdx === -1) currentIdx = 0;
     window.currentPreviewIndex = currentIdx;
     
     const defaultsHtml = `
         <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
             ${defaults.map(item => {
-                const isSelected = currentUser && currentUser.avatar === item.emoji;
+                const isSelected = resolvedAvatarId === item.id;
                 const borderStyle = isSelected 
                     ? 'border: 3px solid var(--color-purple); background: #f3effa; box-shadow: 0 0 0 2px var(--color-purple);' 
                     : 'border: var(--border-thin); background: white;';
                 
                 return `
-                    <button onclick="previewDefaultAvatar('${item.emoji}'); return false;" style="font-size: 2.2rem; padding: 10px; border-radius: 50%; width: 66px; height: 66px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s ease, background-color 0.15s ease; ${borderStyle}" class="hover-bounce" title="${item.label}">
+                    <button onclick="previewDefaultAvatar('${item.id}'); return false;" style="font-size: 2.2rem; padding: 10px; border-radius: 50%; width: 66px; height: 66px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s ease, background-color 0.15s ease; ${borderStyle}" class="hover-bounce" title="${item.label}">
                         ${item.emoji}
                     </button>
                 `;
@@ -9410,34 +9467,23 @@ function openAvatarSelectionModal() {
         </div>
     `;
     
-    // Grid de todos os cards do catálogo
+    // Grid de todos os cards do catálogo (somente desbloqueados)
     let cardsContentHtml = '';
-    if (catalog.length > 0) {
+    if (unlockedCatalogCards.length > 0) {
         cardsContentHtml = `
             <div class="avatar-picker-scroll-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 10px; max-height: 380px; overflow-y: auto; background: #fafafa; border: var(--border-thin); border-radius: var(--radius-sm); margin-bottom: 20px;">
-                ${catalog.map(card => {
-                    const isUnlocked = unlockedCardIds.includes(card.id);
-                    const isSelected = currentUser && currentUser.avatar === card.id;
-                    const rarityLower = card.rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+                ${unlockedCatalogCards.map(card => {
+                    const isSelected = resolvedAvatarId === card.id;
+                    const rarityLower = card.rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
                     const borderClass = `rarity-border-${rarityLower}`;
                     const selectedClass = isSelected ? 'selected-avatar' : '';
                     
-                    if (isUnlocked) {
-                        return `
-                            <button class="avatar-option-card-btn ${borderClass} ${selectedClass}" onclick="previewUnlockedCard('${card.id}'); return false;" title="${card.name} (${card.rarity})" style="aspect-ratio: 1; border-radius: 50%; overflow: visible; display: inline-flex; align-items: center; justify-content: center; position: relative;">
-                                <img src="${card.imageUrl}" alt="${card.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
-                                ${isSelected ? `<div style="position: absolute; top: -6px; right: -6px; background: var(--color-green); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fa-solid fa-check"></i></div>` : ''}
-                            </button>
-                        `;
-                    } else {
-                        // Card Bloqueado (silhueta, blur, cadeado e apenas borda da raridade visível)
-                        return `
-                            <button class="avatar-option-card-btn ${borderClass}" onclick="showLockedCardDetailsById('${card.id}'); return false;" title="Descoberta Misteriosa (${card.rarity})" style="aspect-ratio: 1; border-radius: 50%; overflow: visible; display: inline-flex; align-items: center; justify-content: center; position: relative; cursor: pointer; background: #f0f0f0;">
-                                <img src="${card.imageUrl}" alt="Bloqueado" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; filter: blur(8px) grayscale(1) brightness(0.35);">
-                                <div style="position: absolute; color: white; font-size: 1.15rem; text-shadow: 0 1px 3px rgba(0,0,0,0.6);"><i class="fa-solid fa-lock"></i></div>
-                            </button>
-                        `;
-                    }
+                    return `
+                        <button class="avatar-option-card-btn ${borderClass} ${selectedClass}" onclick="previewUnlockedCard('${card.id}'); return false;" title="${card.name} (${card.rarity})" style="aspect-ratio: 1; border-radius: 50%; overflow: visible; display: inline-flex; align-items: center; justify-content: center; position: relative;">
+                            <img src="${card.imageUrl}" alt="${card.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            ${isSelected ? `<div style="position: absolute; top: -6px; right: -6px; background: var(--color-green); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fa-solid fa-check"></i></div>` : ''}
+                        </button>
+                    `;
                 }).join('')}
             </div>
         `;
@@ -9445,7 +9491,7 @@ function openAvatarSelectionModal() {
         cardsContentHtml = `
             <div style="padding: 20px; text-align: center; background: #fafafa; border: 2px dashed rgba(0,0,0,0.1); border-radius: var(--radius-sm); margin-bottom: 20px;">
                 <span style="font-size: 2.2rem; display: block; margin-bottom: 10px;">📖</span>
-                <p style="font-size: 0.9rem; color: var(--color-dark-light); line-height: 1.4; margin: 0 0 10px 0; font-weight: bold;">
+                <p style="font-size: 0.95rem; color: var(--color-dark-light); line-height: 1.4; margin: 0 0 12px 0; font-weight: bold;">
                     Desbloqueie cards no Livro das Descobertas para usar como avatar!
                 </p>
                 <button class="btn btn-primary btn-sm" onclick="closeAvatarSelectionModal(); openAlbumModal(); return false;" style="font-size: 0.8rem; padding: 6px 14px; font-weight: bold; border-radius: var(--radius-sm); box-shadow: var(--shadow-button-primary);">
@@ -9466,7 +9512,7 @@ function openAvatarSelectionModal() {
 
         <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--color-purple); margin-bottom: 8px;">Escolha seu Avatar</h3>
         <p style="font-size: 0.92rem; color: var(--color-dark-light); line-height: 1.4; margin-bottom: 20px;">
-            Selecione um bichinho ou personagem fofo para o seu perfil e para aparecer no Hall da Fama!
+            Selecione um card fofo desbloqueado ou um personagem padrão para o seu perfil!
         </p>
         
         <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin-bottom: 12px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 4px;">👤 Avatares Padrão</h4>
@@ -9506,17 +9552,33 @@ window.updateAvatarPreviewUI = function() {
     const rarityColors = {
         'Comum': '#2ecc71',
         'Rara': '#3498db',
+        'Raro': '#3498db',
         'Épica': '#9b59b6',
+        'Épico': '#9b59b6',
         'Lendária': '#e67e22',
-        'Mítica': '#e74c3c'
+        'Lendário': '#e67e22',
+        'Mítica': '#e74c3c',
+        'Mítico': '#e74c3c'
     };
     const badgeColor = rarityColors[item.rarity] || '#cbd5e1';
     
     let contentHtml = '';
+    const defaultEmojis = {
+        'avatar_default_1': '👦',
+        'avatar_default_2': '👧',
+        'avatar_default_3': '👦🏽',
+        'avatar_default_4': '👧🏽',
+        '👦': '👦',
+        '👧': '👧',
+        '👦🏽': '👦🏽',
+        '👧🏽': '👧🏽'
+    };
+    
     if (item.type === 'default') {
+        const emojiVal = defaultEmojis[item.id] || '👦';
         contentHtml = `
             <div style="font-size: 4rem; width: 100px; height: 100px; border-radius: 50%; border: 3px solid #cbd5e1; background: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
-                ${item.id}
+                ${emojiVal}
             </div>
             <h4 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-dark); margin: 0 0 4px 0;">${item.name}</h4>
             <div style="margin-bottom: 12px;">
@@ -9526,14 +9588,14 @@ window.updateAvatarPreviewUI = function() {
             </div>
         `;
     } else {
-        const rarityLower = item.rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        const rarityLower = item.rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
         const borderClass = `rarity-border-${rarityLower}`;
         
         let bullet = '🟢';
-        if (item.rarity === 'Rara') bullet = '🔵';
-        else if (item.rarity === 'Épica') bullet = '🟣';
-        else if (item.rarity === 'Lendária') bullet = '🟠';
-        else if (item.rarity === 'Mítica') bullet = '🔴';
+        if (item.rarity === 'Rara' || item.rarity === 'Raro') bullet = '🔵';
+        else if (item.rarity === 'Épica' || item.rarity === 'Épico') bullet = '🟣';
+        else if (item.rarity === 'Lendária' || item.rarity === 'Lendário') bullet = '🟠';
+        else if (item.rarity === 'Mítica' || item.rarity === 'Mítico') bullet = '🔴';
         
         contentHtml = `
             <div class="${borderClass}" style="position: relative; width: 100px; height: 100px; margin: 0 auto 10px auto; border-radius: 50%; overflow: visible; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -9549,7 +9611,9 @@ window.updateAvatarPreviewUI = function() {
     }
     
     // Botão de equipar
-    const isCurrentlyEquipped = currentUser && currentUser.avatar === item.id;
+    const currentAvatar = currentUser ? currentUser.avatar : 'avatar_default_1';
+    const isCurrentlyEquipped = currentAvatar === item.id || (defaultEmojis[currentAvatar] && defaultEmojis[currentAvatar] === defaultEmojis[item.id]);
+    
     const buttonHtml = isCurrentlyEquipped
         ? `
             <button disabled class="btn btn-secondary" style="font-size: 1rem; padding: 10px 24px; width: 100%; border-radius: var(--radius-sm); font-weight: bold; background: #e2e8f0; color: #94a3b8; border: none; cursor: not-allowed; display: flex; align-items: center; justify-content: center; gap: 8px;">
@@ -9590,9 +9654,9 @@ window.navigatePreview = function(direction) {
     window.updateAvatarPreviewUI();
 };
 
-window.previewDefaultAvatar = function(emoji) {
+window.previewDefaultAvatar = function(id) {
     const items = window.avatarPreviewItems || [];
-    const idx = items.findIndex(item => item.id === emoji);
+    const idx = items.findIndex(item => item.id === id);
     if (idx !== -1) {
         window.currentPreviewIndex = idx;
         window.updateAvatarPreviewUI();
@@ -9797,12 +9861,23 @@ window.selectAvatar = selectAvatar;
 window.getAvatarHtml = function(avatarValue, size = '18px', borderStyle = '') {
     if (!avatarValue) return `<span style="font-size: calc(${size} * 0.9); vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1;">👤</span>`;
     
+    const defaultEmojis = {
+        'avatar_default_1': '👦',
+        'avatar_default_2': '👧',
+        'avatar_default_3': '👦🏽',
+        'avatar_default_4': '👧🏽',
+        '👦': '👦',
+        '👧': '👧',
+        '👦🏽': '👦🏽',
+        '👧🏽': '👧🏽'
+    };
+    
     // Check if it's a card ID
     const card = (window.globalCatalog || []).find(c => c.id === avatarValue);
     if (card) {
         let borderClass = '';
         const rarity = card.rarity || 'Comum';
-        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
         borderClass = `rarity-border-${rarityLower}`;
         
         return `<div class="avatar-card-container ${borderClass}" style="width: ${size}; height: ${size}; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; vertical-align: middle; margin-right: 4px; ${borderStyle}">
@@ -9810,11 +9885,12 @@ window.getAvatarHtml = function(avatarValue, size = '18px', borderStyle = '') {
         </div>`;
     }
     
-    const isUrl = avatarValue.startsWith('http') || avatarValue.startsWith('/');
+    const emojiValue = defaultEmojis[avatarValue] || avatarValue;
+    const isUrl = emojiValue.startsWith('http') || emojiValue.startsWith('/');
     if (isUrl) {
-        return `<img src="${avatarValue}" style="width: ${size}; height: ${size}; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px; display: inline-block; border: 1px solid rgba(0,0,0,0.1); ${borderStyle}">`;
+        return `<img src="${emojiValue}" style="width: ${size}; height: ${size}; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px; display: inline-block; border: 1px solid rgba(0,0,0,0.1); ${borderStyle}">`;
     } else {
-        return `<span style="font-size: calc(${size} * 0.95); vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1; ${borderStyle}">${avatarValue}</span>`;
+        return `<span style="font-size: calc(${size} * 0.95); vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1; ${borderStyle}">${emojiValue}</span>`;
     }
 };
 
@@ -9827,7 +9903,7 @@ function updateUserAvatarUI(avatar) {
     const dropdownContainer = document.getElementById('dropdown-user-avatar-container');
     
     if (!avatar) {
-        avatar = '👤';
+        avatar = 'avatar_default_1';
     }
     
     // Clear all previous rarity classes
@@ -9836,13 +9912,25 @@ function updateUserAvatarUI(avatar) {
             c.className = c.className.split(' ').filter(cls => !cls.startsWith('rarity-border-')).join(' ');
             c.style.border = '';
             c.style.boxShadow = '';
+            c.style.animation = '';
         }
     });
+    
+    const defaultEmojis = {
+        'avatar_default_1': '👦',
+        'avatar_default_2': '👧',
+        'avatar_default_3': '👦🏽',
+        'avatar_default_4': '👧🏽',
+        '👦': '👦',
+        '👧': '👧',
+        '👦🏽': '👦🏽',
+        '👧🏽': '👧🏽'
+    };
     
     const card = (window.globalCatalog || []).find(c => c.id === avatar);
     if (card) {
         const rarity = card.rarity || 'Comum';
-        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
         const borderClass = `rarity-border-${rarityLower}`;
         
         if (userAvatarImg) {
@@ -9862,6 +9950,7 @@ function updateUserAvatarUI(avatar) {
         if (container) container.classList.add(borderClass);
         if (dropdownContainer) dropdownContainer.classList.add(borderClass);
     } else {
+        const emojiValue = defaultEmojis[avatar] || '👦';
         const isUrl = avatar.startsWith('http') || avatar.startsWith('/');
         
         if (isUrl) {
@@ -9879,13 +9968,13 @@ function updateUserAvatarUI(avatar) {
         } else {
             if (userAvatarImg) userAvatarImg.style.display = 'none';
             if (userAvatarEmoji) {
-                userAvatarEmoji.textContent = avatar;
+                userAvatarEmoji.textContent = emojiValue;
                 userAvatarEmoji.style.display = 'block';
             }
             
             if (dropdownAvatar) dropdownAvatar.style.display = 'none';
             if (dropdownAvatarEmoji) {
-                dropdownAvatarEmoji.textContent = avatar;
+                dropdownAvatarEmoji.textContent = emojiValue;
                 dropdownAvatarEmoji.style.display = 'block';
             }
         }
@@ -10161,6 +10250,12 @@ async function claimEventMission(missionId) {
                 setTimeout(() => {
                     revealCardAnimation(mythic.name, 'Mítica', mythic.imageUrl, mythic.curiosity, colName);
                 }, wonCard ? 3800 : 1000);
+            }
+            
+            if (data.newlyUnlockedCertificates && data.newlyUnlockedCertificates.length > 0) {
+                setTimeout(() => {
+                    checkNewlyUnlockedCertificates(data.newlyUnlockedCertificates);
+                }, wonCard ? 4500 : 1500);
             }
             
             // re-fetch the current event to update progress
@@ -12926,16 +13021,30 @@ window.renderPerfilView = function() {
     const wrapper = document.getElementById('my-profile-avatar-wrapper');
     const imgEl = document.getElementById('my-profile-avatar-img');
     const emojiEl = document.getElementById('my-profile-avatar-emoji');
-    const avatarVal = currentUser.avatar || '👤';
+    const avatarVal = currentUser.avatar || 'avatar_default_1';
     
     if (wrapper) {
         // Clear previous rarity or plan classes
         wrapper.className = 'avatar-wrapper';
+        wrapper.style.border = '';
+        wrapper.style.boxShadow = '';
+        wrapper.style.animation = '';
+        
+        const defaultEmojis = {
+            'avatar_default_1': '👦',
+            'avatar_default_2': '👧',
+            'avatar_default_3': '👦🏽',
+            'avatar_default_4': '👧🏽',
+            '👦': '👦',
+            '👧': '👧',
+            '👦🏽': '👦🏽',
+            '👧🏽': '👧🏽'
+        };
         
         const card = (window.globalCatalog || []).find(c => c.id === avatarVal);
         if (card) {
             const rarity = card.rarity || 'Comum';
-            const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+            const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
             wrapper.classList.add(`rarity-border-${rarityLower}`);
             
             if (imgEl) {
@@ -12959,6 +13068,7 @@ window.renderPerfilView = function() {
                 wrapper.classList.add('plan-aprendiz');
             }
             
+            const emojiValue = defaultEmojis[avatarVal] || '👦';
             const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
             if (isUrl) {
                 if (imgEl) {
@@ -12969,7 +13079,7 @@ window.renderPerfilView = function() {
             } else {
                 if (imgEl) imgEl.style.display = 'none';
                 if (emojiEl) {
-                    emojiEl.textContent = avatarVal;
+                    emojiEl.textContent = emojiValue;
                     emojiEl.style.display = 'block';
                 }
             }
@@ -13165,6 +13275,22 @@ window.renderPerfilView = function() {
     if (notificationsToggle) {
         notificationsToggle.checked = currentUser.notifications !== undefined ? !!currentUser.notifications : true;
     }
+
+    // Atualizar resumo dos certificados (Novo)
+    const unlockedCerts = (currentUser.certificates || []).length;
+    const certCountBadge = document.getElementById('profile-cert-count-badge');
+    if (certCountBadge) {
+        const totalCerts = window.certificatesCatalog ? window.certificatesCatalog.length : 59;
+        certCountBadge.textContent = `${unlockedCerts}/${totalCerts}`;
+    }
+    const certStars = document.getElementById('cert-summary-stars');
+    if (certStars) certStars.textContent = starsCount;
+    const certPaintings = document.getElementById('cert-summary-paintings');
+    if (certPaintings) certPaintings.textContent = paintingsCount;
+    const certAchievements = document.getElementById('cert-summary-achievements');
+    if (certAchievements) certAchievements.textContent = unlockedBadges;
+    const certCards = document.getElementById('cert-summary-cards');
+    if (certCards) certCards.textContent = (currentUser.cards || []).length;
 };
 
 const CHAPTER_GUIDES = {
@@ -13395,14 +13521,447 @@ window.openChapterGuide = function(colName) {
     window.triggerPageFlipAnimation(originEl, guideEl, 'next');
 };
 
-window.closeChapterGuide = function() {
-    const guideEl = document.getElementById('livro-regras-conteudo');
-    if (!guideEl) return;
-    
-    const colName = window.activeChapterName || 'Pinturas';
-    const gradeEl = document.getElementById('livro-grade-conteudo');
-    const expeditionEl = document.getElementById('livro-expedition-conteudo');
-    const targetEl = colName === 'expedition' ? expeditionEl : gradeEl;
-    
-    window.triggerPageFlipAnimation(guideEl, targetEl, 'prev');
 };
+
+/* --- CENTRAL DE CERTIFICADOS --- */
+
+async function renderCertificadosView() {
+    document.title = "Central de Certificados 📜 — KidCanvas";
+    setMetaDescription("Gerencie seus certificados de conquistas e baixe seus diplomas oficiais KidCanvas.");
+
+    document.querySelectorAll('.page-view').forEach(view => view.style.display = 'none');
+    const view = document.getElementById('view-certificados');
+    if (view) view.style.display = 'block';
+
+    const listEl = document.getElementById('certificates-categories-list');
+    if (!listEl) return;
+
+    listEl.innerHTML = '<div style="text-align: center; padding: 40px; font-weight: bold; color: var(--color-dark-light);"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Carregando seus certificados mágicos...</div>';
+
+    try {
+        const res = await fetch('/api/certificates/my', {
+            headers: { 'X-Session-Token': localStorage.getItem('kidcanvas_session_token') || '' }
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            window.certificatesCatalog = data.catalog;
+            const myCerts = data.certificates;
+            const catalog = data.catalog;
+
+            // Progresso Geral
+            const unlockedCount = myCerts.length;
+            const totalCount = catalog.length;
+            const percentage = totalCount > 0 ? Math.round((unlockedCount / totalCount) * 100) : 0;
+
+            const progressTxt = document.getElementById('certs-general-progress-txt');
+            if (progressTxt) progressTxt.textContent = `${unlockedCount}/${totalCount} (${percentage}%)`;
+            const progressBar = document.getElementById('certs-general-progress-bar');
+            if (progressBar) progressBar.style.width = `${percentage}%`;
+
+            // Agrupar catálogo por categoria
+            const categories = {};
+            catalog.forEach(cert => {
+                if (!categories[cert.category]) {
+                    categories[cert.category] = [];
+                }
+                categories[cert.category].push(cert);
+            });
+
+            // Ícones e cores para cada categoria
+            const categoryMeta = {
+                'Pinturas': { icon: '🎨', color: 'var(--color-blue)' },
+                'Dinossauros': { icon: '🦖', color: 'var(--color-green)' },
+                'Livros': { icon: '📚', color: '#f1c40f' },
+                'Expedições': { icon: '⛺', color: '#e74c3c' },
+                'Comunidade': { icon: '🏆', color: '#9b59b6' },
+                'Lendárias': { icon: '👑', color: '#ffb300' },
+                'Especiais': { icon: '🎉', color: '#ff6b6b' },
+                'Influencer': { icon: '📣', color: '#4dabf7' },
+                'Conclusões': { icon: '📜', color: '#a0aec0' },
+                'Estrelas': { icon: '⭐', color: '#feca57' },
+                'Top Exploradores do Mês': { icon: '🏆', color: '#ffa801' }
+            };
+
+            listEl.innerHTML = '';
+
+            // Renderizar cada categoria
+            Object.entries(categories).forEach(([catName, certs]) => {
+                const meta = categoryMeta[catName] || { icon: '📜', color: 'var(--color-purple)' };
+                
+                // Calcular progresso da categoria
+                const catUnlocked = certs.filter(c => myCerts.some(uc => uc.id === c.id)).length;
+                const catTotal = certs.length;
+                const catPercentage = catTotal > 0 ? Math.round((catUnlocked / catTotal) * 100) : 0;
+
+                const catBlock = document.createElement('div');
+                catBlock.className = 'cert-category-block';
+                
+                // Header da categoria
+                let headerHtml = `
+                    <div class="cert-category-header">
+                        <h3 class="cert-category-title">
+                            <span>${meta.icon}</span> ${catName}
+                        </h3>
+                        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; font-weight: 700; color: var(--color-dark-light); margin-bottom: 6px;">
+                            <span>Desbloqueados: ${catUnlocked}/${catTotal}</span>
+                            <span>${catPercentage}%</span>
+                        </div>
+                        <div style="width: 100%; height: 10px; background: #e9ecef; border-radius: 10px; overflow: hidden; border: 1px solid #cbd5e1;">
+                            <div style="width: ${catPercentage}%; height: 100%; background: ${meta.color}; transition: width 0.5s;"></div>
+                        </div>
+                    </div>
+                `;
+
+                // Grid de certificados
+                let gridHtml = `<div class="cert-grid">`;
+                
+                certs.forEach(cert => {
+                    const unlockData = myCerts.find(uc => uc.id === cert.id);
+                    const isLocked = !unlockData;
+                    
+                    const rarityColors = {
+                        'Comum': 'comum',
+                        'Raro': 'raro',
+                        'Épico': 'epico',
+                        'Lendário': 'lendario',
+                        'Exclusivo': 'exclusivo'
+                    };
+                    const rarityClass = `cert-rarity-${rarityColors[cert.rarity] || 'comum'}`;
+
+                    if (isLocked) {
+                        gridHtml += `
+                            <div class="cert-card locked" title="🔒 Desbloqueie realizando conquistas!">
+                                <div class="cert-card-inner">
+                                    <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: #495057; margin-bottom: 5px;">${cert.title}</h4>
+                                    <p style="font-size: 0.72rem; color: #64748b; font-weight: 600; line-height: 1.3;">${cert.desc}</p>
+                                    <span style="font-size: 0.7rem; font-weight: 800; color: #94a3b8; display: block; margin-top: 10px;">Raridade: ${cert.rarity}</span>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        const dateStr = new Date(unlockData.unlockedAt).toLocaleDateString('pt-BR', {
+                            day: '2-digit',
+                            month: 'long',
+                            year: 'numeric'
+                        });
+
+                        let infoHtml = '';
+                        if (unlockData.additionalInfo) {
+                            infoHtml = `<div style="font-size: 0.68rem; font-style: italic; color: #7b4fa6; margin-top: 4px; font-weight: 700;">${unlockData.additionalInfo}</div>`;
+                        }
+
+                        gridHtml += `
+                            <div class="cert-card ${rarityClass}">
+                                <div style="display: flex; flex-direction: column; gap: 4px; text-align: center;">
+                                    <span style="font-size: 1.8rem; display: block; margin-bottom: 5px;">📜</span>
+                                    <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0; line-height: 1.2;">${cert.title}</h4>
+                                    <span style="font-size: 0.7rem; font-weight: 800; color: var(--color-dark-light);">Raridade: ${cert.rarity}</span>
+                                    <p style="font-size: 0.7rem; color: #64748b; font-weight: 600; margin: 4px 0 0 0; line-height: 1.3;">${cert.desc}</p>
+                                    ${infoHtml}
+                                </div>
+                                <div style="margin-top: 15px;">
+                                    <span style="font-size: 0.65rem; color: #94a3b8; font-weight: 700; display: block; margin-bottom: 8px;">Conquistado em ${dateStr}</span>
+                                    <button class="btn btn-primary btn-sm" onclick="openCertsViewerModal('${cert.id}')" style="width: 100%; font-size: 0.75rem; padding: 6px; font-weight: 800; border-radius: 8px; box-shadow: var(--shadow-button-primary); display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                        👁️ Ver / Baixar
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                gridHtml += `</div>`;
+
+                catBlock.innerHTML = headerHtml + gridHtml;
+                listEl.appendChild(catBlock);
+            });
+
+        } else {
+            listEl.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--color-red); font-weight: bold;">Erro ao carregar certificados: ${data.message}</div>`;
+        }
+    } catch (err) {
+        console.error('Erro ao renderizar certificados:', err);
+        listEl.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--color-red); font-weight: bold;">Erro de conexão com o servidor.</div>';
+    }
+}
+
+window.drawCertificateCanvas = function(canvasId, cert, unlockData) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+
+    // 1. Limpar e cor de fundo
+    ctx.fillStyle = '#faf8f5';
+    ctx.fillRect(0, 0, w, h);
+
+    // 2. Cores baseadas em raridade
+    let borderMain = '#ffd43b';
+    let borderInner = '#ff5e7e';
+    let nameColor = '#4dabf7';
+
+    if (cert.rarity === 'Comum') {
+        borderMain = '#10b981';
+        borderInner = '#34d399';
+        nameColor = '#10b981';
+    } else if (cert.rarity === 'Raro') {
+        borderMain = '#3b82f6';
+        borderInner = '#60a5fa';
+        nameColor = '#2563eb';
+    } else if (cert.rarity === 'Épico') {
+        borderMain = '#8b5cf6';
+        borderInner = '#a78bfa';
+        nameColor = '#7c3aed';
+    } else if (cert.rarity === 'Lendário') {
+        borderMain = '#f59e0b';
+        borderInner = '#fbbf24';
+        nameColor = '#d97706';
+    } else if (cert.rarity === 'Exclusivo') {
+        borderMain = '#ec4899';
+        borderInner = '#f472b6';
+        nameColor = '#db2777';
+    }
+
+    // 3. Desenhar bordas
+    ctx.lineWidth = 16;
+    ctx.strokeStyle = borderMain;
+    ctx.strokeRect(20, 20, w - 40, h - 40);
+
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = borderInner;
+    ctx.strokeRect(36, 36, w - 72, h - 72);
+
+    // 4. Desenhar Emojis nas quinas
+    ctx.font = '36px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🎨', 65, 65);
+    ctx.fillText('🏆', w - 65, 65);
+    ctx.fillText('⭐', 65, h - 65);
+    ctx.fillText('🎉', w - 65, h - 65);
+
+    // 5. Título do Certificado
+    ctx.fillStyle = borderInner;
+    ctx.font = 'bold 38px Fredoka, Quicksand, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(cert.title.toUpperCase(), w / 2, 130);
+
+    // 6. Subtítulo
+    ctx.fillStyle = '#495057';
+    ctx.font = '20px Quicksand, sans-serif';
+    ctx.fillText('Este certificado é concedido com muito orgulho a:', w / 2, 210);
+
+    // 7. Nome do Recipiente
+    const childName = (unlockData.recipientName || (currentUser ? currentUser.name : 'Artista')).toUpperCase();
+    ctx.fillStyle = nameColor;
+    ctx.font = 'bold 44px Fredoka, Quicksand, sans-serif';
+    ctx.fillText(childName, w / 2, 290);
+
+    // 8. Linha decorativa
+    ctx.strokeStyle = '#e9ecef';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(w / 2 - 200, 330);
+    ctx.lineTo(w / 2 + 200, 330);
+    ctx.stroke();
+
+    // 9. Descrição / Motivo do Certificado
+    ctx.fillStyle = '#495057';
+    ctx.font = '18px Quicksand, sans-serif';
+    ctx.fillText(cert.desc, w / 2, 380);
+
+    if (unlockData.additionalInfo) {
+        ctx.fillStyle = '#7c3aed';
+        ctx.font = 'italic 16px Quicksand, sans-serif';
+        ctx.fillText(unlockData.additionalInfo, w / 2, 415);
+    }
+
+    // 10. Data formatada
+    const dateStr = new Date(unlockData.unlockedAt).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+    });
+    ctx.fillStyle = '#64748b';
+    ctx.font = '15px Quicksand, sans-serif';
+    ctx.fillText(dateStr, w / 2, 455);
+
+    // 11. Desenhar assinaturas decorativas acima das linhas
+    ctx.fillStyle = '#7b4fa6';
+    ctx.font = "italic 36px 'Alex Brush', cursive";
+    ctx.fillText('Vovó Sônia', w / 2 - 150, 500);
+
+    ctx.fillStyle = '#1971c2';
+    ctx.font = "32px 'Gochi Hand', cursive";
+    ctx.fillText('Pedrinho', w / 2 + 150, 500);
+
+    // 12. Nomes impressos abaixo das linhas
+    ctx.fillStyle = '#868e96';
+    ctx.font = 'bold 13px Quicksand, sans-serif';
+    ctx.fillText('Vovó Sônia', w / 2 - 150, 530);
+    ctx.fillText('Pedrinho', w / 2 + 150, 530);
+
+    // 13. Linhas de assinatura
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(w / 2 - 220, 510);
+    ctx.lineTo(w / 2 - 80, 510);
+    ctx.moveTo(w / 2 + 80, 510);
+    ctx.lineTo(w / 2 + 220, 510);
+    ctx.stroke();
+};
+
+let currentViewerCertId = null;
+
+window.openCertsViewerModal = async function(certId) {
+    if (!currentUser) return;
+    currentViewerCertId = certId;
+
+    const modal = document.getElementById('certsViewerModal');
+    if (!modal) return;
+
+    modal.style.display = 'block';
+
+    const cert = window.certificatesCatalog ? window.certificatesCatalog.find(c => c.id === certId) : null;
+    const unlockData = currentUser.certificates ? currentUser.certificates.find(uc => uc.id === certId) : null;
+
+    if (!cert || !unlockData) {
+        showToast('Erro ao carregar o certificado.', 'error');
+        window.closeCertsViewerModal();
+        return;
+    }
+
+    const titleEl = document.getElementById('certs-viewer-title');
+    if (titleEl) titleEl.textContent = cert.title;
+
+    setTimeout(() => {
+        window.drawCertificateCanvas('certs-viewer-canvas', cert, unlockData);
+    }, 100);
+};
+
+window.closeCertsViewerModal = function() {
+    const modal = document.getElementById('certsViewerModal');
+    if (modal) modal.style.display = 'none';
+    currentViewerCertId = null;
+};
+
+window.printCertFromCanvas = function() {
+    const canvas = document.getElementById('certs-viewer-canvas');
+    if (!canvas) return;
+
+    const dataUrl = canvas.toDataURL('image/png');
+    const windowContent = '<!DOCTYPE html><html><head><title>Imprimir Certificado</title></head><body style="margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: #fafafa;"><img src="' + dataUrl + '" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 8px;"></body></html>';
+    const printWin = window.open('', '', 'width=900,height=700');
+    
+    if (!printWin) {
+        showToast('Por favor, ative os pop-ups para imprimir seu certificado! 📜', 'warning');
+        return;
+    }
+
+    printWin.document.open();
+    printWin.document.write(windowContent);
+    printWin.document.close();
+    printWin.focus();
+
+    setTimeout(() => {
+        printWin.print();
+        printWin.close();
+    }, 500);
+};
+
+window.downloadCertFromCanvas = function() {
+    const canvas = document.getElementById('certs-viewer-canvas');
+    if (!canvas) return;
+
+    const certId = currentViewerCertId;
+    const cert = window.certificatesCatalog ? window.certificatesCatalog.find(c => c.id === certId) : null;
+    const filename = cert ? `certificado-${cert.id}.png` : 'certificado.png';
+
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('Certificado baixado com sucesso! 🎉', 'success');
+};
+
+let certificatesToCelebrateQueue = [];
+
+window.checkNewlyUnlockedCertificates = function(newlyUnlocked) {
+    if (!newlyUnlocked || newlyUnlocked.length === 0) return;
+    
+    newlyUnlocked.forEach(cert => {
+        if (!certificatesToCelebrateQueue.some(c => c.id === cert.id)) {
+            certificatesToCelebrateQueue.push(cert);
+        }
+    });
+
+    const celebrationModal = document.getElementById('certsCelebrationModal');
+    if (certificatesToCelebrateQueue.length > 0 && celebrationModal && celebrationModal.style.display !== 'block') {
+        window.showNextCertificateCelebration();
+    }
+};
+
+window.showNextCertificateCelebration = function() {
+    if (certificatesToCelebrateQueue.length === 0) return;
+
+    const cert = certificatesToCelebrateQueue.shift();
+    const modal = document.getElementById('certsCelebrationModal');
+    if (!modal) return;
+
+    // Configurar modal
+    const titleEl = document.getElementById('certs-celebrate-title');
+    if (titleEl) titleEl.textContent = cert.title;
+    const descEl = document.getElementById('certs-celebrate-desc');
+    if (descEl) descEl.textContent = cert.desc;
+
+    const badge = document.getElementById('certs-celebrate-rarity-badge');
+    if (badge) {
+        badge.textContent = cert.rarity;
+        
+        let badgeColorStyle = 'background-color: #10b981; color: white;';
+        if (cert.rarity === 'Raro') badgeColorStyle = 'background-color: #3b82f6; color: white;';
+        else if (cert.rarity === 'Épico') badgeColorStyle = 'background-color: #8b5cf6; color: white;';
+        else if (cert.rarity === 'Lendário') badgeColorStyle = 'background-color: #f59e0b; color: white;';
+        else if (cert.rarity === 'Exclusivo') badgeColorStyle = 'background-color: #ec4899; color: white;';
+        
+        badge.style = badgeColorStyle + ' position: absolute; top: -12px; left: 50%; transform: translateX(-50%); font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; font-weight: 800; border: var(--border-thin); text-transform: uppercase;';
+    }
+
+    modal.style.display = 'block';
+
+    if (typeof confetti !== 'undefined') {
+        confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.6 }
+        });
+    }
+
+    modal.setAttribute('data-current-cert-id', cert.id);
+};
+
+window.closeCertsCelebrationModal = function() {
+    const modal = document.getElementById('certsCelebrationModal');
+    if (modal) modal.style.display = 'none';
+
+    if (certificatesToCelebrateQueue.length > 0) {
+        setTimeout(window.showNextCertificateCelebration, 400);
+    }
+};
+
+window.viewCertFromCelebration = function() {
+    const modal = document.getElementById('certsCelebrationModal');
+    const certId = modal ? modal.getAttribute('data-current-cert-id') : null;
+    window.closeCertsCelebrationModal();
+    if (certId) {
+        navigate('/certificados');
+        setTimeout(() => {
+            window.openCertsViewerModal(certId);
+        }, 300);
+    }
+};
+
+window.renderCertificadosView = renderCertificadosView;

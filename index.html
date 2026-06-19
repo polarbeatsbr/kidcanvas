@@ -2397,6 +2397,33 @@
                             </div>
                         </div>
 
+                        <!-- CARD DE CERTIFICADOS (NOVO) -->
+                        <div class="profile-card hover-bounce" style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 25px 20px; box-shadow: var(--shadow-cartoon); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onclick="navigate('/certificados')">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-purple); margin-bottom: 10px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>📜 Certificados</span>
+                                <span style="font-size: 0.85rem; background: var(--color-purple); color: white; padding: 2px 8px; border-radius: 20px; font-family: var(--font-heading);" id="profile-cert-count-badge">0/0</span>
+                            </h3>
+                            <p style="color: var(--color-dark-light); font-size: 0.82rem; font-weight: 600; margin-bottom: 15px;">Sua coleção de diplomas de conquistas KidCanvas!</p>
+                            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; font-weight: 700; color: var(--color-dark);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>⭐ Estrelas Totais</span>
+                                    <span id="cert-summary-stars" style="color: var(--color-orange);">0</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>🎨 Desenhos Coloridos</span>
+                                    <span id="cert-summary-paintings" style="color: var(--color-purple);">0</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>🏆 Conquistas</span>
+                                    <span id="cert-summary-achievements" style="color: var(--color-blue);">0</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>📚 Livro das Descobertas</span>
+                                    <span id="cert-summary-cards" style="color: var(--color-green);">0</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- COLUNA DIREITA: SELOS EM DESTAQUE, CONQUISTAS RECENTES, CONVITE -->
@@ -2499,6 +2526,45 @@
             </div>
         </section>
 
+        <!-- ========================================== -->
+        <!-- VIEW: CENTRAL DE CERTIFICADOS -->
+        <!-- ========================================== -->
+        <section id="view-certificados" class="page-view" style="display: none; padding: 40px 0;">
+            <div class="container" style="max-width: 1100px;">
+                <!-- Header / Voltar -->
+                <div style="margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between;">
+                    <a href="#" onclick="navigate('/perfil'); return false;" class="btn btn-secondary btn-sm" style="font-weight: bold; display: inline-flex; align-items: center; gap: 6px; border: var(--border-thin); background: white; color: var(--color-dark); padding: 8px 16px; text-decoration: none; border-radius: var(--radius-sm);">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar ao Perfil
+                    </a>
+                </div>
+
+                <!-- Banner principal da Central -->
+                <div style="background: linear-gradient(135deg, #fffdf2, #fef7db); border: var(--border-thick); border-radius: var(--radius-md); padding: 35px 25px; box-shadow: var(--shadow-cartoon); margin-bottom: 35px; text-align: center; position: relative; overflow: hidden;">
+                    <span style="font-size: 3.5rem; display: block; margin-bottom: 10px; animation: float-slow 4s infinite;">📜</span>
+                    <h2 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.3rem; margin-bottom: 8px;">📜 Meus Certificados</h2>
+                    <p style="color: var(--color-dark-light); font-size: 1.05rem; font-weight: 600; max-width: 650px; margin: 0 auto 20px; line-height: 1.5;">
+                        Complete desafios, pinte desenhos, participe da comunidade e desbloqueie certificados especiais de conquista!
+                    </p>
+                    
+                    <!-- Progresso Geral -->
+                    <div style="max-width: 500px; margin: 0 auto; background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 15px 20px; box-shadow: var(--shadow-button-primary); position: relative; z-index: 2;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.95rem; margin-bottom: 8px; color: var(--color-purple);">
+                            <span>Certificados Desbloqueados</span>
+                            <span id="certs-general-progress-txt">0/0 (0%)</span>
+                        </div>
+                        <div style="width: 100%; height: 16px; background: #e9ecef; border-radius: 20px; border: 1.5px solid var(--color-dark); overflow: hidden; position: relative;">
+                            <div id="certs-general-progress-bar" style="width: 0%; height: 100%; background: linear-gradient(to right, #10b981, #34d399); transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categorias dinâmicas -->
+                <div id="certificates-categories-list" style="display: flex; flex-direction: column; gap: 40px;">
+                    <!-- Preenchido via JS -->
+                </div>
+            </div>
+        </section>
+
         <!-- Tela de Redefinição de Senha -->
         <section id="view-reset-password" class="page-view" style="display: none;">
             <div class="container" style="max-width: 480px; margin-top: 50px; margin-bottom: 50px;">
@@ -2559,6 +2625,55 @@
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn btn-secondary" onclick="closeCertificateModal()">Voltar</button>
                 <button class="btn btn-primary" id="btn-download-certificate" style="background-color: var(--color-purple); border-color: var(--color-purple); color: white;"><i class="fa-solid fa-file-pdf"></i> Baixar Certificado 🎓</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Visualizar / Baixar Certificados Conquistados -->
+    <div class="viewer-modal-overlay" id="certsViewerModal" style="z-index: 100002; display: none;">
+        <div class="viewer-modal-box" style="max-width: 850px; text-align: center; padding: 25px;">
+            <button class="btn-close-viewer" onclick="closeCertsViewerModal()">&times;</button>
+            <h2 id="certs-viewer-title" style="font-family: var(--font-heading); color: var(--color-purple); margin-bottom: 15px; font-size: 1.8rem;">Visualizar Certificado</h2>
+            
+            <!-- Canvas Render Box -->
+            <div style="background: #fafafa; border: var(--border-medium); border-radius: var(--radius-sm); padding: 10px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow-x: auto; box-shadow: var(--shadow-cartoon);">
+                <canvas id="certs-viewer-canvas" width="800" height="600" style="max-width: 100%; height: auto; border: 1px solid #ddd; background: white;"></canvas>
+            </div>
+
+            <!-- Botões de Ações -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="closeCertsViewerModal()" style="font-weight: bold; border: var(--border-thin); background: white; color: var(--color-dark);">Fechar</button>
+                <button class="btn btn-success" onclick="printCertFromCanvas()" style="font-weight: bold; background-color: var(--color-green); border-color: var(--color-green); color: white;"><i class="fa-solid fa-print"></i> Imprimir Certificado</button>
+                <button class="btn btn-primary" onclick="downloadCertFromCanvas()" style="font-weight: bold; background-color: var(--color-purple); border-color: var(--color-purple); color: white;"><i class="fa-solid fa-download"></i> Baixar como Imagem (PNG)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Celebração de Conquista de Certificado -->
+    <div class="viewer-modal-overlay" id="certsCelebrationModal" style="z-index: 100003; display: none; background: rgba(0,0,0,0.85);">
+        <div class="viewer-modal-box" style="max-width: 620px; text-align: center; padding: 35px; border: var(--border-thick); border-radius: var(--radius-md); box-shadow: 0 0 50px rgba(254, 202, 87, 0.5); overflow: hidden; background: linear-gradient(135deg, #ffffff, #fffbeb);">
+            <div style="position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; background: rgba(254,202,87,0.15); border-radius: 50%; filter: blur(20px);"></div>
+            <div style="position: absolute; bottom: -50px; right: -50px; width: 150px; height: 150px; background: rgba(139,92,246,0.15); border-radius: 50%; filter: blur(20px);"></div>
+            
+            <h1 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.5rem; margin-bottom: 5px; animation: bounce-slow 3s infinite;">🎉 PARABÉNS!</h1>
+            <p style="color: var(--color-dark-light); font-size: 1.1rem; font-weight: 700; margin-bottom: 25px;">Você conquistou um novo certificado oficial!</p>
+            
+            <!-- Mini Certificado Box Preview -->
+            <div style="margin: 0 auto 30px; max-width: 480px; background: white; border: var(--border-thick); border-radius: 12px; padding: 25px; box-shadow: var(--shadow-cartoon); text-align: center; border-color: #ffd43b; position: relative;">
+                <span id="certs-celebrate-rarity-badge" class="badge" style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; font-weight: 800; border: var(--border-thin); text-transform: uppercase;">Comum</span>
+                
+                <span style="font-size: 3.5rem; display: block; margin-top: 10px; margin-bottom: 10px;">📜</span>
+                <h2 id="certs-celebrate-title" style="font-family: var(--font-heading); color: var(--color-purple); font-size: 1.6rem; margin-bottom: 8px;">Certificado de Artista</h2>
+                <p id="certs-celebrate-desc" style="color: var(--color-dark-light); font-size: 0.9rem; font-weight: 600; line-height: 1.4; margin: 0;">
+                    Por ter colorido de forma incrivelmente criativa o seu primeiro desenho.
+                </p>
+            </div>
+            
+            <!-- Ações -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 10;">
+                <button class="btn btn-secondary" onclick="closeCertsCelebrationModal()" style="font-weight: bold; border: var(--border-thin); background: white; color: var(--color-dark);">Fechar</button>
+                <button class="btn btn-primary" onclick="viewCertFromCelebration()" style="font-weight: bold; background-color: var(--color-purple); border-color: var(--color-purple); color: white;"><i class="fa-solid fa-eye"></i> Visualizar Certificado</button>
+                <button class="btn btn-success" onclick="closeCertsCelebrationModal(); navigate('/certificados');" style="font-weight: bold; background-color: var(--color-green); border-color: var(--color-green); color: white;"><i class="fa-solid fa-scroll"></i> Ir para a Central</button>
             </div>
         </div>
     </div>

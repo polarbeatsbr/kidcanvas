@@ -244,7 +244,8 @@ function formatUserProfile(user, users) {
         notifications: user.notifications !== undefined ? !!user.notifications : true,
         featuredCards: user.featuredCards || [null, null, null],
         createdAt: user.createdAt || user.created_at || '2025-06-01T00:00:00.000Z',
-        achievements: user.achievements || []
+        achievements: user.achievements || [],
+        certificates: user.certificates || []
     };
 }
 
@@ -2236,13 +2237,18 @@ app.get('/api/auth/me', async (req, res) => {
         
         // Verificação retroativa de desbloqueios do livro
         const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
-        if (newlyUnlocked.length > 0 || completionRewards.length > 0) {
+        
+        // Verificação retroativa de certificados
+        const newlyUnlockedCerts = await evaluateUserCertificates(user);
+        
+        if (newlyUnlocked.length > 0 || completionRewards.length > 0 || newlyUnlockedCerts.length > 0) {
             await saveUsers(users);
         }
         
         return res.json({
             success: true,
             newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null),
+            newlyUnlockedCertificates: newlyUnlockedCerts,
             user: formatUserProfile(user, users)
         });
     } catch(err) {
@@ -2447,6 +2453,9 @@ app.post('/api/user/save-painting', async (req, res) => {
         // Mesclar as cartas desbloqueadas pela IA
         newlyUnlocked.push(...newlyUnlockedAI);
         
+        // Avaliar e desbloquear novos certificados
+        const newlyUnlockedCerts = await evaluateUserCertificates(user, `Desenho: ${prompt}`);
+        
         await saveUsers(users);
         console.log(`[Save Painting] Pintura para "${prompt}" salva para "${user.email}". URL: ${r2Url} (Public: ${isPublic})`);
         
@@ -2484,7 +2493,8 @@ app.post('/api/user/save-painting', async (req, res) => {
             newlyUnlocked: newlyUnlocked,
             completionRewards: completionRewards,
             newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null),
-            stars: user.stars
+            stars: user.stars,
+            newlyUnlockedCertificates: newlyUnlockedCerts
         });
     } catch(err) {
         console.error('Erro ao salvar pintura:', err);
@@ -2533,9 +2543,13 @@ app.post('/api/user/update-avatar', async (req, res) => {
         }
         
         user.avatar = avatar;
+        
+        // Avaliar e desbloquear novos certificados
+        const newlyUnlockedCerts = await evaluateUserCertificates(user, 'Avatar Atualizado');
+        
         await saveUsers(users);
         
-        return res.json({ success: true, message: 'Avatar atualizado com sucesso!', avatar: user.avatar });
+        return res.json({ success: true, message: 'Avatar atualizado com sucesso!', avatar: user.avatar, newlyUnlockedCertificates: newlyUnlockedCerts });
     } catch(err) {
         console.error('Erro ao atualizar avatar:', err);
         return res.status(500).json({ success: false, message: 'Erro ao atualizar o avatar.' });
@@ -3420,6 +3434,320 @@ app.post('/api/admin/monthly-rewards/payout', isAdmin, async (req, res) => {
     } catch (err) {
         console.error('Erro ao processar premiação manual:', err);
         return res.status(500).json({ success: false, message: 'Erro ao processar premiação.' });
+    }
+});
+
+// Helper para avaliar e desbloquear novos certificados para o usuário
+async function evaluateUserCertificates(user, additionalInfo = '') {
+    if (!user.certificates) user.certificates = [];
+    
+    const catalogPath = path.join(__dirname, 'certificates_catalog.json');
+    if (!fs.existsSync(catalogPath)) return [];
+    
+    let certCatalog = [];
+    try {
+        certCatalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+    } catch (e) {
+        console.error('Erro ao ler catálogo de certificados:', e);
+        return [];
+    }
+    
+    // Precarregar catálogos para coleções
+    const cardsCatalogPath = path.join(__dirname, 'cards_catalog.json');
+    let cardsCatalog = [];
+    try {
+        if (fs.existsSync(cardsCatalogPath)) {
+            cardsCatalog = JSON.parse(fs.readFileSync(cardsCatalogPath, 'utf8'));
+        }
+    } catch (e) {
+        console.error('Erro ao ler catálogo de cards:', e);
+    }
+    
+    // Contagem de likes recebidos
+    let likesCount = user.likesReceived || 0;
+    
+    const countPaintingsOfCategory = (catName) => {
+        return (user.myPaintings || []).filter(p => {
+            if (p.fromPinturaLivre === true || p.category === 'Mão Livre') return false;
+            if (p.originalCategory && p.originalCategory.toLowerCase() === catName.toLowerCase()) return true;
+            if (p.category && p.category.toLowerCase() === catName.toLowerCase()) return true;
+            return false;
+        }).length;
+    };
+    
+    const isCollectionComplete = (colName) => {
+        const colCards = cardsCatalog.filter(c => c.collection && c.collection.toLowerCase().includes(colName.toLowerCase()));
+        if (colCards.length === 0) return false;
+        const nonMythic = colCards.filter(c => c.rarity !== 'Mítica');
+        if (nonMythic.length === 0) return false;
+        return nonMythic.every(c => (user.cards || []).some(uc => uc.id === c.id));
+    };
+
+    const isCollectionCompleteCards = (categorySlug) => {
+        const colCards = cardsCatalog.filter(c => c.categorySlug && c.categorySlug.toLowerCase() === categorySlug.toLowerCase());
+        if (colCards.length === 0) return false;
+        return colCards.every(c => (user.cards || []).some(uc => uc.id === c.id));
+    };
+    
+    const newlyUnlocked = [];
+    const recipientName = user.name || 'Artista';
+    
+    certCatalog.forEach(cert => {
+        const alreadyHas = user.certificates.some(uc => uc.id === cert.id);
+        if (alreadyHas) return;
+        
+        let shouldUnlock = false;
+        const rule = cert.unlockRule;
+        if (!rule) return;
+        
+        switch (rule.type) {
+            case 'paint_count':
+                shouldUnlock = (user.myPaintings || []).length >= rule.count;
+                break;
+            case 'category_paint':
+                shouldUnlock = countPaintingsOfCategory(rule.category) >= rule.count;
+                break;
+            case 'collection_complete':
+                shouldUnlock = isCollectionComplete(rule.target);
+                break;
+            case 'collection_complete_cards':
+                shouldUnlock = isCollectionCompleteCards(rule.target);
+                break;
+            case 'stars_count':
+                shouldUnlock = (user.stars || 0) >= rule.count;
+                break;
+            case 'hall_count':
+                shouldUnlock = (user.myPaintings || []).filter(p => p.isPublic && p.fromPinturaLivre !== true && p.category !== 'Mão Livre').length >= rule.count;
+                break;
+            case 'likes_count':
+                shouldUnlock = likesCount >= rule.count;
+                break;
+            case 'hall_ranking_entry':
+                shouldUnlock = !!user.hallRankingEntered;
+                break;
+            case 'hall_ranking_first':
+                shouldUnlock = !!user.hallRankingFirstPlace;
+                break;
+            case 'invites_sent':
+                shouldUnlock = (user.referredUsers || []).length >= rule.count;
+                break;
+            case 'invites_accepted':
+                shouldUnlock = (user.referredUsers || []).length >= rule.count;
+                break;
+            case 'create_account':
+                shouldUnlock = true;
+                break;
+            case 'complete_profile':
+                shouldUnlock = !!(user.name && user.avatar && user.avatar !== '👤');
+                break;
+            case 'cards_unlocked':
+                shouldUnlock = (user.cards || []).length >= rule.count;
+                break;
+            case 'account_age_years': {
+                const diffTime = Math.abs(new Date() - new Date(user.createdAt || Date.now()));
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                shouldUnlock = diffDays >= (rule.count * 365);
+                break;
+            }
+            case 'is_founder':
+                shouldUnlock = !!user.isFounder;
+                break;
+            case 'monthly_ranking_position':
+                shouldUnlock = user.lastMonthlyRankingPos && user.lastMonthlyRankingPos <= rule.count;
+                break;
+            case 'expedition_missions_claimed': {
+                let claimedCount = 0;
+                if (user.eventProgress && user.eventProgress.missions) {
+                    claimedCount = Object.values(user.eventProgress.missions).filter(m => m.claimed).length;
+                }
+                shouldUnlock = claimedCount >= rule.count;
+                break;
+            }
+            case 'expedition_count':
+                shouldUnlock = (user.eventInventory || []).length >= rule.count;
+                break;
+            case 'rarity_card_count':
+                shouldUnlock = (user.cards || []).filter(c => c.rarity && c.rarity.toLowerCase() === rule.rarity.toLowerCase()).length >= rule.count;
+                break;
+            default:
+                break;
+        }
+        
+        if (shouldUnlock) {
+            const unlockedObj = {
+                id: cert.id,
+                unlockedAt: new Date().toISOString(),
+                recipientName: recipientName,
+                additionalInfo: additionalInfo || ''
+            };
+            user.certificates.push(unlockedObj);
+            newlyUnlocked.push({
+                ...cert,
+                recipientName: recipientName,
+                unlockedAt: unlockedObj.unlockedAt
+            });
+        }
+    });
+    
+    return newlyUnlocked;
+}
+
+// Endpoint para buscar certificados conquistados e progresso geral
+app.get('/api/certificates/my', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        const catalogPath = path.join(__dirname, 'certificates_catalog.json');
+        const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
+
+        // Forçar avaliação ao carregar
+        const newlyUnlocked = await evaluateUserCertificates(user, 'Busca Manual');
+        if (newlyUnlocked.length > 0) {
+            await saveUsers(users);
+        }
+
+        return res.json({
+            success: true,
+            certificates: user.certificates || [],
+            catalog: catalog,
+            newlyUnlockedCertificates: newlyUnlocked
+        });
+    } catch (err) {
+        console.error('Erro ao buscar certificados:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao buscar certificados.' });
+    }
+});
+
+// Endpoint de Admin para ver catálogo e número de conquistas
+app.get('/api/admin/certificates/config', isAdmin, async (req, res) => {
+    try {
+        const catalogPath = path.join(__dirname, 'certificates_catalog.json');
+        const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
+
+        const users = await loadUsers();
+
+        const stats = {};
+        catalog.forEach(cert => {
+            stats[cert.id] = users.filter(u => u.certificates && u.certificates.some(uc => uc.id === cert.id)).length;
+        });
+
+        return res.json({
+            success: true,
+            catalog,
+            stats
+        });
+    } catch (err) {
+        console.error('Erro ao carregar estatísticas de certificados:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno.' });
+    }
+});
+
+// Endpoint de Admin para criar ou editar um certificado no catálogo
+app.post('/api/admin/certificates/save', isAdmin, async (req, res) => {
+    try {
+        const cert = req.body;
+        if (!cert.id || !cert.title || !cert.category || !cert.rarity) {
+            return res.status(400).json({ success: false, message: 'Campos obrigatórios ausentes.' });
+        }
+
+        const catalogPath = path.join(__dirname, 'certificates_catalog.json');
+        let catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
+
+        const idx = catalog.findIndex(c => c.id === cert.id);
+        if (idx !== -1) {
+            catalog[idx] = cert;
+        } else {
+            catalog.push(cert);
+        }
+
+        fs.writeFileSync(catalogPath, JSON.stringify(catalog, null, 2), 'utf8');
+        return res.json({ success: true, message: 'Certificado salvo com sucesso no catálogo!', catalog });
+    } catch (err) {
+        console.error('Erro ao salvar certificado no catálogo:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno.' });
+    }
+});
+
+// Endpoint de Admin para conceder manualmente um certificado a um usuário
+app.post('/api/admin/certificates/grant', isAdmin, async (req, res) => {
+    try {
+        const { email, certId, additionalInfo } = req.body;
+        if (!email || !certId) {
+            return res.status(400).json({ success: false, message: 'E-mail e ID do certificado são obrigatórios.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+        }
+
+        const catalogPath = path.join(__dirname, 'certificates_catalog.json');
+        const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
+        const cert = catalog.find(c => c.id === certId);
+        if (!cert) {
+            return res.status(404).json({ success: false, message: 'Certificado não encontrado no catálogo.' });
+        }
+
+        if (!user.certificates) user.certificates = [];
+        if (user.certificates.some(uc => uc.id === certId)) {
+            return res.status(400).json({ success: false, message: 'O usuário já possui este certificado.' });
+        }
+
+        const unlockedObj = {
+            id: certId,
+            unlockedAt: new Date().toISOString(),
+            recipientName: user.name || 'Artista',
+            additionalInfo: additionalInfo || 'Concedido manualmente pelo Administrador.'
+        };
+        user.certificates.push(unlockedObj);
+        await saveUsers(users);
+
+        console.log(`[Admin Moderation] Certificado ${certId} concedido para ${email}`);
+        return res.json({ success: true, message: 'Certificado concedido com sucesso!', user: formatUserProfile(user, users) });
+    } catch (err) {
+        console.error('Erro ao conceder certificado:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno.' });
+    }
+});
+
+// Endpoint de Admin para revogar manualmente um certificado de um usuário
+app.post('/api/admin/certificates/revoke', isAdmin, async (req, res) => {
+    try {
+        const { email, certId } = req.body;
+        if (!email || !certId) {
+            return res.status(400).json({ success: false, message: 'E-mail e ID do certificado são obrigatórios.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+        }
+
+        if (!user.certificates) user.certificates = [];
+        const idx = user.certificates.findIndex(uc => uc.id === certId);
+        if (idx === -1) {
+            return res.status(400).json({ success: false, message: 'O usuário não possui este certificado.' });
+        }
+
+        user.certificates.splice(idx, 1);
+        await saveUsers(users);
+
+        console.log(`[Admin Moderation] Certificado ${certId} revogado de ${email}`);
+        return res.json({ success: true, message: 'Certificado revogado com sucesso!', user: formatUserProfile(user, users) });
+    } catch (err) {
+        console.error('Erro ao revogar certificado:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno.' });
     }
 });
 
@@ -4641,6 +4969,9 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
     // Verificar se completou alguma coleção de cartas e premiar com Mítica e estrelas
     const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
 
+    // Avaliar e desbloquear novos certificados
+    const newlyUnlockedCerts = await evaluateUserCertificates(user, `Expedição: ${week.theme}`);
+
     const users = await loadUsers();
     const userIndex = users.findIndex(u => u.email === user.email);
     if (userIndex !== -1) {
@@ -4656,7 +4987,8 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
         unlockedAchievements: user.unlockedAchievements,
         newlyUnlocked: newlyUnlocked,
         completionRewards: completionRewards,
-        newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null)
+        newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null),
+        newlyUnlockedCertificates: newlyUnlockedCerts
     });
 });
 
