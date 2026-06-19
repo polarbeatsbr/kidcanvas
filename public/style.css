@@ -9585,8 +9585,13 @@ button, input, select, textarea {
     animation: glow-gold-pulse 3s infinite;
 }
 
+.cert-rarity-mitico {
+    border-color: #ef4444 !important;
+    animation: cert-glow-red 3s infinite;
+}
+
 .cert-rarity-exclusivo {
-    animation: rainbow-border 4s infinite, glow-orange-pulse 4s infinite;
+    animation: rainbow-border 4s infinite linear, glow-purple-pulse-anim 3s infinite;
 }
 
 @keyframes cert-glow-blue {
@@ -9595,6 +9600,15 @@ button, input, select, textarea {
     }
     50% {
         box-shadow: 0 0 20px rgba(59, 130, 246, 0.9);
+    }
+}
+
+@keyframes cert-glow-red {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.9);
     }
 }
 

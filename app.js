@@ -15427,37 +15427,40 @@ window.getCertificateProgressText = function(cert, progress) {
         case 'paint_count':
             return `${progress.current}/${progress.target} desenhos coloridos`;
         case 'category_paint':
-            return `${progress.current}/${progress.target} desenhos coloridos de ${rule.category}`;
+            return `${progress.current}/${progress.target} desenhos de ${rule.category}`;
         case 'collection_complete':
             return `${progress.current}/${progress.target} cards de "${rule.target}" desbloqueados`;
         case 'collection_complete_cards':
             return `${progress.current}/${progress.target} cards de "${rule.target}" desbloqueados`;
         case 'stars_count':
-            return `${progress.current.toLocaleString('pt-BR')}/${progress.target.toLocaleString('pt-BR')} estrelas ganhas`;
+            return `${progress.current}/${progress.target} estrelas`;
         case 'hall_count':
             return `${progress.current}/${progress.target} desenhos no Hall da Fama`;
         case 'likes_count':
             return `${progress.current}/${progress.target} curtidas recebidas`;
         case 'hall_ranking_entry':
-            return progress.current ? 'Entrou no ranking do Hall da Fama' : 'Entrar no ranking do Hall da Fama';
+            return 'Entrar no ranking do Hall da Fama';
         case 'hall_ranking_first':
-            return progress.current ? 'Conseguiu o 1º lugar no Hall da Fama' : 'Ficar em 1º lugar no Hall da Fama';
+            return 'Ficar em 1º lugar no Hall da Fama';
         case 'invites_sent':
             return `${progress.current}/${progress.target} convites enviados`;
         case 'invites_accepted':
             return `${progress.current}/${progress.target} amigos cadastrados`;
         case 'create_account':
-            return 'Conta criada com sucesso';
+            return 'Criar uma conta no KidCanvas';
         case 'complete_profile':
-            return progress.current ? 'Perfil completo (Nome e Avatar)' : 'Completar perfil com Nome e Avatar';
+            return 'Completar perfil com Nome e Avatar';
         case 'cards_unlocked':
-            return `${progress.current}/${progress.target} cards desbloqueados no Livro`;
+            return `${progress.current}/${progress.target} cards desbloqueados`;
         case 'account_age_years':
             return `${progress.current}/${progress.target} dias de conta`;
         case 'is_founder':
-            return progress.current ? 'Parabéns, você é um Fundador!' : 'Ser um usuário fundador';
+            return 'Ser um usuário fundador';
         case 'monthly_ranking_position':
-            return progress.current ? `Top ${rule.count} mensal alcançado` : `Terminar o mês no Top ${rule.count} mensal`;
+            if (rule.count === 1) {
+                return 'Finalize um mês em primeiro lugar.';
+            }
+            return `Finalizar o mês no Top ${rule.count} do ranking.`;
         case 'expedition_missions_claimed':
             return `${progress.current}/${progress.target} missões completadas`;
         case 'expedition_count':
@@ -15545,7 +15548,7 @@ window.printCertDirect = async function(certId) {
     }
 };
 
-function renderCertificateMiniature(cert) {
+function renderCertificateMiniature(cert, isLocked = false) {
     let borderMain = '#ffd43b';
     let borderInner = '#ff5e7e';
     
@@ -15561,13 +15564,19 @@ function renderCertificateMiniature(cert) {
     } else if (cert.rarity === 'Lendário') {
         borderMain = '#f59e0b';
         borderInner = '#fbbf24';
+    } else if (cert.rarity === 'Mítico') {
+        borderMain = '#ef4444';
+        borderInner = '#f87171';
     } else if (cert.rarity === 'Exclusivo') {
         borderMain = '#ec4899';
         borderInner = '#f472b6';
     }
     
+    const filterStyle = isLocked ? 'filter: grayscale(1) opacity(0.6);' : '';
+    const centerIcon = isLocked ? '🔒' : '📜';
+    
     return `
-        <div style="background: #faf8f5; border: 3px solid ${borderMain}; border-radius: 8px; padding: 10px; height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); margin-bottom: 12px; overflow: hidden;">
+        <div style="background: #faf8f5; border: 3px solid ${borderMain}; border-radius: 8px; padding: 10px; height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); margin-bottom: 12px; overflow: hidden; ${filterStyle}">
             <!-- Mini corner emojis -->
             <span style="position: absolute; top: 4px; left: 4px; font-size: 0.65rem;">🎨</span>
             <span style="position: absolute; top: 4px; right: 4px; font-size: 0.65rem;">🏆</span>
@@ -15578,7 +15587,7 @@ function renderCertificateMiniature(cert) {
             <div style="position: absolute; top: 4px; bottom: 4px; left: 4px; right: 4px; border: 1px dashed ${borderInner}; border-radius: 6px; pointer-events: none;"></div>
             
             <!-- Center Icon / Emoji -->
-            <div style="font-size: 2.2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); margin-bottom: 2px;">📜</div>
+            <div style="font-size: 2.2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); margin-bottom: 2px;">${centerIcon}</div>
             <div style="font-size: 0.55rem; font-weight: 800; color: ${borderInner}; text-transform: uppercase; letter-spacing: 0.5px;">DIPLOMA</div>
         </div>
     `;
@@ -15643,32 +15652,30 @@ async function renderCertificadosView() {
             // Ordenamento e metadados das categorias
             const categoryDisplayMeta = {
                 'Pinturas': { title: '🎨 Pinturas', color: 'var(--color-blue)', icon: '🎨' },
-                'Livros': { title: '📚 Livro das Descobertas', color: '#f1c40f', icon: '📚' },
+                'Conclusões': { title: '📜 Conclusão de Capítulos', color: '#a0aec0', icon: '📜' },
                 'Estrelas': { title: '⭐ Estrelas', color: '#feca57', icon: '⭐' },
                 'Comunidade': { title: '🏆 Comunidade', color: '#9b59b6', icon: '🏆' },
                 'Influencer': { title: '📣 Influencer', color: '#4dabf7', icon: '📣' },
-                'Dinossauros': { title: '🦖 Dinossauros', color: 'var(--color-green)', icon: '🦖' },
-                'Histórias': { title: '📖 Histórias', color: '#8e44ad', icon: '📖' },
-                'Expedições': { title: '⛺ Expedições', color: '#e74c3c', icon: '⛺' },
-                'Lendárias': { title: '👑 Lendárias', color: '#ffb300', icon: '👑' },
-                'Conclusões': { title: '📜 Conclusões', color: '#a0aec0', icon: '📜' },
                 'Especiais': { title: '🎉 Especiais', color: '#ff6b6b', icon: '🎉' },
-                'Top Exploradores do Mês': { title: '🏆 Top Exploradores do Mês', color: '#ffa801', icon: '🏆' }
+                'Top Exploradores do Mês': { title: '🏆 Top Exploradores', color: '#ffa801', icon: '🏆' },
+                'Dinossauros': { title: '🦖 Dinossauros', color: 'var(--color-green)', icon: '🦖' },
+                'Livros': { title: '📚 Livros', color: '#f1c40f', icon: '📚' },
+                'Expedições': { title: '⛺ Expedições', color: '#e74c3c', icon: '⛺' },
+                'Lendárias': { title: '👑 Lendárias', color: '#ffb300', icon: '👑' }
             };
 
             const orderedCategories = [
                 'Pinturas',
-                'Livros',
+                'Conclusões',
                 'Estrelas',
                 'Comunidade',
                 'Influencer',
-                'Dinossauros',
-                'Histórias',
-                'Expedições',
-                'Lendárias',
-                'Conclusões',
                 'Especiais',
-                'Top Exploradores do Mês'
+                'Top Exploradores do Mês',
+                'Dinossauros',
+                'Livros',
+                'Expedições',
+                'Lendárias'
             ];
 
             listEl.innerHTML = '';
@@ -15722,7 +15729,16 @@ async function renderCertificadosView() {
                         'Raro': 'raro',
                         'Épico': 'epico',
                         'Lendário': 'lendario',
+                        'Mítico': 'mitico',
                         'Exclusivo': 'exclusivo'
+                    };
+                    const rarityBadges = {
+                        'Comum': '🟢 Comum',
+                        'Raro': '🔵 Raro',
+                        'Épico': '🟣 Épico',
+                        'Lendário': '🟠 Lendário',
+                        'Mítico': '🔴 Mítico',
+                        'Exclusivo': '👑 Exclusivo'
                     };
                     const rarityClass = `cert-rarity-${rarityColors[cert.rarity] || 'comum'}`;
 
@@ -15730,29 +15746,43 @@ async function renderCertificadosView() {
                         const progress = window.getCertificateProgress(cert);
                         const progressText = window.getCertificateProgressText(cert, progress);
                         const percent = progress.target > 0 ? Math.min(100, Math.round((progress.current / progress.target) * 100)) : 0;
+                        const isOneTime = (progress.target === 1);
+
+                        let progressHtml = '';
+                        if (isOneTime) {
+                            progressHtml = `
+                                <div style="margin-top: 15px; text-align: center; font-size: 0.75rem; font-weight: 700; color: #4b5563; line-height: 1.3;">
+                                    ${progressText}
+                                </div>
+                            `;
+                        } else {
+                            progressHtml = `
+                                <div style="margin-top: 15px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; font-size: 0.75rem; font-weight: 700; color: #4b5563; margin-bottom: 6px; text-align: left;">
+                                        <span style="line-height: 1.3; flex-grow: 1; padding-right: 8px;">${progressText}</span>
+                                        <span style="white-space: nowrap;">${percent}%</span>
+                                    </div>
+                                    <div style="width: 100%; height: 10px; background-color: #f1f5f9; border-radius: 10px; overflow: hidden; border: 1.5px solid #cbd5e1;">
+                                        <div style="width: ${percent}%; height: 100%; background: linear-gradient(90deg, #94a3b8, #cbd5e1); border-radius: 10px;"></div>
+                                    </div>
+                                </div>
+                            `;
+                        }
 
                         gridHtml += `
                             <div class="cert-card locked" title="🔒 Desbloqueie realizando conquistas!">
-                                ${renderCertificateMiniature(cert)}
+                                ${renderCertificateMiniature(cert, true)}
                                 <div style="display: flex; flex-direction: column; gap: 4px; text-align: center; flex-grow: 1; justify-content: space-between;">
                                     <div>
                                         <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: #495057; margin: 0; line-height: 1.2;">🔒 ${cert.title}</h4>
-                                        <span style="font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; background: #94a3b8; color: white; font-weight: 800; text-transform: uppercase; display: inline-block; margin-top: 4px;">
-                                            ${cert.rarity}
+                                        <span style="font-size: 0.7rem; color: #94a3b8; font-weight: 700; display: block; margin-top: 2px;">Categoria: ${cert.category}</span>
+                                        <span style="font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; background: #cbd5e1; color: #64748b; font-weight: 800; text-transform: uppercase; display: inline-block; margin-top: 4px;">
+                                            ${rarityBadges[cert.rarity] || cert.rarity}
                                         </span>
                                         <p style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin: 8px 0 0 0; line-height: 1.3;">${cert.desc}</p>
                                     </div>
                                     
-                                    <div style="margin-top: 15px;">
-                                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; font-weight: bold; color: var(--color-dark); margin-bottom: 4px;">
-                                            <span style="max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left;" title="${progressText}">${progressText}</span>
-                                            <span>${percent}%</span>
-                                        </div>
-                                        <!-- Barra de progresso individual -->
-                                        <div style="width: 100%; height: 10px; background-color: #e2e8f0; border-radius: 10px; overflow: hidden; border: 1px solid #cbd5e1;">
-                                            <div style="width: ${percent}%; height: 100%; background: linear-gradient(90deg, #94a3b8, #cbd5e1); border-radius: 10px;"></div>
-                                        </div>
-                                    </div>
+                                    ${progressHtml}
                                 </div>
                             </div>
                         `;
@@ -15770,12 +15800,13 @@ async function renderCertificadosView() {
 
                         gridHtml += `
                             <div class="cert-card ${rarityClass}">
-                                ${renderCertificateMiniature(cert)}
+                                ${renderCertificateMiniature(cert, false)}
                                 <div style="display: flex; flex-direction: column; gap: 4px; text-align: center; flex-grow: 1; justify-content: space-between;">
                                     <div>
                                         <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0; line-height: 1.2;">${cert.title}</h4>
+                                        <span style="font-size: 0.7rem; color: #94a3b8; font-weight: 700; display: block; margin-top: 2px;">Categoria: ${cert.category}</span>
                                         <span class="rarity-badge-mini rarity-color-${rarityColors[cert.rarity] || 'comum'}" style="font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; color: white; font-weight: 800; text-transform: uppercase; display: inline-block; margin-top: 4px;">
-                                            ${cert.rarity}
+                                            ${rarityBadges[cert.rarity] || cert.rarity}
                                         </span>
                                         <p style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin: 8px 0 0 0; line-height: 1.3;">${cert.desc}</p>
                                         ${infoHtml}
