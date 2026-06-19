@@ -13277,20 +13277,42 @@ window.renderPerfilView = function() {
     }
 
     // Atualizar resumo dos certificados (Novo)
-    const unlockedCerts = (currentUser.certificates || []).length;
-    const certCountBadge = document.getElementById('profile-cert-count-badge');
-    if (certCountBadge) {
+    const updateCertSummaryUI = () => {
+        const unlockedCerts = (currentUser.certificates || []).length;
         const totalCerts = window.certificatesCatalog ? window.certificatesCatalog.length : 59;
-        certCountBadge.textContent = `${unlockedCerts}/${totalCerts}`;
+        const percentage = totalCerts > 0 ? Math.round((unlockedCerts / totalCerts) * 100) : 0;
+        
+        const unlockedFractionEl = document.getElementById('profile-cert-unlocked-fraction');
+        if (unlockedFractionEl) {
+            unlockedFractionEl.textContent = `${unlockedCerts}/${totalCerts}`;
+        }
+        
+        const progressFillEl = document.getElementById('profile-cert-progress-fill');
+        if (progressFillEl) {
+            progressFillEl.style.width = `${percentage}%`;
+        }
+        
+        const percentTextEl = document.getElementById('profile-cert-percent-text');
+        if (percentTextEl) {
+            percentTextEl.textContent = `${percentage}% concluído`;
+        }
+    };
+
+    updateCertSummaryUI();
+
+    if (!window.certificatesCatalog) {
+        fetch('/api/certificates/my', {
+            headers: { 'X-Session-Token': localStorage.getItem('kidcanvas_session_token') || '' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                window.certificatesCatalog = data.catalog;
+                updateCertSummaryUI();
+            }
+        })
+        .catch(err => console.error('Error fetching certificates catalog for profile:', err));
     }
-    const certStars = document.getElementById('cert-summary-stars');
-    if (certStars) certStars.textContent = starsCount;
-    const certPaintings = document.getElementById('cert-summary-paintings');
-    if (certPaintings) certPaintings.textContent = paintingsCount;
-    const certAchievements = document.getElementById('cert-summary-achievements');
-    if (certAchievements) certAchievements.textContent = unlockedBadges;
-    const certCards = document.getElementById('cert-summary-cards');
-    if (certCards) certCards.textContent = (currentUser.cards || []).length;
 };
 
 const CHAPTER_GUIDES = {
@@ -13523,6 +13545,278 @@ window.openChapterGuide = function(colName) {
 
 /* --- CENTRAL DE CERTIFICADOS --- */
 
+window.getCertificateProgress = function(cert) {
+    if (!currentUser) return { current: 0, target: 0 };
+    
+    const rule = cert.unlockRule;
+    if (!rule) return { current: 0, target: 0 };
+    
+    const myPaintings = currentUser.myPaintings || [];
+    const myStories = currentUser.myStories || [];
+    const userCards = currentUser.cards || [];
+    
+    const countPaintingsOfCategory = (catName) => {
+        return myPaintings.filter(p => {
+            if (p.fromPinturaLivre === true || p.category === 'Mão Livre') return false;
+            if (p.originalCategory && p.originalCategory.toLowerCase() === catName.toLowerCase()) return true;
+            if (p.category && p.category.toLowerCase() === catName.toLowerCase()) return true;
+            return false;
+        }).length;
+    };
+    
+    const isCollectionComplete = (colName) => {
+        const colCards = (window.globalCatalog || []).filter(c => c.collection && c.collection.toLowerCase().includes(colName.toLowerCase()));
+        if (colCards.length === 0) return { current: 0, target: 0 };
+        const nonMythic = colCards.filter(c => c.rarity !== 'Mítica');
+        if (nonMythic.length === 0) return { current: 0, target: 0 };
+        
+        const unlocked = nonMythic.filter(c => userCards.some(uc => uc.id === c.id)).length;
+        return { current: unlocked, target: nonMythic.length };
+    };
+
+    const isCollectionCompleteCards = (categorySlug) => {
+        const colCards = (window.globalCatalog || []).filter(c => c.categorySlug && c.categorySlug.toLowerCase() === categorySlug.toLowerCase());
+        if (colCards.length === 0) return { current: 0, target: 0 };
+        
+        const unlocked = colCards.filter(c => userCards.some(uc => uc.id === c.id)).length;
+        return { current: unlocked, target: colCards.length };
+    };
+
+    switch (rule.type) {
+        case 'paint_count':
+            return { current: myPaintings.length, target: rule.count };
+            
+        case 'category_paint':
+            return { current: countPaintingsOfCategory(rule.category), target: rule.count };
+            
+        case 'collection_complete':
+            return isCollectionComplete(rule.target);
+            
+        case 'collection_complete_cards':
+            return isCollectionCompleteCards(rule.target);
+            
+        case 'stars_count':
+            return { current: currentUser.stars || 0, target: rule.count };
+            
+        case 'hall_count':
+            return { current: myPaintings.filter(p => p.isPublic && p.fromPinturaLivre !== true && p.category !== 'Mão Livre').length, target: rule.count };
+            
+        case 'likes_count':
+            return { current: currentUser.likesReceived || 0, target: rule.count };
+            
+        case 'hall_ranking_entry':
+            return { current: currentUser.hallRankingEntered ? 1 : 0, target: 1 };
+            
+        case 'hall_ranking_first':
+            return { current: currentUser.hallRankingFirstPlace ? 1 : 0, target: 1 };
+            
+        case 'invites_sent':
+        case 'invites_accepted':
+            return { current: (currentUser.referredUsers || []).length, target: rule.count };
+            
+        case 'create_account':
+            return { current: 1, target: 1 };
+            
+        case 'complete_profile':
+            return { current: (currentUser.name && currentUser.avatar && currentUser.avatar !== '👤') ? 1 : 0, target: 1 };
+            
+        case 'cards_unlocked':
+            return { current: userCards.length, target: rule.count };
+            
+        case 'account_age_years': {
+            const diffTime = Math.abs(new Date() - new Date(currentUser.createdAt || Date.now()));
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return { current: diffDays, target: rule.count * 365 };
+        }
+        case 'is_founder':
+            return { current: currentUser.isFounder ? 1 : 0, target: 1 };
+            
+        case 'monthly_ranking_position':
+            return { current: (currentUser.lastMonthlyRankingPos && currentUser.lastMonthlyRankingPos <= rule.count) ? 1 : 0, target: 1 };
+            
+        case 'expedition_missions_claimed': {
+            let claimedCount = 0;
+            if (currentUser.eventProgress && currentUser.eventProgress.missions) {
+                claimedCount = Object.values(currentUser.eventProgress.missions).filter(m => m.claimed).length;
+            }
+            return { current: claimedCount, target: rule.count };
+        }
+        case 'expedition_count':
+            return { current: (currentUser.eventInventory || []).length, target: rule.count };
+            
+        case 'rarity_card_count':
+            return { current: userCards.filter(c => c.rarity && c.rarity.toLowerCase() === rule.rarity.toLowerCase()).length, target: rule.count };
+            
+        default:
+            return { current: 0, target: 0 };
+    }
+};
+
+window.getCertificateProgressText = function(cert, progress) {
+    const rule = cert.unlockRule;
+    if (!rule) return '';
+    
+    switch (rule.type) {
+        case 'paint_count':
+            return `${progress.current}/${progress.target} desenhos coloridos`;
+        case 'category_paint':
+            return `${progress.current}/${progress.target} desenhos coloridos de ${rule.category}`;
+        case 'collection_complete':
+            return `${progress.current}/${progress.target} cards de "${rule.target}" desbloqueados`;
+        case 'collection_complete_cards':
+            return `${progress.current}/${progress.target} cards de "${rule.target}" desbloqueados`;
+        case 'stars_count':
+            return `${progress.current.toLocaleString('pt-BR')}/${progress.target.toLocaleString('pt-BR')} estrelas ganhas`;
+        case 'hall_count':
+            return `${progress.current}/${progress.target} desenhos no Hall da Fama`;
+        case 'likes_count':
+            return `${progress.current}/${progress.target} curtidas recebidas`;
+        case 'hall_ranking_entry':
+            return progress.current ? 'Entrou no ranking do Hall da Fama' : 'Entrar no ranking do Hall da Fama';
+        case 'hall_ranking_first':
+            return progress.current ? 'Conseguiu o 1º lugar no Hall da Fama' : 'Ficar em 1º lugar no Hall da Fama';
+        case 'invites_sent':
+            return `${progress.current}/${progress.target} convites enviados`;
+        case 'invites_accepted':
+            return `${progress.current}/${progress.target} amigos cadastrados`;
+        case 'create_account':
+            return 'Conta criada com sucesso';
+        case 'complete_profile':
+            return progress.current ? 'Perfil completo (Nome e Avatar)' : 'Completar perfil com Nome e Avatar';
+        case 'cards_unlocked':
+            return `${progress.current}/${progress.target} cards desbloqueados no Livro`;
+        case 'account_age_years':
+            return `${progress.current}/${progress.target} dias de conta`;
+        case 'is_founder':
+            return progress.current ? 'Parabéns, você é um Fundador!' : 'Ser um usuário fundador';
+        case 'monthly_ranking_position':
+            return progress.current ? `Top ${rule.count} mensal alcançado` : `Terminar o mês no Top ${rule.count} mensal`;
+        case 'expedition_missions_claimed':
+            return `${progress.current}/${progress.target} missões completadas`;
+        case 'expedition_count':
+            return `${progress.current}/${progress.target} expedições concluídas`;
+        case 'rarity_card_count':
+            return `${progress.current}/${progress.target} cards de raridade ${rule.rarity} desbloqueados`;
+        default:
+            return `${progress.current}/${progress.target}`;
+    }
+};
+
+window.downloadCertDirect = async function(certId) {
+    if (!currentUser) return;
+    const cert = window.certificatesCatalog ? window.certificatesCatalog.find(c => c.id === certId) : null;
+    const unlockData = currentUser.certificates ? currentUser.certificates.find(uc => uc.id === certId) : null;
+    if (!cert || !unlockData) {
+        showToast('Erro ao carregar dados do certificado.', 'error');
+        return;
+    }
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 600;
+    canvas.id = 'temp-cert-canvas';
+    document.body.appendChild(canvas);
+    canvas.style.display = 'none';
+    
+    try {
+        window.drawCertificateCanvas('temp-cert-canvas', cert, unlockData);
+        const filename = `certificado-${cert.id}.png`;
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('Certificado baixado com sucesso! 🎉', 'success');
+    } catch(e) {
+        console.error(e);
+        showToast('Erro ao gerar certificado.', 'error');
+    } finally {
+        canvas.remove();
+    }
+};
+
+window.printCertDirect = async function(certId) {
+    if (!currentUser) return;
+    const cert = window.certificatesCatalog ? window.certificatesCatalog.find(c => c.id === certId) : null;
+    const unlockData = currentUser.certificates ? currentUser.certificates.find(uc => uc.id === certId) : null;
+    if (!cert || !unlockData) {
+        showToast('Erro ao carregar dados do certificado.', 'error');
+        return;
+    }
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 600;
+    canvas.id = 'temp-cert-canvas-print';
+    document.body.appendChild(canvas);
+    canvas.style.display = 'none';
+    
+    try {
+        window.drawCertificateCanvas('temp-cert-canvas-print', cert, unlockData);
+        const dataUrl = canvas.toDataURL('image/png');
+        const windowContent = '<!DOCTYPE html><html><head><title>Imprimir Certificado</title></head><body style="margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: #fafafa;"><img src="' + dataUrl + '" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 8px;"></body></html>';
+        const printWin = window.open('', '', 'width=900,height=700');
+        
+        if (!printWin) {
+            showToast('Por favor, ative os pop-ups para imprimir seu certificado! 📜', 'warning');
+            return;
+        }
+
+        printWin.document.open();
+        printWin.document.write(windowContent);
+        printWin.document.close();
+        printWin.focus();
+
+        setTimeout(() => {
+            printWin.print();
+            printWin.close();
+        }, 500);
+    } catch(e) {
+        console.error(e);
+        showToast('Erro ao imprimir certificado.', 'error');
+    } finally {
+        canvas.remove();
+    }
+};
+
+function renderCertificateMiniature(cert) {
+    let borderMain = '#ffd43b';
+    let borderInner = '#ff5e7e';
+    
+    if (cert.rarity === 'Comum') {
+        borderMain = '#10b981';
+        borderInner = '#34d399';
+    } else if (cert.rarity === 'Raro') {
+        borderMain = '#3b82f6';
+        borderInner = '#60a5fa';
+    } else if (cert.rarity === 'Épico') {
+        borderMain = '#8b5cf6';
+        borderInner = '#a78bfa';
+    } else if (cert.rarity === 'Lendário') {
+        borderMain = '#f59e0b';
+        borderInner = '#fbbf24';
+    } else if (cert.rarity === 'Exclusivo') {
+        borderMain = '#ec4899';
+        borderInner = '#f472b6';
+    }
+    
+    return `
+        <div style="background: #faf8f5; border: 3px solid ${borderMain}; border-radius: 8px; padding: 10px; height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); margin-bottom: 12px; overflow: hidden;">
+            <!-- Mini corner emojis -->
+            <span style="position: absolute; top: 4px; left: 4px; font-size: 0.65rem;">🎨</span>
+            <span style="position: absolute; top: 4px; right: 4px; font-size: 0.65rem;">🏆</span>
+            <span style="position: absolute; bottom: 4px; left: 4px; font-size: 0.65rem;">⭐</span>
+            <span style="position: absolute; bottom: 4px; right: 4px; font-size: 0.65rem;">🎉</span>
+            
+            <!-- Mini Inner border -->
+            <div style="position: absolute; top: 4px; bottom: 4px; left: 4px; right: 4px; border: 1px dashed ${borderInner}; border-radius: 6px; pointer-events: none;"></div>
+            
+            <!-- Center Icon / Emoji -->
+            <div style="font-size: 2.2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); margin-bottom: 2px;">📜</div>
+            <div style="font-size: 0.55rem; font-weight: 800; color: ${borderInner}; text-transform: uppercase; letter-spacing: 0.5px;">DIPLOMA</div>
+        </div>
+    `;
+}
+
 async function renderCertificadosView() {
     document.title = "Central de Certificados 📜 — KidCanvas";
     setMetaDescription("Gerencie seus certificados de conquistas e baixe seus diplomas oficiais KidCanvas.");
@@ -13535,6 +13829,19 @@ async function renderCertificadosView() {
     if (!listEl) return;
 
     listEl.innerHTML = '<div style="text-align: center; padding: 40px; font-weight: bold; color: var(--color-dark-light);"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Carregando seus certificados mágicos...</div>';
+
+    // Precarregar catálogo de cards global se não houver
+    if (!window.globalCatalog) {
+        try {
+            const res = await fetch('/api/store/catalog');
+            const data = await res.json();
+            if (data.success) {
+                window.globalCatalog = data.catalog;
+            }
+        } catch(e) {
+            console.error('Erro ao carregar catálogo de cards na Central:', e);
+        }
+    }
 
     try {
         const res = await fetch('/api/certificates/my', {
@@ -13566,26 +13873,51 @@ async function renderCertificadosView() {
                 categories[cert.category].push(cert);
             });
 
-            // Ícones e cores para cada categoria
-            const categoryMeta = {
-                'Pinturas': { icon: '🎨', color: 'var(--color-blue)' },
-                'Dinossauros': { icon: '🦖', color: 'var(--color-green)' },
-                'Livros': { icon: '📚', color: '#f1c40f' },
-                'Expedições': { icon: '⛺', color: '#e74c3c' },
-                'Comunidade': { icon: '🏆', color: '#9b59b6' },
-                'Lendárias': { icon: '👑', color: '#ffb300' },
-                'Especiais': { icon: '🎉', color: '#ff6b6b' },
-                'Influencer': { icon: '📣', color: '#4dabf7' },
-                'Conclusões': { icon: '📜', color: '#a0aec0' },
-                'Estrelas': { icon: '⭐', color: '#feca57' },
-                'Top Exploradores do Mês': { icon: '🏆', color: '#ffa801' }
+            // Ordenamento e metadados das categorias
+            const categoryDisplayMeta = {
+                'Pinturas': { title: '🎨 Pinturas', color: 'var(--color-blue)', icon: '🎨' },
+                'Livros': { title: '📚 Livro das Descobertas', color: '#f1c40f', icon: '📚' },
+                'Estrelas': { title: '⭐ Estrelas', color: '#feca57', icon: '⭐' },
+                'Comunidade': { title: '🏆 Comunidade', color: '#9b59b6', icon: '🏆' },
+                'Influencer': { title: '📣 Influencer', color: '#4dabf7', icon: '📣' },
+                'Dinossauros': { title: '🦖 Dinossauros', color: 'var(--color-green)', icon: '🦖' },
+                'Histórias': { title: '📖 Histórias', color: '#8e44ad', icon: '📖' },
+                'Expedições': { title: '⛺ Expedições', color: '#e74c3c', icon: '⛺' },
+                'Lendárias': { title: '👑 Lendárias', color: '#ffb300', icon: '👑' },
+                'Conclusões': { title: '📜 Conclusões', color: '#a0aec0', icon: '📜' },
+                'Especiais': { title: '🎉 Especiais', color: '#ff6b6b', icon: '🎉' },
+                'Top Exploradores do Mês': { title: '🏆 Top Exploradores do Mês', color: '#ffa801', icon: '🏆' }
             };
+
+            const orderedCategories = [
+                'Pinturas',
+                'Livros',
+                'Estrelas',
+                'Comunidade',
+                'Influencer',
+                'Dinossauros',
+                'Histórias',
+                'Expedições',
+                'Lendárias',
+                'Conclusões',
+                'Especiais',
+                'Top Exploradores do Mês'
+            ];
 
             listEl.innerHTML = '';
 
+            // Ordenar categorias
+            const sortedCategories = Object.entries(categories).sort(([a], [b]) => {
+                let idxA = orderedCategories.indexOf(a);
+                let idxB = orderedCategories.indexOf(b);
+                if (idxA === -1) idxA = 999;
+                if (idxB === -1) idxB = 999;
+                return idxA - idxB;
+            });
+
             // Renderizar cada categoria
-            Object.entries(categories).forEach(([catName, certs]) => {
-                const meta = categoryMeta[catName] || { icon: '📜', color: 'var(--color-purple)' };
+            sortedCategories.forEach(([catName, certs]) => {
+                const meta = categoryDisplayMeta[catName] || { title: `📜 ${catName}`, color: 'var(--color-purple)', icon: '📜' };
                 
                 // Calcular progresso da categoria
                 const catUnlocked = certs.filter(c => myCerts.some(uc => uc.id === c.id)).length;
@@ -13599,10 +13931,10 @@ async function renderCertificadosView() {
                 let headerHtml = `
                     <div class="cert-category-header">
                         <h3 class="cert-category-title">
-                            <span>${meta.icon}</span> ${catName}
+                            <span>${meta.icon}</span> ${meta.title.replace(/^[^\s]+\s+/, '')}
                         </h3>
                         <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; font-weight: 700; color: var(--color-dark-light); margin-bottom: 6px;">
-                            <span>Desbloqueados: ${catUnlocked}/${catTotal}</span>
+                            <span>${catUnlocked}/${catTotal} certificados</span>
                             <span>${catPercentage}%</span>
                         </div>
                         <div style="width: 100%; height: 10px; background: #e9ecef; border-radius: 10px; overflow: hidden; border: 1px solid #cbd5e1;">
@@ -13628,12 +13960,32 @@ async function renderCertificadosView() {
                     const rarityClass = `cert-rarity-${rarityColors[cert.rarity] || 'comum'}`;
 
                     if (isLocked) {
+                        const progress = window.getCertificateProgress(cert);
+                        const progressText = window.getCertificateProgressText(cert, progress);
+                        const percent = progress.target > 0 ? Math.min(100, Math.round((progress.current / progress.target) * 100)) : 0;
+
                         gridHtml += `
                             <div class="cert-card locked" title="🔒 Desbloqueie realizando conquistas!">
-                                <div class="cert-card-inner">
-                                    <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: #495057; margin-bottom: 5px;">${cert.title}</h4>
-                                    <p style="font-size: 0.72rem; color: #64748b; font-weight: 600; line-height: 1.3;">${cert.desc}</p>
-                                    <span style="font-size: 0.7rem; font-weight: 800; color: #94a3b8; display: block; margin-top: 10px;">Raridade: ${cert.rarity}</span>
+                                ${renderCertificateMiniature(cert)}
+                                <div style="display: flex; flex-direction: column; gap: 4px; text-align: center; flex-grow: 1; justify-content: space-between;">
+                                    <div>
+                                        <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: #495057; margin: 0; line-height: 1.2;">🔒 ${cert.title}</h4>
+                                        <span style="font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; background: #94a3b8; color: white; font-weight: 800; text-transform: uppercase; display: inline-block; margin-top: 4px;">
+                                            ${cert.rarity}
+                                        </span>
+                                        <p style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin: 8px 0 0 0; line-height: 1.3;">${cert.desc}</p>
+                                    </div>
+                                    
+                                    <div style="margin-top: 15px;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; font-weight: bold; color: var(--color-dark); margin-bottom: 4px;">
+                                            <span style="max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left;" title="${progressText}">${progressText}</span>
+                                            <span>${percent}%</span>
+                                        </div>
+                                        <!-- Barra de progresso individual -->
+                                        <div style="width: 100%; height: 10px; background-color: #e2e8f0; border-radius: 10px; overflow: hidden; border: 1px solid #cbd5e1;">
+                                            <div style="width: ${percent}%; height: 100%; background: linear-gradient(90deg, #94a3b8, #cbd5e1); border-radius: 10px;"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         `;
@@ -13651,18 +14003,33 @@ async function renderCertificadosView() {
 
                         gridHtml += `
                             <div class="cert-card ${rarityClass}">
-                                <div style="display: flex; flex-direction: column; gap: 4px; text-align: center;">
-                                    <span style="font-size: 1.8rem; display: block; margin-bottom: 5px;">📜</span>
-                                    <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0; line-height: 1.2;">${cert.title}</h4>
-                                    <span style="font-size: 0.7rem; font-weight: 800; color: var(--color-dark-light);">Raridade: ${cert.rarity}</span>
-                                    <p style="font-size: 0.7rem; color: #64748b; font-weight: 600; margin: 4px 0 0 0; line-height: 1.3;">${cert.desc}</p>
-                                    ${infoHtml}
-                                </div>
-                                <div style="margin-top: 15px;">
-                                    <span style="font-size: 0.65rem; color: #94a3b8; font-weight: 700; display: block; margin-bottom: 8px;">Conquistado em ${dateStr}</span>
-                                    <button class="btn btn-primary btn-sm" onclick="openCertsViewerModal('${cert.id}')" style="width: 100%; font-size: 0.75rem; padding: 6px; font-weight: 800; border-radius: 8px; box-shadow: var(--shadow-button-primary); display: flex; align-items: center; justify-content: center; gap: 4px;">
-                                        👁️ Ver / Baixar
-                                    </button>
+                                ${renderCertificateMiniature(cert)}
+                                <div style="display: flex; flex-direction: column; gap: 4px; text-align: center; flex-grow: 1; justify-content: space-between;">
+                                    <div>
+                                        <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0; line-height: 1.2;">${cert.title}</h4>
+                                        <span class="rarity-badge-mini rarity-color-${rarityColors[cert.rarity] || 'comum'}" style="font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; color: white; font-weight: 800; text-transform: uppercase; display: inline-block; margin-top: 4px;">
+                                            ${cert.rarity}
+                                        </span>
+                                        <p style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin: 8px 0 0 0; line-height: 1.3;">${cert.desc}</p>
+                                        ${infoHtml}
+                                    </div>
+                                    
+                                    <div style="margin-top: 15px;">
+                                        <span style="font-size: 0.65rem; color: #94a3b8; font-weight: 700; display: block; margin-bottom: 8px;">Conquistado em ${dateStr}</span>
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                                            <button class="btn btn-primary btn-sm" onclick="openCertsViewerModal('${cert.id}')" style="width: 100%; font-size: 0.75rem; padding: 6px; font-weight: 800; border-radius: 6px; box-shadow: var(--shadow-button-primary); display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                                👁️ Visualizar
+                                            </button>
+                                            <div style="display: flex; gap: 6px;">
+                                                <button class="btn btn-secondary btn-sm" onclick="printCertDirect('${cert.id}')" style="flex: 1; font-size: 0.7rem; padding: 6px; font-weight: 800; border-radius: 6px; border: var(--border-thin); background: white; color: var(--color-dark); display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                                    📄 Baixar PDF
+                                                </button>
+                                                <button class="btn btn-secondary btn-sm" onclick="downloadCertDirect('${cert.id}')" style="flex: 1; font-size: 0.7rem; padding: 6px; font-weight: 800; border-radius: 6px; border: var(--border-thin); background: white; color: var(--color-dark); display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                                    🖼️ Baixar Imagem
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         `;

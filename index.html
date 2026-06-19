@@ -2399,28 +2399,58 @@
 
                         <!-- CARD DE CERTIFICADOS (NOVO) -->
                         <div class="profile-card hover-bounce" style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 25px 20px; box-shadow: var(--shadow-cartoon); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onclick="navigate('/certificados')">
-                            <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-purple); margin-bottom: 10px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-purple); margin-bottom: 5px; display: flex; align-items: center; justify-content: space-between;">
                                 <span>📜 Certificados</span>
-                                <span style="font-size: 0.85rem; background: var(--color-purple); color: white; padding: 2px 8px; border-radius: 20px; font-family: var(--font-heading);" id="profile-cert-count-badge">0/0</span>
                             </h3>
-                            <p style="color: var(--color-dark-light); font-size: 0.82rem; font-weight: 600; margin-bottom: 15px;">Sua coleção de diplomas de conquistas KidCanvas!</p>
-                            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; font-weight: 700; color: var(--color-dark);">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span>⭐ Estrelas Totais</span>
-                                    <span id="cert-summary-stars" style="color: var(--color-orange);">0</span>
+                            <div style="font-size: 0.95rem; font-weight: bold; color: var(--color-dark); margin-bottom: 8px;">
+                                Desbloqueados: <span id="profile-cert-unlocked-fraction" style="font-family: var(--font-heading); color: var(--color-purple); font-size: 1.1rem;">0/59</span>
+                            </div>
+                            <!-- Barra de progresso -->
+                            <div style="width: 100%; height: 16px; background-color: #f0f0f0; border: var(--border-thin); border-radius: 20px; overflow: hidden; margin-bottom: 8px; position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+                                <div id="profile-cert-progress-fill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #9c27b0, #e040fb); border-radius: 20px; transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);"></div>
+                            </div>
+                            <div id="profile-cert-percent-text" style="font-size: 0.85rem; font-weight: 700; color: var(--color-dark-light); margin-bottom: 15px;">0% concluído</div>
+                            <button class="btn btn-primary" style="width: 100%; font-family: var(--font-heading); font-size: 1rem; border: var(--border-thin); box-shadow: var(--shadow-cartoon); display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <i class="fa-solid fa-compass"></i> Abrir Coleção
+                            </button>
+                        </div>
+
+                        <!-- CONFIGURAÇÕES (SEÇÃO 6) -->
+                        <div class="profile-card" style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 25px 20px; box-shadow: var(--shadow-cartoon);">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-purple); margin-bottom: 15px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 8px;"><i class="fa-solid fa-sliders"></i> Configurações da Conta</h3>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 20px;">
+                                
+                                <!-- Notificações -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <span style="font-weight: bold; color: var(--color-dark); font-size: 1.05rem; display: block;">Notificações</span>
+                                        <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Receber lembretes de novas pinturas e missões diárias</span>
+                                    </div>
+                                    <label class="switch-toggle" style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                                        <input type="checkbox" id="profile-notifications-toggle" onchange="saveProfileSettings()" style="opacity: 0; width: 0; height: 0;">
+                                        <span class="slider-round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px;"></span>
+                                    </label>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span>🎨 Desenhos Coloridos</span>
-                                    <span id="cert-summary-paintings" style="color: var(--color-purple);">0</span>
+                                
+                                <!-- Trocar Senha -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 15px; flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <span style="font-weight: bold; color: var(--color-dark); font-size: 1.05rem; display: block;">Segurança da Conta</span>
+                                        <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Mantenha sua senha forte e atualizada</span>
+                                    </div>
+                                    <button class="btn btn-secondary" onclick="openChangePasswordModal()" style="border: var(--border-thin); background: white; color: var(--color-dark);">Alterar Senha</button>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span>🏆 Conquistas</span>
-                                    <span id="cert-summary-achievements" style="color: var(--color-blue);">0</span>
+                                
+                                <!-- Excluir Conta -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 15px; flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <span style="font-weight: bold; color: var(--color-red); font-size: 1.05rem; display: block;">Zona de Perigo</span>
+                                        <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Esta ação é permanente e apagará todas as suas pinturas e conquistas</span>
+                                    </div>
+                                    <button class="btn btn-secondary" onclick="openDeleteAccountModal()" style="border: 2px solid var(--color-red); color: var(--color-red); background: white;">Excluir Conta</button>
                                 </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span>📚 Livro das Descobertas</span>
-                                    <span id="cert-summary-cards" style="color: var(--color-green);">0</span>
-                                </div>
+
                             </div>
                         </div>
 
@@ -2484,44 +2514,6 @@
 
                 </div>
 
-                <!-- CONFIGURAÇÕES (SEÇÃO 6) -->
-                <div class="profile-card" style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 25px 20px; box-shadow: var(--shadow-cartoon); margin-top: 30px;">
-                    <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-purple); margin-bottom: 15px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 8px;"><i class="fa-solid fa-sliders"></i> Configurações da Conta</h3>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 20px;">
-                        
-                        <!-- Notificações -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                            <div>
-                                <span style="font-weight: bold; color: var(--color-dark); font-size: 1.05rem; display: block;">Notificações</span>
-                                <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Receber lembretes de novas pinturas e missões diárias</span>
-                            </div>
-                            <label class="switch-toggle" style="position: relative; display: inline-block; width: 50px; height: 26px;">
-                                <input type="checkbox" id="profile-notifications-toggle" onchange="saveProfileSettings()" style="opacity: 0; width: 0; height: 0;">
-                                <span class="slider-round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px;"></span>
-                            </label>
-                        </div>
-                        
-                        <!-- Trocar Senha -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 15px; flex-wrap: wrap; gap: 10px;">
-                            <div>
-                                <span style="font-weight: bold; color: var(--color-dark); font-size: 1.05rem; display: block;">Segurança da Conta</span>
-                                <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Mantenha sua senha forte e atualizada</span>
-                            </div>
-                            <button class="btn btn-secondary" onclick="openChangePasswordModal()" style="border: var(--border-thin); background: white; color: var(--color-dark);">Alterar Senha</button>
-                        </div>
-                        
-                        <!-- Excluir Conta -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 15px; flex-wrap: wrap; gap: 10px;">
-                            <div>
-                                <span style="font-weight: bold; color: var(--color-red); font-size: 1.05rem; display: block;">Zona de Perigo</span>
-                                <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Esta ação é permanente e apagará todas as suas pinturas e conquistas</span>
-                            </div>
-                            <button class="btn btn-secondary" onclick="openDeleteAccountModal()" style="border: 2px solid var(--color-red); color: var(--color-red); background: white;">Excluir Conta</button>
-                        </div>
-
-                    </div>
-                </div>
 
             </div>
         </section>
