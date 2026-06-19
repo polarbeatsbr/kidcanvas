@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Expedições — KidCanvas Admin</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============================================================
+           CSS VARIABLES & RESET
+           ============================================================ */
+        :root {
+            --bg-start: #1e1b4b;
+            --bg-end: #312e81;
+            --card-bg: rgba(255, 255, 255, 0.97);
+            --card-bg-alt: rgba(255, 255, 255, 0.92);
+            --card-border: rgba(139, 92, 246, 0.15);
+            --primary: #7c3aed;
+            --primary-light: #a78bfa;
+            --primary-dark: #5b21b6;
+            --accent-orange: #f59e0b;
+            --accent-gold: #fbbf24;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-dark: #1e1b4b;
+            --text-muted: #6b7280;
+            --text-light: #f8fafc;
+            --shadow-sm: 0 2px 8px rgba(30, 27, 75, 0.08);
+            --shadow-md: 0 8px 30px rgba(30, 27, 75, 0.12);
+            --shadow-lg: 0 15px 50px rgba(30, 27, 75, 0.18);
+            --shadow-glow: 0 0 25px rgba(124, 58, 237, 0.2);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* Tier colors */
+            --tier-facil: #10b981;
+            --tier-media: #3b82f6;
+            --tier-dificil: #f59e0b;
+            --tier-epica: #ec4899;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 50%, #4c1d95 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* ============================================================
+           LOADING / ACCESS DENIED OVERLAYS
+           ============================================================ */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+            transition: opacity 0.5s ease;
+        }
+
+        .overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .overlay-content {
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .overlay-content .spinner {
+            width: 56px;
+            height: 56px;
+            border: 4px solid rgba(255, 255, 255, 0.15);
+            border-top-color: var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        .overlay-content h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .overlay-content p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
+        }
+
+        .overlay-content .denied-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .overlay-content .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 28px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .overlay-content .btn-home:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ============================================================
+           HEADER
+           ============================================================ */
+        .page-header {
+            background: rgba(30, 27, 75, 0.6);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .header-brand .brand-emoji {
+            font-size: 1.8rem;
+        }
+
+        .header-brand .brand-text {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .header-brand .brand-dot {
+            color: var(--accent-gold);
+        }
+
+        .header-brand .brand-badge {
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-gold));
+            color: var(--text-dark);
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-nav a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .header-nav a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .header-nav a.active {
+            color: var(--accent-gold);
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        /* ============================================================
+           MAIN LAYOUT
+           ============================================================ */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px 80px;
+        }
+
+        .page-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-subtitle {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 32px;
+        }
+
+        /* ============================================================
+           RAINBOW DIVIDER
+           ============================================================ */
+        .rainbow-divider {
+            height: 4px;
+            border-radius: 4px;
+            background: linear-gradient(90deg,
+                #ef4444, #f59e0b, #fbbf24, #10b981, #3b82f6, #8b5cf6, #ec4899, #ef4444
+            );
+            background-size: 200% 100%;
+            animation: rainbowSlide 4s linear infinite;
+            margin: 32px 0;
+        }
+
+        @keyframes rainbowSlide {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* ============================================================
+           SECTION HEADERS
+           ============================================================ */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .section-header .section-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .section-header h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .section-header h2 small {
+            display: block;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 2px;
+        }
+
+        /* ============================================================
+           CARDS
+           ============================================================ */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-md);
+            padding: 28px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg), var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        .card-flat {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow-sm);
+            padding: 28px;
+        }
+
+        /* ============================================================
+           SECTION 1: EXPEDIÇÃO ATIVA
+           ============================================================ */
+        .active-expedition-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .active-expedition-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-orange), var(--accent-gold), var(--primary));
+            background-size: 300% 100%;
+            animation: rainbowSlide 3s linear infinite;
+        }
+
+        .expedition-header-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .expedition-theme {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .expedition-emoji {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        .expedition-info h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .expedition-info .expedition-dates {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .badge-auto {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-top: 6px;
+        }
+
+        .expedition-timer-box {
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            color: var(--text-light);
+            padding: 14px 22px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            min-width: 220px;
+        }
+
+        .expedition-timer-box .timer-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .expedition-timer-box .timer-value {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+
+        .missions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 14px;
+        }
+
+        .mission-card {
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+            padding: 18px;
+            border-left: 5px solid;
+            transition: var(--transition);
+        }
+
+        .mission-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mission-card.tier-facil { border-left-color: var(--tier-facil); }
+        .mission-card.tier-media { border-left-color: var(--tier-media); }
+        .mission-card.tier-dificil { border-left-color: var(--tier-dificil); }
+        .mission-card.tier-epica {
+            border-left-color: var(--tier-epica);
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+        }
+
+        .mission-tier-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .mission-tier-badge.facil { background: var(--tier-facil); }
+        .mission-tier-badge.media { background: var(--tier-media); }
+        .mission-tier-badge.dificil { background: var(--tier-dificil); }
+        .mission-tier-badge.epica { background: linear-gradient(135deg, var(--tier-epica), #a855f7); }
+
+        .mission-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .mission-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .mission-reward {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .no-expedition {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .no-expedition .no-emoji {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .no-expedition h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .no-expedition p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+           SECTION 2: CRIAR NOVA EXPEDIÇÃO
+           ============================================================ */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: var(--accent-red);
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: var(--radius-sm);
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            background: white;
+            transition: var(--transition);
+            appearance: none;
+        }
+
+        .form-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8.825L.35 3.175l.7-.7L6 7.425l4.95-4.95.7.7z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 36px;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        /* Mission Editor */
+        .missions-editor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .mission-editor-card {
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+            padding: 20px;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .mission-editor-card:hover {
+            border-color: var(--card-border);
+        }
+
+        .mission-editor-card.tier-facil { border-top: 4px solid var(--tier-facil); }
+        .mission-editor-card.tier-media { border-top: 4px solid var(--tier-media); }
+        .mission-editor-card.tier-dificil { border-top: 4px solid var(--tier-dificil); }
+        .mission-editor-card.tier-epica { border-top: 4px solid var(--tier-epica); background: #fdf2f8; }
+
+        .mission-editor-card h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mission-editor-card .me-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .mission-editor-card .me-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .me-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .me-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            background: white;
+            transition: var(--transition);
+        }
+
+        .me-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
+        }
+
+        .me-select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            background: white;
+            transition: var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8.825L.35 3.175l.7-.7L6 7.425l4.95-4.95.7.7z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+
+        .me-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.1);
+        }
+
+        /* Preview */
+        .preview-box {
+            background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            color: var(--text-light);
+            margin-top: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-gold), var(--accent-orange));
+            background-size: 200% 100%;
+            animation: rainbowSlide 3s linear infinite;
+        }
+
+        .preview-box .preview-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .preview-expedition-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .preview-dates {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 18px;
+        }
+
+        .preview-missions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .preview-mission-item {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            border-left: 3px solid;
+        }
+
+        .preview-mission-item.tier-facil { border-left-color: var(--tier-facil); }
+        .preview-mission-item.tier-media { border-left-color: var(--tier-media); }
+        .preview-mission-item.tier-dificil { border-left-color: var(--tier-dificil); }
+        .preview-mission-item.tier-epica { border-left-color: var(--tier-epica); }
+
+        .preview-mission-item .pm-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .preview-mission-item .pm-reward {
+            font-size: 0.7rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        /* Publish Button */
+        .btn-publish {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px 32px;
+            margin-top: 24px;
+            background: linear-gradient(135deg, var(--primary), #6366f1);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 6px 25px rgba(124, 58, 237, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-publish::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-publish:hover::before {
+            left: 100%;
+        }
+
+        .btn-publish:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(124, 58, 237, 0.5);
+        }
+
+        .btn-publish:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-publish:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-publish .btn-spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            display: none;
+        }
+
+        .btn-publish.loading .btn-spinner { display: block; }
+        .btn-publish.loading .btn-label { display: none; }
+
+        /* ============================================================
+           SECTION 3: HISTÓRICO
+           ============================================================ */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .history-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .history-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .history-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 22px;
+            cursor: pointer;
+            user-select: none;
+            transition: var(--transition);
+        }
+
+        .history-card-header:hover {
+            background: rgba(124, 58, 237, 0.03);
+        }
+
+        .history-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .history-emoji {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .history-meta h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .history-meta .history-dates {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .history-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .badge-future {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            color: #2563eb;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-past {
+            background: #f1f5f9;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .badge-active-sm {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #047857;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-delete {
+            width: 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: #fef2f2;
+            color: var(--accent-red);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+        }
+
+        .btn-delete:hover {
+            background: #fee2e2;
+            transform: scale(1.1);
+        }
+
+        .history-expand-icon {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .history-card.expanded .history-expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .history-card-body {
+            display: none;
+            padding: 0 22px 18px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .history-card.expanded .history-card-body {
+            display: block;
+        }
+
+        .history-missions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .history-mission-item {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 12px;
+            border-left: 4px solid;
+        }
+
+        .history-mission-item.tier-facil { border-left-color: var(--tier-facil); }
+        .history-mission-item.tier-media { border-left-color: var(--tier-media); }
+        .history-mission-item.tier-dificil { border-left-color: var(--tier-dificil); }
+        .history-mission-item.tier-epica { border-left-color: var(--tier-epica); }
+
+        .history-mission-item h5 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .history-mission-item .hm-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .history-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .history-empty span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        /* ============================================================
+           TOAST NOTIFICATION
+           ============================================================ */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            padding: 16px 22px;
+            box-shadow: var(--shadow-lg);
+            border-left: 5px solid;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: toastIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 320px;
+            max-width: 450px;
+        }
+
+        .toast.success { border-left-color: var(--accent-green); }
+        .toast.error { border-left-color: var(--accent-red); }
+        .toast.info { border-left-color: var(--primary); }
+
+        .toast-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .toast-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .toast.removing {
+            animation: toastOut 0.3s ease forwards;
+        }
+
+        @keyframes toastIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes toastOut {
+            to { transform: translateX(100px); opacity: 0; }
+        }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .header-nav {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .missions-editor {
+                grid-template-columns: 1fr;
+            }
+
+            .expedition-header-row {
+                flex-direction: column;
+            }
+
+            .expedition-timer-box {
+                min-width: unset;
+                width: 100%;
+            }
+
+            .missions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-missions {
+                grid-template-columns: 1fr;
+            }
+
+            .history-missions-list {
+                grid-template-columns: 1fr;
+            }
+
+            .main-wrapper {
+                padding: 20px 16px 60px;
+            }
+
+            .card, .card-flat {
+                padding: 20px;
+            }
+
+            .toast {
+                min-width: unset;
+                max-width: calc(100vw - 48px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.3rem;
+            }
+
+            .expedition-emoji {
+                font-size: 2.2rem;
+            }
+
+            .expedition-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .mission-editor-card .me-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================================
+           SCROLLBAR
+           ============================================================ */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(124, 58, 237, 0.3);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(124, 58, 237, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOADING OVERLAY -->
+    <div class="overlay" id="overlay-loading">
+        <div class="overlay-content">
+            <div class="spinner"></div>
+            <h2>🎨 Carregando Expedições...</h2>
+            <p>Verificando permissões de administrador</p>
+        </div>
+    </div>
+
+    <!-- ACCESS DENIED OVERLAY -->
+    <div class="overlay hidden" id="overlay-denied">
+        <div class="overlay-content">
+            <span class="denied-icon">🚫</span>
+            <h2>Acesso Negado</h2>
+            <p>Você não tem permissão para acessar esta página.</p>
+            <a href="/" class="btn-home"><i class="fa-solid fa-house"></i> Voltar ao Início</a>
+        </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- HEADER -->
+    <header class="page-header">
+        <div class="header-inner">
+            <a href="/" class="header-brand">
+                <span class="brand-emoji">🎨</span>
+                <span class="brand-text">kidcanvas<span class="brand-dot">.com.br</span></span>
+                <span class="brand-badge">Admin</span>
+            </a>
+            <nav class="header-nav">
+                <a href="/admin.html"><i class="fa-solid fa-gauge"></i> Painel</a>
+                <a href="/admin-expeditions.html" class="active"><i class="fa-solid fa-compass"></i> Expedições</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper" id="main-content" style="display: none;">
+
+        <h1 class="page-title">🧭 Gerenciar Expedições</h1>
+        <p class="page-subtitle">Crie, visualize e gerencie as Expedições Mágicas da semana para os artistas do KidCanvas.</p>
+
+        <!-- ============================================================
+             SECTION 1: EXPEDIÇÃO ATIVA
+             ============================================================ -->
+        <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #d1fae5, #a7f3d0);">⚡</div>
+            <h2>Expedição Ativa <small>A expedição que está acontecendo agora</small></h2>
+        </div>
+
+        <div id="active-expedition-container">
+            <!-- Populated by JS -->
+        </div>
+
+        <div class="rainbow-divider"></div>
+
+        <!-- ============================================================
+             SECTION 2: CRIAR NOVA EXPEDIÇÃO
+             ============================================================ -->
+        <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #ede9fe, #ddd6fe);">✨</div>
+            <h2>Criar Nova Expedição <small>Preencha os campos e publique uma nova aventura</small></h2>
+        </div>
+
+        <div class="card-flat">
+            <form id="form-create-expedition" autocomplete="off">
+                <div class="form-grid">
+                    <!-- Tema -->
+                    <div class="form-group">
+                        <label class="form-label">Tema <span class="required">*</span></label>
+                        <select class="form-select" id="field-theme" required>
+                            <option value="">Selecione um tema...</option>
+                        </select>
+                    </div>
+
+                    <!-- Categoria Slug (auto-populated) -->
+                    <div class="form-group">
+                        <label class="form-label">Categoria (slug)</label>
+                        <input type="text" class="form-input" id="field-slug" placeholder="Preenchido automaticamente" readonly style="background: #f9fafb; color: var(--text-muted);">
+                    </div>
+
+                    <!-- Data Início -->
+                    <div class="form-group">
+                        <label class="form-label">Data de Início <span class="required">*</span></label>
+                        <input type="date" class="form-input" id="field-start-date" required>
+                    </div>
+
+                    <!-- Data Fim -->
+                    <div class="form-group">
+                        <label class="form-label">Data de Término <span class="required">*</span></label>
+                        <input type="date" class="form-input" id="field-end-date" required>
+                    </div>
+                </div>
+
+                <!-- MISSÕES -->
+                <div class="form-group full" style="margin-top: 24px;">
+                    <label class="form-label">🎯 Missões da Expedição</label>
+                    <div class="missions-editor" id="missions-editor">
+                        <!-- Fácil -->
+                        <div class="mission-editor-card tier-facil" data-tier="facil">
+                            <h4><span class="mission-tier-badge facil">Fácil</span> Missão 1</h4>
+                            <div class="me-row single">
+                                <div>
+                                    <div class="me-label">Título</div>
+                                    <input type="text" class="me-input" data-field="title" placeholder="Ex: Explorador Jurássico">
+                                </div>
+                            </div>
+                            <div class="me-row">
+                                <div>
+                                    <div class="me-label">Qtd. Necessária</div>
+                                    <input type="number" class="me-input" data-field="req" value="3" min="1" max="50">
+                                </div>
+                                <div>
+                                    <div class="me-label">Tipo de Recompensa</div>
+                                    <select class="me-select" data-field="rewardType">
+                                        <option value="stars">⭐ Estrelas</option>
+                                        <option value="badge">🏅 Selo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="me-row single">
+                                <div>
+                                    <div class="me-label">Valor da Recompensa</div>
+                                    <input type="text" class="me-input" data-field="rewardValue" value="5" placeholder="5 (estrelas) ou nome_do_selo">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Média -->
+                        <div class="mission-editor-card tier-media" data-tier="media">
+                            <h4><span class="mission-tier-badge media">Média</span> Missão 2</h4>
+                            <div class="me-row single">
+                                <div>
+                                    <div class="me-label">Título</div>
+                                    <input type="text" class="me-input" data-field="title" placeholder="Ex: Mestre dos Dinossauros">
+                                </div>
+                            </div>
+                            <div class="me-row">
+                                <div>
+                                    <div class="me-label">Qtd. Necessária</div>
+                                    <input type="number" class="me-input" data-field="req" value="5" min="1" max="100">
+                                </div>
+                                <div>
+                                    <div class="me-label">Tipo de Recompensa</div>
+                                    <select class="me-select" data-field="rewardType">
+                                        <option value="stars">⭐ Estrelas</option>
+                                        <option value="badge" selected>🏅 Selo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="me-row single">
+                                <div>
+                                    <div class="me-label">Valor da Recompensa</div>
+                                    <input type="text" class="me-input" data-field="rewardValue" value="mestre_tema" placeholder="nome_do_selo ou nº estrelas">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Difícil -->
+                        <div class="mission-editor-card tier-dificil" data-tier="dificil">
+                            <h4><span class="mission-tier-badge dificil">Difícil</span> Missão 3</h4>
+                            <div class="me-row single">
+                                <div>
+                                    <div class="me-label">Título</div>
+                                    <input type="text" class="me-input" data-field="title" placeholder="Ex: Lenda Jurássica">
+                                </div>
+                            </div>
+                            <div class="me-row">
+                                <div>
+                                    <div class="me-label">Qtd. Necessária</div>
+                                    <input type="number" class="me-input" data-field="req" value="10" min="1" max="200">
+                                </div>
+                                <div>
+                                    <div class="me-label">Tipo de Recompensa</div>
+                                    <select class="me-select" data-field="rewardType">
+                                        <option value="stars" selected>⭐ Estrelas</option>
+                                        <option value="badge">🏅 Selo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="me-row single">
+                                <div>
+                                    <div class="me-label">Valor da Recompensa</div>
+                                    <input type="text" class="me-input" data-field="rewardValue" value="20" placeholder="20 (estrelas) ou nome_do_selo">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Épica -->
+                        <div class="mission-editor-card tier-epica" data-tier="epica">
+                            <h4><span class="mission-tier-badge epica">Épica ✦</span> Missão Final</h4>
+                            <div class="me-row single">
+                                <div>
+                                    <div class="me-label">Título</div>
+                                    <input type="text" class="me-input" data-field="title" placeholder="Ex: Mestre da Expedição">
+                                </div>
+                            </div>
+                            <div class="me-row">
+                                <div>
+                                    <div class="me-label">Tipo de Recompensa</div>
+                                    <select class="me-select" data-field="rewardType">
+                                        <option value="stars" selected>⭐ Estrelas</option>
+                                        <option value="badge">🏅 Selo</option>
+                                        <option value="card">📖 Card/Descoberta</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <div class="me-label">Valor da Recompensa</div>
+                                    <input type="text" class="me-input" data-field="rewardValue" value="50" placeholder="50 (estrelas), selo ou card_id">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PREVIEW -->
+                <div class="preview-box" id="live-preview">
+                    <div class="preview-label">👁️ Pré-visualização ao vivo</div>
+                    <div id="preview-content">
+                        <p style="color: rgba(255,255,255,0.4); text-align: center; padding: 20px 0;">Selecione um tema para ver a pré-visualização</p>
+                    </div>
+                </div>
+
+                <!-- PUBLISH BUTTON -->
+                <button type="submit" class="btn-publish" id="btn-publish">
+                    <div class="btn-spinner"></div>
+                    <span class="btn-label"><i class="fa-solid fa-rocket"></i> Publicar Expedição</span>
+                </button>
+            </form>
+        </div>
+
+        <div class="rainbow-divider"></div>
+
+        <!-- ============================================================
+             SECTION 3: HISTÓRICO / FUTURAS
+             ============================================================ -->
+        <div class="section-header">
+            <div class="section-icon" style="background: linear-gradient(135deg, #fef3c7, #fde68a);">📜</div>
+            <h2>Expedições Programadas & Histórico <small>Futuras e já finalizadas</small></h2>
+        </div>
+
+        <div id="history-container">
+            <!-- Populated by JS -->
+        </div>
+
+    </main>
+
+    <!-- ================================================================
+         JAVASCRIPT
+         ================================================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        // ─── EXPEDITION_THEMES (mirrors server) ───
+        const EXPEDITION_THEMES = [
+            { theme: 'Dinossauros', slug: 'dinossauros', emoji: '🦖' },
+            { theme: 'Animais', slug: 'animais-selvagens', emoji: '🦊' },
+            { theme: 'Fantasia', slug: 'fantasia', emoji: '✨' },
+            { theme: 'Veículos', slug: 'veiculos', emoji: '🚗' },
+            { theme: 'Oceano', slug: 'animais-do-mar', emoji: '🌊' },
+            { theme: 'Espaço', slug: 'espaco', emoji: '🚀' },
+            { theme: 'Piratas', slug: 'guerreiros-e-lendas', emoji: '⚓' },
+            { theme: 'Unicórnios', slug: 'unicornios', emoji: '🦄' },
+            { theme: 'Flores', slug: 'flores-e-natureza', emoji: '🌸' },
+            { theme: 'Robôs', slug: 'robos', emoji: '🤖' },
+            { theme: 'Super-Heróis', slug: 'super-herois', emoji: '🦸' },
+            { theme: 'Princesas', slug: 'princesas', emoji: '👸' },
+            { theme: 'Fazenda', slug: 'fazenda', emoji: '🚜' },
+            { theme: 'Esportes', slug: 'esportes', emoji: '🏆' },
+            { theme: 'Comidas', slug: 'comidas-e-doces', emoji: '🍩' },
+            { theme: 'Folclore', slug: 'folclore-brasileiro', emoji: '🏹' },
+            { theme: 'Aves', slug: 'aves', emoji: '🦜' },
+            { theme: 'Monstros', slug: 'monstros', emoji: '👾' }
+        ];
+
+        // ─── STATE ───
+        let serverThemes = EXPEDITION_THEMES;
+        let cachedData = null;
+        let countdownInterval = null;
+
+        // ─── DOM REFS ───
+        const $overlayLoading = document.getElementById('overlay-loading');
+        const $overlayDenied = document.getElementById('overlay-denied');
+        const $mainContent = document.getElementById('main-content');
+        const $activeContainer = document.getElementById('active-expedition-container');
+        const $historyContainer = document.getElementById('history-container');
+        const $form = document.getElementById('form-create-expedition');
+        const $fieldTheme = document.getElementById('field-theme');
+        const $fieldSlug = document.getElementById('field-slug');
+        const $fieldStartDate = document.getElementById('field-start-date');
+        const $fieldEndDate = document.getElementById('field-end-date');
+        const $btnPublish = document.getElementById('btn-publish');
+        const $previewContent = document.getElementById('preview-content');
+        const $toastContainer = document.getElementById('toast-container');
+
+        // ─── HELPERS ───
+        function getToken() {
+            return localStorage.getItem('sessionToken') || '';
+        }
+
+        function apiHeaders() {
+            return {
+                'Content-Type': 'application/json',
+                'X-Session-Token': getToken()
+            };
+        }
+
+        function formatDate(isoStr) {
+            const d = new Date(isoStr);
+            return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+
+        function formatDateShort(isoStr) {
+            const d = new Date(isoStr);
+            return d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
+        }
+
+        function getNextMonday() {
+            const d = new Date();
+            const day = d.getDay();
+            const diff = day === 0 ? 1 : 8 - day;
+            d.setDate(d.getDate() + diff);
+            return d.toISOString().split('T')[0];
+        }
+
+        function getNextSunday() {
+            const d = new Date();
+            const day = d.getDay();
+            const diff = day === 0 ? 7 : 14 - day;
+            d.setDate(d.getDate() + diff);
+            return d.toISOString().split('T')[0];
+        }
+
+        function findTheme(name) {
+            return serverThemes.find(t => t.theme === name) || EXPEDITION_THEMES.find(t => t.theme === name);
+        }
+
+        function emojiFor(themeName) {
+            const t = findTheme(themeName);
+            return t ? t.emoji : '✨';
+        }
+
+        function rewardLabel(reward) {
+            if (!reward) return '';
+            if (reward.type === 'stars') return `⭐ +${reward.value} estrelas`;
+            if (reward.type === 'badge') return `🏅 Selo: ${reward.value}`;
+            if (reward.type === 'card') return `📖 Card: ${reward.value}`;
+            return reward.value || '';
+        }
+
+        function tierLabel(tier) {
+            const map = { facil: 'Fácil', media: 'Média', dificil: 'Difícil', epica: 'Épica ✦' };
+            return map[tier] || tier;
+        }
+
+        // ─── TOAST ───
+        function showToast(message, type = 'success') {
+            const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `
+                <span class="toast-icon">${icons[type] || '✅'}</span>
+                <span class="toast-text">${message}</span>
+            `;
+            $toastContainer.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('removing');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // ─── INIT ───
+        async function init() {
+            try {
+                const token = getToken();
+                if (!token) {
+                    showAccessDenied();
+                    return;
+                }
+
+                const res = await fetch('/api/admin/expedition', { headers: apiHeaders() });
+                if (res.status === 403 || res.status === 401) {
+                    showAccessDenied();
+                    return;
+                }
+
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+                const data = await res.json();
+                if (!data.success) throw new Error(data.message || 'Erro desconhecido');
+
+                cachedData = data;
+                if (data.themes && data.themes.length) serverThemes = data.themes;
+
+                populateThemeDropdown();
+                setDefaultDates();
+                renderActiveExpedition(data.activeWeek);
+                renderHistory(data.futureWeeks, data.pastWeeks, data.activeWeek);
+
+                $overlayLoading.classList.add('hidden');
+                $mainContent.style.display = '';
+            } catch (err) {
+                console.error('[Expedition Admin] Init error:', err);
+                showAccessDenied();
+            }
+        }
+
+        function showAccessDenied() {
+            $overlayLoading.classList.add('hidden');
+            $overlayDenied.classList.remove('hidden');
+            setTimeout(() => { window.location.href = '/'; }, 5000);
+        }
+
+        // ─── POPULATE THEME DROPDOWN ───
+        function populateThemeDropdown() {
+            $fieldTheme.innerHTML = '<option value="">Selecione um tema...</option>';
+            serverThemes.forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t.theme;
+                opt.textContent = `${t.emoji} ${t.theme}`;
+                opt.dataset.slug = t.slug;
+                opt.dataset.emoji = t.emoji;
+                $fieldTheme.appendChild(opt);
+            });
+        }
+
+        function setDefaultDates() {
+            $fieldStartDate.value = getNextMonday();
+            $fieldEndDate.value = getNextSunday();
+        }
+
+        // ─── RENDER ACTIVE EXPEDITION ───
+        function renderActiveExpedition(week) {
+            if (countdownInterval) clearInterval(countdownInterval);
+
+            if (!week) {
+                $activeContainer.innerHTML = `
+                    <div class="card">
+                        <div class="no-expedition">
+                            <span class="no-emoji">⏳</span>
+                            <h3>Nenhuma expedição ativa</h3>
+                            <p>Crie uma nova expedição abaixo para os artistas começarem suas aventuras!</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const emoji = emojiFor(week.theme);
+            const autoBadge = week.autoGenerated ? '<div class="badge-auto">🤖 Auto-gerada</div>' : '';
+
+            let missionsHtml = '';
+            if (week.missions && week.missions.length) {
+                week.missions.forEach(m => {
+                    missionsHtml += `
+                        <div class="mission-card tier-${m.tier}">
+                            <span class="mission-tier-badge ${m.tier}">${tierLabel(m.tier)}</span>
+                            <h4>${m.title}</h4>
+                            <p>${m.desc}</p>
+                            <span class="mission-reward">${rewardLabel(m.reward)}</span>
+                        </div>
+                    `;
+                });
+            }
+
+            $activeContainer.innerHTML = `
+                <div class="card active-expedition-card">
+                    <div class="expedition-header-row">
+                        <div class="expedition-theme">
+                            <span class="expedition-emoji">${emoji}</span>
+                            <div class="expedition-info">
+                                <h3>Expedição: ${week.theme}</h3>
+                                <div class="expedition-dates">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    ${formatDate(week.startDate)} — ${formatDate(week.endDate)}
+                                </div>
+                                ${autoBadge}
+                            </div>
+                        </div>
+                        <div class="expedition-timer-box">
+                            <div class="timer-label">Tempo Restante</div>
+                            <div class="timer-value" id="active-countdown">Calculando...</div>
+                        </div>
+                    </div>
+                    <div class="missions-grid">${missionsHtml}</div>
+                </div>
+            `;
+
+            // Start countdown
+            const endDate = new Date(week.endDate);
+            function updateCountdown() {
+                const el = document.getElementById('active-countdown');
+                if (!el) return;
+                const now = new Date();
+                const diff = endDate - now;
+                if (diff <= 0) {
+                    el.textContent = '⏰ Terminou!';
+                    if (countdownInterval) clearInterval(countdownInterval);
+                    return;
+                }
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff / 3600000) % 24);
+                const m = Math.floor((diff / 60000) % 60);
+                const s = Math.floor((diff / 1000) % 60);
+                el.textContent = `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+            }
+            updateCountdown();
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
+
+        // ─── RENDER HISTORY ───
+        function renderHistory(futureWeeks, pastWeeks, activeWeek) {
+            const allWeeks = [];
+
+            // Future weeks (excluding active)
+            if (futureWeeks && futureWeeks.length) {
+                futureWeeks.forEach(w => {
+                    if (activeWeek && w.id === activeWeek.id) return;
+                    allWeeks.push({ ...w, _status: 'future' });
+                });
+            }
+
+            // Past weeks
+            if (pastWeeks && pastWeeks.length) {
+                pastWeeks.forEach(w => {
+                    allWeeks.push({ ...w, _status: 'past' });
+                });
+            }
+
+            if (allWeeks.length === 0) {
+                $historyContainer.innerHTML = `
+                    <div class="card">
+                        <div class="history-empty">
+                            <span>📭</span>
+                            <h3 style="font-family: 'Fredoka', sans-serif; font-weight: 700; color: var(--text-muted);">Nenhuma expedição no histórico</h3>
+                            <p>As expedições publicadas aparecerão aqui.</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<div class="history-list">';
+            allWeeks.forEach(w => {
+                const emoji = emojiFor(w.theme);
+                const isFuture = w._status === 'future';
+                const statusBadge = isFuture
+                    ? '<span class="badge-future"><i class="fa-solid fa-clock"></i> Futura</span>'
+                    : '<span class="badge-past">Finalizada</span>';
+
+                const deleteBtn = isFuture
+                    ? `<button class="btn-delete" onclick="event.stopPropagation(); deleteExpedition('${w.id}')" title="Excluir expedição"><i class="fa-solid fa-trash-can"></i></button>`
+                    : '';
+
+                let missionsHtml = '';
+                if (w.missions && w.missions.length) {
+                    w.missions.forEach(m => {
+                        missionsHtml += `
+                            <div class="history-mission-item tier-${m.tier}">
+                                <h5>${tierLabel(m.tier)}: ${m.title}</h5>
+                                <div class="hm-desc">${m.desc || ''} · ${rewardLabel(m.reward)}</div>
+                            </div>
+                        `;
+                    });
+                }
+
+                html += `
+                    <div class="history-card" id="history-${w.id}">
+                        <div class="history-card-header" onclick="toggleHistoryCard('${w.id}')">
+                            <div class="history-left">
+                                <span class="history-emoji">${emoji}</span>
+                                <div class="history-meta">
+                                    <h4>${w.theme} ${w.autoGenerated ? '<span style="font-size:0.75rem;color:#9ca3af;">🤖</span>' : ''}</h4>
+                                    <div class="history-dates">
+                                        ${formatDate(w.startDate)} — ${formatDate(w.endDate)}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="history-right">
+                                ${statusBadge}
+                                ${deleteBtn}
+                                <i class="fa-solid fa-chevron-down history-expand-icon"></i>
+                            </div>
+                        </div>
+                        <div class="history-card-body">
+                            <div class="history-missions-list">${missionsHtml}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            $historyContainer.innerHTML = html;
+        }
+
+        // ─── TOGGLE HISTORY CARD ───
+        window.toggleHistoryCard = function(weekId) {
+            const card = document.getElementById(`history-${weekId}`);
+            if (card) card.classList.toggle('expanded');
+        };
+
+        // ─── DELETE EXPEDITION ───
+        window.deleteExpedition = async function(weekId) {
+            if (!confirm('Tem certeza que deseja excluir esta expedição?')) return;
+
+            try {
+                const res = await fetch(`/api/admin/expedition/${weekId}`, {
+                    method: 'DELETE',
+                    headers: apiHeaders()
+                });
+
+                const data = await res.json();
+                if (!data.success) throw new Error(data.message || 'Erro ao excluir');
+
+                showToast('Expedição excluída com sucesso!', 'success');
+
+                // Re-fetch data
+                await init();
+            } catch (err) {
+                console.error('[Delete]', err);
+                showToast('Erro ao excluir expedição: ' + err.message, 'error');
+            }
+        };
+
+        // ─── THEME CHANGE → UPDATE SLUG + PREVIEW ───
+        $fieldTheme.addEventListener('change', () => {
+            const selected = $fieldTheme.options[$fieldTheme.selectedIndex];
+            $fieldSlug.value = selected.dataset.slug || '';
+            updateMissionDefaults();
+            updatePreview();
+        });
+
+        // Listen for all form changes to update preview
+        document.getElementById('missions-editor').addEventListener('input', updatePreview);
+        $fieldStartDate.addEventListener('change', updatePreview);
+        $fieldEndDate.addEventListener('change', updatePreview);
+
+        function updateMissionDefaults() {
+            const theme = $fieldTheme.value;
+            if (!theme) return;
+
+            const editors = document.querySelectorAll('.mission-editor-card');
+            const tierDefaults = {
+                facil: { title: `Explorador ${theme}`, req: 3, rewardValue: '5' },
+                media: { title: `Mestre ${theme}`, req: 5, rewardValue: `mestre_${theme.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '_')}` },
+                dificil: { title: `Lenda ${theme}`, req: 10, rewardValue: '20' },
+                epica: { title: 'Mestre da Expedição', rewardValue: '50' }
+            };
+
+            editors.forEach(card => {
+                const tier = card.dataset.tier;
+                const defaults = tierDefaults[tier];
+                if (!defaults) return;
+
+                const titleInput = card.querySelector('[data-field="title"]');
+                const reqInput = card.querySelector('[data-field="req"]');
+                const rewardValueInput = card.querySelector('[data-field="rewardValue"]');
+
+                if (titleInput && !titleInput.dataset.touched) titleInput.value = defaults.title;
+                if (reqInput && !reqInput.dataset.touched) reqInput.value = defaults.req || '';
+                if (rewardValueInput && !rewardValueInput.dataset.touched) rewardValueInput.value = defaults.rewardValue;
+            });
+
+            updatePreview();
+        }
+
+        // Mark inputs as touched when user edits
+        document.querySelectorAll('.mission-editor-card .me-input').forEach(input => {
+            input.addEventListener('input', () => { input.dataset.touched = 'true'; });
+        });
+
+        // ─── LIVE PREVIEW ───
+        function updatePreview() {
+            const theme = $fieldTheme.value;
+            if (!theme) {
+                $previewContent.innerHTML = '<p style="color: rgba(255,255,255,0.4); text-align: center; padding: 20px 0;">Selecione um tema para ver a pré-visualização</p>';
+                return;
+            }
+
+            const emoji = emojiFor(theme);
+            const startDate = $fieldStartDate.value;
+            const endDate = $fieldEndDate.value;
+            const missions = gatherMissions();
+
+            let missionsPreview = '';
+            missions.forEach(m => {
+                const rLabel = m.reward.type === 'stars' ? `⭐ ${m.reward.value}` : m.reward.type === 'badge' ? `🏅 ${m.reward.value}` : `📖 ${m.reward.value}`;
+                missionsPreview += `
+                    <div class="preview-mission-item tier-${m.tier}">
+                        <div class="pm-title">${m.title || '(sem título)'}</div>
+                        <div class="pm-reward">${rLabel}</div>
+                    </div>
+                `;
+            });
+
+            const dateStr = startDate && endDate
+                ? `${formatDate(startDate + 'T00:00:00')} — ${formatDate(endDate + 'T00:00:00')}`
+                : 'Datas não definidas';
+
+            $previewContent.innerHTML = `
+                <div class="preview-expedition-title">${emoji} Expedição: ${theme}</div>
+                <div class="preview-dates"><i class="fa-regular fa-calendar"></i> ${dateStr}</div>
+                <div class="preview-missions">${missionsPreview}</div>
+            `;
+        }
+
+        // ─── GATHER MISSIONS FROM EDITOR ───
+        function gatherMissions() {
+            const theme = $fieldTheme.value;
+            const slug = $fieldSlug.value || theme.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '_');
+            const editors = document.querySelectorAll('.mission-editor-card');
+            const missions = [];
+
+            editors.forEach(card => {
+                const tier = card.dataset.tier;
+                const title = card.querySelector('[data-field="title"]')?.value || '';
+                const req = parseInt(card.querySelector('[data-field="req"]')?.value) || (tier === 'epica' ? 3 : 3);
+                const rewardType = card.querySelector('[data-field="rewardType"]')?.value || 'stars';
+                const rewardValue = card.querySelector('[data-field="rewardValue"]')?.value || '';
+
+                const idSlug = theme.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '_');
+                const missionType = tier === 'epica' ? 'complete_all' : 'paint_category';
+                const target = tier === 'epica' ? `semana_${idSlug}` : slug;
+
+                const rewardObj = {
+                    type: rewardType,
+                    value: rewardType === 'stars' ? parseInt(rewardValue) || 0 : rewardValue
+                };
+
+                const descMap = {
+                    facil: `Pinte ${req} desenhos de ${theme}`,
+                    media: `Pinte ${req} desenhos de ${theme}`,
+                    dificil: `Pinte ${req} desenhos de ${theme}`,
+                    epica: 'Complete todas as missões'
+                };
+
+                missions.push({
+                    id: `${idSlug}_${tier}`,
+                    type: missionType,
+                    target: target,
+                    req: req,
+                    reward: rewardObj,
+                    tier: tier,
+                    title: title || `Missão ${tierLabel(tier)}`,
+                    desc: descMap[tier]
+                });
+            });
+
+            return missions;
+        }
+
+        // ─── FORM SUBMIT ───
+        $form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const theme = $fieldTheme.value;
+            const categorySlug = $fieldSlug.value;
+            const startDate = $fieldStartDate.value;
+            const endDate = $fieldEndDate.value;
+
+            if (!theme || !startDate || !endDate) {
+                showToast('Preencha todos os campos obrigatórios.', 'error');
+                return;
+            }
+
+            if (new Date(endDate) <= new Date(startDate)) {
+                showToast('A data de término deve ser posterior à data de início.', 'error');
+                return;
+            }
+
+            const missions = gatherMissions();
+
+            $btnPublish.classList.add('loading');
+            $btnPublish.disabled = true;
+
+            try {
+                const body = {
+                    theme,
+                    categorySlug,
+                    startDate: new Date(startDate + 'T00:00:00').toISOString(),
+                    endDate: new Date(endDate + 'T23:59:59.999').toISOString(),
+                    missions
+                };
+
+                const res = await fetch('/api/admin/expedition', {
+                    method: 'POST',
+                    headers: apiHeaders(),
+                    body: JSON.stringify(body)
+                });
+
+                const data = await res.json();
+                if (!data.success) throw new Error(data.message || 'Erro ao criar expedição');
+
+                showToast(`🚀 Expedição "${theme}" publicada com sucesso!`, 'success');
+
+                // Reset form
+                $form.reset();
+                setDefaultDates();
+                $fieldSlug.value = '';
+                document.querySelectorAll('.mission-editor-card .me-input').forEach(i => delete i.dataset.touched);
+                updatePreview();
+
+                // Re-fetch all data
+                await init();
+            } catch (err) {
+                console.error('[Publish]', err);
+                showToast('Erro ao publicar: ' + err.message, 'error');
+            } finally {
+                $btnPublish.classList.remove('loading');
+                $btnPublish.disabled = false;
+            }
+        });
+
+        // ─── START ───
+        init();
+    })();
+    </script>
+</body>
+</html>

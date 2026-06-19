@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/server.js": {
-      "includeFiles": "{index.html,admin.html,historia.html,creation_dates.json,drawings.json,events.json,api/cards_catalog.json,public_paintings.json,ratings.json}",
+      "includeFiles": "{index.html,admin.html,admin-expeditions.html,historia.html,creation_dates.json,drawings.json,events.json,api/cards_catalog.json,public_paintings.json,ratings.json}",
       "maxDuration": 30
     }
   },
@@ -13,6 +13,10 @@
     {
       "source": "/admin",
       "destination": "/admin.html"
+    },
+    {
+      "source": "/admin-expeditions",
+      "destination": "/admin-expeditions.html"
     },
     {
       "source": "/reportar-bug",

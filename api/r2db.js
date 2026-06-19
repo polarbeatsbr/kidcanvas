@@ -456,6 +456,70 @@ async function saveDrawings(drawings) {
     return false;
 }
 
+
+
+// ========= EVENTS (Expedições) =========
+const LOCAL_EVENTS_FILE = path.join(__dirname, '..', 'events.json');
+
+async function loadEvents() {
+    if (s3Client && bucketName) {
+        try {
+            console.log('[R2DB] Lendo events.json do Cloudflare R2...');
+            const command = new GetObjectCommand({
+                Bucket: bucketName,
+                Key: 'events.json',
+            });
+            const response = await s3Client.send(command);
+            const dataStr = await streamToString(response.Body);
+            try {
+                fs.writeFileSync(LOCAL_EVENTS_FILE, dataStr, 'utf8');
+            } catch(e) {}
+            return JSON.parse(dataStr);
+        } catch (err) {
+            if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || (err.message && err.message.includes('NoSuchKey'))) {
+                console.log('[R2DB] events.json não existe no R2. Tentando local...');
+            } else {
+                console.error('[R2DB] Erro ao ler events.json do R2:', err.message);
+            }
+        }
+    }
+    // Fallback local
+    if (fs.existsSync(LOCAL_EVENTS_FILE)) {
+        try {
+            return JSON.parse(fs.readFileSync(LOCAL_EVENTS_FILE, 'utf8'));
+        } catch(e) {
+            console.error('[R2DB] Erro ao ler events.json local:', e.message);
+        }
+    }
+    return null;
+}
+
+async function saveEvents(eventsData) {
+    const dataStr = JSON.stringify(eventsData, null, 2);
+    try {
+        fs.writeFileSync(LOCAL_EVENTS_FILE, dataStr, 'utf8');
+        console.log('[R2DB] Backup local de events.json gravado.');
+    } catch(e) {
+        console.error('[R2DB] Falha ao gravar events.json local:', e.message);
+    }
+    if (s3Client && bucketName) {
+        try {
+            const command = new PutObjectCommand({
+                Bucket: bucketName,
+                Key: 'events.json',
+                Body: dataStr,
+                ContentType: 'application/json',
+            });
+            await s3Client.send(command);
+            console.log('[R2DB] events.json persistido no R2.');
+            return true;
+        } catch(err) {
+            console.error('[R2DB] Falha ao persistir events.json no R2:', err.message);
+        }
+    }
+    return false;
+}
+
 module.exports = {
     loadUsers,
     loadPublicPaintings,
@@ -470,6 +534,8 @@ module.exports = {
     hashPassword,
     uploadImage,
     loadDrawings,
-    saveDrawings
+    saveDrawings,
+    loadEvents,
+    saveEvents
 };
 

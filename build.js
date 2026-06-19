@@ -14,6 +14,7 @@ const filesToCopy = [
     'index.html',
     'historia.html',
     'admin.html',
+    'admin-expeditions.html',
     'drawings.json',
     'creation_dates.json',
     'examples_metadata.json',
