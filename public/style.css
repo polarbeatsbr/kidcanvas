@@ -9268,3 +9268,47 @@ button, input, select, textarea {
     background: var(--color-purple);
 }
 
+/* Bloco de regras de progressão do capítulo */
+.livro-regras-capitulo-box {
+    background-color: #f8fafc;
+    border: 1.5px dashed #cbd5e1;
+    border-radius: var(--radius-sm);
+    padding: 15px;
+    margin-bottom: 20px;
+    font-family: 'Fredoka-Variable', sans-serif;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.livro-regras-title {
+    font-size: 0.88rem;
+    font-weight: 800;
+    color: #475569;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.livro-regras-columns {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.livro-regras-col-do {
+    flex: 1;
+    min-width: 140px;
+}
+.livro-regras-col-dont {
+    flex: 1;
+    min-width: 140px;
+    border-left: 1px dashed #e2e8f0;
+    padding-left: 15px;
+}
+@media (max-width: 480px) {
+    .livro-regras-col-dont {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px dashed #e2e8f0;
+        padding-top: 10px;
+    }
+}
+
+

@@ -10870,6 +10870,60 @@ window.renderChapterGrid = function(colName) {
         }
     }
     
+    // Renderizar regras de progressão do capítulo
+    const chapterRulesMap = {
+        'Pinturas': {
+            do: ['Pintar desenhos livres ou temáticos', 'Salvar as pinturas finalizadas no perfil', 'Completar metas de total de pinturas'],
+            dont: ['Apenas abrir um desenho e fechar', 'Apenas visualizar desenhos de outros pintores', 'Apenas imprimir desenhos em branco']
+        },
+        'Dinossauros': {
+            do: ['Pintar desenhos com o tema Dinossauros', 'Salvar as pinturas de dinossauros no perfil', 'Explorar e colorir novas espécies na galeria'],
+            dont: ['Pintar desenhos de outros temas', 'Apenas abrir o desenho de dinossauro sem salvar']
+        },
+        'Livros': {
+            do: ['Criar histórias com nosso gerador de IA', 'Concluir a geração e leitura das histórias', 'Explorar novos temas e capítulos de livros'],
+            dont: ['Apenas ler histórias geradas no passado', 'Apenas visualizar as ilustrações sem ler']
+        },
+        'Comunidade': {
+            do: ['Compartilhar seus desenhos no Hall da Fama', 'Receber reações e curtidas dos amigos', 'Interagir de forma positiva na galeria pública'],
+            dont: ['Salvar pinturas de modo privado no perfil', 'Enviar o mesmo desenho repetidas vezes']
+        },
+        'Lendárias': {
+            do: ['Completar capítulos inteiros do livro (100%)', 'Concluir as maiores conquistas e desafios difíceis', 'Desbloquear segredos e conquistas ocultas'],
+            dont: ['Fazer ações comuns do dia a dia', 'Repetir conquistas que você já possui']
+        }
+    };
+    
+    const regrasBox = document.getElementById('livro-regras-capitulo-box');
+    if (regrasBox) {
+        const rule = chapterRulesMap[colName];
+        if (rule) {
+            regrasBox.innerHTML = `
+                <div class="livro-regras-title">
+                    <i class="fa-solid fa-circle-info" style="color: var(--color-purple); font-size: 0.95rem;"></i>
+                    <span>Como avançar no Capítulo ${colName}?</span>
+                </div>
+                <div class="livro-regras-columns">
+                    <div class="livro-regras-col-do">
+                        <div style="font-size: 0.7rem; font-weight: 900; color: #2ecc71; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">👍 Conta Progresso</div>
+                        <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.8rem; line-height: 1.4; color: #334155;">
+                            ${rule.do.map(item => `<li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>✅</span> <span>${item}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="livro-regras-col-dont">
+                        <div style="font-size: 0.7rem; font-weight: 900; color: #e74c3c; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">👎 Não Conta</div>
+                        <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.8rem; line-height: 1.4; color: #64748b;">
+                            ${rule.dont.map(item => `<li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>❌</span> <span>${item}</span></li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+            `;
+            regrasBox.style.display = 'block';
+        } else {
+            regrasBox.style.display = 'none';
+        }
+    }
+    
     const grid = document.getElementById('livro-descobertas-grid');
     if (grid) {
         grid.innerHTML = '';
@@ -12051,6 +12105,31 @@ window.renderWeeklyExpeditionPage = function() {
             <div class="livro-expedition-timer" id="livro-exp-timer-text">⏰ Termina em: --</div>
             <p class="livro-expedition-subtitulo">Complete os objetivos para ajudar a desvendar as páginas secretas do seu Livro das Descobertas!</p>
         </div>
+        
+        <!-- Área explicativa de regras da Expedição -->
+        <div class="livro-regras-capitulo-box" style="margin: 0 15px 20px 15px; border-style: dashed;">
+            <div class="livro-regras-title">
+                <i class="fa-solid fa-circle-info" style="color: var(--color-purple); font-size: 0.95rem;"></i>
+                <span>Como avançar nas Expedições?</span>
+            </div>
+            <div class="livro-regras-columns">
+                <div class="livro-regras-col-do">
+                    <div style="font-size: 0.7rem; font-weight: 900; color: #2ecc71; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">👍 Conta Progresso</div>
+                    <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.8rem; line-height: 1.4; color: #334155;">
+                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>✅</span> <span>Completar as missões semanais ativas</span></li>
+                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>✅</span> <span>Participar de desafios especiais no tempo certo</span></li>
+                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>✅</span> <span>Concluir os objetivos da expedição atual</span></li>
+                    </ul>
+                </div>
+                <div class="livro-regras-col-dont">
+                    <div style="font-size: 0.7rem; font-weight: 900; color: #e74c3c; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">👎 Não Conta</div>
+                    <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.8rem; line-height: 1.4; color: #64748b;">
+                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>❌</span> <span>Pintar desenhos fora do tema da semana</span></li>
+                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>❌</span> <span>Salvar desenhos com a expedição já encerrada</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     `;
     
     // Split missions: 3 main objectives (facil, media, dificil) + 1 final reward (epica)
@@ -12204,16 +12283,75 @@ window.updateExpeditionBadge = function() {
 };
 
 window.openDiscoveriesHelpModal = function() {
-    Swal.fire({
+    const colName = window.activeChapterName || 'Pinturas';
+    
+    const chapterRulesMap = {
+        'Pinturas': {
+            title: '🎨 Capítulo Pinturas',
+            desc: 'Desbloqueie descobertas ao pintar e salvar desenhos livres ou temáticos.',
+            do: ['Pintar desenhos livres ou temáticos', 'Salvar as pinturas finalizadas no perfil', 'Completar metas de total de pinturas'],
+            dont: ['Apenas abrir um desenho e fechar', 'Apenas visualizar desenhos de outros pintores', 'Apenas imprimir desenhos em branco']
+        },
+        'Dinossauros': {
+            title: '🦖 Capítulo Dinossauros',
+            desc: 'Desbloqueie descobertas ao colorir e salvar dinossauros.',
+            do: ['Pintar desenhos com o tema Dinossauros', 'Salvar as pinturas de dinossauros no perfil', 'Explorar e colorir novas espécies na galeria'],
+            dont: ['Pintar desenhos de outros temas (como carros ou princesas)', 'Apenas abrir o desenho de dinossauro sem salvar']
+        },
+        'Livros': {
+            title: '📚 Capítulo Livros',
+            desc: 'Desbloqueie descobertas ao criar e ler histórias geradas pela nossa IA.',
+            do: ['Criar histórias com nosso gerador de IA', 'Concluir a geração e leitura das histórias', 'Explorar novos temas e capítulos de livros'],
+            dont: ['Apenas ler histórias geradas no passado', 'Apenas visualizar as ilustrações sem ler']
+        },
+        'expedition': {
+            title: '🚀 Expedições',
+            desc: 'Desbloqueie descobertas da semana ao completar missões e resgatar suas recompensas.',
+            do: ['Completar as missões semanais ativas', 'Participar de desafios especiais no tempo certo', 'Concluir os objetivos da expedição atual'],
+            dont: ['Pintar desenhos fora do tema da semana', 'Salvar desenhos com a expedição já encerrada']
+        },
+        'Comunidade': {
+            title: '🏆 Capítulo Comunidade',
+            desc: 'Desbloqueie descobertas ao interagir com outros amigos e compartilhar no Hall da Fama.',
+            do: ['Compartilhar seus desenhos no Hall da Fama', 'Receber reações e curtidas dos amigos', 'Interagir de forma positiva na galeria pública'],
+            dont: ['Salvar pinturas de modo privado no perfil', 'Enviar o mesmo desenho repetidas vezes']
+        },
+        'Lendárias': {
+            title: '👑 Capítulo Lendárias',
+            desc: 'Desbloqueie descobertas lendárias ao atingir a maestria de exploração.',
+            do: ['Completar capítulos inteiros do livro (100%)', 'Concluir as maiores conquistas e desafios difíceis', 'Desbloquear segredos e conquistas ocultas'],
+            dont: ['Fazer ações comuns do dia a dia (como pinturas livres)', 'Repetir conquistas que você já possui']
+        }
+    };
+    
+    const rule = chapterRulesMap[colName] || {
         title: 'ℹ️ Como funciona?',
+        desc: 'O Livro das Descobertas registra tudo o que você conquista no KidCanvas.',
+        do: ['Pintar desenhos, completar expedições, criar histórias e participar do Hall da Fama'],
+        dont: ['Apenas abrir os links ou imprimir desenhos sem realizar as ações']
+    };
+    
+    Swal.fire({
+        title: rule.title,
         html: `
-            <div style="text-align: left; font-size: 0.95rem; line-height: 1.6; color: #2d3436; font-family: 'Fredoka-Variable', sans-serif; padding: 5px;">
-                <p style="margin-top:0;">O <strong>Livro das Descobertas</strong> registra tudo o que você conquista no KidCanvas.</p>
-                <p>Pinte desenhos, complete expedições, crie livros, compartilhe suas artes e participe da comunidade para desbloquear novas descobertas.</p>
-                <p style="margin-bottom:0; font-weight:800; color:#6c5ce7;">Cada descoberta mostra exatamente o que você precisa fazer para conquistá-la.</p>
+            <div style="text-align: left; font-size: 0.92rem; line-height: 1.45; color: #2d3436; font-family: 'Fredoka-Variable', sans-serif; padding: 5px;">
+                <p style="margin-top:0; font-weight: bold; color: #636e72; font-size: 0.95rem; margin-bottom: 12px;">${rule.desc}</p>
+                
+                <div style="margin-top: 10px; background: #f4fbf7; padding: 10px; border-radius: 8px; border: 1px solid #d4edda; margin-bottom: 10px;">
+                    <div style="font-size: 0.68rem; font-weight: 900; color: #28a745; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px;">👍 CONTA PROGRESSO</div>
+                    <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.82rem; color: #155724; line-height: 1.45;">
+                        ${rule.do.map(item => `<li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>✅</span> <span>${item}</span></li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div style="background: #fff5f5; padding: 10px; border-radius: 8px; border: 1px solid #f8d7da;">
+                    <div style="font-size: 0.68rem; font-weight: 900; color: #dc3545; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px;">👎 NÃO CONTA</div>
+                    <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.82rem; color: #721c24; line-height: 1.45;">
+                        ${rule.dont.map(item => `<li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>❌</span> <span>${item}</span></li>`).join('')}
+                    </ul>
+                </div>
             </div>
         `,
-        icon: 'info',
         confirmButtonText: 'Entendi!',
         confirmButtonColor: '#6c5ce7',
         customClass: {
