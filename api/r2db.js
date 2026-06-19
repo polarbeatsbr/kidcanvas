@@ -456,7 +456,67 @@ async function saveDrawings(drawings) {
     return false;
 }
 
+// ========= FEATURED DRAWINGS (Mais Amados) =========
+const LOCAL_FEATURED_FILE = path.join(__dirname, '..', 'featured_drawings.json');
 
+async function loadFeaturedDrawings() {
+    if (s3Client && bucketName) {
+        try {
+            console.log('[R2DB] Lendo featured_drawings.json do Cloudflare R2...');
+            const command = new GetObjectCommand({
+                Bucket: bucketName,
+                Key: 'featured_drawings.json',
+            });
+            const response = await s3Client.send(command);
+            const dataStr = await streamToString(response.Body);
+            try {
+                fs.writeFileSync(LOCAL_FEATURED_FILE, dataStr, 'utf8');
+            } catch(e) {}
+            return JSON.parse(dataStr);
+        } catch (err) {
+            if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || (err.message && err.message.includes('NoSuchKey'))) {
+                console.log('[R2DB] featured_drawings.json não existe no R2. Tentando local...');
+            } else {
+                console.error('[R2DB] Erro ao ler featured_drawings.json do R2:', err.message);
+            }
+        }
+    }
+    // Fallback local
+    if (fs.existsSync(LOCAL_FEATURED_FILE)) {
+        try {
+            return JSON.parse(fs.readFileSync(LOCAL_FEATURED_FILE, 'utf8'));
+        } catch(e) {
+            console.error('[R2DB] Erro ao ler featured_drawings.json local:', e.message);
+        }
+    }
+    return null;
+}
+
+async function saveFeaturedDrawings(featuredData) {
+    const dataStr = JSON.stringify(featuredData, null, 2);
+    try {
+        fs.writeFileSync(LOCAL_FEATURED_FILE, dataStr, 'utf8');
+        console.log('[R2DB] Backup local de featured_drawings.json gravado.');
+    } catch(e) {
+        console.error('[R2DB] Falha ao gravar featured_drawings.json local:', e.message);
+    }
+    if (s3Client && bucketName) {
+        try {
+            const command = new PutObjectCommand({
+                Bucket: bucketName,
+                Key: 'featured_drawings.json',
+                Body: dataStr,
+                ContentType: 'application/json',
+            });
+            await s3Client.send(command);
+            console.log('[R2DB] featured_drawings.json persistido no R2.');
+            return true;
+        } catch(err) {
+            console.error('[R2DB] Falha ao persistir featured_drawings.json no R2:', err.message);
+        }
+    }
+    return false;
+}
 
 // ========= EVENTS (Expedições) =========
 const LOCAL_EVENTS_FILE = path.join(__dirname, '..', 'events.json');
@@ -536,6 +596,8 @@ module.exports = {
     loadDrawings,
     saveDrawings,
     loadEvents,
-    saveEvents
+    saveEvents,
+    loadFeaturedDrawings,
+    saveFeaturedDrawings
 };
 

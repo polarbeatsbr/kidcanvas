@@ -790,6 +790,17 @@ window.addEventListener('DOMContentLoaded', async () => {
         window.history.replaceState({}, document.title, cleanUrl);
     }
 
+    // Carregar catálogo de cards na inicialização
+    try {
+        const res = await fetch('/api/store/catalog');
+        const data = await res.json();
+        if (data.success) {
+            window.globalCatalog = data.catalog;
+        }
+    } catch(e) {
+        console.error('Erro ao carregar catálogo na inicialização:', e);
+    }
+
     await syncUserProfile();
     checkGsiLoaded();
     await loadDrawings();
@@ -1717,88 +1728,56 @@ function renderHomeView() {
         };
     });
     
-    // Buscar criações do Hall da Fama para os cards de destaque
-    fetch('/api/paintings/public')
+    // Buscar mais amados da semana
+    fetch('/api/featured-drawings')
         .then(response => response.json())
         .then(result => {
-            if (result.success && result.paintings) {
-                updateFeaturedHomeCards(result.paintings);
+            if (result.success && result.featured) {
+                updateFeaturedHomeCards(result.featured);
             }
         })
-        .catch(err => console.error('Erro ao carregar os destaques da home:', err));
+        .catch(err => console.error('Erro ao carregar os mais amados da home:', err));
 }
 
-// Atualiza os cards de destaque na home baseado nas pinturas do Hall da Fama
-function updateFeaturedHomeCards(paintings) {
-    if (!paintings || paintings.length === 0) return;
+// Atualiza os cards de Mais Amados na home
+function updateFeaturedHomeCards(featured) {
+    if (!featured) return;
 
-    // 1. Destaque Geral (Mais Votado de todos)
-    const sortedAll = [...paintings].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
-    const topGeral = sortedAll[0];
+    const cardsMap = {
+        colorido: 'featured-card-colorido',
+        impresso: 'featured-card-impresso',
+        favoritado: 'featured-card-favoritado'
+    };
 
-    // 2. Campeão de Colorir
-    const colorirOnly = paintings.filter(p => p.category !== 'Mão Livre');
-    const sortedColorir = [...colorirOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
-    const topColorir = sortedColorir[0];
+    Object.keys(cardsMap).forEach(key => {
+        const cardId = cardsMap[key];
+        const cardElement = document.getElementById(cardId);
+        const data = featured[key];
 
-    // 3. Campeão Mão Livre
-    const maolivreOnly = paintings.filter(p => p.category === 'Mão Livre');
-    const sortedMaoLivre = [...maolivreOnly].sort((a, b) => (b.stars || b.likes || 0) - (a.stars || a.likes || 0));
-    const topMaoLivre = sortedMaoLivre[0];
+        if (cardElement && data) {
+            const img = cardElement.querySelector('.featured-img');
+            const title = cardElement.querySelector('.featured-card-title');
+            const proof = cardElement.querySelector('.featured-card-proof');
 
-    // Atualizar Card Geral
-    if (topGeral) {
-        const cardGeral = document.getElementById('featured-card-geral');
-        if (cardGeral) {
-            const img = cardGeral.querySelector('.featured-img');
-            const title = cardGeral.querySelector('.featured-card-title');
-            const author = cardGeral.querySelector('p');
-            const starsText = (topGeral.stars || topGeral.likes) ? `⭐ ${topGeral.stars || topGeral.likes} estrelas` : '⭐ 0 estrelas';
-            
-            if (img) {
-                img.src = topGeral.url;
-                img.alt = topGeral.prompt;
+            if (img && data.url) {
+                img.src = data.url;
+                img.alt = data.title;
             }
-            if (title) title.textContent = topGeral.prompt || 'Desenho sem título';
-            if (author) author.innerHTML = `Por: <strong>${topGeral.creatorName || topGeral.userName || 'Artista'}</strong> &bull; ${starsText}`;
-        }
-    }
-
-    // Atualizar Card Colorir
-    if (topColorir) {
-        const cardColorir = document.getElementById('featured-card-colorir');
-        if (cardColorir) {
-            const img = cardColorir.querySelector('.featured-img');
-            const title = cardColorir.querySelector('.featured-card-title');
-            const author = cardColorir.querySelector('p');
-            const starsText = (topColorir.stars || topColorir.likes) ? `⭐ ${topColorir.stars || topColorir.likes} estrelas` : '⭐ 0 estrelas';
-            
-            if (img) {
-                img.src = topColorir.url;
-                img.alt = topColorir.prompt;
+            if (title) {
+                title.textContent = data.title;
             }
-            if (title) title.textContent = topColorir.prompt || 'Desenho sem título';
-            if (author) author.innerHTML = `Por: <strong>${topColorir.creatorName || topColorir.userName || 'Artista'}</strong> &bull; ${starsText}`;
-        }
-    }
-
-    // Atualizar Card Mão Livre
-    if (topMaoLivre) {
-        const cardMaoLivre = document.getElementById('featured-card-maolivre');
-        if (cardMaoLivre) {
-            const img = cardMaoLivre.querySelector('.featured-img');
-            const title = cardMaoLivre.querySelector('.featured-card-title');
-            const author = cardMaoLivre.querySelector('p');
-            const starsText = (topMaoLivre.stars || topMaoLivre.likes) ? `⭐ ${topMaoLivre.stars || topMaoLivre.likes} estrelas` : '⭐ 0 estrelas';
-            
-            if (img) {
-                img.src = topMaoLivre.url;
-                img.alt = topMaoLivre.prompt;
+            if (proof) {
+                proof.textContent = `${data.count} ${data.label}`;
             }
-            if (title) title.textContent = topMaoLivre.prompt || 'Desenho sem título';
-            if (author) author.innerHTML = `Por: <strong>${topMaoLivre.creatorName || topMaoLivre.userName || 'Artista'}</strong> &bull; ${starsText}`;
+
+            // Configurar clique para abrir no editor/tela de pintura
+            const linkPath = `/${data.category}/${data.slug}`;
+            cardElement.onclick = (e) => {
+                e.preventDefault();
+                navigate(linkPath);
+            };
         }
-    }
+    });
 }
 
 // 2. CATEGORIAS VIEW
@@ -7353,18 +7332,8 @@ async function renderHallDaFamaView() {
                     else if (category === 'Criação com IA') catBadgeColor = 'background: #9c27b0;';
                     else if (category === 'Histórias Mágicas') catBadgeColor = 'background: #2196f3;';
 
-                    // Avatar do criador (emoji ou imagem Google)
-                    let avatarHtml = '👤';
-                    if (dw.creatorAvatar) {
-                        const isUrl = dw.creatorAvatar.startsWith('http') || dw.creatorAvatar.startsWith('/');
-                        if (isUrl) {
-                            avatarHtml = `<img src="${dw.creatorAvatar}" style="width: 18px; height: 18px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px; display: inline-block; border: 1px solid rgba(0,0,0,0.1);">`;
-                        } else {
-                            avatarHtml = `<span style="font-size: 1.05rem; vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1;">${dw.creatorAvatar}</span>`;
-                        }
-                    } else {
-                        avatarHtml = `<span style="font-size: 1.05rem; vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1;">👤</span>`;
-                    }
+                    // Avatar do criador (emoji, url externa ou card do livro)
+                    const avatarHtml = window.getAvatarHtml(dw.creatorAvatar, '18px');
 
                     // Champion Badge
                     let championBadgeHtml = '';
@@ -7858,13 +7827,24 @@ function renderCertificate(childName, drawingName) {
     cCtx.font = 'bold 28px Fredoka, Quicksand, sans-serif';
     cCtx.fillText(`★ ${drawingName} ★`, w / 2, 445);
 
+    // Desenhar assinaturas decorativas acima das linhas
+    cCtx.fillStyle = '#7b4fa6'; // Roxo da Vovó Sônia
+    cCtx.font = "italic 36px 'Alex Brush', cursive";
+    cCtx.fillText('Vovó Sônia', w / 2 - 150, 495);
+
+    cCtx.fillStyle = '#1971c2'; // Azul do Pedrinho
+    cCtx.font = "32px 'Gochi Hand', cursive";
+    cCtx.fillText('Pedrinho', w / 2 + 150, 495);
+
+    // Nomes impressos abaixo das linhas
     cCtx.fillStyle = '#868e96';
-    cCtx.font = 'italic 16px Quicksand, sans-serif';
+    cCtx.font = 'bold 14px Quicksand, sans-serif';
     cCtx.fillText('Vovó Sônia', w / 2 - 150, 525);
     cCtx.fillText('Pedrinho', w / 2 + 150, 525);
 
+    // Linhas de assinatura
     cCtx.strokeStyle = '#cbd5e1';
-    cCtx.lineWidth = 1;
+    cCtx.lineWidth = 1.5;
     cCtx.beginPath();
     cCtx.moveTo(w / 2 - 220, 505);
     cCtx.lineTo(w / 2 - 80, 505);
@@ -9225,43 +9205,420 @@ function openAvatarSelectionModal() {
     const modal = document.getElementById('avatarSelectionModal');
     if (!modal) return;
     
-    const grid = document.getElementById('avatar-options-grid');
-    if (grid) {
-        grid.innerHTML = '';
-        const options = ['🧒', '👧', '👦', '🦊', '🐶', '🦄', '🐱', '🦁', '🐯', '🐼', '🐨', '🐰', '🐻', '🐸', '🐵', '🐣', '🦖', '🐉', '🐙', '🐝', '🧚', '🧙', '🧜', '👽', '🤖'];
-        options.forEach(emoji => {
-            const btn = document.createElement('button');
-            btn.textContent = emoji;
-            btn.style.fontSize = '2.2rem';
-            btn.style.padding = '8px';
-            btn.style.border = 'var(--border-thin)';
-            btn.style.borderRadius = '12px';
-            btn.style.backgroundColor = '#fdfdfd';
-            btn.style.cursor = 'pointer';
-            btn.style.transition = 'all 0.15s ease';
-            
-            // Estilo selecionado
-            if (currentUser && currentUser.avatar === emoji) {
-                btn.style.borderColor = 'var(--color-purple)';
-                btn.style.backgroundColor = 'rgba(123, 31, 162, 0.08)';
-                btn.style.boxShadow = '0 0 0 2px var(--color-purple)';
-            }
-            
-            btn.onmouseover = () => {
-                btn.style.transform = 'scale(1.15)';
-                btn.style.backgroundColor = '#f3effa';
-            };
-            btn.onmouseout = () => {
-                btn.style.transform = 'scale(1.0)';
-                btn.style.backgroundColor = (currentUser && currentUser.avatar === emoji) ? 'rgba(123, 31, 162, 0.08)' : '#fdfdfd';
-            };
-            btn.onclick = () => selectAvatar(emoji);
-            grid.appendChild(btn);
-        });
+    // Obter o modal box para podermos alterar seu conteúdo de forma dinâmica e premium
+    const modalBox = modal.querySelector('.modal-box');
+    if (!modalBox) return;
+    
+    // Obter todos os cards do catálogo e cards desbloqueados do usuário
+    const catalog = window.globalCatalog || [];
+    const userCards = currentUser ? (currentUser.cards || []) : [];
+    
+    // Filtrar IDs dos cards que o usuário possui
+    const unlockedCardIds = userCards.map(uc => {
+        if (!uc) return '';
+        if (typeof uc === 'string') return uc;
+        return uc.id || uc.value || '';
+    }).filter(Boolean);
+    
+    // Contagem geral
+    const unlockedCatalogCards = catalog.filter(c => unlockedCardIds.includes(c.id));
+    const ownedCount = unlockedCatalogCards.length;
+    const totalCount = catalog.length > 0 ? catalog.length : 125;
+    const percent = totalCount > 0 ? Math.round((ownedCount / totalCount) * 100) : 0;
+    
+    // Contagem por raridade
+    const countComum = unlockedCatalogCards.filter(c => c.rarity === 'Comum').length;
+    const totalComum = catalog.filter(c => c.rarity === 'Comum').length;
+    const countRaro = unlockedCatalogCards.filter(c => c.rarity === 'Rara').length;
+    const totalRaro = catalog.filter(c => c.rarity === 'Rara').length;
+    const countEpico = unlockedCatalogCards.filter(c => c.rarity === 'Épica').length;
+    const totalEpico = catalog.filter(c => c.rarity === 'Épica').length;
+    const countLendario = unlockedCatalogCards.filter(c => c.rarity === 'Lendária').length;
+    const totalLendario = catalog.filter(c => c.rarity === 'Lendária').length;
+    const countMitico = unlockedCatalogCards.filter(c => c.rarity === 'Mítica').length;
+    const totalMitico = catalog.filter(c => c.rarity === 'Mítica').length;
+    
+    // Avatares Padrão (Menino, Menina e Morenos)
+    const defaults = [
+        { emoji: '👦', label: 'Menino' },
+        { emoji: '👧', label: 'Menina' },
+        { emoji: '👦🏽', label: 'Menino Moreno' },
+        { emoji: '👧🏽', label: 'Menina Morena' }
+    ];
+    
+    // Construir lista linear de itens pré-visualizáveis (Padrão + Desbloqueados)
+    const previewItems = [
+        ...defaults.map(item => ({
+            type: 'default',
+            id: item.emoji,
+            name: item.label,
+            rarity: 'Comum'
+        })),
+        ...unlockedCatalogCards.map(card => ({
+            type: 'card',
+            id: card.id,
+            name: card.name,
+            imageUrl: card.imageUrl,
+            rarity: card.rarity
+        }))
+    ];
+    
+    // Configurar estado no escopo global/window
+    window.avatarPreviewItems = previewItems;
+    const currentAvatar = currentUser ? currentUser.avatar : '👦';
+    let currentIdx = previewItems.findIndex(item => item.id === currentAvatar);
+    if (currentIdx === -1) currentIdx = 0;
+    window.currentPreviewIndex = currentIdx;
+    
+    const defaultsHtml = `
+        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+            ${defaults.map(item => {
+                const isSelected = currentUser && currentUser.avatar === item.emoji;
+                const borderStyle = isSelected 
+                    ? 'border: 3px solid var(--color-purple); background: #f3effa; box-shadow: 0 0 0 2px var(--color-purple);' 
+                    : 'border: var(--border-thin); background: white;';
+                
+                return `
+                    <button onclick="previewDefaultAvatar('${item.emoji}'); return false;" style="font-size: 2.2rem; padding: 10px; border-radius: 50%; width: 66px; height: 66px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s ease, background-color 0.15s ease; ${borderStyle}" class="hover-bounce" title="${item.label}">
+                        ${item.emoji}
+                    </button>
+                `;
+            }).join('')}
+        </div>
+    `;
+    
+    // Grid de todos os cards do catálogo
+    let cardsContentHtml = '';
+    if (catalog.length > 0) {
+        cardsContentHtml = `
+            <div class="avatar-picker-scroll-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 10px; max-height: 380px; overflow-y: auto; background: #fafafa; border: var(--border-thin); border-radius: var(--radius-sm); margin-bottom: 20px;">
+                ${catalog.map(card => {
+                    const isUnlocked = unlockedCardIds.includes(card.id);
+                    const isSelected = currentUser && currentUser.avatar === card.id;
+                    const rarityLower = card.rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+                    const borderClass = `rarity-border-${rarityLower}`;
+                    const selectedClass = isSelected ? 'selected-avatar' : '';
+                    
+                    if (isUnlocked) {
+                        return `
+                            <button class="avatar-option-card-btn ${borderClass} ${selectedClass}" onclick="previewUnlockedCard('${card.id}'); return false;" title="${card.name} (${card.rarity})" style="aspect-ratio: 1; border-radius: 50%; overflow: visible; display: inline-flex; align-items: center; justify-content: center; position: relative;">
+                                <img src="${card.imageUrl}" alt="${card.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                                ${isSelected ? `<div style="position: absolute; top: -6px; right: -6px; background: var(--color-green); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fa-solid fa-check"></i></div>` : ''}
+                            </button>
+                        `;
+                    } else {
+                        // Card Bloqueado (silhueta, blur, cadeado e apenas borda da raridade visível)
+                        return `
+                            <button class="avatar-option-card-btn ${borderClass}" onclick="showLockedCardDetailsById('${card.id}'); return false;" title="Descoberta Misteriosa (${card.rarity})" style="aspect-ratio: 1; border-radius: 50%; overflow: visible; display: inline-flex; align-items: center; justify-content: center; position: relative; cursor: pointer; background: #f0f0f0;">
+                                <img src="${card.imageUrl}" alt="Bloqueado" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; filter: blur(8px) grayscale(1) brightness(0.35);">
+                                <div style="position: absolute; color: white; font-size: 1.15rem; text-shadow: 0 1px 3px rgba(0,0,0,0.6);"><i class="fa-solid fa-lock"></i></div>
+                            </button>
+                        `;
+                    }
+                }).join('')}
+            </div>
+        `;
+    } else {
+        cardsContentHtml = `
+            <div style="padding: 20px; text-align: center; background: #fafafa; border: 2px dashed rgba(0,0,0,0.1); border-radius: var(--radius-sm); margin-bottom: 20px;">
+                <span style="font-size: 2.2rem; display: block; margin-bottom: 10px;">📖</span>
+                <p style="font-size: 0.9rem; color: var(--color-dark-light); line-height: 1.4; margin: 0 0 10px 0; font-weight: bold;">
+                    Desbloqueie cards no Livro das Descobertas para usar como avatar!
+                </p>
+                <button class="btn btn-primary btn-sm" onclick="closeAvatarSelectionModal(); openAlbumModal(); return false;" style="font-size: 0.8rem; padding: 6px 14px; font-weight: bold; border-radius: var(--radius-sm); box-shadow: var(--shadow-button-primary);">
+                    🎨 Ir para o Livro
+                </button>
+            </div>
+        `;
     }
+    
+    // Substituir o conteúdo do modal box dinamicamente com o novo layout de progressão
+    modalBox.innerHTML = `
+        <button class="btn-close-modal" onclick="closeAvatarSelectionModal()">&times;</button>
+        
+        <!-- Área de Pré-Visualização Dinâmica no Topo -->
+        <div id="avatar-selection-preview-area" style="background: #fffdf5; border: var(--border-medium); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px; text-align: center; box-shadow: var(--shadow-cartoon); position: relative;">
+            <!-- Preenchido dinamicamente por updateAvatarPreviewUI -->
+        </div>
+
+        <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--color-purple); margin-bottom: 8px;">Escolha seu Avatar</h3>
+        <p style="font-size: 0.92rem; color: var(--color-dark-light); line-height: 1.4; margin-bottom: 20px;">
+            Selecione um bichinho ou personagem fofo para o seu perfil e para aparecer no Hall da Fama!
+        </p>
+        
+        <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin-bottom: 12px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 4px;">👤 Avatares Padrão</h4>
+        ${defaultsHtml}
+        
+        <div style="text-align: left; margin-bottom: 15px; background: white; padding: 12px; border: var(--border-thin); border-radius: var(--radius-sm);">
+            <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin: 0 0 4px 0; display: flex; align-items: center; gap: 6px;">
+                <span>🃏</span> Coleção de Descobertas
+            </h4>
+            <div style="font-size: 0.82rem; font-weight: bold; color: var(--color-dark-light); display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span>${ownedCount} / ${totalCount} descobertas desbloqueadas</span>
+                <span>${percent}%</span>
+            </div>
+            <div style="width: 100%; height: 12px; background: #e2e8f0; border-radius: 6px; overflow: hidden; border: 1px solid rgba(0,0,0,0.05);">
+                <div style="width: ${percent}%; height: 100%; background: linear-gradient(90deg, #ff7675, #fdcb6e, #55efc4, #74b9ff, #a29bfe); border-radius: 6px;"></div>
+            </div>
+        </div>
+        
+        ${cardsContentHtml}
+    `;
+    
+    // Atualizar visualização do topo
+    window.updateAvatarPreviewUI();
     
     modal.style.display = 'flex';
 }
+
+window.updateAvatarPreviewUI = function() {
+    const previewContainer = document.getElementById('avatar-selection-preview-area');
+    if (!previewContainer) return;
+    
+    const items = window.avatarPreviewItems || [];
+    const idx = window.currentPreviewIndex || 0;
+    const item = items[idx];
+    if (!item) return;
+    
+    const rarityColors = {
+        'Comum': '#2ecc71',
+        'Rara': '#3498db',
+        'Épica': '#9b59b6',
+        'Lendária': '#e67e22',
+        'Mítica': '#e74c3c'
+    };
+    const badgeColor = rarityColors[item.rarity] || '#cbd5e1';
+    
+    let contentHtml = '';
+    if (item.type === 'default') {
+        contentHtml = `
+            <div style="font-size: 4rem; width: 100px; height: 100px; border-radius: 50%; border: 3px solid #cbd5e1; background: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+                ${item.id}
+            </div>
+            <h4 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-dark); margin: 0 0 4px 0;">${item.name}</h4>
+            <div style="margin-bottom: 12px;">
+                <span style="font-size: 0.75rem; padding: 3px 12px; border-radius: 20px; color: white; font-weight: 800; background-color: #2ecc71; display: inline-block; text-transform: uppercase; letter-spacing: 0.5px;">
+                    🟢 Padrão
+                </span>
+            </div>
+        `;
+    } else {
+        const rarityLower = item.rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        const borderClass = `rarity-border-${rarityLower}`;
+        
+        let bullet = '🟢';
+        if (item.rarity === 'Rara') bullet = '🔵';
+        else if (item.rarity === 'Épica') bullet = '🟣';
+        else if (item.rarity === 'Lendária') bullet = '🟠';
+        else if (item.rarity === 'Mítica') bullet = '🔴';
+        
+        contentHtml = `
+            <div class="${borderClass}" style="position: relative; width: 100px; height: 100px; margin: 0 auto 10px auto; border-radius: 50%; overflow: visible; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <img src="${item.imageUrl}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            <h4 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-dark); margin: 0 0 4px 0;">${item.name}</h4>
+            <div style="margin-bottom: 12px;">
+                <span style="font-size: 0.75rem; padding: 3px 12px; border-radius: 20px; color: white; font-weight: 800; background-color: ${badgeColor}; display: inline-block; text-transform: uppercase; letter-spacing: 0.5px;">
+                    ${bullet} ${item.rarity}
+                </span>
+            </div>
+        `;
+    }
+    
+    // Botão de equipar
+    const isCurrentlyEquipped = currentUser && currentUser.avatar === item.id;
+    const buttonHtml = isCurrentlyEquipped
+        ? `
+            <button disabled class="btn btn-secondary" style="font-size: 1rem; padding: 10px 24px; width: 100%; border-radius: var(--radius-sm); font-weight: bold; background: #e2e8f0; color: #94a3b8; border: none; cursor: not-allowed; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                ✅ Ativo no Perfil
+            </button>
+        `
+        : `
+            <button onclick="equipPreviewItem(); return false;" class="btn btn-primary" style="font-size: 1rem; padding: 10px 24px; width: 100%; border-radius: var(--radius-sm); font-weight: bold; box-shadow: var(--shadow-button-primary); display: flex; align-items: center; justify-content: center; gap: 8px;">
+                🃏 Equipar no Perfil
+            </button>
+        `;
+        
+    previewContainer.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 12px; width: 100%;">
+            <button onclick="navigatePreview(-1); return false;" class="hover-bounce" style="width: 46px; height: 46px; border-radius: 50%; border: var(--border-medium); background: var(--color-purple); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem; cursor: pointer; box-shadow: var(--shadow-button-primary); transition: transform 0.15s ease;" title="Anterior">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div style="text-align: center; flex: 1; min-width: 160px;">
+                ${contentHtml}
+            </div>
+            <button onclick="navigatePreview(1); return false;" class="hover-bounce" style="width: 46px; height: 46px; border-radius: 50%; border: var(--border-medium); background: var(--color-purple); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem; cursor: pointer; box-shadow: var(--shadow-button-primary); transition: transform 0.15s ease;" title="Próximo">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        ${buttonHtml}
+    `;
+};
+
+window.navigatePreview = function(direction) {
+    const items = window.avatarPreviewItems || [];
+    if (items.length === 0) return;
+    
+    let idx = window.currentPreviewIndex || 0;
+    idx = (idx + direction + items.length) % items.length;
+    window.currentPreviewIndex = idx;
+    
+    window.updateAvatarPreviewUI();
+};
+
+window.previewDefaultAvatar = function(emoji) {
+    const items = window.avatarPreviewItems || [];
+    const idx = items.findIndex(item => item.id === emoji);
+    if (idx !== -1) {
+        window.currentPreviewIndex = idx;
+        window.updateAvatarPreviewUI();
+    }
+};
+
+window.previewUnlockedCard = function(cardId) {
+    const items = window.avatarPreviewItems || [];
+    const idx = items.findIndex(item => item.id === cardId);
+    if (idx !== -1) {
+        window.currentPreviewIndex = idx;
+        window.updateAvatarPreviewUI();
+    }
+};
+
+window.equipPreviewItem = function() {
+    const items = window.avatarPreviewItems || [];
+    const idx = window.currentPreviewIndex || 0;
+    const item = items[idx];
+    if (!item) return;
+    
+    selectAvatar(item.id);
+};
+
+window.showLockedCardDetailsById = function(cardId) {
+    const catalog = window.globalCatalog || [];
+    const card = catalog.find(c => c.id === cardId);
+    if (!card) return;
+    
+    const rarityLower = card.rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+    
+    const rarityColors = {
+        'Comum': '#2ecc71',
+        'Raro': '#3498db',
+        'Épico': '#9b59b6',
+        'Lendário': '#e67e22',
+        'Mítico': '#e74c3c'
+    };
+    const badgeColor = rarityColors[card.rarity] || '#7f8c8d';
+    
+    // Obter progresso atual usando a função global
+    let current = 0;
+    let target = 0;
+    let percent = 0;
+    if (typeof window.getDiscoveryProgress === 'function') {
+        const progress = window.getDiscoveryProgress(card);
+        if (progress) {
+            current = progress.current || 0;
+            target = progress.target || 0;
+            percent = target > 0 ? Math.min(100, Math.round((current / target) * 100)) : 0;
+        }
+    }
+    
+    // Fallback de cálculo se necessário
+    if (target === 0 && card.unlockCondition) {
+        target = card.unlockCondition.count || 1;
+        if (currentUser) {
+            const condType = card.unlockCondition.type || '';
+            if (condType === 'paint_count') {
+                current = (currentUser.savedDrawings || []).length || 0;
+            } else if (condType === 'ai_count') {
+                current = (currentUser.aiDrawings || []).length || 0;
+            } else if (condType === 'free_count') {
+                current = (currentUser.freeDrawings || []).length || 0;
+            }
+        }
+        percent = Math.min(100, Math.round((current / target) * 100));
+    }
+    
+    let progressHtml = '';
+    if (target > 0) {
+        progressHtml = `
+            <div style="margin-top: 15px; text-align: left; background: rgba(0,0,0,0.02); padding: 12px; border-radius: 12px; border: 1px dashed rgba(0,0,0,0.08);">
+                <div style="font-size: 0.8rem; font-weight: bold; color: var(--color-dark-light); display: flex; justify-content: space-between; margin-bottom: 4px;">
+                    <span>Progresso Atual:</span>
+                    <span>${current} / ${target}</span>
+                </div>
+                <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
+                    <div style="width: ${percent}%; height: 100%; background: var(--color-purple); border-radius: 4px;"></div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Criar overlay modal de detalhes temporário
+    const overlay = document.createElement('div');
+    overlay.id = 'locked-avatar-card-details-overlay';
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.zIndex = '10000';
+    overlay.style.animation = 'fadeIn 0.2s ease-out';
+    
+    const box = document.createElement('div');
+    box.className = 'modal-box';
+    box.style.maxWidth = '360px';
+    box.style.width = '90%';
+    box.style.padding = '25px';
+    box.style.backgroundColor = '#fffdf5';
+    box.style.border = 'var(--border-medium)';
+    box.style.borderRadius = 'var(--radius-md)';
+    box.style.boxShadow = 'var(--shadow-cartoon)';
+    box.style.textAlign = 'center';
+    box.style.position = 'relative';
+    
+    const borderClass = `rarity-border-${rarityLower}`;
+    const imgHtml = `
+        <div class="${borderClass}" style="position: relative; width: 100px; height: 100px; margin: 0 auto 15px auto; border-radius: 50%; overflow: visible; display: flex; align-items: center; justify-content: center;">
+            <img src="${card.imageUrl}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; filter: blur(8px) grayscale(1) brightness(0.35);">
+            <div style="position: absolute; font-size: 2rem; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);"><i class="fa-solid fa-lock"></i></div>
+        </div>
+    `;
+    
+    box.innerHTML = `
+        <button class="btn-close-modal" onclick="document.getElementById('locked-avatar-card-details-overlay').remove()">&times;</button>
+        ${imgHtml}
+        <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-dark); margin-bottom: 6px;">Descoberta Misteriosa</h3>
+        <div style="margin-bottom: 12px;">
+            <span class="rarity-badge-mini" style="font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; color: white; font-weight: 800; text-transform: uppercase; background-color: ${badgeColor}; display: inline-block; letter-spacing: 0.5px;">
+                ${card.rarity}
+            </span>
+        </div>
+        
+        <div style="margin-top: 15px; padding: 12px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 10px; text-align: left;">
+            <div style="font-weight: 900; color: #ff8f00; font-size: 0.75rem; margin-bottom: 4px; letter-spacing: 0.5px;">🤔 COMO DESBLOQUEAR</div>
+            <div style="font-weight: 800; color: #5d4037; font-size: 0.9rem; line-height: 1.3;">${card.unlockHint || 'Pinte e salve desenhos para desbloquear!'}</div>
+        </div>
+        
+        <div style="margin-top: 12px; padding: 12px; background: #f3effa; border: 1px solid #dcd1f0; border-radius: 10px; text-align: left;">
+            <div style="font-weight: 900; color: var(--color-purple); font-size: 0.75rem; margin-bottom: 4px; letter-spacing: 0.5px;">✨ RECOMPENSA</div>
+            <div style="font-weight: 800; color: var(--color-dark); font-size: 0.9rem; line-height: 1.3;">Um novo Card para seu Perfil</div>
+        </div>
+        
+        ${progressHtml}
+        
+        <button class="btn btn-primary" onclick="document.getElementById('locked-avatar-card-details-overlay').remove()" style="margin-top: 20px; width: 100%; font-size: 1rem; padding: 10px 20px; border-radius: var(--radius-sm); font-weight: bold; box-shadow: var(--shadow-button-primary);">
+            Voltar
+        </button>
+    `;
+    
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+};
 window.openAvatarSelectionModal = openAvatarSelectionModal;
 
 function closeAvatarSelectionModal() {
@@ -9298,6 +9655,12 @@ async function selectAvatar(emoji) {
             
             // Recarregar Hall para ver a mudança imediata nas suas postagens
             renderHallDaFamaView();
+            
+            // Recarregar Perfil se a view de perfil estiver aberta para atualizar a moldura e status
+            const profileView = document.getElementById('view-perfil');
+            if (profileView && profileView.style.display === 'block') {
+                renderPerfilView();
+            }
         } else {
             showToast(result.message || 'Erro ao salvar avatar.', 'error');
         }
@@ -9308,41 +9671,100 @@ async function selectAvatar(emoji) {
 }
 window.selectAvatar = selectAvatar;
 
+window.getAvatarHtml = function(avatarValue, size = '18px', borderStyle = '') {
+    if (!avatarValue) return `<span style="font-size: calc(${size} * 0.9); vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1;">👤</span>`;
+    
+    // Check if it's a card ID
+    const card = (window.globalCatalog || []).find(c => c.id === avatarValue);
+    if (card) {
+        let borderClass = '';
+        const rarity = card.rarity || 'Comum';
+        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        borderClass = `rarity-border-${rarityLower}`;
+        
+        return `<div class="avatar-card-container ${borderClass}" style="width: ${size}; height: ${size}; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; vertical-align: middle; margin-right: 4px; ${borderStyle}">
+            <img src="${card.imageUrl}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+        </div>`;
+    }
+    
+    const isUrl = avatarValue.startsWith('http') || avatarValue.startsWith('/');
+    if (isUrl) {
+        return `<img src="${avatarValue}" style="width: ${size}; height: ${size}; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px; display: inline-block; border: 1px solid rgba(0,0,0,0.1); ${borderStyle}">`;
+    } else {
+        return `<span style="font-size: calc(${size} * 0.95); vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1; ${borderStyle}">${avatarValue}</span>`;
+    }
+};
+
 function updateUserAvatarUI(avatar) {
     const userAvatarImg = document.getElementById('user-avatar-img');
     const userAvatarEmoji = document.getElementById('user-avatar-emoji');
     const dropdownAvatar = document.getElementById('dropdown-user-avatar');
     const dropdownAvatarEmoji = document.getElementById('dropdown-user-avatar-emoji');
+    const container = document.getElementById('user-avatar-container');
+    const dropdownContainer = document.getElementById('dropdown-user-avatar-container');
     
     if (!avatar) {
         avatar = '👤';
     }
     
-    const isUrl = avatar.startsWith('http') || avatar.startsWith('/');
+    // Clear all previous rarity classes
+    [container, dropdownContainer].forEach(c => {
+        if (c) {
+            c.className = c.className.split(' ').filter(cls => !cls.startsWith('rarity-border-')).join(' ');
+            c.style.border = '';
+            c.style.boxShadow = '';
+        }
+    });
     
-    if (isUrl) {
+    const card = (window.globalCatalog || []).find(c => c.id === avatar);
+    if (card) {
+        const rarity = card.rarity || 'Comum';
+        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        const borderClass = `rarity-border-${rarityLower}`;
+        
         if (userAvatarImg) {
-            userAvatarImg.src = avatar;
+            userAvatarImg.src = card.imageUrl;
             userAvatarImg.style.display = 'block';
+            userAvatarImg.style.borderRadius = '50%';
         }
         if (userAvatarEmoji) userAvatarEmoji.style.display = 'none';
         
         if (dropdownAvatar) {
-            dropdownAvatar.src = avatar;
+            dropdownAvatar.src = card.imageUrl;
             dropdownAvatar.style.display = 'block';
+            dropdownAvatar.style.borderRadius = '50%';
         }
         if (dropdownAvatarEmoji) dropdownAvatarEmoji.style.display = 'none';
-    } else {
-        if (userAvatarImg) userAvatarImg.style.display = 'none';
-        if (userAvatarEmoji) {
-            userAvatarEmoji.textContent = avatar;
-            userAvatarEmoji.style.display = 'block';
-        }
         
-        if (dropdownAvatar) dropdownAvatar.style.display = 'none';
-        if (dropdownAvatarEmoji) {
-            dropdownAvatarEmoji.textContent = avatar;
-            dropdownAvatarEmoji.style.display = 'block';
+        if (container) container.classList.add(borderClass);
+        if (dropdownContainer) dropdownContainer.classList.add(borderClass);
+    } else {
+        const isUrl = avatar.startsWith('http') || avatar.startsWith('/');
+        
+        if (isUrl) {
+            if (userAvatarImg) {
+                userAvatarImg.src = avatar;
+                userAvatarImg.style.display = 'block';
+            }
+            if (userAvatarEmoji) userAvatarEmoji.style.display = 'none';
+            
+            if (dropdownAvatar) {
+                dropdownAvatar.src = avatar;
+                dropdownAvatar.style.display = 'block';
+            }
+            if (dropdownAvatarEmoji) dropdownAvatarEmoji.style.display = 'none';
+        } else {
+            if (userAvatarImg) userAvatarImg.style.display = 'none';
+            if (userAvatarEmoji) {
+                userAvatarEmoji.textContent = avatar;
+                userAvatarEmoji.style.display = 'block';
+            }
+            
+            if (dropdownAvatar) dropdownAvatar.style.display = 'none';
+            if (dropdownAvatarEmoji) {
+                dropdownAvatarEmoji.textContent = avatar;
+                dropdownAvatarEmoji.style.display = 'block';
+            }
         }
     }
 }
@@ -9861,6 +10283,10 @@ window.triggerDiscoveryReveal = function(card) {
     const curiosityEl = document.getElementById('discovery-flip-curiosity-el');
     const btn = document.getElementById('discovery-flip-btn-el');
     
+    const equipPrompt = document.getElementById('discovery-equip-avatar-prompt');
+    const equipBtn = document.getElementById('discovery-equip-btn-el');
+    const equipText = document.getElementById('discovery-equip-prompt-text');
+    
     if (!overlay || !inner) return;
     
     // Prevent double triggering if already showing
@@ -9869,6 +10295,14 @@ window.triggerDiscoveryReveal = function(card) {
     // Reset classes and state
     inner.classList.remove('flipped');
     backEl.classList.remove('glow-rara', 'glow-epica', 'glow-mitica');
+    
+    if (equipPrompt) equipPrompt.style.display = 'none';
+    if (equipBtn) {
+        equipBtn.style.display = 'block';
+        equipBtn.disabled = false;
+        equipBtn.textContent = 'Equipar Agora';
+    }
+    if (equipText) equipText.textContent = 'Deseja usar este card no seu perfil?';
     
     // Set content
     frontImg.src = card.imageUrl || '/favicon-64x64.png';
@@ -9884,6 +10318,56 @@ window.triggerDiscoveryReveal = function(card) {
     rarityEl.classList.add(`rarity-color-${rarityLower}`);
     
     curiosityEl.innerHTML = card.curiosity ? `<strong>📚 SABIA QUE?</strong><br>${card.curiosity}` : '';
+    
+    // Configurar prompt de equipar se estiver logado
+    if (currentUser && card.id && equipPrompt) {
+        equipPrompt.style.display = 'block';
+        if (equipBtn) {
+            equipBtn.onclick = async function() {
+                try {
+                    equipBtn.disabled = true;
+                    equipBtn.textContent = 'Equipando...';
+                    
+                    const token = localStorage.getItem('kidcanvas_session_token') || sessionToken || (currentUser ? currentUser.token : '') || '';
+                    const response = await fetch('/api/user/update-avatar', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-session-token': token
+                        },
+                        body: JSON.stringify({ avatar: card.id })
+                    });
+                    const result = await response.json();
+                    if (response.ok && result.success) {
+                        currentUser.avatar = card.id;
+                        showToast('Avatar atualizado com sucesso! 😍', 'success');
+                        updateUserAvatarUI(card.id);
+                        
+                        equipText.textContent = 'Card equipado com sucesso! 🎉';
+                        equipBtn.style.display = 'none';
+                        
+                        // Atualizar Hall
+                        renderHallDaFamaView();
+                        
+                        // Atualizar Perfil
+                        const profileView = document.getElementById('view-perfil');
+                        if (profileView && profileView.style.display === 'block') {
+                            renderPerfilView();
+                        }
+                    } else {
+                        showToast(result.message || 'Erro ao salvar avatar.', 'error');
+                        equipBtn.disabled = false;
+                        equipBtn.textContent = 'Equipar Agora';
+                    }
+                } catch (err) {
+                    console.error(err);
+                    showToast('Erro ao se conectar ao servidor.', 'error');
+                    equipBtn.disabled = false;
+                    equipBtn.textContent = 'Equipar Agora';
+                }
+            };
+        }
+    }
     
     // Play sound depending on rarity
     if (typeof playRaritySound === 'function') {
@@ -12136,37 +12620,109 @@ window.renderPerfilView = function() {
 
     // Avatar wrapper
     const wrapper = document.getElementById('my-profile-avatar-wrapper');
-    if (wrapper) {
-        wrapper.className = 'avatar-wrapper';
-        const planName = currentUser.plan || 'Aprendiz';
-        if (planName === 'Aprendiz' || planName === 'Grátis') {
-            wrapper.classList.add('plan-aprendiz');
-        } else if (planName === 'Artista') {
-            wrapper.classList.add('plan-artista');
-        } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
-            wrapper.classList.add('plan-mago');
-        } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
-            wrapper.classList.add('plan-lenda');
-        } else {
-            wrapper.classList.add('plan-aprendiz');
-        }
-    }
-
     const imgEl = document.getElementById('my-profile-avatar-img');
     const emojiEl = document.getElementById('my-profile-avatar-emoji');
     const avatarVal = currentUser.avatar || '👤';
-    const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
-    if (isUrl) {
-        if (imgEl) {
-            imgEl.src = avatarVal;
-            imgEl.style.display = 'block';
+    
+    if (wrapper) {
+        // Clear previous rarity or plan classes
+        wrapper.className = 'avatar-wrapper';
+        
+        const card = (window.globalCatalog || []).find(c => c.id === avatarVal);
+        if (card) {
+            const rarity = card.rarity || 'Comum';
+            const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+            wrapper.classList.add(`rarity-border-${rarityLower}`);
+            
+            if (imgEl) {
+                imgEl.src = card.imageUrl;
+                imgEl.style.display = 'block';
+                imgEl.style.borderRadius = '50%';
+            }
+            if (emojiEl) emojiEl.style.display = 'none';
+        } else {
+            // Apply plan border class
+            const planName = currentUser.plan || 'Aprendiz';
+            if (planName === 'Aprendiz' || planName === 'Grátis') {
+                wrapper.classList.add('plan-aprendiz');
+            } else if (planName === 'Artista') {
+                wrapper.classList.add('plan-artista');
+            } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
+                wrapper.classList.add('plan-mago');
+            } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
+                wrapper.classList.add('plan-lenda');
+            } else {
+                wrapper.classList.add('plan-aprendiz');
+            }
+            
+            const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
+            if (isUrl) {
+                if (imgEl) {
+                    imgEl.src = avatarVal;
+                    imgEl.style.display = 'block';
+                }
+                if (emojiEl) emojiEl.style.display = 'none';
+            } else {
+                if (imgEl) imgEl.style.display = 'none';
+                if (emojiEl) {
+                    emojiEl.textContent = avatarVal;
+                    emojiEl.style.display = 'block';
+                }
+            }
         }
-        if (emojiEl) emojiEl.style.display = 'none';
-    } else {
-        if (imgEl) imgEl.style.display = 'none';
-        if (emojiEl) {
-            emojiEl.textContent = avatarVal;
-            emojiEl.style.display = 'block';
+    }
+    
+    // Nível do Jogador (baseado na quantidade de descobertas)
+    const levelBlock = document.getElementById('profile-player-level');
+    if (levelBlock) {
+        const userCards = currentUser.cards || [];
+        const level = Math.floor(userCards.length / 10) + 1;
+        levelBlock.innerHTML = `⭐ NÍVEL ${level}`;
+    }
+    
+    // Status do Card Equipado
+    const statusContainer = document.getElementById('profile-equipped-card-status');
+    if (statusContainer) {
+        statusContainer.innerHTML = '';
+        const userCards = currentUser.cards || [];
+        const card = (window.globalCatalog || []).find(c => c.id === avatarVal);
+        
+        if (userCards.length === 0) {
+            statusContainer.innerHTML = `
+                <div style="font-weight: 700; color: var(--color-purple); font-size: 0.95rem; display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+                    <span>🃏</span> Seu primeiro card está esperando por você!
+                </div>
+                <div style="font-size: 0.82rem; color: var(--color-dark-light); line-height: 1.4; text-align: center; max-width: 260px; margin-bottom: 8px; font-weight: 600;">
+                    Pinte e salve desenhos para desbloquear descobertas.
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="openAlbumModal(); return false;" style="font-size: 0.85rem; padding: 6px 14px; border-radius: var(--radius-sm); font-weight: bold; width: 100%; box-shadow: var(--shadow-button-primary);">
+                    🎨 Começar a Explorar
+                </button>
+            `;
+        } else if (!card) {
+            statusContainer.innerHTML = `
+                <div style="font-weight: 700; color: var(--color-dark-light); font-size: 0.9rem; display: flex; align-items: center; gap: 6px;">
+                    <span>🃏</span> Nenhum card equipado
+                </div>
+                <div style="font-size: 0.8rem; color: var(--color-dark-light); line-height: 1.4; text-align: center; max-width: 240px; margin-bottom: 2px;">
+                    Você tem ${userCards.length} card(s) desbloqueado(s). Escolha um card para seu perfil!
+                </div>
+                <button class="btn btn-secondary btn-outline btn-sm" onclick="openAvatarSelectionModal(); return false;" style="font-size: 0.85rem; padding: 6px 14px; border-radius: var(--radius-sm); font-weight: bold; width: 100%; border: var(--border-thin); background: white; color: var(--color-dark);">
+                    Equipar um Card
+                </button>
+            `;
+        } else {
+            statusContainer.innerHTML = `
+                <div style="font-weight: 700; color: var(--color-purple); font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+                    <span>🃏</span> Card Equipado
+                </div>
+                <div style="font-size: 0.85rem; font-weight: bold; color: var(--color-dark);">
+                    ${card.name}
+                </div>
+                <span class="rarity-badge-mini rarity-color-${card.rarity.toLowerCase().replace('á', 'a').replace('é', 'e')}" style="font-size: 0.72rem; padding: 3px 10px; border-radius: 6px; color: white; font-weight: 800; text-transform: uppercase;">
+                    ${card.rarity}
+                </span>
+            `;
         }
     }
 
@@ -12189,29 +12745,6 @@ window.renderPerfilView = function() {
             }
         } else {
             cooldownEl.textContent = 'Você pode alterar seu nome uma vez por mês';
-        }
-    }
-
-    // Plano badge
-    const planBadge = document.getElementById('profile-plan-badge');
-    if (planBadge) {
-        const planName = currentUser.plan || 'Aprendiz';
-        planBadge.textContent = planName;
-        if (planName === 'Aprendiz' || planName === 'Grátis') {
-            planBadge.style.backgroundColor = 'var(--color-green)';
-            planBadge.textContent = '🌱 APRENDIZ';
-        } else if (planName === 'Artista') {
-            planBadge.style.backgroundColor = 'var(--color-purple)';
-            planBadge.textContent = '🎨 ARTISTA';
-        } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
-            planBadge.style.backgroundColor = 'var(--color-blue)';
-            planBadge.textContent = '🧙 MAGO CRIADOR';
-        } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
-            planBadge.style.backgroundColor = 'var(--color-yellow)';
-            planBadge.textContent = '👑 LENDA';
-        } else {
-            planBadge.style.backgroundColor = 'var(--color-dark-light)';
-            planBadge.textContent = planName.toUpperCase();
         }
     }
 

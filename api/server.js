@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
-const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, loadBugs, saveBugs, loadAnalytics, saveAnalytics, hashPassword, uploadImage, loadPublicPaintings, loadEvents, saveEvents } = require('./r2db');
+const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, loadBugs, saveBugs, loadAnalytics, saveAnalytics, hashPassword, uploadImage, loadPublicPaintings, loadEvents, saveEvents, loadFeaturedDrawings, saveFeaturedDrawings, loadDrawings } = require('./r2db');
 const stripe = process.env.STRIPE_SECRET_KEY ? require('stripe')(process.env.STRIPE_SECRET_KEY) : null;
 const { sendWelcomeEmail, sendPaymentConfirmationEmail, sendLowCreditsEmail, sendPasswordResetEmail } = require('./mailer');
 
@@ -2441,6 +2441,27 @@ app.post('/api/user/update-avatar', async (req, res) => {
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
+
+        // Se for um card do catálogo, validar propriedade
+        const catalogPath = path.join(__dirname, 'cards_catalog.json');
+        let catalog = [];
+        try {
+            catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+        } catch (e) {
+            console.error('Erro ao ler catálogo no update-avatar:', e);
+        }
+        
+        const isCard = catalog.some(c => c.id === avatar);
+        if (isCard) {
+            const hasCard = (user.cards || []).some(uc => {
+                if (!uc) return false;
+                if (typeof uc === 'string') return uc === avatar;
+                return (uc.id || uc.value) === avatar;
+            });
+            if (!hasCard) {
+                return res.status(403).json({ success: false, message: 'Você ainda não desbloqueou este card.' });
+            }
+        }
         
         user.avatar = avatar;
         await saveUsers(users);
@@ -4587,6 +4608,278 @@ async function refreshUserDiscoveries(user) {
     
     return { newlyUnlocked, completionRewards };
 }
+
+// ==========================================
+// MAIS AMADOS DA SEMANA (Destaques da Semana)
+// ==========================================
+
+// Helper para pegar emoji da categoria
+function getCategoryEmoji(category) {
+    const emojis = {
+        'animais-selvagens': '🦁',
+        'animais-do-mar': '🐬',
+        'animais-domesticos': '🐱',
+        'dinossauros': '🦖',
+        'espaco': '🚀',
+        'veiculos': '🚗',
+        'comidas-e-doces': '🍩',
+        'fantasia': '🦄',
+        'profissoes': '💼',
+        'unicornios': '🦄',
+        'alfabeto-e-numeros': '🔤',
+        'princesas': '👑',
+        'super-herois': '🦸',
+        'flores-e-natureza': '🌸',
+        'halloween': '🎃',
+        'natal': '🎄',
+        'mandalas': '🌀',
+        'folclore-brasileiro': '🇧🇷',
+        'esportes': '⚽',
+        'robos': '🤖',
+        'copa-do-mundo': '🏆',
+        'monstros': '👾',
+        'cowboys': '🤠',
+        'bandeiras': '🚩',
+        'instrumentos-musicais': '🎸',
+        'brinquedos': '🧸',
+        'fan-art': '🎨',
+        'aves': '🐦',
+        'bailarinas': '🩰'
+    };
+    return emojis[category] || '🎨';
+}
+
+// Helper para formatar números com ponto (BR)
+function formatNumberBR(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+// Helper para calcular a semana atual do ano
+function getYearAndWeekString() {
+    const d = new Date();
+    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+    const weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1) / 7);
+    return `${d.getUTCFullYear()}-W${weekNo}`;
+}
+
+// Helper de hash simples
+function getDeterministicHash(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        const chr = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + chr;
+        hash |= 0;
+    }
+    return Math.abs(hash);
+}
+
+// Endpoint público: retornar destaques da semana
+app.get('/api/featured-drawings', async (req, res) => {
+    try {
+        const curated = await loadFeaturedDrawings();
+        const drawingsList = await loadDrawings();
+        
+        let hasCurated = false;
+        if (curated && curated.colorido && curated.impresso && curated.favoritado) {
+            hasCurated = true;
+        }
+        
+        let result = {};
+        
+        if (hasCurated) {
+            // Curado pelo administrador -> Resolver as URLs de imagens
+            const resolveItem = (item) => {
+                const dw = drawingsList.find(d => d.category === item.category && d.slug === item.slug);
+                return {
+                    category: item.category,
+                    slug: item.slug,
+                    title: item.title,
+                    count: formatNumberBR(item.count),
+                    label: item.label,
+                    url: dw ? dw.url : ''
+                };
+            };
+            
+            result = {
+                colorido: resolveItem(curated.colorido),
+                impresso: resolveItem(curated.impresso),
+                favoritado: resolveItem(curated.favoritado)
+            };
+        } else {
+            // Fallback: Rotação determinística baseada na semana do ano
+            const weekStr = getYearAndWeekString();
+            const hash = getDeterministicHash(weekStr);
+            
+            // Filtrar apenas desenhos grátis
+            const freeDrawings = drawingsList.filter(d => (d.tier || 'free').toLowerCase() === 'free');
+            const targetList = freeDrawings.length > 0 ? freeDrawings : drawingsList;
+            
+            // Agrupar por categoria
+            const drawingsByCategory = {};
+            targetList.forEach(d => {
+                if (!drawingsByCategory[d.category]) {
+                    drawingsByCategory[d.category] = [];
+                }
+                drawingsByCategory[d.category].push(d);
+            });
+            
+            const categories = Object.keys(drawingsByCategory).sort();
+            
+            if (categories.length >= 3) {
+                const cat1 = categories[(hash) % categories.length];
+                const cat2 = categories[(hash + 1) % categories.length];
+                const cat3 = categories[(hash + 2) % categories.length];
+                
+                const list1 = drawingsByCategory[cat1];
+                const list2 = drawingsByCategory[cat2];
+                const list3 = drawingsByCategory[cat3];
+                
+                const d1 = list1[(hash) % list1.length];
+                const d2 = list2[(hash + 3) % list2.length];
+                const d3 = list3[(hash + 7) % list3.length];
+                
+                // Formatar títulos automáticos com emoji
+                const formatTitle = (dw) => {
+                    const emoji = getCategoryEmoji(dw.category);
+                    return `${emoji} ${dw.pt || 'Desenho'}`;
+                };
+                
+                result = {
+                    colorido: {
+                        category: d1.category,
+                        slug: d1.slug,
+                        title: formatTitle(d1),
+                        count: formatNumberBR(1000 + (hash % 2000)),
+                        label: 'crianças coloriram',
+                        url: d1.url
+                    },
+                    impresso: {
+                        category: d2.category,
+                        slug: d2.slug,
+                        title: formatTitle(d2),
+                        count: formatNumberBR(500 + (hash % 1000)),
+                        label: 'impressões',
+                        url: d2.url
+                    },
+                    favoritado: {
+                        category: d3.category,
+                        slug: d3.slug,
+                        title: formatTitle(d3),
+                        count: formatNumberBR(300 + (hash % 600)),
+                        label: 'favoritos',
+                        url: d3.url
+                    }
+                };
+            } else {
+                // Caso extremo sem categorias suficientes
+                const d1 = targetList[(hash) % targetList.length];
+                const d2 = targetList[(hash + 3) % targetList.length];
+                const d3 = targetList[(hash + 7) % targetList.length];
+                
+                const formatTitle = (dw) => {
+                    const emoji = getCategoryEmoji(dw.category);
+                    return `${emoji} ${dw.pt || 'Desenho'}`;
+                };
+                
+                result = {
+                    colorido: {
+                        category: d1.category,
+                        slug: d1.slug,
+                        title: formatTitle(d1),
+                        count: formatNumberBR(1200),
+                        label: 'crianças coloriram',
+                        url: d1.url
+                    },
+                    impresso: {
+                        category: d2.category,
+                        slug: d2.slug,
+                        title: formatTitle(d2),
+                        count: formatNumberBR(850),
+                        label: 'impressões',
+                        url: d2.url
+                    },
+                    favoritado: {
+                        category: d3.category,
+                        slug: d3.slug,
+                        title: formatTitle(d3),
+                        count: formatNumberBR(650),
+                        label: 'favoritos',
+                        url: d3.url
+                    }
+                };
+            }
+        }
+        
+        return res.json({ success: true, featured: result, isManual: hasCurated });
+    } catch (err) {
+        console.error('[Featured Drawings Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao carregar os mais amados da semana.' });
+    }
+});
+
+// Endpoint administrativo: carregar configuração de destaques
+app.get('/api/admin/featured-drawings', isAdmin, async (req, res) => {
+    try {
+        const config = await loadFeaturedDrawings();
+        return res.json({ success: true, config });
+    } catch (err) {
+        console.error('[Admin Get Featured Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao obter configuração de destaques.' });
+    }
+});
+
+// Endpoint administrativo: salvar/atualizar configuração de destaques
+app.post('/api/admin/featured-drawings', isAdmin, async (req, res) => {
+    try {
+        const { colorido, impresso, favoritado } = req.body || {};
+        
+        // Se vier vazio, interpretamos como limpar curadoria (usar auto rotação)
+        if (!colorido && !impresso && !favoritado) {
+            await saveFeaturedDrawings(null);
+            return res.json({ success: true, message: 'Curadoria limpa. O sistema usará a rotação semanal automática!' });
+        }
+        
+        // Validar dados recebidos
+        if (!colorido || !colorido.category || !colorido.slug || !colorido.title || !colorido.count || !colorido.label ||
+            !impresso || !impresso.category || !impresso.slug || !impresso.title || !impresso.count || !impresso.label ||
+            !favoritado || !favoritado.category || !favoritado.slug || !favoritado.title || !favoritado.count || !favoritado.label) {
+            return res.status(400).json({ success: false, message: 'Todos os campos dos 3 destaques são obrigatórios.' });
+        }
+        
+        const config = {
+            colorido: {
+                category: colorido.category,
+                slug: colorido.slug,
+                title: colorido.title,
+                count: parseInt(colorido.count, 10) || 0,
+                label: colorido.label
+            },
+            impresso: {
+                category: impresso.category,
+                slug: impresso.slug,
+                title: impresso.title,
+                count: parseInt(impresso.count, 10) || 0,
+                label: impresso.label
+            },
+            favoritado: {
+                category: favoritado.category,
+                slug: favoritado.slug,
+                title: favoritado.title,
+                count: parseInt(favoritado.count, 10) || 0,
+                label: favoritado.label
+            },
+            updatedAt: new Date().toISOString()
+        };
+        
+        await saveFeaturedDrawings(config);
+        
+        return res.json({ success: true, message: 'Mais amados da semana atualizados com sucesso!', config });
+    } catch (err) {
+        console.error('[Admin Save Featured Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao salvar configuração de destaques.' });
+    }
+});
 
 // Rota catch-all para servir index.html e dar suporte ao roteamento SPA (histórico pushState)
 app.get('*', (req, res) => {

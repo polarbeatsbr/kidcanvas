@@ -867,6 +867,20 @@
         .revenue-detail-value.approved {
             color: var(--secondary);
         }
+
+        /* --- AUTOCOMPLETE SUGGESTIONS --- */
+        .autocomplete-suggestions div {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            font-size: 0.85rem;
+            transition: background 0.2s ease;
+            color: var(--text-main);
+        }
+        .autocomplete-suggestions div:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--primary);
+        }
     </style>
 </head>
 <body>
@@ -924,6 +938,9 @@
             </li>
             <li class="menu-item" data-tab="tab-fame">
                 <i class="fa-solid fa-trophy"></i> Hall da Fama
+            </li>
+            <li class="menu-item" data-tab="tab-featured">
+                <i class="fa-solid fa-star"></i> Mais Amados
             </li>
             <li class="menu-item" data-tab="tab-bugs">
                 <i class="fa-solid fa-bug"></i> Bugs & Erros
@@ -1410,6 +1427,126 @@
         </div>
 
         <!-- ========================================== -->
+        <!-- TAB: MAIS AMADOS DA SEMANA -->
+        <!-- ========================================== -->
+        <div id="tab-featured" class="dashboard-section">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3 class="panel-title"><i class="fa-solid fa-star"></i> Curadoria — Mais Amados da Semana</h3>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px; margin-bottom: 25px; line-height: 1.5;">
+                    Aqui você pode escolher manualmente quais desenhos aparecem em cada categoria de destaque na página inicial e definir os números e textos de prova social. 
+                    Se você quiser que o sistema use a <strong>rotação automática inteligente</strong> (com números e desenhos simulados diferentes a cada semana), basta clicar no botão <strong>Limpar Curadoria</strong> no fim da página.
+                </p>
+
+                <form id="featured-drawings-form" onsubmit="saveFeaturedDrawings(event)">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+                        
+                        <!-- Bloco 1: Mais Colorido -->
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-card); padding: 20px; border-radius: 12px; display: flex; flex-direction: column; gap: 15px;">
+                            <h4 style="color: var(--primary); font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                                🏆 Mais Colorido da Semana
+                            </h4>
+                            
+                            <div class="form-group" style="position: relative;">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Buscar Desenho no Catálogo</label>
+                                <input type="text" id="colorido-search-input" placeholder="Digite para buscar (ex: Dino)..." autocomplete="off" style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;" oninput="handleDrawingSearch(this, 'colorido')">
+                                <div id="colorido-suggestions" class="autocomplete-suggestions" style="position: absolute; width: 100%; max-height: 200px; overflow-y: auto; background: var(--bg-sidebar); border: 1px solid var(--border-card); border-radius: 8px; z-index: 100; display: none;"></div>
+                                <input type="hidden" id="colorido-category">
+                                <input type="hidden" id="colorido-slug">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Título de Exibição (com emoji)</label>
+                                <input type="text" id="colorido-title" placeholder="Ex: 🦕 Dino Explorador" required style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Número (Prova Social)</label>
+                                <input type="number" id="colorido-count" placeholder="Ex: 1248" required style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Texto Complementar</label>
+                                <input type="text" id="colorido-label" placeholder="Ex: crianças coloriram" required style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;">
+                            </div>
+                        </div>
+
+                        <!-- Bloco 2: Mais Impresso -->
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-card); padding: 20px; border-radius: 12px; display: flex; flex-direction: column; gap: 15px;">
+                            <h4 style="color: var(--secondary); font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                                🏆 Mais Impresso
+                            </h4>
+                            
+                            <div class="form-group" style="position: relative;">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Buscar Desenho no Catálogo</label>
+                                <input type="text" id="impresso-search-input" placeholder="Digite para buscar (ex: Foguete)..." autocomplete="off" style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;" oninput="handleDrawingSearch(this, 'impresso')">
+                                <div id="impresso-suggestions" class="autocomplete-suggestions" style="position: absolute; width: 100%; max-height: 200px; overflow-y: auto; background: var(--bg-sidebar); border: 1px solid var(--border-card); border-radius: 8px; z-index: 100; display: none;"></div>
+                                <input type="hidden" id="impresso-category">
+                                <input type="hidden" id="impresso-slug">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Título de Exibição (com emoji)</label>
+                                <input type="text" id="impresso-title" placeholder="Ex: 🚀 Foguete Espacial" required style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Número (Prova Social)</label>
+                                <input type="number" id="impresso-count" placeholder="Ex: 856" required style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Texto Complementar</label>
+                                <input type="text" id="impresso-label" placeholder="Ex: impressões" required style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;">
+                            </div>
+                        </div>
+
+                        <!-- Bloco 3: Mais Favoritado -->
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-card); padding: 20px; border-radius: 12px; display: flex; flex-direction: column; gap: 15px;">
+                            <h4 style="color: var(--warning); font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 8px;">
+                                🏆 Mais Favoritado
+                            </h4>
+                            
+                            <div class="form-group" style="position: relative;">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Buscar Desenho no Catálogo</label>
+                                <input type="text" id="favoritado-search-input" placeholder="Digite para buscar (ex: Unicórnio)..." autocomplete="off" style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;" oninput="handleDrawingSearch(this, 'favoritado')">
+                                <div id="favoritado-suggestions" class="autocomplete-suggestions" style="position: absolute; width: 100%; max-height: 200px; overflow-y: auto; background: var(--bg-sidebar); border: 1px solid var(--border-card); border-radius: 8px; z-index: 100; display: none;"></div>
+                                <input type="hidden" id="favoritado-category">
+                                <input type="hidden" id="favoritado-slug">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Título de Exibição (com emoji)</label>
+                                <input type="text" id="favoritado-title" placeholder="Ex: 🦄 Unicórnio Encantado" required style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Número (Prova Social)</label>
+                                <input type="number" id="favoritado-count" placeholder="Ex: 643" required style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;">
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: block; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 6px;">Texto Complementar</label>
+                                <input type="text" id="favoritado-label" placeholder="Ex: favoritos" required style="width: 100%; background: rgba(7, 10, 19, 0.6); border: 1px solid var(--border-card); border-radius: 8px; color: var(--text-main); padding: 10px; font-size: 0.9rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botões de ação -->
+                    <div style="display: flex; gap: 15px; justify-content: flex-end; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;">
+                        <button type="button" class="btn-logout" style="background: rgba(239, 68, 68, 0.15); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; padding: 12px 24px; font-weight: 600; cursor: pointer; transition: var(--transition);" onclick="clearFeaturedCurator()">
+                            <i class="fa-solid fa-trash-can"></i> Limpar Curadoria
+                        </button>
+                        <button type="submit" style="background: var(--primary); color: white; border: none; border-radius: 8px; padding: 12px 30px; font-weight: 600; cursor: pointer; transition: var(--transition);">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Salvar Destaques
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
         <!-- TAB: BUGS -->
         <!-- ========================================== -->
         <div id="tab-bugs" class="dashboard-section">
@@ -1660,6 +1797,7 @@
                         'tab-stories': { t: 'Histórias Mágicas', s: 'Estatísticas e tendências de livros e histórias geradas' },
                         'tab-generations': { t: 'IA & Top Prompts', s: 'Controle de volume, custos de IA e prompts mais desejados' },
                         'tab-fame': { t: 'Hall da Fama', s: 'Desenhos publicados, votos e termos de buscas populares' },
+                        'tab-featured': { t: 'Mais Amados da Semana', s: 'Curadoria de destaques da página inicial e contadores de prova social' },
                         'tab-bugs': { t: 'Relatos de Bugs & Erros', s: 'Gerenciamento de erros do site e falhas reportadas' },
                         'tab-waitlist': { t: 'Lista de Espera 🏫', s: 'Escolas e professores interessados nos planos pagos' }
                     };
@@ -1721,6 +1859,12 @@
                 if (waitlist.success) {
                     renderWaitlistTable(waitlist.waitlist);
                 }
+
+                // 4. Carregar Mais Amados e catálogo
+                if (adminCatalogDrawings.length === 0) {
+                    await loadAdminCatalog();
+                }
+                await loadFeaturedCuratorData();
 
             } catch (err) {
                 console.error('Erro ao carregar dados do dashboard:', err);
@@ -2319,6 +2463,236 @@
             }
         }
         checkGsiLoaded();
+
+        // --- CURADORIA DE MAIS AMADOS DA SEMANA ---
+        let adminCatalogDrawings = [];
+
+        async function loadAdminCatalog() {
+            try {
+                if (adminCatalogDrawings.length > 0) return;
+                const res = await fetch('/api/drawings');
+                const data = await res.json();
+                if (data.success) {
+                    adminCatalogDrawings = data.drawings || [];
+                    console.log(`[Admin] Catálogo carregado com ${adminCatalogDrawings.length} desenhos.`);
+                }
+            } catch (err) {
+                console.error('Erro ao carregar catálogo de desenhos:', err);
+            }
+        }
+
+        // Buscar desenhos no autocomplete
+        function handleDrawingSearch(inputEl, key) {
+            const query = inputEl.value.trim().toLowerCase();
+            const suggestionsEl = document.getElementById(`${key}-suggestions`);
+            
+            if (!query) {
+                suggestionsEl.innerHTML = '';
+                suggestionsEl.style.display = 'none';
+                return;
+            }
+
+            // Filtrar desenhos que contêm a busca no nome 'pt' ou slug
+            const matches = adminCatalogDrawings.filter(d => 
+                (d.pt && d.pt.toLowerCase().includes(query)) || 
+                (d.slug && d.slug.toLowerCase().includes(query))
+            ).slice(0, 10); // Limitar a 10 sugestões para performance
+
+            if (matches.length === 0) {
+                suggestionsEl.innerHTML = '<div style="padding: 10px 15px; color: var(--text-muted);">Nenhum desenho encontrado</div>';
+                suggestionsEl.style.display = 'block';
+                return;
+            }
+
+            suggestionsEl.innerHTML = '';
+            matches.forEach(dw => {
+                const itemEl = document.createElement('div');
+                itemEl.textContent = `${dw.pt} (${dw.category})`;
+                itemEl.onclick = () => {
+                    // Preencher campos
+                    inputEl.value = dw.pt;
+                    document.getElementById(`${key}-category`).value = dw.category;
+                    document.getElementById(`${key}-slug`).value = dw.slug;
+                    
+                    // Preencher campo de título de exibição automaticamente com emoji se não estiver preenchido
+                    const titleEl = document.getElementById(`${key}-title`);
+                    const emojiMap = {
+                        'animais-selvagens': '🦁',
+                        'animais-do-mar': '🐬',
+                        'animais-domesticos': '🐱',
+                        'dinossauros': '🦖',
+                        'espaco': '🚀',
+                        'veiculos': '🚗',
+                        'comidas-e-doces': '🍩',
+                        'fantasia': '🦄',
+                        'profissoes': '💼',
+                        'unicornios': '🦄',
+                        'alfabeto-e-numeros': '🔤',
+                        'princesas': '👑',
+                        'super-herois': '🦸',
+                        'flores-e-natureza': '🌸',
+                        'halloween': '🎃',
+                        'natal': '🎄',
+                        'mandalas': '🌀',
+                        'folclore-brasileiro': '🇧🇷',
+                        'esportes': '⚽',
+                        'robos': '🤖',
+                        'copa-do-mundo': '🏆',
+                        'monstros': '👾',
+                        'cowboys': '🤠',
+                        'bandeiras': '🚩',
+                        'instrumentos-musicais': '🎸',
+                        'brinquedos': '🧸',
+                        'fan-art': '🎨',
+                        'aves': '🐦',
+                        'bailarinas': '🩰'
+                    };
+                    const emoji = emojiMap[dw.category] || '🎨';
+                    titleEl.value = `${emoji} ${dw.pt}`;
+                    
+                    suggestionsEl.innerHTML = '';
+                    suggestionsEl.style.display = 'none';
+                };
+                suggestionsEl.appendChild(itemEl);
+            });
+            suggestionsEl.style.display = 'block';
+        }
+
+        // Fechar sugestões quando clicar fora
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.form-group')) {
+                document.querySelectorAll('.autocomplete-suggestions').forEach(el => {
+                    el.innerHTML = '';
+                    el.style.display = 'none';
+                });
+            }
+        });
+
+        // Carregar dados de curadoria atual
+        async function loadFeaturedCuratorData() {
+            try {
+                const res = await fetch('/api/admin/featured-drawings', {
+                    headers: { 'X-Session-Token': adminToken }
+                });
+                const data = await res.json();
+                
+                if (data.success && data.config) {
+                    const cfg = data.config;
+                    const fillItem = (key, item) => {
+                        if (item) {
+                            document.getElementById(`${key}-category`).value = item.category || '';
+                            document.getElementById(`${key}-slug`).value = item.slug || '';
+                            document.getElementById(`${key}-title`).value = item.title || '';
+                            document.getElementById(`${key}-count`).value = item.count || '';
+                            document.getElementById(`${key}-label`).value = item.label || '';
+                            
+                            // Buscar nome amigável do catálogo
+                            if (adminCatalogDrawings.length > 0) {
+                                const dw = adminCatalogDrawings.find(d => d.category === item.category && d.slug === item.slug);
+                                document.getElementById(`${key}-search-input`).value = dw ? dw.pt : item.slug;
+                            } else {
+                                document.getElementById(`${key}-search-input`).value = item.slug;
+                            }
+                        }
+                    };
+                    
+                    fillItem('colorido', cfg.colorido);
+                    fillItem('impresso', cfg.impresso);
+                    fillItem('favoritado', cfg.favoritado);
+                } else {
+                    // Limpar formulário se não tiver curadoria configurada
+                    const keys = ['colorido', 'impresso', 'favoritado'];
+                    keys.forEach(k => {
+                        document.getElementById(`${k}-search-input`).value = '';
+                        document.getElementById(`${k}-category`).value = '';
+                        document.getElementById(`${k}-slug`).value = '';
+                        document.getElementById(`${k}-title`).value = '';
+                        document.getElementById(`${k}-count`).value = '';
+                        document.getElementById(`${k}-label`).value = '';
+                    });
+                }
+            } catch (err) {
+                console.error('Erro ao carregar curadoria de destaques:', err);
+            }
+        }
+
+        // Salvar curadoria
+        async function saveFeaturedDrawings(e) {
+            e.preventDefault();
+            
+            const getPayloadItem = (key) => {
+                return {
+                    category: document.getElementById(`${key}-category`).value,
+                    slug: document.getElementById(`${key}-slug`).value,
+                    title: document.getElementById(`${key}-title`).value.trim(),
+                    count: parseInt(document.getElementById(`${key}-count`).value, 10),
+                    label: document.getElementById(`${key}-label`).value.trim()
+                };
+            };
+            
+            const payload = {
+                colorido: getPayloadItem('colorido'),
+                impresso: getPayloadItem('impresso'),
+                favoritado: getPayloadItem('favoritado')
+            };
+
+            // Validar se selecionou os desenhos
+            if (!payload.colorido.slug || !payload.impresso.slug || !payload.favoritado.slug) {
+                alert('Erro: Você deve buscar e selecionar um desenho válido do catálogo para cada um dos 3 destaques!');
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/admin/featured-drawings', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-Session-Token': adminToken
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await res.json();
+                if (result.success) {
+                    alert('Mais amados da semana salvos com sucesso!');
+                    loadFeaturedCuratorData();
+                } else {
+                    alert('Erro ao salvar: ' + result.message);
+                }
+            } catch (err) {
+                console.error('Erro ao salvar curadoria:', err);
+                alert('Erro de conexão ao salvar curadoria.');
+            }
+        }
+
+        // Limpar curadoria
+        async function clearFeaturedCurator() {
+            if (!confirm('Deseja limpar a curadoria manual? O sistema voltará a exibir desenhos automáticos e números simulados de prova social.')) {
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/admin/featured-drawings', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'X-Session-Token': adminToken
+                    },
+                    body: JSON.stringify({}) // Enviar corpo vazio limpa
+                });
+                
+                const result = await res.json();
+                if (result.success) {
+                    alert('Curadoria limpa! O sistema voltará ao modo automático.');
+                    loadFeaturedCuratorData();
+                } else {
+                    alert('Erro ao limpar: ' + result.message);
+                }
+            } catch (err) {
+                console.error('Erro ao limpar curadoria:', err);
+                alert('Erro ao limpar curadoria no servidor.');
+            }
+        }
     </script>
 </body>
 </html>

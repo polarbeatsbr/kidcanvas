@@ -9048,3 +9048,223 @@ button, input, select, textarea {
         flex: 1 1 auto !important;
     }
 }
+
+/* ==========================================================================
+   MOLDURAS E ANIMAÇÕES PARA AVATARES DE CARDS DO LIVRO DAS DESCOBERTAS
+   ========================================================================== */
+
+/* Molduras de raridade para avatares grandes no Perfil */
+.avatar-wrapper.rarity-border-comum {
+    border: 4px solid #55efc4 !important;
+    box-shadow: 0 4px 8px rgba(85, 239, 196, 0.3) !important;
+}
+
+.avatar-wrapper.rarity-border-rara {
+    border: 4px solid #74b9ff !important;
+    box-shadow: 0 4px 12px rgba(116, 185, 255, 0.4) !important;
+}
+
+.avatar-wrapper.rarity-border-epica {
+    border: 4px solid #a29bfe !important;
+    box-shadow: 0 4px 15px rgba(162, 155, 254, 0.45) !important;
+}
+
+.avatar-wrapper.rarity-border-lendaria {
+    border: 4px solid #fdcb6e !important;
+    animation: glow-gold-pulse 2s infinite ease-in-out !important;
+}
+
+.avatar-wrapper.rarity-border-mitica {
+    border: 4px solid #ff7675 !important;
+    animation: glow-purple-pulse-anim 2s infinite ease-in-out, rainbow-border 4s infinite linear !important;
+}
+
+/* Molduras de raridade para avatares pequenos (Header e Dropdown) */
+.user-avatar-circle.rarity-border-comum,
+.dropdown-user-avatar.rarity-border-comum {
+    border: 2px solid #55efc4 !important;
+}
+
+.user-avatar-circle.rarity-border-rara,
+.dropdown-user-avatar.rarity-border-rara {
+    border: 2px solid #74b9ff !important;
+}
+
+.user-avatar-circle.rarity-border-epica,
+.dropdown-user-avatar.rarity-border-epica {
+    border: 2px solid #a29bfe !important;
+}
+
+.user-avatar-circle.rarity-border-lendaria,
+.dropdown-user-avatar.rarity-border-lendaria {
+    border: 2px solid #fdcb6e !important;
+    animation: glow-gold-pulse-small 2s infinite ease-in-out !important;
+}
+
+.user-avatar-circle.rarity-border-mitica,
+.dropdown-user-avatar.rarity-border-mitica {
+    border: 2px solid #ff7675 !important;
+    animation: glow-purple-pulse-small 2s infinite ease-in-out, rainbow-border 4s infinite linear !important;
+}
+
+/* Molduras de raridade para itens dentro do Modal Picker */
+.avatar-option-card-btn.rarity-border-comum {
+    border: 3px solid #55efc4 !important;
+    box-shadow: 0 2px 6px rgba(85, 239, 196, 0.25) !important;
+}
+.avatar-option-card-btn.rarity-border-rara {
+    border: 3px solid #74b9ff !important;
+    box-shadow: 0 2px 8px rgba(116, 185, 255, 0.3) !important;
+}
+.avatar-option-card-btn.rarity-border-epica {
+    border: 3px solid #a29bfe !important;
+    box-shadow: 0 2px 10px rgba(162, 155, 254, 0.35) !important;
+}
+.avatar-option-card-btn.rarity-border-lendaria {
+    border: 3px solid #fdcb6e !important;
+    animation: glow-gold-pulse-picker 2s infinite ease-in-out !important;
+}
+.avatar-option-card-btn.rarity-border-mitica {
+    border: 3px solid #ff7675 !important;
+    animation: glow-purple-pulse-picker 2s infinite ease-in-out, rainbow-border 4s infinite linear !important;
+}
+
+/* Lápis de edição no avatar do perfil */
+.avatar-edit-pencil {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 28px;
+    height: 28px;
+    background-color: var(--color-purple);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border: 2px solid white;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    z-index: 10;
+}
+.avatar-edit-pencil:hover {
+    transform: scale(1.15);
+    background-color: #6c5ce7;
+}
+
+/* Animações de brilho sutil específicas para avatares pequenos */
+@keyframes glow-gold-pulse-small {
+    0%, 100% {
+        box-shadow: 0 0 4px rgba(254, 202, 87, 0.5);
+        border-color: #feca57;
+    }
+    50% {
+        box-shadow: 0 0 10px rgba(254, 202, 87, 0.8);
+        border-color: #ffffff;
+    }
+}
+@keyframes glow-purple-pulse-small {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(155, 89, 182, 0.5);
+        border-color: #9b59b6;
+    }
+    50% {
+        box-shadow: 0 0 12px rgba(155, 89, 182, 0.8);
+        border-color: #f1c40f;
+    }
+}
+
+/* Animações de brilho sutil para itens do seletor */
+@keyframes glow-gold-pulse-picker {
+    0%, 100% {
+        box-shadow: 0 0 6px rgba(254, 202, 87, 0.5);
+        border-color: #feca57;
+    }
+    50% {
+        box-shadow: 0 0 14px rgba(254, 202, 87, 0.85);
+        border-color: #ffffff;
+    }
+}
+@keyframes glow-purple-pulse-picker {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(155, 89, 182, 0.5);
+        border-color: #9b59b6;
+    }
+    50% {
+        box-shadow: 0 0 18px rgba(155, 89, 182, 0.85);
+        border-color: #f1c40f;
+    }
+}
+
+/* Estilo dos botões de card no picker */
+.avatar-option-card-btn {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: visible;
+    padding: 0;
+    cursor: pointer;
+    background: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.avatar-option-card-btn img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.avatar-option-card-btn:hover {
+    transform: scale(1.1);
+}
+.avatar-option-card-btn.selected-avatar {
+    outline: 4px solid var(--color-purple) !important;
+    outline-offset: 3px;
+    z-index: 5;
+}
+
+/* Estilo para moldura de card nos avatares do Hall da Fama e postagens */
+.avatar-card-container {
+    box-sizing: border-box;
+}
+.avatar-card-container.rarity-border-comum {
+    border: 1.5px solid #55efc4 !important;
+}
+.avatar-card-container.rarity-border-rara {
+    border: 1.5px solid #74b9ff !important;
+}
+.avatar-card-container.rarity-border-epica {
+    border: 1.5px solid #a29bfe !important;
+}
+.avatar-card-container.rarity-border-lendaria {
+    border: 1.5px solid #fdcb6e !important;
+    box-shadow: 0 0 4px rgba(254, 202, 87, 0.6) !important;
+}
+.avatar-card-container.rarity-border-mitica {
+    border: 1.5px solid #ff7675 !important;
+    animation: rainbow-border 4s infinite linear !important;
+    box-shadow: 0 0 5px rgba(155, 89, 182, 0.6) !important;
+}
+
+/* Custom Scrollbar for Avatar Picker */
+.avatar-picker-scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+.avatar-picker-scroll-container::-webkit-scrollbar-track {
+    background: #fafafa;
+    border-radius: 10px;
+}
+.avatar-picker-scroll-container::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+    border: 2px solid #fafafa;
+}
+.avatar-picker-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--color-purple);
+}
+
