@@ -10788,6 +10788,9 @@ window.openAlbumModal = async function() {
 window.activeChapterName = null;
 
 window.selectChapter = function(colName) {
+    const chapterOrder = ['expedition', 'Pinturas', 'Dinossauros', 'Livros', 'Comunidade', 'Lendárias'];
+    const oldColName = window.activeChapterName || 'Pinturas';
+    
     window.activeChapterName = colName;
     
     document.querySelectorAll('.livro-capitulo-btn').forEach(btn => {
@@ -10799,20 +10802,29 @@ window.selectChapter = function(colName) {
     const gradeEl = document.getElementById('livro-grade-conteudo');
     const detalhesEl = document.getElementById('livro-detalhes-conteudo');
     const expeditionEl = document.getElementById('livro-expedition-conteudo');
+    const guideEl = document.getElementById('livro-regras-conteudo');
     
+    // Encontrar qual painel estava visível antes do clique
+    const panels = [gradeEl, detalhesEl, expeditionEl, guideEl];
+    const oldPanel = panels.find(p => p && p.style.display !== 'none');
+    
+    // Determinar novo painel
+    let newPanel = null;
     if (colName === 'expedition') {
-        if (gradeEl) gradeEl.style.display = 'none';
-        if (detalhesEl) detalhesEl.style.display = 'none';
-        if (expeditionEl) {
-            expeditionEl.style.display = 'flex';
-            renderWeeklyExpeditionPage();
-        }
+        newPanel = expeditionEl;
+        renderWeeklyExpeditionPage();
     } else {
-        if (expeditionEl) expeditionEl.style.display = 'none';
-        if (gradeEl) gradeEl.style.display = 'flex';
-        if (detalhesEl) detalhesEl.style.display = 'none';
+        newPanel = gradeEl;
         renderChapterGrid(colName);
     }
+    
+    // Determinar direção baseado na ordem
+    const oldIdx = chapterOrder.indexOf(oldColName);
+    const newIdx = chapterOrder.indexOf(colName);
+    const direction = newIdx >= oldIdx ? 'next' : 'prev';
+    
+    // Rodar a virada de página
+    window.triggerPageFlipAnimation(oldPanel, newPanel, direction);
     
     const wrap = document.querySelector('.livro-paginas-wrap');
     if (wrap && window.innerWidth <= 768) {
@@ -10841,8 +10853,11 @@ window.renderChapterGrid = function(colName) {
                 <span style="font-weight: 800;">${emoji} Capítulo ${colName}</span>
                 <span style="font-size: 1.05rem; font-weight: 800; color: ${owned === total ? '#00b894' : '#636e72'};">${owned}/${total} descobertas</span>
             </div>
-            <div style="font-size: 0.88rem; font-weight: 700; color: ${subTextColor}; text-align: left;">
-                ${subText}
+            <div style="font-size: 0.88rem; font-weight: 700; color: ${subTextColor}; text-align: left; display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 8px;">
+                <span>${subText}</span>
+                <button onclick="openChapterGuide('${colName}'); return false;" style="background: none; border: none; color: #6c5ce7; font-weight: 800; cursor: pointer; text-decoration: underline; padding: 0; font-size: 0.85rem; font-family: inherit; display: inline-flex; align-items: center; gap: 4px;">
+                    📖 Dicas e Regras
+                </button>
             </div>
             ${(owned === total && total > 0) ? `<button class="livro-capitulo-conclusao-share-btn" onclick="openSharePlatformsModal(null, true, false, '${colName}')" style="margin-top: 5px;"><i class="fa-solid fa-trophy"></i> Compartilhar Conclusão</button>` : ''}
         </div>
@@ -12103,32 +12118,12 @@ window.renderWeeklyExpeditionPage = function() {
         <div class="livro-expedition-header">
             <h2 class="livro-expedition-titulo">${expeditionEmoji} ${expeditionTitle}</h2>
             <div class="livro-expedition-timer" id="livro-exp-timer-text">⏰ Termina em: --</div>
-            <p class="livro-expedition-subtitulo">Complete os objetivos para ajudar a desvendar as páginas secretas do seu Livro das Descobertas!</p>
-        </div>
-        
-        <!-- Área explicativa de regras da Expedição -->
-        <div class="livro-regras-capitulo-box" style="margin: 0 15px 20px 15px; border-style: dashed;">
-            <div class="livro-regras-title">
-                <i class="fa-solid fa-circle-info" style="color: var(--color-purple); font-size: 0.95rem;"></i>
-                <span>Como avançar nas Expedições?</span>
-            </div>
-            <div class="livro-regras-columns">
-                <div class="livro-regras-col-do">
-                    <div style="font-size: 0.7rem; font-weight: 900; color: #2ecc71; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">👍 Conta Progresso</div>
-                    <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.8rem; line-height: 1.4; color: #334155;">
-                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>✅</span> <span>Completar as missões semanais ativas</span></li>
-                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>✅</span> <span>Participar de desafios especiais no tempo certo</span></li>
-                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>✅</span> <span>Concluir os objetivos da expedição atual</span></li>
-                    </ul>
-                </div>
-                <div class="livro-regras-col-dont">
-                    <div style="font-size: 0.7rem; font-weight: 900; color: #e74c3c; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">👎 Não Conta</div>
-                    <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.8rem; line-height: 1.4; color: #64748b;">
-                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>❌</span> <span>Pintar desenhos fora do tema da semana</span></li>
-                        <li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 4px;"><span>❌</span> <span>Salvar desenhos com a expedição já encerrada</span></li>
-                    </ul>
-                </div>
-            </div>
+            <p class="livro-expedition-subtitulo" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <span>Complete os objetivos para ajudar a desvendar as páginas secretas do seu Livro das Descobertas!</span>
+                <button onclick="openChapterGuide('expedition'); return false;" style="background: none; border: none; color: #6c5ce7; font-weight: 800; cursor: pointer; text-decoration: underline; padding: 0; font-size: 0.85rem; font-family: inherit; display: inline-flex; align-items: center; gap: 4px;">
+                    📖 Dicas e Regras
+                </button>
+            </p>
         </div>
     `;
     
@@ -12993,4 +12988,190 @@ window.renderPerfilView = function() {
     if (notificationsToggle) {
         notificationsToggle.checked = currentUser.notifications !== undefined ? !!currentUser.notifications : true;
     }
+};
+
+window.triggerPageFlipAnimation = function(oldPanel, newPanel, direction) {
+    if (!oldPanel || !newPanel || oldPanel === newPanel) {
+        if (newPanel) {
+            newPanel.style.display = 'flex';
+            newPanel.classList.remove('flip-out-left', 'flip-out-right', 'flip-in-left', 'flip-in-right');
+        }
+        return;
+    }
+    
+    // Configurar animações
+    newPanel.classList.remove('flip-out-left', 'flip-out-right', 'flip-in-left', 'flip-in-right');
+    oldPanel.classList.remove('flip-out-left', 'flip-out-right', 'flip-in-left', 'flip-in-right');
+    
+    // Garantir posições absolutas durante a virada
+    newPanel.style.display = 'flex';
+    newPanel.style.position = 'absolute';
+    newPanel.style.top = '0';
+    newPanel.style.left = '0';
+    newPanel.style.width = '100%';
+    newPanel.style.height = '100%';
+    
+    oldPanel.style.position = 'absolute';
+    oldPanel.style.top = '0';
+    oldPanel.style.left = '0';
+    oldPanel.style.width = '100%';
+    oldPanel.style.height = '100%';
+    
+    if (direction === 'next') {
+        oldPanel.classList.add('flip-out-left');
+        newPanel.classList.add('flip-in-right');
+    } else {
+        oldPanel.classList.add('flip-out-right');
+        newPanel.classList.add('flip-in-left');
+    }
+    
+    setTimeout(() => {
+        oldPanel.style.display = 'none';
+        oldPanel.style.position = '';
+        oldPanel.style.top = '';
+        oldPanel.style.left = '';
+        oldPanel.style.width = '';
+        oldPanel.style.height = '';
+        
+        newPanel.style.position = '';
+        newPanel.style.top = '';
+        newPanel.style.left = '';
+        newPanel.style.width = '';
+        newPanel.style.height = '';
+        
+        oldPanel.classList.remove('flip-out-left', 'flip-out-right');
+        newPanel.classList.remove('flip-in-left', 'flip-in-right');
+    }, 450);
+};
+
+window.openChapterGuide = function(colName) {
+    const guideEl = document.getElementById('livro-regras-conteudo');
+    if (!guideEl) return;
+    
+    const catalog = window.globalCatalog || [];
+    
+    // Agrupar e obter dados de progresso reais
+    let cardsInCol = [];
+    if (colName === 'expedition') {
+        if (currentActiveEvent && currentActiveEvent.week) {
+            const week = currentActiveEvent.week;
+            const progress = currentActiveEvent.progress;
+            const mainMissions = week.missions.filter(m => m.tier !== 'epica');
+            cardsInCol = mainMissions;
+        }
+    } else {
+        cardsInCol = catalog.filter(c => (c.collection ? c.collection.split(' ')[1] : 'Geral') === colName);
+    }
+    
+    const owned = colName === 'expedition'
+        ? (currentActiveEvent ? currentActiveEvent.week.missions.filter(m => m.tier !== 'epica').filter(m => currentActiveEvent.progress[m.id] && currentActiveEvent.progress[m.id].current >= m.req).length : 0)
+        : cardsInCol.filter(c => window.isDiscoveryOwned(c)).length;
+        
+    const total = cardsInCol.length;
+    const remaining = total - owned;
+    
+    const chapterNameMap = {
+        'expedition': 'Expedições',
+        'Pinturas': 'Capítulo Pinturas',
+        'Dinossauros': 'Capítulo Dinossauros',
+        'Livros': 'Capítulo Livros',
+        'Comunidade': 'Capítulo Comunidade',
+        'Lendárias': 'Capítulo Lendárias'
+    };
+    
+    const guideData = CHAPTER_GUIDES[colName] || {
+        title: `Guia do Capítulo ${colName}`,
+        color: 'var(--color-purple)',
+        emoji: '📖',
+        secao1: ['Realizar atividades do capítulo'],
+        secao2: ['Não cumprir os requisitos das metas'],
+        secao3: ['Explore novos desenhos e crie hábitos diários.'],
+        secao4: ['Novas descobertas para sua coleção'],
+        secao6: ['Cada descoberta encontrada aproxima você de completar o Livro das Descobertas.']
+    };
+    
+    guideEl.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 15px; height: 100%; overflow-y: auto; padding: 5px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button onclick="closeChapterGuide(); return false;" class="btn btn-secondary btn-sm hover-bounce" style="border: var(--border-thin); background: white; color: var(--color-dark); font-weight: bold; padding: 6px 14px; border-radius: var(--radius-sm); font-size: 0.85rem;">
+                    <i class="fa-solid fa-chevron-left"></i> Voltar ao Capítulo
+                </button>
+                <span style="font-size: 1.5rem;">${guideData.emoji}</span>
+            </div>
+            
+            <h2 style="font-family: var(--font-heading); font-size: 1.5rem; color: ${guideData.color}; margin: 5px 0 10px 0; border-bottom: 2px dashed rgba(0,0,0,0.1); padding-bottom: 6px; text-align: left;">
+                ${guideData.title}
+            </h2>
+            
+            <!-- SEÇÃO 1: Como ganhar descobertas -->
+            <div style="background: #f4fbf7; padding: 12px; border-radius: var(--radius-sm); border-left: 5px solid #2ecc71; text-align: left;">
+                <h4 style="font-family: var(--font-heading); font-size: 0.95rem; color: #27ae60; margin: 0 0 8px 0; display: flex; align-items: center; gap: 6px;">🎯 Como ganhar descobertas</h4>
+                <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.82rem; line-height: 1.5; color: #1e6b3c;">
+                    ${guideData.secao1.map(item => `<li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 6px;"><span>✅</span> <span>${item}</span></li>`).join('')}
+                </ul>
+            </div>
+            
+            <!-- SEÇÃO 2: O que não conta -->
+            <div style="background: #fff5f5; padding: 12px; border-radius: var(--radius-sm); border-left: 5px solid #e74c3c; text-align: left;">
+                <h4 style="font-family: var(--font-heading); font-size: 0.95rem; color: #c0392b; margin: 0 0 8px 0; display: flex; align-items: center; gap: 6px;">❌ O que não conta</h4>
+                <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.82rem; line-height: 1.5; color: #78261e;">
+                    ${guideData.secao2.map(item => `<li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 6px;"><span>❌</span> <span>${item}</span></li>`).join('')}
+                </ul>
+            </div>
+            
+            <!-- SEÇÃO 3: Dicas -->
+            <div style="background: #fffdf5; padding: 12px; border-radius: var(--radius-sm); border-left: 5px solid #f1c40f; text-align: left;">
+                <h4 style="font-family: var(--font-heading); font-size: 0.95rem; color: #d68f10; margin: 0 0 8px 0; display: flex; align-items: center; gap: 6px;">💡 Dicas</h4>
+                <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.82rem; line-height: 1.5; color: #7e5109;">
+                    ${guideData.secao3.map(item => `<li style="margin-bottom: 6px; display: flex; align-items: flex-start; gap: 6px;"><span>💡</span> <span>${item}</span></li>`).join('')}
+                </ul>
+            </div>
+            
+            <!-- SEÇÃO 4: Recompensas -->
+            <div style="background: #fdf5ff; padding: 12px; border-radius: var(--radius-sm); border-left: 5px solid #9b59b6; text-align: left;">
+                <h4 style="font-family: var(--font-heading); font-size: 0.95rem; color: #8e44ad; margin: 0 0 8px 0; display: flex; align-items: center; gap: 6px;">🃏 Recompensas</h4>
+                <div style="font-size: 0.8rem; font-weight: bold; color: #5b2c6f; margin-bottom: 6px;">Ao avançar neste capítulo você desbloqueia:</div>
+                <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.82rem; line-height: 1.5; color: #5b2c6f;">
+                    ${guideData.secao4.map(item => `<li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 6px;"><span>🃏</span> <span>${item}</span></li>`).join('')}
+                </ul>
+            </div>
+            
+            <!-- SEÇÃO 5: Seu progresso -->
+            <div style="background: #f4f7fc; padding: 12px; border-radius: var(--radius-sm); border-left: 5px solid #3498db; text-align: left;">
+                <h4 style="font-family: var(--font-heading); font-size: 0.95rem; color: #2980b9; margin: 0 0 6px 0; display: flex; align-items: center; gap: 6px;">📈 Seu progresso</h4>
+                <div style="font-size: 0.85rem; font-weight: bold; color: var(--color-dark);">${chapterNameMap[colName]}</div>
+                <div style="font-size: 1.15rem; font-weight: 800; color: #2980b9; margin: 4px 0;">${owned} / ${total} descobertas</div>
+                <div style="font-size: 0.78rem; color: var(--color-dark-light); font-weight: 600;">
+                    ${remaining === 0 ? '🏆 Capítulo 100% completo! Incrível!' : `Faltam ${remaining} descobertas para completar este capítulo.`}
+                </div>
+            </div>
+            
+            <!-- SEÇÃO 6: Curiosidade -->
+            <div style="border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 12px; margin-top: 5px; font-family: var(--font-heading); text-align: left;">
+                <h4 style="font-size: 0.9rem; color: var(--color-dark); margin: 0 0 6px 0; display: flex; align-items: center; gap: 6px;">✨ Curiosidade</h4>
+                <ul style="margin: 0; padding: 0; list-style: none; font-size: 0.8rem; line-height: 1.5; color: var(--color-dark-light); font-weight: 600;">
+                    ${guideData.secao6.map(item => `<li style="margin-bottom: 4px; display: flex; align-items: flex-start; gap: 6px;"><span>🔍</span> <span>${item}</span></li>`).join('')}
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    // Identificar painel de origem ativo
+    const gradeEl = document.getElementById('livro-grade-conteudo');
+    const expeditionEl = document.getElementById('livro-expedition-conteudo');
+    const originEl = colName === 'expedition' ? expeditionEl : gradeEl;
+    
+    window.triggerPageFlipAnimation(originEl, guideEl, 'next');
+};
+
+window.closeChapterGuide = function() {
+    const guideEl = document.getElementById('livro-regras-conteudo');
+    if (!guideEl) return;
+    
+    const colName = window.activeChapterName || 'Pinturas';
+    const gradeEl = document.getElementById('livro-grade-conteudo');
+    const expeditionEl = document.getElementById('livro-expedition-conteudo');
+    const targetEl = colName === 'expedition' ? expeditionEl : gradeEl;
+    
+    window.triggerPageFlipAnimation(guideEl, targetEl, 'prev');
 };
