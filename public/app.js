@@ -337,6 +337,12 @@ function updateHeaderAuthDisplay() {
             updateHeaderAchievementCount();
         }
 
+        // Mostrar menu admin se for o administrador
+        const adminMenuSection = document.getElementById('admin-menu-section');
+        if (adminMenuSection) {
+            adminMenuSection.style.display = (currentUser.email === 'foneoliver@gmail.com') ? 'block' : 'none';
+        }
+
         // Dashboard do Criador (painel da home)
         if (creatorPanel) {
             creatorPanel.style.display = 'block';
