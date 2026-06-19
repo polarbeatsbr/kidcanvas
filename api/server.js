@@ -3011,7 +3011,29 @@ app.get('/api/paintings/public', async (req, res) => {
         const users = await loadUsers();
         
         const approved = publicPaintings.filter(p => p.isApproved === true && (!p.reports || p.reports < 3));
-        const mapped = approved.map(p => {
+        
+        // Separar postagens reais e de inspiração oficial
+        const reals = approved.filter(p => !p.isOfficial && p.userEmail !== 'oficial@kidcanvas.com.br');
+        const officials = approved.filter(p => p.isOfficial || p.userEmail === 'oficial@kidcanvas.com.br');
+        
+        // Ordenar reais por data decrescente (mais recentes no topo)
+        reals.sort((a, b) => b.date - a.date);
+        // Ordenar oficiais por data decrescente
+        officials.sort((a, b) => b.date - a.date);
+        
+        let sorted = [];
+        if (reals.length === 0) {
+            sorted = officials;
+        } else if (reals.length < 10) {
+            // Se houver poucos desenhos reais, mesclar colocando os reais primeiro
+            sorted = [...reals, ...officials];
+        } else {
+            // Se houver mais de 10 desenhos reais, deixar os reais dominarem o topo
+            // e limitar os oficiais a no máximo 8 itens exibidos no final da lista
+            sorted = [...reals, ...officials.slice(0, 8)];
+        }
+        
+        const mapped = sorted.map(p => {
             let user = null;
             if (p.userEmail) {
                 user = users.find(u => u.email && u.email.toLowerCase() === p.userEmail.toLowerCase());
@@ -3024,8 +3046,7 @@ app.get('/api/paintings/public', async (req, res) => {
             };
         });
         
-        const sorted = [...mapped].reverse();
-        return res.json({ success: true, paintings: sorted });
+        return res.json({ success: true, paintings: mapped });
     } catch(err) {
         console.error('Erro ao carregar pinturas públicas:', err);
         return res.status(500).json({ success: false, message: 'Erro ao carregar o Hall da Fama.' });

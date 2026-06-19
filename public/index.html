@@ -3513,13 +3513,15 @@
         <div class="reveal-card-perspective">
             <div class="reveal-card-inner" id="reveal-card-inner-el">
                 <!-- Frente (Cadeado com desfoque) -->
-                <div class="reveal-card-front">
-                    <img src="" id="reveal-card-front-img" alt="Card Bloqueado">
+                <div class="reveal-card-front" style="position: relative; width: 100%; height: 100%;">
+                    <img src="" id="reveal-card-front-img" alt="Card Bloqueado" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="reveal-card-fallback-emoji" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:5.5rem; background:linear-gradient(135deg, #a29bfe, #74b9ff); border-radius:15px; position:absolute; top:0; left:0; color: white;">⭐</div>
                     <div class="reveal-lock-icon">🔒</div>
                 </div>
                 <!-- Verso (Imagem real) -->
-                <div class="reveal-card-back" id="reveal-card-back-el">
-                    <img src="" id="reveal-card-back-img" alt="Card Revelado">
+                <div class="reveal-card-back" id="reveal-card-back-el" style="position: relative; width: 100%; height: 100%;">
+                    <img src="" id="reveal-card-back-img" alt="Card Revelado" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="reveal-card-fallback-emoji" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:5.5rem; background:linear-gradient(135deg, #a29bfe, #74b9ff); border-radius:15px; position:absolute; top:0; left:0; color: white;">⭐</div>
                 </div>
             </div>
         </div>

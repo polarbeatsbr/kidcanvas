@@ -9222,11 +9222,15 @@ async function renderHallDaFamaView() {
                     const promptEscaped = escapeHTML(dw.prompt || '');
                     const firstLinesEscaped = escapeHTML(dw.firstLines || 'Era uma vez...');
                     const urlEscaped = escapeHTML(dw.url);
+                    const officialBadgeHtml = (dw.isOfficial || dw.userEmail === 'oficial@kidcanvas.com.br')
+                        ? `<span style="position: absolute; top: 6px; left: 6px; font-size: 0.65rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: #574b90; background: #f1f0ff; border: 1.5px solid #dcd8f3; box-shadow: 0 1px 2px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 3.5px; z-index: 10;">💡 Inspiração KidCanvas</span>`
+                        : '';
 
                     if (category === 'Histórias Mágicas') {
                         card.innerHTML = `
                             ${championBadgeHtml}
                             <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
+                                ${officialBadgeHtml}
                                 <img src="${urlEscaped}" alt="${promptEscaped}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${urlEscaped.replace(/'/g, "\\'")}', '_blank')">
                                 <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
                                     ${category}
@@ -9273,6 +9277,7 @@ async function renderHallDaFamaView() {
                         card.innerHTML = `
                             ${championBadgeHtml}
                             <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
+                                ${officialBadgeHtml}
                                 <img src="${urlEscaped}" alt="${promptEscaped}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${urlEscaped.replace(/'/g, "\\'")}', '_blank')">
                                 <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
                                     ${category}

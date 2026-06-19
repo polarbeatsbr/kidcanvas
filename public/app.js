@@ -9222,11 +9222,15 @@ async function renderHallDaFamaView() {
                     const promptEscaped = escapeHTML(dw.prompt || '');
                     const firstLinesEscaped = escapeHTML(dw.firstLines || 'Era uma vez...');
                     const urlEscaped = escapeHTML(dw.url);
+                    const officialBadgeHtml = (dw.isOfficial || dw.userEmail === 'oficial@kidcanvas.com.br')
+                        ? `<span style="position: absolute; top: 6px; left: 6px; font-size: 0.65rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: #574b90; background: #f1f0ff; border: 1.5px solid #dcd8f3; box-shadow: 0 1px 2px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 3.5px; z-index: 10;">💡 Inspiração KidCanvas</span>`
+                        : '';
 
                     if (category === 'Histórias Mágicas') {
                         card.innerHTML = `
                             ${championBadgeHtml}
                             <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
+                                ${officialBadgeHtml}
                                 <img src="${urlEscaped}" alt="${promptEscaped}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${urlEscaped.replace(/'/g, "\\'")}', '_blank')">
                                 <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
                                     ${category}
@@ -9273,6 +9277,7 @@ async function renderHallDaFamaView() {
                         card.innerHTML = `
                             ${championBadgeHtml}
                             <div style="border: var(--border-thin); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 4px; aspect-ratio: 4/3; background: #fdfdfd; display: flex; align-items: center; justify-content: center; position: relative;">
+                                ${officialBadgeHtml}
                                 <img src="${urlEscaped}" alt="${promptEscaped}" style="width: 100%; height: 100%; object-fit: contain; cursor: pointer;" onclick="window.open('${urlEscaped.replace(/'/g, "\\'")}', '_blank')">
                                 <span style="position: absolute; top: 6px; right: 6px; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 20px; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.4); ${catBadgeColor}">
                                     ${category}
@@ -11337,9 +11342,20 @@ function openAvatarSelectionModal() {
                     const borderClass = `rarity-border-${rarityLower}`;
                     const selectedClass = isSelected ? 'selected-avatar' : '';
                     
+                    const rarityColors = {
+                        'comum': 'linear-gradient(135deg, #a29bfe, #74b9ff)',
+                        'rara': 'linear-gradient(135deg, #74b9ff, #0984e3)',
+                        'epica': 'linear-gradient(135deg, #b388ff, #6c5ce7)',
+                        'lendaria': 'linear-gradient(135deg, #ffeaa7, #fdcb6e)',
+                        'mitica': 'linear-gradient(135deg, #ff7675, #d63031)'
+                    };
+                    const rKey = card.rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+                    const bg = rarityColors[rKey] || rarityColors['comum'];
+                    
                     return `
                         <button class="avatar-option-card-btn ${borderClass} ${selectedClass}" onclick="previewUnlockedCard('${card.id}'); return false;" title="${card.name} (${card.rarity})" style="aspect-ratio: 1; border-radius: 50%; overflow: visible; display: inline-flex; align-items: center; justify-content: center; position: relative;">
-                            <img src="${card.imageUrl}" alt="${card.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            <img src="${card.imageUrl}" alt="${card.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div style="display:none; width:100%; height:100%; border-radius:50%; align-items:center; justify-content:center; font-size:1.6rem; background: ${bg}; color: white;" class="avatar-card-fallback">${card.emoji || '⭐'}</div>
                             ${isSelected ? `<div style="position: absolute; top: -6px; right: -6px; background: var(--color-green); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fa-solid fa-check"></i></div>` : ''}
                         </button>
                     `;
@@ -11796,6 +11812,13 @@ function updateUserAvatarUI(avatar) {
             userAvatarImg.src = card.imageUrl;
             userAvatarImg.style.display = 'block';
             userAvatarImg.style.borderRadius = '50%';
+            userAvatarImg.onerror = () => {
+                userAvatarImg.style.display = 'none';
+                if (userAvatarEmoji) {
+                    userAvatarEmoji.textContent = card.emoji || '⭐';
+                    userAvatarEmoji.style.display = 'block';
+                }
+            };
         }
         if (userAvatarEmoji) userAvatarEmoji.style.display = 'none';
         
@@ -11803,6 +11826,13 @@ function updateUserAvatarUI(avatar) {
             dropdownAvatar.src = card.imageUrl;
             dropdownAvatar.style.display = 'block';
             dropdownAvatar.style.borderRadius = '50%';
+            dropdownAvatar.onerror = () => {
+                dropdownAvatar.style.display = 'none';
+                if (dropdownAvatarEmoji) {
+                    dropdownAvatarEmoji.textContent = card.emoji || '⭐';
+                    dropdownAvatarEmoji.style.display = 'block';
+                }
+            };
         }
         if (dropdownAvatarEmoji) dropdownAvatarEmoji.style.display = 'none';
         
@@ -12388,6 +12418,27 @@ window.triggerDiscoveryReveal = function(card) {
     
     const rarity = card.rarity || 'Comum';
     rarityEl.textContent = rarity;
+
+    // Configurar fallbacks de emoji caso a imagem do R2 falhe ao carregar (retorne 404)
+    const fallbacks = document.querySelectorAll('.reveal-card-fallback-emoji');
+    const rarityColors = {
+        'comum': 'linear-gradient(135deg, #a29bfe, #74b9ff)',
+        'rara': 'linear-gradient(135deg, #74b9ff, #0984e3)',
+        'epica': 'linear-gradient(135deg, #b388ff, #6c5ce7)',
+        'lendaria': 'linear-gradient(135deg, #ffeaa7, #fdcb6e)',
+        'mitica': 'linear-gradient(135deg, #ff7675, #d63031)'
+    };
+    const rKey = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+    const bg = rarityColors[rKey] || rarityColors['comum'];
+    
+    fallbacks.forEach(el => {
+        el.textContent = card.emoji || '⭐';
+        el.style.background = bg;
+        el.style.display = 'none'; // Esconder inicialmente
+    });
+    
+    frontImg.style.display = 'block';
+    backImg.style.display = 'block';
     
     // Set rarity styling class
     rarityEl.className = 'discovery-flip-rarity';
@@ -14986,6 +15037,13 @@ window.renderPerfilView = function() {
                 imgEl.src = card.imageUrl;
                 imgEl.style.display = 'block';
                 imgEl.style.borderRadius = '50%';
+                imgEl.onerror = () => {
+                    imgEl.style.display = 'none';
+                    if (emojiEl) {
+                        emojiEl.textContent = card.emoji || '⭐';
+                        emojiEl.style.display = 'block';
+                    }
+                };
             }
             if (emojiEl) emojiEl.style.display = 'none';
         } else {
