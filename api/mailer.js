@@ -75,7 +75,6 @@ async function sendEmail(to, subject, htmlContent) {
 // ============================================
 
 const SITE_URL = 'https://www.kidcanvas.com.br';
-const LOGO_URL = `${SITE_URL}/logo.png`;
 
 function baseTemplate(content, previewText) {
     return `
@@ -297,8 +296,8 @@ function baseTemplate(content, previewText) {
                 <div class="email-wrapper">
                     <!-- Header -->
                     <div class="email-header">
-                        <img src="${LOGO_URL}" alt="KidCanvas" style="max-width:180px; height:auto;" />
-                        <h1>Colorir, Criar, Imaginar ✨</h1>
+                        <div style="font-size:32px; font-weight:900; color:#ffffff; letter-spacing:1px;">🎨 <span style="color:#fbbf24;">kid</span>canvas<span style="font-size:18px; opacity:0.7;">.com.br</span></div>
+                        <h1>Colorir, Criar, Imaginar</h1>
                     </div>
                     
                     <hr class="divider" />

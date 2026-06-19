@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>KidCanvas - Recebemos sua mensagem!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', 'Segoe UI', Tahoma, Arial, sans-serif;
+            background-color: #f0e6ff;
+            color: #2d1b4e;
+            line-height: 1.6;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.15); }
+        }
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes wave {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(14deg); }
+            20% { transform: rotate(-8deg); }
+            30% { transform: rotate(14deg); }
+            40% { transform: rotate(-4deg); }
+            50% { transform: rotate(10deg); }
+            60% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .email-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 48px rgba(88, 28, 135, 0.18), 0 0 0 1px rgba(139, 92, 246, 0.08);
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 30%, #c084fc 60%, #e879f9 100%);
+            padding: 36px 24px 28px;
+            text-align: center;
+        }
+
+        .email-header img.logo {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .email-header .tagline {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        .rainbow-divider {
+            height: 5px;
+            background: linear-gradient(90deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #8b5cf6, #ec4899);
+            background-size: 200% 200%;
+            animation: rainbow 4s ease infinite;
+        }
+
+        .email-body {
+            padding: 40px 32px 32px;
+        }
+
+        .greeting {
+            font-size: 28px;
+            font-weight: 900;
+            color: #581c87;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #7c3aed;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .main-text {
+            font-size: 15px;
+            color: #4a3660;
+            margin-bottom: 16px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .mascot-section {
+            text-align: center;
+            margin: 28px 0;
+        }
+
+        .mascot-section img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #e9d5ff;
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.25);
+            object-fit: cover;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .mascot-caption {
+            font-size: 13px;
+            color: #a78bfa;
+            font-weight: 700;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .confirmation-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fbbf24 100%);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin: 28px 0;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.2);
+        }
+
+        .confirmation-card .card-icon {
+            display: inline-block;
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            border-radius: 50%;
+            line-height: 52px;
+            color: #fff;
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .confirmation-card h3 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+
+        .confirmation-card p {
+            font-size: 14px;
+            color: #78350f;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .explore-section {
+            margin: 32px 0;
+        }
+
+        .explore-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #581c87;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .explore-card {
+            background: linear-gradient(135deg, #ede9fe 0%, #e0e7ff 100%);
+            border-radius: 16px;
+            padding: 20px 16px;
+            text-align: center;
+        }
+
+        .explore-card .card-icon-small {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            line-height: 40px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .explore-card .card-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #6b21a8;
+            line-height: 1.3;
+        }
+
+        .explore-card .card-desc {
+            font-size: 11px;
+            color: #7c3aed;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 32px 0 16px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #fbbf24 100%);
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 18px 48px;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 24px rgba(249, 115, 22, 0.45), 0 0 0 3px rgba(251, 191, 36, 0.2);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #ede9fe 0%, #fce7f3 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 28px 0 0;
+            text-align: center;
+        }
+
+        .contact-info h4 {
+            font-size: 14px;
+            font-weight: 800;
+            color: #7c3aed;
+            margin-bottom: 12px;
+        }
+
+        .contact-info p {
+            font-size: 13px;
+            color: #6b21a8;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .contact-info a {
+            color: #a855f7;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .response-time {
+            display: inline-block;
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            color: #166534;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+
+        .email-footer {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #3730a3 100%);
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .footer-mascots {
+            margin-bottom: 16px;
+        }
+
+        .footer-mascots img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(167, 139, 250, 0.4);
+            margin: 0 4px;
+            object-fit: cover;
+        }
+
+        .email-footer .footer-site {
+            font-size: 15px;
+            color: #e0d7ff;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .email-footer .footer-site a {
+            color: #c4b5fd;
+            text-decoration: none;
+            font-weight: 800;
+        }
+
+        .email-footer .footer-copy {
+            font-size: 12px;
+            color: #8b5cf6;
+            margin-bottom: 4px;
+        }
+
+        .email-footer .footer-auto {
+            font-size: 11px;
+            color: #6366f1;
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        .color-dots {
+            margin-top: 16px;
+        }
+
+        .color-dots span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 3px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            body { padding: 0 !important; }
+            .email-wrapper { border-radius: 0 !important; }
+            .email-body { padding: 28px 20px 24px !important; }
+            .greeting { font-size: 24px !important; }
+            .explore-card { width: 100% !important; }
+            .cta-button { padding: 16px 36px !important; font-size: 16px !important; }
+        }
+    </style>
+</head>
+<body style="margin:0; padding:20px 0; background-color:#f0e6ff;">
+
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td align="center" style="padding: 20px 16px;">
+                <div class="email-wrapper">
+
+                    <!-- HEADER -->
+                    <div class="email-header">
+                        <img src="https://www.kidcanvas.com.br/logo.png" alt="KidCanvas" class="logo" />
+                        <div class="tagline">Colorir, Criar, Imaginar</div>
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <!-- BODY -->
+                    <div class="email-body">
+
+                        <div class="greeting">Ol&aacute;, Artista!</div>
+                        <div class="subtitle">Recebemos sua mensagem!</div>
+
+                        <!-- Mascot -->
+                        <div class="mascot-section">
+                            <img src="https://www.kidcanvas.com.br/mascot_artista.png" alt="Mascote KidCanvas" />
+                            <div class="mascot-caption">Nosso mascote j&aacute; avisou a equipe!</div>
+                        </div>
+
+                        <p class="main-text">
+                            Obrigado por entrar em contato com o <strong style="color:#7c3aed;">KidCanvas</strong>!
+                            <br/>Sua mensagem &eacute; muito importante para n&oacute;s.
+                        </p>
+
+                        <!-- Confirmation Card -->
+                        <div class="confirmation-card">
+                            <div class="card-icon">&#10003;</div>
+                            <h3>Mensagem Recebida com Sucesso!</h3>
+                            <p>
+                                Nossa equipe j&aacute; est&aacute; analisando sua mensagem e
+                                <strong>responderemos o mais r&aacute;pido poss&iacute;vel</strong>.
+                                <br/>Fique tranquilo, n&atilde;o esquecemos de ningu&eacute;m!
+                            </p>
+                        </div>
+
+                        <!-- While you wait -->
+                        <div class="explore-section">
+                            <div class="explore-title">Enquanto espera, que tal explorar?</div>
+
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                                <tr>
+                                    <td width="50%" style="padding: 6px;" valign="top">
+                                        <div class="explore-card">
+                                            <div class="card-icon-small" style="background: linear-gradient(135deg, #8b5cf6, #a855f7);">&#9998;</div>
+                                            <div class="card-title">Colorir Desenhos</div>
+                                            <div class="card-desc">+14 mil desenhos para pintar</div>
+                                        </div>
+                                    </td>
+                                    <td width="50%" style="padding: 6px;" valign="top">
+                                        <div class="explore-card">
+                                            <div class="card-icon-small" style="background: linear-gradient(135deg, #f97316, #fb923c);">&#9733;</div>
+                                            <div class="card-title">Criar com IA</div>
+                                            <div class="card-desc">Desenhos personalizados</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%" style="padding: 6px;" valign="top">
+                                        <div class="explore-card">
+                                            <div class="card-icon-small" style="background: linear-gradient(135deg, #ec4899, #f472b6);">&#9830;</div>
+                                            <div class="card-title">Hist&oacute;rias M&aacute;gicas</div>
+                                            <div class="card-desc">Livros ilustrados com IA</div>
+                                        </div>
+                                    </td>
+                                    <td width="50%" style="padding: 6px;" valign="top">
+                                        <div class="explore-card">
+                                            <div class="card-icon-small" style="background: linear-gradient(135deg, #eab308, #facc15);">&#9733;</div>
+                                            <div class="card-title">Colecionar Selos</div>
+                                            <div class="card-desc">Desbloqueie conquistas</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="cta-section">
+                            <a href="https://www.kidcanvas.com.br" class="cta-button">Ir para o KidCanvas</a>
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="contact-info">
+                            <h4>Informa&ccedil;&otilde;es de Contato</h4>
+                            <p><a href="mailto:contato@kidcanvas.com.br">contato@kidcanvas.com.br</a></p>
+                            <p><a href="https://www.kidcanvas.com.br">www.kidcanvas.com.br</a></p>
+                            <div class="response-time">Tempo m&eacute;dio de resposta: at&eacute; 24 horas</div>
+                        </div>
+
+                    </div>
+
+                    <div class="rainbow-divider"></div>
+
+                    <!-- FOOTER -->
+                    <div class="email-footer">
+                        <div class="footer-mascots">
+                            <img src="https://www.kidcanvas.com.br/mascot_aprendiz.png" alt="Aprendiz" />
+                            <img src="https://www.kidcanvas.com.br/mascot_artista.png" alt="Artista" />
+                            <img src="https://www.kidcanvas.com.br/mascot_mago.png" alt="Mago" />
+                            <img src="https://www.kidcanvas.com.br/mascot_lenda.png" alt="Lenda" />
+                        </div>
+
+                        <div class="footer-site">
+                            <a href="https://www.kidcanvas.com.br">www.kidcanvas.com.br</a>
+                        </div>
+
+                        <div class="footer-copy">
+                            &copy; 2026 KidCanvas. Todos os direitos reservados.
+                        </div>
+
+                        <div class="footer-copy">
+                            Feito com amor para pequenos (e grandes) artistas.
+                        </div>
+
+                        <div class="footer-auto">
+                            Este &eacute; um email autom&aacute;tico. Por favor, n&atilde;o responda.
+                            <br/>Para entrar em contato, envie um novo email para contato@kidcanvas.com.br
+                        </div>
+
+                        <div class="color-dots">
+                            <span style="background:#8b5cf6;"></span>
+                            <span style="background:#f97316;"></span>
+                            <span style="background:#eab308;"></span>
+                            <span style="background:#22c55e;"></span>
+                            <span style="background:#3b82f6;"></span>
+                            <span style="background:#8b5cf6;"></span>
+                            <span style="background:#f97316;"></span>
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
