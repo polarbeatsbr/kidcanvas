@@ -65,7 +65,7 @@ const CATEGORIES_DATA = {
     'anime-futurista': { name: 'Sci-Fi e Futurista Anime', emoji: '🚀', desc: 'Desenhos de Sci-Fi e Futurismo estilo anime para colorir! Pinte cidades futuristas, motos voadoras, naves e estações espaciais.' },
     'anime-gamer': { name: 'Gamer Anime', emoji: '🎮', desc: 'Desenhos Gamer estilo anime para colorir grátis! Encontre avatares de jogadores, guerreiros digitais, monstros de pixel e mundos virtuais.' },
     'lutas': { name: 'Lutas', emoji: '🥋', desc: 'Desenhos de Lutas e Artes Marciais para colorir e imprimir grátis! Encontre desenhos de karatê, judô, boxe, capoeira, kung fu e muito mais para pintar.' },
-    'magico': { name: 'Mágico', emoji: '🔮', desc: 'Desenhos do mundo da mágica para colorir e imprimir grátis! Pinte magos fofos, varinhas mágicas, chapéus de bruxo, poções e truques incríveis.' },
+    'mundo-da-magica': { name: 'Mundo da Mágica', emoji: '🎩', desc: 'Desenhos do Mundo da Mágica para colorir e imprimir grátis! Pinte o pequeno mágico Mr. M Kids, cartolas com coelhos, livros de feitiços e castelos encantados.' },
     'destaques': { name: 'Destaques', emoji: '✨', desc: 'Os desenhos favoritos e mais populares no KidCanvas! Descubra e pinte ilustrações incríveis recomendadas por nossa comunidade.' }
 };
 
@@ -6088,7 +6088,7 @@ window.paintActions = [];
 
 // Painting Statistics
 window.strokeCount = 0;
-window.paintStartTime = Date.now();
+window.paintStartTime = null;
 
 // Color History and Favorites
 window.paintColorHistory = [];
@@ -6298,7 +6298,7 @@ function getStickerHandleAt(sticker, px, py) {
     
     const size = sticker.size || 80;
     const half = size / 2;
-    const handleRadius = 20; // Hit area slightly larger for children's fingers
+    const handleRadius = 30; // Hit area slightly larger for children's fingers
     
     // Delete handle (top-left) - ❌
     const distDelete = Math.hypot(lx - (-half - 8), ly - (-half - 8));
@@ -6380,17 +6380,17 @@ function drawSingleSticker(ctx, sticker, isSelected) {
         ctx.strokeRect(-half - 8, -half - 8, size + 16, size + 16);
         ctx.setLineDash([]);
         
-        // Handles (arc radius 12)
+        // Handles (arc radius 16)
         // 1. Delete (top-left) - ❌
         ctx.fillStyle = '#ff5e7e';
         ctx.beginPath();
-        ctx.arc(-half - 8, -half - 8, 12, 0, Math.PI*2);
+        ctx.arc(-half - 8, -half - 8, 16, 0, Math.PI*2);
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.stroke();
         ctx.fillStyle = '#ffffff';
-        ctx.font = '14px Arial';
+        ctx.font = '15px Arial';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText('❌', -half - 8, -half - 8);
@@ -6398,37 +6398,43 @@ function drawSingleSticker(ctx, sticker, isSelected) {
         // 2. Duplicate (top-right) - ➕
         ctx.fillStyle = '#2b8a3e';
         ctx.beginPath();
-        ctx.arc(half + 8, -half - 8, 12, 0, Math.PI*2);
+        ctx.arc(half + 8, -half - 8, 16, 0, Math.PI*2);
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.stroke();
         ctx.fillStyle = '#ffffff';
-        ctx.font = '12px Arial';
+        ctx.font = '14px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
         ctx.fillText('➕', half + 8, -half - 8);
         
         // 3. Rotate (bottom-left) - 🔄
         ctx.fillStyle = '#f59f00';
         ctx.beginPath();
-        ctx.arc(-half - 8, half + 8, 12, 0, Math.PI*2);
+        ctx.arc(-half - 8, half + 8, 16, 0, Math.PI*2);
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.stroke();
         ctx.fillStyle = '#ffffff';
-        ctx.font = '12px Arial';
+        ctx.font = '14px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
         ctx.fillText('🔄', -half - 8, half + 8);
 
         // 4. Scale (bottom-right) - ↔️
         ctx.fillStyle = '#1864ab';
         ctx.beginPath();
-        ctx.arc(half + 8, half + 8, 12, 0, Math.PI*2);
+        ctx.arc(half + 8, half + 8, 16, 0, Math.PI*2);
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2.5;
         ctx.stroke();
         ctx.fillStyle = '#ffffff';
-        ctx.font = '12px Arial';
+        ctx.font = '14px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
         ctx.fillText('↔️', half + 8, half + 8);
     }
     ctx.restore();
@@ -6443,6 +6449,9 @@ function drawActiveStickers(ctx, skipSelection = false) {
 }
 
 function insertStickerInstantly(emoji) {
+    if (!window.paintStartTime) {
+        window.paintStartTime = Date.now();
+    }
     const newSticker = {
         id: 'sticker_' + Date.now() + '_' + Math.round(Math.random() * 1000000),
         stamp: emoji,
@@ -6604,7 +6613,7 @@ function checkAndRestoreAutosave() {
                             window.activeStickers = autosave.stickers || [];
                             window.colorsUsedInPainting = new Set(autosave.colors || []);
                             window.strokeCount = autosave.strokes || 0;
-                            window.paintStartTime = autosave.startTime || Date.now();
+                            window.paintStartTime = autosave.startTime || null;
                             
                             composePaintCanvas();
                             savePaintHistory();
@@ -6693,7 +6702,7 @@ function renderPintarOnlineView() {
     window.stickerDragMode = null;
     window.paintActions = [];
     window.strokeCount = 0;
-    window.paintStartTime = Date.now();
+    window.paintStartTime = null;
     window.colorsUsedInPainting = new Set();
     window.paintColorHistory = window.paintColorHistory || [];
 
@@ -7249,7 +7258,7 @@ function renderPintarOnlineView() {
                     window.selectedSticker = null;
                     window.paintActions = [];
                     window.strokeCount = 0;
-                    window.paintStartTime = Date.now();
+                    window.paintStartTime = null;
                     window.colorsUsedInPainting = new Set();
                     if (paintCrayons && paintCrayons.length > 0) {
                         window.colorsUsedInPainting.add(paintCrayons[0].hex);
@@ -8213,6 +8222,7 @@ function setPaintTool(tool) {
             textInput.value = 'KidCanvas';
         }
     } else if (tool === 'select') {
+        document.getElementById('paint-tool-select').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'none';
     }
     
@@ -8231,6 +8241,7 @@ document.getElementById('paint-tool-neon').onclick = () => setPaintTool('neon');
 document.getElementById('paint-tool-eraser').onclick = () => setPaintTool('eraser');
 document.getElementById('paint-tool-pipette').onclick = () => setPaintTool('pipette');
 document.getElementById('paint-tool-text').onclick = () => setPaintTool('text');
+document.getElementById('paint-tool-select').onclick = () => setPaintTool('select');
 
 // Configurar carimbos rápidos (clique insere instantaneamente no centro)
 document.querySelectorAll('.paint-stamp-btn').forEach(btn => {
@@ -8261,6 +8272,9 @@ function getPaintMousePos(evt) {
 }
 
 function startPaintingDraw(evt) {
+    if (!window.paintStartTime) {
+        window.paintStartTime = Date.now();
+    }
     const pos = getPaintMousePos(evt);
     const brushSizeInput = document.getElementById('paint-brush-size');
     const brushSizeVal = brushSizeInput ? parseInt(brushSizeInput.value) : 8;
@@ -9630,6 +9644,8 @@ async function savePaintingToGallery() {
                 }, 3000);
             }
             
+            window.lastSavedPaintingUrl = resData.imageUrl;
+            window.lastSavedPaintingName = data.name;
             openCertificateModal(data.name);
 
             // Animar revelações de descobertas recém-desbloqueadas
@@ -9707,7 +9723,7 @@ function openCertificateModal(drawingName) {
     if (heading) heading.textContent = randomQuote;
 
     // Calculate paint statistics
-    const timeElapsedSeconds = Math.round((Date.now() - window.paintStartTime) / 1000);
+    const timeElapsedSeconds = window.paintStartTime ? Math.round((Date.now() - window.paintStartTime) / 1000) : 0;
     let timeStr = `${timeElapsedSeconds}s`;
     if (timeElapsedSeconds >= 60) {
         timeStr = `${Math.floor(timeElapsedSeconds / 60)}m ${timeElapsedSeconds % 60}s`;
@@ -9747,10 +9763,19 @@ function openCertificateModal(drawingName) {
         link.click();
         
         showToast('Certificado baixado com sucesso! 🎓', 'success');
-        closeCertificateModal();
-        navigate('/minhas-criacoes');
-        switchCreationsTab('paintings');
     };
+
+    const btnShareCert = document.getElementById('btn-share-certificate');
+    if (btnShareCert) {
+        btnShareCert.onclick = () => {
+            const promptText = window.lastSavedPaintingName || drawingName;
+            if (window.lastSavedPaintingUrl) {
+                shareSavedDrawingOnWhatsApp(window.lastSavedPaintingUrl, promptText);
+            } else {
+                showToast('Aguarde a pintura ser salva para poder compartilhar! 🚀', 'info');
+            }
+        };
+    }
 }
 
 function closeCertificateModal() {
@@ -13271,10 +13296,35 @@ window.showDiscoveryDetails = function(discoveryId) {
     detailsEl.style.display = 'flex';
 };
 
-window.startDrawingChallenge = function(discoveryId) {
-    if (!currentUser || !window.globalCatalog) return;
-    const c = window.globalCatalog.find(gc => gc.id === discoveryId);
-    if (!c) return;
+window.startDrawingChallenge = async function(discoveryId) {
+    if (!currentUser) return;
+    
+    if (!window.globalCatalog) {
+        try {
+            const res = await fetch('/api/store/catalog');
+            const data = await res.json();
+            if (data.success) {
+                window.globalCatalog = data.catalog;
+            }
+        } catch (e) {
+            console.error('Erro ao carregar catálogo sob demanda:', e);
+        }
+    }
+    
+    if (!window.globalCatalog) {
+        showToast('Não foi possível carregar o catálogo de desafios no momento.', 'error');
+        return;
+    }
+    
+    const c = window.globalCatalog.find(gc => 
+        (gc.id === discoveryId) || 
+        (gc.value === discoveryId) || 
+        (gc.name === discoveryId)
+    );
+    if (!c) {
+        showToast('Desafio de desenho não encontrado no catálogo.', 'error');
+        return;
+    }
     
     // Fechar o modal
     if (typeof closeAlbumModal === 'function') {
@@ -13284,13 +13334,23 @@ window.startDrawingChallenge = function(discoveryId) {
     }
     
     // Configurar o desafio ativo
-    const subject = (c.unlockCondition && c.unlockCondition.subject) || c.drawingSubject || '';
+    const subject = (c.unlockCondition && c.unlockCondition.subject) || c.drawingSubject || c.name || '';
     window.activeDrawingChallenge = {
         id: c.id,
         name: c.name,
         subject: subject
     };
     sessionStorage.setItem('kidcanvas_active_challenge', JSON.stringify(window.activeDrawingChallenge));
+    
+    // Garantir exibição imediata da barra de desafios se estivermos indo para a tela de pintura
+    const challengeBar = document.getElementById('paint-challenge-bar');
+    const challengeText = document.getElementById('paint-challenge-text');
+    if (challengeText) {
+        challengeText.textContent = `Desafio ativo: desenhe um ${window.activeDrawingChallenge.subject} para desbloquear ${window.activeDrawingChallenge.name}.`;
+    }
+    if (challengeBar) {
+        challengeBar.style.display = 'flex';
+    }
     
     // Iniciar desenho livre
     startFreeHandDrawing();

@@ -53,7 +53,7 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1781868957000">
+    <link rel="stylesheet" href="/style.css?v=1781893000000">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -104,7 +104,7 @@
                                 <li><a href="/categoria/copa-do-mundo" class="dropdown-item">⚽ Copa do Mundo</a></li>
                                 <li><a href="/categoria/monstros" class="dropdown-item">👾 Monstros Infantil</a></li>
                                 <li><a href="/categoria/lutas" class="dropdown-item">🥋 Lutas</a></li>
-                                <li><a href="/categoria/magico" class="dropdown-item">🔮 Mágico</a></li>
+                                <li><a href="/categoria/mundo-da-magica" class="dropdown-item">🎩 Mundo da Mágica</a></li>
                             </ul>
                         </li>
                         <li><a href="/gerar-desenho" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho</a></li>
@@ -2178,6 +2178,9 @@
                         <button class="paint-tool-btn" id="paint-tool-text" title="Escrever Texto" style="color: var(--color-purple);">
                             <i class="fa-solid fa-font"></i>
                         </button>
+                        <button class="paint-tool-btn" id="paint-tool-select" title="Selecionar Adesivo" style="color: var(--color-blue);">
+                            <i class="fa-solid fa-arrow-pointer"></i>
+                        </button>
                         <hr style="width: 100%; border: none; border-top: 1px dashed #ccc; margin: 4px 0;">
                         
                         <div style="font-size: 0.75rem; font-weight: bold; color: var(--color-dark-light); margin-bottom: 4px; text-transform: uppercase;">Selos</div>
@@ -2744,8 +2747,9 @@
             <button class="btn btn-primary" id="paint-btn-watch-replay" style="background-color: var(--color-orange); border-color: var(--color-orange); color: white; display: inline-flex; align-items: center; gap: 6px; font-weight: 800; width: 100%; justify-content: center; margin-bottom: 15px; box-shadow: 0 4px 0 var(--color-dark); border: 2px solid var(--color-dark); cursor: pointer;"><i class="fa-solid fa-play"></i> ▶ Ver Replay Acelerado</button>
 
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <button class="btn btn-secondary" onclick="closeCertificateModal()">Voltar</button>
+                <button class="btn btn-secondary" onclick="closeCertificateModal()">Fechar</button>
                 <button class="btn btn-primary" id="btn-download-certificate" style="background-color: var(--color-purple); border-color: var(--color-purple); color: white;"><i class="fa-solid fa-file-pdf"></i> Baixar Certificado 🎓</button>
+                <button class="btn btn-success" id="btn-share-certificate" style="background-color: #25d366; border-color: #25d366; color: white; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-brands fa-whatsapp"></i> Compartilhar 🚀</button>
             </div>
         </div>
     </div>
@@ -3660,6 +3664,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/app.js?v=1781868961000"></script>
+<script src="/app.js?v=1781893000000"></script>
 </body>
 </html>
