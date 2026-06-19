@@ -2376,8 +2376,43 @@ app.post('/api/user/save-painting', async (req, res) => {
         };
         user.myPaintings.push(paintingItem);
         
+        // Carregar catálogo de cartas para os desafios de desenho
+        const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
+        const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
+
+        const newlyUnlockedAI = [];
+        const pendingChallenges = catalog.filter(c => {
+            const hasCard = user.cards.some(uc => uc.id === c.id);
+            return !hasCard && c.unlockCondition && c.unlockCondition.type === 'drawing_challenge';
+        });
+
+        if (pendingChallenges.length > 0 && imageBase64) {
+            console.log(`[AI Drawing] Verificando ${pendingChallenges.length} desafios pendentes...`);
+            const mockResponse = req.hostname === 'localhost' ? req.headers['x-mock-claude-response'] : null;
+            const aiResponse = await checkDrawingWithClaudeVision(imageBase64, mockResponse);
+            if (aiResponse) {
+                console.log(`[AI Drawing] Resposta da Claude: "${aiResponse}"`);
+                pendingChallenges.forEach(card => {
+                    const synonyms = card.unlockCondition.synonyms || [card.unlockCondition.subject];
+                    const isMatch = matchSubject(aiResponse, synonyms);
+                    console.log(`[AI Drawing Debug] Card: "${card.name}" | Tema esperado: "${card.unlockCondition.subject}" | Resposta da Claude: "${aiResponse}" | Resultado da comparação: ${isMatch ? 'MATCH' : 'NO MATCH'} | Desbloqueou: ${isMatch ? 'SIM' : 'NÃO'}`);
+                    if (isMatch) {
+                        console.log(`[AI Drawing] MATCH! Desbloqueando card "${card.name}" (ID: ${card.id})`);
+                        if (!user.cards.some(uc => uc.id === card.id)) {
+                            user.cards.push(card);
+                            newlyUnlockedAI.push(card);
+                        }
+                    }
+                });
+            }
+        }
+
         // Avaliar e desbloquear descobertas progressivas
         const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
+        
+        // Mesclar as cartas desbloqueadas pela IA
+        newlyUnlocked.push(...newlyUnlockedAI);
+        
         await saveUsers(users);
         console.log(`[Save Painting] Pintura para "${prompt}" salva para "${user.email}". URL: ${r2Url} (Public: ${isPublic})`);
         
@@ -4565,10 +4600,122 @@ function evaluateCardCondition(user, card, context = {}) {
         case 'invite':
             return (user.referredUsers ? user.referredUsers.length : 0) >= condition.count;
             
+        case 'drawing_challenge':
+            return false;
+            
         case 'collection_complete':
         default:
             return false;
     }
+}
+
+async function checkDrawingWithClaudeVision(base64Image, mockResponse = null) {
+    if (mockResponse || process.env.MOCK_CLAUDE_RESPONSE) {
+        const resVal = mockResponse || process.env.MOCK_CLAUDE_RESPONSE;
+        console.log(`[Claude Vision Mock] Retornando resposta mockada: "${resVal}"`);
+        return resVal;
+    }
+
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+        console.warn('[Claude Vision] ANTHROPIC_API_KEY não está configurada no ambiente.');
+        return null;
+    }
+
+    try {
+        let rawBase64 = base64Image;
+        let mimeType = 'image/png';
+        if (base64Image.startsWith('data:')) {
+            const match = base64Image.match(/^data:(image\/\w+);base64,(.+)$/);
+            if (match) {
+                mimeType = match[1];
+                rawBase64 = match[2];
+            }
+        }
+
+        console.log(`[Claude Vision] Enviando desenho para o modelo claude-haiku-4-5-20251001...`);
+        const response = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: {
+                'x-api-key': apiKey,
+                'anthropic-version': '2023-06-01',
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: 'claude-haiku-4-5-20251001',
+                max_tokens: 15,
+                messages: [
+                    {
+                        role: 'user',
+                        content: [
+                            {
+                                type: 'image',
+                                source: {
+                                    type: 'base64',
+                                    media_type: mimeType,
+                                    data: rawBase64
+                                }
+                            },
+                            {
+                                type: 'text',
+                                text: 'Look at this drawing made by a child. In one or two words, what animal or object is drawn? Answer only the subject, nothing else.'
+                            }
+                        ]
+                    }
+                ]
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const textResult = data.content?.[0]?.text;
+            console.log(`[Claude Vision] Resposta bruta da Claude: "${textResult}"`);
+            return textResult ? textResult.trim() : null;
+        } else {
+            const errText = await response.text();
+            console.error(`[Claude Vision] Erro na API (Status ${response.status}):`, errText);
+            return null;
+        }
+    } catch (err) {
+        console.error('[Claude Vision] Erro durante chamada à API:', err);
+        return null;
+    }
+}
+
+function matchSubject(aiResponse, synonyms) {
+    if (!aiResponse) return false;
+    
+    // Normalizar a resposta da IA
+    const cleanResponse = aiResponse
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // remover acentos
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "") // remover pontuação
+        .trim();
+        
+    return synonyms.some(syn => {
+        const cleanSyn = syn
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .trim();
+            
+        if (cleanResponse === cleanSyn) return true;
+        
+        // Tratar substring (se a IA respondeu "a dog" e o sinônimo é "dog")
+        if (cleanResponse.includes(cleanSyn) || cleanSyn.includes(cleanResponse)) return true;
+        
+        // Tratar plurais comuns em português/inglês
+        const pluralVersions = [
+            cleanSyn + 's',
+            cleanSyn + 'es',
+            cleanSyn.replace(/m$/, 'ns'), // homem -> homens
+            cleanSyn.replace(/l$/, 'is')  // sol -> sois, animal -> animais
+        ];
+        if (pluralVersions.includes(cleanResponse)) return true;
+        
+        return false;
+    });
 }
 
 async function refreshUserDiscoveries(user) {

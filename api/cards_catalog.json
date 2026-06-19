@@ -1911,5 +1911,928 @@
             "desc": "Desbloquear todas as descobertas disponíveis no Livro das Descobertas."
         },
         "unlockHint": "Desbloquear todas as descobertas disponíveis no Livro das Descobertas."
+    },
+    {
+        "id": "desafio_01",
+        "name": "Rei da Selva",
+        "emoji": "🦁",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 1/40",
+        "curiosity": "O leão é conhecido como o rei da selva, mas na verdade ele vive nas savanas e planícies abertas!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_01.jpg",
+        "drawingSubject": "leão",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "leão",
+            "synonyms": [
+                "leão",
+                "leao",
+                "leoa",
+                "lion",
+                "lions",
+                "felino",
+                "big cat",
+                "panthera leo"
+            ]
+        },
+        "unlockHint": "Desenhe um leão e salve no seu perfil."
+    },
+    {
+        "id": "desafio_02",
+        "name": "Melhor Amigo",
+        "emoji": "🐶",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 2/40",
+        "curiosity": "Os cachorros têm um olfato incrível, cerca de 40 vezes melhor que o dos humanos!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_02.jpg",
+        "drawingSubject": "cachorro",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "cachorro",
+            "synonyms": [
+                "cachorro",
+                "cachorrinho",
+                "cão",
+                "cao",
+                "dog",
+                "dogs",
+                "puppy",
+                "puppies",
+                "filhote"
+            ]
+        },
+        "unlockHint": "Desenhe um cachorro e salve no seu perfil."
+    },
+    {
+        "id": "desafio_03",
+        "name": "Asas de Cristal",
+        "emoji": "🦋",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 3/40",
+        "curiosity": "As borboletas sentem o gosto das coisas usando as patinhas!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_03.jpg",
+        "drawingSubject": "borboleta",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "borboleta",
+            "synonyms": [
+                "borboleta",
+                "butterfly",
+                "butterflies",
+                "inseto"
+            ]
+        },
+        "unlockHint": "Desenhe um borboleta e salve no seu perfil."
+    },
+    {
+        "id": "desafio_04",
+        "name": "Senhor dos Céus",
+        "emoji": "🦅",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 4/40",
+        "curiosity": "As águias têm uma visão tão potente que conseguem enxergar um coelho a quilômetros de distância!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_04.jpg",
+        "drawingSubject": "águia",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "águia",
+            "synonyms": [
+                "águia",
+                "aguia",
+                "eagle",
+                "eagles",
+                "gavião",
+                "gaviao",
+                "hawk",
+                "pássaro",
+                "passaro",
+                "bird"
+            ]
+        },
+        "unlockHint": "Desenhe um águia e salve no seu perfil."
+    },
+    {
+        "id": "desafio_05",
+        "name": "Gigante Gentil",
+        "emoji": "🐘",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 5/40",
+        "curiosity": "Os elefantes são os maiores animais terrestres e conseguem se comunicar por vibrações no chão!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_05.jpg",
+        "drawingSubject": "elefante",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "elefante",
+            "synonyms": [
+                "elefante",
+                "elephant",
+                "elephants"
+            ]
+        },
+        "unlockHint": "Desenhe um elefante e salve no seu perfil."
+    },
+    {
+        "id": "desafio_06",
+        "name": "Pescoço Infinito",
+        "emoji": "🦒",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 6/40",
+        "curiosity": "As girafas são tão altas que até a língua delas é azul e mede quase meio metro!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_06.jpg",
+        "drawingSubject": "girafa",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "girafa",
+            "synonyms": [
+                "girafa",
+                "giraffe",
+                "giraffes"
+            ]
+        },
+        "unlockHint": "Desenhe um girafa e salve no seu perfil."
+    },
+    {
+        "id": "desafio_07",
+        "name": "Guardião Ancestral",
+        "emoji": "🐢",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 7/40",
+        "curiosity": "Algumas tartarugas gigantes podem viver por mais de 150 anos!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_07.jpg",
+        "drawingSubject": "tartaruga",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "tartaruga",
+            "synonyms": [
+                "tartaruga",
+                "turtle",
+                "turtles",
+                "jabuti",
+                "cágado",
+                "cagado"
+            ]
+        },
+        "unlockHint": "Desenhe um tartaruga e salve no seu perfil."
+    },
+    {
+        "id": "desafio_08",
+        "name": "Sorriso do Oceano",
+        "emoji": "🐬",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 8/40",
+        "curiosity": "Os golfinhos são super inteligentes e dão nomes uns aos outros através de assobios únicos!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_08.jpg",
+        "drawingSubject": "golfinho",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "golfinho",
+            "synonyms": [
+                "golfinho",
+                "dolphin",
+                "dolphins"
+            ]
+        },
+        "unlockHint": "Desenhe um golfinho e salve no seu perfil."
+    },
+    {
+        "id": "desafio_09",
+        "name": "Guardião do Fogo",
+        "emoji": "🐉",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 9/40",
+        "curiosity": "Nas lendas, os dragões guardam tesouros imensos e cospem fogo para se defender!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_09.jpg",
+        "drawingSubject": "dragão",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "dragão",
+            "synonyms": [
+                "dragão",
+                "dragao",
+                "dragon",
+                "dragons",
+                "monstro",
+                "monster"
+            ]
+        },
+        "unlockHint": "Desenhe um dragão e salve no seu perfil."
+    },
+    {
+        "id": "desafio_10",
+        "name": "Chifre Encantado",
+        "emoji": "🦄",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 10/40",
+        "curiosity": "O unicórnio é o animal nacional da Escócia e representa pureza e poder mágico!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_10.jpg",
+        "drawingSubject": "unicórnio",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "unicórnio",
+            "synonyms": [
+                "unicórnio",
+                "unicornio",
+                "unicorn",
+                "unicorns"
+            ]
+        },
+        "unlockHint": "Desenhe um unicórnio e salve no seu perfil."
+    },
+    {
+        "id": "desafio_11",
+        "name": "Mestre dos Feitiços",
+        "emoji": "🧙",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 11/40",
+        "curiosity": "Magos estudam poções e feitiços antigos para ajudar quem precisa em suas jornadas!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_11.jpg",
+        "drawingSubject": "mago",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "mago",
+            "synonyms": [
+                "mago",
+                "wizard",
+                "wizards",
+                "bruxo",
+                "witch",
+                "mágico",
+                "magico"
+            ]
+        },
+        "unlockHint": "Desenhe um mago e salve no seu perfil."
+    },
+    {
+        "id": "desafio_12",
+        "name": "Fada das Estrelas",
+        "emoji": "🧚",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 12/40",
+        "curiosity": "Dizem que as fadas usam pó de estrelas para fazer as pessoas voarem e brilharem!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_12.jpg",
+        "drawingSubject": "fada",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "fada",
+            "synonyms": [
+                "fada",
+                "fairy",
+                "fairies"
+            ]
+        },
+        "unlockHint": "Desenhe um fada e salve no seu perfil."
+    },
+    {
+        "id": "desafio_13",
+        "name": "Reino Perdido",
+        "emoji": "🏰",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 13/40",
+        "curiosity": "Castelos medievais tinham pontes levadiças e fossos com água para proteção!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_13.jpg",
+        "drawingSubject": "castelo",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "castelo",
+            "synonyms": [
+                "castelo",
+                "castle",
+                "castles",
+                "fortaleza",
+                "fortress"
+            ]
+        },
+        "unlockHint": "Desenhe um castelo e salve no seu perfil."
+    },
+    {
+        "id": "desafio_14",
+        "name": "Herói da Coragem",
+        "emoji": "⚔️",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 14/40",
+        "curiosity": "Os cavaleiros seguiam um código de honra muito rígido chamado cavalheirismo!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_14.jpg",
+        "drawingSubject": "cavaleiro",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "cavaleiro",
+            "synonyms": [
+                "cavaleiro",
+                "knight",
+                "knights",
+                "guerreiro",
+                "warrior"
+            ]
+        },
+        "unlockHint": "Desenhe um cavaleiro e salve no seu perfil."
+    },
+    {
+        "id": "desafio_15",
+        "name": "Rei Encantado",
+        "emoji": "👑",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 15/40",
+        "curiosity": "Coroas reais são feitas de ouro e cravejadas de pedras preciosas como diamantes e rubis!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_15.jpg",
+        "drawingSubject": "coroa",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "coroa",
+            "synonyms": [
+                "coroa",
+                "crown",
+                "crowns"
+            ]
+        },
+        "unlockHint": "Desenhe um coroa e salve no seu perfil."
+    },
+    {
+        "id": "desafio_16",
+        "name": "Varinha Mágica",
+        "emoji": "🪄",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 16/40",
+        "curiosity": "Varinhas mágicas canalizam energia mágica para realizar truques fantásticos!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_16.jpg",
+        "drawingSubject": "varinha",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "varinha",
+            "synonyms": [
+                "varinha",
+                "wand",
+                "wands",
+                "varinha de condão"
+            ]
+        },
+        "unlockHint": "Desenhe um varinha e salve no seu perfil."
+    },
+    {
+        "id": "desafio_17",
+        "name": "Explorador das Galáxias",
+        "emoji": "🚀",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 17/40",
+        "curiosity": "Os foguetes precisam de muita velocidade para vencer a gravidade da Terra e chegar ao espaço!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_17.jpg",
+        "drawingSubject": "foguete",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "foguete",
+            "synonyms": [
+                "foguete",
+                "rocket",
+                "rockets",
+                "nave"
+            ]
+        },
+        "unlockHint": "Desenhe um foguete e salve no seu perfil."
+    },
+    {
+        "id": "desafio_18",
+        "name": "Visitante Misterioso",
+        "emoji": "🛸",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 18/40",
+        "curiosity": "Discos voadores e naves espaciais povoam a imaginação sobre visitas de outros planetas!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_18.jpg",
+        "drawingSubject": "nave espacial",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "nave espacial",
+            "synonyms": [
+                "nave",
+                "ufo",
+                "ovni",
+                "spaceship",
+                "spaceships",
+                "alien",
+                "disco voador",
+                "flying saucer"
+            ]
+        },
+        "unlockHint": "Desenhe um nave espacial e salve no seu perfil."
+    },
+    {
+        "id": "desafio_19",
+        "name": "Senhor dos Anéis",
+        "emoji": "🪐",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 19/40",
+        "curiosity": "Saturno tem os anéis mais bonitos e brilhantes do Sistema Solar, feitos de gelo e rocha!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_19.jpg",
+        "drawingSubject": "planeta",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "planeta",
+            "synonyms": [
+                "planeta",
+                "planet",
+                "saturno",
+                "saturn",
+                "jupiter"
+            ]
+        },
+        "unlockHint": "Desenhe um planeta e salve no seu perfil."
+    },
+    {
+        "id": "desafio_20",
+        "name": "Luz do Universo",
+        "emoji": "⭐",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 20/40",
+        "curiosity": "As estrelas são grandes esferas de gás brilhante! O nosso Sol é a estrela mais próxima da Terra.",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_20.jpg",
+        "drawingSubject": "estrela",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "estrela",
+            "synonyms": [
+                "estrela",
+                "star",
+                "stars"
+            ]
+        },
+        "unlockHint": "Desenhe um estrela e salve no seu perfil."
+    },
+    {
+        "id": "desafio_21",
+        "name": "Guardião da Noite",
+        "emoji": "🌙",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 21/40",
+        "curiosity": "A Lua não brilha por si mesma; ela reflete a luz que recebe do Sol!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_21.jpg",
+        "drawingSubject": "lua",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "lua",
+            "synonyms": [
+                "lua",
+                "moon",
+                "moons"
+            ]
+        },
+        "unlockHint": "Desenhe um lua e salve no seu perfil."
+    },
+    {
+        "id": "desafio_22",
+        "name": "Coração do Sistema",
+        "emoji": "☀️",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 22/40",
+        "curiosity": "O Sol é tão grande que caberiam mais de um milhão de planetas Terra dentro dele!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_22.jpg",
+        "drawingSubject": "sol",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "sol",
+            "synonyms": [
+                "sol",
+                "sun",
+                "suns"
+            ]
+        },
+        "unlockHint": "Desenhe um sol e salve no seu perfil."
+    },
+    {
+        "id": "desafio_23",
+        "name": "Pequeno Astronauta",
+        "emoji": "👨‍🚀",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 23/40",
+        "curiosity": "No espaço, os astronautas flutuam porque há gravidade quase zero na órbita da Terra!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_23.jpg",
+        "drawingSubject": "astronauta",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "astronauta",
+            "synonyms": [
+                "astronauta",
+                "astronaut",
+                "astronauts",
+                "cosmonauta"
+            ]
+        },
+        "unlockHint": "Desenhe um astronauta e salve no seu perfil."
+    },
+    {
+        "id": "desafio_24",
+        "name": "Portal Cósmico",
+        "emoji": "🌌",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 24/40",
+        "curiosity": "A nossa galáxia se chama Via Láctea e abriga bilhões de estrelas e planetas!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_24.jpg",
+        "drawingSubject": "galáxia",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "galáxia",
+            "synonyms": [
+                "galáxia",
+                "galaxia",
+                "galaxy",
+                "galaxies",
+                "nebula",
+                "nebulosa",
+                "via láctea"
+            ]
+        },
+        "unlockHint": "Desenhe um galáxia e salve no seu perfil."
+    },
+    {
+        "id": "desafio_25",
+        "name": "Mestre dos Céus",
+        "emoji": "✈️",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 25/40",
+        "curiosity": "Os aviões usam o vento sob as asas para gerar sustentação e voar alto!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_25.jpg",
+        "drawingSubject": "avião",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "avião",
+            "synonyms": [
+                "avião",
+                "aviao",
+                "airplane",
+                "airplanes",
+                "plane",
+                "planes",
+                "aeronave"
+            ]
+        },
+        "unlockHint": "Desenhe um avião e salve no seu perfil."
+    },
+    {
+        "id": "desafio_26",
+        "name": "Corredor das Estradas",
+        "emoji": "🚗",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 26/40",
+        "curiosity": "O primeiro carro moderno foi inventado em 1886 por Karl Benz e andava bem devagar!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_26.jpg",
+        "drawingSubject": "carro",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "carro",
+            "synonyms": [
+                "carro",
+                "automóvel",
+                "automovel",
+                "car",
+                "cars"
+            ]
+        },
+        "unlockHint": "Desenhe um carro e salve no seu perfil."
+    },
+    {
+        "id": "desafio_27",
+        "name": "Trem da Aventura",
+        "emoji": "🚂",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 27/40",
+        "curiosity": "Os primeiros trens eram movidos a vapor, queimando carvão para gerar energia!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_27.jpg",
+        "drawingSubject": "trem",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "trem",
+            "synonyms": [
+                "trem",
+                "locomotiva",
+                "train",
+                "trains"
+            ]
+        },
+        "unlockHint": "Desenhe um trem e salve no seu perfil."
+    },
+    {
+        "id": "desafio_28",
+        "name": "Hélice Veloz",
+        "emoji": "🚁",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 28/40",
+        "curiosity": "Os helicópteros podem decolar e pousar verticalmente, sem precisar de pista!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_28.jpg",
+        "drawingSubject": "helicóptero",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "helicóptero",
+            "synonyms": [
+                "helicóptero",
+                "helicoptero",
+                "chopper",
+                "helicopter",
+                "helicopters"
+            ]
+        },
+        "unlockHint": "Desenhe um helicóptero e salve no seu perfil."
+    },
+    {
+        "id": "desafio_29",
+        "name": "Capitão dos Mares",
+        "emoji": "🚢",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 29/40",
+        "curiosity": "Grandes navios de carga conseguem flutuar porque deslocam uma enorme quantidade de água!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_29.jpg",
+        "drawingSubject": "navio",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "navio",
+            "synonyms": [
+                "navio",
+                "barco",
+                "ship",
+                "ships",
+                "boat",
+                "boats",
+                "veleiro"
+            ]
+        },
+        "unlockHint": "Desenhe um navio e salve no seu perfil."
+    },
+    {
+        "id": "desafio_30",
+        "name": "Velocidade Máxima",
+        "emoji": "🏎️",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 30/40",
+        "curiosity": "Carros de Fórmula 1 podem ultrapassar os 350 km/h nas pistas de corrida!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_30.jpg",
+        "drawingSubject": "carro de corrida",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "carro de corrida",
+            "synonyms": [
+                "corrida",
+                "formula 1",
+                "f1",
+                "racecar",
+                "race car",
+                "carro"
+            ]
+        },
+        "unlockHint": "Desenhe um carro de corrida e salve no seu perfil."
+    },
+    {
+        "id": "desafio_31",
+        "name": "Herói da Fazenda",
+        "emoji": "🚜",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 31/40",
+        "curiosity": "Os tratores têm rodas traseiras gigantes para não atolarem na terra fofa do campo!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_31.jpg",
+        "drawingSubject": "trator",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "trator",
+            "synonyms": [
+                "trator",
+                "tractor",
+                "tractors"
+            ]
+        },
+        "unlockHint": "Desenhe um trator e salve no seu perfil."
+    },
+    {
+        "id": "desafio_32",
+        "name": "Duas Rodas",
+        "emoji": "🚲",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 32/40",
+        "curiosity": "Andar de bicicleta ajuda a exercitar os músculos e é um transporte ecológico!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_32.jpg",
+        "drawingSubject": "bicicleta",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "bicicleta",
+            "synonyms": [
+                "bicicleta",
+                "bike",
+                "bikes",
+                "bicycle",
+                "bicycles"
+            ]
+        },
+        "unlockHint": "Desenhe um bicicleta e salve no seu perfil."
+    },
+    {
+        "id": "desafio_33",
+        "name": "Lar Doce Lar",
+        "emoji": "🏠",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 33/40",
+        "curiosity": "As casas ao redor do mundo são feitas de gelo, madeira, barro ou tijolos!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_33.jpg",
+        "drawingSubject": "casa",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "casa",
+            "synonyms": [
+                "casa",
+                "house",
+                "houses",
+                "lar",
+                "home",
+                "residência"
+            ]
+        },
+        "unlockHint": "Desenhe um casa e salve no seu perfil."
+    },
+    {
+        "id": "desafio_34",
+        "name": "Guardião da Natureza",
+        "emoji": "🌳",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 34/40",
+        "curiosity": "As árvores produzem o oxigênio que respiramos e nos dão sombra fresca!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_34.jpg",
+        "drawingSubject": "árvore",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "árvore",
+            "synonyms": [
+                "árvore",
+                "arvore",
+                "tree",
+                "trees",
+                "planta"
+            ]
+        },
+        "unlockHint": "Desenhe um árvore e salve no seu perfil."
+    },
+    {
+        "id": "desafio_35",
+        "name": "Jardim Encantado",
+        "emoji": "🌸",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 35/40",
+        "curiosity": "As flores usam cores e perfumes para atrair abelhas que ajudam na polinização!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_35.jpg",
+        "drawingSubject": "flor",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "flor",
+            "synonyms": [
+                "flor",
+                "flower",
+                "flowers",
+                "planta",
+                "rosa",
+                "rose"
+            ]
+        },
+        "unlockHint": "Desenhe um flor e salve no seu perfil."
+    },
+    {
+        "id": "desafio_36",
+        "name": "Dia Especial",
+        "emoji": "🎂",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 36/40",
+        "curiosity": "A tradição de colocar velas no bolo de aniversário começou na Grecia antiga!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_36.jpg",
+        "drawingSubject": "bolo",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "bolo",
+            "synonyms": [
+                "bolo",
+                "cake",
+                "cakes",
+                "torta"
+            ]
+        },
+        "unlockHint": "Desenhe um bolo e salve no seu perfil."
+    },
+    {
+        "id": "desafio_37",
+        "name": "Coração Bondoso",
+        "emoji": "❤️",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 37/40",
+        "curiosity": "O coração humano bate cerca de 100.000 vezes por dia para bombear o sangue!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_37.jpg",
+        "drawingSubject": "coração",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "coração",
+            "synonyms": [
+                "coração",
+                "coracao",
+                "heart",
+                "hearts"
+            ]
+        },
+        "unlockHint": "Desenhe um coração e salve no seu perfil."
+    },
+    {
+        "id": "desafio_38",
+        "name": "Craque do Campo",
+        "emoji": "⚽",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 38/40",
+        "curiosity": "As primeiras bolas de futebol eram feitas de couro cru e bexigas de animais!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_38.jpg",
+        "drawingSubject": "bola",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "bola",
+            "synonyms": [
+                "bola",
+                "ball",
+                "balls",
+                "futebol",
+                "soccer"
+            ]
+        },
+        "unlockHint": "Desenhe um bola e salve no seu perfil."
+    },
+    {
+        "id": "desafio_39",
+        "name": "Presente Surpresa",
+        "emoji": "🎁",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 39/40",
+        "curiosity": "Dar presentes é uma forma milenar de demonstrar amizade e gratidão!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_39.jpg",
+        "drawingSubject": "presente",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "presente",
+            "synonyms": [
+                "presente",
+                "gift",
+                "gifts",
+                "presentes",
+                "box",
+                "caixa"
+            ]
+        },
+        "unlockHint": "Desenhe um presente e salve no seu perfil."
+    },
+    {
+        "id": "desafio_40",
+        "name": "Festa Inesquecível",
+        "emoji": "🎈",
+        "rarity": "Lendária",
+        "collection": "🏆 Lendas-do-Desenho 40/40",
+        "curiosity": "Os balões de festa flutuam no ar quando preenchidos com gás hélio!",
+        "obtidoEm": "Desafio de Desenho",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/desafio_40.jpg",
+        "drawingSubject": "balão",
+        "unlockCondition": {
+            "type": "drawing_challenge",
+            "subject": "balão",
+            "synonyms": [
+                "balão",
+                "balao",
+                "balloon",
+                "balloons",
+                "bexiga"
+            ]
+        },
+        "unlockHint": "Desenhe um balão e salve no seu perfil."
     }
 ]

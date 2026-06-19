@@ -10670,7 +10670,8 @@ window.openAlbumModal = async function() {
             'Livros': 'linear-gradient(90deg, #f1c40f, #e67e22)',
             'Expedições': 'linear-gradient(90deg, #e74c3c, #c0392b)',
             'Comunidade': 'linear-gradient(90deg, #9b59b6, #8e44ad)',
-            'Lendárias': 'linear-gradient(90deg, #f39c12, #d35400)'
+            'Lendárias': 'linear-gradient(90deg, #f39c12, #d35400)',
+            'Lendas-do-Desenho': 'linear-gradient(90deg, #fdcb6e, #e67e22)'
         };
 
         for (const [colName, cardsInCol] of Object.entries(collections)) {
@@ -10742,7 +10743,8 @@ window.openAlbumModal = async function() {
             'Livros': 'Mestre dos Livros',
             'Expedições': 'Mestre das Expedições',
             'Comunidade': 'Mestre da Comunidade',
-            'Lendárias': 'Lenda do KidCanvas'
+            'Lendárias': 'Lenda do KidCanvas',
+            'Lendas-do-Desenho': 'Lenda do Desenho'
         };
         
         let firstCol = null;
@@ -10755,7 +10757,8 @@ window.openAlbumModal = async function() {
             const emoji = firstCard && firstCard.collection ? firstCard.collection.split(' ')[0] : '🃏';
             
             const isCompleted = owned === total && total > 0;
-            const chapterTitle = isCompleted ? `🏆 ${mestreNames[colName] || 'Mestre de ' + colName}` : `Capítulo ${colName}`;
+            const displayName = colName.replace(/-/g, ' ');
+            const chapterTitle = isCompleted ? `🏆 ${mestreNames[colName] || 'Mestre de ' + displayName}` : `Capítulo ${displayName}`;
             
             const btn = document.createElement('div');
             btn.className = `livro-capitulo-btn${isCompleted ? ' capitulo-completo' : ''}`;
@@ -10788,7 +10791,7 @@ window.openAlbumModal = async function() {
 window.activeChapterName = null;
 
 window.selectChapter = function(colName) {
-    const chapterOrder = ['expedition', 'Pinturas', 'Dinossauros', 'Livros', 'Comunidade', 'Lendárias'];
+    const chapterOrder = ['expedition', 'Pinturas', 'Dinossauros', 'Livros', 'Comunidade', 'Lendárias', 'Lendas-do-Desenho'];
     const oldColName = window.activeChapterName || 'Pinturas';
     
     window.activeChapterName = colName;
@@ -10906,6 +10909,10 @@ window.renderChapterGrid = function(colName) {
         'Lendárias': {
             do: ['Completar capítulos inteiros do livro (100%)', 'Concluir as maiores conquistas e desafios difíceis', 'Desbloquear segredos e conquistas ocultas'],
             dont: ['Fazer ações comuns do dia a dia', 'Repetir conquistas que você já possui']
+        },
+        'Lendas-do-Desenho': {
+            do: ['Desenhar e pintar o tema exato proposto nas cartas bloqueadas', 'Salvar os desenhos finalizados no perfil', 'Completar o desafio proposto'],
+            dont: ['Apenas abrir um desenho e fechar', 'Colorir desenhos livres normais sem desafio']
         }
     };
     
@@ -10958,27 +10965,50 @@ window.renderChapterGrid = function(colName) {
                 card.innerHTML = `
                     <div class="livro-card-rarity-tag">${rarityText}</div>
                     <div class="livro-card-img-container">
-                        <img src="${c.imageUrl}" class="livro-card-img" alt="${c.name}">
+                        <img src="${c.imageUrl}" class="livro-card-img" alt="${c.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="livro-card-fallback-emoji" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:3.5rem; background:linear-gradient(135deg, #a29bfe, #74b9ff); border-radius:8px;">${c.emoji || '🃏'}</div>
                     </div>
                     <div class="livro-card-nome">${c.name}</div>
                 `;
             } else {
-                card.className = `livro-card-descoberta bloqueado ${cssClass}`;
+                const isDrawingChallenge = c.collection && c.collection.includes('Lendas-do-Desenho');
+                card.className = `livro-card-descoberta bloqueado ${cssClass}${isDrawingChallenge ? ' desafio-desenho' : ''}`;
                 card.onclick = () => showDiscoveryDetails(cardIdStr);
-                card.title = 'Clique para ver a pista desta descoberta!';
+                
+                if (isDrawingChallenge) {
+                    card.title = `Desenhe um ${c.drawingSubject || 'desenho'} e salve para ganhar este card!`;
+                } else {
+                    card.title = 'Clique para ver a pista desta descoberta!';
+                }
                 
                 const isMythic = rarity === 'Mítica';
                 const lockEmoji = isMythic ? '👑' : '🔒';
                 const cardNameText = c.name;
                 
-                card.innerHTML = `
-                    <div class="livro-card-rarity-tag">${rarityText}</div>
-                    <div class="livro-card-img-container">
-                        <img src="${c.imageUrl}" class="livro-card-img" alt="${c.name}">
-                        <div class="livro-cadeado-overlay">${lockEmoji}</div>
-                    </div>
-                    <div class="livro-card-nome">${cardNameText}</div>
-                `;
+                if (isDrawingChallenge) {
+                    card.innerHTML = `
+                        <div class="livro-card-rarity-tag">${rarityText}</div>
+                        <div class="livro-card-img-container">
+                            <img src="${c.imageUrl}" class="livro-card-img" alt="${c.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="livro-card-fallback-emoji" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:3.5rem; background:linear-gradient(135deg, #ffeaa7, #fdcb6e); border-radius:8px;">${c.emoji || '🎨'}</div>
+                            <div class="livro-cadeado-overlay">
+                                <span>🎨</span>
+                                <span>Desenhe para desbloquear!</span>
+                            </div>
+                        </div>
+                        <div class="livro-card-nome">${cardNameText}</div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <div class="livro-card-rarity-tag">${rarityText}</div>
+                        <div class="livro-card-img-container">
+                            <img src="${c.imageUrl}" class="livro-card-img" alt="${c.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="livro-card-fallback-emoji" style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:3.5rem; background:linear-gradient(135deg, #e2e8f0, #cbd5e1); border-radius:8px;">${c.emoji || '🃏'}</div>
+                            <div class="livro-cadeado-overlay">${lockEmoji}</div>
+                        </div>
+                        <div class="livro-card-nome">${cardNameText}</div>
+                    `;
+                }
             }
             grid.appendChild(card);
         });
@@ -11035,8 +11065,9 @@ window.showDiscoveryDetails = function(discoveryId) {
                     <span style="font-size:0.85rem; font-weight:800; color:#888;">Capítulo ${colName}</span>
                 </div>
                 
-                <div class="livro-detalhes-img-box">
-                    <img src="${c.imageUrl}" alt="${c.name}" class="livro-detalhes-img" onerror="this.src='/favicon-64x64.png'">
+                <div class="livro-detalhes-img-box" style="position: relative; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+                    <img src="${c.imageUrl}" alt="${c.name}" class="livro-detalhes-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="livro-card-fallback-emoji" style="display:none; width:100%; height:150px; align-items:center; justify-content:center; font-size:4.5rem; background:linear-gradient(135deg, #a29bfe, #74b9ff); border-radius:12px;">${c.emoji || '🃏'}</div>
                 </div>
                 
                 <h2 style="margin: 0; color:#2d3436; font-size:1.4rem; font-weight:900; font-family:'Fredoka-Variable',sans-serif; text-align:center;">
@@ -11117,7 +11148,10 @@ window.showDiscoveryDetails = function(discoveryId) {
             let btnText = '';
             let btnPath = '';
             
-            if (discoveryId === 'expedicao_01' && activeTheme) {
+            if (condType === 'drawing_challenge') {
+                btnText = '🎨 Ir Desenhar Agora';
+                btnPath = '/pintar-online';
+            } else if (discoveryId === 'expedicao_01' && activeTheme) {
                 btnText = '🗺️ Ver Expedição Atual';
                 btnPath = 'expedition';
             } else if (condType === 'paint_count' || condType === 'categories_painted' || condType === 'paint' || (condType === 'category_paint' && !target) || (condType === 'paint_category' && !target)) {
@@ -11149,8 +11183,9 @@ window.showDiscoveryDetails = function(discoveryId) {
                     <span style="font-size:0.85rem; font-weight:800; color:#888;">Capítulo ${colName}</span>
                 </div>
                 
-                <div class="livro-detalhes-img-box" style="position: relative; background: #f1f2f6;">
-                    <img src="${c.imageUrl}" alt="${c.name}" class="livro-detalhes-img" style="${cardImgStyle}" onerror="this.src='/favicon-64x64.png'">
+                <div class="livro-detalhes-img-box" style="position: relative; background: #f1f2f6; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+                    <img src="${c.imageUrl}" alt="${c.name}" class="livro-detalhes-img" style="${cardImgStyle}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="livro-card-fallback-emoji" style="display:none; width:100%; height:150px; align-items:center; justify-content:center; font-size:4.5rem; background:linear-gradient(135deg, #ffeaa7, #fdcb6e); border-radius:12px; filter: blur(3px); opacity: 0.5;">${c.emoji || '🎨'}</div>
                     <div style="position: absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:3.5rem; color:#ffffff; text-shadow:0 2px 6px rgba(0,0,0,0.4); pointer-events: none;">🔒</div>
                 </div>
                 
@@ -12014,7 +12049,7 @@ window.showChapterCompletionCelebration = function(colName) {
     if (!overlay) return;
     
     const nameEl = document.getElementById('livro-celebration-chapter-name');
-    if (nameEl) nameEl.innerText = colName;
+    if (nameEl) nameEl.innerText = colName.replace(/-/g, ' ');
     
     const badgeTitleEl = document.getElementById('livro-celebration-badge-title');
     const mestreNames = {
@@ -12023,10 +12058,11 @@ window.showChapterCompletionCelebration = function(colName) {
         'Fantasia': 'Selo Mestre da Fantasia',
         'Veículos': 'Selo Mestre dos Veículos',
         'Espaço': 'Selo Mestre do Espaço',
-        'Oceano': 'Selo Mestre do Oceano'
+        'Oceano': 'Selo Mestre do Oceano',
+        'Lendas-do-Desenho': 'Selo Lenda do Desenho'
     };
     if (badgeTitleEl) {
-        badgeTitleEl.innerText = mestreNames[colName] || `Selo Mestre de ${colName}`;
+        badgeTitleEl.innerText = mestreNames[colName] || `Selo Mestre de ${colName.replace(/-/g, ' ')}`;
     }
     
     overlay.classList.add('active');
@@ -12326,6 +12362,12 @@ window.openDiscoveriesHelpModal = function() {
             desc: 'Desbloqueie descobertas lendárias ao atingir a maestria de exploração.',
             do: ['Completar capítulos inteiros do livro (100%)', 'Concluir as maiores conquistas e desafios difíceis', 'Desbloquear segredos e conquistas ocultas'],
             dont: ['Fazer ações comuns do dia a dia (como pinturas livres)', 'Repetir conquistas que você já possui']
+        },
+        'Lendas-do-Desenho': {
+            title: '🏆 Capítulo Lendas do Desenho',
+            desc: 'Desbloqueie cards lendários desenhando à mão livre os temas propostos pelos desafios de IA.',
+            do: ['Desenhar o tema proposto na carta bloqueada', 'Salvar o desenho correspondente no perfil', 'Fazer o melhor desenho possível do tema para a IA reconhecer'],
+            dont: ['Colorir desenhos pré-prontos da biblioteca', 'Escrever apenas o nome do tema no quadro de desenho']
         }
     };
     
@@ -13070,6 +13112,16 @@ const CHAPTER_GUIDES = {
         secao3: ['Os cards lendários e míticos são as descobertas mais difíceis do jogo.', 'Eles exigem completar 100% de progresso em outras categorias.', 'Fique de olho nas dicas ocultas das silhuetas com cadeado.'],
         secao4: ['Cards Míticos com borda arco-íris rotativa', 'Borda de Avatar Lendário brilhante', 'Título de Lenda do KidCanvas'],
         secao6: ['Apenas os maiores exploradores completam o Livro das Descobertas!', 'Você está no caminho certo para se tornar uma lenda.']
+    },
+    'Lendas-do-Desenho': {
+        title: 'Guia do Capítulo Lendas do Desenho',
+        color: '#f39c12',
+        emoji: '🏆',
+        secao1: ['Desenhar e pintar o tema exato de cada carta bloqueada', 'Salvar o desenho finalizado no perfil', 'Completar o desafio de desenho proposto'],
+        secao2: ['Apenas abrir um desenho e fechar', 'Escrever o nome do tema sem desenhar', 'Colorir desenhos normais sem desafio de desenho'],
+        secao3: ['Use a sua criatividade para fazer o melhor desenho possível do tema pedido.', 'Você pode tentar quantas vezes quiser até a IA reconhecer!', 'Passe o mouse ou toque no card bloqueado para ver o que desenhar.'],
+        secao4: ['Avatares Lendários Exclusivos do seu desenho', 'Selo de Grande Mestre do Desenho', 'Mais de 1000 estrelas ao completar a coleção'],
+        secao6: ['Esta é a maior coleção lendária do KidCanvas!', 'Cada desenho é reconhecido pela nossa inteligência artificial Claude.']
     }
 };
 
@@ -13129,7 +13181,8 @@ window.openChapterGuide = function(colName) {
         'Dinossauros': 'Capítulo Dinossauros',
         'Livros': 'Capítulo Livros',
         'Comunidade': 'Capítulo Comunidade',
-        'Lendárias': 'Capítulo Lendárias'
+        'Lendárias': 'Capítulo Lendárias',
+        'Lendas-do-Desenho': 'Capítulo Lendas do Desenho'
     };
     
     const guideData = CHAPTER_GUIDES[colName] || {
