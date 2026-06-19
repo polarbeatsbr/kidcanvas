@@ -6135,11 +6135,11 @@ function renderPintarOnlineView() {
     if (loader) loader.style.display = 'flex';
 
     const chkPublicWrapper = document.getElementById('paint-chk-public-wrapper');
+    if (chkPublicWrapper) {
+        chkPublicWrapper.style.display = 'flex';
+    }
 
     if (data.imgUrl === 'blank') {
-        if (chkPublicWrapper) chkPublicWrapper.style.display = 'none';
-        if (resetChkPublic) resetChkPublic.checked = false;
-        
         paintDrawingImage = null;
         paintBorderImage = null;
         
