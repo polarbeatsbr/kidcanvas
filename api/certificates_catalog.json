@@ -1,0 +1,484 @@
+[
+  {
+    "id": "primeiro_rabisco",
+    "category": "Pinturas",
+    "title": "Primeiro Rabisco",
+    "desc": "Concedido por colorir o seu primeiro desenho no KidCanvas.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "paint_count", "count": 1 }
+  },
+  {
+    "id": "pequeno_artista",
+    "category": "Pinturas",
+    "title": "Pequeno Artista",
+    "desc": "Concedido por colorir 5 desenhos no KidCanvas.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "paint_count", "count": 5 }
+  },
+  {
+    "id": "artista_criativo",
+    "category": "Pinturas",
+    "title": "Artista Criativo",
+    "desc": "Concedido por colorir 10 desenhos no KidCanvas.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "paint_count", "count": 10 }
+  },
+  {
+    "id": "maozinha_magica",
+    "category": "Pinturas",
+    "title": "Mãozinha Mágica",
+    "desc": "Concedido por colorir 25 desenhos no KidCanvas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "paint_count", "count": 25 }
+  },
+  {
+    "id": "mestre_cores",
+    "category": "Pinturas",
+    "title": "Mestre das Cores",
+    "desc": "Concedido por colorir 50 desenhos no KidCanvas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "paint_count", "count": 50 }
+  },
+  {
+    "id": "pintor_brilhante",
+    "category": "Pinturas",
+    "title": "Pintor Brilhante",
+    "desc": "Concedido por colorir 100 desenhos no KidCanvas.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "paint_count", "count": 100 }
+  },
+  {
+    "id": "lenda_cores",
+    "category": "Pinturas",
+    "title": "Lenda das Cores",
+    "desc": "Concedido por colorir 250 desenhos no KidCanvas.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "paint_count", "count": 250 }
+  },
+  {
+    "id": "guardiao_arcoiris",
+    "category": "Pinturas",
+    "title": "Guardião do Arco-Íris",
+    "desc": "Concedido por colorir 500 desenhos no KidCanvas.",
+    "rarity": "Exclusivo",
+    "unlockRule": { "type": "paint_count", "count": 500 }
+  },
+
+  {
+    "id": "conclusao_pinturas",
+    "category": "Conclusões",
+    "title": "Conclusão: Pinturas",
+    "desc": "Completar 100% do capítulo Pinturas no Livro das Descobertas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "collection_complete", "target": "Pinturas" }
+  },
+  {
+    "id": "conclusao_dinossauros",
+    "category": "Conclusões",
+    "title": "Conclusão: Dinossauros",
+    "desc": "Completar 100% do capítulo Dinossauros no Livro das Descobertas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "collection_complete", "target": "Dinossauros" }
+  },
+  {
+    "id": "conclusao_livros",
+    "category": "Conclusões",
+    "title": "Conclusão: Livros",
+    "desc": "Completar 100% do capítulo Livros no Livro das Descobertas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "collection_complete", "target": "Livros" }
+  },
+  {
+    "id": "conclusao_expedicoes",
+    "category": "Conclusões",
+    "title": "Conclusão: Expedições",
+    "desc": "Completar 100% do capítulo Expedições no Livro das Descobertas.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "collection_complete", "target": "Expedições" }
+  },
+  {
+    "id": "conclusao_comunidade",
+    "category": "Conclusões",
+    "title": "Conclusão: Comunidade",
+    "desc": "Completar 100% do capítulo Comunidade no Livro das Descobertas.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "collection_complete", "target": "Comunidade" }
+  },
+  {
+    "id": "conclusao_lendarias",
+    "category": "Conclusões",
+    "title": "Conclusão: Lendárias",
+    "desc": "Completar 100% do capítulo Lendárias no Livro das Descobertas.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "collection_complete", "target": "Lendárias" }
+  },
+  {
+    "id": "conclusao_lendas_desenho",
+    "category": "Conclusões",
+    "title": "Conclusão: Lendas-do-Desenho",
+    "desc": "Completar 100% do capítulo Lendas-do-Desenho no Livro das Descobertas.",
+    "rarity": "Exclusivo",
+    "unlockRule": { "type": "collection_complete", "target": "Lendas-do-Desenho" }
+  },
+
+  {
+    "id": "primeira_estrela_cert",
+    "category": "Estrelas",
+    "title": "Primeira Estrela",
+    "desc": "Concedido por ganhar sua primeira estrela no KidCanvas.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "stars_count", "count": 1 }
+  },
+  {
+    "id": "ceu_brilhando",
+    "category": "Estrelas",
+    "title": "Céu Começando a Brilhar",
+    "desc": "Concedido por ganhar 100 estrelas no KidCanvas.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "stars_count", "count": 100 }
+  },
+  {
+    "id": "colecionador_estrelas",
+    "category": "Estrelas",
+    "title": "Colecionador de Estrelas",
+    "desc": "Concedido por ganhar 500 estrelas no KidCanvas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "stars_count", "count": 500 }
+  },
+  {
+    "id": "mil_estrelas",
+    "category": "Estrelas",
+    "title": "Mil Estrelas",
+    "desc": "Concedido por ganhar 1.000 estrelas no KidCanvas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "stars_count", "count": 1000 }
+  },
+  {
+    "id": "chuva_estrelas",
+    "category": "Estrelas",
+    "title": "Chuva de Estrelas",
+    "desc": "Concedido por ganhar 5.000 estrelas no KidCanvas.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "stars_count", "count": 5000 }
+  },
+  {
+    "id": "constelacao_kidcanvas",
+    "category": "Estrelas",
+    "title": "Constelação KidCanvas",
+    "desc": "Concedido por ganhar 10.000 estrelas no KidCanvas.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "stars_count", "count": 10000 }
+  },
+  {
+    "id": "universo_estrelas",
+    "category": "Estrelas",
+    "title": "Universo de Estrelas",
+    "desc": "Concedido por ganhar 50.000 estrelas no KidCanvas.",
+    "rarity": "Exclusivo",
+    "unlockRule": { "type": "stars_count", "count": 50000 }
+  },
+
+  {
+    "id": "primeiro_hall",
+    "category": "Comunidade",
+    "title": "Primeiro Hall da Fama",
+    "desc": "Enviar seu primeiro desenho ao Hall da Fama.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "hall_count", "count": 1 }
+  },
+  {
+    "id": "primeiro_aplauso",
+    "category": "Comunidade",
+    "title": "Primeiro Aplauso",
+    "desc": "Receber a primeira curtida/estrela em suas pinturas públicas.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "likes_count", "count": 1 }
+  },
+  {
+    "id": "desenho_querido",
+    "category": "Comunidade",
+    "title": "Desenho Querido",
+    "desc": "Receber 10 curtidas acumuladas em seus desenhos.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "likes_count", "count": 10 }
+  },
+  {
+    "id": "favorito_galera",
+    "category": "Comunidade",
+    "title": "Favorito da Galera",
+    "desc": "Receber 50 curtidas acumuladas em seus desenhos.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "likes_count", "count": 50 }
+  },
+  {
+    "id": "estrela_hall",
+    "category": "Comunidade",
+    "title": "Estrela do Hall da Fama",
+    "desc": "Entrar no ranking semanal do Hall da Fama.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "hall_ranking_entry", "count": 1 }
+  },
+  {
+    "id": "idolo_comunidade",
+    "category": "Comunidade",
+    "title": "Ídolo da Comunidade",
+    "desc": "Ficar em 1º lugar em algum ranking de desenhos no Hall da Fama.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "hall_ranking_first", "count": 1 }
+  },
+
+  {
+    "id": "primeiro_convite",
+    "category": "Influencer",
+    "title": "Primeiro Convite",
+    "desc": "Enviar o primeiro convite para um amigo.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "invites_sent", "count": 1 }
+  },
+  {
+    "id": "pequeno_influencer",
+    "category": "Influencer",
+    "title": "Pequeno Influencer",
+    "desc": "Enviar 5 convites para amigos no KidCanvas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "invites_sent", "count": 5 }
+  },
+  {
+    "id": "turminha_convidada",
+    "category": "Influencer",
+    "title": "Turminha Convidada",
+    "desc": "Enviar 10 convites para amigos no KidCanvas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "invites_sent", "count": 10 }
+  },
+  {
+    "id": "embaixador_kidcanvas",
+    "category": "Influencer",
+    "title": "Embaixador KidCanvas",
+    "desc": "Ter 3 pessoas cadastradas usando seu link de convite.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "invites_accepted", "count": 3 }
+  },
+  {
+    "id": "super_divulgador",
+    "category": "Influencer",
+    "title": "Super Divulgador",
+    "desc": "Ter 10 pessoas cadastradas usando seu link de convite.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "invites_accepted", "count": 10 }
+  },
+  {
+    "id": "influencer_kidcanvas",
+    "category": "Influencer",
+    "title": "Influencer KidCanvas",
+    "desc": "Ter 25 pessoas cadastradas usando seu link de convite.",
+    "rarity": "Exclusivo",
+    "unlockRule": { "type": "invites_accepted", "count": 25 }
+  },
+
+  {
+    "id": "bem_vindo",
+    "category": "Especiais",
+    "title": "Bem-vindo ao KidCanvas",
+    "desc": "Criar sua conta no KidCanvas e iniciar sua jornada.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "create_account", "count": 1 }
+  },
+  {
+    "id": "primeiro_perfil",
+    "category": "Especiais",
+    "title": "Primeiro Perfil",
+    "desc": "Completar o seu perfil com avatar e nome público.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "complete_profile", "count": 1 }
+  },
+  {
+    "id": "primeira_descoberta",
+    "category": "Especiais",
+    "title": "Primeira Descoberta",
+    "desc": "Desbloquear o seu primeiro card no Livro das Descobertas.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "cards_unlocked", "count": 1 }
+  },
+  {
+    "id": "colecionador_iniciante",
+    "category": "Especiais",
+    "title": "Colecionador Iniciante",
+    "desc": "Desbloquear 10 cards no Livro das Descobertas.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "cards_unlocked", "count": 10 }
+  },
+  {
+    "id": "mestre_descobertas",
+    "category": "Especiais",
+    "title": "Mestre das Descobertas",
+    "desc": "Desbloquear todos os cards do catálogo do Livro das Descobertas.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "cards_unlocked", "count": 165 }
+  },
+  {
+    "id": "aniversario_kidcanvas",
+    "category": "Especiais",
+    "title": "Aniversário KidCanvas",
+    "desc": "Completar 1 ano de conta cadastrada no KidCanvas.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "account_age_years", "count": 1 }
+  },
+  {
+    "id": "fundador_kidcanvas",
+    "category": "Especiais",
+    "title": "Fundador KidCanvas",
+    "desc": "Usuário cadastrado na fase inicial de fundação do KidCanvas.",
+    "rarity": "Exclusivo",
+    "unlockRule": { "type": "is_founder", "count": 1 }
+  },
+
+  {
+    "id": "top_30_exploradores_mes",
+    "category": "Top Exploradores do Mês",
+    "title": "Top 30 Exploradores do Mês",
+    "desc": "Terminar o mês civil classificado no Top 30 de Exploradores.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "monthly_ranking_position", "count": 30 }
+  },
+  {
+    "id": "top_10_exploradores_mes",
+    "category": "Top Exploradores do Mês",
+    "title": "Top 10 Exploradores do Mês",
+    "desc": "Terminar o mês civil classificado no Top 10 de Exploradores.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "monthly_ranking_position", "count": 10 }
+  },
+  {
+    "id": "top_5_exploradores_mes",
+    "category": "Top Exploradores do Mês",
+    "title": "Top 5 Exploradores do Mês",
+    "desc": "Terminar o mês civil classificado no Top 5 de Exploradores.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "monthly_ranking_position", "count": 5 }
+  },
+  {
+    "id": "explorador_n1_mes",
+    "category": "Top Exploradores do Mês",
+    "title": "Explorador Nº1 do Mês",
+    "desc": "Terminar o mês civil classificado em 1º lugar geral.",
+    "rarity": "Exclusivo",
+    "unlockRule": { "type": "monthly_ranking_position", "count": 1 }
+  },
+
+  {
+    "id": "primeiro_dino",
+    "category": "Dinossauros",
+    "title": "Primeiro Dino",
+    "desc": "Colorir ou desbloquear o seu primeiro desenho de Dinossauro.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "category_paint", "category": "dinossauros", "count": 1 }
+  },
+  {
+    "id": "amigo_dinos",
+    "category": "Dinossauros",
+    "title": "Amigo dos Dinossauros",
+    "desc": "Colorir 5 desenhos da categoria Dinossauros.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "category_paint", "category": "dinossauros", "count": 5 }
+  },
+  {
+    "id": "explorador_jurassico",
+    "category": "Dinossauros",
+    "title": "Explorador Jurássico",
+    "desc": "Completar 100% das conquistas e cards do capítulo Dinossauros.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "collection_complete", "target": "Dinossauros" }
+  },
+  {
+    "id": "guardiao_dinos",
+    "category": "Dinossauros",
+    "title": "Guardião dos Dinos",
+    "desc": "Desbloquear todas as cartas do catálogo relacionadas a Dinossauros.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "collection_complete_cards", "target": "dinossauros" }
+  },
+
+  {
+    "id": "primeiro_capitulo",
+    "category": "Livros",
+    "title": "Primeiro Capítulo",
+    "desc": "Desbloquear a primeira carta ou livro na categoria de Livros.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "category_paint", "category": "fantasia", "count": 1 }
+  },
+  {
+    "id": "pequeno_leitor",
+    "category": "Livros",
+    "title": "Pequeno Leitor",
+    "desc": "Concluir 5 itens da categoria Livros/Contos.",
+    "rarity": "Raro",
+    "unlockRule": { "type": "category_paint", "category": "fantasia", "count": 5 }
+  },
+  {
+    "id": "guardiao_historias",
+    "category": "Livros",
+    "title": "Guardião das Histórias",
+    "desc": "Concluir 100% do capítulo de Livros no Livro das Descobertas.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "collection_complete", "target": "Livros" }
+  },
+
+  {
+    "id": "primeira_expedicao",
+    "category": "Expedições",
+    "title": "Primeira Expedição",
+    "desc": "Completar a primeira missão de uma Expedição.",
+    "rarity": "Comum",
+    "unlockRule": { "type": "expedition_missions_claimed", "count": 1 }
+  },
+  {
+    "id": "aventureiro_semana",
+    "category": "Expedições",
+    "title": "Aventureiro da Semana",
+    "desc": "Concluir uma Expedição da Semana (missão épica).",
+    "rarity": "Raro",
+    "unlockRule": { "type": "expedition_count", "count": 1 }
+  },
+  {
+    "id": "explorador_corajoso",
+    "category": "Expedições",
+    "title": "Explorador Corajoso",
+    "desc": "Concluir 5 Expedições da Semana.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "expedition_count", "count": 5 }
+  },
+  {
+    "id": "mestre_expedicoes",
+    "category": "Expedições",
+    "title": "Mestre das Expedições",
+    "desc": "Concluir 20 Expedições da Semana.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "expedition_count", "count": 20 }
+  },
+
+  {
+    "id": "primeira_lendaria",
+    "category": "Lendárias",
+    "title": "Primeira Lendária",
+    "desc": "Conquistar sua primeira carta de raridade Lendária.",
+    "rarity": "Épico",
+    "unlockRule": { "type": "rarity_card_count", "rarity": "Lendária", "count": 1 }
+  },
+  {
+    "id": "cacador_lendarias",
+    "category": "Lendárias",
+    "title": "Caçador de Lendárias",
+    "desc": "Conquistar 5 cartas de raridade Lendária.",
+    "rarity": "Lendário",
+    "unlockRule": { "type": "rarity_card_count", "rarity": "Lendária", "count": 5 }
+  },
+  {
+    "id": "guardiao_lendas",
+    "category": "Lendárias",
+    "title": "Guardião das Lendas",
+    "desc": "Desbloquear todas as cartas de raridade Lendária disponíveis no catálogo.",
+    "rarity": "Exclusivo",
+    "unlockRule": { "type": "collection_complete", "target": "Lendárias" }
+  }
+]

@@ -11807,6 +11807,13 @@ function updateUserAvatarUI(avatar) {
             userAvatarImg.src = card.imageUrl;
             userAvatarImg.style.display = 'block';
             userAvatarImg.style.borderRadius = '50%';
+            userAvatarImg.onerror = () => {
+                userAvatarImg.style.display = 'none';
+                if (userAvatarEmoji) {
+                    userAvatarEmoji.textContent = card.emoji || '⭐';
+                    userAvatarEmoji.style.display = 'block';
+                }
+            };
         }
         if (userAvatarEmoji) userAvatarEmoji.style.display = 'none';
         
@@ -11814,6 +11821,13 @@ function updateUserAvatarUI(avatar) {
             dropdownAvatar.src = card.imageUrl;
             dropdownAvatar.style.display = 'block';
             dropdownAvatar.style.borderRadius = '50%';
+            dropdownAvatar.onerror = () => {
+                dropdownAvatar.style.display = 'none';
+                if (dropdownAvatarEmoji) {
+                    dropdownAvatarEmoji.textContent = card.emoji || '⭐';
+                    dropdownAvatarEmoji.style.display = 'block';
+                }
+            };
         }
         if (dropdownAvatarEmoji) dropdownAvatarEmoji.style.display = 'none';
         
@@ -15018,6 +15032,13 @@ window.renderPerfilView = function() {
                 imgEl.src = card.imageUrl;
                 imgEl.style.display = 'block';
                 imgEl.style.borderRadius = '50%';
+                imgEl.onerror = () => {
+                    imgEl.style.display = 'none';
+                    if (emojiEl) {
+                        emojiEl.textContent = card.emoji || '⭐';
+                        emojiEl.style.display = 'block';
+                    }
+                };
             }
             if (emojiEl) emojiEl.style.display = 'none';
         } else {

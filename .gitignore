@@ -30,6 +30,8 @@ C:\\Users\\foneo\\.gemini\antigravity\brain/
 !drawings.json
 !events.json
 !examples_metadata.json
+!api/cards_catalog.json
+!api/certificates_catalog.json
 
 # Markdown files in root
 *.md
