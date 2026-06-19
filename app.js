@@ -11220,14 +11220,10 @@ window.handleDiscoveryActionClick = function(targetPath) {
         window.closeAlbumModal();
     }
     
-    const currentPath = window.location.pathname.replace(/\/$/, '');
-    const cleanTarget = targetPath.replace(/\/$/, '');
-    if (currentPath !== cleanTarget) {
-        if (typeof navigate === 'function') {
-            navigate(targetPath);
-        } else {
-            window.location.href = targetPath;
-        }
+    if (typeof navigate === 'function') {
+        navigate(targetPath);
+    } else {
+        window.location.href = targetPath;
     }
 };
 
