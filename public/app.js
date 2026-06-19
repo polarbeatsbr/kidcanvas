@@ -12154,7 +12154,17 @@ window.renderWeeklyExpeditionPage = function() {
         } else if (isCompleted) {
             actionBtn = `<button class="livro-expedition-btn-action claim" onclick="claimExpeditionMission('${m.id}')">Resgatar!</button>`;
         } else {
-            actionBtn = `<button class="livro-expedition-btn-action paint" onclick="goPaintExpedition('${categorySlug}')">🎨 Ir Pintar</button>`;
+            actionBtn = `
+                <div class="expedition-action-wrapper">
+                    <div class="expedition-tooltip-container">
+                        <span class="expedition-info-icon">ℹ️</span>
+                        <div class="expedition-tooltip-text">
+                            Para contar ponto: pinte e salve o desenho no seu perfil. Apenas visualizar não conta!
+                        </div>
+                    </div>
+                    <button class="livro-expedition-btn-action paint" onclick="goPaintExpedition('${categorySlug}')">🎨 Ir Pintar</button>
+                </div>
+            `;
         }
         
         html += `
@@ -12990,58 +13000,101 @@ window.renderPerfilView = function() {
     }
 };
 
+const CHAPTER_GUIDES = {
+    'Pinturas': {
+        title: 'Guia do Capítulo Pinturas',
+        color: 'var(--color-blue)',
+        emoji: '🎨',
+        secao1: ['Pintar desenhos livres ou temáticos', 'Salvar as pinturas finalizadas no perfil', 'Completar metas de total de pinturas', 'Continuar explorando o capítulo'],
+        secao2: ['Abrir um desenho e fechar', 'Apenas visualizar desenhos', 'Apenas imprimir desenhos', 'Navegar pelo catálogo sem pintar'],
+        secao3: ['Salve todas as suas pinturas.', 'Quanto mais você pinta, mais descobertas encontra.', 'Algumas descobertas exigem dedicação e tempo.', 'Experimente diferentes temas para avançar mais rápido.'],
+        secao4: ['Novos Cards para o Perfil', 'Estrelas de Conquistas', 'Destaques no Hall da Fama', 'Novas descobertas para sua coleção'],
+        secao6: ['Cada descoberta encontrada aproxima você de completar o Livro.', 'Existem 125 descobertas espalhadas pelo universo KidCanvas.']
+    },
+    'Dinossauros': {
+        title: 'Guia do Capítulo Dinossauros',
+        color: 'var(--color-green)',
+        emoji: '🦖',
+        secao1: ['Pintar desenhos com o tema Dinossauros', 'Salvar as pinturas de dinossauros no perfil', 'Explorar e colorir novas espécies na galeria'],
+        secao2: ['Pintar desenhos de outros temas', 'Apenas abrir o dinossauro sem salvar', 'Imprimir o dinossauro sem colorir'],
+        secao3: ['Pinte apenas dinossauros para avançar neste capítulo.', 'Descobertas raras e lendárias exigem espécies específicas.', 'Você pode ver dicas de qual dinossauro pintar na próxima meta.'],
+        secao4: ['Avatar de Dinossauro para o Perfil', 'Estrelas e Selos Especiais', 'Desbloqueio do T-Rex Imperial'],
+        secao6: ['Os dinossauros dominaram a terra por milhões de anos!', 'Colorindo dinossauros, você ajuda a desvendar ovos fósseis.']
+    },
+    'Livros': {
+        title: 'Guia do Capítulo Livros',
+        color: '#f1c40f',
+        emoji: '📚',
+        secao1: ['Criar histórias com o robô de IA', 'Concluir a geração e leitura de histórias', 'Explorar novos temas e aventuras', 'Visualizar ilustrações completas'],
+        secao2: ['Apenas abrir livros antigos', 'Ler apenas o título sem gerar a história', 'Sair da leitura antes da IA concluir'],
+        secao3: ['Você pode criar histórias com qualquer tema ou personagem.', 'Tente criar histórias com dinossauros ou piratas para ver o que acontece.', 'Cada história nova criada gera progresso.'],
+        secao4: ['Novos cards de livros mágicos', 'Estrelas extras de leitura', 'Habilidades de contador de histórias'],
+        secao6: ['As histórias do KidCanvas são criadas de forma única pela nossa IA!', 'Ler e criar estimula a criatividade e a imaginação.']
+    },
+    'Expedições': {
+        title: 'Guia das Expedições Mágicas',
+        color: '#e74c3c',
+        emoji: '🚀',
+        secao1: ['Completar missões semanais', 'Participar de desafios especiais', 'Concluir objetivos da expedição', 'Resgatar prêmios ativamente'],
+        secao2: ['Salvar desenhos fora do tema da semana', 'Pintar após o tempo da expedição expirar', 'Esquecer de resgatar o prêmio no modal'],
+        secao3: ['Acompanhe o cronômetro no topo das expedições.', 'Novas expedições começam a cada semana com prêmios novos.', 'Completar todas as missões da semana libera a Recompensa Final.'],
+        secao4: ['Descobertas Exclusivas Temporárias', 'Selos Especiais de Expedição', 'Grande quantidade de Estrelas (+50)'],
+        secao6: ['As expedições são eventos por tempo limitado!', 'Os exploradores mais dedicados colecionam todos os selos de temporada.']
+    },
+    'expedition': {
+        title: 'Guia das Expedições Mágicas',
+        color: '#e74c3c',
+        emoji: '🚀',
+        secao1: ['Completar missões semanais', 'Participar de desafios especiais', 'Concluir objetivos da expedição', 'Resgatar prêmios ativamente'],
+        secao2: ['Salvar desenhos fora do tema da semana', 'Pintar após o tempo da expedição expirar', 'Esquecer de resgatar o prêmio no modal'],
+        secao3: ['Acompanhe o cronômetro no topo das expedições.', 'Novas expedições começam a cada semana com prêmios novos.', 'Completar todas as missões da semana libera a Recompensa Final.'],
+        secao4: ['Descobertas Exclusivas Temporárias', 'Selos Especiais de Expedição', 'Grande quantidade de Estrelas (+50)'],
+        secao6: ['As expedições são eventos por tempo limitado!', 'Os exploradores mais dedicados colecionam todos os selos de temporada.']
+    },
+    'Comunidade': {
+        title: 'Guia do Capítulo Comunidade',
+        color: '#9b59b6',
+        emoji: '🏆',
+        secao1: ['Compartilhar desenhos no Hall da Fama', 'Receber curtidas e reações dos amigos', 'Enviar pinturas originais da galeria', 'Participar ativamente da comunidade'],
+        secao2: ['Salvar desenhos privados no perfil', 'Comentários repetidos ou spam', 'Enviar o mesmo desenho várias vezes'],
+        secao3: ['Seus desenhos só aparecem para os outros se você compartilhar no Hall da Fama.', 'Dê palmas e reações aos desenhos dos seus amigos.', 'Inspire-se vendo a galeria de outros pintores.'],
+        secao4: ['Visualizações do seu perfil público', 'Destaque no Hall da Fama', 'Selo de Membro Popular'],
+        secao6: ['O Hall da Fama celebra a criatividade de todos!', 'Compartilhar arte espalha alegria para todos os exploradores.']
+    },
+    'Lendárias': {
+        title: 'Guia do Capítulo Lendárias',
+        color: '#f39c12',
+        emoji: '👑',
+        secao1: ['Completar capítulos inteiros do álbum', 'Concluir grandes conquistas difíceis', 'Desbloquear segredos ocultos', 'Atingir o nível máximo do perfil'],
+        secao2: ['Realizar ações comuns diárias', 'Colorir desenhos livres padrão', 'Criar histórias normais de livros'],
+        secao3: ['Os cards lendários e míticos são as descobertas mais difíceis do jogo.', 'Eles exigem completar 100% de progresso em outras categorias.', 'Fique de olho nas dicas ocultas das silhuetas com cadeado.'],
+        secao4: ['Cards Míticos com borda arco-íris rotativa', 'Borda de Avatar Lendário brilhante', 'Título de Lenda do KidCanvas'],
+        secao6: ['Apenas os maiores exploradores completam o Livro das Descobertas!', 'Você está no caminho certo para se tornar uma lenda.']
+    }
+};
+
 window.triggerPageFlipAnimation = function(oldPanel, newPanel, direction) {
-    if (!oldPanel || !newPanel || oldPanel === newPanel) {
-        if (newPanel) {
-            newPanel.style.display = 'flex';
-            newPanel.classList.remove('flip-out-left', 'flip-out-right', 'flip-in-left', 'flip-in-right');
-        }
-        return;
-    }
+    if (!newPanel) return;
     
-    // Configurar animações
-    newPanel.classList.remove('flip-out-left', 'flip-out-right', 'flip-in-left', 'flip-in-right');
-    oldPanel.classList.remove('flip-out-left', 'flip-out-right', 'flip-in-left', 'flip-in-right');
-    
-    // Garantir posições absolutas durante a virada
-    newPanel.style.display = 'flex';
-    newPanel.style.position = 'absolute';
-    newPanel.style.top = '0';
-    newPanel.style.left = '0';
-    newPanel.style.width = '100%';
-    newPanel.style.height = '100%';
-    
-    oldPanel.style.position = 'absolute';
-    oldPanel.style.top = '0';
-    oldPanel.style.left = '0';
-    oldPanel.style.width = '100%';
-    oldPanel.style.height = '100%';
-    
-    if (direction === 'next') {
-        oldPanel.classList.add('flip-out-left');
-        newPanel.classList.add('flip-in-right');
-    } else {
-        oldPanel.classList.add('flip-out-right');
-        newPanel.classList.add('flip-in-left');
-    }
-    
-    setTimeout(() => {
+    // Esconder o painel antigo imediatamente para evitar conflitos de posicionamento
+    if (oldPanel && oldPanel !== newPanel) {
         oldPanel.style.display = 'none';
-        oldPanel.style.position = '';
-        oldPanel.style.top = '';
-        oldPanel.style.left = '';
-        oldPanel.style.width = '';
-        oldPanel.style.height = '';
-        
-        newPanel.style.position = '';
-        newPanel.style.top = '';
-        newPanel.style.left = '';
-        newPanel.style.width = '';
-        newPanel.style.height = '';
-        
-        oldPanel.classList.remove('flip-out-left', 'flip-out-right');
-        newPanel.classList.remove('flip-in-left', 'flip-in-right');
-    }, 450);
+        oldPanel.classList.remove('flip-in-next', 'flip-in-prev');
+    }
+    
+    // Exibir o novo painel
+    newPanel.style.display = (window.activeChapterName === 'expedition' && newPanel.id === 'livro-expedition-conteudo') ? 'block' : 'flex';
+    
+    // Resetar as classes de animação e forçar reflow
+    newPanel.classList.remove('flip-in-next', 'flip-in-prev');
+    void newPanel.offsetWidth;
+    
+    // Aplicar a animação correspondente
+    if (direction === 'next') {
+        newPanel.classList.add('flip-in-next');
+    } else {
+        newPanel.classList.add('flip-in-prev');
+    }
 };
 
 window.openChapterGuide = function(colName) {
