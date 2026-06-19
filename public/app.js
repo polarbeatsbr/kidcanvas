@@ -803,6 +803,16 @@ window.addEventListener('DOMContentLoaded', async () => {
         const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
         window.history.replaceState({}, document.title, cleanUrl);
     }
+    
+    // Inicializar desafio ativo a partir do sessionStorage se existir
+    try {
+        const savedChallenge = sessionStorage.getItem('kidcanvas_active_challenge');
+        if (savedChallenge) {
+            window.activeDrawingChallenge = JSON.parse(savedChallenge);
+        }
+    } catch (err) {
+        console.error('Erro ao ler kidcanvas_active_challenge:', err);
+    }
 
     // Carregar catálogo de cards na inicialização
     try {
@@ -7272,6 +7282,22 @@ function renderPintarOnlineView() {
 
     // Check for auto-save recovery prompt
     checkAndRestoreAutosave();
+
+    // Configurar barra de desafio de desenho se ativo
+    const challengeBar = document.getElementById('paint-challenge-bar');
+    const challengeText = document.getElementById('paint-challenge-text');
+    if (window.activeDrawingChallenge) {
+        if (challengeText) {
+            challengeText.textContent = `Desafio ativo: desenhe um ${window.activeDrawingChallenge.subject} para desbloquear ${window.activeDrawingChallenge.name}.`;
+        }
+        if (challengeBar) {
+            challengeBar.style.display = 'flex';
+        }
+    } else {
+        if (challengeBar) {
+            challengeBar.style.display = 'none';
+        }
+    }
 }
 
 // Atalhos do teclado para Desfazer/Refazer
@@ -9562,7 +9588,8 @@ async function savePaintingToGallery() {
                 creatorName: creatorName,
                 originalCategory: originalCategory,
                 colorsCount: colorsCount,
-                fromPinturaLivre: isPinturaLivre
+                fromPinturaLivre: isPinturaLivre,
+                activeChallengeId: window.activeDrawingChallenge ? window.activeDrawingChallenge.id : null
             })
         });
 
@@ -9571,6 +9598,15 @@ async function savePaintingToGallery() {
         if (response.ok && resData.success) {
             currentUser.myPaintings = resData.myPaintings;
             if (resData.cards) currentUser.cards = resData.cards;
+            if (resData.activeChallengeSuccess) {
+                showToast(`Parabéns! Você concluiu o desafio e desbloqueou o card ${window.activeDrawingChallenge ? window.activeDrawingChallenge.name : ''}! 🏆`, 'success');
+                window.activeDrawingChallenge = null;
+                sessionStorage.removeItem('kidcanvas_active_challenge');
+                const challengeBar = document.getElementById('paint-challenge-bar');
+                if (challengeBar) challengeBar.style.display = 'none';
+            } else if (resData.activeChallengeFailed) {
+                showToast('Quase! Tente desenhar novamente para desbloquear este card. ✏️', 'info');
+            }
             if (resData.stars) {
                 currentUser.stars = resData.stars;
                 updateStarsUI();
@@ -13162,27 +13198,33 @@ window.showDiscoveryDetails = function(discoveryId) {
             
             let btnText = '';
             let btnPath = '';
+            let onclickAction = '';
             
             if (condType === 'drawing_challenge') {
                 btnText = '🎨 Ir Desenhar Agora';
                 btnPath = '/pintar-online';
+                onclickAction = `startDrawingChallenge('${discoveryId}')`;
             } else if (discoveryId === 'expedicao_01' && activeTheme) {
                 btnText = '🗺️ Ver Expedição Atual';
                 btnPath = 'expedition';
+                onclickAction = `handleDiscoveryActionClick('${btnPath}')`;
             } else if (condType === 'paint_count' || condType === 'categories_painted' || condType === 'paint' || (condType === 'category_paint' && !target) || (condType === 'paint_category' && !target)) {
                 btnText = '🎨 Ir Pintar Agora';
                 btnPath = '/gerar-desenho';
+                onclickAction = `handleDiscoveryActionClick('${btnPath}')`;
             } else if ((condType === 'category_paint' || condType === 'paint_category') && target) {
                 btnText = '🎨 Ir Pintar Agora';
                 btnPath = `/categoria/${target}`;
+                onclickAction = `handleDiscoveryActionClick('${btnPath}')`;
             } else if (condType === 'share_count' || condType === 'hall_count' || condType === 'likes_count' || condType === 'share' || condType === 'paint_category_public') {
                 btnText = '🌟 Compartilhar Pintura';
                 btnPath = '/hall-da-fama';
+                onclickAction = `handleDiscoveryActionClick('${btnPath}')`;
             }
             
             if (btnText && btnPath) {
                 actionButtonHtml = `
-                    <button class="livro-detalhes-action-btn" onclick="handleDiscoveryActionClick('${btnPath}')" style="margin-top: 15px; width: 100%; padding: 12px; background: #6c5ce7; color: white; border: none; border-radius: 12px; font-weight: 900; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 4px 6px rgba(108, 92, 231, 0.2);" onmouseover="this.style.background='#5b4bc4'; this.style.transform='scale(1.02)';" onmouseout="this.style.background='#6c5ce7'; this.style.transform='scale(1)';">
+                    <button class="livro-detalhes-action-btn" onclick="${onclickAction}" style="margin-top: 15px; width: 100%; padding: 12px; background: #6c5ce7; color: white; border: none; border-radius: 12px; font-weight: 900; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 4px 6px rgba(108, 92, 231, 0.2);" onmouseover="this.style.background='#5b4bc4'; this.style.transform='scale(1.02)';" onmouseout="this.style.background='#6c5ce7'; this.style.transform='scale(1)';">
                         ${btnText}
                     </button>
                 `;
@@ -13226,6 +13268,41 @@ window.showDiscoveryDetails = function(discoveryId) {
     
     document.getElementById('livro-grade-conteudo').style.display = 'none';
     detailsEl.style.display = 'flex';
+};
+
+window.startDrawingChallenge = function(discoveryId) {
+    if (!currentUser || !window.globalCatalog) return;
+    const c = window.globalCatalog.find(gc => gc.id === discoveryId);
+    if (!c) return;
+    
+    // Fechar o modal
+    if (typeof closeAlbumModal === 'function') {
+        closeAlbumModal();
+    } else if (typeof window.closeAlbumModal === 'function') {
+        window.closeAlbumModal();
+    }
+    
+    // Configurar o desafio ativo
+    const subject = (c.unlockCondition && c.unlockCondition.subject) || c.drawingSubject || '';
+    window.activeDrawingChallenge = {
+        id: c.id,
+        name: c.name,
+        subject: subject
+    };
+    sessionStorage.setItem('kidcanvas_active_challenge', JSON.stringify(window.activeDrawingChallenge));
+    
+    // Iniciar desenho livre
+    startFreeHandDrawing();
+};
+
+window.cancelActiveDrawingChallenge = function() {
+    window.activeDrawingChallenge = null;
+    sessionStorage.removeItem('kidcanvas_active_challenge');
+    const challengeBar = document.getElementById('paint-challenge-bar');
+    if (challengeBar) {
+        challengeBar.style.display = 'none';
+    }
+    showToast('Desafio de desenho cancelado.', 'info');
 };
 
 window.handleDiscoveryActionClick = function(targetPath) {

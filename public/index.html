@@ -2124,6 +2124,17 @@
                     <p class="section-subtitle">Use a sua imaginação com a paleta colorida, balde de tinta e brilho mágico!</p>
                 </div>
 
+                <!-- Barra de Desafio de Desenho Ativo -->
+                <div id="paint-challenge-bar" style="display: none; background: #fff3cd; border: 2px solid #ffe082; color: #856404; padding: 12px 18px; border-radius: 12px; margin-bottom: 20px; font-weight: 800; align-items: center; justify-content: space-between; font-family: var(--font-heading); box-shadow: var(--shadow-cartoon);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.3rem;">🏆</span>
+                        <span id="paint-challenge-text">Desafio ativo: desenhe um elefante para desbloquear Gigante Gentil.</span>
+                    </div>
+                    <button onclick="window.cancelActiveDrawingChallenge()" style="background: #e74c3c; color: white; border: none; border-radius: 6px; padding: 6px 12px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
+                        Cancelar
+                    </button>
+                </div>
+
                 <div class="paint-workspace-layout">
                     <!-- Barra de Ferramentas -->
                     <div class="paint-toolbar">

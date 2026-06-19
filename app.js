@@ -13268,6 +13268,8 @@ window.showDiscoveryDetails = function(discoveryId) {
     
     document.getElementById('livro-grade-conteudo').style.display = 'none';
     detailsEl.style.display = 'flex';
+};
+
 window.startDrawingChallenge = function(discoveryId) {
     if (!currentUser || !window.globalCatalog) return;
     const c = window.globalCatalog.find(gc => gc.id === discoveryId);
