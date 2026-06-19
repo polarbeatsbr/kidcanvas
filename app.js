@@ -9862,7 +9862,7 @@ async function checkActiveEvent() {
 function openEventModal() {
     if (!currentUser) {
         showToast('Faça login para ver suas missões e aventuras! 🎯', 'info');
-        openLoginModal();
+        openAuthModal();
         return;
     }
     if (!currentActiveEvent) {
@@ -10593,7 +10593,7 @@ window.openAlbumModal = async function() {
     closeEventModal();
     if (!currentUser) {
         showToast('Faça login para ver seu Livro das Descobertas! 📖', 'info');
-        openLoginModal();
+        openAuthModal();
         return;
     }
     
