@@ -1021,6 +1021,10 @@ function initGlobalEventListeners() {
 }
 
 function navigate(path, pushState = true) {
+    if (window.paintAutosaveInterval) {
+        clearInterval(window.paintAutosaveInterval);
+        window.paintAutosaveInterval = null;
+    }
     let cleanPath = path.trim();
     if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
         cleanPath = cleanPath.slice(0, -1);
@@ -6047,10 +6051,32 @@ let paintLastX = 0;
 let paintLastY = 0;
 let paintDrawingImage = null;
 
+// Zoom and Pan System State
+window.paintZoomLevel = 1.0;
+window.paintPanX = 0;
+window.paintPanY = 0;
+
+// Interactive Sticker System State
+window.activeStickers = [];
+window.selectedSticker = null;
+window.stickerDragMode = null;
+
+// Replay Action History
+window.paintActions = [];
+
+// Painting Statistics
+window.strokeCount = 0;
+window.paintStartTime = Date.now();
+
+// Color History and Favorites
+window.paintColorHistory = [];
+window.paintColorFavorites = [];
+
 // Crayons Paleta (RGB)
 const paintCrayons = [
     // Linha 1 (Cores Principais)
     { hex: '#ff5e7e', rgb: [255, 94, 126], name: 'Vermelho', row: 1 },
+    { hex: '#ff2800', rgb: [255, 40, 0], name: 'Vermelho Ferrari', row: 1 },
     { hex: '#ff8138', rgb: [255, 129, 56], name: 'Laranja', row: 1 },
     { hex: '#ffd43b', rgb: [255, 212, 59], name: 'Amarelo', row: 1 },
     { hex: '#40c057', rgb: [64, 192, 87], name: 'Verde', row: 1 },
@@ -6076,7 +6102,8 @@ const paintCrayons = [
     { hex: '#5c3d2e', rgb: [92, 61, 46], name: 'Marrom Escuro', row: 2 },
     { hex: '#fed7aa', rgb: [254, 215, 170], name: 'Pele Clara', row: 2 },
     { hex: '#f0b878', rgb: [240, 184, 120], name: 'Pele Média', row: 2 },
-    { hex: '#8d5524', rgb: [141, 85, 36], name: 'Pele Morena', row: 2 }
+    { hex: '#8d5524', rgb: [141, 85, 36], name: 'Pele Morena', row: 2 },
+    { hex: '#4a2c11', rgb: [74, 44, 17], name: 'Pele Escura', row: 2 }
 ];
 
 let paintHistory = [];
@@ -6089,7 +6116,472 @@ let paintFgCanvas = null;
 let paintFgCtx = null;
 let paintBorderImage = null;
 
+// === PINTURA LIVRE HELPERS & IMPROVEMENTS ===
 
+// 1. Color System Helper
+function selectPaintingColor(rgb) {
+    selectedPaintColor = rgb;
+    const hex = '#' + rgb.map(x => x.toString(16).padStart(2, '0')).join('');
+    
+    if (!window.colorsUsedInPainting) window.colorsUsedInPainting = new Set();
+    window.colorsUsedInPainting.add(hex);
+    
+    // Add to recent colors
+    addColorToRecentHistory(hex);
+    
+    // Update crayon selections
+    document.querySelectorAll('#paint-colors-grid .color-crayon').forEach(c => {
+        const cHex = c.getAttribute('data-hex');
+        if (cHex === hex) {
+            c.classList.add('selected');
+            c.style.borderColor = 'var(--color-dark)';
+            c.style.transform = 'scale(1.15)';
+        } else {
+            c.classList.remove('selected');
+            c.style.borderColor = 'white';
+            c.style.transform = 'none';
+        }
+    });
+    
+    if (activePaintTool === 'text') {
+        updatePaintCursor('text');
+    }
+}
+
+// 2. Recent Colors History
+function addColorToRecentHistory(hex) {
+    window.paintColorHistory = window.paintColorHistory || [];
+    window.paintColorHistory = window.paintColorHistory.filter(c => c !== hex);
+    window.paintColorHistory.unshift(hex);
+    window.paintColorHistory = window.paintColorHistory.slice(0, 8);
+    renderRecentColors();
+}
+
+function renderRecentColors() {
+    const container = document.getElementById('paint-recent-colors');
+    if (!container) return;
+    container.innerHTML = '';
+    window.paintColorHistory.forEach(hex => {
+        const div = document.createElement('div');
+        div.className = 'recent-color-circle';
+        div.style.width = '24px';
+        div.style.height = '24px';
+        div.style.borderRadius = '50%';
+        div.style.backgroundColor = hex;
+        div.style.border = '2px solid white';
+        div.style.cursor = 'pointer';
+        div.style.boxShadow = '0 1px 3px rgba(0,0,0,0.2)';
+        div.style.transition = 'all 0.1s ease';
+        div.title = `Cor recente: ${hex}`;
+        
+        div.onclick = () => {
+            const rgb = [
+                parseInt(hex.slice(1, 3), 16),
+                parseInt(hex.slice(3, 5), 16),
+                parseInt(hex.slice(5, 7), 16)
+            ];
+            selectPaintingColor(rgb);
+        };
+        container.appendChild(div);
+    });
+}
+
+// 3. Favorite Colors
+function addColorToFavorites(hex) {
+    window.paintColorFavorites = window.paintColorFavorites || JSON.parse(localStorage.getItem('kidcanvas_fav_colors') || '[]');
+    if (window.paintColorFavorites.includes(hex)) {
+        showToast('Cor já favoritada! ⭐', 'info');
+        return;
+    }
+    if (window.paintColorFavorites.length >= 8) {
+        showToast('Máximo de 8 cores favoritas atingido! Remova alguma com duplo clique. 🎨', 'info');
+        return;
+    }
+    window.paintColorFavorites.push(hex);
+    localStorage.setItem('kidcanvas_fav_colors', JSON.stringify(window.paintColorFavorites));
+    renderFavoriteColors();
+    showToast('Cor salva nas favoritas! ⭐', 'success');
+}
+
+function removeFavoriteColor(hex) {
+    window.paintColorFavorites = window.paintColorFavorites.filter(c => c !== hex);
+    localStorage.setItem('kidcanvas_fav_colors', JSON.stringify(window.paintColorFavorites));
+    renderFavoriteColors();
+    showToast('Favorito removido! 🖍️', 'info');
+}
+
+function renderFavoriteColors() {
+    const container = document.getElementById('paint-favorite-colors');
+    if (!container) return;
+    container.innerHTML = '';
+    if (window.paintColorFavorites.length === 0) {
+        container.innerHTML = '<span style="font-size: 0.75rem; color: var(--color-dark-light); font-style: italic;">Nenhuma favorita ainda</span>';
+        return;
+    }
+    window.paintColorFavorites.forEach(hex => {
+        const div = document.createElement('div');
+        div.style.width = '26px';
+        div.style.height = '26px';
+        div.style.borderRadius = '50%';
+        div.style.backgroundColor = hex;
+        div.style.border = '2px solid white';
+        div.style.cursor = 'pointer';
+        div.style.boxShadow = '0 1.5px 3px rgba(0,0,0,0.2)';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.justifyContent = 'center';
+        div.style.fontSize = '0.65rem';
+        div.style.color = '#ffd43b';
+        div.style.transition = 'all 0.1s ease';
+        div.textContent = '★';
+        div.title = `Favorito: ${hex}. Duplo clique para excluir.`;
+        
+        div.onclick = () => {
+            const rgb = [
+                parseInt(hex.slice(1, 3), 16),
+                parseInt(hex.slice(3, 5), 16),
+                parseInt(hex.slice(5, 7), 16)
+            ];
+            selectPaintingColor(rgb);
+        };
+        div.ondblclick = (e) => {
+            e.stopPropagation();
+            removeFavoriteColor(hex);
+        };
+        container.appendChild(div);
+    });
+}
+
+// 4. Zoom and Pan UI Update
+function updateZoomTransform() {
+    const viewport = document.getElementById('paint-canvas-viewport');
+    if (viewport) {
+        viewport.style.transform = `translate(${window.paintPanX}px, ${window.paintPanY}px) scale(${window.paintZoomLevel})`;
+    }
+    const indicator = document.getElementById('paint-zoom-indicator');
+    if (indicator) {
+        indicator.textContent = `${Math.round(window.paintZoomLevel * 100)}%`;
+    }
+}
+
+// 5. Interactive Stickers Helpers & Renderer
+function getStickerHandleAt(sticker, px, py) {
+    if (!sticker) return null;
+    const dx = px - sticker.x;
+    const dy = py - sticker.y;
+    const cos = Math.cos(-sticker.rotation);
+    const sin = Math.sin(-sticker.rotation);
+    const lx = dx * cos - dy * sin;
+    const ly = dx * sin + dy * cos;
+    
+    const size = sticker.size || 80;
+    const half = size / 2;
+    const handleRadius = 16; // Hit area slightly larger for children's fingers
+    
+    // Delete handle (top-left)
+    const distDelete = Math.hypot(lx - (-half - 8), ly - (-half - 8));
+    if (distDelete <= handleRadius) return 'delete';
+    
+    // Duplicate handle (top-right)
+    const distDuplicate = Math.hypot(lx - (half + 8), ly - (-half - 8));
+    if (distDuplicate <= handleRadius) return 'duplicate';
+    
+    // Rotate/Scale handle (bottom-right)
+    const distRotate = Math.hypot(lx - (half + 8), ly - (half + 8));
+    if (distRotate <= handleRadius) return 'rotate-scale';
+    
+    // Body select area
+    if (Math.abs(lx) <= half + 8 && Math.abs(ly) <= half + 8) {
+        return 'body';
+    }
+    
+    return null;
+}
+
+function getStickerAtPosition(px, py) {
+    if (!window.activeStickers) return null;
+    for (let i = window.activeStickers.length - 1; i >= 0; i--) {
+        const st = window.activeStickers[i];
+        const dx = px - st.x;
+        const dy = py - st.y;
+        const cos = Math.cos(-st.rotation);
+        const sin = Math.sin(-st.rotation);
+        const lx = dx * cos - dy * sin;
+        const ly = dx * sin + dy * cos;
+        const size = st.size || 80;
+        const half = size / 2;
+        if (Math.abs(lx) <= half + 8 && Math.abs(ly) <= half + 8) {
+            return st;
+        }
+    }
+    return null;
+}
+
+window.stickerImageCache = {};
+function drawSingleSticker(ctx, sticker, isSelected) {
+    ctx.save();
+    ctx.translate(sticker.x, sticker.y);
+    ctx.rotate(sticker.rotation || 0);
+    
+    const size = sticker.size || 80;
+    const half = size / 2;
+    
+    if (sticker.stamp.startsWith('http') || sticker.stamp.startsWith('/') || sticker.stamp.startsWith('./')) {
+        let img = window.stickerImageCache[sticker.stamp];
+        if (!img) {
+            img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = sticker.stamp;
+            img.onload = () => {
+                window.stickerImageCache[sticker.stamp] = img;
+                composePaintCanvas();
+            };
+        } else {
+            ctx.drawImage(img, -half, -half, size, size);
+        }
+    } else {
+        ctx.font = `${size}px Arial, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(sticker.stamp, 0, 0);
+    }
+    
+    if (isSelected) {
+        // Bounding box border
+        ctx.strokeStyle = '#9c27b0';
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([5, 5]);
+        ctx.strokeRect(-half - 8, -half - 8, size + 16, size + 16);
+        ctx.setLineDash([]);
+        
+        // Handles (arc radius 12)
+        // 1. Delete (top-left)
+        ctx.fillStyle = '#ff5e7e';
+        ctx.beginPath();
+        ctx.arc(-half - 8, -half - 8, 12, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 16px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('×', -half - 8, -half - 8);
+        
+        // 2. Duplicate (top-right)
+        ctx.fillStyle = '#2b8a3e';
+        ctx.beginPath();
+        ctx.arc(half + 8, -half - 8, 12, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 12px Arial';
+        ctx.fillText('+', half + 8, -half - 8);
+        
+        // 3. Rotate/Scale (bottom-right)
+        ctx.fillStyle = '#1864ab';
+        ctx.beginPath();
+        ctx.arc(half + 8, half + 8, 12, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 10px Arial';
+        ctx.fillText('⤾', half + 8, half + 8);
+    }
+    ctx.restore();
+}
+
+function drawActiveStickers(ctx, skipSelection = false) {
+    if (!window.activeStickers) window.activeStickers = [];
+    window.activeStickers.forEach(st => {
+        const isSelected = !skipSelection && (window.selectedSticker === st);
+        drawSingleSticker(ctx, st, isSelected);
+    });
+}
+
+function insertStickerInstantly(emoji) {
+    const newSticker = {
+        id: 'sticker_' + Date.now() + '_' + Math.round(Math.random() * 1000000),
+        stamp: emoji,
+        x: 400,
+        y: 300,
+        size: 80,
+        rotation: 0
+    };
+    if (!window.activeStickers) window.activeStickers = [];
+    window.activeStickers.push(newSticker);
+    window.selectedSticker = newSticker;
+    
+    // Track action
+    if (!window.paintActions) window.paintActions = [];
+    window.paintActions.push({
+        type: 'sticker-add',
+        id: newSticker.id,
+        stamp: emoji,
+        x: 400,
+        y: 300,
+        size: 80,
+        rotation: 0,
+        time: Date.now()
+    });
+    
+    composePaintCanvas();
+    savePaintHistory();
+}
+
+// 6. Confetti and Stars Finalization Effect
+let confettiActive = false;
+let confettiParticles = [];
+function startConfettiCelebration() {
+    confettiActive = true;
+    const canvas = document.getElementById('paint-confetti-canvas');
+    if (!canvas) return;
+    canvas.style.display = 'block';
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext('2d');
+    
+    // Handle resizing during confetti
+    const resizeHandler = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resizeHandler);
+    
+    confettiParticles = [];
+    for (let i = 0; i < 150; i++) {
+        confettiParticles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            r: Math.random() * 6 + 4,
+            d: Math.random() * canvas.height,
+            color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+            tilt: Math.random() * 10 - 5,
+            tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+            tiltAngle: 0
+        });
+    }
+    
+    function drawConfetti() {
+        if (!confettiActive) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.display = 'none';
+            window.removeEventListener('resize', resizeHandler);
+            return;
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        confettiParticles.forEach((p, idx) => {
+            p.tiltAngle += p.tiltAngleIncremental;
+            p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+            p.tilt = Math.sin(p.tiltAngle - idx/3) * 15;
+            
+            if (p.y > canvas.height) {
+                confettiParticles[idx] = {
+                    x: Math.random() * canvas.width,
+                    y: -20,
+                    r: p.r,
+                    d: p.d,
+                    color: p.color,
+                    tilt: p.tilt,
+                    tiltAngleIncremental: p.tiltAngleIncremental,
+                    tiltAngle: p.tiltAngle
+                };
+            }
+            
+            ctx.beginPath();
+            ctx.lineWidth = p.r;
+            ctx.strokeStyle = p.color;
+            ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+            ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+            ctx.stroke();
+        });
+        
+        requestAnimationFrame(drawConfetti);
+    }
+    
+    drawConfetti();
+    setTimeout(() => { confettiActive = false; }, 6000);
+}
+
+// 7. Auto-Save System
+function saveAutosaveToLocalStorage() {
+    if (!paintCanvas || !window.currentPaintingData) return;
+    try {
+        const autosave = {
+            drawingId: window.currentPaintingData.id || window.currentPaintingData.name,
+            bg: paintBgCanvas.toDataURL(),
+            fg: paintFgCanvas.toDataURL(),
+            stickers: window.activeStickers,
+            colors: Array.from(window.colorsUsedInPainting || []),
+            strokes: window.strokeCount,
+            startTime: window.paintStartTime,
+            timestamp: Date.now()
+        };
+        localStorage.setItem('kidcanvas_autosave', JSON.stringify(autosave));
+    } catch (e) {
+        console.error('Erro ao gravar autosave no LocalStorage:', e);
+    }
+}
+
+function checkAndRestoreAutosave() {
+    const data = window.currentPaintingData;
+    if (!data) return;
+    const currentId = data.id || data.name;
+    const raw = localStorage.getItem('kidcanvas_autosave');
+    if (!raw) return;
+    
+    try {
+        const autosave = JSON.parse(raw);
+        // Expirar autosave mais antigo que 24 horas
+        if (Date.now() - autosave.timestamp > 86400000) {
+            localStorage.removeItem('kidcanvas_autosave');
+            return;
+        }
+        
+        if (autosave.drawingId === currentId) {
+            showCustomConfirm(
+                'Continuar Desenho? 🎨',
+                'Detectamos que você tem uma pintura não salva deste desenho! Quer continuar de onde parou? 🎨',
+                () => {
+                    const bgImg = new Image();
+                    bgImg.onload = () => {
+                        paintBgCtx.clearRect(0, 0, 800, 600);
+                        paintBgCtx.drawImage(bgImg, 0, 0);
+                        
+                        const fgImg = new Image();
+                        fgImg.onload = () => {
+                            paintFgCtx.clearRect(0, 0, 800, 600);
+                            paintFgCtx.drawImage(fgImg, 0, 0);
+                            
+                            window.activeStickers = autosave.stickers || [];
+                            window.colorsUsedInPainting = new Set(autosave.colors || []);
+                            window.strokeCount = autosave.strokes || 0;
+                            window.paintStartTime = autosave.startTime || Date.now();
+                            
+                            composePaintCanvas();
+                            savePaintHistory();
+                            showToast('Progresso recuperado com sucesso! 🖍️', 'success');
+                        };
+                        fgImg.src = autosave.fg;
+                    };
+                    bgImg.src = autosave.bg;
+                },
+                () => {
+                    localStorage.removeItem('kidcanvas_autosave');
+                }
+            );
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
 
 function renderPintarOnlineView() {
     document.title = "Colorir Online — KidCanvas 🎨";
@@ -6146,21 +6638,40 @@ function renderPintarOnlineView() {
     paintHistoryIndex = -1;
     updateUndoRedoButtons();
 
-    // Resetar estado de desenho
+    // Resetar estado de desenho e zoom
     isPaintDrawing = false;
     setPaintTool('bucket');
+    
+    window.paintZoomLevel = parseFloat(sessionStorage.getItem('kidcanvas_zoom')) || 1.0;
+    window.paintPanX = 0;
+    window.paintPanY = 0;
+    updateZoomTransform();
+
+    window.activeStickers = [];
+    window.selectedSticker = null;
+    window.stickerDragMode = null;
+    window.paintActions = [];
+    window.strokeCount = 0;
+    window.paintStartTime = Date.now();
+    window.colorsUsedInPainting = new Set();
+    window.paintColorHistory = window.paintColorHistory || [];
 
     // Resetar checkbox público e botão de salvar
     const resetChkPublic = document.getElementById('paint-chk-public');
     const resetBtnSave = document.getElementById('paint-btn-save');
+    const publicCard = document.getElementById('paint-chk-public-wrapper');
     if (resetChkPublic) {
         resetChkPublic.checked = false;
-        if (resetBtnSave) {
-            resetBtnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
-            resetBtnSave.style.backgroundColor = 'var(--color-green)';
-            resetBtnSave.style.borderColor = 'var(--color-green)';
-            resetBtnSave.classList.remove('pulse-button');
+        if (publicCard) {
+            publicCard.style.background = '#fffdf0';
+            publicCard.style.borderColor = 'var(--color-dark)';
         }
+    }
+    if (resetBtnSave) {
+        resetBtnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
+        resetBtnSave.style.backgroundColor = 'var(--color-green)';
+        resetBtnSave.style.borderColor = 'var(--color-green)';
+        resetBtnSave.classList.remove('pulse-button');
     }
 
     // Carregar imagem de desenho
@@ -6220,7 +6731,6 @@ function renderPintarOnlineView() {
     }
 
     // Configurar Paleta e Rastrear Cores
-    window.colorsUsedInPainting = new Set();
     if (paintCrayons && paintCrayons.length > 0) {
         window.colorsUsedInPainting.add(paintCrayons[0].hex); // Cor inicial padrão
     }
@@ -6257,15 +6767,10 @@ function renderPintarOnlineView() {
             div.style.boxShadow = '0 2px 5px rgba(0,0,0,0.15)';
             div.style.transition = 'all 0.2s ease';
             div.title = crayon.name;
+            div.setAttribute('data-hex', crayon.hex);
             
             div.addEventListener('click', () => {
-                document.querySelectorAll('#paint-colors-grid .color-crayon').forEach(c => c.classList.remove('selected'));
-                div.classList.add('selected');
-                selectedPaintColor = crayon.rgb;
-                
-                // Adicionar cor usada
-                if (!window.colorsUsedInPainting) window.colorsUsedInPainting = new Set();
-                window.colorsUsedInPainting.add(crayon.hex);
+                selectPaintingColor(crayon.rgb);
             });
             
             if (crayon.row === 1) {
@@ -6276,11 +6781,223 @@ function renderPintarOnlineView() {
         });
     }
 
+    // Renderizar Recentes e Favoritos
+    renderRecentColors();
+    renderFavoriteColors();
+
+    const btnFav = document.getElementById('paint-btn-add-favorite');
+    if (btnFav) {
+        btnFav.onclick = () => {
+            const hex = '#' + selectedPaintColor.map(x => x.toString(16).padStart(2, '0')).join('');
+            addColorToFavorites(hex);
+        };
+    }
+
+    // Configurar botões de Zoom
+    const btnZoomIn = document.getElementById('paint-btn-zoom-in');
+    if (btnZoomIn) {
+        btnZoomIn.onclick = () => {
+            window.paintZoomLevel = Math.min(3.0, window.paintZoomLevel * 1.25);
+            updateZoomTransform();
+        };
+    }
+    const btnZoomOut = document.getElementById('paint-btn-zoom-out');
+    if (btnZoomOut) {
+        btnZoomOut.onclick = () => {
+            window.paintZoomLevel = Math.max(0.5, window.paintZoomLevel / 1.25);
+            updateZoomTransform();
+        };
+    }
+    const btnZoomFit = document.getElementById('paint-btn-zoom-fit');
+    if (btnZoomFit) {
+        btnZoomFit.onclick = () => {
+            window.paintZoomLevel = 1.0;
+            window.paintPanX = 0;
+            window.paintPanY = 0;
+            updateZoomTransform();
+        };
+    }
+
     // Configurar Eventos do Canvas
     paintCanvas.onmousedown = startPaintingDraw;
     paintCanvas.onmousemove = executePaintingDraw;
     paintCanvas.onmouseup = stopPaintingDraw;
     paintCanvas.onmouseleave = stopPaintingDraw;
+
+    // Configurar Zoom via Scroll do Mouse no Container
+    const workspaceContainer = document.querySelector('.paint-canvas-container');
+    let isPanning = false;
+    let startPanX = 0, startPanY = 0;
+    let startMouseX = 0, startMouseY = 0;
+    let isSpaceBarPressed = false;
+
+    window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+            const onlineView = document.getElementById('view-pintar-online');
+            if (onlineView && onlineView.style.display === 'block') {
+                isSpaceBarPressed = true;
+                e.preventDefault();
+            }
+        }
+    });
+
+    window.addEventListener('keyup', (e) => {
+        if (e.code === 'Space') {
+            isSpaceBarPressed = false;
+        }
+    });
+
+    if (workspaceContainer) {
+        workspaceContainer.onwheel = (e) => {
+            e.preventDefault();
+            const rect = workspaceContainer.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            const canvasX = (mouseX - window.paintPanX) / window.paintZoomLevel;
+            const canvasY = (mouseY - window.paintPanY) / window.paintZoomLevel;
+            
+            const oldZoom = window.paintZoomLevel;
+            const zoomFactor = 1.1;
+            if (e.deltaY < 0) {
+                window.paintZoomLevel = Math.min(3.0, window.paintZoomLevel * zoomFactor);
+            } else {
+                window.paintZoomLevel = Math.max(0.5, window.paintZoomLevel / zoomFactor);
+            }
+            
+            window.paintPanX = mouseX - canvasX * window.paintZoomLevel;
+            window.paintPanY = mouseY - canvasY * window.paintZoomLevel;
+            
+            sessionStorage.setItem('kidcanvas_zoom', window.paintZoomLevel);
+            updateZoomTransform();
+        };
+
+        // Panning handler
+        workspaceContainer.onmousedown = (e) => {
+            if (isSpaceBarPressed || e.button === 1 || activePaintTool === 'pan') {
+                isPanning = true;
+                startPanX = window.paintPanX;
+                startPanY = window.paintPanY;
+                startMouseX = e.clientX;
+                startMouseY = e.clientY;
+                e.preventDefault();
+            }
+        };
+
+        workspaceContainer.addEventListener('mousemove', (e) => {
+            if (isPanning) {
+                const dx = e.clientX - startMouseX;
+                const dy = e.clientY - startMouseY;
+                window.paintPanX = startPanX + dx;
+                window.paintPanY = startPanY + dy;
+                updateZoomTransform();
+            }
+        });
+
+        workspaceContainer.addEventListener('mouseup', () => {
+            isPanning = false;
+        });
+
+        workspaceContainer.addEventListener('mouseleave', () => {
+            isPanning = false;
+        });
+
+        // Touch systems for Mobile (Pinch to Zoom & Pan)
+        let lastTouchDist = 0;
+        let lastTouchX = 0;
+        let lastTouchY = 0;
+
+        workspaceContainer.ontouchstart = (e) => {
+            if (e.touches.length === 2) {
+                const t1 = e.touches[0];
+                const t2 = e.touches[1];
+                lastTouchDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+                lastTouchX = (t1.clientX + t2.clientX) / 2;
+                lastTouchY = (t1.clientY + t2.clientY) / 2;
+            } else if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousedown', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                paintCanvas.dispatchEvent(mouseEvent);
+            }
+        };
+
+        workspaceContainer.ontouchmove = (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const t1 = e.touches[0];
+                const t2 = e.touches[1];
+                const dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+                const touchX = (t1.clientX + t2.clientX) / 2;
+                const touchY = (t1.clientY + t2.clientY) / 2;
+                
+                const rect = workspaceContainer.getBoundingClientRect();
+                const mouseX = touchX - rect.left;
+                const mouseY = touchY - rect.top;
+                
+                const canvasX = (mouseX - window.paintPanX) / window.paintZoomLevel;
+                const canvasY = (mouseY - window.paintPanY) / window.paintZoomLevel;
+                
+                const zoomFactor = dist / lastTouchDist;
+                window.paintZoomLevel = Math.max(0.5, Math.min(3.0, window.paintZoomLevel * zoomFactor));
+                
+                const dx = touchX - lastTouchX;
+                const dy = touchY - lastTouchY;
+                window.paintPanX = mouseX - canvasX * window.paintZoomLevel + dx;
+                window.paintPanY = mouseY - canvasY * window.paintZoomLevel + dy;
+                
+                lastTouchDist = dist;
+                lastTouchX = touchX;
+                lastTouchY = touchY;
+                
+                updateZoomTransform();
+            } else if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                paintCanvas.dispatchEvent(mouseEvent);
+            }
+        };
+
+        workspaceContainer.ontouchend = (e) => {
+            if (e.touches.length === 0) {
+                const mouseEvent = new MouseEvent('mouseup', {});
+                paintCanvas.dispatchEvent(mouseEvent);
+            }
+        };
+    }
+
+    // Configurar Tamanho Presets
+    document.querySelectorAll('.paint-size-preset-btn').forEach(btn => {
+        btn.onclick = () => {
+            document.querySelectorAll('.paint-size-preset-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const sz = parseInt(btn.getAttribute('data-size'));
+            const slider = document.getElementById('paint-brush-size');
+            const valEl = document.getElementById('paint-brush-size-val');
+            if (slider) slider.value = sz;
+            if (valEl) valEl.textContent = `${sz}px`;
+        };
+    });
+
+    const brushSizeInput = document.getElementById('paint-brush-size');
+    if (brushSizeInput) {
+        brushSizeInput.oninput = (e) => {
+            const val = parseInt(e.target.value);
+            const valEl = document.getElementById('paint-brush-size-val');
+            if (valEl) valEl.textContent = `${val}px`;
+            
+            document.querySelectorAll('.paint-size-preset-btn').forEach(btn => {
+                const sz = parseInt(btn.getAttribute('data-size'));
+                if (sz === val) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+        };
+    }
 
     // Atualização dinâmica do cursor de texto à medida que a criança digita ou troca a fonte
     const textInputVal = document.getElementById('paint-text-value');
@@ -6300,29 +7017,6 @@ function renderPintarOnlineView() {
         };
     }
 
-    // Touch support
-    paintCanvas.ontouchstart = (e) => {
-        const touch = e.touches[0];
-        const mouseEvent = new MouseEvent('mousedown', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        paintCanvas.dispatchEvent(mouseEvent);
-    };
-    paintCanvas.ontouchmove = (e) => {
-        const touch = e.touches[0];
-        const rect = paintCanvas.getBoundingClientRect();
-        const mouseEvent = new MouseEvent('mousemove', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        paintCanvas.dispatchEvent(mouseEvent);
-    };
-    paintCanvas.ontouchend = () => {
-        const mouseEvent = new MouseEvent('mouseup', {});
-        paintCanvas.dispatchEvent(mouseEvent);
-    };
-
     // Configurar botões extras
     const btnUndo = document.getElementById('paint-btn-undo');
     if (btnUndo) btnUndo.onclick = undoPaint;
@@ -6333,16 +7027,28 @@ function renderPintarOnlineView() {
     const btnPrint = document.getElementById('paint-btn-print');
     if (btnPrint) {
         btnPrint.onclick = () => {
+            // Compose without handles before printing
+            const originalSticker = window.selectedSticker;
+            window.selectedSticker = null;
+            composePaintCanvas();
             const dataUrl = paintCanvas.toDataURL('image/png');
             printSavedImage(dataUrl);
+            window.selectedSticker = originalSticker;
+            composePaintCanvas();
         };
     }
 
     const btnPDF = document.getElementById('paint-btn-pdf');
     if (btnPDF) {
         btnPDF.onclick = () => {
+            // Compose without handles before export
+            const originalSticker = window.selectedSticker;
+            window.selectedSticker = null;
+            composePaintCanvas();
             const dataUrl = paintCanvas.toDataURL('image/png');
             downloadSavedDrawingPDF(dataUrl, window.currentPaintingData.name, btnPDF);
+            window.selectedSticker = originalSticker;
+            composePaintCanvas();
         };
     }
 
@@ -6360,7 +7066,14 @@ function renderPintarOnlineView() {
             btnWhatsApp.disabled = true;
             
             try {
+                // Hide selection handles for export
+                const originalSticker = window.selectedSticker;
+                window.selectedSticker = null;
+                composePaintCanvas();
                 const dataUrl = paintCanvas.toDataURL('image/png');
+                window.selectedSticker = originalSticker;
+                composePaintCanvas();
+
                 const chkPublic = document.getElementById('paint-chk-public');
                 const isPublic = chkPublic ? chkPublic.checked : false;
 
@@ -6404,19 +7117,34 @@ function renderPintarOnlineView() {
         };
     }
 
+    const btnSavePub = document.getElementById('paint-btn-save-public');
+    if (btnSavePub) {
+        btnSavePub.onclick = () => {
+            const chkPublic = document.getElementById('paint-chk-public');
+            if (chkPublic) {
+                chkPublic.checked = true;
+                chkPublic.dispatchEvent(new Event('change'));
+            }
+            savePaintingToGallery();
+        };
+    }
+
     const chkPublic = document.getElementById('paint-chk-public');
-    if (chkPublic && btnSave) {
+    const publicCardWrapper = document.getElementById('paint-chk-public-wrapper');
+    if (chkPublic && publicCardWrapper) {
         chkPublic.onchange = () => {
             if (chkPublic.checked) {
-                btnSave.innerHTML = '<i class="fa-solid fa-rocket"></i> Compartilhar no Hall da Fama!';
-                btnSave.style.backgroundColor = 'var(--color-purple)';
-                btnSave.style.borderColor = 'var(--color-purple)';
-                btnSave.classList.add('pulse-button');
+                publicCardWrapper.style.backgroundColor = '#f3e5f5';
+                publicCardWrapper.style.borderColor = 'var(--color-purple)';
             } else {
-                btnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
-                btnSave.style.backgroundColor = 'var(--color-green)';
-                btnSave.style.borderColor = 'var(--color-green)';
-                btnSave.classList.remove('pulse-button');
+                publicCardWrapper.style.backgroundColor = '#fffdf0';
+                publicCardWrapper.style.borderColor = 'var(--color-dark)';
+            }
+        };
+        publicCardWrapper.onclick = (e) => {
+            if (e.target !== chkPublic) {
+                chkPublic.checked = !chkPublic.checked;
+                chkPublic.dispatchEvent(new Event('change'));
             }
         };
     }
@@ -6459,6 +7187,19 @@ function renderPintarOnlineView() {
                         paintBgCtx.fillRect(0, 0, 800, 600);
                     }
 
+                    window.activeStickers = [];
+                    window.selectedSticker = null;
+                    window.paintActions = [];
+                    window.strokeCount = 0;
+                    window.paintStartTime = Date.now();
+                    window.colorsUsedInPainting = new Set();
+                    if (paintCrayons && paintCrayons.length > 0) {
+                        window.colorsUsedInPainting.add(paintCrayons[0].hex);
+                    }
+
+                    // Track action
+                    window.paintActions.push({ type: 'clear', time: Date.now() });
+
                     composePaintCanvas();
                     savePaintHistory();
                     showToast('Tela limpa com sucesso! 🖍️', 'success');
@@ -6466,6 +7207,24 @@ function renderPintarOnlineView() {
             );
         };
     }
+
+    const btnWatchReplay = document.getElementById('paint-btn-watch-replay');
+    if (btnWatchReplay) {
+        btnWatchReplay.onclick = () => {
+            openReplayModal();
+        };
+    }
+
+    // Start auto-save every 30 seconds
+    if (window.paintAutosaveInterval) {
+        clearInterval(window.paintAutosaveInterval);
+    }
+    window.paintAutosaveInterval = setInterval(() => {
+        saveAutosaveToLocalStorage();
+    }, 30000);
+
+    // Check for auto-save recovery prompt
+    checkAndRestoreAutosave();
 }
 
 // Atalhos do teclado para Desfazer/Refazer
@@ -6482,7 +7241,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-function composePaintCanvas() {
+function composePaintCanvas(skipSelection = false) {
     pCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
     
     // Fundo branco
@@ -6516,6 +7275,9 @@ function composePaintCanvas() {
     
     // Camada de primeiro plano (Normal brush, stamps)
     pCtx.drawImage(paintFgCanvas, 0, 0);
+    
+    // Camada de adesivos
+    drawActiveStickers(pCtx, skipSelection);
 }
 
 function savePaintHistory() {
@@ -6525,8 +7287,9 @@ function savePaintHistory() {
     
     const bgData = paintBgCtx.getImageData(0, 0, 800, 600);
     const fgData = paintFgCtx.getImageData(0, 0, 800, 600);
+    const stickersCopy = (window.activeStickers || []).map(st => ({ ...st }));
     
-    paintHistory.push({ bg: bgData, fg: fgData });
+    paintHistory.push({ bg: bgData, fg: fgData, stickers: stickersCopy });
     
     if (paintHistory.length > maxHistoryStates) {
         paintHistory.shift();
@@ -6541,6 +7304,8 @@ function undoPaint() {
         const state = paintHistory[paintHistoryIndex];
         paintBgCtx.putImageData(state.bg, 0, 0);
         paintFgCtx.putImageData(state.fg, 0, 0);
+        window.activeStickers = (state.stickers || []).map(st => ({ ...st }));
+        window.selectedSticker = null;
         composePaintCanvas();
         updateUndoRedoButtons();
     }
@@ -6552,6 +7317,8 @@ function redoPaint() {
         const state = paintHistory[paintHistoryIndex];
         paintBgCtx.putImageData(state.bg, 0, 0);
         paintFgCtx.putImageData(state.fg, 0, 0);
+        window.activeStickers = (state.stickers || []).map(st => ({ ...st }));
+        window.selectedSticker = null;
         composePaintCanvas();
         updateUndoRedoButtons();
     }
@@ -6568,6 +7335,597 @@ function updateUndoRedoButtons() {
         btnRedo.disabled = (paintHistoryIndex >= paintHistory.length - 1);
         btnRedo.style.opacity = (paintHistoryIndex >= paintHistory.length - 1) ? '0.5' : '1';
     }
+}
+
+// ==============================================
+// ACCELERATED PAINT REPLAY PLAYER ENGINE
+// ==============================================
+let replayIsPlaying = false;
+let replayTimer = null;
+let replayCurrentIndex = 0;
+let replaySpeed = 3;
+let replayBgCanvas = null;
+let replayBgCtx = null;
+let replayFgCanvas = null;
+let replayFgCtx = null;
+let replayCanvas = null;
+let replayCtx = null;
+let replayActiveStickers = [];
+
+let replayMagicBrushMaskCanvas = null;
+let replayMagicBrushMaskCtx = null;
+let replayMagicBrushTempCanvas = null;
+let replayMagicBrushTempCtx = null;
+
+function initReplayCanvases() {
+    replayCanvas = document.getElementById('paint-replay-canvas');
+    if (!replayCanvas) return;
+    replayCtx = replayCanvas.getContext('2d');
+    
+    if (!replayBgCanvas) {
+        replayBgCanvas = document.createElement('canvas');
+        replayBgCanvas.width = 800;
+        replayBgCanvas.height = 600;
+        replayBgCtx = replayBgCanvas.getContext('2d');
+    }
+    if (!replayFgCanvas) {
+        replayFgCanvas = document.createElement('canvas');
+        replayFgCanvas.width = 800;
+        replayFgCanvas.height = 600;
+        replayFgCtx = replayFgCanvas.getContext('2d');
+    }
+}
+
+function composeReplayCanvas() {
+    if (!replayCtx) return;
+    replayCtx.clearRect(0, 0, 800, 600);
+    
+    // White background
+    replayCtx.fillStyle = '#ffffff';
+    replayCtx.fillRect(0, 0, 800, 600);
+    
+    // Background layer
+    replayCtx.drawImage(replayBgCanvas, 0, 0);
+    
+    // Multiply drawing outline
+    if (paintDrawingImage) {
+        const aspect = paintDrawingImage.width / paintDrawingImage.height;
+        let w = 800;
+        let h = 600;
+        let x = 0;
+        let y = 0;
+
+        if (aspect > 4/3) {
+            h = 800 / aspect;
+            y = (600 - h) / 2;
+        } else {
+            w = 600 * aspect;
+            x = (800 - w) / 2;
+        }
+        
+        replayCtx.save();
+        replayCtx.globalCompositeOperation = 'multiply';
+        replayCtx.drawImage(paintDrawingImage, x, y, w, h);
+        replayCtx.restore();
+    }
+    
+    // Foreground layer
+    replayCtx.drawImage(replayFgCanvas, 0, 0);
+    
+    // Stickers layer (hide selection box during playback)
+    if (replayActiveStickers && replayActiveStickers.length > 0) {
+        replayActiveStickers.forEach(st => {
+            drawSingleSticker(replayCtx, st, true);
+        });
+    }
+}
+
+function openReplayModal() {
+    initReplayCanvases();
+    const modal = document.getElementById('paint-replay-modal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    
+    // Clear and draw white background
+    replayBgCtx.fillStyle = '#ffffff';
+    replayBgCtx.fillRect(0, 0, 800, 600);
+    replayFgCtx.clearRect(0, 0, 800, 600);
+    replayActiveStickers = [];
+    
+    if (paintDrawingImage) {
+        const aspect = paintDrawingImage.width / paintDrawingImage.height;
+        let w = 800;
+        let h = 600;
+        let x = 0;
+        let y = 0;
+
+        if (aspect > 4/3) {
+            h = 800 / aspect;
+            y = (600 - h) / 2;
+        } else {
+            w = 600 * aspect;
+            x = (800 - w) / 2;
+        }
+        replayBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+        cleanPaintCanvasOutlineDirect(replayBgCtx);
+    }
+    
+    composeReplayCanvas();
+    
+    replayCurrentIndex = 0;
+    replayIsPlaying = false;
+    updateReplayPlayButtonState();
+    updateReplayProgressBar();
+    
+    const speedSelect = document.getElementById('paint-replay-speed');
+    if (speedSelect) {
+        replaySpeed = parseInt(speedSelect.value) || 3;
+    }
+    
+    const playBtn = document.getElementById('paint-replay-play-btn');
+    if (playBtn) {
+        playBtn.onclick = () => {
+            if (replayIsPlaying) {
+                pauseReplay();
+            } else {
+                playReplay();
+            }
+        };
+    }
+    
+    const closeBtn = document.getElementById('paint-btn-close-replay');
+    if (closeBtn) {
+        closeBtn.onclick = () => {
+            pauseReplay();
+            modal.style.display = 'none';
+        };
+    }
+    
+    if (speedSelect) {
+        speedSelect.onchange = () => {
+            replaySpeed = parseInt(speedSelect.value) || 3;
+            if (replayIsPlaying) {
+                pauseReplay();
+                playReplay();
+            }
+        };
+    }
+
+    const shareBtn = document.getElementById('paint-replay-share-btn');
+    if (shareBtn) {
+        shareBtn.onclick = () => {
+            shareReplayVideo();
+        };
+    }
+}
+window.openReplayModal = openReplayModal;
+
+function playReplay() {
+    if (!window.paintActions || window.paintActions.length === 0) {
+        showToast('Nenhum traço para reproduzir! Comece a pintar para ver o replay.', 'info');
+        return;
+    }
+    
+    if (replayCurrentIndex >= window.paintActions.length) {
+        replayBgCtx.fillStyle = '#ffffff';
+        replayBgCtx.fillRect(0, 0, 800, 600);
+        replayFgCtx.clearRect(0, 0, 800, 600);
+        replayActiveStickers = [];
+        
+        if (paintDrawingImage) {
+            const aspect = paintDrawingImage.width / paintDrawingImage.height;
+            let w = 800;
+            let h = 600;
+            let x = 0;
+            let y = 0;
+
+            if (aspect > 4/3) {
+                h = 800 / aspect;
+                y = (600 - h) / 2;
+            } else {
+                w = 600 * aspect;
+                x = (800 - w) / 2;
+            }
+            replayBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+            cleanPaintCanvasOutlineDirect(replayBgCtx);
+        }
+        
+        replayCurrentIndex = 0;
+        updateReplayProgressBar();
+    }
+    
+    replayIsPlaying = true;
+    updateReplayPlayButtonState();
+    
+    const tick = () => {
+        if (!replayIsPlaying) return;
+        
+        let actionsExecuted = 0;
+        while (actionsExecuted < replaySpeed && replayCurrentIndex < window.paintActions.length) {
+            executeReplayAction(window.paintActions[replayCurrentIndex]);
+            replayCurrentIndex++;
+            actionsExecuted++;
+        }
+        
+        composeReplayCanvas();
+        updateReplayProgressBar();
+        
+        if (replayCurrentIndex >= window.paintActions.length) {
+            pauseReplay();
+            showToast('Replay concluído! 🎉', 'success');
+        } else {
+            replayTimer = setTimeout(tick, 30);
+        }
+    };
+    
+    replayTimer = setTimeout(tick, 30);
+}
+
+function pauseReplay() {
+    replayIsPlaying = false;
+    if (replayTimer) {
+        clearTimeout(replayTimer);
+        replayTimer = null;
+    }
+    updateReplayPlayButtonState();
+}
+
+function updateReplayPlayButtonState() {
+    const playBtn = document.getElementById('paint-replay-play-btn');
+    if (!playBtn) return;
+    if (replayIsPlaying) {
+        playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pausar';
+        playBtn.style.backgroundColor = 'var(--color-orange)';
+    } else {
+        playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Play';
+        playBtn.style.backgroundColor = 'var(--color-purple)';
+    }
+}
+
+function updateReplayProgressBar() {
+    const fill = document.getElementById('paint-replay-progress-fill');
+    if (!fill) return;
+    const total = window.paintActions ? window.paintActions.length : 0;
+    if (total === 0) {
+        fill.style.width = '0%';
+    } else {
+        const pct = (replayCurrentIndex / total) * 100;
+        fill.style.width = `${pct}%`;
+    }
+}
+
+function executeReplayAction(act) {
+    if (act.type === 'clear') {
+        replayBgCtx.fillStyle = '#ffffff';
+        replayBgCtx.fillRect(0, 0, 800, 600);
+        replayFgCtx.clearRect(0, 0, 800, 600);
+        replayActiveStickers = [];
+        
+        if (paintDrawingImage) {
+            const aspect = paintDrawingImage.width / paintDrawingImage.height;
+            let w = 800;
+            let h = 600;
+            let x = 0;
+            let y = 0;
+
+            if (aspect > 4/3) {
+                h = 800 / aspect;
+                y = (600 - h) / 2;
+            } else {
+                w = 600 * aspect;
+                x = (800 - w) / 2;
+            }
+            replayBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+            cleanPaintCanvasOutlineDirect(replayBgCtx);
+        }
+        return;
+    }
+    
+    if (act.type === 'magic-mask-init') {
+        replayMagicBrushMaskCanvas = document.createElement('canvas');
+        replayMagicBrushMaskCanvas.width = 800;
+        replayMagicBrushMaskCanvas.height = 600;
+        replayMagicBrushMaskCtx = replayMagicBrushMaskCanvas.getContext('2d');
+        
+        const imgData = replayCtx.getImageData(0, 0, 800, 600);
+        const data = imgData.data;
+        const width = 800;
+        const height = 600;
+        
+        const startIdx = (act.y * width + act.x) * 4;
+        const startR = data[startIdx];
+        const startG = data[startIdx+1];
+        const startB = data[startIdx+2];
+        const startA = data[startIdx+3];
+        
+        function isOutline(r, g, b, a) {
+            return (r < 130 && g < 130 && b < 130 && a > 100);
+        }
+        
+        if (isOutline(startR, startG, startB, startA)) {
+            return;
+        }
+        
+        const maskImgData = replayMagicBrushMaskCtx.createImageData(width, height);
+        const maskData = maskImgData.data;
+        
+        const stack = [[act.x, act.y]];
+        const visited = new Uint8Array(width * height);
+        visited[act.y * width + act.x] = 1;
+        
+        while (stack.length > 0) {
+            const [cx, cy] = stack.pop();
+            const idx = (cy * width + cx) * 4;
+            
+            maskData[idx] = 255;
+            maskData[idx+1] = 255;
+            maskData[idx+2] = 255;
+            maskData[idx+3] = 255;
+            
+            const neighbors = [
+                [cx + 1, cy],
+                [cx - 1, cy],
+                [cx, cy + 1],
+                [cx, cy - 1]
+            ];
+            
+            for (const [nx, ny] of neighbors) {
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                    const nIdx = ny * width + nx;
+                    if (!visited[nIdx]) {
+                        visited[nIdx] = 1;
+                        const pIdx = nIdx * 4;
+                        if (!isOutline(data[pIdx], data[pIdx+1], data[pIdx+2], data[pIdx+3])) {
+                            stack.push([nx, ny]);
+                        }
+                    }
+                }
+            }
+        }
+        replayMagicBrushMaskCtx.putImageData(maskImgData, 0, 0);
+        return;
+    }
+    
+    if (act.type === 'draw') {
+        const brushSizeVal = act.size;
+        const color = act.color;
+        
+        if (act.tool === 'brush-magic') {
+            if (!replayMagicBrushTempCanvas) {
+                replayMagicBrushTempCanvas = document.createElement('canvas');
+                replayMagicBrushTempCanvas.width = 800;
+                replayMagicBrushTempCanvas.height = 600;
+                replayMagicBrushTempCtx = replayMagicBrushTempCanvas.getContext('2d');
+            }
+            replayMagicBrushTempCtx.clearRect(0, 0, 800, 600);
+            
+            replayMagicBrushTempCtx.save();
+            replayMagicBrushTempCtx.beginPath();
+            replayMagicBrushTempCtx.moveTo(act.x1, act.y1);
+            replayMagicBrushTempCtx.lineTo(act.x2, act.y2);
+            replayMagicBrushTempCtx.strokeStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            replayMagicBrushTempCtx.lineWidth = brushSizeVal;
+            replayMagicBrushTempCtx.lineCap = 'round';
+            replayMagicBrushTempCtx.lineJoin = 'round';
+            replayMagicBrushTempCtx.stroke();
+            replayMagicBrushTempCtx.restore();
+            
+            if (replayMagicBrushMaskCanvas) {
+                replayMagicBrushTempCtx.save();
+                replayMagicBrushTempCtx.globalCompositeOperation = 'destination-in';
+                replayMagicBrushTempCtx.drawImage(replayMagicBrushMaskCanvas, 0, 0);
+                replayMagicBrushTempCtx.restore();
+            }
+            
+            replayBgCtx.save();
+            replayBgCtx.drawImage(replayMagicBrushTempCanvas, 0, 0);
+            replayBgCtx.restore();
+        } else if (act.tool === 'brush') {
+            replayFgCtx.save();
+            replayFgCtx.beginPath();
+            replayFgCtx.moveTo(act.x1, act.y1);
+            replayFgCtx.lineTo(act.x2, act.y2);
+            replayFgCtx.strokeStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            replayFgCtx.lineWidth = brushSizeVal;
+            replayFgCtx.lineCap = 'round';
+            replayFgCtx.lineJoin = 'round';
+            replayFgCtx.stroke();
+            replayFgCtx.restore();
+        } else if (act.tool === 'glitter') {
+            replayBgCtx.save();
+            replayBgCtx.strokeStyle = createGlitterPattern(color);
+            replayBgCtx.lineWidth = brushSizeVal;
+            replayBgCtx.lineCap = 'round';
+            replayBgCtx.lineJoin = 'round';
+            replayBgCtx.beginPath();
+            replayBgCtx.moveTo(act.x1, act.y1);
+            replayBgCtx.lineTo(act.x2, act.y2);
+            replayBgCtx.stroke();
+            replayBgCtx.restore();
+        } else if (act.tool === 'neon') {
+            // Neon Glow Pass
+            replayFgCtx.save();
+            replayFgCtx.strokeStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            replayFgCtx.lineWidth = brushSizeVal * 1.5;
+            replayFgCtx.lineCap = 'round';
+            replayFgCtx.lineJoin = 'round';
+            replayFgCtx.shadowColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            replayFgCtx.shadowBlur = brushSizeVal * 1.2;
+            replayFgCtx.beginPath();
+            replayFgCtx.moveTo(act.x1, act.y1);
+            replayFgCtx.lineTo(act.x2, act.y2);
+            replayFgCtx.stroke();
+            replayFgCtx.restore();
+            
+            // Neon Inner Core Pass
+            replayFgCtx.save();
+            replayFgCtx.strokeStyle = '#ffffff';
+            replayFgCtx.lineWidth = brushSizeVal * 0.4;
+            replayFgCtx.lineCap = 'round';
+            replayFgCtx.lineJoin = 'round';
+            replayFgCtx.beginPath();
+            replayFgCtx.moveTo(act.x1, act.y1);
+            replayFgCtx.lineTo(act.x2, act.y2);
+            replayFgCtx.stroke();
+            replayFgCtx.restore();
+        } else if (act.tool === 'eraser') {
+            [replayBgCtx, replayFgCtx].forEach(ctx => {
+                ctx.save();
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.moveTo(act.x1, act.y1);
+                ctx.lineTo(act.x2, act.y2);
+                ctx.lineWidth = brushSizeVal;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+                ctx.restore();
+            });
+        }
+        return;
+    }
+    
+    if (act.type === 'flood-fill') {
+        const imgData = replayCtx.getImageData(0, 0, 800, 600);
+        const data = imgData.data;
+        const width = 800;
+        const height = 600;
+        
+        const startIdx = (act.startY * width + act.startX) * 4;
+        const startR = data[startIdx];
+        const startG = data[startIdx+1];
+        const startB = data[startIdx+2];
+        const startA = data[startIdx+3];
+        
+        const fillR = act.color[0];
+        const fillG = act.color[1];
+        const fillB = act.color[2];
+        const fillA = 255;
+        
+        const bgImgData = replayBgCtx.getImageData(0, 0, width, height);
+        const bgData = bgImgData.data;
+        
+        function isOutline(r, g, b, a) {
+            return (r < 130 && g < 130 && b < 130 && a > 100);
+        }
+        
+        if (isOutline(startR, startG, startB, startA)) {
+            return;
+        }
+        
+        const stack = [[act.startX, act.startY]];
+        const visited = new Uint8Array(width * height);
+        visited[act.startY * width + act.startX] = 1;
+        
+        const fillMaskCanvas = act.isGlitter ? document.createElement('canvas') : null;
+        const fCtx = act.isGlitter ? fillMaskCanvas.getContext('2d') : null;
+        let maskData = null;
+        
+        if (act.isGlitter) {
+            fillMaskCanvas.width = width;
+            fillMaskCanvas.height = height;
+            maskData = fCtx.createImageData(width, height);
+        }
+        
+        while (stack.length > 0) {
+            const [cx, cy] = stack.pop();
+            const idx = (cy * width + cx) * 4;
+            
+            if (act.isGlitter) {
+                const mIdx = (cy * width + cx) * 4;
+                maskData.data[mIdx] = 255;
+                maskData.data[mIdx+1] = 255;
+                maskData.data[mIdx+2] = 255;
+                maskData.data[mIdx+3] = 255;
+            } else {
+                bgData[idx] = fillR;
+                bgData[idx+1] = fillG;
+                bgData[idx+2] = fillB;
+                bgData[idx+3] = fillA;
+            }
+            
+            const neighbors = [
+                [cx + 1, cy],
+                [cx - 1, cy],
+                [cx, cy + 1],
+                [cx, cy - 1]
+            ];
+            
+            for (const [nx, ny] of neighbors) {
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                    const nIdx = ny * width + nx;
+                    if (!visited[nIdx]) {
+                        visited[nIdx] = 1;
+                        const pIdx = nIdx * 4;
+                        if (!isOutline(data[pIdx], data[pIdx+1], data[pIdx+2], data[pIdx+3])) {
+                            stack.push([nx, ny]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (act.isGlitter) {
+            fCtx.putImageData(maskData, 0, 0);
+            
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = width;
+            tempCanvas.height = height;
+            const tCtx = tempCanvas.getContext('2d');
+            
+            tCtx.fillStyle = createGlitterPattern(act.color);
+            tCtx.fillRect(0, 0, width, height);
+            
+            tCtx.globalCompositeOperation = 'destination-in';
+            tCtx.drawImage(fillMaskCanvas, 0, 0);
+            
+            replayBgCtx.save();
+            replayBgCtx.drawImage(tempCanvas, 0, 0);
+            replayBgCtx.restore();
+        } else {
+            replayBgCtx.putImageData(bgImgData, 0, 0);
+        }
+        return;
+    }
+    
+    if (act.type === 'sticker-add') {
+        const newSt = {
+            id: act.id,
+            stamp: act.stamp,
+            x: act.x,
+            y: act.y,
+            size: act.size,
+            rotation: act.rotation
+        };
+        replayActiveStickers.push(newSt);
+        return;
+    }
+    
+    if (act.type === 'sticker-delete') {
+        replayActiveStickers = replayActiveStickers.filter(s => s.id !== act.id);
+        return;
+    }
+    
+    if (act.type === 'sticker-update') {
+        const st = replayActiveStickers.find(s => s.id === act.id);
+        if (st) {
+            st.x = act.x;
+            st.y = act.y;
+            st.size = act.size;
+            st.rotation = act.rotation;
+        }
+        return;
+    }
+}
+
+function shareReplayVideo() {
+    showToast('Processando replay para compartilhamento... 🎬', 'info');
+    setTimeout(() => {
+        showToast('Link do Replay copiado para a área de transferência! Compartilhe com os amigos! 🚀', 'success');
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(window.location.origin + '/replay/' + (currentUser ? currentUser.username : 'artista'));
+        }
+    }, 1500);
 }
 
 function cleanPaintCanvasOutlineDirect(ctx) {
@@ -6605,6 +7963,12 @@ function updatePaintCursor(tool, stamp) {
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 576 512\' width=\'24\' height=\'24\' fill=\'black\'><path d=\'M41.4 9.4C53.9-3.1 74.1-3.1 86.6 9.4L168 90.7l53.1-53.1c28.1-28.1 73.7-28.1 101.8 0L474.3 189.1c28.1 28.1 28.1 73.7 0 101.8L283.9 481.4c-37.5 37.5-98.3 37.5-135.8 0L30.6 363.9c-37.5-37.5-37.5-98.3 0-135.8L122.7 136 41.4 54.6c-12.5-12.5-12.5-32.8 0-45.3zm176 221.3L168 181.3 75.9 273.4c-4.2 4.2-7 9.3-8.4 14.6H386.7l42.3-42.3c3.1-3.1 3.1-8.2 0-11.3L277.7 82.9c-3.1-3.1-8.2-3.1-11.3 0L213.3 136l49.4 49.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0zM512 512c-35.3 0-64-28.7-64-64c0-25.2 32.6-79.6 51.2-108.7c6-9.4 19.5-9.4 25.5 0C543.4 368.4 576 422.8 576 448c0 35.3-28.7 64-64 64z\'/></svg>") 0 24, auto';
     } else if (tool === 'glitter') {
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>✨</text></svg>") 11 11, auto';
+    } else if (tool === 'neon') {
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>💡</text></svg>") 11 11, auto';
+    } else if (tool === 'pipette') {
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>💧</text></svg>") 11 11, auto';
+    } else if (tool === 'select') {
+        paintCanvas.style.cursor = 'default';
     } else if (tool === 'brush-magic') {
         // Usa o pincel comum 🖌️ que é universalmente suportado, para evitar a caixinha quadrada
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🖌️</text></svg>") 4 22, auto';
@@ -6735,6 +8099,9 @@ function initMagicBrushMask(startX, startY) {
 }
 
 function setPaintTool(tool) {
+    if (tool !== 'select') {
+        window.selectedSticker = null;
+    }
     activePaintTool = tool;
     document.querySelectorAll('.paint-tool-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.paint-stamp-btn').forEach(btn => btn.classList.remove('active'));
@@ -6746,9 +8113,12 @@ function setPaintTool(tool) {
         if (sliderGroup) sliderGroup.style.display = 'none';
     } else if (tool === 'glitter') {
         document.getElementById('paint-tool-glitter').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'none';
+        if (sliderGroup) sliderGroup.style.display = 'flex'; // Allow brush size for glitter brush
     } else if (tool === 'brush') {
         document.getElementById('paint-tool-brush').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'flex';
+    } else if (tool === 'neon') {
+        document.getElementById('paint-tool-neon').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
     } else if (tool === 'brush-magic') {
         document.getElementById('paint-tool-brush-magic').classList.add('active');
@@ -6756,6 +8126,9 @@ function setPaintTool(tool) {
     } else if (tool === 'eraser') {
         document.getElementById('paint-tool-eraser').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
+    } else if (tool === 'pipette') {
+        document.getElementById('paint-tool-pipette').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'none';
     } else if (tool === 'text') {
         document.getElementById('paint-tool-text').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
@@ -6765,9 +8138,14 @@ function setPaintTool(tool) {
         if (textInput && textInput.value.trim() === '') {
             textInput.value = 'KidCanvas';
         }
+    } else if (tool === 'select') {
+        if (sliderGroup) sliderGroup.style.display = 'none';
     }
     
     updatePaintCursor(tool);
+    if (paintCanvas) {
+        composePaintCanvas();
+    }
 }
 
 // Configurar Toolbar de Pintura
@@ -6775,21 +8153,16 @@ document.getElementById('paint-tool-bucket').onclick = () => setPaintTool('bucke
 document.getElementById('paint-tool-glitter').onclick = () => setPaintTool('glitter');
 document.getElementById('paint-tool-brush-magic').onclick = () => setPaintTool('brush-magic');
 document.getElementById('paint-tool-brush').onclick = () => setPaintTool('brush');
+document.getElementById('paint-tool-neon').onclick = () => setPaintTool('neon');
 document.getElementById('paint-tool-eraser').onclick = () => setPaintTool('eraser');
+document.getElementById('paint-tool-pipette').onclick = () => setPaintTool('pipette');
 document.getElementById('paint-tool-text').onclick = () => setPaintTool('text');
 
-// Configurar carimbos
+// Configurar carimbos rápidos (clique insere instantaneamente no centro)
 document.querySelectorAll('.paint-stamp-btn').forEach(btn => {
     btn.onclick = () => {
-        setPaintTool('stamp');
-        document.querySelectorAll('.paint-stamp-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        window.selectedPaintStamp = btn.getAttribute('data-stamp');
-        
-        const sliderGroup = document.getElementById('paint-slider-group');
-        if (sliderGroup) sliderGroup.style.display = 'flex';
-        
-        updatePaintCursor('stamp', window.selectedPaintStamp);
+        const emoji = btn.getAttribute('data-stamp');
+        insertStickerInstantly(emoji);
     };
 });
 
@@ -6803,11 +8176,100 @@ function getPaintMousePos(evt) {
 
 function startPaintingDraw(evt) {
     const pos = getPaintMousePos(evt);
+    const brushSizeInput = document.getElementById('paint-brush-size');
+    const brushSizeVal = brushSizeInput ? parseInt(brushSizeInput.value) : 8;
+    
+    if (activePaintTool === 'pipette') {
+        const sampledData = pCtx.getImageData(pos.x, pos.y, 1, 1).data;
+        const rgb = [sampledData[0], sampledData[1], sampledData[2]];
+        selectPaintingColor(rgb);
+        setPaintTool('brush');
+        return;
+    }
+    
+    if (activePaintTool === 'select') {
+        const handle = getStickerHandleAt(window.selectedSticker, pos.x, pos.y);
+        if (handle) {
+            if (handle === 'delete') {
+                const oldId = window.selectedSticker.id;
+                window.activeStickers = (window.activeStickers || []).filter(s => s.id !== oldId);
+                
+                // Track replay action
+                if (!window.paintActions) window.paintActions = [];
+                window.paintActions.push({
+                    type: 'sticker-delete',
+                    id: oldId,
+                    time: Date.now()
+                });
+                
+                window.selectedSticker = null;
+                composePaintCanvas();
+                savePaintHistory();
+            } else if (handle === 'duplicate') {
+                const old = window.selectedSticker;
+                const clone = {
+                    id: 'sticker_' + Date.now() + '_' + Math.round(Math.random() * 1000000),
+                    stamp: old.stamp,
+                    x: old.x + 30,
+                    y: old.y + 30,
+                    size: old.size,
+                    rotation: old.rotation
+                };
+                window.activeStickers.push(clone);
+                window.selectedSticker = clone;
+                
+                // Track replay action
+                if (!window.paintActions) window.paintActions = [];
+                window.paintActions.push({
+                    type: 'sticker-add',
+                    id: clone.id,
+                    stamp: clone.stamp,
+                    x: clone.x,
+                    y: clone.y,
+                    size: clone.size,
+                    rotation: clone.rotation,
+                    time: Date.now()
+                });
+                
+                composePaintCanvas();
+                savePaintHistory();
+            } else if (handle === 'rotate-scale') {
+                window.stickerDragMode = 'rotate-scale';
+                window.stickerStartAngle = Math.atan2(pos.y - window.selectedSticker.y, pos.x - window.selectedSticker.x) - (window.selectedSticker.rotation || 0);
+                window.stickerStartDist = Math.hypot(pos.x - window.selectedSticker.x, pos.y - window.selectedSticker.y);
+                window.stickerStartSize = window.selectedSticker.size || 80;
+                isPaintDrawing = true;
+            } else if (handle === 'body') {
+                window.stickerDragMode = 'drag';
+                window.stickerOffsetX = pos.x - window.selectedSticker.x;
+                window.stickerOffsetY = pos.y - window.selectedSticker.y;
+                isPaintDrawing = true;
+            }
+        } else {
+            const st = getStickerAtPosition(pos.x, pos.y);
+            if (st) {
+                window.selectedSticker = st;
+                window.stickerDragMode = 'drag';
+                window.stickerOffsetX = pos.x - st.x;
+                window.stickerOffsetY = pos.y - st.y;
+                isPaintDrawing = true;
+            } else {
+                window.selectedSticker = null;
+            }
+            composePaintCanvas();
+        }
+        return;
+    }
     
     if (activePaintTool === 'bucket') {
         executePaintFloodFill(Math.round(pos.x), Math.round(pos.y), false);
     } else if (activePaintTool === 'glitter') {
-        executePaintFloodFill(Math.round(pos.x), Math.round(pos.y), true);
+        isPaintDrawing = true;
+        paintLastX = pos.x;
+        paintLastY = pos.y;
+        window.glitterStartX = pos.x;
+        window.glitterStartY = pos.y;
+        window.glitterHasMoved = false;
     } else if (activePaintTool === 'stamp') {
         executePaintStamp(pos.x, pos.y);
     } else if (activePaintTool === 'text') {
@@ -6819,15 +8281,110 @@ function startPaintingDraw(evt) {
         
         if (activePaintTool === 'brush-magic') {
             initMagicBrushMask(Math.round(pos.x), Math.round(pos.y));
+            if (!window.paintActions) window.paintActions = [];
+            window.paintActions.push({
+                type: 'magic-mask-init',
+                x: Math.round(pos.x),
+                y: Math.round(pos.y),
+                time: Date.now()
+            });
+        }
+        
+        // Record initial dot for draw replay
+        if (activePaintTool === 'brush' || activePaintTool === 'neon' || activePaintTool === 'eraser' || activePaintTool === 'brush-magic') {
+            if (!window.paintActions) window.paintActions = [];
+            window.paintActions.push({
+                type: 'draw',
+                tool: activePaintTool,
+                x1: pos.x,
+                y1: pos.y,
+                x2: pos.x,
+                y2: pos.y,
+                color: [...selectedPaintColor],
+                size: brushSizeVal,
+                time: Date.now()
+            });
         }
     }
 }
 
 function executePaintingDraw(evt) {
-    if (!isPaintDrawing) return;
     const pos = getPaintMousePos(evt);
     const brushSizeInput = document.getElementById('paint-brush-size');
-    const brushSizeVal = brushSizeInput ? brushSizeInput.value : 8;
+    const brushSizeVal = brushSizeInput ? parseInt(brushSizeInput.value) : 8;
+
+    if (activePaintTool === 'select' && window.selectedSticker && window.stickerDragMode) {
+        if (window.stickerDragMode === 'drag') {
+            window.selectedSticker.x = pos.x - window.stickerOffsetX;
+            window.selectedSticker.y = pos.y - window.stickerOffsetY;
+        } else if (window.stickerDragMode === 'rotate-scale') {
+            const currentAngle = Math.atan2(pos.y - window.selectedSticker.y, pos.x - window.selectedSticker.x);
+            window.selectedSticker.rotation = currentAngle - window.stickerStartAngle;
+            
+            const currentDist = Math.hypot(pos.x - window.selectedSticker.x, pos.y - window.selectedSticker.y);
+            const scale = currentDist / window.stickerStartDist;
+            window.selectedSticker.size = Math.max(20, Math.min(600, window.stickerStartSize * scale));
+        }
+        composePaintCanvas();
+        return;
+    }
+
+    if (!isPaintDrawing) return;
+
+    if (activePaintTool === 'glitter') {
+        const dist = Math.hypot(pos.x - window.glitterStartX, pos.y - window.glitterStartY);
+        if (dist > 3) {
+            window.glitterHasMoved = true;
+        }
+        
+        if (window.glitterHasMoved) {
+            paintBgCtx.save();
+            paintBgCtx.strokeStyle = createGlitterPattern(selectedPaintColor);
+            paintBgCtx.lineWidth = brushSizeVal;
+            paintBgCtx.lineCap = 'round';
+            paintBgCtx.lineJoin = 'round';
+            paintBgCtx.beginPath();
+            paintBgCtx.moveTo(paintLastX, paintLastY);
+            paintBgCtx.lineTo(pos.x, pos.y);
+            paintBgCtx.stroke();
+            paintBgCtx.restore();
+            
+            // Record to replay actions
+            if (!window.paintActions) window.paintActions = [];
+            window.paintActions.push({
+                type: 'draw',
+                tool: 'glitter',
+                x1: paintLastX,
+                y1: paintLastY,
+                x2: pos.x,
+                y2: pos.y,
+                color: [...selectedPaintColor],
+                size: brushSizeVal,
+                time: Date.now()
+            });
+            
+            paintLastX = pos.x;
+            paintLastY = pos.y;
+            composePaintCanvas();
+        }
+        return;
+    }
+
+    // Normal drawing recording segment
+    if (activePaintTool === 'brush' || activePaintTool === 'neon' || activePaintTool === 'eraser' || activePaintTool === 'brush-magic') {
+        if (!window.paintActions) window.paintActions = [];
+        window.paintActions.push({
+            type: 'draw',
+            tool: activePaintTool,
+            x1: paintLastX,
+            y1: paintLastY,
+            x2: pos.x,
+            y2: pos.y,
+            color: [...selectedPaintColor],
+            size: brushSizeVal,
+            time: Date.now()
+        });
+    }
 
     if (activePaintTool === 'brush-magic') {
         if (!magicBrushTempCanvas) {
@@ -6837,10 +8394,8 @@ function executePaintingDraw(evt) {
         magicBrushTempCanvas.height = paintCanvas.height;
         magicBrushTempCtx = magicBrushTempCanvas.getContext('2d');
         
-        // Limpar canvas temporário
         magicBrushTempCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
         
-        // Desenhar traço no canvas temporário
         magicBrushTempCtx.save();
         magicBrushTempCtx.beginPath();
         magicBrushTempCtx.moveTo(paintLastX, paintLastY);
@@ -6852,7 +8407,6 @@ function executePaintingDraw(evt) {
         magicBrushTempCtx.stroke();
         magicBrushTempCtx.restore();
         
-        // Aplicar máscara do flood fill
         if (magicBrushMaskCanvas) {
             magicBrushTempCtx.save();
             magicBrushTempCtx.globalCompositeOperation = 'destination-in';
@@ -6860,7 +8414,6 @@ function executePaintingDraw(evt) {
             magicBrushTempCtx.restore();
         }
         
-        // Desenhar o traço mascarado no canvas de fundo real
         paintBgCtx.save();
         paintBgCtx.drawImage(magicBrushTempCanvas, 0, 0);
         paintBgCtx.restore();
@@ -6873,6 +8426,32 @@ function executePaintingDraw(evt) {
         paintFgCtx.lineWidth = brushSizeVal;
         paintFgCtx.lineCap = 'round';
         paintFgCtx.lineJoin = 'round';
+        paintFgCtx.stroke();
+        paintFgCtx.restore();
+    } else if (activePaintTool === 'neon') {
+        // Neon Glow Pass
+        paintFgCtx.save();
+        paintFgCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        paintFgCtx.lineWidth = brushSizeVal * 1.5;
+        paintFgCtx.lineCap = 'round';
+        paintFgCtx.lineJoin = 'round';
+        paintFgCtx.shadowColor = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        paintFgCtx.shadowBlur = brushSizeVal * 1.2;
+        paintFgCtx.beginPath();
+        paintFgCtx.moveTo(paintLastX, paintLastY);
+        paintFgCtx.lineTo(pos.x, pos.y);
+        paintFgCtx.stroke();
+        paintFgCtx.restore();
+        
+        // Neon Inner Core Pass
+        paintFgCtx.save();
+        paintFgCtx.strokeStyle = '#ffffff';
+        paintFgCtx.lineWidth = brushSizeVal * 0.4;
+        paintFgCtx.lineCap = 'round';
+        paintFgCtx.lineJoin = 'round';
+        paintFgCtx.beginPath();
+        paintFgCtx.moveTo(paintLastX, paintLastY);
+        paintFgCtx.lineTo(pos.x, pos.y);
         paintFgCtx.stroke();
         paintFgCtx.restore();
     } else if (activePaintTool === 'eraser') {
@@ -6897,9 +8476,40 @@ function executePaintingDraw(evt) {
 }
 
 function stopPaintingDraw() {
+    if (activePaintTool === 'select' && window.selectedSticker && window.stickerDragMode) {
+        // Record final transform to replay action log
+        if (!window.paintActions) window.paintActions = [];
+        window.paintActions.push({
+            type: 'sticker-update',
+            id: window.selectedSticker.id,
+            x: window.selectedSticker.x,
+            y: window.selectedSticker.y,
+            size: window.selectedSticker.size,
+            rotation: window.selectedSticker.rotation,
+            time: Date.now()
+        });
+        window.stickerDragMode = null;
+        savePaintHistory();
+        composePaintCanvas();
+        return;
+    }
+
     if (isPaintDrawing) {
         isPaintDrawing = false;
-        savePaintHistory();
+        
+        if (activePaintTool === 'glitter') {
+            if (!window.glitterHasMoved) {
+                // Tap: perform glitter flood fill
+                executePaintFloodFill(Math.round(window.glitterStartX), Math.round(window.glitterStartY), true);
+            } else {
+                window.strokeCount = (window.strokeCount || 0) + 1;
+                savePaintHistory();
+            }
+        } else {
+            window.strokeCount = (window.strokeCount || 0) + 1;
+            savePaintHistory();
+        }
+        
         // Resetar máscaras do pincel mágico
         magicBrushMaskCanvas = null;
         magicBrushMaskCtx = null;
@@ -6909,29 +8519,37 @@ function stopPaintingDraw() {
 function executePaintStamp(x, y) {
     const stamp = window.selectedPaintStamp || '⭐';
     const sizeInput = document.getElementById('paint-brush-size');
-    const size = sizeInput ? parseInt(sizeInput.value) * 2.5 : 40;
-
-    if (stamp.startsWith('http') || stamp.startsWith('/') || stamp.startsWith('./')) {
-        const img = new Image();
-        img.src = stamp;
-        img.onload = () => {
-            paintFgCtx.save();
-            paintFgCtx.translate(x, y);
-            paintFgCtx.drawImage(img, -size / 2, -size / 2, size, size);
-            paintFgCtx.restore();
-            composePaintCanvas();
-            savePaintHistory();
-        };
-    } else {
-        paintFgCtx.save();
-        paintFgCtx.font = `${size}px Arial, sans-serif`;
-        paintFgCtx.textAlign = 'center';
-        paintFgCtx.textBaseline = 'middle';
-        paintFgCtx.fillText(stamp, x, y);
-        paintFgCtx.restore();
-        composePaintCanvas();
-        savePaintHistory();
-    }
+    const size = sizeInput ? parseInt(sizeInput.value) * 2.5 : 80;
+    
+    const newSticker = {
+        id: 'sticker_' + Date.now() + '_' + Math.round(Math.random() * 1000000),
+        stamp: stamp,
+        x: x,
+        y: y,
+        size: size,
+        rotation: 0
+    };
+    
+    if (!window.activeStickers) window.activeStickers = [];
+    window.activeStickers.push(newSticker);
+    window.selectedSticker = newSticker;
+    
+    // Track action
+    if (!window.paintActions) window.paintActions = [];
+    window.paintActions.push({
+        type: 'sticker-add',
+        id: newSticker.id,
+        stamp: stamp,
+        x: x,
+        y: y,
+        size: size,
+        rotation: 0,
+        time: Date.now()
+    });
+    
+    setPaintTool('select');
+    composePaintCanvas();
+    savePaintHistory();
 }
 
 function executePaintText(x, y) {
@@ -7047,12 +8665,23 @@ function executePaintFloodFill(startX, startY, isGlitter) {
     const bgData = bgImgData.data;
 
     function isOutline(r, g, b, a) {
-        return (r < 110 && g < 110 && b < 110 && a > 100);
+        return (r < 130 && g < 130 && b < 130 && a > 100);
     }
 
     if (isOutline(startR, startG, startB, startA)) {
         return;
     }
+
+    // Log action for replay
+    if (!window.paintActions) window.paintActions = [];
+    window.paintActions.push({
+        type: 'flood-fill',
+        startX: startX,
+        startY: startY,
+        isGlitter: isGlitter,
+        color: [...selectedPaintColor],
+        time: Date.now()
+    });
 
     const stack = [[startX, startY]];
     const visited = new Uint8Array(width * height);
@@ -7818,8 +9447,18 @@ async function savePaintingToGallery() {
     }
 
     try {
+        // Hide selection handles for export
+        const originalSticker = window.selectedSticker;
+        window.selectedSticker = null;
+        composePaintCanvas();
+
         // Exportar como JPEG (qualidade 0.85) - muito menor que PNG para envio ao servidor
         const imageBase64 = paintCanvas.toDataURL('image/jpeg', 0.85);
+
+        // Restore selection handles
+        window.selectedSticker = originalSticker;
+        composePaintCanvas();
+
         const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
         const isCustomAI = data.isCustomAI || false;
         const isPinturaLivre = data.isPinturaLivre || false;
@@ -7930,6 +9569,46 @@ async function savePaintingToGallery() {
 function openCertificateModal(drawingName) {
     const modal = document.getElementById('certificateModal');
     if (!modal) return;
+
+    // Play confetti celebration
+    startConfettiCelebration();
+
+    // Set a random motivational quote for the child
+    const MOTIVATIONAL_QUOTES = [
+        "Que obra incrível! 🎨",
+        "Você é um verdadeiro artista! 🌟",
+        "Que desenho fantástico! 🦄",
+        "Ficou super colorido e alegre! 🎉",
+        "Sua criatividade não tem limites! 🚀",
+        "Que talento maravilhoso! 💖",
+        "Um trabalho digno de galeria! 🏆",
+        "Que explosão de cores linda! 🌈"
+    ];
+    const randomQuote = MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
+    const heading = document.getElementById('certificate-quote-heading');
+    if (heading) heading.textContent = randomQuote;
+
+    // Calculate paint statistics
+    const timeElapsedSeconds = Math.round((Date.now() - window.paintStartTime) / 1000);
+    let timeStr = `${timeElapsedSeconds}s`;
+    if (timeElapsedSeconds >= 60) {
+        timeStr = `${Math.floor(timeElapsedSeconds / 60)}m ${timeElapsedSeconds % 60}s`;
+    }
+    
+    const colorsCount = window.colorsUsedInPainting ? window.colorsUsedInPainting.size : 0;
+    const strokesCount = window.strokeCount || 0;
+    const stickersCount = window.activeStickers ? window.activeStickers.length : 0;
+    
+    // Update stats UI
+    const statTime = document.getElementById('paint-stat-time');
+    const statColors = document.getElementById('paint-stat-colors');
+    const statStrokes = document.getElementById('paint-stat-strokes');
+    const statStickers = document.getElementById('paint-stat-stickers');
+    
+    if (statTime) statTime.textContent = timeStr;
+    if (statColors) statColors.textContent = colorsCount;
+    if (statStrokes) statStrokes.textContent = strokesCount;
+    if (statStickers) statStickers.textContent = stickersCount;
 
     document.getElementById('certificate-congrats-text').textContent = `Você coloriu o desenho "${drawingName}" com muito brilho!`;
     document.getElementById('certificate-child-name').value = currentUser.name || '';
@@ -8213,13 +9892,13 @@ window.startBlankCanvas = startBlankCanvas;
 
 const stickerCategories = {
     top: ['😎', '👑', '🌈', '⭐', '❤️', '🎈', '🦋', '🐶', '🐱', '☀️', '🌙', '🚀', '🏆'],
-    acessorios: ['😎', '❤️', '🎀', '🤠', '🏴‍☠️', '🎩', '👔', '💡', '👓', '🕶️', '👒'],
-    emocoes: ['😀', '😍', '🤪', '🧔', '👅', '😊', '🤩', '🧐', '😂', '🥳'],
-    magicos: ['🪄', '⭐', '✨', '🌈', '☁️', '🌙', '☀️', '🧚', '🧪', '🔮', '🦄', '🪐'],
-    animais: ['🐶', '🐱', '🐰', '🦋', '🐞', '🐝', '🦕', '🦄', '🐉', '🐟', '🦁', '🐯'],
-    festa: ['🎈', '🎁', '🎂', '🎉', '🎊', '🎆', '🏆', '🏅', '🍭', '🍿'],
-    aventura: ['🚀', '🛸', '🏴‍☠️', '🗺️', '⚔️', '🛡️', '🔭', '🧭', '🏎️', '🌋'],
-    moda: [
+    animais: ['🦁', '🐯', '🐱', '🐶', '🐰', '🦊', '🐻', '🐼', '🐨', '🐵', '🐸', '🐹', '🐧', '🐥', '🐝', '🐞', '🦋'],
+    dinossauros: ['🦖', '🦕', '🐊', '🐢', '🦎', '🐍', '🐲', '🐉', '🥚'],
+    natureza: ['🌸', '🌹', '🌻', '🌼', '🌷', '🌱', '🌿', '☘️', '🍀', '🍁', '🍂', '🍄', '🌳', '🌴', '🌵', '🌺', '🍒'],
+    festa: ['🎈', '🎁', '🎂', '🍰', '🧁', '🍬', '🍭', '🎉', '🎊', '🎀', '🍿', '🥤', '🍕', '🍟'],
+    espaco: ['🚀', '🛸', '🪐', '☄️', '🌟', '⭐', '🌙', '🌌', '🌍', '👽', '🛰️', '🧑‍🚀'],
+    fantasia: ['🦄', '🐉', '🧚', '🧜', '🧙', '🧝', '🧞', '🏰', '🔮', '🪄', '⭐', '✨'],
+    acessorios: [
         { name: 'Óculos gigantes', url: '/stickers/oculos_gigantes.png' },
         { name: 'Boné azul', url: '/stickers/bone_azul.png' },
         { name: 'Boné vermelho', url: '/stickers/bone_vermelho.png' },
@@ -8227,7 +9906,8 @@ const stickerCategories = {
         { name: 'Gravata', url: '/stickers/gravata.png' },
         { name: 'Laço rosa', url: '/stickers/laco_rosa.png' },
         { name: 'Relógio', url: '/stickers/relogio.png' },
-        { name: 'Fones de ouvido', url: '/stickers/fones_de_ouvido.png' }
+        { name: 'Fones de ouvido', url: '/stickers/fones_de_ouvido.png' },
+        '🤠', '🏴‍☠️', '🎩', '👔', '💡', '👓', '🕶️', '👒', '👑', '🎀'
     ]
 };
 
@@ -8293,7 +9973,7 @@ function switchStickerTab(tab) {
             btn.classList.remove('active');
         });
         const btns = container.querySelectorAll('.sticker-tab-btn');
-        const tabNames = ['top', 'acessorios', 'emocoes', 'magicos', 'animais', 'festa', 'aventura', 'moda', 'desbloqueaveis'];
+        const tabNames = ['top', 'animais', 'dinossauros', 'natureza', 'festa', 'espaco', 'fantasia', 'acessorios', 'desbloqueaveis'];
         const idx = tabNames.indexOf(tab);
         if (idx !== -1 && btns[idx]) {
             btns[idx].classList.add('active');
