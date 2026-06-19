@@ -1825,6 +1825,9 @@ app.get('/api/auth/google/callback', async (req, res) => {
             users.push(user);
             isNew = true;
         } else {
+            if (user.isBanned) {
+                return res.status(403).send('Sua conta foi suspensa por violação dos termos de uso da plataforma.');
+            }
             user.googleId = googleId;
             user.name = name;
             if (photo) user.photo = photo;
@@ -1972,6 +1975,9 @@ app.post('/api/auth/google', async (req, res) => {
                 user.plan = 'Ultra';
                 user.paginasRestantes = 400;
             }
+            if (user.isBanned) {
+                return res.status(403).json({ success: false, message: 'Sua conta foi suspensa por violação dos termos de uso da plataforma.' });
+            }
             console.log(`[Google Auth] Usuário existente logado: ${email}`);
         }
 
@@ -2086,6 +2092,10 @@ app.post('/api/auth/login', async (req, res) => {
             return res.status(400).json({ success: false, message: 'E-mail ou senha incorretos.' });
         }
         
+        if (user.isBanned) {
+            return res.status(403).json({ success: false, message: 'Sua conta foi suspensa por violação dos termos de uso da plataforma.' });
+        }
+        
         const sessionToken = crypto.randomBytes(16).toString('hex');
         user.token = sessionToken;
         user.tokenExpiry = Date.now() + 30 * 24 * 60 * 60 * 1000; // 30 dias
@@ -2198,6 +2208,10 @@ app.get('/api/auth/me', async (req, res) => {
         
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+        
+        if (user.isBanned) {
+            return res.status(403).json({ success: false, message: 'Sua conta foi suspensa por violação dos termos de uso da plataforma.' });
         }
         
         // Verificação retroativa de desbloqueios do livro
@@ -3111,6 +3125,85 @@ app.post('/api/paintings/delete', async (req, res) => {
     } catch (err) {
         console.error('Erro ao deletar pintura:', err);
         return res.status(500).json({ success: false, message: 'Erro ao remover pintura.' });
+    }
+});
+
+// Endpoint para advertir/dar aviso a um usuário (apenas para Admin)
+app.post('/api/admin/warn-user', isAdmin, async (req, res) => {
+    try {
+        const { email, url } = req.body;
+        if (!email) {
+            return res.status(400).json({ success: false, message: 'E-mail do usuário é obrigatório.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+        
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+        }
+
+        user.warnings = (user.warnings || 0) + 1;
+        await saveUsers(users);
+
+        // Remover a pintura pública se a URL for informada
+        if (url) {
+            const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
+            const publicPaintings = await loadPublicPaintings();
+            const index = publicPaintings.findIndex(p => p.url === url);
+            if (index !== -1) {
+                publicPaintings.splice(index, 1);
+                await savePublicPaintings(publicPaintings);
+            }
+        }
+
+        console.log(`[Admin Moderation] Usuário ${email} advertido. Total de advertências: ${user.warnings}`);
+        return res.json({ success: true, message: `Usuário advertido com sucesso! Total de advertências: ${user.warnings}`, warnings: user.warnings });
+    } catch (err) {
+        console.error('Erro ao advertir usuário:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao advertir usuário.' });
+    }
+});
+
+// Endpoint para banir um usuário (apenas para Admin)
+app.post('/api/admin/ban-user', isAdmin, async (req, res) => {
+    try {
+        const { email, url, reason } = req.body;
+        if (!email) {
+            return res.status(400).json({ success: false, message: 'E-mail do usuário é obrigatório.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.email && u.email.toLowerCase() === email.toLowerCase());
+        
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+        }
+
+        user.isBanned = true;
+        user.banReason = reason || 'Postagem de conteúdo impróprio no Hall da Fama.';
+        // Invalidar a sessão dele imediatamente
+        user.token = null;
+        user.tokenExpiry = null;
+        
+        await saveUsers(users);
+
+        // Remover a pintura pública se a URL for informada
+        if (url) {
+            const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
+            const publicPaintings = await loadPublicPaintings();
+            const index = publicPaintings.findIndex(p => p.url === url);
+            if (index !== -1) {
+                publicPaintings.splice(index, 1);
+                await savePublicPaintings(publicPaintings);
+            }
+        }
+
+        console.log(`[Admin Moderation] Usuário ${email} BANIDO. Motivo: ${user.banReason}`);
+        return res.json({ success: true, message: `Usuário ${email} banido com sucesso!` });
+    } catch (err) {
+        console.error('Erro ao banir usuário:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao banir usuário.' });
     }
 });
 

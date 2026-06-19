@@ -7162,8 +7162,12 @@ async function loadPendingPaintingsAdmin() {
                         <strong>Categoria:</strong> ${dw.category || 'Colorir'}
                     </div>
                     <div style="display: flex; gap: 8px; margin-top: auto;">
-                        <button class="btn btn-sm btn-success" onclick="approvePublicPainting('${dw.url}')" style="flex: 1; font-size: 0.75rem; padding: 4px; background-color: #2ecc71; border-color: #2ecc71; color: white; cursor: pointer;">Aprovar ✅</button>
-                        <button class="btn btn-sm btn-danger" onclick="deletePublicPainting('${dw.url}')" style="flex: 1; font-size: 0.75rem; padding: 4px; background-color: #e74c3c; border-color: #e74c3c; color: white; cursor: pointer;">Deletar ❌</button>
+                        <button class="btn btn-sm btn-success" onclick="approvePublicPainting('${dw.url}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #2ecc71; border-color: #2ecc71; color: white; cursor: pointer; border-radius: 4px;">Aprovar ✅</button>
+                        <button class="btn btn-sm btn-danger" onclick="deletePublicPainting('${dw.url}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #e74c3c; border-color: #e74c3c; color: white; cursor: pointer; border-radius: 4px;">Deletar ❌</button>
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 4px;">
+                        <button class="btn btn-sm" onclick="warnUserAdmin('${dw.url}', '${dw.userEmail || ''}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #f39c12; border: 1px solid #f39c12; color: white; cursor: pointer; border-radius: 4px;">⚠️ Advertir</button>
+                        <button class="btn btn-sm" onclick="banUserAdmin('${dw.url}', '${dw.userEmail || ''}')" style="flex: 1; font-size: 0.72rem; padding: 4px 2px; background-color: #c0392b; border: 1px solid #c0392b; color: white; cursor: pointer; border-radius: 4px;">🚫 Banir</button>
                     </div>
                 `;
                 pendingGrid.appendChild(card);
@@ -7539,6 +7543,76 @@ async function deletePublicPainting(url) {
 }
 window.deletePublicPainting = deletePublicPainting;
 
+async function warnUserAdmin(url, email) {
+    if (!email) {
+        showToast('E-mail do usuário não disponível.', 'error');
+        return;
+    }
+    showCustomConfirm(
+        'Dar Advertência? ⚠️',
+        `Deseja realmente dar uma advertência para o usuário ${email}? Isso também removerá esta pintura da moderação.`,
+        async () => {
+            try {
+                const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '');
+                const response = await fetch('/api/admin/warn-user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-session-token': sessionToken
+                    },
+                    body: JSON.stringify({ email, url })
+                });
+                const res = await response.json();
+                if (res.success) {
+                    showToast(res.message || 'Usuário advertido com sucesso! ⚠️', 'success');
+                    renderHallDaFamaView();
+                } else {
+                    showToast(res.message || 'Erro ao advertir.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Erro ao advertir usuário.', 'error');
+            }
+        }
+    );
+}
+window.warnUserAdmin = warnUserAdmin;
+
+async function banUserAdmin(url, email) {
+    if (!email) {
+        showToast('E-mail do usuário não disponível.', 'error');
+        return;
+    }
+    showCustomConfirm(
+        'Banir Usuário? 🚫',
+        `Deseja realmente banir o usuário ${email} permanentemente? Isso também removerá esta pintura da moderação e invalidará todas as sessões ativas dele.`,
+        async () => {
+            try {
+                const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '');
+                const response = await fetch('/api/admin/ban-user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-session-token': sessionToken
+                    },
+                    body: JSON.stringify({ email, url })
+                });
+                const res = await response.json();
+                if (res.success) {
+                    showToast('Usuário banido com sucesso! 🚫', 'success');
+                    renderHallDaFamaView();
+                } else {
+                    showToast(res.message || 'Erro ao banir.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Erro ao banir usuário.', 'error');
+            }
+        }
+    );
+}
+window.banUserAdmin = banUserAdmin;
+
 async function reportPublicPainting(e, url) {
     if (e) e.preventDefault();
     showCustomConfirm(
@@ -7623,11 +7697,7 @@ async function savePaintingToGallery() {
 
     let creatorName = '';
     if (isPublic) {
-        creatorName = prompt('Qual o nome ou apelido do pequeno artista que criou esta pintura?', currentUser.name || currentUser.email.split('@')[0]);
-        if (creatorName === null) {
-            return; // Cancelado pelo usuário
-        }
-        creatorName = creatorName.trim() || currentUser.name || currentUser.email.split('@')[0];
+        creatorName = currentUser.name || currentUser.email.split('@')[0];
     }
 
     const btnSave = document.getElementById('paint-btn-save');
@@ -9223,7 +9293,7 @@ function openAvatarSelectionModal() {
     // Contagem geral
     const unlockedCatalogCards = catalog.filter(c => unlockedCardIds.includes(c.id));
     const ownedCount = unlockedCatalogCards.length;
-    const totalCount = catalog.length > 0 ? catalog.length : 125;
+    const totalCount = catalog.length > 0 ? catalog.length : 165;
     const percent = totalCount > 0 ? Math.round((ownedCount / totalCount) * 100) : 0;
     
     // Contagem por raridade
@@ -13047,7 +13117,7 @@ const CHAPTER_GUIDES = {
         secao2: ['Abrir um desenho e fechar', 'Apenas visualizar desenhos', 'Apenas imprimir desenhos', 'Navegar pelo catálogo sem pintar'],
         secao3: ['Salve todas as suas pinturas.', 'Quanto mais você pinta, mais descobertas encontra.', 'Algumas descobertas exigem dedicação e tempo.', 'Experimente diferentes temas para avançar mais rápido.'],
         secao4: ['Novos Cards para o Perfil', 'Estrelas de Conquistas', 'Destaques no Hall da Fama', 'Novas descobertas para sua coleção'],
-        secao6: ['Cada descoberta encontrada aproxima você de completar o Livro.', 'Existem 125 descobertas espalhadas pelo universo KidCanvas.']
+        secao6: ['Cada descoberta encontrada aproxima você de completar o Livro.', 'Existem 165 descobertas espalhadas pelo universo KidCanvas.']
     },
     'Dinossauros': {
         title: 'Guia do Capítulo Dinossauros',
