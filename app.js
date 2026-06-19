@@ -6276,19 +6276,23 @@ function getStickerHandleAt(sticker, px, py) {
     
     const size = sticker.size || 80;
     const half = size / 2;
-    const handleRadius = 16; // Hit area slightly larger for children's fingers
+    const handleRadius = 20; // Hit area slightly larger for children's fingers
     
-    // Delete handle (top-left)
+    // Delete handle (top-left) - ❌
     const distDelete = Math.hypot(lx - (-half - 8), ly - (-half - 8));
     if (distDelete <= handleRadius) return 'delete';
     
-    // Duplicate handle (top-right)
+    // Duplicate handle (top-right) - ➕
     const distDuplicate = Math.hypot(lx - (half + 8), ly - (-half - 8));
     if (distDuplicate <= handleRadius) return 'duplicate';
     
-    // Rotate/Scale handle (bottom-right)
-    const distRotate = Math.hypot(lx - (half + 8), ly - (half + 8));
-    if (distRotate <= handleRadius) return 'rotate-scale';
+    // Rotate handle (bottom-left) - 🔄
+    const distRotate = Math.hypot(lx - (-half - 8), ly - (half + 8));
+    if (distRotate <= handleRadius) return 'rotate';
+
+    // Scale handle (bottom-right) - ↔️
+    const distScale = Math.hypot(lx - (half + 8), ly - (half + 8));
+    if (distScale <= handleRadius) return 'scale';
     
     // Body select area
     if (Math.abs(lx) <= half + 8 && Math.abs(ly) <= half + 8) {
@@ -6355,7 +6359,7 @@ function drawSingleSticker(ctx, sticker, isSelected) {
         ctx.setLineDash([]);
         
         // Handles (arc radius 12)
-        // 1. Delete (top-left)
+        // 1. Delete (top-left) - ❌
         ctx.fillStyle = '#ff5e7e';
         ctx.beginPath();
         ctx.arc(-half - 8, -half - 8, 12, 0, Math.PI*2);
@@ -6364,12 +6368,12 @@ function drawSingleSticker(ctx, sticker, isSelected) {
         ctx.lineWidth = 2;
         ctx.stroke();
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 16px Arial';
+        ctx.font = '14px Arial';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText('×', -half - 8, -half - 8);
+        ctx.fillText('❌', -half - 8, -half - 8);
         
-        // 2. Duplicate (top-right)
+        // 2. Duplicate (top-right) - ➕
         ctx.fillStyle = '#2b8a3e';
         ctx.beginPath();
         ctx.arc(half + 8, -half - 8, 12, 0, Math.PI*2);
@@ -6378,10 +6382,22 @@ function drawSingleSticker(ctx, sticker, isSelected) {
         ctx.lineWidth = 2;
         ctx.stroke();
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 12px Arial';
-        ctx.fillText('+', half + 8, -half - 8);
+        ctx.font = '12px Arial';
+        ctx.fillText('➕', half + 8, -half - 8);
         
-        // 3. Rotate/Scale (bottom-right)
+        // 3. Rotate (bottom-left) - 🔄
+        ctx.fillStyle = '#f59f00';
+        ctx.beginPath();
+        ctx.arc(-half - 8, half + 8, 12, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '12px Arial';
+        ctx.fillText('🔄', -half - 8, half + 8);
+
+        // 4. Scale (bottom-right) - ↔️
         ctx.fillStyle = '#1864ab';
         ctx.beginPath();
         ctx.arc(half + 8, half + 8, 12, 0, Math.PI*2);
@@ -6390,8 +6406,8 @@ function drawSingleSticker(ctx, sticker, isSelected) {
         ctx.lineWidth = 2;
         ctx.stroke();
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 10px Arial';
-        ctx.fillText('⤾', half + 8, half + 8);
+        ctx.font = '12px Arial';
+        ctx.fillText('↔️', half + 8, half + 8);
     }
     ctx.restore();
 }
@@ -6417,6 +6433,9 @@ function insertStickerInstantly(emoji) {
     window.activeStickers.push(newSticker);
     window.selectedSticker = newSticker;
     
+    // Switch to select tool so it's draggable
+    setPaintTool('select');
+
     // Track action
     if (!window.paintActions) window.paintActions = [];
     window.paintActions.push({
@@ -6823,6 +6842,23 @@ function renderPintarOnlineView() {
     paintCanvas.onmousemove = executePaintingDraw;
     paintCanvas.onmouseup = stopPaintingDraw;
     paintCanvas.onmouseleave = stopPaintingDraw;
+
+    paintCanvas.ontouchstart = (e) => {
+        if (e.touches.length === 1) {
+            e.preventDefault();
+            startPaintingDraw(e);
+        }
+    };
+    paintCanvas.ontouchmove = (e) => {
+        if (e.touches.length === 1) {
+            e.preventDefault();
+            executePaintingDraw(e);
+        }
+    };
+    paintCanvas.ontouchend = (e) => {
+        e.preventDefault();
+        stopPaintingDraw();
+    };
 
     // Configurar Zoom via Scroll do Mouse no Container
     const workspaceContainer = document.querySelector('.paint-canvas-container');
@@ -7415,7 +7451,7 @@ function composeReplayCanvas() {
     // Stickers layer (hide selection box during playback)
     if (replayActiveStickers && replayActiveStickers.length > 0) {
         replayActiveStickers.forEach(st => {
-            drawSingleSticker(replayCtx, st, true);
+            drawSingleSticker(replayCtx, st, false);
         });
     }
 }
@@ -8168,9 +8204,21 @@ document.querySelectorAll('.paint-stamp-btn').forEach(btn => {
 
 function getPaintMousePos(evt) {
     const rect = paintCanvas.getBoundingClientRect();
+    let clientX = evt.clientX;
+    let clientY = evt.clientY;
+    
+    // Check if it's a TouchEvent
+    if (evt.touches && evt.touches.length > 0) {
+        clientX = evt.touches[0].clientX;
+        clientY = evt.touches[0].clientY;
+    } else if (evt.changedTouches && evt.changedTouches.length > 0) {
+        clientX = evt.changedTouches[0].clientX;
+        clientY = evt.changedTouches[0].clientY;
+    }
+    
     return {
-        x: (evt.clientX - rect.left) * (paintCanvas.width / rect.width),
-        y: (evt.clientY - rect.top) * (paintCanvas.height / rect.height)
+        x: (clientX - rect.left) * (paintCanvas.width / rect.width),
+        y: (clientY - rect.top) * (paintCanvas.height / rect.height)
     };
 }
 
@@ -8233,11 +8281,14 @@ function startPaintingDraw(evt) {
                 
                 composePaintCanvas();
                 savePaintHistory();
-            } else if (handle === 'rotate-scale') {
-                window.stickerDragMode = 'rotate-scale';
-                window.stickerStartAngle = Math.atan2(pos.y - window.selectedSticker.y, pos.x - window.selectedSticker.x) - (window.selectedSticker.rotation || 0);
+            } else if (handle === 'scale') {
+                window.stickerDragMode = 'scale';
                 window.stickerStartDist = Math.hypot(pos.x - window.selectedSticker.x, pos.y - window.selectedSticker.y);
                 window.stickerStartSize = window.selectedSticker.size || 80;
+                isPaintDrawing = true;
+            } else if (handle === 'rotate') {
+                window.stickerDragMode = 'rotate';
+                window.stickerStartAngle = Math.atan2(pos.y - window.selectedSticker.y, pos.x - window.selectedSticker.x) - (window.selectedSticker.rotation || 0);
                 isPaintDrawing = true;
             } else if (handle === 'body') {
                 window.stickerDragMode = 'drag';
@@ -8317,13 +8368,13 @@ function executePaintingDraw(evt) {
         if (window.stickerDragMode === 'drag') {
             window.selectedSticker.x = pos.x - window.stickerOffsetX;
             window.selectedSticker.y = pos.y - window.stickerOffsetY;
-        } else if (window.stickerDragMode === 'rotate-scale') {
-            const currentAngle = Math.atan2(pos.y - window.selectedSticker.y, pos.x - window.selectedSticker.x);
-            window.selectedSticker.rotation = currentAngle - window.stickerStartAngle;
-            
+        } else if (window.stickerDragMode === 'scale') {
             const currentDist = Math.hypot(pos.x - window.selectedSticker.x, pos.y - window.selectedSticker.y);
             const scale = currentDist / window.stickerStartDist;
             window.selectedSticker.size = Math.max(20, Math.min(600, window.stickerStartSize * scale));
+        } else if (window.stickerDragMode === 'rotate') {
+            const currentAngle = Math.atan2(pos.y - window.selectedSticker.y, pos.x - window.selectedSticker.x);
+            window.selectedSticker.rotation = currentAngle - window.stickerStartAngle;
         }
         composePaintCanvas();
         return;
@@ -10071,9 +10122,7 @@ function switchStickerTab(tab) {
 window.switchStickerTab = switchStickerTab;
 
 function selectConsoleSticker(emoji) {
-    setPaintTool('stamp');
-    window.selectedPaintStamp = emoji;
-    updatePaintCursor('stamp', emoji);
+    insertStickerInstantly(emoji);
     closeStickerConsoleModal();
     
     // Remover classe active de todos os botões de carimbo rápidos do sidebar
@@ -10084,9 +10133,9 @@ function selectConsoleSticker(emoji) {
         const parts = emoji.split('/');
         const filename = parts[parts.length - 1].replace('.png', '').replace(/_/g, ' ');
         const formattedName = filename.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-        showToast(`Adesivo "${formattedName}" selecionado! Toque no desenho para colar. ✨`, 'success');
+        showToast(`Adesivo "${formattedName}" inserido! ✨`, 'success');
     } else {
-        showToast(`Carimbo ${emoji} selecionado! Toque no desenho para colar. ✨`, 'success');
+        showToast(`Carimbo ${emoji} inserido! ✨`, 'success');
     }
 }
 

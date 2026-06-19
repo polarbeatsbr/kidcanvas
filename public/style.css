@@ -4243,7 +4243,7 @@ button, input, select, textarea {
 
 .paint-colors-grid {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
 }
 
@@ -9501,6 +9501,101 @@ button, input, select, textarea {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     line-height: 1.25;
+}
+
+/* --- CENTRAL DE CERTIFICADOS --- */
+.cert-category-block {
+    background: #ffffff;
+    border: var(--border-thick);
+    border-radius: var(--radius-md);
+    padding: 25px;
+    box-shadow: var(--shadow-cartoon);
+}
+
+.cert-category-header {
+    border-bottom: 2px dashed rgba(0, 0, 0, 0.1);
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+}
+
+.cert-category-title {
+    font-family: var(--font-heading);
+    color: var(--color-purple);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.cert-card {
+    background: #ffffff;
+    border: 3px solid #10b981;
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow-cartoon);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px;
+}
+
+.cert-card:hover {
+    transform: translateY(-4px);
+}
+
+.cert-card.locked {
+    border-color: #cbd5e1 !important;
+    background: #f8fafc;
+    box-shadow: none;
+    cursor: not-allowed;
+    filter: grayscale(1) opacity(0.75);
+}
+
+.cert-card.locked .cert-card-inner {
+    /* Manteve legível sem desfoque */
+}
+
+/* Rarity Border glows and animations */
+.cert-rarity-comum {
+    border-color: #10b981 !important;
+}
+
+.cert-rarity-raro {
+    border-color: #3b82f6 !important;
+    animation: cert-glow-blue 3s infinite;
+}
+
+.cert-rarity-epico {
+    border-color: #8b5cf6 !important;
+    animation: glow-purple-pulse-anim 3s infinite;
+}
+
+.cert-rarity-lendario {
+    border-color: #f59e0b !important;
+    animation: glow-gold-pulse 3s infinite;
+}
+
+.cert-rarity-exclusivo {
+    animation: rainbow-border 4s infinite, glow-orange-pulse 4s infinite;
+}
+
+@keyframes cert-glow-blue {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.9);
+    }
 }
 
 

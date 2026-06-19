@@ -2136,8 +2136,14 @@
                         <button class="paint-tool-btn" id="paint-tool-brush" title="Pincel Comum (Por Cima)">
                             <i class="fa-solid fa-paintbrush"></i>
                         </button>
+                        <button class="paint-tool-btn" id="paint-tool-neon" title="Brilho Neon" style="color: #ffd43b;">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </button>
                         <button class="paint-tool-btn" id="paint-tool-eraser" title="Borracha">
                             <i class="fa-solid fa-eraser"></i>
+                        </button>
+                        <button class="paint-tool-btn" id="paint-tool-pipette" title="Conta-Gotas" style="color: #22b8cf;">
+                            <i class="fa-solid fa-eye-dropper"></i>
                         </button>
                         <button class="paint-tool-btn" id="paint-tool-text" title="Escrever Texto" style="color: var(--color-purple);">
                             <i class="fa-solid fa-font"></i>
@@ -2171,43 +2177,101 @@
                     <!-- Canvas e Painéis -->
                     <div style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
                         <!-- Canvas Container -->
-                        <div class="paint-canvas-container">
-                            <div id="paint-canvas-loader">
+                        <div class="paint-canvas-container" style="position: relative; overflow: hidden; border: 4px solid var(--color-dark); border-radius: 20px; background: #ececec; box-shadow: var(--shadow-cartoon); width: 100%; aspect-ratio: 4/3; margin: 0 auto;">
+                            <div id="paint-canvas-loader" style="z-index: 120;">
                                 <div class="spinner"></div>
                                 <span>Carregando desenho...</span>
                             </div>
-                            <canvas id="main-paint-canvas"></canvas>
+                            <!-- Zoom controls inside container -->
+                            <div class="paint-zoom-controls" style="position: absolute; top: 10px; right: 10px; display: flex; gap: 6px; z-index: 100; background: rgba(255,255,255,0.95); padding: 5px; border-radius: 12px; border: 3px solid var(--color-dark); box-shadow: 0 3px 0 var(--color-dark); align-items: center; pointer-events: auto;">
+                                <button class="paint-zoom-btn" id="paint-btn-zoom-out" title="Zoom Out" style="width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 var(--color-dark); font-size: 0.9rem; transition: all 0.1s ease;"><i class="fa-solid fa-minus"></i></button>
+                                <span id="paint-zoom-indicator" style="font-weight: 800; font-size: 0.9rem; min-width: 48px; text-align: center; font-family: var(--font-body); color: var(--color-dark);">100%</span>
+                                <button class="paint-zoom-btn" id="paint-btn-zoom-in" title="Zoom In" style="width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 var(--color-dark); font-size: 0.9rem; transition: all 0.1s ease;"><i class="fa-solid fa-plus"></i></button>
+                                <button class="paint-zoom-btn" id="paint-btn-zoom-fit" title="Ajustar à Tela (🎯)" style="width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 var(--color-dark); font-size: 0.9rem; color: var(--color-purple); transition: all 0.1s ease;"><i class="fa-solid fa-expand-arrows-alt"></i></button>
+                            </div>
+                            <!-- Viewport wrapper to apply scale/translate -->
+                            <div id="paint-canvas-viewport" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-origin: 0 0; user-select: none;">
+                                <canvas id="main-paint-canvas" style="display: block; width: 100%; height: 100%; background: white; cursor: crosshair;"></canvas>
+                            </div>
                         </div>
 
                         <!-- Paleta de Giz de Cera -->
                         <div class="paint-palette-card">
-                            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; color: var(--color-dark);"><i class="fa-solid fa-palette"></i> Paleta de Giz de Cera:</div>
-                            <div class="paint-colors-grid" id="paint-colors-grid">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                                <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--color-dark);"><i class="fa-solid fa-palette"></i> Paleta de Giz de Cera:</div>
+                                <!-- Histórico de Cores Recentes -->
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="font-size: 0.75rem; font-weight: bold; color: var(--color-dark-light); text-transform: uppercase;">Recentes:</span>
+                                    <div id="paint-recent-colors" style="display: flex; gap: 4px;">
+                                        <!-- Injetado por JS -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="paint-colors-grid" id="paint-colors-grid" style="margin-bottom: 10px;">
                                 <!-- Cores injetadas por JS -->
+                            </div>
+                            <!-- Favoritos de Cores -->
+                            <div style="margin-top: 10px; padding-top: 8px; border-top: 1.5px dashed #e2e2e2; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="font-weight: 800; font-size: 0.9rem; color: var(--color-dark);"><i class="fa-solid fa-star" style="color: #ffd43b;"></i> Favoritas:</span>
+                                    <div id="paint-favorite-colors" style="display: flex; gap: 6px; min-height: 28px; align-items: center;">
+                                        <span style="font-size: 0.75rem; color: var(--color-dark-light); font-style: italic;">Nenhuma favorita ainda</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-secondary" id="paint-btn-add-favorite" style="font-size: 0.75rem; padding: 4px 8px; font-weight: 700; border-radius: 8px;"><i class="fa-solid fa-plus"></i> Salvar esta Cor</button>
                             </div>
                         </div>
 
                         <!-- Painel de Controles e Ações -->
                         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; border-top: 1px dashed rgba(0,0,0,0.15); padding-top: 15px;">
                             <!-- Slider de Tamanho do Pincel/Carimbo -->
-                            <div class="paint-slider-group" id="paint-slider-group" style="display: none; align-items: center; gap: 10px;">
-                                <span style="font-weight: 700; font-size: 0.9rem;">Tamanho:</span>
-                                <input type="range" id="paint-brush-size" min="3" max="40" value="8">
-                                <span id="paint-brush-size-val" style="font-weight:700; font-size:0.9rem;">8px</span>
+                            <div class="paint-slider-group" id="paint-slider-group" style="display: none; flex-direction: column; align-items: flex-start; gap: 10px; flex: 1; min-width: 280px;">
+                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; width: 100%;">
+                                    <span style="font-weight: 800; font-size: 0.9rem; color: var(--color-dark);">Tamanho:</span>
+                                    <div class="paint-size-presets" style="display: flex; gap: 6px; align-items: center;">
+                                        <button class="paint-size-preset-btn" data-size="4" title="Pequeno" style="padding: 4px 8px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 0.75rem; box-shadow: 0 1.5px 0 var(--color-dark);">
+                                            <span style="display: inline-block; width: 8px; height: 2px; background: black; border-radius: 1px;"></span> P
+                                        </button>
+                                        <button class="paint-size-preset-btn active" data-size="10" title="Médio" style="padding: 4px 8px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 0.75rem; box-shadow: 0 1.5px 0 var(--color-dark);">
+                                            <span style="display: inline-block; width: 12px; height: 4px; background: black; border-radius: 2px;"></span> M
+                                        </button>
+                                        <button class="paint-size-preset-btn" data-size="20" title="Grande" style="padding: 4px 8px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 0.75rem; box-shadow: 0 1.5px 0 var(--color-dark);">
+                                            <span style="display: inline-block; width: 16px; height: 8px; background: black; border-radius: 4px;"></span> G
+                                        </button>
+                                        <button class="paint-size-preset-btn" data-size="35" title="Gigante" style="padding: 4px 8px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; font-size: 0.75rem; box-shadow: 0 1.5px 0 var(--color-dark);">
+                                            <span style="display: inline-block; width: 20px; height: 12px; background: black; border-radius: 6px;"></span> GG
+                                        </button>
+                                    </div>
+                                    <input type="range" id="paint-brush-size" min="3" max="40" value="10" style="width: 80px; accent-color: var(--color-purple);">
+                                    <span id="paint-brush-size-val" style="font-weight:800; font-size:0.9rem; min-width: 36px; text-align: right; color: var(--color-dark);">10px</span>
+                                </div>
                             </div>
 
-                            <div id="paint-chk-public-wrapper" style="display: flex; align-items: center; gap: 8px; margin-right: 15px;">
-                                <input type="checkbox" id="paint-chk-public" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--color-purple);">
-                                <label for="paint-chk-public" style="font-weight: 700; font-size: 0.95rem; color: var(--color-dark); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;"><i class="fa-solid fa-camera" style="color: var(--color-purple);"></i> Compartilhar no Hall da Fama (Público)</label>
+                            <!-- Card de Destaque do Hall da Fama -->
+                            <div id="paint-chk-public-wrapper" style="display: flex; flex-direction: column; gap: 4px; padding: 10px 14px; border-radius: 12px; border: 2px solid var(--color-dark); background: #fffdf0; box-shadow: 0 3px 0 var(--color-dark); cursor: pointer; user-select: none; transition: all 0.2s ease; max-width: 300px; margin-right: 10px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="checkbox" id="paint-chk-public" style="width: 20px; height: 20px; cursor: pointer; accent-color: var(--color-purple); pointer-events: none;">
+                                    <span style="font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800; color: var(--color-purple); display: flex; align-items: center; gap: 4px;">
+                                        🌟 Hall da Fama!
+                                    </span>
+                                </div>
+                                <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-dark); margin-left: 28px; line-height: 1.2;">
+                                    Quero mostrar minha arte para outros exploradores!
+                                </div>
+                                <div style="font-size: 0.72rem; color: var(--color-dark-light); margin-left: 28px; font-style: italic;">
+                                    Outras crianças poderão curtir sua criação.
+                                </div>
                             </div>
                             <div style="flex: 1;"></div>
 
-                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                                <button class="btn btn-secondary btn-sm" id="paint-btn-clear"><i class="fa-solid fa-trash-can"></i> Limpar Pintura</button>
-                                <button class="btn btn-secondary btn-sm" id="paint-btn-print" style="background-color: var(--color-purple); border-color: var(--color-purple); color: white;" title="Imprimir Desenho"><i class="fa-solid fa-print"></i> Imprimir</button>
-                                <button class="btn btn-secondary btn-sm" id="paint-btn-pdf" style="background-color: #e74c3c; border-color: #e74c3c; color: white;" title="Baixar PDF"><i class="fa-solid fa-file-pdf"></i> PDF</button>
-                                <button class="btn btn-secondary btn-sm" id="paint-btn-whatsapp" style="background-color: #25d366; border-color: #25d366; color: white;" title="Enviar por WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-                                <button class="btn btn-primary btn-sm" id="paint-btn-save" style="background-color: var(--color-green); border-color: var(--color-green); color: white;"><i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria</button>
+                            <!-- Botões de Ação na Ordem Solicitada -->
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <button class="btn btn-primary btn-sm" id="paint-btn-save" style="background-color: var(--color-green); border-color: var(--color-green); color: white; display: flex; align-items: center; gap: 4px; font-weight: 800;"><i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria</button>
+                                <button class="btn btn-primary btn-sm" id="paint-btn-save-public" style="background-color: var(--color-purple); border-color: var(--color-purple); color: white; display: flex; align-items: center; gap: 4px; font-weight: 800;"><i class="fa-solid fa-star"></i> Salvar e Compartilhar</button>
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-whatsapp" style="background-color: #25d366; border-color: #25d366; color: white; display: flex; align-items: center; gap: 4px;" title="Enviar por WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-print" style="background-color: var(--color-blue); border-color: var(--color-blue); color: white; display: flex; align-items: center; gap: 4px;" title="Imprimir Desenho"><i class="fa-solid fa-print"></i> Imprimir</button>
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-pdf" style="background-color: #e74c3c; border-color: #e74c3c; color: white; display: flex; align-items: center; gap: 4px;" title="Baixar PDF"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-clear" style="display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-trash-can"></i> Limpar</button>
                             </div>
                         </div>
                     </div>
@@ -2397,6 +2461,63 @@
                             </div>
                         </div>
 
+                        <!-- CARD DE CERTIFICADOS (NOVO) -->
+                        <div class="profile-card hover-bounce" style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 25px 20px; box-shadow: var(--shadow-cartoon); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;" onclick="navigate('/certificados')">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-purple); margin-bottom: 5px; display: flex; align-items: center; justify-content: space-between;">
+                                <span>📜 Certificados</span>
+                            </h3>
+                            <div style="font-size: 0.95rem; font-weight: bold; color: var(--color-dark); margin-bottom: 8px;">
+                                Desbloqueados: <span id="profile-cert-unlocked-fraction" style="font-family: var(--font-heading); color: var(--color-purple); font-size: 1.1rem;">0/59</span>
+                            </div>
+                            <!-- Barra de progresso -->
+                            <div style="width: 100%; height: 16px; background-color: #f0f0f0; border: var(--border-thin); border-radius: 20px; overflow: hidden; margin-bottom: 8px; position: relative; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+                                <div id="profile-cert-progress-fill" style="width: 0%; height: 100%; background: linear-gradient(90deg, #9c27b0, #e040fb); border-radius: 20px; transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);"></div>
+                            </div>
+                            <div id="profile-cert-percent-text" style="font-size: 0.85rem; font-weight: 700; color: var(--color-dark-light); margin-bottom: 15px;">0% concluído</div>
+                            <button class="btn btn-primary" style="width: 100%; font-family: var(--font-heading); font-size: 1rem; border: var(--border-thin); box-shadow: var(--shadow-cartoon); display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                <i class="fa-solid fa-compass"></i> Abrir Coleção
+                            </button>
+                        </div>
+
+                        <!-- CONFIGURAÇÕES (SEÇÃO 6) -->
+                        <div class="profile-card" style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 25px 20px; box-shadow: var(--shadow-cartoon);">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-purple); margin-bottom: 15px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 8px;"><i class="fa-solid fa-sliders"></i> Configurações da Conta</h3>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 20px;">
+                                
+                                <!-- Notificações -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <span style="font-weight: bold; color: var(--color-dark); font-size: 1.05rem; display: block;">Notificações</span>
+                                        <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Receber lembretes de novas pinturas e missões diárias</span>
+                                    </div>
+                                    <label class="switch-toggle" style="position: relative; display: inline-block; width: 50px; height: 26px;">
+                                        <input type="checkbox" id="profile-notifications-toggle" onchange="saveProfileSettings()" style="opacity: 0; width: 0; height: 0;">
+                                        <span class="slider-round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px;"></span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Trocar Senha -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 15px; flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <span style="font-weight: bold; color: var(--color-dark); font-size: 1.05rem; display: block;">Segurança da Conta</span>
+                                        <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Mantenha sua senha forte e atualizada</span>
+                                    </div>
+                                    <button class="btn btn-secondary" onclick="openChangePasswordModal()" style="border: var(--border-thin); background: white; color: var(--color-dark);">Alterar Senha</button>
+                                </div>
+                                
+                                <!-- Excluir Conta -->
+                                <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 15px; flex-wrap: wrap; gap: 10px;">
+                                    <div>
+                                        <span style="font-weight: bold; color: var(--color-red); font-size: 1.05rem; display: block;">Zona de Perigo</span>
+                                        <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Esta ação é permanente e apagará todas as suas pinturas e conquistas</span>
+                                    </div>
+                                    <button class="btn btn-secondary" onclick="openDeleteAccountModal()" style="border: 2px solid var(--color-red); color: var(--color-red); background: white;">Excluir Conta</button>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
 
                     <!-- COLUNA DIREITA: SELOS EM DESTAQUE, CONQUISTAS RECENTES, CONVITE -->
@@ -2457,45 +2578,46 @@
 
                 </div>
 
-                <!-- CONFIGURAÇÕES (SEÇÃO 6) -->
-                <div class="profile-card" style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 25px 20px; box-shadow: var(--shadow-cartoon); margin-top: 30px;">
-                    <h3 style="font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-purple); margin-bottom: 15px; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 8px;"><i class="fa-solid fa-sliders"></i> Configurações da Conta</h3>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 20px;">
-                        
-                        <!-- Notificações -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-                            <div>
-                                <span style="font-weight: bold; color: var(--color-dark); font-size: 1.05rem; display: block;">Notificações</span>
-                                <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Receber lembretes de novas pinturas e missões diárias</span>
-                            </div>
-                            <label class="switch-toggle" style="position: relative; display: inline-block; width: 50px; height: 26px;">
-                                <input type="checkbox" id="profile-notifications-toggle" onchange="saveProfileSettings()" style="opacity: 0; width: 0; height: 0;">
-                                <span class="slider-round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 34px;"></span>
-                            </label>
-                        </div>
-                        
-                        <!-- Trocar Senha -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 15px; flex-wrap: wrap; gap: 10px;">
-                            <div>
-                                <span style="font-weight: bold; color: var(--color-dark); font-size: 1.05rem; display: block;">Segurança da Conta</span>
-                                <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Mantenha sua senha forte e atualizada</span>
-                            </div>
-                            <button class="btn btn-secondary" onclick="openChangePasswordModal()" style="border: var(--border-thin); background: white; color: var(--color-dark);">Alterar Senha</button>
-                        </div>
-                        
-                        <!-- Excluir Conta -->
-                        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed rgba(0,0,0,0.08); padding-top: 15px; flex-wrap: wrap; gap: 10px;">
-                            <div>
-                                <span style="font-weight: bold; color: var(--color-red); font-size: 1.05rem; display: block;">Zona de Perigo</span>
-                                <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">Esta ação é permanente e apagará todas as suas pinturas e conquistas</span>
-                            </div>
-                            <button class="btn btn-secondary" onclick="openDeleteAccountModal()" style="border: 2px solid var(--color-red); color: var(--color-red); background: white;">Excluir Conta</button>
-                        </div>
 
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- VIEW: CENTRAL DE CERTIFICADOS -->
+        <!-- ========================================== -->
+        <section id="view-certificados" class="page-view" style="display: none; padding: 40px 0;">
+            <div class="container" style="max-width: 1100px;">
+                <!-- Header / Voltar -->
+                <div style="margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between;">
+                    <a href="#" onclick="navigate('/perfil'); return false;" class="btn btn-secondary btn-sm" style="font-weight: bold; display: inline-flex; align-items: center; gap: 6px; border: var(--border-thin); background: white; color: var(--color-dark); padding: 8px 16px; text-decoration: none; border-radius: var(--radius-sm);">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar ao Perfil
+                    </a>
+                </div>
+
+                <!-- Banner principal da Central -->
+                <div style="background: linear-gradient(135deg, #fffdf2, #fef7db); border: var(--border-thick); border-radius: var(--radius-md); padding: 35px 25px; box-shadow: var(--shadow-cartoon); margin-bottom: 35px; text-align: center; position: relative; overflow: hidden;">
+                    <span style="font-size: 3.5rem; display: block; margin-bottom: 10px; animation: float-slow 4s infinite;">📜</span>
+                    <h2 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.3rem; margin-bottom: 8px;">📜 Meus Certificados</h2>
+                    <p style="color: var(--color-dark-light); font-size: 1.05rem; font-weight: 600; max-width: 650px; margin: 0 auto 20px; line-height: 1.5;">
+                        Complete desafios, pinte desenhos, participe da comunidade e desbloqueie certificados especiais de conquista!
+                    </p>
+                    
+                    <!-- Progresso Geral -->
+                    <div style="max-width: 500px; margin: 0 auto; background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 15px 20px; box-shadow: var(--shadow-button-primary); position: relative; z-index: 2;">
+                        <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.95rem; margin-bottom: 8px; color: var(--color-purple);">
+                            <span>Certificados Desbloqueados</span>
+                            <span id="certs-general-progress-txt">0/0 (0%)</span>
+                        </div>
+                        <div style="width: 100%; height: 16px; background: #e9ecef; border-radius: 20px; border: 1.5px solid var(--color-dark); overflow: hidden; position: relative;">
+                            <div id="certs-general-progress-bar" style="width: 0%; height: 100%; background: linear-gradient(to right, #10b981, #34d399); transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Categorias dinâmicas -->
+                <div id="certificates-categories-list" style="display: flex; flex-direction: column; gap: 40px;">
+                    <!-- Preenchido via JS -->
+                </div>
             </div>
         </section>
 
@@ -2543,12 +2665,44 @@
         <div class="viewer-modal-box" style="max-width: 580px; text-align: center; padding: 30px;">
             <button class="btn-close-viewer" onclick="closeCertificateModal()">&times;</button>
             <span style="font-size: 4rem; display: block; margin-bottom: 10px;">🏆</span>
-            <h2 style="font-family: var(--font-heading); color: var(--color-orange); margin-bottom: 5px;">Parabéns, Grande Artista!</h2>
-            <p style="color: var(--color-dark-light); font-size: 1rem; margin-bottom: 20px;" id="certificate-congrats-text">Você coloriu o desenho com sucesso!</p>
+            <h2 id="certificate-quote-heading" style="font-family: var(--font-heading); color: var(--color-orange); margin-bottom: 5px;">Que obra incrível! 🎨</h2>
+            <p style="color: var(--color-dark-light); font-size: 1rem; margin-bottom: 20px;" id="certificate-congrats-text">Você coloriu o desenho com muito brilho!</p>
             
-            <div style="background: #faf8f5; border: 2px dashed #e4d7c5; border-radius: 12px; padding: 20px; margin-bottom: 25px; text-align: left;">
-                <label style="font-weight: 700; color: var(--color-dark); display: block; margin-bottom: 8px;">Escreva o nome da criança para o Certificado:</label>
-                <input type="text" id="certificate-child-name" placeholder="Ex: Pedrinho" style="width: 100%; padding: 12px; font-size: 1.1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); margin-bottom: 15px;">
+            <!-- Estatísticas da Pintura -->
+            <div class="paint-stats-container" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; text-align: left;">
+                <div style="background: #e8f5e9; border: 2px solid var(--color-dark); border-radius: 12px; padding: 10px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 0 var(--color-dark);">
+                    <span style="font-size: 1.6rem;">⏱️</span>
+                    <div>
+                        <div style="font-size: 0.72rem; font-weight: bold; color: var(--color-dark-light); text-transform: uppercase;">Tempo</div>
+                        <div id="paint-stat-time" style="font-weight: 800; font-size: 0.95rem; color: var(--color-dark);">0s</div>
+                    </div>
+                </div>
+                <div style="background: #e3f2fd; border: 2px solid var(--color-dark); border-radius: 12px; padding: 10px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 0 var(--color-dark);">
+                    <span style="font-size: 1.6rem;">🎨</span>
+                    <div>
+                        <div style="font-size: 0.72rem; font-weight: bold; color: var(--color-dark-light); text-transform: uppercase;">Cores</div>
+                        <div id="paint-stat-colors" style="font-weight: 800; font-size: 0.95rem; color: var(--color-dark);">0</div>
+                    </div>
+                </div>
+                <div style="background: #fff3e0; border: 2px solid var(--color-dark); border-radius: 12px; padding: 10px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 0 var(--color-dark);">
+                    <span style="font-size: 1.6rem;">✍️</span>
+                    <div>
+                        <div style="font-size: 0.72rem; font-weight: bold; color: var(--color-dark-light); text-transform: uppercase;">Traços</div>
+                        <div id="paint-stat-strokes" style="font-weight: 800; font-size: 0.95rem; color: var(--color-dark);">0</div>
+                    </div>
+                </div>
+                <div style="background: #f3e5f5; border: 2px solid var(--color-dark); border-radius: 12px; padding: 10px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 0 var(--color-dark);">
+                    <span style="font-size: 1.6rem;">🧸</span>
+                    <div>
+                        <div style="font-size: 0.72rem; font-weight: bold; color: var(--color-dark-light); text-transform: uppercase;">Adesivos</div>
+                        <div id="paint-stat-stickers" style="font-weight: 800; font-size: 0.95rem; color: var(--color-dark);">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #faf8f5; border: 2px dashed #e4d7c5; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: left;">
+                <label style="font-weight: 700; color: var(--color-dark); display: block; margin-bottom: 6px;">Escreva o nome para o Certificado:</label>
+                <input type="text" id="certificate-child-name" placeholder="Ex: Pedrinho" style="width: 100%; padding: 10px; font-size: 1.05rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); margin-bottom: 5px;">
                 
                 <!-- Certificado Preview canvas (invisível para renderização em background) -->
                 <div style="display: none;">
@@ -2556,9 +2710,61 @@
                 </div>
             </div>
 
+            <!-- Botão de Replay -->
+            <button class="btn btn-primary" id="paint-btn-watch-replay" style="background-color: var(--color-orange); border-color: var(--color-orange); color: white; display: inline-flex; align-items: center; gap: 6px; font-weight: 800; width: 100%; justify-content: center; margin-bottom: 15px; box-shadow: 0 4px 0 var(--color-dark); border: 2px solid var(--color-dark); cursor: pointer;"><i class="fa-solid fa-play"></i> ▶ Ver Replay Acelerado</button>
+
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                 <button class="btn btn-secondary" onclick="closeCertificateModal()">Voltar</button>
                 <button class="btn btn-primary" id="btn-download-certificate" style="background-color: var(--color-purple); border-color: var(--color-purple); color: white;"><i class="fa-solid fa-file-pdf"></i> Baixar Certificado 🎓</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Visualizar / Baixar Certificados Conquistados -->
+    <div class="viewer-modal-overlay" id="certsViewerModal" style="z-index: 100002; display: none;">
+        <div class="viewer-modal-box" style="max-width: 850px; text-align: center; padding: 25px;">
+            <button class="btn-close-viewer" onclick="closeCertsViewerModal()">&times;</button>
+            <h2 id="certs-viewer-title" style="font-family: var(--font-heading); color: var(--color-purple); margin-bottom: 15px; font-size: 1.8rem;">Visualizar Certificado</h2>
+            
+            <!-- Canvas Render Box -->
+            <div style="background: #fafafa; border: var(--border-medium); border-radius: var(--radius-sm); padding: 10px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; overflow-x: auto; box-shadow: var(--shadow-cartoon);">
+                <canvas id="certs-viewer-canvas" width="800" height="600" style="max-width: 100%; height: auto; border: 1px solid #ddd; background: white;"></canvas>
+            </div>
+
+            <!-- Botões de Ações -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="closeCertsViewerModal()" style="font-weight: bold; border: var(--border-thin); background: white; color: var(--color-dark);">Fechar</button>
+                <button class="btn btn-success" onclick="printCertFromCanvas()" style="font-weight: bold; background-color: var(--color-green); border-color: var(--color-green); color: white;"><i class="fa-solid fa-print"></i> Imprimir Certificado</button>
+                <button class="btn btn-primary" onclick="downloadCertFromCanvas()" style="font-weight: bold; background-color: var(--color-purple); border-color: var(--color-purple); color: white;"><i class="fa-solid fa-download"></i> Baixar como Imagem (PNG)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Celebração de Conquista de Certificado -->
+    <div class="viewer-modal-overlay" id="certsCelebrationModal" style="z-index: 100003; display: none; background: rgba(0,0,0,0.85);">
+        <div class="viewer-modal-box" style="max-width: 620px; text-align: center; padding: 35px; border: var(--border-thick); border-radius: var(--radius-md); box-shadow: 0 0 50px rgba(254, 202, 87, 0.5); overflow: hidden; background: linear-gradient(135deg, #ffffff, #fffbeb);">
+            <div style="position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; background: rgba(254,202,87,0.15); border-radius: 50%; filter: blur(20px);"></div>
+            <div style="position: absolute; bottom: -50px; right: -50px; width: 150px; height: 150px; background: rgba(139,92,246,0.15); border-radius: 50%; filter: blur(20px);"></div>
+            
+            <h1 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.5rem; margin-bottom: 5px; animation: bounce-slow 3s infinite;">🎉 PARABÉNS!</h1>
+            <p style="color: var(--color-dark-light); font-size: 1.1rem; font-weight: 700; margin-bottom: 25px;">Você conquistou um novo certificado oficial!</p>
+            
+            <!-- Mini Certificado Box Preview -->
+            <div style="margin: 0 auto 30px; max-width: 480px; background: white; border: var(--border-thick); border-radius: 12px; padding: 25px; box-shadow: var(--shadow-cartoon); text-align: center; border-color: #ffd43b; position: relative;">
+                <span id="certs-celebrate-rarity-badge" class="badge" style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; font-weight: 800; border: var(--border-thin); text-transform: uppercase;">Comum</span>
+                
+                <span style="font-size: 3.5rem; display: block; margin-top: 10px; margin-bottom: 10px;">📜</span>
+                <h2 id="certs-celebrate-title" style="font-family: var(--font-heading); color: var(--color-purple); font-size: 1.6rem; margin-bottom: 8px;">Certificado de Artista</h2>
+                <p id="certs-celebrate-desc" style="color: var(--color-dark-light); font-size: 0.9rem; font-weight: 600; line-height: 1.4; margin: 0;">
+                    Por ter colorido de forma incrivelmente criativa o seu primeiro desenho.
+                </p>
+            </div>
+            
+            <!-- Ações -->
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 10;">
+                <button class="btn btn-secondary" onclick="closeCertsCelebrationModal()" style="font-weight: bold; border: var(--border-thin); background: white; color: var(--color-dark);">Fechar</button>
+                <button class="btn btn-primary" onclick="viewCertFromCelebration()" style="font-weight: bold; background-color: var(--color-purple); border-color: var(--color-purple); color: white;"><i class="fa-solid fa-eye"></i> Visualizar Certificado</button>
+                <button class="btn btn-success" onclick="closeCertsCelebrationModal(); navigate('/certificados');" style="font-weight: bold; background-color: var(--color-green); border-color: var(--color-green); color: white;"><i class="fa-solid fa-scroll"></i> Ir para a Central</button>
             </div>
         </div>
     </div>
@@ -2972,13 +3178,13 @@
             <!-- Abas de Categoria -->
             <div class="sticker-tabs-container" style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; border-bottom: 2px dashed #e2e2e2; margin-bottom: 15px;">
                 <button class="sticker-tab-btn active" onclick="switchStickerTab('top')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">⭐️ Favoritos</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('animais')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🦁 Animais</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('dinossauros')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🦖 Dinossauros</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('natureza')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🌸 Natureza</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('festa')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🎈 Festa</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('espaco')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🚀 Espaço</button>
+                <button class="sticker-tab-btn" onclick="switchStickerTab('fantasia')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🦄 Fantasia</button>
                 <button class="sticker-tab-btn" onclick="switchStickerTab('acessorios')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">😎 Acessórios</button>
-                <button class="sticker-tab-btn" onclick="switchStickerTab('emocoes')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">😊 Emoções</button>
-                <button class="sticker-tab-btn" onclick="switchStickerTab('magicos')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">✨ Mágicos</button>
-                <button class="sticker-tab-btn" onclick="switchStickerTab('animais')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🐶 Animais</button>
-                <button class="sticker-tab-btn" onclick="switchStickerTab('festa')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🎉 Festa</button>
-                <button class="sticker-tab-btn" onclick="switchStickerTab('aventura')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">🚀 Aventura</button>
-                <button class="sticker-tab-btn" onclick="switchStickerTab('moda')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap;">😎 Moda</button>
                 <button class="sticker-tab-btn" onclick="switchStickerTab('desbloqueaveis')" style="padding: 6px 12px; border-radius: 20px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; font-size: 0.85rem; white-space: nowrap; display: flex; align-items: center; gap: 4px;">🏆 Selos (<span id="unlocked-badge-count">1/5</span>)</button>
             </div>
             
@@ -3368,6 +3574,58 @@
         <button class="livro-celebration-btn" onclick="closeChapterCelebrationModal()">
             📖 Continuar Explorando
         </button>
+    </div>
+</div>
+
+<!-- CANVASES E MODALS PARA MELHORIAS DA PINTURA -->
+<canvas id="paint-confetti-canvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 100005; display: none;"></canvas>
+
+<!-- MODAL DE REPLAY DA PINTURA -->
+<div id="paint-replay-modal" class="modal-overlay" style="z-index: 100003; display: none; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);">
+    <div class="modal-box" style="max-width: 680px; width: 90%; background-color: #fffdf6; border: 3px solid var(--color-dark); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon); padding: 25px; position: relative;">
+        <button class="btn-close-modal" id="paint-btn-close-replay" style="font-size: 2rem; position: absolute; right: 15px; top: 10px; border: none; background: none; cursor: pointer;">&times;</button>
+        
+        <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-purple); margin-top: 0; margin-bottom: 5px; display: flex; align-items: center; gap: 10px;">
+            ▶️ Replay da Criação
+        </h3>
+        <p style="font-size: 0.95rem; color: var(--color-dark-light); margin-top: 0; margin-bottom: 20px;">Assista ao seu desenho ganhando vida!</p>
+        
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%;">
+            <!-- Replay Canvas Container -->
+            <div style="position: relative; width: 100%; max-width: 480px; aspect-ratio: 4/3; border: 3px solid var(--color-dark); border-radius: 12px; overflow: hidden; background: white; box-shadow: var(--shadow-cartoon);">
+                <canvas id="paint-replay-canvas" width="800" height="600" style="width: 100%; height: 100%; display: block;"></canvas>
+            </div>
+            
+            <!-- Controls bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 480px; gap: 10px; flex-wrap: wrap;">
+                <!-- Play/Pause and Progress -->
+                <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 220px;">
+                    <button id="paint-replay-play-btn" style="padding: 6px 12px; border-radius: 8px; border: 2px solid var(--color-dark); background: var(--color-purple); color: white; font-weight: bold; cursor: pointer; box-shadow: 0 2px 0 var(--color-dark); display: flex; align-items: center; gap: 4px; font-size: 0.85rem;">
+                        <i class="fa-solid fa-play"></i> Play
+                    </button>
+                    <div style="flex: 1; height: 10px; background: #e2e2e2; border-radius: 5px; position: relative; overflow: hidden; border: 1.5px solid var(--color-dark);">
+                        <div id="paint-replay-progress-fill" style="width: 0%; height: 100%; background: var(--color-purple); transition: width 0.1s linear;"></div>
+                    </div>
+                </div>
+                
+                <!-- Speed controls -->
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-weight: 800; font-size: 0.8rem; color: var(--color-dark);">Velocidade:</span>
+                    <select id="paint-replay-speed" style="padding: 4px; border-radius: 6px; border: 2px solid var(--color-dark); font-size: 0.8rem; outline: none; cursor: pointer; font-family: var(--font-body); font-weight: bold; background: white;">
+                        <option value="1">1x</option>
+                        <option value="3" selected>3x</option>
+                        <option value="5">5x</option>
+                        <option value="10">10x</option>
+                        <option value="20">20x</option>
+                    </select>
+                </div>
+                
+                <!-- Share Replay -->
+                <button id="paint-replay-share-btn" style="padding: 6px 12px; border-radius: 8px; border: 2px solid var(--color-dark); background: var(--color-green); color: white; font-weight: bold; cursor: pointer; box-shadow: 0 2px 0 var(--color-dark); display: flex; align-items: center; gap: 4px; font-size: 0.85rem;">
+                    <i class="fa-solid fa-share-nodes"></i> Compartilhar
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 

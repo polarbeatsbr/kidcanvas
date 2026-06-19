@@ -189,6 +189,9 @@ async function syncUserProfile() {
             currentUser = data.user;
             updateHeaderAuthDisplay();
             checkNewAchievements();
+            if (data.newlyUnlockedCertificates && data.newlyUnlockedCertificates.length > 0) {
+                checkNewlyUnlockedCertificates(data.newlyUnlockedCertificates);
+            }
             if(typeof checkActiveEvent === 'function') checkActiveEvent();
         } else {
             sessionToken = null;
@@ -1018,6 +1021,10 @@ function initGlobalEventListeners() {
 }
 
 function navigate(path, pushState = true) {
+    if (window.paintAutosaveInterval) {
+        clearInterval(window.paintAutosaveInterval);
+        window.paintAutosaveInterval = null;
+    }
     let cleanPath = path.trim();
     if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
         cleanPath = cleanPath.slice(0, -1);
@@ -1103,6 +1110,15 @@ function navigate(path, pushState = true) {
         renderPinturaLivreChooser();
     } else if (cleanPath === '/conquistas') {
         renderConquistasView();
+    } else if (cleanPath === '/certificados') {
+        if (!currentUser) {
+            showToast('Faça login ou cadastre-se para ver seus certificados! 📜', 'info');
+            openAuthModal();
+            renderHomeView();
+            cleanPath = '/';
+        } else {
+            renderCertificadosView();
+        }
     } else if (cleanPath === '/perfil') {
         if (!currentUser) {
             showToast('Faça login ou cadastre-se para ver seu perfil! 👤', 'info');
@@ -3954,6 +3970,12 @@ function setupCustomDrawingActionListeners(imageUrl, drawingId) {
                                 }, delay);
                             });
                         }
+                        
+                        if (resData.newlyUnlockedCertificates && resData.newlyUnlockedCertificates.length > 0) {
+                            setTimeout(() => {
+                                checkNewlyUnlockedCertificates(resData.newlyUnlockedCertificates);
+                            }, 1000);
+                        }
                     } else {
                         showToast(resData.message || 'Erro ao salvar desenho na galeria.', 'error');
                         saveGalleryBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> 💾 Salvar na Galeria';
@@ -6029,21 +6051,59 @@ let paintLastX = 0;
 let paintLastY = 0;
 let paintDrawingImage = null;
 
+// Zoom and Pan System State
+window.paintZoomLevel = 1.0;
+window.paintPanX = 0;
+window.paintPanY = 0;
+
+// Interactive Sticker System State
+window.activeStickers = [];
+window.selectedSticker = null;
+window.stickerDragMode = null;
+
+// Replay Action History
+window.paintActions = [];
+
+// Painting Statistics
+window.strokeCount = 0;
+window.paintStartTime = Date.now();
+
+// Color History and Favorites
+window.paintColorHistory = [];
+window.paintColorFavorites = [];
+
 // Crayons Paleta (RGB)
 const paintCrayons = [
-    { hex: '#ff5e7e', rgb: [255, 94, 126], name: 'Rosa' },
-    { hex: '#ff8138', rgb: [255, 129, 56], name: 'Laranja' },
-    { hex: '#ffd43b', rgb: [255, 212, 59], name: 'Amarelo' },
-    { hex: '#40c057', rgb: [64, 192, 87], name: 'Verde' },
-    { hex: '#12b886', rgb: [18, 184, 134], name: 'Menta' },
-    { hex: '#22b8cf', rgb: [34, 184, 207], name: 'Ciano' },
-    { hex: '#4dabf7', rgb: [77, 171, 247], name: 'Azul' },
-    { hex: '#7950f2', rgb: [121, 80, 242], name: 'Roxo' },
-    { hex: '#e64980', rgb: [230, 73, 128], name: 'Pink' },
-    { hex: '#a61e4d', rgb: [166, 30, 77], name: 'Bordô' },
-    { hex: '#868e96', rgb: [134, 142, 150], name: 'Cinza' },
-    { hex: '#212529', rgb: [33, 37, 41], name: 'Preto' },
-    { hex: '#ffffff', rgb: [255, 255, 255], name: 'Branco' }
+    // Linha 1 (Cores Principais)
+    { hex: '#ff5e7e', rgb: [255, 94, 126], name: 'Vermelho', row: 1 },
+    { hex: '#ff2800', rgb: [255, 40, 0], name: 'Vermelho Ferrari', row: 1 },
+    { hex: '#ff8138', rgb: [255, 129, 56], name: 'Laranja', row: 1 },
+    { hex: '#ffd43b', rgb: [255, 212, 59], name: 'Amarelo', row: 1 },
+    { hex: '#40c057', rgb: [64, 192, 87], name: 'Verde', row: 1 },
+    { hex: '#12b886', rgb: [18, 184, 134], name: 'Verde Água', row: 1 },
+    { hex: '#22b8cf', rgb: [34, 184, 207], name: 'Azul Claro', row: 1 },
+    { hex: '#4dabf7', rgb: [77, 171, 247], name: 'Azul', row: 1 },
+    { hex: '#7950f2', rgb: [121, 80, 242], name: 'Roxo', row: 1 },
+    { hex: '#e64980', rgb: [230, 73, 128], name: 'Rosa', row: 1 },
+    { hex: '#a61e4d', rgb: [166, 30, 77], name: 'Vinho', row: 1 },
+    { hex: '#868e96', rgb: [134, 142, 150], name: 'Cinza', row: 1 },
+    { hex: '#212529', rgb: [33, 37, 41], name: 'Preto', row: 1 },
+    { hex: '#ffffff', rgb: [255, 255, 255], name: 'Branco', row: 1 },
+    
+    // Linha 2 (Cores Complementares e Tons de Pele)
+    { hex: '#ffb3c6', rgb: [255, 179, 198], name: 'Rosa Claro', row: 2 },
+    { hex: '#d0bfff', rgb: [208, 191, 255], name: 'Lilás', row: 2 },
+    { hex: '#a5d8ff', rgb: [165, 216, 255], name: 'Azul Bebê', row: 2 },
+    { hex: '#b2f2bb', rgb: [178, 242, 187], name: 'Verde Claro', row: 2 },
+    { hex: '#2b8a3e', rgb: [43, 138, 62], name: 'Verde Escuro', row: 2 },
+    { hex: '#1864ab', rgb: [24, 100, 171], name: 'Azul Marinho', row: 2 },
+    { hex: '#f5e6d3', rgb: [245, 230, 211], name: 'Bege', row: 2 },
+    { hex: '#cd853f', rgb: [205, 133, 63], name: 'Marrom Claro', row: 2 },
+    { hex: '#5c3d2e', rgb: [92, 61, 46], name: 'Marrom Escuro', row: 2 },
+    { hex: '#fed7aa', rgb: [254, 215, 170], name: 'Pele Clara', row: 2 },
+    { hex: '#f0b878', rgb: [240, 184, 120], name: 'Pele Média', row: 2 },
+    { hex: '#8d5524', rgb: [141, 85, 36], name: 'Pele Morena', row: 2 },
+    { hex: '#4a2c11', rgb: [74, 44, 17], name: 'Pele Escura', row: 2 }
 ];
 
 let paintHistory = [];
@@ -6056,7 +6116,491 @@ let paintFgCanvas = null;
 let paintFgCtx = null;
 let paintBorderImage = null;
 
+// === PINTURA LIVRE HELPERS & IMPROVEMENTS ===
 
+// 1. Color System Helper
+function selectPaintingColor(rgb) {
+    selectedPaintColor = rgb;
+    const hex = '#' + rgb.map(x => x.toString(16).padStart(2, '0')).join('');
+    
+    if (!window.colorsUsedInPainting) window.colorsUsedInPainting = new Set();
+    window.colorsUsedInPainting.add(hex);
+    
+    // Add to recent colors
+    addColorToRecentHistory(hex);
+    
+    // Update crayon selections
+    document.querySelectorAll('#paint-colors-grid .color-crayon').forEach(c => {
+        const cHex = c.getAttribute('data-hex');
+        if (cHex === hex) {
+            c.classList.add('selected');
+            c.style.borderColor = 'var(--color-dark)';
+            c.style.transform = 'scale(1.15)';
+        } else {
+            c.classList.remove('selected');
+            c.style.borderColor = 'white';
+            c.style.transform = 'none';
+        }
+    });
+    
+    if (activePaintTool === 'text') {
+        updatePaintCursor('text');
+    }
+}
+
+// 2. Recent Colors History
+function addColorToRecentHistory(hex) {
+    window.paintColorHistory = window.paintColorHistory || [];
+    window.paintColorHistory = window.paintColorHistory.filter(c => c !== hex);
+    window.paintColorHistory.unshift(hex);
+    window.paintColorHistory = window.paintColorHistory.slice(0, 8);
+    renderRecentColors();
+}
+
+function renderRecentColors() {
+    const container = document.getElementById('paint-recent-colors');
+    if (!container) return;
+    container.innerHTML = '';
+    window.paintColorHistory.forEach(hex => {
+        const div = document.createElement('div');
+        div.className = 'recent-color-circle';
+        div.style.width = '24px';
+        div.style.height = '24px';
+        div.style.borderRadius = '50%';
+        div.style.backgroundColor = hex;
+        div.style.border = '2px solid white';
+        div.style.cursor = 'pointer';
+        div.style.boxShadow = '0 1px 3px rgba(0,0,0,0.2)';
+        div.style.transition = 'all 0.1s ease';
+        div.title = `Cor recente: ${hex}`;
+        
+        div.onclick = () => {
+            const rgb = [
+                parseInt(hex.slice(1, 3), 16),
+                parseInt(hex.slice(3, 5), 16),
+                parseInt(hex.slice(5, 7), 16)
+            ];
+            selectPaintingColor(rgb);
+        };
+        container.appendChild(div);
+    });
+}
+
+// 3. Favorite Colors
+function addColorToFavorites(hex) {
+    window.paintColorFavorites = window.paintColorFavorites || JSON.parse(localStorage.getItem('kidcanvas_fav_colors') || '[]');
+    if (window.paintColorFavorites.includes(hex)) {
+        showToast('Cor já favoritada! ⭐', 'info');
+        return;
+    }
+    if (window.paintColorFavorites.length >= 8) {
+        showToast('Máximo de 8 cores favoritas atingido! Remova alguma com duplo clique. 🎨', 'info');
+        return;
+    }
+    window.paintColorFavorites.push(hex);
+    localStorage.setItem('kidcanvas_fav_colors', JSON.stringify(window.paintColorFavorites));
+    renderFavoriteColors();
+    showToast('Cor salva nas favoritas! ⭐', 'success');
+}
+
+function removeFavoriteColor(hex) {
+    window.paintColorFavorites = window.paintColorFavorites.filter(c => c !== hex);
+    localStorage.setItem('kidcanvas_fav_colors', JSON.stringify(window.paintColorFavorites));
+    renderFavoriteColors();
+    showToast('Favorito removido! 🖍️', 'info');
+}
+
+function renderFavoriteColors() {
+    const container = document.getElementById('paint-favorite-colors');
+    if (!container) return;
+    container.innerHTML = '';
+    if (window.paintColorFavorites.length === 0) {
+        container.innerHTML = '<span style="font-size: 0.75rem; color: var(--color-dark-light); font-style: italic;">Nenhuma favorita ainda</span>';
+        return;
+    }
+    window.paintColorFavorites.forEach(hex => {
+        const div = document.createElement('div');
+        div.style.width = '26px';
+        div.style.height = '26px';
+        div.style.borderRadius = '50%';
+        div.style.backgroundColor = hex;
+        div.style.border = '2px solid white';
+        div.style.cursor = 'pointer';
+        div.style.boxShadow = '0 1.5px 3px rgba(0,0,0,0.2)';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.justifyContent = 'center';
+        div.style.fontSize = '0.65rem';
+        div.style.color = '#ffd43b';
+        div.style.transition = 'all 0.1s ease';
+        div.textContent = '★';
+        div.title = `Favorito: ${hex}. Duplo clique para excluir.`;
+        
+        div.onclick = () => {
+            const rgb = [
+                parseInt(hex.slice(1, 3), 16),
+                parseInt(hex.slice(3, 5), 16),
+                parseInt(hex.slice(5, 7), 16)
+            ];
+            selectPaintingColor(rgb);
+        };
+        div.ondblclick = (e) => {
+            e.stopPropagation();
+            removeFavoriteColor(hex);
+        };
+        container.appendChild(div);
+    });
+}
+
+// 4. Zoom and Pan UI Update
+function updateZoomTransform() {
+    const viewport = document.getElementById('paint-canvas-viewport');
+    if (viewport) {
+        viewport.style.transform = `translate(${window.paintPanX}px, ${window.paintPanY}px) scale(${window.paintZoomLevel})`;
+    }
+    const indicator = document.getElementById('paint-zoom-indicator');
+    if (indicator) {
+        indicator.textContent = `${Math.round(window.paintZoomLevel * 100)}%`;
+    }
+}
+
+// 5. Interactive Stickers Helpers & Renderer
+function getStickerHandleAt(sticker, px, py) {
+    if (!sticker) return null;
+    const dx = px - sticker.x;
+    const dy = py - sticker.y;
+    const cos = Math.cos(-sticker.rotation);
+    const sin = Math.sin(-sticker.rotation);
+    const lx = dx * cos - dy * sin;
+    const ly = dx * sin + dy * cos;
+    
+    const size = sticker.size || 80;
+    const half = size / 2;
+    const handleRadius = 20; // Hit area slightly larger for children's fingers
+    
+    // Delete handle (top-left) - ❌
+    const distDelete = Math.hypot(lx - (-half - 8), ly - (-half - 8));
+    if (distDelete <= handleRadius) return 'delete';
+    
+    // Duplicate handle (top-right) - ➕
+    const distDuplicate = Math.hypot(lx - (half + 8), ly - (-half - 8));
+    if (distDuplicate <= handleRadius) return 'duplicate';
+    
+    // Rotate handle (bottom-left) - 🔄
+    const distRotate = Math.hypot(lx - (-half - 8), ly - (half + 8));
+    if (distRotate <= handleRadius) return 'rotate';
+
+    // Scale handle (bottom-right) - ↔️
+    const distScale = Math.hypot(lx - (half + 8), ly - (half + 8));
+    if (distScale <= handleRadius) return 'scale';
+    
+    // Body select area
+    if (Math.abs(lx) <= half + 8 && Math.abs(ly) <= half + 8) {
+        return 'body';
+    }
+    
+    return null;
+}
+
+function getStickerAtPosition(px, py) {
+    if (!window.activeStickers) return null;
+    for (let i = window.activeStickers.length - 1; i >= 0; i--) {
+        const st = window.activeStickers[i];
+        const dx = px - st.x;
+        const dy = py - st.y;
+        const cos = Math.cos(-st.rotation);
+        const sin = Math.sin(-st.rotation);
+        const lx = dx * cos - dy * sin;
+        const ly = dx * sin + dy * cos;
+        const size = st.size || 80;
+        const half = size / 2;
+        if (Math.abs(lx) <= half + 8 && Math.abs(ly) <= half + 8) {
+            return st;
+        }
+    }
+    return null;
+}
+
+window.stickerImageCache = {};
+function drawSingleSticker(ctx, sticker, isSelected) {
+    ctx.save();
+    ctx.translate(sticker.x, sticker.y);
+    ctx.rotate(sticker.rotation || 0);
+    
+    const size = sticker.size || 80;
+    const half = size / 2;
+    
+    if (sticker.stamp.startsWith('http') || sticker.stamp.startsWith('/') || sticker.stamp.startsWith('./')) {
+        let img = window.stickerImageCache[sticker.stamp];
+        if (!img) {
+            img = new Image();
+            img.crossOrigin = "anonymous";
+            img.src = sticker.stamp;
+            img.onload = () => {
+                window.stickerImageCache[sticker.stamp] = img;
+                composePaintCanvas();
+            };
+        } else {
+            ctx.drawImage(img, -half, -half, size, size);
+        }
+    } else {
+        ctx.font = `${size}px Arial, sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(sticker.stamp, 0, 0);
+    }
+    
+    if (isSelected) {
+        // Bounding box border
+        ctx.strokeStyle = '#9c27b0';
+        ctx.lineWidth = 2.5;
+        ctx.setLineDash([5, 5]);
+        ctx.strokeRect(-half - 8, -half - 8, size + 16, size + 16);
+        ctx.setLineDash([]);
+        
+        // Handles (arc radius 12)
+        // 1. Delete (top-left) - ❌
+        ctx.fillStyle = '#ff5e7e';
+        ctx.beginPath();
+        ctx.arc(-half - 8, -half - 8, 12, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '14px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('❌', -half - 8, -half - 8);
+        
+        // 2. Duplicate (top-right) - ➕
+        ctx.fillStyle = '#2b8a3e';
+        ctx.beginPath();
+        ctx.arc(half + 8, -half - 8, 12, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '12px Arial';
+        ctx.fillText('➕', half + 8, -half - 8);
+        
+        // 3. Rotate (bottom-left) - 🔄
+        ctx.fillStyle = '#f59f00';
+        ctx.beginPath();
+        ctx.arc(-half - 8, half + 8, 12, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '12px Arial';
+        ctx.fillText('🔄', -half - 8, half + 8);
+
+        // 4. Scale (bottom-right) - ↔️
+        ctx.fillStyle = '#1864ab';
+        ctx.beginPath();
+        ctx.arc(half + 8, half + 8, 12, 0, Math.PI*2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '12px Arial';
+        ctx.fillText('↔️', half + 8, half + 8);
+    }
+    ctx.restore();
+}
+
+function drawActiveStickers(ctx, skipSelection = false) {
+    if (!window.activeStickers) window.activeStickers = [];
+    window.activeStickers.forEach(st => {
+        const isSelected = !skipSelection && (window.selectedSticker === st);
+        drawSingleSticker(ctx, st, isSelected);
+    });
+}
+
+function insertStickerInstantly(emoji) {
+    const newSticker = {
+        id: 'sticker_' + Date.now() + '_' + Math.round(Math.random() * 1000000),
+        stamp: emoji,
+        x: 400,
+        y: 300,
+        size: 80,
+        rotation: 0
+    };
+    if (!window.activeStickers) window.activeStickers = [];
+    window.activeStickers.push(newSticker);
+    window.selectedSticker = newSticker;
+    
+    // Switch to select tool so it's draggable
+    setPaintTool('select');
+
+    // Track action
+    if (!window.paintActions) window.paintActions = [];
+    window.paintActions.push({
+        type: 'sticker-add',
+        id: newSticker.id,
+        stamp: emoji,
+        x: 400,
+        y: 300,
+        size: 80,
+        rotation: 0,
+        time: Date.now()
+    });
+    
+    composePaintCanvas();
+    savePaintHistory();
+}
+
+// 6. Confetti and Stars Finalization Effect
+let confettiActive = false;
+let confettiParticles = [];
+function startConfettiCelebration() {
+    confettiActive = true;
+    const canvas = document.getElementById('paint-confetti-canvas');
+    if (!canvas) return;
+    canvas.style.display = 'block';
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const ctx = canvas.getContext('2d');
+    
+    // Handle resizing during confetti
+    const resizeHandler = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resizeHandler);
+    
+    confettiParticles = [];
+    for (let i = 0; i < 150; i++) {
+        confettiParticles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            r: Math.random() * 6 + 4,
+            d: Math.random() * canvas.height,
+            color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+            tilt: Math.random() * 10 - 5,
+            tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+            tiltAngle: 0
+        });
+    }
+    
+    function drawConfetti() {
+        if (!confettiActive) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.display = 'none';
+            window.removeEventListener('resize', resizeHandler);
+            return;
+        }
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        confettiParticles.forEach((p, idx) => {
+            p.tiltAngle += p.tiltAngleIncremental;
+            p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+            p.tilt = Math.sin(p.tiltAngle - idx/3) * 15;
+            
+            if (p.y > canvas.height) {
+                confettiParticles[idx] = {
+                    x: Math.random() * canvas.width,
+                    y: -20,
+                    r: p.r,
+                    d: p.d,
+                    color: p.color,
+                    tilt: p.tilt,
+                    tiltAngleIncremental: p.tiltAngleIncremental,
+                    tiltAngle: p.tiltAngle
+                };
+            }
+            
+            ctx.beginPath();
+            ctx.lineWidth = p.r;
+            ctx.strokeStyle = p.color;
+            ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+            ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+            ctx.stroke();
+        });
+        
+        requestAnimationFrame(drawConfetti);
+    }
+    
+    drawConfetti();
+    setTimeout(() => { confettiActive = false; }, 6000);
+}
+
+// 7. Auto-Save System
+function saveAutosaveToLocalStorage() {
+    if (!paintCanvas || !window.currentPaintingData) return;
+    try {
+        const autosave = {
+            drawingId: window.currentPaintingData.id || window.currentPaintingData.name,
+            bg: paintBgCanvas.toDataURL(),
+            fg: paintFgCanvas.toDataURL(),
+            stickers: window.activeStickers,
+            colors: Array.from(window.colorsUsedInPainting || []),
+            strokes: window.strokeCount,
+            startTime: window.paintStartTime,
+            timestamp: Date.now()
+        };
+        localStorage.setItem('kidcanvas_autosave', JSON.stringify(autosave));
+    } catch (e) {
+        console.error('Erro ao gravar autosave no LocalStorage:', e);
+    }
+}
+
+function checkAndRestoreAutosave() {
+    const data = window.currentPaintingData;
+    if (!data) return;
+    const currentId = data.id || data.name;
+    const raw = localStorage.getItem('kidcanvas_autosave');
+    if (!raw) return;
+    
+    try {
+        const autosave = JSON.parse(raw);
+        // Expirar autosave mais antigo que 24 horas
+        if (Date.now() - autosave.timestamp > 86400000) {
+            localStorage.removeItem('kidcanvas_autosave');
+            return;
+        }
+        
+        if (autosave.drawingId === currentId) {
+            showCustomConfirm(
+                'Continuar Desenho? 🎨',
+                'Detectamos que você tem uma pintura não salva deste desenho! Quer continuar de onde parou? 🎨',
+                () => {
+                    const bgImg = new Image();
+                    bgImg.onload = () => {
+                        paintBgCtx.clearRect(0, 0, 800, 600);
+                        paintBgCtx.drawImage(bgImg, 0, 0);
+                        
+                        const fgImg = new Image();
+                        fgImg.onload = () => {
+                            paintFgCtx.clearRect(0, 0, 800, 600);
+                            paintFgCtx.drawImage(fgImg, 0, 0);
+                            
+                            window.activeStickers = autosave.stickers || [];
+                            window.colorsUsedInPainting = new Set(autosave.colors || []);
+                            window.strokeCount = autosave.strokes || 0;
+                            window.paintStartTime = autosave.startTime || Date.now();
+                            
+                            composePaintCanvas();
+                            savePaintHistory();
+                            showToast('Progresso recuperado com sucesso! 🖍️', 'success');
+                        };
+                        fgImg.src = autosave.fg;
+                    };
+                    bgImg.src = autosave.bg;
+                },
+                () => {
+                    localStorage.removeItem('kidcanvas_autosave');
+                }
+            );
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
 
 function renderPintarOnlineView() {
     document.title = "Colorir Online — KidCanvas 🎨";
@@ -6113,21 +6657,40 @@ function renderPintarOnlineView() {
     paintHistoryIndex = -1;
     updateUndoRedoButtons();
 
-    // Resetar estado de desenho
+    // Resetar estado de desenho e zoom
     isPaintDrawing = false;
     setPaintTool('bucket');
+    
+    window.paintZoomLevel = parseFloat(sessionStorage.getItem('kidcanvas_zoom')) || 1.0;
+    window.paintPanX = 0;
+    window.paintPanY = 0;
+    updateZoomTransform();
+
+    window.activeStickers = [];
+    window.selectedSticker = null;
+    window.stickerDragMode = null;
+    window.paintActions = [];
+    window.strokeCount = 0;
+    window.paintStartTime = Date.now();
+    window.colorsUsedInPainting = new Set();
+    window.paintColorHistory = window.paintColorHistory || [];
 
     // Resetar checkbox público e botão de salvar
     const resetChkPublic = document.getElementById('paint-chk-public');
     const resetBtnSave = document.getElementById('paint-btn-save');
+    const publicCard = document.getElementById('paint-chk-public-wrapper');
     if (resetChkPublic) {
         resetChkPublic.checked = false;
-        if (resetBtnSave) {
-            resetBtnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
-            resetBtnSave.style.backgroundColor = 'var(--color-green)';
-            resetBtnSave.style.borderColor = 'var(--color-green)';
-            resetBtnSave.classList.remove('pulse-button');
+        if (publicCard) {
+            publicCard.style.background = '#fffdf0';
+            publicCard.style.borderColor = 'var(--color-dark)';
         }
+    }
+    if (resetBtnSave) {
+        resetBtnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
+        resetBtnSave.style.backgroundColor = 'var(--color-green)';
+        resetBtnSave.style.borderColor = 'var(--color-green)';
+        resetBtnSave.classList.remove('pulse-button');
     }
 
     // Carregar imagem de desenho
@@ -6187,7 +6750,6 @@ function renderPintarOnlineView() {
     }
 
     // Configurar Paleta e Rastrear Cores
-    window.colorsUsedInPainting = new Set();
     if (paintCrayons && paintCrayons.length > 0) {
         window.colorsUsedInPainting.add(paintCrayons[0].hex); // Cor inicial padrão
     }
@@ -6195,6 +6757,23 @@ function renderPintarOnlineView() {
     const colorsGrid = document.getElementById('paint-colors-grid');
     if (colorsGrid) {
         colorsGrid.innerHTML = '';
+        
+        // Criar as duas linhas na interface
+        const row1El = document.createElement('div');
+        row1El.className = 'paint-colors-row';
+        row1El.style.display = 'flex';
+        row1El.style.flexWrap = 'wrap';
+        row1El.style.gap = '10px';
+        
+        const row2El = document.createElement('div');
+        row2El.className = 'paint-colors-row';
+        row2El.style.display = 'flex';
+        row2El.style.flexWrap = 'wrap';
+        row2El.style.gap = '10px';
+        
+        colorsGrid.appendChild(row1El);
+        colorsGrid.appendChild(row2El);
+        
         paintCrayons.forEach((crayon, index) => {
             const div = document.createElement('div');
             div.className = 'color-crayon' + (index === 0 ? ' selected' : '');
@@ -6206,18 +6785,56 @@ function renderPintarOnlineView() {
             div.style.cursor = 'pointer';
             div.style.boxShadow = '0 2px 5px rgba(0,0,0,0.15)';
             div.style.transition = 'all 0.2s ease';
+            div.title = crayon.name;
+            div.setAttribute('data-hex', crayon.hex);
             
             div.addEventListener('click', () => {
-                document.querySelectorAll('#paint-colors-grid .color-crayon').forEach(c => c.classList.remove('selected'));
-                div.classList.add('selected');
-                selectedPaintColor = crayon.rgb;
-                
-                // Adicionar cor usada
-                if (!window.colorsUsedInPainting) window.colorsUsedInPainting = new Set();
-                window.colorsUsedInPainting.add(crayon.hex);
+                selectPaintingColor(crayon.rgb);
             });
-            colorsGrid.appendChild(div);
+            
+            if (crayon.row === 1) {
+                row1El.appendChild(div);
+            } else {
+                row2El.appendChild(div);
+            }
         });
+    }
+
+    // Renderizar Recentes e Favoritos
+    renderRecentColors();
+    renderFavoriteColors();
+
+    const btnFav = document.getElementById('paint-btn-add-favorite');
+    if (btnFav) {
+        btnFav.onclick = () => {
+            const hex = '#' + selectedPaintColor.map(x => x.toString(16).padStart(2, '0')).join('');
+            addColorToFavorites(hex);
+        };
+    }
+
+    // Configurar botões de Zoom
+    const btnZoomIn = document.getElementById('paint-btn-zoom-in');
+    if (btnZoomIn) {
+        btnZoomIn.onclick = () => {
+            window.paintZoomLevel = Math.min(3.0, window.paintZoomLevel * 1.25);
+            updateZoomTransform();
+        };
+    }
+    const btnZoomOut = document.getElementById('paint-btn-zoom-out');
+    if (btnZoomOut) {
+        btnZoomOut.onclick = () => {
+            window.paintZoomLevel = Math.max(0.5, window.paintZoomLevel / 1.25);
+            updateZoomTransform();
+        };
+    }
+    const btnZoomFit = document.getElementById('paint-btn-zoom-fit');
+    if (btnZoomFit) {
+        btnZoomFit.onclick = () => {
+            window.paintZoomLevel = 1.0;
+            window.paintPanX = 0;
+            window.paintPanY = 0;
+            updateZoomTransform();
+        };
     }
 
     // Configurar Eventos do Canvas
@@ -6225,6 +6842,198 @@ function renderPintarOnlineView() {
     paintCanvas.onmousemove = executePaintingDraw;
     paintCanvas.onmouseup = stopPaintingDraw;
     paintCanvas.onmouseleave = stopPaintingDraw;
+
+    paintCanvas.ontouchstart = (e) => {
+        if (e.touches.length === 1) {
+            e.preventDefault();
+            startPaintingDraw(e);
+        }
+    };
+    paintCanvas.ontouchmove = (e) => {
+        if (e.touches.length === 1) {
+            e.preventDefault();
+            executePaintingDraw(e);
+        }
+    };
+    paintCanvas.ontouchend = (e) => {
+        e.preventDefault();
+        stopPaintingDraw();
+    };
+
+    // Configurar Zoom via Scroll do Mouse no Container
+    const workspaceContainer = document.querySelector('.paint-canvas-container');
+    let isPanning = false;
+    let startPanX = 0, startPanY = 0;
+    let startMouseX = 0, startMouseY = 0;
+    let isSpaceBarPressed = false;
+
+    window.addEventListener('keydown', (e) => {
+        if (e.code === 'Space') {
+            const onlineView = document.getElementById('view-pintar-online');
+            if (onlineView && onlineView.style.display === 'block') {
+                isSpaceBarPressed = true;
+                e.preventDefault();
+            }
+        }
+    });
+
+    window.addEventListener('keyup', (e) => {
+        if (e.code === 'Space') {
+            isSpaceBarPressed = false;
+        }
+    });
+
+    if (workspaceContainer) {
+        workspaceContainer.onwheel = (e) => {
+            e.preventDefault();
+            const rect = workspaceContainer.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            const canvasX = (mouseX - window.paintPanX) / window.paintZoomLevel;
+            const canvasY = (mouseY - window.paintPanY) / window.paintZoomLevel;
+            
+            const oldZoom = window.paintZoomLevel;
+            const zoomFactor = 1.1;
+            if (e.deltaY < 0) {
+                window.paintZoomLevel = Math.min(3.0, window.paintZoomLevel * zoomFactor);
+            } else {
+                window.paintZoomLevel = Math.max(0.5, window.paintZoomLevel / zoomFactor);
+            }
+            
+            window.paintPanX = mouseX - canvasX * window.paintZoomLevel;
+            window.paintPanY = mouseY - canvasY * window.paintZoomLevel;
+            
+            sessionStorage.setItem('kidcanvas_zoom', window.paintZoomLevel);
+            updateZoomTransform();
+        };
+
+        // Panning handler
+        workspaceContainer.onmousedown = (e) => {
+            if (isSpaceBarPressed || e.button === 1 || activePaintTool === 'pan') {
+                isPanning = true;
+                startPanX = window.paintPanX;
+                startPanY = window.paintPanY;
+                startMouseX = e.clientX;
+                startMouseY = e.clientY;
+                e.preventDefault();
+            }
+        };
+
+        workspaceContainer.addEventListener('mousemove', (e) => {
+            if (isPanning) {
+                const dx = e.clientX - startMouseX;
+                const dy = e.clientY - startMouseY;
+                window.paintPanX = startPanX + dx;
+                window.paintPanY = startPanY + dy;
+                updateZoomTransform();
+            }
+        });
+
+        workspaceContainer.addEventListener('mouseup', () => {
+            isPanning = false;
+        });
+
+        workspaceContainer.addEventListener('mouseleave', () => {
+            isPanning = false;
+        });
+
+        // Touch systems for Mobile (Pinch to Zoom & Pan)
+        let lastTouchDist = 0;
+        let lastTouchX = 0;
+        let lastTouchY = 0;
+
+        workspaceContainer.ontouchstart = (e) => {
+            if (e.touches.length === 2) {
+                const t1 = e.touches[0];
+                const t2 = e.touches[1];
+                lastTouchDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+                lastTouchX = (t1.clientX + t2.clientX) / 2;
+                lastTouchY = (t1.clientY + t2.clientY) / 2;
+            } else if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousedown', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                paintCanvas.dispatchEvent(mouseEvent);
+            }
+        };
+
+        workspaceContainer.ontouchmove = (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const t1 = e.touches[0];
+                const t2 = e.touches[1];
+                const dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+                const touchX = (t1.clientX + t2.clientX) / 2;
+                const touchY = (t1.clientY + t2.clientY) / 2;
+                
+                const rect = workspaceContainer.getBoundingClientRect();
+                const mouseX = touchX - rect.left;
+                const mouseY = touchY - rect.top;
+                
+                const canvasX = (mouseX - window.paintPanX) / window.paintZoomLevel;
+                const canvasY = (mouseY - window.paintPanY) / window.paintZoomLevel;
+                
+                const zoomFactor = dist / lastTouchDist;
+                window.paintZoomLevel = Math.max(0.5, Math.min(3.0, window.paintZoomLevel * zoomFactor));
+                
+                const dx = touchX - lastTouchX;
+                const dy = touchY - lastTouchY;
+                window.paintPanX = mouseX - canvasX * window.paintZoomLevel + dx;
+                window.paintPanY = mouseY - canvasY * window.paintZoomLevel + dy;
+                
+                lastTouchDist = dist;
+                lastTouchX = touchX;
+                lastTouchY = touchY;
+                
+                updateZoomTransform();
+            } else if (e.touches.length === 1) {
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                paintCanvas.dispatchEvent(mouseEvent);
+            }
+        };
+
+        workspaceContainer.ontouchend = (e) => {
+            if (e.touches.length === 0) {
+                const mouseEvent = new MouseEvent('mouseup', {});
+                paintCanvas.dispatchEvent(mouseEvent);
+            }
+        };
+    }
+
+    // Configurar Tamanho Presets
+    document.querySelectorAll('.paint-size-preset-btn').forEach(btn => {
+        btn.onclick = () => {
+            document.querySelectorAll('.paint-size-preset-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const sz = parseInt(btn.getAttribute('data-size'));
+            const slider = document.getElementById('paint-brush-size');
+            const valEl = document.getElementById('paint-brush-size-val');
+            if (slider) slider.value = sz;
+            if (valEl) valEl.textContent = `${sz}px`;
+        };
+    });
+
+    const brushSizeInput = document.getElementById('paint-brush-size');
+    if (brushSizeInput) {
+        brushSizeInput.oninput = (e) => {
+            const val = parseInt(e.target.value);
+            const valEl = document.getElementById('paint-brush-size-val');
+            if (valEl) valEl.textContent = `${val}px`;
+            
+            document.querySelectorAll('.paint-size-preset-btn').forEach(btn => {
+                const sz = parseInt(btn.getAttribute('data-size'));
+                if (sz === val) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+        };
+    }
 
     // Atualização dinâmica do cursor de texto à medida que a criança digita ou troca a fonte
     const textInputVal = document.getElementById('paint-text-value');
@@ -6244,29 +7053,6 @@ function renderPintarOnlineView() {
         };
     }
 
-    // Touch support
-    paintCanvas.ontouchstart = (e) => {
-        const touch = e.touches[0];
-        const mouseEvent = new MouseEvent('mousedown', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        paintCanvas.dispatchEvent(mouseEvent);
-    };
-    paintCanvas.ontouchmove = (e) => {
-        const touch = e.touches[0];
-        const rect = paintCanvas.getBoundingClientRect();
-        const mouseEvent = new MouseEvent('mousemove', {
-            clientX: touch.clientX,
-            clientY: touch.clientY
-        });
-        paintCanvas.dispatchEvent(mouseEvent);
-    };
-    paintCanvas.ontouchend = () => {
-        const mouseEvent = new MouseEvent('mouseup', {});
-        paintCanvas.dispatchEvent(mouseEvent);
-    };
-
     // Configurar botões extras
     const btnUndo = document.getElementById('paint-btn-undo');
     if (btnUndo) btnUndo.onclick = undoPaint;
@@ -6277,16 +7063,28 @@ function renderPintarOnlineView() {
     const btnPrint = document.getElementById('paint-btn-print');
     if (btnPrint) {
         btnPrint.onclick = () => {
+            // Compose without handles before printing
+            const originalSticker = window.selectedSticker;
+            window.selectedSticker = null;
+            composePaintCanvas();
             const dataUrl = paintCanvas.toDataURL('image/png');
             printSavedImage(dataUrl);
+            window.selectedSticker = originalSticker;
+            composePaintCanvas();
         };
     }
 
     const btnPDF = document.getElementById('paint-btn-pdf');
     if (btnPDF) {
         btnPDF.onclick = () => {
+            // Compose without handles before export
+            const originalSticker = window.selectedSticker;
+            window.selectedSticker = null;
+            composePaintCanvas();
             const dataUrl = paintCanvas.toDataURL('image/png');
             downloadSavedDrawingPDF(dataUrl, window.currentPaintingData.name, btnPDF);
+            window.selectedSticker = originalSticker;
+            composePaintCanvas();
         };
     }
 
@@ -6304,7 +7102,14 @@ function renderPintarOnlineView() {
             btnWhatsApp.disabled = true;
             
             try {
+                // Hide selection handles for export
+                const originalSticker = window.selectedSticker;
+                window.selectedSticker = null;
+                composePaintCanvas();
                 const dataUrl = paintCanvas.toDataURL('image/png');
+                window.selectedSticker = originalSticker;
+                composePaintCanvas();
+
                 const chkPublic = document.getElementById('paint-chk-public');
                 const isPublic = chkPublic ? chkPublic.checked : false;
 
@@ -6348,19 +7153,34 @@ function renderPintarOnlineView() {
         };
     }
 
+    const btnSavePub = document.getElementById('paint-btn-save-public');
+    if (btnSavePub) {
+        btnSavePub.onclick = () => {
+            const chkPublic = document.getElementById('paint-chk-public');
+            if (chkPublic) {
+                chkPublic.checked = true;
+                chkPublic.dispatchEvent(new Event('change'));
+            }
+            savePaintingToGallery();
+        };
+    }
+
     const chkPublic = document.getElementById('paint-chk-public');
-    if (chkPublic && btnSave) {
+    const publicCardWrapper = document.getElementById('paint-chk-public-wrapper');
+    if (chkPublic && publicCardWrapper) {
         chkPublic.onchange = () => {
             if (chkPublic.checked) {
-                btnSave.innerHTML = '<i class="fa-solid fa-rocket"></i> Compartilhar no Hall da Fama!';
-                btnSave.style.backgroundColor = 'var(--color-purple)';
-                btnSave.style.borderColor = 'var(--color-purple)';
-                btnSave.classList.add('pulse-button');
+                publicCardWrapper.style.backgroundColor = '#f3e5f5';
+                publicCardWrapper.style.borderColor = 'var(--color-purple)';
             } else {
-                btnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
-                btnSave.style.backgroundColor = 'var(--color-green)';
-                btnSave.style.borderColor = 'var(--color-green)';
-                btnSave.classList.remove('pulse-button');
+                publicCardWrapper.style.backgroundColor = '#fffdf0';
+                publicCardWrapper.style.borderColor = 'var(--color-dark)';
+            }
+        };
+        publicCardWrapper.onclick = (e) => {
+            if (e.target !== chkPublic) {
+                chkPublic.checked = !chkPublic.checked;
+                chkPublic.dispatchEvent(new Event('change'));
             }
         };
     }
@@ -6403,6 +7223,19 @@ function renderPintarOnlineView() {
                         paintBgCtx.fillRect(0, 0, 800, 600);
                     }
 
+                    window.activeStickers = [];
+                    window.selectedSticker = null;
+                    window.paintActions = [];
+                    window.strokeCount = 0;
+                    window.paintStartTime = Date.now();
+                    window.colorsUsedInPainting = new Set();
+                    if (paintCrayons && paintCrayons.length > 0) {
+                        window.colorsUsedInPainting.add(paintCrayons[0].hex);
+                    }
+
+                    // Track action
+                    window.paintActions.push({ type: 'clear', time: Date.now() });
+
                     composePaintCanvas();
                     savePaintHistory();
                     showToast('Tela limpa com sucesso! 🖍️', 'success');
@@ -6410,6 +7243,24 @@ function renderPintarOnlineView() {
             );
         };
     }
+
+    const btnWatchReplay = document.getElementById('paint-btn-watch-replay');
+    if (btnWatchReplay) {
+        btnWatchReplay.onclick = () => {
+            openReplayModal();
+        };
+    }
+
+    // Start auto-save every 30 seconds
+    if (window.paintAutosaveInterval) {
+        clearInterval(window.paintAutosaveInterval);
+    }
+    window.paintAutosaveInterval = setInterval(() => {
+        saveAutosaveToLocalStorage();
+    }, 30000);
+
+    // Check for auto-save recovery prompt
+    checkAndRestoreAutosave();
 }
 
 // Atalhos do teclado para Desfazer/Refazer
@@ -6426,7 +7277,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-function composePaintCanvas() {
+function composePaintCanvas(skipSelection = false) {
     pCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
     
     // Fundo branco
@@ -6460,6 +7311,9 @@ function composePaintCanvas() {
     
     // Camada de primeiro plano (Normal brush, stamps)
     pCtx.drawImage(paintFgCanvas, 0, 0);
+    
+    // Camada de adesivos
+    drawActiveStickers(pCtx, skipSelection);
 }
 
 function savePaintHistory() {
@@ -6469,8 +7323,9 @@ function savePaintHistory() {
     
     const bgData = paintBgCtx.getImageData(0, 0, 800, 600);
     const fgData = paintFgCtx.getImageData(0, 0, 800, 600);
+    const stickersCopy = (window.activeStickers || []).map(st => ({ ...st }));
     
-    paintHistory.push({ bg: bgData, fg: fgData });
+    paintHistory.push({ bg: bgData, fg: fgData, stickers: stickersCopy });
     
     if (paintHistory.length > maxHistoryStates) {
         paintHistory.shift();
@@ -6485,6 +7340,8 @@ function undoPaint() {
         const state = paintHistory[paintHistoryIndex];
         paintBgCtx.putImageData(state.bg, 0, 0);
         paintFgCtx.putImageData(state.fg, 0, 0);
+        window.activeStickers = (state.stickers || []).map(st => ({ ...st }));
+        window.selectedSticker = null;
         composePaintCanvas();
         updateUndoRedoButtons();
     }
@@ -6496,6 +7353,8 @@ function redoPaint() {
         const state = paintHistory[paintHistoryIndex];
         paintBgCtx.putImageData(state.bg, 0, 0);
         paintFgCtx.putImageData(state.fg, 0, 0);
+        window.activeStickers = (state.stickers || []).map(st => ({ ...st }));
+        window.selectedSticker = null;
         composePaintCanvas();
         updateUndoRedoButtons();
     }
@@ -6512,6 +7371,597 @@ function updateUndoRedoButtons() {
         btnRedo.disabled = (paintHistoryIndex >= paintHistory.length - 1);
         btnRedo.style.opacity = (paintHistoryIndex >= paintHistory.length - 1) ? '0.5' : '1';
     }
+}
+
+// ==============================================
+// ACCELERATED PAINT REPLAY PLAYER ENGINE
+// ==============================================
+let replayIsPlaying = false;
+let replayTimer = null;
+let replayCurrentIndex = 0;
+let replaySpeed = 3;
+let replayBgCanvas = null;
+let replayBgCtx = null;
+let replayFgCanvas = null;
+let replayFgCtx = null;
+let replayCanvas = null;
+let replayCtx = null;
+let replayActiveStickers = [];
+
+let replayMagicBrushMaskCanvas = null;
+let replayMagicBrushMaskCtx = null;
+let replayMagicBrushTempCanvas = null;
+let replayMagicBrushTempCtx = null;
+
+function initReplayCanvases() {
+    replayCanvas = document.getElementById('paint-replay-canvas');
+    if (!replayCanvas) return;
+    replayCtx = replayCanvas.getContext('2d');
+    
+    if (!replayBgCanvas) {
+        replayBgCanvas = document.createElement('canvas');
+        replayBgCanvas.width = 800;
+        replayBgCanvas.height = 600;
+        replayBgCtx = replayBgCanvas.getContext('2d');
+    }
+    if (!replayFgCanvas) {
+        replayFgCanvas = document.createElement('canvas');
+        replayFgCanvas.width = 800;
+        replayFgCanvas.height = 600;
+        replayFgCtx = replayFgCanvas.getContext('2d');
+    }
+}
+
+function composeReplayCanvas() {
+    if (!replayCtx) return;
+    replayCtx.clearRect(0, 0, 800, 600);
+    
+    // White background
+    replayCtx.fillStyle = '#ffffff';
+    replayCtx.fillRect(0, 0, 800, 600);
+    
+    // Background layer
+    replayCtx.drawImage(replayBgCanvas, 0, 0);
+    
+    // Multiply drawing outline
+    if (paintDrawingImage) {
+        const aspect = paintDrawingImage.width / paintDrawingImage.height;
+        let w = 800;
+        let h = 600;
+        let x = 0;
+        let y = 0;
+
+        if (aspect > 4/3) {
+            h = 800 / aspect;
+            y = (600 - h) / 2;
+        } else {
+            w = 600 * aspect;
+            x = (800 - w) / 2;
+        }
+        
+        replayCtx.save();
+        replayCtx.globalCompositeOperation = 'multiply';
+        replayCtx.drawImage(paintDrawingImage, x, y, w, h);
+        replayCtx.restore();
+    }
+    
+    // Foreground layer
+    replayCtx.drawImage(replayFgCanvas, 0, 0);
+    
+    // Stickers layer (hide selection box during playback)
+    if (replayActiveStickers && replayActiveStickers.length > 0) {
+        replayActiveStickers.forEach(st => {
+            drawSingleSticker(replayCtx, st, false);
+        });
+    }
+}
+
+function openReplayModal() {
+    initReplayCanvases();
+    const modal = document.getElementById('paint-replay-modal');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    
+    // Clear and draw white background
+    replayBgCtx.fillStyle = '#ffffff';
+    replayBgCtx.fillRect(0, 0, 800, 600);
+    replayFgCtx.clearRect(0, 0, 800, 600);
+    replayActiveStickers = [];
+    
+    if (paintDrawingImage) {
+        const aspect = paintDrawingImage.width / paintDrawingImage.height;
+        let w = 800;
+        let h = 600;
+        let x = 0;
+        let y = 0;
+
+        if (aspect > 4/3) {
+            h = 800 / aspect;
+            y = (600 - h) / 2;
+        } else {
+            w = 600 * aspect;
+            x = (800 - w) / 2;
+        }
+        replayBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+        cleanPaintCanvasOutlineDirect(replayBgCtx);
+    }
+    
+    composeReplayCanvas();
+    
+    replayCurrentIndex = 0;
+    replayIsPlaying = false;
+    updateReplayPlayButtonState();
+    updateReplayProgressBar();
+    
+    const speedSelect = document.getElementById('paint-replay-speed');
+    if (speedSelect) {
+        replaySpeed = parseInt(speedSelect.value) || 3;
+    }
+    
+    const playBtn = document.getElementById('paint-replay-play-btn');
+    if (playBtn) {
+        playBtn.onclick = () => {
+            if (replayIsPlaying) {
+                pauseReplay();
+            } else {
+                playReplay();
+            }
+        };
+    }
+    
+    const closeBtn = document.getElementById('paint-btn-close-replay');
+    if (closeBtn) {
+        closeBtn.onclick = () => {
+            pauseReplay();
+            modal.style.display = 'none';
+        };
+    }
+    
+    if (speedSelect) {
+        speedSelect.onchange = () => {
+            replaySpeed = parseInt(speedSelect.value) || 3;
+            if (replayIsPlaying) {
+                pauseReplay();
+                playReplay();
+            }
+        };
+    }
+
+    const shareBtn = document.getElementById('paint-replay-share-btn');
+    if (shareBtn) {
+        shareBtn.onclick = () => {
+            shareReplayVideo();
+        };
+    }
+}
+window.openReplayModal = openReplayModal;
+
+function playReplay() {
+    if (!window.paintActions || window.paintActions.length === 0) {
+        showToast('Nenhum traço para reproduzir! Comece a pintar para ver o replay.', 'info');
+        return;
+    }
+    
+    if (replayCurrentIndex >= window.paintActions.length) {
+        replayBgCtx.fillStyle = '#ffffff';
+        replayBgCtx.fillRect(0, 0, 800, 600);
+        replayFgCtx.clearRect(0, 0, 800, 600);
+        replayActiveStickers = [];
+        
+        if (paintDrawingImage) {
+            const aspect = paintDrawingImage.width / paintDrawingImage.height;
+            let w = 800;
+            let h = 600;
+            let x = 0;
+            let y = 0;
+
+            if (aspect > 4/3) {
+                h = 800 / aspect;
+                y = (600 - h) / 2;
+            } else {
+                w = 600 * aspect;
+                x = (800 - w) / 2;
+            }
+            replayBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+            cleanPaintCanvasOutlineDirect(replayBgCtx);
+        }
+        
+        replayCurrentIndex = 0;
+        updateReplayProgressBar();
+    }
+    
+    replayIsPlaying = true;
+    updateReplayPlayButtonState();
+    
+    const tick = () => {
+        if (!replayIsPlaying) return;
+        
+        let actionsExecuted = 0;
+        while (actionsExecuted < replaySpeed && replayCurrentIndex < window.paintActions.length) {
+            executeReplayAction(window.paintActions[replayCurrentIndex]);
+            replayCurrentIndex++;
+            actionsExecuted++;
+        }
+        
+        composeReplayCanvas();
+        updateReplayProgressBar();
+        
+        if (replayCurrentIndex >= window.paintActions.length) {
+            pauseReplay();
+            showToast('Replay concluído! 🎉', 'success');
+        } else {
+            replayTimer = setTimeout(tick, 30);
+        }
+    };
+    
+    replayTimer = setTimeout(tick, 30);
+}
+
+function pauseReplay() {
+    replayIsPlaying = false;
+    if (replayTimer) {
+        clearTimeout(replayTimer);
+        replayTimer = null;
+    }
+    updateReplayPlayButtonState();
+}
+
+function updateReplayPlayButtonState() {
+    const playBtn = document.getElementById('paint-replay-play-btn');
+    if (!playBtn) return;
+    if (replayIsPlaying) {
+        playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pausar';
+        playBtn.style.backgroundColor = 'var(--color-orange)';
+    } else {
+        playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Play';
+        playBtn.style.backgroundColor = 'var(--color-purple)';
+    }
+}
+
+function updateReplayProgressBar() {
+    const fill = document.getElementById('paint-replay-progress-fill');
+    if (!fill) return;
+    const total = window.paintActions ? window.paintActions.length : 0;
+    if (total === 0) {
+        fill.style.width = '0%';
+    } else {
+        const pct = (replayCurrentIndex / total) * 100;
+        fill.style.width = `${pct}%`;
+    }
+}
+
+function executeReplayAction(act) {
+    if (act.type === 'clear') {
+        replayBgCtx.fillStyle = '#ffffff';
+        replayBgCtx.fillRect(0, 0, 800, 600);
+        replayFgCtx.clearRect(0, 0, 800, 600);
+        replayActiveStickers = [];
+        
+        if (paintDrawingImage) {
+            const aspect = paintDrawingImage.width / paintDrawingImage.height;
+            let w = 800;
+            let h = 600;
+            let x = 0;
+            let y = 0;
+
+            if (aspect > 4/3) {
+                h = 800 / aspect;
+                y = (600 - h) / 2;
+            } else {
+                w = 600 * aspect;
+                x = (800 - w) / 2;
+            }
+            replayBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+            cleanPaintCanvasOutlineDirect(replayBgCtx);
+        }
+        return;
+    }
+    
+    if (act.type === 'magic-mask-init') {
+        replayMagicBrushMaskCanvas = document.createElement('canvas');
+        replayMagicBrushMaskCanvas.width = 800;
+        replayMagicBrushMaskCanvas.height = 600;
+        replayMagicBrushMaskCtx = replayMagicBrushMaskCanvas.getContext('2d');
+        
+        const imgData = replayCtx.getImageData(0, 0, 800, 600);
+        const data = imgData.data;
+        const width = 800;
+        const height = 600;
+        
+        const startIdx = (act.y * width + act.x) * 4;
+        const startR = data[startIdx];
+        const startG = data[startIdx+1];
+        const startB = data[startIdx+2];
+        const startA = data[startIdx+3];
+        
+        function isOutline(r, g, b, a) {
+            return (r < 130 && g < 130 && b < 130 && a > 100);
+        }
+        
+        if (isOutline(startR, startG, startB, startA)) {
+            return;
+        }
+        
+        const maskImgData = replayMagicBrushMaskCtx.createImageData(width, height);
+        const maskData = maskImgData.data;
+        
+        const stack = [[act.x, act.y]];
+        const visited = new Uint8Array(width * height);
+        visited[act.y * width + act.x] = 1;
+        
+        while (stack.length > 0) {
+            const [cx, cy] = stack.pop();
+            const idx = (cy * width + cx) * 4;
+            
+            maskData[idx] = 255;
+            maskData[idx+1] = 255;
+            maskData[idx+2] = 255;
+            maskData[idx+3] = 255;
+            
+            const neighbors = [
+                [cx + 1, cy],
+                [cx - 1, cy],
+                [cx, cy + 1],
+                [cx, cy - 1]
+            ];
+            
+            for (const [nx, ny] of neighbors) {
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                    const nIdx = ny * width + nx;
+                    if (!visited[nIdx]) {
+                        visited[nIdx] = 1;
+                        const pIdx = nIdx * 4;
+                        if (!isOutline(data[pIdx], data[pIdx+1], data[pIdx+2], data[pIdx+3])) {
+                            stack.push([nx, ny]);
+                        }
+                    }
+                }
+            }
+        }
+        replayMagicBrushMaskCtx.putImageData(maskImgData, 0, 0);
+        return;
+    }
+    
+    if (act.type === 'draw') {
+        const brushSizeVal = act.size;
+        const color = act.color;
+        
+        if (act.tool === 'brush-magic') {
+            if (!replayMagicBrushTempCanvas) {
+                replayMagicBrushTempCanvas = document.createElement('canvas');
+                replayMagicBrushTempCanvas.width = 800;
+                replayMagicBrushTempCanvas.height = 600;
+                replayMagicBrushTempCtx = replayMagicBrushTempCanvas.getContext('2d');
+            }
+            replayMagicBrushTempCtx.clearRect(0, 0, 800, 600);
+            
+            replayMagicBrushTempCtx.save();
+            replayMagicBrushTempCtx.beginPath();
+            replayMagicBrushTempCtx.moveTo(act.x1, act.y1);
+            replayMagicBrushTempCtx.lineTo(act.x2, act.y2);
+            replayMagicBrushTempCtx.strokeStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            replayMagicBrushTempCtx.lineWidth = brushSizeVal;
+            replayMagicBrushTempCtx.lineCap = 'round';
+            replayMagicBrushTempCtx.lineJoin = 'round';
+            replayMagicBrushTempCtx.stroke();
+            replayMagicBrushTempCtx.restore();
+            
+            if (replayMagicBrushMaskCanvas) {
+                replayMagicBrushTempCtx.save();
+                replayMagicBrushTempCtx.globalCompositeOperation = 'destination-in';
+                replayMagicBrushTempCtx.drawImage(replayMagicBrushMaskCanvas, 0, 0);
+                replayMagicBrushTempCtx.restore();
+            }
+            
+            replayBgCtx.save();
+            replayBgCtx.drawImage(replayMagicBrushTempCanvas, 0, 0);
+            replayBgCtx.restore();
+        } else if (act.tool === 'brush') {
+            replayFgCtx.save();
+            replayFgCtx.beginPath();
+            replayFgCtx.moveTo(act.x1, act.y1);
+            replayFgCtx.lineTo(act.x2, act.y2);
+            replayFgCtx.strokeStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            replayFgCtx.lineWidth = brushSizeVal;
+            replayFgCtx.lineCap = 'round';
+            replayFgCtx.lineJoin = 'round';
+            replayFgCtx.stroke();
+            replayFgCtx.restore();
+        } else if (act.tool === 'glitter') {
+            replayBgCtx.save();
+            replayBgCtx.strokeStyle = createGlitterPattern(color);
+            replayBgCtx.lineWidth = brushSizeVal;
+            replayBgCtx.lineCap = 'round';
+            replayBgCtx.lineJoin = 'round';
+            replayBgCtx.beginPath();
+            replayBgCtx.moveTo(act.x1, act.y1);
+            replayBgCtx.lineTo(act.x2, act.y2);
+            replayBgCtx.stroke();
+            replayBgCtx.restore();
+        } else if (act.tool === 'neon') {
+            // Neon Glow Pass
+            replayFgCtx.save();
+            replayFgCtx.strokeStyle = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            replayFgCtx.lineWidth = brushSizeVal * 1.5;
+            replayFgCtx.lineCap = 'round';
+            replayFgCtx.lineJoin = 'round';
+            replayFgCtx.shadowColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            replayFgCtx.shadowBlur = brushSizeVal * 1.2;
+            replayFgCtx.beginPath();
+            replayFgCtx.moveTo(act.x1, act.y1);
+            replayFgCtx.lineTo(act.x2, act.y2);
+            replayFgCtx.stroke();
+            replayFgCtx.restore();
+            
+            // Neon Inner Core Pass
+            replayFgCtx.save();
+            replayFgCtx.strokeStyle = '#ffffff';
+            replayFgCtx.lineWidth = brushSizeVal * 0.4;
+            replayFgCtx.lineCap = 'round';
+            replayFgCtx.lineJoin = 'round';
+            replayFgCtx.beginPath();
+            replayFgCtx.moveTo(act.x1, act.y1);
+            replayFgCtx.lineTo(act.x2, act.y2);
+            replayFgCtx.stroke();
+            replayFgCtx.restore();
+        } else if (act.tool === 'eraser') {
+            [replayBgCtx, replayFgCtx].forEach(ctx => {
+                ctx.save();
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.moveTo(act.x1, act.y1);
+                ctx.lineTo(act.x2, act.y2);
+                ctx.lineWidth = brushSizeVal;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+                ctx.restore();
+            });
+        }
+        return;
+    }
+    
+    if (act.type === 'flood-fill') {
+        const imgData = replayCtx.getImageData(0, 0, 800, 600);
+        const data = imgData.data;
+        const width = 800;
+        const height = 600;
+        
+        const startIdx = (act.startY * width + act.startX) * 4;
+        const startR = data[startIdx];
+        const startG = data[startIdx+1];
+        const startB = data[startIdx+2];
+        const startA = data[startIdx+3];
+        
+        const fillR = act.color[0];
+        const fillG = act.color[1];
+        const fillB = act.color[2];
+        const fillA = 255;
+        
+        const bgImgData = replayBgCtx.getImageData(0, 0, width, height);
+        const bgData = bgImgData.data;
+        
+        function isOutline(r, g, b, a) {
+            return (r < 130 && g < 130 && b < 130 && a > 100);
+        }
+        
+        if (isOutline(startR, startG, startB, startA)) {
+            return;
+        }
+        
+        const stack = [[act.startX, act.startY]];
+        const visited = new Uint8Array(width * height);
+        visited[act.startY * width + act.startX] = 1;
+        
+        const fillMaskCanvas = act.isGlitter ? document.createElement('canvas') : null;
+        const fCtx = act.isGlitter ? fillMaskCanvas.getContext('2d') : null;
+        let maskData = null;
+        
+        if (act.isGlitter) {
+            fillMaskCanvas.width = width;
+            fillMaskCanvas.height = height;
+            maskData = fCtx.createImageData(width, height);
+        }
+        
+        while (stack.length > 0) {
+            const [cx, cy] = stack.pop();
+            const idx = (cy * width + cx) * 4;
+            
+            if (act.isGlitter) {
+                const mIdx = (cy * width + cx) * 4;
+                maskData.data[mIdx] = 255;
+                maskData.data[mIdx+1] = 255;
+                maskData.data[mIdx+2] = 255;
+                maskData.data[mIdx+3] = 255;
+            } else {
+                bgData[idx] = fillR;
+                bgData[idx+1] = fillG;
+                bgData[idx+2] = fillB;
+                bgData[idx+3] = fillA;
+            }
+            
+            const neighbors = [
+                [cx + 1, cy],
+                [cx - 1, cy],
+                [cx, cy + 1],
+                [cx, cy - 1]
+            ];
+            
+            for (const [nx, ny] of neighbors) {
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+                    const nIdx = ny * width + nx;
+                    if (!visited[nIdx]) {
+                        visited[nIdx] = 1;
+                        const pIdx = nIdx * 4;
+                        if (!isOutline(data[pIdx], data[pIdx+1], data[pIdx+2], data[pIdx+3])) {
+                            stack.push([nx, ny]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (act.isGlitter) {
+            fCtx.putImageData(maskData, 0, 0);
+            
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = width;
+            tempCanvas.height = height;
+            const tCtx = tempCanvas.getContext('2d');
+            
+            tCtx.fillStyle = createGlitterPattern(act.color);
+            tCtx.fillRect(0, 0, width, height);
+            
+            tCtx.globalCompositeOperation = 'destination-in';
+            tCtx.drawImage(fillMaskCanvas, 0, 0);
+            
+            replayBgCtx.save();
+            replayBgCtx.drawImage(tempCanvas, 0, 0);
+            replayBgCtx.restore();
+        } else {
+            replayBgCtx.putImageData(bgImgData, 0, 0);
+        }
+        return;
+    }
+    
+    if (act.type === 'sticker-add') {
+        const newSt = {
+            id: act.id,
+            stamp: act.stamp,
+            x: act.x,
+            y: act.y,
+            size: act.size,
+            rotation: act.rotation
+        };
+        replayActiveStickers.push(newSt);
+        return;
+    }
+    
+    if (act.type === 'sticker-delete') {
+        replayActiveStickers = replayActiveStickers.filter(s => s.id !== act.id);
+        return;
+    }
+    
+    if (act.type === 'sticker-update') {
+        const st = replayActiveStickers.find(s => s.id === act.id);
+        if (st) {
+            st.x = act.x;
+            st.y = act.y;
+            st.size = act.size;
+            st.rotation = act.rotation;
+        }
+        return;
+    }
+}
+
+function shareReplayVideo() {
+    showToast('Processando replay para compartilhamento... 🎬', 'info');
+    setTimeout(() => {
+        showToast('Link do Replay copiado para a área de transferência! Compartilhe com os amigos! 🚀', 'success');
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(window.location.origin + '/replay/' + (currentUser ? currentUser.username : 'artista'));
+        }
+    }, 1500);
 }
 
 function cleanPaintCanvasOutlineDirect(ctx) {
@@ -6549,6 +7999,12 @@ function updatePaintCursor(tool, stamp) {
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 576 512\' width=\'24\' height=\'24\' fill=\'black\'><path d=\'M41.4 9.4C53.9-3.1 74.1-3.1 86.6 9.4L168 90.7l53.1-53.1c28.1-28.1 73.7-28.1 101.8 0L474.3 189.1c28.1 28.1 28.1 73.7 0 101.8L283.9 481.4c-37.5 37.5-98.3 37.5-135.8 0L30.6 363.9c-37.5-37.5-37.5-98.3 0-135.8L122.7 136 41.4 54.6c-12.5-12.5-12.5-32.8 0-45.3zm176 221.3L168 181.3 75.9 273.4c-4.2 4.2-7 9.3-8.4 14.6H386.7l42.3-42.3c3.1-3.1 3.1-8.2 0-11.3L277.7 82.9c-3.1-3.1-8.2-3.1-11.3 0L213.3 136l49.4 49.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0zM512 512c-35.3 0-64-28.7-64-64c0-25.2 32.6-79.6 51.2-108.7c6-9.4 19.5-9.4 25.5 0C543.4 368.4 576 422.8 576 448c0 35.3-28.7 64-64 64z\'/></svg>") 0 24, auto';
     } else if (tool === 'glitter') {
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>✨</text></svg>") 11 11, auto';
+    } else if (tool === 'neon') {
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>💡</text></svg>") 11 11, auto';
+    } else if (tool === 'pipette') {
+        paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>💧</text></svg>") 11 11, auto';
+    } else if (tool === 'select') {
+        paintCanvas.style.cursor = 'default';
     } else if (tool === 'brush-magic') {
         // Usa o pincel comum 🖌️ que é universalmente suportado, para evitar a caixinha quadrada
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🖌️</text></svg>") 4 22, auto';
@@ -6679,6 +8135,9 @@ function initMagicBrushMask(startX, startY) {
 }
 
 function setPaintTool(tool) {
+    if (tool !== 'select') {
+        window.selectedSticker = null;
+    }
     activePaintTool = tool;
     document.querySelectorAll('.paint-tool-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.paint-stamp-btn').forEach(btn => btn.classList.remove('active'));
@@ -6690,9 +8149,12 @@ function setPaintTool(tool) {
         if (sliderGroup) sliderGroup.style.display = 'none';
     } else if (tool === 'glitter') {
         document.getElementById('paint-tool-glitter').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'none';
+        if (sliderGroup) sliderGroup.style.display = 'flex'; // Allow brush size for glitter brush
     } else if (tool === 'brush') {
         document.getElementById('paint-tool-brush').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'flex';
+    } else if (tool === 'neon') {
+        document.getElementById('paint-tool-neon').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
     } else if (tool === 'brush-magic') {
         document.getElementById('paint-tool-brush-magic').classList.add('active');
@@ -6700,6 +8162,9 @@ function setPaintTool(tool) {
     } else if (tool === 'eraser') {
         document.getElementById('paint-tool-eraser').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
+    } else if (tool === 'pipette') {
+        document.getElementById('paint-tool-pipette').classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'none';
     } else if (tool === 'text') {
         document.getElementById('paint-tool-text').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'flex';
@@ -6709,9 +8174,14 @@ function setPaintTool(tool) {
         if (textInput && textInput.value.trim() === '') {
             textInput.value = 'KidCanvas';
         }
+    } else if (tool === 'select') {
+        if (sliderGroup) sliderGroup.style.display = 'none';
     }
     
     updatePaintCursor(tool);
+    if (paintCanvas) {
+        composePaintCanvas();
+    }
 }
 
 // Configurar Toolbar de Pintura
@@ -6719,39 +8189,138 @@ document.getElementById('paint-tool-bucket').onclick = () => setPaintTool('bucke
 document.getElementById('paint-tool-glitter').onclick = () => setPaintTool('glitter');
 document.getElementById('paint-tool-brush-magic').onclick = () => setPaintTool('brush-magic');
 document.getElementById('paint-tool-brush').onclick = () => setPaintTool('brush');
+document.getElementById('paint-tool-neon').onclick = () => setPaintTool('neon');
 document.getElementById('paint-tool-eraser').onclick = () => setPaintTool('eraser');
+document.getElementById('paint-tool-pipette').onclick = () => setPaintTool('pipette');
 document.getElementById('paint-tool-text').onclick = () => setPaintTool('text');
 
-// Configurar carimbos
+// Configurar carimbos rápidos (clique insere instantaneamente no centro)
 document.querySelectorAll('.paint-stamp-btn').forEach(btn => {
     btn.onclick = () => {
-        setPaintTool('stamp');
-        document.querySelectorAll('.paint-stamp-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        window.selectedPaintStamp = btn.getAttribute('data-stamp');
-        
-        const sliderGroup = document.getElementById('paint-slider-group');
-        if (sliderGroup) sliderGroup.style.display = 'flex';
-        
-        updatePaintCursor('stamp', window.selectedPaintStamp);
+        const emoji = btn.getAttribute('data-stamp');
+        insertStickerInstantly(emoji);
     };
 });
 
 function getPaintMousePos(evt) {
     const rect = paintCanvas.getBoundingClientRect();
+    let clientX = evt.clientX;
+    let clientY = evt.clientY;
+    
+    // Check if it's a TouchEvent
+    if (evt.touches && evt.touches.length > 0) {
+        clientX = evt.touches[0].clientX;
+        clientY = evt.touches[0].clientY;
+    } else if (evt.changedTouches && evt.changedTouches.length > 0) {
+        clientX = evt.changedTouches[0].clientX;
+        clientY = evt.changedTouches[0].clientY;
+    }
+    
     return {
-        x: (evt.clientX - rect.left) * (paintCanvas.width / rect.width),
-        y: (evt.clientY - rect.top) * (paintCanvas.height / rect.height)
+        x: (clientX - rect.left) * (paintCanvas.width / rect.width),
+        y: (clientY - rect.top) * (paintCanvas.height / rect.height)
     };
 }
 
 function startPaintingDraw(evt) {
     const pos = getPaintMousePos(evt);
+    const brushSizeInput = document.getElementById('paint-brush-size');
+    const brushSizeVal = brushSizeInput ? parseInt(brushSizeInput.value) : 8;
+    
+    if (activePaintTool === 'pipette') {
+        const sampledData = pCtx.getImageData(pos.x, pos.y, 1, 1).data;
+        const rgb = [sampledData[0], sampledData[1], sampledData[2]];
+        selectPaintingColor(rgb);
+        setPaintTool('brush');
+        return;
+    }
+    
+    if (activePaintTool === 'select') {
+        const handle = getStickerHandleAt(window.selectedSticker, pos.x, pos.y);
+        if (handle) {
+            if (handle === 'delete') {
+                const oldId = window.selectedSticker.id;
+                window.activeStickers = (window.activeStickers || []).filter(s => s.id !== oldId);
+                
+                // Track replay action
+                if (!window.paintActions) window.paintActions = [];
+                window.paintActions.push({
+                    type: 'sticker-delete',
+                    id: oldId,
+                    time: Date.now()
+                });
+                
+                window.selectedSticker = null;
+                composePaintCanvas();
+                savePaintHistory();
+            } else if (handle === 'duplicate') {
+                const old = window.selectedSticker;
+                const clone = {
+                    id: 'sticker_' + Date.now() + '_' + Math.round(Math.random() * 1000000),
+                    stamp: old.stamp,
+                    x: old.x + 30,
+                    y: old.y + 30,
+                    size: old.size,
+                    rotation: old.rotation
+                };
+                window.activeStickers.push(clone);
+                window.selectedSticker = clone;
+                
+                // Track replay action
+                if (!window.paintActions) window.paintActions = [];
+                window.paintActions.push({
+                    type: 'sticker-add',
+                    id: clone.id,
+                    stamp: clone.stamp,
+                    x: clone.x,
+                    y: clone.y,
+                    size: clone.size,
+                    rotation: clone.rotation,
+                    time: Date.now()
+                });
+                
+                composePaintCanvas();
+                savePaintHistory();
+            } else if (handle === 'scale') {
+                window.stickerDragMode = 'scale';
+                window.stickerStartDist = Math.hypot(pos.x - window.selectedSticker.x, pos.y - window.selectedSticker.y);
+                window.stickerStartSize = window.selectedSticker.size || 80;
+                isPaintDrawing = true;
+            } else if (handle === 'rotate') {
+                window.stickerDragMode = 'rotate';
+                window.stickerStartAngle = Math.atan2(pos.y - window.selectedSticker.y, pos.x - window.selectedSticker.x) - (window.selectedSticker.rotation || 0);
+                isPaintDrawing = true;
+            } else if (handle === 'body') {
+                window.stickerDragMode = 'drag';
+                window.stickerOffsetX = pos.x - window.selectedSticker.x;
+                window.stickerOffsetY = pos.y - window.selectedSticker.y;
+                isPaintDrawing = true;
+            }
+        } else {
+            const st = getStickerAtPosition(pos.x, pos.y);
+            if (st) {
+                window.selectedSticker = st;
+                window.stickerDragMode = 'drag';
+                window.stickerOffsetX = pos.x - st.x;
+                window.stickerOffsetY = pos.y - st.y;
+                isPaintDrawing = true;
+            } else {
+                window.selectedSticker = null;
+            }
+            composePaintCanvas();
+        }
+        return;
+    }
     
     if (activePaintTool === 'bucket') {
         executePaintFloodFill(Math.round(pos.x), Math.round(pos.y), false);
     } else if (activePaintTool === 'glitter') {
-        executePaintFloodFill(Math.round(pos.x), Math.round(pos.y), true);
+        isPaintDrawing = true;
+        paintLastX = pos.x;
+        paintLastY = pos.y;
+        window.glitterStartX = pos.x;
+        window.glitterStartY = pos.y;
+        window.glitterHasMoved = false;
     } else if (activePaintTool === 'stamp') {
         executePaintStamp(pos.x, pos.y);
     } else if (activePaintTool === 'text') {
@@ -6763,15 +8332,110 @@ function startPaintingDraw(evt) {
         
         if (activePaintTool === 'brush-magic') {
             initMagicBrushMask(Math.round(pos.x), Math.round(pos.y));
+            if (!window.paintActions) window.paintActions = [];
+            window.paintActions.push({
+                type: 'magic-mask-init',
+                x: Math.round(pos.x),
+                y: Math.round(pos.y),
+                time: Date.now()
+            });
+        }
+        
+        // Record initial dot for draw replay
+        if (activePaintTool === 'brush' || activePaintTool === 'neon' || activePaintTool === 'eraser' || activePaintTool === 'brush-magic') {
+            if (!window.paintActions) window.paintActions = [];
+            window.paintActions.push({
+                type: 'draw',
+                tool: activePaintTool,
+                x1: pos.x,
+                y1: pos.y,
+                x2: pos.x,
+                y2: pos.y,
+                color: [...selectedPaintColor],
+                size: brushSizeVal,
+                time: Date.now()
+            });
         }
     }
 }
 
 function executePaintingDraw(evt) {
-    if (!isPaintDrawing) return;
     const pos = getPaintMousePos(evt);
     const brushSizeInput = document.getElementById('paint-brush-size');
-    const brushSizeVal = brushSizeInput ? brushSizeInput.value : 8;
+    const brushSizeVal = brushSizeInput ? parseInt(brushSizeInput.value) : 8;
+
+    if (activePaintTool === 'select' && window.selectedSticker && window.stickerDragMode) {
+        if (window.stickerDragMode === 'drag') {
+            window.selectedSticker.x = pos.x - window.stickerOffsetX;
+            window.selectedSticker.y = pos.y - window.stickerOffsetY;
+        } else if (window.stickerDragMode === 'scale') {
+            const currentDist = Math.hypot(pos.x - window.selectedSticker.x, pos.y - window.selectedSticker.y);
+            const scale = currentDist / window.stickerStartDist;
+            window.selectedSticker.size = Math.max(20, Math.min(600, window.stickerStartSize * scale));
+        } else if (window.stickerDragMode === 'rotate') {
+            const currentAngle = Math.atan2(pos.y - window.selectedSticker.y, pos.x - window.selectedSticker.x);
+            window.selectedSticker.rotation = currentAngle - window.stickerStartAngle;
+        }
+        composePaintCanvas();
+        return;
+    }
+
+    if (!isPaintDrawing) return;
+
+    if (activePaintTool === 'glitter') {
+        const dist = Math.hypot(pos.x - window.glitterStartX, pos.y - window.glitterStartY);
+        if (dist > 3) {
+            window.glitterHasMoved = true;
+        }
+        
+        if (window.glitterHasMoved) {
+            paintBgCtx.save();
+            paintBgCtx.strokeStyle = createGlitterPattern(selectedPaintColor);
+            paintBgCtx.lineWidth = brushSizeVal;
+            paintBgCtx.lineCap = 'round';
+            paintBgCtx.lineJoin = 'round';
+            paintBgCtx.beginPath();
+            paintBgCtx.moveTo(paintLastX, paintLastY);
+            paintBgCtx.lineTo(pos.x, pos.y);
+            paintBgCtx.stroke();
+            paintBgCtx.restore();
+            
+            // Record to replay actions
+            if (!window.paintActions) window.paintActions = [];
+            window.paintActions.push({
+                type: 'draw',
+                tool: 'glitter',
+                x1: paintLastX,
+                y1: paintLastY,
+                x2: pos.x,
+                y2: pos.y,
+                color: [...selectedPaintColor],
+                size: brushSizeVal,
+                time: Date.now()
+            });
+            
+            paintLastX = pos.x;
+            paintLastY = pos.y;
+            composePaintCanvas();
+        }
+        return;
+    }
+
+    // Normal drawing recording segment
+    if (activePaintTool === 'brush' || activePaintTool === 'neon' || activePaintTool === 'eraser' || activePaintTool === 'brush-magic') {
+        if (!window.paintActions) window.paintActions = [];
+        window.paintActions.push({
+            type: 'draw',
+            tool: activePaintTool,
+            x1: paintLastX,
+            y1: paintLastY,
+            x2: pos.x,
+            y2: pos.y,
+            color: [...selectedPaintColor],
+            size: brushSizeVal,
+            time: Date.now()
+        });
+    }
 
     if (activePaintTool === 'brush-magic') {
         if (!magicBrushTempCanvas) {
@@ -6781,10 +8445,8 @@ function executePaintingDraw(evt) {
         magicBrushTempCanvas.height = paintCanvas.height;
         magicBrushTempCtx = magicBrushTempCanvas.getContext('2d');
         
-        // Limpar canvas temporário
         magicBrushTempCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
         
-        // Desenhar traço no canvas temporário
         magicBrushTempCtx.save();
         magicBrushTempCtx.beginPath();
         magicBrushTempCtx.moveTo(paintLastX, paintLastY);
@@ -6796,7 +8458,6 @@ function executePaintingDraw(evt) {
         magicBrushTempCtx.stroke();
         magicBrushTempCtx.restore();
         
-        // Aplicar máscara do flood fill
         if (magicBrushMaskCanvas) {
             magicBrushTempCtx.save();
             magicBrushTempCtx.globalCompositeOperation = 'destination-in';
@@ -6804,7 +8465,6 @@ function executePaintingDraw(evt) {
             magicBrushTempCtx.restore();
         }
         
-        // Desenhar o traço mascarado no canvas de fundo real
         paintBgCtx.save();
         paintBgCtx.drawImage(magicBrushTempCanvas, 0, 0);
         paintBgCtx.restore();
@@ -6817,6 +8477,32 @@ function executePaintingDraw(evt) {
         paintFgCtx.lineWidth = brushSizeVal;
         paintFgCtx.lineCap = 'round';
         paintFgCtx.lineJoin = 'round';
+        paintFgCtx.stroke();
+        paintFgCtx.restore();
+    } else if (activePaintTool === 'neon') {
+        // Neon Glow Pass
+        paintFgCtx.save();
+        paintFgCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        paintFgCtx.lineWidth = brushSizeVal * 1.5;
+        paintFgCtx.lineCap = 'round';
+        paintFgCtx.lineJoin = 'round';
+        paintFgCtx.shadowColor = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        paintFgCtx.shadowBlur = brushSizeVal * 1.2;
+        paintFgCtx.beginPath();
+        paintFgCtx.moveTo(paintLastX, paintLastY);
+        paintFgCtx.lineTo(pos.x, pos.y);
+        paintFgCtx.stroke();
+        paintFgCtx.restore();
+        
+        // Neon Inner Core Pass
+        paintFgCtx.save();
+        paintFgCtx.strokeStyle = '#ffffff';
+        paintFgCtx.lineWidth = brushSizeVal * 0.4;
+        paintFgCtx.lineCap = 'round';
+        paintFgCtx.lineJoin = 'round';
+        paintFgCtx.beginPath();
+        paintFgCtx.moveTo(paintLastX, paintLastY);
+        paintFgCtx.lineTo(pos.x, pos.y);
         paintFgCtx.stroke();
         paintFgCtx.restore();
     } else if (activePaintTool === 'eraser') {
@@ -6841,9 +8527,40 @@ function executePaintingDraw(evt) {
 }
 
 function stopPaintingDraw() {
+    if (activePaintTool === 'select' && window.selectedSticker && window.stickerDragMode) {
+        // Record final transform to replay action log
+        if (!window.paintActions) window.paintActions = [];
+        window.paintActions.push({
+            type: 'sticker-update',
+            id: window.selectedSticker.id,
+            x: window.selectedSticker.x,
+            y: window.selectedSticker.y,
+            size: window.selectedSticker.size,
+            rotation: window.selectedSticker.rotation,
+            time: Date.now()
+        });
+        window.stickerDragMode = null;
+        savePaintHistory();
+        composePaintCanvas();
+        return;
+    }
+
     if (isPaintDrawing) {
         isPaintDrawing = false;
-        savePaintHistory();
+        
+        if (activePaintTool === 'glitter') {
+            if (!window.glitterHasMoved) {
+                // Tap: perform glitter flood fill
+                executePaintFloodFill(Math.round(window.glitterStartX), Math.round(window.glitterStartY), true);
+            } else {
+                window.strokeCount = (window.strokeCount || 0) + 1;
+                savePaintHistory();
+            }
+        } else {
+            window.strokeCount = (window.strokeCount || 0) + 1;
+            savePaintHistory();
+        }
+        
         // Resetar máscaras do pincel mágico
         magicBrushMaskCanvas = null;
         magicBrushMaskCtx = null;
@@ -6853,29 +8570,37 @@ function stopPaintingDraw() {
 function executePaintStamp(x, y) {
     const stamp = window.selectedPaintStamp || '⭐';
     const sizeInput = document.getElementById('paint-brush-size');
-    const size = sizeInput ? parseInt(sizeInput.value) * 2.5 : 40;
-
-    if (stamp.startsWith('http') || stamp.startsWith('/') || stamp.startsWith('./')) {
-        const img = new Image();
-        img.src = stamp;
-        img.onload = () => {
-            paintFgCtx.save();
-            paintFgCtx.translate(x, y);
-            paintFgCtx.drawImage(img, -size / 2, -size / 2, size, size);
-            paintFgCtx.restore();
-            composePaintCanvas();
-            savePaintHistory();
-        };
-    } else {
-        paintFgCtx.save();
-        paintFgCtx.font = `${size}px Arial, sans-serif`;
-        paintFgCtx.textAlign = 'center';
-        paintFgCtx.textBaseline = 'middle';
-        paintFgCtx.fillText(stamp, x, y);
-        paintFgCtx.restore();
-        composePaintCanvas();
-        savePaintHistory();
-    }
+    const size = sizeInput ? parseInt(sizeInput.value) * 2.5 : 80;
+    
+    const newSticker = {
+        id: 'sticker_' + Date.now() + '_' + Math.round(Math.random() * 1000000),
+        stamp: stamp,
+        x: x,
+        y: y,
+        size: size,
+        rotation: 0
+    };
+    
+    if (!window.activeStickers) window.activeStickers = [];
+    window.activeStickers.push(newSticker);
+    window.selectedSticker = newSticker;
+    
+    // Track action
+    if (!window.paintActions) window.paintActions = [];
+    window.paintActions.push({
+        type: 'sticker-add',
+        id: newSticker.id,
+        stamp: stamp,
+        x: x,
+        y: y,
+        size: size,
+        rotation: 0,
+        time: Date.now()
+    });
+    
+    setPaintTool('select');
+    composePaintCanvas();
+    savePaintHistory();
 }
 
 function executePaintText(x, y) {
@@ -6991,12 +8716,23 @@ function executePaintFloodFill(startX, startY, isGlitter) {
     const bgData = bgImgData.data;
 
     function isOutline(r, g, b, a) {
-        return (r < 110 && g < 110 && b < 110 && a > 100);
+        return (r < 130 && g < 130 && b < 130 && a > 100);
     }
 
     if (isOutline(startR, startG, startB, startA)) {
         return;
     }
+
+    // Log action for replay
+    if (!window.paintActions) window.paintActions = [];
+    window.paintActions.push({
+        type: 'flood-fill',
+        startX: startX,
+        startY: startY,
+        isGlitter: isGlitter,
+        color: [...selectedPaintColor],
+        time: Date.now()
+    });
 
     const stack = [[startX, startY]];
     const visited = new Uint8Array(width * height);
@@ -7762,8 +9498,18 @@ async function savePaintingToGallery() {
     }
 
     try {
+        // Hide selection handles for export
+        const originalSticker = window.selectedSticker;
+        window.selectedSticker = null;
+        composePaintCanvas();
+
         // Exportar como JPEG (qualidade 0.85) - muito menor que PNG para envio ao servidor
         const imageBase64 = paintCanvas.toDataURL('image/jpeg', 0.85);
+
+        // Restore selection handles
+        window.selectedSticker = originalSticker;
+        composePaintCanvas();
+
         const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
         const isCustomAI = data.isCustomAI || false;
         const isPinturaLivre = data.isPinturaLivre || false;
@@ -7845,6 +9591,12 @@ async function savePaintingToGallery() {
                     }, delay);
                 });
             }
+
+            if (resData.newlyUnlockedCertificates && resData.newlyUnlockedCertificates.length > 0) {
+                setTimeout(() => {
+                    checkNewlyUnlockedCertificates(resData.newlyUnlockedCertificates);
+                }, 1000);
+            }
         } else {
             if (btnSave) {
                 btnSave.innerHTML = oldBtnHtml || '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
@@ -7868,6 +9620,46 @@ async function savePaintingToGallery() {
 function openCertificateModal(drawingName) {
     const modal = document.getElementById('certificateModal');
     if (!modal) return;
+
+    // Play confetti celebration
+    startConfettiCelebration();
+
+    // Set a random motivational quote for the child
+    const MOTIVATIONAL_QUOTES = [
+        "Que obra incrível! 🎨",
+        "Você é um verdadeiro artista! 🌟",
+        "Que desenho fantástico! 🦄",
+        "Ficou super colorido e alegre! 🎉",
+        "Sua criatividade não tem limites! 🚀",
+        "Que talento maravilhoso! 💖",
+        "Um trabalho digno de galeria! 🏆",
+        "Que explosão de cores linda! 🌈"
+    ];
+    const randomQuote = MOTIVATIONAL_QUOTES[Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length)];
+    const heading = document.getElementById('certificate-quote-heading');
+    if (heading) heading.textContent = randomQuote;
+
+    // Calculate paint statistics
+    const timeElapsedSeconds = Math.round((Date.now() - window.paintStartTime) / 1000);
+    let timeStr = `${timeElapsedSeconds}s`;
+    if (timeElapsedSeconds >= 60) {
+        timeStr = `${Math.floor(timeElapsedSeconds / 60)}m ${timeElapsedSeconds % 60}s`;
+    }
+    
+    const colorsCount = window.colorsUsedInPainting ? window.colorsUsedInPainting.size : 0;
+    const strokesCount = window.strokeCount || 0;
+    const stickersCount = window.activeStickers ? window.activeStickers.length : 0;
+    
+    // Update stats UI
+    const statTime = document.getElementById('paint-stat-time');
+    const statColors = document.getElementById('paint-stat-colors');
+    const statStrokes = document.getElementById('paint-stat-strokes');
+    const statStickers = document.getElementById('paint-stat-stickers');
+    
+    if (statTime) statTime.textContent = timeStr;
+    if (statColors) statColors.textContent = colorsCount;
+    if (statStrokes) statStrokes.textContent = strokesCount;
+    if (statStickers) statStickers.textContent = stickersCount;
 
     document.getElementById('certificate-congrats-text').textContent = `Você coloriu o desenho "${drawingName}" com muito brilho!`;
     document.getElementById('certificate-child-name').value = currentUser.name || '';
@@ -8151,13 +9943,13 @@ window.startBlankCanvas = startBlankCanvas;
 
 const stickerCategories = {
     top: ['😎', '👑', '🌈', '⭐', '❤️', '🎈', '🦋', '🐶', '🐱', '☀️', '🌙', '🚀', '🏆'],
-    acessorios: ['😎', '❤️', '🎀', '🤠', '🏴‍☠️', '🎩', '👔', '💡', '👓', '🕶️', '👒'],
-    emocoes: ['😀', '😍', '🤪', '🧔', '👅', '😊', '🤩', '🧐', '😂', '🥳'],
-    magicos: ['🪄', '⭐', '✨', '🌈', '☁️', '🌙', '☀️', '🧚', '🧪', '🔮', '🦄', '🪐'],
-    animais: ['🐶', '🐱', '🐰', '🦋', '🐞', '🐝', '🦕', '🦄', '🐉', '🐟', '🦁', '🐯'],
-    festa: ['🎈', '🎁', '🎂', '🎉', '🎊', '🎆', '🏆', '🏅', '🍭', '🍿'],
-    aventura: ['🚀', '🛸', '🏴‍☠️', '🗺️', '⚔️', '🛡️', '🔭', '🧭', '🏎️', '🌋'],
-    moda: [
+    animais: ['🦁', '🐯', '🐱', '🐶', '🐰', '🦊', '🐻', '🐼', '🐨', '🐵', '🐸', '🐹', '🐧', '🐥', '🐝', '🐞', '🦋'],
+    dinossauros: ['🦖', '🦕', '🐊', '🐢', '🦎', '🐍', '🐲', '🐉', '🥚'],
+    natureza: ['🌸', '🌹', '🌻', '🌼', '🌷', '🌱', '🌿', '☘️', '🍀', '🍁', '🍂', '🍄', '🌳', '🌴', '🌵', '🌺', '🍒'],
+    festa: ['🎈', '🎁', '🎂', '🍰', '🧁', '🍬', '🍭', '🎉', '🎊', '🎀', '🍿', '🥤', '🍕', '🍟'],
+    espaco: ['🚀', '🛸', '🪐', '☄️', '🌟', '⭐', '🌙', '🌌', '🌍', '👽', '🛰️', '🧑‍🚀'],
+    fantasia: ['🦄', '🐉', '🧚', '🧜', '🧙', '🧝', '🧞', '🏰', '🔮', '🪄', '⭐', '✨'],
+    acessorios: [
         { name: 'Óculos gigantes', url: '/stickers/oculos_gigantes.png' },
         { name: 'Boné azul', url: '/stickers/bone_azul.png' },
         { name: 'Boné vermelho', url: '/stickers/bone_vermelho.png' },
@@ -8165,7 +9957,8 @@ const stickerCategories = {
         { name: 'Gravata', url: '/stickers/gravata.png' },
         { name: 'Laço rosa', url: '/stickers/laco_rosa.png' },
         { name: 'Relógio', url: '/stickers/relogio.png' },
-        { name: 'Fones de ouvido', url: '/stickers/fones_de_ouvido.png' }
+        { name: 'Fones de ouvido', url: '/stickers/fones_de_ouvido.png' },
+        '🤠', '🏴‍☠️', '🎩', '👔', '💡', '👓', '🕶️', '👒', '👑', '🎀'
     ]
 };
 
@@ -8231,7 +10024,7 @@ function switchStickerTab(tab) {
             btn.classList.remove('active');
         });
         const btns = container.querySelectorAll('.sticker-tab-btn');
-        const tabNames = ['top', 'acessorios', 'emocoes', 'magicos', 'animais', 'festa', 'aventura', 'moda', 'desbloqueaveis'];
+        const tabNames = ['top', 'animais', 'dinossauros', 'natureza', 'festa', 'espaco', 'fantasia', 'acessorios', 'desbloqueaveis'];
         const idx = tabNames.indexOf(tab);
         if (idx !== -1 && btns[idx]) {
             btns[idx].classList.add('active');
@@ -8329,9 +10122,7 @@ function switchStickerTab(tab) {
 window.switchStickerTab = switchStickerTab;
 
 function selectConsoleSticker(emoji) {
-    setPaintTool('stamp');
-    window.selectedPaintStamp = emoji;
-    updatePaintCursor('stamp', emoji);
+    insertStickerInstantly(emoji);
     closeStickerConsoleModal();
     
     // Remover classe active de todos os botões de carimbo rápidos do sidebar
@@ -8342,9 +10133,9 @@ function selectConsoleSticker(emoji) {
         const parts = emoji.split('/');
         const filename = parts[parts.length - 1].replace('.png', '').replace(/_/g, ' ');
         const formattedName = filename.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-        showToast(`Adesivo "${formattedName}" selecionado! Toque no desenho para colar. ✨`, 'success');
+        showToast(`Adesivo "${formattedName}" inserido! ✨`, 'success');
     } else {
-        showToast(`Carimbo ${emoji} selecionado! Toque no desenho para colar. ✨`, 'success');
+        showToast(`Carimbo ${emoji} inserido! ✨`, 'success');
     }
 }
 
@@ -8903,32 +10694,67 @@ async function openPublicProfile(name, userEmail = '') {
         
         if (data.success && data.profile) {
             const profile = data.profile;
-            if (avatarEl) {
-                const avatarVal = profile.avatar || '👤';
-                const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
-                if (isUrl) {
-                    avatarEl.innerHTML = `<img src="${avatarVal}" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: var(--border-medium); display: inline-block;">`;
-                } else {
-                    avatarEl.innerHTML = avatarVal;
-                    avatarEl.style.fontSize = '3.5rem';
-                }
-            }
-
-            // Atualizar contorno de avatar público baseado no plano
             const modalWrapper = document.getElementById('profile-modal-avatar-wrapper');
             if (modalWrapper) {
                 modalWrapper.className = 'avatar-wrapper';
-                const planName = profile.plan || 'Aprendiz';
-                if (planName === 'Aprendiz' || planName === 'Grátis') {
-                    modalWrapper.classList.add('plan-aprendiz');
-                } else if (planName === 'Artista') {
-                    modalWrapper.classList.add('plan-artista');
-                } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
-                    modalWrapper.classList.add('plan-mago');
-                } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
-                    modalWrapper.classList.add('plan-lenda');
+                modalWrapper.style.border = '';
+                modalWrapper.style.boxShadow = '';
+                modalWrapper.style.animation = '';
+            }
+
+            if (avatarEl) {
+                avatarEl.style.width = '100%';
+                avatarEl.style.height = '100%';
+                avatarEl.style.display = 'flex';
+                avatarEl.style.alignItems = 'center';
+                avatarEl.style.justifyContent = 'center';
+
+                const avatarVal = profile.avatar || 'avatar_default_1';
+                const defaultEmojis = {
+                    'avatar_default_1': '👦',
+                    'avatar_default_2': '👧',
+                    'avatar_default_3': '👦🏽',
+                    'avatar_default_4': '👧🏽',
+                    '👦': '👦',
+                    '👧': '👧',
+                    '👦🏽': '👦🏽',
+                    '👧🏽': '👧🏽'
+                };
+                
+                const card = (window.globalCatalog || []).find(c => c.id === avatarVal);
+                if (card) {
+                    const rarity = card.rarity || 'Comum';
+                    const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
+                    const borderClass = `rarity-border-${rarityLower}`;
+                    if (modalWrapper) modalWrapper.classList.add(borderClass);
+                    
+                    avatarEl.innerHTML = `<img src="${card.imageUrl}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                    avatarEl.style.fontSize = '';
                 } else {
-                    modalWrapper.classList.add('plan-aprendiz');
+                    if (modalWrapper) {
+                        const planName = profile.plan || 'Aprendiz';
+                        if (planName === 'Aprendiz' || planName === 'Grátis') {
+                            modalWrapper.classList.add('plan-aprendiz');
+                        } else if (planName === 'Artista') {
+                            modalWrapper.classList.add('plan-artista');
+                        } else if (planName === 'Mago Criador' || planName === 'Professor' || planName === 'Premium') {
+                            modalWrapper.classList.add('plan-mago');
+                        } else if (planName === 'Lenda KidCanvas' || planName === 'Colégio' || planName === 'Ultra' || planName === 'Lenda') {
+                            modalWrapper.classList.add('plan-lenda');
+                        } else {
+                            modalWrapper.classList.add('plan-aprendiz');
+                        }
+                    }
+                    
+                    const emojiValue = defaultEmojis[avatarVal] || '👦';
+                    const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
+                    if (isUrl) {
+                        avatarEl.innerHTML = `<img src="${avatarVal}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                        avatarEl.style.fontSize = '';
+                    } else {
+                        avatarEl.innerHTML = emojiValue;
+                        avatarEl.style.fontSize = '3.5rem';
+                    }
                 }
             }
 
@@ -9349,31 +11175,30 @@ function openAvatarSelectionModal() {
     const totalCount = catalog.length > 0 ? catalog.length : 165;
     const percent = totalCount > 0 ? Math.round((ownedCount / totalCount) * 100) : 0;
     
-    // Contagem por raridade
-    const countComum = unlockedCatalogCards.filter(c => c.rarity === 'Comum').length;
-    const totalComum = catalog.filter(c => c.rarity === 'Comum').length;
-    const countRaro = unlockedCatalogCards.filter(c => c.rarity === 'Rara').length;
-    const totalRaro = catalog.filter(c => c.rarity === 'Rara').length;
-    const countEpico = unlockedCatalogCards.filter(c => c.rarity === 'Épica').length;
-    const totalEpico = catalog.filter(c => c.rarity === 'Épica').length;
-    const countLendario = unlockedCatalogCards.filter(c => c.rarity === 'Lendária').length;
-    const totalLendario = catalog.filter(c => c.rarity === 'Lendária').length;
-    const countMitico = unlockedCatalogCards.filter(c => c.rarity === 'Mítica').length;
-    const totalMitico = catalog.filter(c => c.rarity === 'Mítica').length;
-    
     // Avatares Padrão (Menino, Menina e Morenos)
     const defaults = [
-        { emoji: '👦', label: 'Menino' },
-        { emoji: '👧', label: 'Menina' },
-        { emoji: '👦🏽', label: 'Menino Moreno' },
-        { emoji: '👧🏽', label: 'Menina Morena' }
+        { id: 'avatar_default_1', emoji: '👦', label: 'Menino' },
+        { id: 'avatar_default_2', emoji: '👧', label: 'Menina' },
+        { id: 'avatar_default_3', emoji: '👦🏽', label: 'Menino Moreno' },
+        { id: 'avatar_default_4', emoji: '👧🏽', label: 'Menina Morena' }
     ];
+    
+    // Mapeamento bidirecional para compatibilidade de emojis legados no banco
+    const oldEmojiToId = {
+        '👦': 'avatar_default_1',
+        '👧': 'avatar_default_2',
+        '👦🏽': 'avatar_default_3',
+        '👧🏽': 'avatar_default_4'
+    };
+    
+    const currentAvatar = currentUser ? currentUser.avatar : 'avatar_default_1';
+    const resolvedAvatarId = oldEmojiToId[currentAvatar] || currentAvatar;
     
     // Construir lista linear de itens pré-visualizáveis (Padrão + Desbloqueados)
     const previewItems = [
         ...defaults.map(item => ({
             type: 'default',
-            id: item.emoji,
+            id: item.id,
             name: item.label,
             rarity: 'Comum'
         })),
@@ -9388,21 +11213,20 @@ function openAvatarSelectionModal() {
     
     // Configurar estado no escopo global/window
     window.avatarPreviewItems = previewItems;
-    const currentAvatar = currentUser ? currentUser.avatar : '👦';
-    let currentIdx = previewItems.findIndex(item => item.id === currentAvatar);
+    let currentIdx = previewItems.findIndex(item => item.id === resolvedAvatarId);
     if (currentIdx === -1) currentIdx = 0;
     window.currentPreviewIndex = currentIdx;
     
     const defaultsHtml = `
         <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
             ${defaults.map(item => {
-                const isSelected = currentUser && currentUser.avatar === item.emoji;
+                const isSelected = resolvedAvatarId === item.id;
                 const borderStyle = isSelected 
                     ? 'border: 3px solid var(--color-purple); background: #f3effa; box-shadow: 0 0 0 2px var(--color-purple);' 
                     : 'border: var(--border-thin); background: white;';
                 
                 return `
-                    <button onclick="previewDefaultAvatar('${item.emoji}'); return false;" style="font-size: 2.2rem; padding: 10px; border-radius: 50%; width: 66px; height: 66px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s ease, background-color 0.15s ease; ${borderStyle}" class="hover-bounce" title="${item.label}">
+                    <button onclick="previewDefaultAvatar('${item.id}'); return false;" style="font-size: 2.2rem; padding: 10px; border-radius: 50%; width: 66px; height: 66px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s ease, background-color 0.15s ease; ${borderStyle}" class="hover-bounce" title="${item.label}">
                         ${item.emoji}
                     </button>
                 `;
@@ -9410,34 +11234,23 @@ function openAvatarSelectionModal() {
         </div>
     `;
     
-    // Grid de todos os cards do catálogo
+    // Grid de todos os cards do catálogo (somente desbloqueados)
     let cardsContentHtml = '';
-    if (catalog.length > 0) {
+    if (unlockedCatalogCards.length > 0) {
         cardsContentHtml = `
             <div class="avatar-picker-scroll-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 10px; max-height: 380px; overflow-y: auto; background: #fafafa; border: var(--border-thin); border-radius: var(--radius-sm); margin-bottom: 20px;">
-                ${catalog.map(card => {
-                    const isUnlocked = unlockedCardIds.includes(card.id);
-                    const isSelected = currentUser && currentUser.avatar === card.id;
-                    const rarityLower = card.rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+                ${unlockedCatalogCards.map(card => {
+                    const isSelected = resolvedAvatarId === card.id;
+                    const rarityLower = card.rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
                     const borderClass = `rarity-border-${rarityLower}`;
                     const selectedClass = isSelected ? 'selected-avatar' : '';
                     
-                    if (isUnlocked) {
-                        return `
-                            <button class="avatar-option-card-btn ${borderClass} ${selectedClass}" onclick="previewUnlockedCard('${card.id}'); return false;" title="${card.name} (${card.rarity})" style="aspect-ratio: 1; border-radius: 50%; overflow: visible; display: inline-flex; align-items: center; justify-content: center; position: relative;">
-                                <img src="${card.imageUrl}" alt="${card.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
-                                ${isSelected ? `<div style="position: absolute; top: -6px; right: -6px; background: var(--color-green); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fa-solid fa-check"></i></div>` : ''}
-                            </button>
-                        `;
-                    } else {
-                        // Card Bloqueado (silhueta, blur, cadeado e apenas borda da raridade visível)
-                        return `
-                            <button class="avatar-option-card-btn ${borderClass}" onclick="showLockedCardDetailsById('${card.id}'); return false;" title="Descoberta Misteriosa (${card.rarity})" style="aspect-ratio: 1; border-radius: 50%; overflow: visible; display: inline-flex; align-items: center; justify-content: center; position: relative; cursor: pointer; background: #f0f0f0;">
-                                <img src="${card.imageUrl}" alt="Bloqueado" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; filter: blur(8px) grayscale(1) brightness(0.35);">
-                                <div style="position: absolute; color: white; font-size: 1.15rem; text-shadow: 0 1px 3px rgba(0,0,0,0.6);"><i class="fa-solid fa-lock"></i></div>
-                            </button>
-                        `;
-                    }
+                    return `
+                        <button class="avatar-option-card-btn ${borderClass} ${selectedClass}" onclick="previewUnlockedCard('${card.id}'); return false;" title="${card.name} (${card.rarity})" style="aspect-ratio: 1; border-radius: 50%; overflow: visible; display: inline-flex; align-items: center; justify-content: center; position: relative;">
+                            <img src="${card.imageUrl}" alt="${card.name}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                            ${isSelected ? `<div style="position: absolute; top: -6px; right: -6px; background: var(--color-green); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><i class="fa-solid fa-check"></i></div>` : ''}
+                        </button>
+                    `;
                 }).join('')}
             </div>
         `;
@@ -9445,7 +11258,7 @@ function openAvatarSelectionModal() {
         cardsContentHtml = `
             <div style="padding: 20px; text-align: center; background: #fafafa; border: 2px dashed rgba(0,0,0,0.1); border-radius: var(--radius-sm); margin-bottom: 20px;">
                 <span style="font-size: 2.2rem; display: block; margin-bottom: 10px;">📖</span>
-                <p style="font-size: 0.9rem; color: var(--color-dark-light); line-height: 1.4; margin: 0 0 10px 0; font-weight: bold;">
+                <p style="font-size: 0.95rem; color: var(--color-dark-light); line-height: 1.4; margin: 0 0 12px 0; font-weight: bold;">
                     Desbloqueie cards no Livro das Descobertas para usar como avatar!
                 </p>
                 <button class="btn btn-primary btn-sm" onclick="closeAvatarSelectionModal(); openAlbumModal(); return false;" style="font-size: 0.8rem; padding: 6px 14px; font-weight: bold; border-radius: var(--radius-sm); box-shadow: var(--shadow-button-primary);">
@@ -9466,7 +11279,7 @@ function openAvatarSelectionModal() {
 
         <h3 style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--color-purple); margin-bottom: 8px;">Escolha seu Avatar</h3>
         <p style="font-size: 0.92rem; color: var(--color-dark-light); line-height: 1.4; margin-bottom: 20px;">
-            Selecione um bichinho ou personagem fofo para o seu perfil e para aparecer no Hall da Fama!
+            Selecione um card fofo desbloqueado ou um personagem padrão para o seu perfil!
         </p>
         
         <h4 style="font-family: var(--font-heading); font-size: 1.1rem; color: var(--color-dark); margin-bottom: 12px; text-align: left; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 4px;">👤 Avatares Padrão</h4>
@@ -9506,17 +11319,33 @@ window.updateAvatarPreviewUI = function() {
     const rarityColors = {
         'Comum': '#2ecc71',
         'Rara': '#3498db',
+        'Raro': '#3498db',
         'Épica': '#9b59b6',
+        'Épico': '#9b59b6',
         'Lendária': '#e67e22',
-        'Mítica': '#e74c3c'
+        'Lendário': '#e67e22',
+        'Mítica': '#e74c3c',
+        'Mítico': '#e74c3c'
     };
     const badgeColor = rarityColors[item.rarity] || '#cbd5e1';
     
     let contentHtml = '';
+    const defaultEmojis = {
+        'avatar_default_1': '👦',
+        'avatar_default_2': '👧',
+        'avatar_default_3': '👦🏽',
+        'avatar_default_4': '👧🏽',
+        '👦': '👦',
+        '👧': '👧',
+        '👦🏽': '👦🏽',
+        '👧🏽': '👧🏽'
+    };
+    
     if (item.type === 'default') {
+        const emojiVal = defaultEmojis[item.id] || '👦';
         contentHtml = `
             <div style="font-size: 4rem; width: 100px; height: 100px; border-radius: 50%; border: 3px solid #cbd5e1; background: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
-                ${item.id}
+                ${emojiVal}
             </div>
             <h4 style="font-family: var(--font-heading); font-size: 1.25rem; color: var(--color-dark); margin: 0 0 4px 0;">${item.name}</h4>
             <div style="margin-bottom: 12px;">
@@ -9526,14 +11355,14 @@ window.updateAvatarPreviewUI = function() {
             </div>
         `;
     } else {
-        const rarityLower = item.rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        const rarityLower = item.rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
         const borderClass = `rarity-border-${rarityLower}`;
         
         let bullet = '🟢';
-        if (item.rarity === 'Rara') bullet = '🔵';
-        else if (item.rarity === 'Épica') bullet = '🟣';
-        else if (item.rarity === 'Lendária') bullet = '🟠';
-        else if (item.rarity === 'Mítica') bullet = '🔴';
+        if (item.rarity === 'Rara' || item.rarity === 'Raro') bullet = '🔵';
+        else if (item.rarity === 'Épica' || item.rarity === 'Épico') bullet = '🟣';
+        else if (item.rarity === 'Lendária' || item.rarity === 'Lendário') bullet = '🟠';
+        else if (item.rarity === 'Mítica' || item.rarity === 'Mítico') bullet = '🔴';
         
         contentHtml = `
             <div class="${borderClass}" style="position: relative; width: 100px; height: 100px; margin: 0 auto 10px auto; border-radius: 50%; overflow: visible; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
@@ -9549,7 +11378,9 @@ window.updateAvatarPreviewUI = function() {
     }
     
     // Botão de equipar
-    const isCurrentlyEquipped = currentUser && currentUser.avatar === item.id;
+    const currentAvatar = currentUser ? currentUser.avatar : 'avatar_default_1';
+    const isCurrentlyEquipped = currentAvatar === item.id || (defaultEmojis[currentAvatar] && defaultEmojis[currentAvatar] === defaultEmojis[item.id]);
+    
     const buttonHtml = isCurrentlyEquipped
         ? `
             <button disabled class="btn btn-secondary" style="font-size: 1rem; padding: 10px 24px; width: 100%; border-radius: var(--radius-sm); font-weight: bold; background: #e2e8f0; color: #94a3b8; border: none; cursor: not-allowed; display: flex; align-items: center; justify-content: center; gap: 8px;">
@@ -9590,9 +11421,9 @@ window.navigatePreview = function(direction) {
     window.updateAvatarPreviewUI();
 };
 
-window.previewDefaultAvatar = function(emoji) {
+window.previewDefaultAvatar = function(id) {
     const items = window.avatarPreviewItems || [];
-    const idx = items.findIndex(item => item.id === emoji);
+    const idx = items.findIndex(item => item.id === id);
     if (idx !== -1) {
         window.currentPreviewIndex = idx;
         window.updateAvatarPreviewUI();
@@ -9797,12 +11628,23 @@ window.selectAvatar = selectAvatar;
 window.getAvatarHtml = function(avatarValue, size = '18px', borderStyle = '') {
     if (!avatarValue) return `<span style="font-size: calc(${size} * 0.9); vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1;">👤</span>`;
     
+    const defaultEmojis = {
+        'avatar_default_1': '👦',
+        'avatar_default_2': '👧',
+        'avatar_default_3': '👦🏽',
+        'avatar_default_4': '👧🏽',
+        '👦': '👦',
+        '👧': '👧',
+        '👦🏽': '👦🏽',
+        '👧🏽': '👧🏽'
+    };
+    
     // Check if it's a card ID
     const card = (window.globalCatalog || []).find(c => c.id === avatarValue);
     if (card) {
         let borderClass = '';
         const rarity = card.rarity || 'Comum';
-        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
         borderClass = `rarity-border-${rarityLower}`;
         
         return `<div class="avatar-card-container ${borderClass}" style="width: ${size}; height: ${size}; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; overflow: hidden; vertical-align: middle; margin-right: 4px; ${borderStyle}">
@@ -9810,11 +11652,12 @@ window.getAvatarHtml = function(avatarValue, size = '18px', borderStyle = '') {
         </div>`;
     }
     
-    const isUrl = avatarValue.startsWith('http') || avatarValue.startsWith('/');
+    const emojiValue = defaultEmojis[avatarValue] || avatarValue;
+    const isUrl = emojiValue.startsWith('http') || emojiValue.startsWith('/');
     if (isUrl) {
-        return `<img src="${avatarValue}" style="width: ${size}; height: ${size}; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px; display: inline-block; border: 1px solid rgba(0,0,0,0.1); ${borderStyle}">`;
+        return `<img src="${emojiValue}" style="width: ${size}; height: ${size}; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px; display: inline-block; border: 1px solid rgba(0,0,0,0.1); ${borderStyle}">`;
     } else {
-        return `<span style="font-size: calc(${size} * 0.95); vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1; ${borderStyle}">${avatarValue}</span>`;
+        return `<span style="font-size: calc(${size} * 0.95); vertical-align: middle; margin-right: 4px; display: inline-block; line-height: 1; ${borderStyle}">${emojiValue}</span>`;
     }
 };
 
@@ -9827,7 +11670,7 @@ function updateUserAvatarUI(avatar) {
     const dropdownContainer = document.getElementById('dropdown-user-avatar-container');
     
     if (!avatar) {
-        avatar = '👤';
+        avatar = 'avatar_default_1';
     }
     
     // Clear all previous rarity classes
@@ -9836,13 +11679,25 @@ function updateUserAvatarUI(avatar) {
             c.className = c.className.split(' ').filter(cls => !cls.startsWith('rarity-border-')).join(' ');
             c.style.border = '';
             c.style.boxShadow = '';
+            c.style.animation = '';
         }
     });
+    
+    const defaultEmojis = {
+        'avatar_default_1': '👦',
+        'avatar_default_2': '👧',
+        'avatar_default_3': '👦🏽',
+        'avatar_default_4': '👧🏽',
+        '👦': '👦',
+        '👧': '👧',
+        '👦🏽': '👦🏽',
+        '👧🏽': '👧🏽'
+    };
     
     const card = (window.globalCatalog || []).find(c => c.id === avatar);
     if (card) {
         const rarity = card.rarity || 'Comum';
-        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+        const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
         const borderClass = `rarity-border-${rarityLower}`;
         
         if (userAvatarImg) {
@@ -9862,6 +11717,7 @@ function updateUserAvatarUI(avatar) {
         if (container) container.classList.add(borderClass);
         if (dropdownContainer) dropdownContainer.classList.add(borderClass);
     } else {
+        const emojiValue = defaultEmojis[avatar] || '👦';
         const isUrl = avatar.startsWith('http') || avatar.startsWith('/');
         
         if (isUrl) {
@@ -9879,13 +11735,13 @@ function updateUserAvatarUI(avatar) {
         } else {
             if (userAvatarImg) userAvatarImg.style.display = 'none';
             if (userAvatarEmoji) {
-                userAvatarEmoji.textContent = avatar;
+                userAvatarEmoji.textContent = emojiValue;
                 userAvatarEmoji.style.display = 'block';
             }
             
             if (dropdownAvatar) dropdownAvatar.style.display = 'none';
             if (dropdownAvatarEmoji) {
-                dropdownAvatarEmoji.textContent = avatar;
+                dropdownAvatarEmoji.textContent = emojiValue;
                 dropdownAvatarEmoji.style.display = 'block';
             }
         }
@@ -10161,6 +12017,12 @@ async function claimEventMission(missionId) {
                 setTimeout(() => {
                     revealCardAnimation(mythic.name, 'Mítica', mythic.imageUrl, mythic.curiosity, colName);
                 }, wonCard ? 3800 : 1000);
+            }
+            
+            if (data.newlyUnlockedCertificates && data.newlyUnlockedCertificates.length > 0) {
+                setTimeout(() => {
+                    checkNewlyUnlockedCertificates(data.newlyUnlockedCertificates);
+                }, wonCard ? 4500 : 1500);
             }
             
             // re-fetch the current event to update progress
@@ -12926,16 +14788,30 @@ window.renderPerfilView = function() {
     const wrapper = document.getElementById('my-profile-avatar-wrapper');
     const imgEl = document.getElementById('my-profile-avatar-img');
     const emojiEl = document.getElementById('my-profile-avatar-emoji');
-    const avatarVal = currentUser.avatar || '👤';
+    const avatarVal = currentUser.avatar || 'avatar_default_1';
     
     if (wrapper) {
         // Clear previous rarity or plan classes
         wrapper.className = 'avatar-wrapper';
+        wrapper.style.border = '';
+        wrapper.style.boxShadow = '';
+        wrapper.style.animation = '';
+        
+        const defaultEmojis = {
+            'avatar_default_1': '👦',
+            'avatar_default_2': '👧',
+            'avatar_default_3': '👦🏽',
+            'avatar_default_4': '👧🏽',
+            '👦': '👦',
+            '👧': '👧',
+            '👦🏽': '👦🏽',
+            '👧🏽': '👧🏽'
+        };
         
         const card = (window.globalCatalog || []).find(c => c.id === avatarVal);
         if (card) {
             const rarity = card.rarity || 'Comum';
-            const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e');
+            const rarityLower = rarity.toLowerCase().replace('á', 'a').replace('é', 'e').replace('o', 'a');
             wrapper.classList.add(`rarity-border-${rarityLower}`);
             
             if (imgEl) {
@@ -12959,6 +14835,7 @@ window.renderPerfilView = function() {
                 wrapper.classList.add('plan-aprendiz');
             }
             
+            const emojiValue = defaultEmojis[avatarVal] || '👦';
             const isUrl = avatarVal.startsWith('http') || avatarVal.startsWith('/');
             if (isUrl) {
                 if (imgEl) {
@@ -12969,7 +14846,7 @@ window.renderPerfilView = function() {
             } else {
                 if (imgEl) imgEl.style.display = 'none';
                 if (emojiEl) {
-                    emojiEl.textContent = avatarVal;
+                    emojiEl.textContent = emojiValue;
                     emojiEl.style.display = 'block';
                 }
             }
@@ -13164,6 +15041,44 @@ window.renderPerfilView = function() {
     const notificationsToggle = document.getElementById('profile-notifications-toggle');
     if (notificationsToggle) {
         notificationsToggle.checked = currentUser.notifications !== undefined ? !!currentUser.notifications : true;
+    }
+
+    // Atualizar resumo dos certificados (Novo)
+    const updateCertSummaryUI = () => {
+        const unlockedCerts = (currentUser.certificates || []).length;
+        const totalCerts = window.certificatesCatalog ? window.certificatesCatalog.length : 59;
+        const percentage = totalCerts > 0 ? Math.round((unlockedCerts / totalCerts) * 100) : 0;
+        
+        const unlockedFractionEl = document.getElementById('profile-cert-unlocked-fraction');
+        if (unlockedFractionEl) {
+            unlockedFractionEl.textContent = `${unlockedCerts}/${totalCerts}`;
+        }
+        
+        const progressFillEl = document.getElementById('profile-cert-progress-fill');
+        if (progressFillEl) {
+            progressFillEl.style.width = `${percentage}%`;
+        }
+        
+        const percentTextEl = document.getElementById('profile-cert-percent-text');
+        if (percentTextEl) {
+            percentTextEl.textContent = `${percentage}% concluído`;
+        }
+    };
+
+    updateCertSummaryUI();
+
+    if (!window.certificatesCatalog) {
+        fetch('/api/certificates/my', {
+            headers: { 'X-Session-Token': localStorage.getItem('kidcanvas_session_token') || '' }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                window.certificatesCatalog = data.catalog;
+                updateCertSummaryUI();
+            }
+        })
+        .catch(err => console.error('Error fetching certificates catalog for profile:', err));
     }
 };
 
@@ -13395,14 +15310,790 @@ window.openChapterGuide = function(colName) {
     window.triggerPageFlipAnimation(originEl, guideEl, 'next');
 };
 
-window.closeChapterGuide = function() {
-    const guideEl = document.getElementById('livro-regras-conteudo');
-    if (!guideEl) return;
+/* --- CENTRAL DE CERTIFICADOS --- */
+
+window.getCertificateProgress = function(cert) {
+    if (!currentUser) return { current: 0, target: 0 };
     
-    const colName = window.activeChapterName || 'Pinturas';
-    const gradeEl = document.getElementById('livro-grade-conteudo');
-    const expeditionEl = document.getElementById('livro-expedition-conteudo');
-    const targetEl = colName === 'expedition' ? expeditionEl : gradeEl;
+    const rule = cert.unlockRule;
+    if (!rule) return { current: 0, target: 0 };
     
-    window.triggerPageFlipAnimation(guideEl, targetEl, 'prev');
+    const myPaintings = currentUser.myPaintings || [];
+    const myStories = currentUser.myStories || [];
+    const userCards = currentUser.cards || [];
+    
+    const countPaintingsOfCategory = (catName) => {
+        return myPaintings.filter(p => {
+            if (p.fromPinturaLivre === true || p.category === 'Mão Livre') return false;
+            if (p.originalCategory && p.originalCategory.toLowerCase() === catName.toLowerCase()) return true;
+            if (p.category && p.category.toLowerCase() === catName.toLowerCase()) return true;
+            return false;
+        }).length;
+    };
+    
+    const isCollectionComplete = (colName) => {
+        const colCards = (window.globalCatalog || []).filter(c => c.collection && c.collection.toLowerCase().includes(colName.toLowerCase()));
+        if (colCards.length === 0) return { current: 0, target: 0 };
+        const nonMythic = colCards.filter(c => c.rarity !== 'Mítica');
+        if (nonMythic.length === 0) return { current: 0, target: 0 };
+        
+        const unlocked = nonMythic.filter(c => userCards.some(uc => uc.id === c.id)).length;
+        return { current: unlocked, target: nonMythic.length };
+    };
+
+    const isCollectionCompleteCards = (categorySlug) => {
+        const colCards = (window.globalCatalog || []).filter(c => c.categorySlug && c.categorySlug.toLowerCase() === categorySlug.toLowerCase());
+        if (colCards.length === 0) return { current: 0, target: 0 };
+        
+        const unlocked = colCards.filter(c => userCards.some(uc => uc.id === c.id)).length;
+        return { current: unlocked, target: colCards.length };
+    };
+
+    switch (rule.type) {
+        case 'paint_count':
+            return { current: myPaintings.length, target: rule.count };
+            
+        case 'category_paint':
+            return { current: countPaintingsOfCategory(rule.category), target: rule.count };
+            
+        case 'collection_complete':
+            return isCollectionComplete(rule.target);
+            
+        case 'collection_complete_cards':
+            return isCollectionCompleteCards(rule.target);
+            
+        case 'stars_count':
+            return { current: currentUser.stars || 0, target: rule.count };
+            
+        case 'hall_count':
+            return { current: myPaintings.filter(p => p.isPublic && p.fromPinturaLivre !== true && p.category !== 'Mão Livre').length, target: rule.count };
+            
+        case 'likes_count':
+            return { current: currentUser.likesReceived || 0, target: rule.count };
+            
+        case 'hall_ranking_entry':
+            return { current: currentUser.hallRankingEntered ? 1 : 0, target: 1 };
+            
+        case 'hall_ranking_first':
+            return { current: currentUser.hallRankingFirstPlace ? 1 : 0, target: 1 };
+            
+        case 'invites_sent':
+        case 'invites_accepted':
+            return { current: (currentUser.referredUsers || []).length, target: rule.count };
+            
+        case 'create_account':
+            return { current: 1, target: 1 };
+            
+        case 'complete_profile':
+            return { current: (currentUser.name && currentUser.avatar && currentUser.avatar !== '👤') ? 1 : 0, target: 1 };
+            
+        case 'cards_unlocked':
+            return { current: userCards.length, target: rule.count };
+            
+        case 'account_age_years': {
+            const diffTime = Math.abs(new Date() - new Date(currentUser.createdAt || Date.now()));
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return { current: diffDays, target: rule.count * 365 };
+        }
+        case 'is_founder':
+            return { current: currentUser.isFounder ? 1 : 0, target: 1 };
+            
+        case 'monthly_ranking_position':
+            return { current: (currentUser.lastMonthlyRankingPos && currentUser.lastMonthlyRankingPos <= rule.count) ? 1 : 0, target: 1 };
+            
+        case 'expedition_missions_claimed': {
+            let claimedCount = 0;
+            if (currentUser.eventProgress && currentUser.eventProgress.missions) {
+                claimedCount = Object.values(currentUser.eventProgress.missions).filter(m => m.claimed).length;
+            }
+            return { current: claimedCount, target: rule.count };
+        }
+        case 'expedition_count':
+            return { current: (currentUser.eventInventory || []).length, target: rule.count };
+            
+        case 'rarity_card_count':
+            return { current: userCards.filter(c => c.rarity && c.rarity.toLowerCase() === rule.rarity.toLowerCase()).length, target: rule.count };
+            
+        default:
+            return { current: 0, target: 0 };
+    }
 };
+
+window.getCertificateProgressText = function(cert, progress) {
+    const rule = cert.unlockRule;
+    if (!rule) return '';
+    
+    switch (rule.type) {
+        case 'paint_count':
+            return `${progress.current}/${progress.target} desenhos coloridos`;
+        case 'category_paint':
+            return `${progress.current}/${progress.target} desenhos coloridos de ${rule.category}`;
+        case 'collection_complete':
+            return `${progress.current}/${progress.target} cards de "${rule.target}" desbloqueados`;
+        case 'collection_complete_cards':
+            return `${progress.current}/${progress.target} cards de "${rule.target}" desbloqueados`;
+        case 'stars_count':
+            return `${progress.current.toLocaleString('pt-BR')}/${progress.target.toLocaleString('pt-BR')} estrelas ganhas`;
+        case 'hall_count':
+            return `${progress.current}/${progress.target} desenhos no Hall da Fama`;
+        case 'likes_count':
+            return `${progress.current}/${progress.target} curtidas recebidas`;
+        case 'hall_ranking_entry':
+            return progress.current ? 'Entrou no ranking do Hall da Fama' : 'Entrar no ranking do Hall da Fama';
+        case 'hall_ranking_first':
+            return progress.current ? 'Conseguiu o 1º lugar no Hall da Fama' : 'Ficar em 1º lugar no Hall da Fama';
+        case 'invites_sent':
+            return `${progress.current}/${progress.target} convites enviados`;
+        case 'invites_accepted':
+            return `${progress.current}/${progress.target} amigos cadastrados`;
+        case 'create_account':
+            return 'Conta criada com sucesso';
+        case 'complete_profile':
+            return progress.current ? 'Perfil completo (Nome e Avatar)' : 'Completar perfil com Nome e Avatar';
+        case 'cards_unlocked':
+            return `${progress.current}/${progress.target} cards desbloqueados no Livro`;
+        case 'account_age_years':
+            return `${progress.current}/${progress.target} dias de conta`;
+        case 'is_founder':
+            return progress.current ? 'Parabéns, você é um Fundador!' : 'Ser um usuário fundador';
+        case 'monthly_ranking_position':
+            return progress.current ? `Top ${rule.count} mensal alcançado` : `Terminar o mês no Top ${rule.count} mensal`;
+        case 'expedition_missions_claimed':
+            return `${progress.current}/${progress.target} missões completadas`;
+        case 'expedition_count':
+            return `${progress.current}/${progress.target} expedições concluídas`;
+        case 'rarity_card_count':
+            return `${progress.current}/${progress.target} cards de raridade ${rule.rarity} desbloqueados`;
+        default:
+            return `${progress.current}/${progress.target}`;
+    }
+};
+
+window.downloadCertDirect = async function(certId) {
+    if (!currentUser) return;
+    const cert = window.certificatesCatalog ? window.certificatesCatalog.find(c => c.id === certId) : null;
+    const unlockData = currentUser.certificates ? currentUser.certificates.find(uc => uc.id === certId) : null;
+    if (!cert || !unlockData) {
+        showToast('Erro ao carregar dados do certificado.', 'error');
+        return;
+    }
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 600;
+    canvas.id = 'temp-cert-canvas';
+    document.body.appendChild(canvas);
+    canvas.style.display = 'none';
+    
+    try {
+        window.drawCertificateCanvas('temp-cert-canvas', cert, unlockData);
+        const filename = `certificado-${cert.id}.png`;
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('Certificado baixado com sucesso! 🎉', 'success');
+    } catch(e) {
+        console.error(e);
+        showToast('Erro ao gerar certificado.', 'error');
+    } finally {
+        canvas.remove();
+    }
+};
+
+window.printCertDirect = async function(certId) {
+    if (!currentUser) return;
+    const cert = window.certificatesCatalog ? window.certificatesCatalog.find(c => c.id === certId) : null;
+    const unlockData = currentUser.certificates ? currentUser.certificates.find(uc => uc.id === certId) : null;
+    if (!cert || !unlockData) {
+        showToast('Erro ao carregar dados do certificado.', 'error');
+        return;
+    }
+    
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 600;
+    canvas.id = 'temp-cert-canvas-print';
+    document.body.appendChild(canvas);
+    canvas.style.display = 'none';
+    
+    try {
+        window.drawCertificateCanvas('temp-cert-canvas-print', cert, unlockData);
+        const dataUrl = canvas.toDataURL('image/png');
+        const windowContent = '<!DOCTYPE html><html><head><title>Imprimir Certificado</title></head><body style="margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: #fafafa;"><img src="' + dataUrl + '" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 8px;"></body></html>';
+        const printWin = window.open('', '', 'width=900,height=700');
+        
+        if (!printWin) {
+            showToast('Por favor, ative os pop-ups para imprimir seu certificado! 📜', 'warning');
+            return;
+        }
+
+        printWin.document.open();
+        printWin.document.write(windowContent);
+        printWin.document.close();
+        printWin.focus();
+
+        setTimeout(() => {
+            printWin.print();
+            printWin.close();
+        }, 500);
+    } catch(e) {
+        console.error(e);
+        showToast('Erro ao imprimir certificado.', 'error');
+    } finally {
+        canvas.remove();
+    }
+};
+
+function renderCertificateMiniature(cert) {
+    let borderMain = '#ffd43b';
+    let borderInner = '#ff5e7e';
+    
+    if (cert.rarity === 'Comum') {
+        borderMain = '#10b981';
+        borderInner = '#34d399';
+    } else if (cert.rarity === 'Raro') {
+        borderMain = '#3b82f6';
+        borderInner = '#60a5fa';
+    } else if (cert.rarity === 'Épico') {
+        borderMain = '#8b5cf6';
+        borderInner = '#a78bfa';
+    } else if (cert.rarity === 'Lendário') {
+        borderMain = '#f59e0b';
+        borderInner = '#fbbf24';
+    } else if (cert.rarity === 'Exclusivo') {
+        borderMain = '#ec4899';
+        borderInner = '#f472b6';
+    }
+    
+    return `
+        <div style="background: #faf8f5; border: 3px solid ${borderMain}; border-radius: 8px; padding: 10px; height: 110px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); margin-bottom: 12px; overflow: hidden;">
+            <!-- Mini corner emojis -->
+            <span style="position: absolute; top: 4px; left: 4px; font-size: 0.65rem;">🎨</span>
+            <span style="position: absolute; top: 4px; right: 4px; font-size: 0.65rem;">🏆</span>
+            <span style="position: absolute; bottom: 4px; left: 4px; font-size: 0.65rem;">⭐</span>
+            <span style="position: absolute; bottom: 4px; right: 4px; font-size: 0.65rem;">🎉</span>
+            
+            <!-- Mini Inner border -->
+            <div style="position: absolute; top: 4px; bottom: 4px; left: 4px; right: 4px; border: 1px dashed ${borderInner}; border-radius: 6px; pointer-events: none;"></div>
+            
+            <!-- Center Icon / Emoji -->
+            <div style="font-size: 2.2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); margin-bottom: 2px;">📜</div>
+            <div style="font-size: 0.55rem; font-weight: 800; color: ${borderInner}; text-transform: uppercase; letter-spacing: 0.5px;">DIPLOMA</div>
+        </div>
+    `;
+}
+
+async function renderCertificadosView() {
+    document.title = "Central de Certificados 📜 — KidCanvas";
+    setMetaDescription("Gerencie seus certificados de conquistas e baixe seus diplomas oficiais KidCanvas.");
+
+    document.querySelectorAll('.page-view').forEach(view => view.style.display = 'none');
+    const view = document.getElementById('view-certificados');
+    if (view) view.style.display = 'block';
+
+    const listEl = document.getElementById('certificates-categories-list');
+    if (!listEl) return;
+
+    listEl.innerHTML = '<div style="text-align: center; padding: 40px; font-weight: bold; color: var(--color-dark-light);"><i class="fa-solid fa-spinner fa-spin fa-2x"></i><br><br>Carregando seus certificados mágicos...</div>';
+
+    // Precarregar catálogo de cards global se não houver
+    if (!window.globalCatalog) {
+        try {
+            const res = await fetch('/api/store/catalog');
+            const data = await res.json();
+            if (data.success) {
+                window.globalCatalog = data.catalog;
+            }
+        } catch(e) {
+            console.error('Erro ao carregar catálogo de cards na Central:', e);
+        }
+    }
+
+    try {
+        const res = await fetch('/api/certificates/my', {
+            headers: { 'X-Session-Token': localStorage.getItem('kidcanvas_session_token') || '' }
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            window.certificatesCatalog = data.catalog;
+            const myCerts = data.certificates;
+            const catalog = data.catalog;
+
+            // Progresso Geral
+            const unlockedCount = myCerts.length;
+            const totalCount = catalog.length;
+            const percentage = totalCount > 0 ? Math.round((unlockedCount / totalCount) * 100) : 0;
+
+            const progressTxt = document.getElementById('certs-general-progress-txt');
+            if (progressTxt) progressTxt.textContent = `${unlockedCount}/${totalCount} (${percentage}%)`;
+            const progressBar = document.getElementById('certs-general-progress-bar');
+            if (progressBar) progressBar.style.width = `${percentage}%`;
+
+            // Agrupar catálogo por categoria
+            const categories = {};
+            catalog.forEach(cert => {
+                if (!categories[cert.category]) {
+                    categories[cert.category] = [];
+                }
+                categories[cert.category].push(cert);
+            });
+
+            // Ordenamento e metadados das categorias
+            const categoryDisplayMeta = {
+                'Pinturas': { title: '🎨 Pinturas', color: 'var(--color-blue)', icon: '🎨' },
+                'Livros': { title: '📚 Livro das Descobertas', color: '#f1c40f', icon: '📚' },
+                'Estrelas': { title: '⭐ Estrelas', color: '#feca57', icon: '⭐' },
+                'Comunidade': { title: '🏆 Comunidade', color: '#9b59b6', icon: '🏆' },
+                'Influencer': { title: '📣 Influencer', color: '#4dabf7', icon: '📣' },
+                'Dinossauros': { title: '🦖 Dinossauros', color: 'var(--color-green)', icon: '🦖' },
+                'Histórias': { title: '📖 Histórias', color: '#8e44ad', icon: '📖' },
+                'Expedições': { title: '⛺ Expedições', color: '#e74c3c', icon: '⛺' },
+                'Lendárias': { title: '👑 Lendárias', color: '#ffb300', icon: '👑' },
+                'Conclusões': { title: '📜 Conclusões', color: '#a0aec0', icon: '📜' },
+                'Especiais': { title: '🎉 Especiais', color: '#ff6b6b', icon: '🎉' },
+                'Top Exploradores do Mês': { title: '🏆 Top Exploradores do Mês', color: '#ffa801', icon: '🏆' }
+            };
+
+            const orderedCategories = [
+                'Pinturas',
+                'Livros',
+                'Estrelas',
+                'Comunidade',
+                'Influencer',
+                'Dinossauros',
+                'Histórias',
+                'Expedições',
+                'Lendárias',
+                'Conclusões',
+                'Especiais',
+                'Top Exploradores do Mês'
+            ];
+
+            listEl.innerHTML = '';
+
+            // Ordenar categorias
+            const sortedCategories = Object.entries(categories).sort(([a], [b]) => {
+                let idxA = orderedCategories.indexOf(a);
+                let idxB = orderedCategories.indexOf(b);
+                if (idxA === -1) idxA = 999;
+                if (idxB === -1) idxB = 999;
+                return idxA - idxB;
+            });
+
+            // Renderizar cada categoria
+            sortedCategories.forEach(([catName, certs]) => {
+                const meta = categoryDisplayMeta[catName] || { title: `📜 ${catName}`, color: 'var(--color-purple)', icon: '📜' };
+                
+                // Calcular progresso da categoria
+                const catUnlocked = certs.filter(c => myCerts.some(uc => uc.id === c.id)).length;
+                const catTotal = certs.length;
+                const catPercentage = catTotal > 0 ? Math.round((catUnlocked / catTotal) * 100) : 0;
+
+                const catBlock = document.createElement('div');
+                catBlock.className = 'cert-category-block';
+                
+                // Header da categoria
+                let headerHtml = `
+                    <div class="cert-category-header">
+                        <h3 class="cert-category-title">
+                            <span>${meta.icon}</span> ${meta.title.replace(/^[^\s]+\s+/, '')}
+                        </h3>
+                        <div style="display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; font-weight: 700; color: var(--color-dark-light); margin-bottom: 6px;">
+                            <span>${catUnlocked}/${catTotal} certificados</span>
+                            <span>${catPercentage}%</span>
+                        </div>
+                        <div style="width: 100%; height: 10px; background: #e9ecef; border-radius: 10px; overflow: hidden; border: 1px solid #cbd5e1;">
+                            <div style="width: ${catPercentage}%; height: 100%; background: ${meta.color}; transition: width 0.5s;"></div>
+                        </div>
+                    </div>
+                `;
+
+                // Grid de certificados
+                let gridHtml = `<div class="cert-grid">`;
+                
+                certs.forEach(cert => {
+                    const unlockData = myCerts.find(uc => uc.id === cert.id);
+                    const isLocked = !unlockData;
+                    
+                    const rarityColors = {
+                        'Comum': 'comum',
+                        'Raro': 'raro',
+                        'Épico': 'epico',
+                        'Lendário': 'lendario',
+                        'Exclusivo': 'exclusivo'
+                    };
+                    const rarityClass = `cert-rarity-${rarityColors[cert.rarity] || 'comum'}`;
+
+                    if (isLocked) {
+                        const progress = window.getCertificateProgress(cert);
+                        const progressText = window.getCertificateProgressText(cert, progress);
+                        const percent = progress.target > 0 ? Math.min(100, Math.round((progress.current / progress.target) * 100)) : 0;
+
+                        gridHtml += `
+                            <div class="cert-card locked" title="🔒 Desbloqueie realizando conquistas!">
+                                ${renderCertificateMiniature(cert)}
+                                <div style="display: flex; flex-direction: column; gap: 4px; text-align: center; flex-grow: 1; justify-content: space-between;">
+                                    <div>
+                                        <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: #495057; margin: 0; line-height: 1.2;">🔒 ${cert.title}</h4>
+                                        <span style="font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; background: #94a3b8; color: white; font-weight: 800; text-transform: uppercase; display: inline-block; margin-top: 4px;">
+                                            ${cert.rarity}
+                                        </span>
+                                        <p style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin: 8px 0 0 0; line-height: 1.3;">${cert.desc}</p>
+                                    </div>
+                                    
+                                    <div style="margin-top: 15px;">
+                                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.72rem; font-weight: bold; color: var(--color-dark); margin-bottom: 4px;">
+                                            <span style="max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left;" title="${progressText}">${progressText}</span>
+                                            <span>${percent}%</span>
+                                        </div>
+                                        <!-- Barra de progresso individual -->
+                                        <div style="width: 100%; height: 10px; background-color: #e2e8f0; border-radius: 10px; overflow: hidden; border: 1px solid #cbd5e1;">
+                                            <div style="width: ${percent}%; height: 100%; background: linear-gradient(90deg, #94a3b8, #cbd5e1); border-radius: 10px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        const dateStr = new Date(unlockData.unlockedAt).toLocaleDateString('pt-BR', {
+                            day: '2-digit',
+                            month: 'long',
+                            year: 'numeric'
+                        });
+
+                        let infoHtml = '';
+                        if (unlockData.additionalInfo) {
+                            infoHtml = `<div style="font-size: 0.68rem; font-style: italic; color: #7b4fa6; margin-top: 4px; font-weight: 700;">${unlockData.additionalInfo}</div>`;
+                        }
+
+                        gridHtml += `
+                            <div class="cert-card ${rarityClass}">
+                                ${renderCertificateMiniature(cert)}
+                                <div style="display: flex; flex-direction: column; gap: 4px; text-align: center; flex-grow: 1; justify-content: space-between;">
+                                    <div>
+                                        <h4 style="font-family: var(--font-heading); font-size: 1.15rem; color: var(--color-purple); margin: 0; line-height: 1.2;">${cert.title}</h4>
+                                        <span class="rarity-badge-mini rarity-color-${rarityColors[cert.rarity] || 'comum'}" style="font-size: 0.65rem; padding: 2px 8px; border-radius: 4px; color: white; font-weight: 800; text-transform: uppercase; display: inline-block; margin-top: 4px;">
+                                            ${cert.rarity}
+                                        </span>
+                                        <p style="font-size: 0.72rem; color: #64748b; font-weight: 600; margin: 8px 0 0 0; line-height: 1.3;">${cert.desc}</p>
+                                        ${infoHtml}
+                                    </div>
+                                    
+                                    <div style="margin-top: 15px;">
+                                        <span style="font-size: 0.65rem; color: #94a3b8; font-weight: 700; display: block; margin-bottom: 8px;">Conquistado em ${dateStr}</span>
+                                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                                            <button class="btn btn-primary btn-sm" onclick="openCertsViewerModal('${cert.id}')" style="width: 100%; font-size: 0.75rem; padding: 6px; font-weight: 800; border-radius: 6px; box-shadow: var(--shadow-button-primary); display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                                👁️ Visualizar
+                                            </button>
+                                            <div style="display: flex; gap: 6px;">
+                                                <button class="btn btn-secondary btn-sm" onclick="printCertDirect('${cert.id}')" style="flex: 1; font-size: 0.7rem; padding: 6px; font-weight: 800; border-radius: 6px; border: var(--border-thin); background: white; color: var(--color-dark); display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                                    📄 Baixar PDF
+                                                </button>
+                                                <button class="btn btn-secondary btn-sm" onclick="downloadCertDirect('${cert.id}')" style="flex: 1; font-size: 0.7rem; padding: 6px; font-weight: 800; border-radius: 6px; border: var(--border-thin); background: white; color: var(--color-dark); display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                                    🖼️ Baixar Imagem
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                gridHtml += `</div>`;
+
+                catBlock.innerHTML = headerHtml + gridHtml;
+                listEl.appendChild(catBlock);
+            });
+
+        } else {
+            listEl.innerHTML = `<div style="text-align: center; padding: 40px; color: var(--color-red); font-weight: bold;">Erro ao carregar certificados: ${data.message}</div>`;
+        }
+    } catch (err) {
+        console.error('Erro ao renderizar certificados:', err);
+        listEl.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--color-red); font-weight: bold;">Erro de conexão com o servidor.</div>';
+    }
+}
+
+window.drawCertificateCanvas = function(canvasId, cert, unlockData) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+
+    // 1. Limpar e cor de fundo
+    ctx.fillStyle = '#faf8f5';
+    ctx.fillRect(0, 0, w, h);
+
+    // 2. Cores baseadas em raridade
+    let borderMain = '#ffd43b';
+    let borderInner = '#ff5e7e';
+    let nameColor = '#4dabf7';
+
+    if (cert.rarity === 'Comum') {
+        borderMain = '#10b981';
+        borderInner = '#34d399';
+        nameColor = '#10b981';
+    } else if (cert.rarity === 'Raro') {
+        borderMain = '#3b82f6';
+        borderInner = '#60a5fa';
+        nameColor = '#2563eb';
+    } else if (cert.rarity === 'Épico') {
+        borderMain = '#8b5cf6';
+        borderInner = '#a78bfa';
+        nameColor = '#7c3aed';
+    } else if (cert.rarity === 'Lendário') {
+        borderMain = '#f59e0b';
+        borderInner = '#fbbf24';
+        nameColor = '#d97706';
+    } else if (cert.rarity === 'Exclusivo') {
+        borderMain = '#ec4899';
+        borderInner = '#f472b6';
+        nameColor = '#db2777';
+    }
+
+    // 3. Desenhar bordas
+    ctx.lineWidth = 16;
+    ctx.strokeStyle = borderMain;
+    ctx.strokeRect(20, 20, w - 40, h - 40);
+
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = borderInner;
+    ctx.strokeRect(36, 36, w - 72, h - 72);
+
+    // 4. Desenhar Emojis nas quinas
+    ctx.font = '36px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🎨', 65, 65);
+    ctx.fillText('🏆', w - 65, 65);
+    ctx.fillText('⭐', 65, h - 65);
+    ctx.fillText('🎉', w - 65, h - 65);
+
+    // 5. Título do Certificado
+    ctx.fillStyle = borderInner;
+    ctx.font = 'bold 38px Fredoka, Quicksand, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(cert.title.toUpperCase(), w / 2, 130);
+
+    // 6. Subtítulo
+    ctx.fillStyle = '#495057';
+    ctx.font = '20px Quicksand, sans-serif';
+    ctx.fillText('Este certificado é concedido com muito orgulho a:', w / 2, 210);
+
+    // 7. Nome do Recipiente
+    const childName = (unlockData.recipientName || (currentUser ? currentUser.name : 'Artista')).toUpperCase();
+    ctx.fillStyle = nameColor;
+    ctx.font = 'bold 44px Fredoka, Quicksand, sans-serif';
+    ctx.fillText(childName, w / 2, 290);
+
+    // 8. Linha decorativa
+    ctx.strokeStyle = '#e9ecef';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(w / 2 - 200, 330);
+    ctx.lineTo(w / 2 + 200, 330);
+    ctx.stroke();
+
+    // 9. Descrição / Motivo do Certificado
+    ctx.fillStyle = '#495057';
+    ctx.font = '18px Quicksand, sans-serif';
+    ctx.fillText(cert.desc, w / 2, 380);
+
+    if (unlockData.additionalInfo) {
+        ctx.fillStyle = '#7c3aed';
+        ctx.font = 'italic 16px Quicksand, sans-serif';
+        ctx.fillText(unlockData.additionalInfo, w / 2, 415);
+    }
+
+    // 10. Data formatada
+    const dateStr = new Date(unlockData.unlockedAt).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+    });
+    ctx.fillStyle = '#64748b';
+    ctx.font = '15px Quicksand, sans-serif';
+    ctx.fillText(dateStr, w / 2, 455);
+
+    // 11. Desenhar assinaturas decorativas acima das linhas
+    ctx.fillStyle = '#7b4fa6';
+    ctx.font = "italic 36px 'Alex Brush', cursive";
+    ctx.fillText('Vovó Sônia', w / 2 - 150, 500);
+
+    ctx.fillStyle = '#1971c2';
+    ctx.font = "32px 'Gochi Hand', cursive";
+    ctx.fillText('Pedrinho', w / 2 + 150, 500);
+
+    // 12. Nomes impressos abaixo das linhas
+    ctx.fillStyle = '#868e96';
+    ctx.font = 'bold 13px Quicksand, sans-serif';
+    ctx.fillText('Vovó Sônia', w / 2 - 150, 530);
+    ctx.fillText('Pedrinho', w / 2 + 150, 530);
+
+    // 13. Linhas de assinatura
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(w / 2 - 220, 510);
+    ctx.lineTo(w / 2 - 80, 510);
+    ctx.moveTo(w / 2 + 80, 510);
+    ctx.lineTo(w / 2 + 220, 510);
+    ctx.stroke();
+};
+
+let currentViewerCertId = null;
+
+window.openCertsViewerModal = async function(certId) {
+    if (!currentUser) return;
+    currentViewerCertId = certId;
+
+    const modal = document.getElementById('certsViewerModal');
+    if (!modal) return;
+
+    modal.style.display = 'block';
+
+    const cert = window.certificatesCatalog ? window.certificatesCatalog.find(c => c.id === certId) : null;
+    const unlockData = currentUser.certificates ? currentUser.certificates.find(uc => uc.id === certId) : null;
+
+    if (!cert || !unlockData) {
+        showToast('Erro ao carregar o certificado.', 'error');
+        window.closeCertsViewerModal();
+        return;
+    }
+
+    const titleEl = document.getElementById('certs-viewer-title');
+    if (titleEl) titleEl.textContent = cert.title;
+
+    setTimeout(() => {
+        window.drawCertificateCanvas('certs-viewer-canvas', cert, unlockData);
+    }, 100);
+};
+
+window.closeCertsViewerModal = function() {
+    const modal = document.getElementById('certsViewerModal');
+    if (modal) modal.style.display = 'none';
+    currentViewerCertId = null;
+};
+
+window.printCertFromCanvas = function() {
+    const canvas = document.getElementById('certs-viewer-canvas');
+    if (!canvas) return;
+
+    const dataUrl = canvas.toDataURL('image/png');
+    const windowContent = '<!DOCTYPE html><html><head><title>Imprimir Certificado</title></head><body style="margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: #fafafa;"><img src="' + dataUrl + '" style="max-width: 100%; max-height: 100%; object-fit: contain; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 8px;"></body></html>';
+    const printWin = window.open('', '', 'width=900,height=700');
+    
+    if (!printWin) {
+        showToast('Por favor, ative os pop-ups para imprimir seu certificado! 📜', 'warning');
+        return;
+    }
+
+    printWin.document.open();
+    printWin.document.write(windowContent);
+    printWin.document.close();
+    printWin.focus();
+
+    setTimeout(() => {
+        printWin.print();
+        printWin.close();
+    }, 500);
+};
+
+window.downloadCertFromCanvas = function() {
+    const canvas = document.getElementById('certs-viewer-canvas');
+    if (!canvas) return;
+
+    const certId = currentViewerCertId;
+    const cert = window.certificatesCatalog ? window.certificatesCatalog.find(c => c.id === certId) : null;
+    const filename = cert ? `certificado-${cert.id}.png` : 'certificado.png';
+
+    const link = document.createElement('a');
+    link.download = filename;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('Certificado baixado com sucesso! 🎉', 'success');
+};
+
+let certificatesToCelebrateQueue = [];
+
+window.checkNewlyUnlockedCertificates = function(newlyUnlocked) {
+    if (!newlyUnlocked || newlyUnlocked.length === 0) return;
+    
+    newlyUnlocked.forEach(cert => {
+        if (!certificatesToCelebrateQueue.some(c => c.id === cert.id)) {
+            certificatesToCelebrateQueue.push(cert);
+        }
+    });
+
+    const celebrationModal = document.getElementById('certsCelebrationModal');
+    if (certificatesToCelebrateQueue.length > 0 && celebrationModal && celebrationModal.style.display !== 'block') {
+        window.showNextCertificateCelebration();
+    }
+};
+
+window.showNextCertificateCelebration = function() {
+    if (certificatesToCelebrateQueue.length === 0) return;
+
+    const cert = certificatesToCelebrateQueue.shift();
+    const modal = document.getElementById('certsCelebrationModal');
+    if (!modal) return;
+
+    // Configurar modal
+    const titleEl = document.getElementById('certs-celebrate-title');
+    if (titleEl) titleEl.textContent = cert.title;
+    const descEl = document.getElementById('certs-celebrate-desc');
+    if (descEl) descEl.textContent = cert.desc;
+
+    const badge = document.getElementById('certs-celebrate-rarity-badge');
+    if (badge) {
+        badge.textContent = cert.rarity;
+        
+        let badgeColorStyle = 'background-color: #10b981; color: white;';
+        if (cert.rarity === 'Raro') badgeColorStyle = 'background-color: #3b82f6; color: white;';
+        else if (cert.rarity === 'Épico') badgeColorStyle = 'background-color: #8b5cf6; color: white;';
+        else if (cert.rarity === 'Lendário') badgeColorStyle = 'background-color: #f59e0b; color: white;';
+        else if (cert.rarity === 'Exclusivo') badgeColorStyle = 'background-color: #ec4899; color: white;';
+        
+        badge.style = badgeColorStyle + ' position: absolute; top: -12px; left: 50%; transform: translateX(-50%); font-size: 0.85rem; padding: 5px 12px; border-radius: 20px; font-weight: 800; border: var(--border-thin); text-transform: uppercase;';
+    }
+
+    modal.style.display = 'block';
+
+    if (typeof confetti !== 'undefined') {
+        confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.6 }
+        });
+    }
+
+    modal.setAttribute('data-current-cert-id', cert.id);
+};
+
+window.closeCertsCelebrationModal = function() {
+    const modal = document.getElementById('certsCelebrationModal');
+    if (modal) modal.style.display = 'none';
+
+    if (certificatesToCelebrateQueue.length > 0) {
+        setTimeout(window.showNextCertificateCelebration, 400);
+    }
+};
+
+window.viewCertFromCelebration = function() {
+    const modal = document.getElementById('certsCelebrationModal');
+    const certId = modal ? modal.getAttribute('data-current-cert-id') : null;
+    window.closeCertsCelebrationModal();
+    if (certId) {
+        navigate('/certificados');
+        setTimeout(() => {
+            window.openCertsViewerModal(certId);
+        }, 300);
+    }
+};
+
+window.renderCertificadosView = renderCertificadosView;
