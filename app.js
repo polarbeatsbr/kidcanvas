@@ -13521,8 +13521,6 @@ window.openChapterGuide = function(colName) {
     window.triggerPageFlipAnimation(originEl, guideEl, 'next');
 };
 
-};
-
 /* --- CENTRAL DE CERTIFICADOS --- */
 
 async function renderCertificadosView() {
