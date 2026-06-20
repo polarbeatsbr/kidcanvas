@@ -5243,28 +5243,28 @@ button, input, select, textarea {
 /* Balão do Pedrinho */
 .bubble-pedrinho-hero {
     top: 22%;
-    left: -10%;
+    right: -10%;
     max-width: 185px;
 }
 .bubble-pedrinho-hero::before {
     border-width: 15px 9px 0 9px;
     border-color: var(--color-dark) transparent transparent transparent;
     bottom: -15px;
-    right: 30px;
-    transform: skewX(25deg); /* Inclina a seta para a direita em direção à cabeça do Pedrinho */
+    left: 45px;
+    transform: skewX(-25deg);
 }
 .bubble-pedrinho-hero::after {
     border-width: 13px 7px 0 7px;
     border-color: var(--color-white) transparent transparent transparent;
     bottom: -11px;
-    right: 31px;
-    transform: skewX(25deg);
+    left: 46px;
+    transform: skewX(-25deg);
 }
 
 /* Balão da Vovó Sônia */
 .bubble-sonia-hero {
     top: 10%;
-    right: -10%;
+    left: -10%;
     max-width: 240px;
     animation-delay: 0.5s;
 }
@@ -5272,15 +5272,15 @@ button, input, select, textarea {
     border-width: 15px 9px 0 9px;
     border-color: var(--color-dark) transparent transparent transparent;
     bottom: -15px;
-    left: 45px;
-    transform: skewX(-25deg); /* Inclina a seta para a esquerda em direção à cabeça da Vovó */
+    right: 40px;
+    transform: skewX(25deg);
 }
 .bubble-sonia-hero::after {
     border-width: 13px 7px 0 7px;
     border-color: var(--color-white) transparent transparent transparent;
     bottom: -11px;
-    left: 46px;
-    transform: skewX(-25deg);
+    right: 41px;
+    transform: skewX(25deg);
 }
 
 /* Features Bottom Bar */
@@ -5530,42 +5530,48 @@ button, input, select, textarea {
     
     .bubble-pedrinho-hero {
         top: 25%;
-        left: -5%;
+        right: -5%;
+        left: auto;
         max-width: 125px;
     }
     .bubble-pedrinho-hero::before {
         border-width: 12px 7px 0 7px;
         border-color: var(--color-dark) transparent transparent transparent;
         bottom: -12px;
-        right: 20px;
-        transform: skewX(20deg); /* Aponta para a direita (Pedrinho) */
+        left: 30px;
+        right: auto;
+        transform: skewX(-20deg);
     }
     .bubble-pedrinho-hero::after {
         border-width: 10px 5px 0 5px;
         border-color: var(--color-white) transparent transparent transparent;
         bottom: -9px;
-        right: 21px;
-        transform: skewX(20deg);
+        left: 31px;
+        right: auto;
+        transform: skewX(-20deg);
     }
     
     .bubble-sonia-hero {
         top: 12%;
-        right: -5%;
+        left: -5%;
+        right: auto;
         max-width: 185px;
     }
     .bubble-sonia-hero::before {
         border-width: 12px 7px 0 7px;
         border-color: var(--color-dark) transparent transparent transparent;
         bottom: -12px;
-        left: 35px;
-        transform: skewX(-20deg); /* Aponta para a esquerda (Vovó Sônia) */
+        right: 30px;
+        left: auto;
+        transform: skewX(20deg);
     }
     .bubble-sonia-hero::after {
         border-width: 10px 5px 0 5px;
         border-color: var(--color-white) transparent transparent transparent;
         bottom: -9px;
-        left: 36px;
-        transform: skewX(-20deg);
+        right: 31px;
+        left: auto;
+        transform: skewX(20deg);
     }
 
     
