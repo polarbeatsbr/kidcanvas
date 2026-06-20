@@ -4,7 +4,7 @@ const path = require('path');
 const filesToCopy = [
     'style.css',
     'app.js',
-    'hero_mascots.jpg',
+    'hero_mascots.png',
     'magician_icon.png',
     'ninja_icon.png',
     'mascot_aprendiz.png',
