@@ -5510,7 +5510,7 @@ window.deleteMyCreation = function(url, type) {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'x-session-token': localStorage.getItem('session_token') || ''
+                        'x-session-token': localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '')
                     },
                     body: JSON.stringify({ url })
                 });
