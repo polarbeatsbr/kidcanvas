@@ -2968,6 +2968,93 @@ app.post('/api/user/change-password', async (req, res) => {
     }
 });
 
+// Endpoint para excluir uma criação do próprio usuário (desenho ou história)
+app.post('/api/user/delete-creation', requireAuth, async (req, res) => {
+    try {
+        const { url } = req.body;
+        if (!url) {
+            return res.status(400).json({ success: false, message: 'URL da criação é obrigatória.' });
+        }
+
+        const user = req.user;
+        const users = await loadUsers();
+        const dbUser = users.find(u => u.id === user.id);
+        if (!dbUser) {
+            return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
+        }
+
+        let deleted = false;
+
+        // 1. Procurar em myPaintings (desenhos e pinturas)
+        if (dbUser.myPaintings) {
+            const index = dbUser.myPaintings.findIndex(p => p.url === url);
+            if (index !== -1) {
+                dbUser.myPaintings.splice(index, 1);
+                deleted = true;
+            }
+        }
+
+        // 2. Procurar em myStories (histórias mágicas - identificar pela coverUrl)
+        if (dbUser.myStories) {
+            const index = dbUser.myStories.findIndex(s => s.coverUrl === url);
+            if (index !== -1) {
+                dbUser.myStories.splice(index, 1);
+                deleted = true;
+            }
+        }
+
+        // 3. Procurar em myImages (desenhos gerados por IA)
+        if (dbUser.myImages) {
+            const index = dbUser.myImages.findIndex(i => {
+                const absUrl = i.url.startsWith('/saved_images/') 
+                    ? `https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev${i.url}` 
+                    : i.url;
+                return i.url === url || absUrl === url;
+            });
+            if (index !== -1) {
+                dbUser.myImages.splice(index, 1);
+                deleted = true;
+            }
+        }
+
+        if (!deleted) {
+            return res.status(404).json({ success: false, message: 'Criação não encontrada na sua galeria.' });
+        }
+
+        // 4. Remover também do public_paintings.json (Hall da Fama) caso estivesse pública
+        try {
+            const { loadPublicPaintings, savePublicPaintings } = require('./r2db');
+            const publicPaintings = await loadPublicPaintings();
+            const indexPub = publicPaintings.findIndex(p => p.url === url && p.userEmail.toLowerCase() === dbUser.email.toLowerCase());
+            if (indexPub !== -1) {
+                console.log(`[Delete Creation] Removendo também postagem pública no Hall da Fama: ${url}`);
+                publicPaintings.splice(indexPub, 1);
+                await savePublicPaintings(publicPaintings);
+            }
+        } catch (e) {
+            console.error('[Delete Creation] Erro ao sincronizar remoção no Hall da Fama:', e);
+        }
+
+        await saveUsers(users);
+        
+        // Sincronizar objetos na requisição do middleware
+        user.myPaintings = dbUser.myPaintings;
+        user.myStories = dbUser.myStories;
+        user.myImages = dbUser.myImages;
+
+        return res.json({
+            success: true,
+            message: 'Criação excluída com sucesso.',
+            myPaintings: dbUser.myPaintings,
+            myStories: dbUser.myStories,
+            myImages: dbUser.myImages
+        });
+    } catch (err) {
+        console.error('[Delete Creation Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro interno ao excluir criação.' });
+    }
+});
+
 // Endpoint para exclusão de conta em 2 etapas
 app.post('/api/user/delete-account', async (req, res) => {
     try {

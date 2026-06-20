@@ -5390,7 +5390,11 @@ function renderMinhasCriacoesView() {
                 
                 const card = document.createElement('div');
                 card.className = 'drawing-card';
+                card.style.position = 'relative';
                 card.innerHTML = `
+                    <button onclick="deleteMyCreation('${imageUrl}', 'drawing')" style="position: absolute; top: 8px; right: 8px; background: rgba(231, 76, 60, 0.9); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; z-index: 5;" title="Excluir Desenho" onmouseover="this.style.background='#c0392b'; this.style.transform='scale(1.1)';" onmouseout="this.style.background='rgba(231, 76, 60, 0.9)'; this.style.transform='scale(1)';">
+                        <i class="fa-solid fa-trash" style="font-size: 0.85rem;"></i>
+                    </button>
                     <div class="card-img-wrapper" onclick="openImageLightbox('${imageUrl}', '${dw.prompt}')" style="cursor: pointer; transition: transform 0.2s ease;" onmouseenter="this.querySelector('img').style.transform='scale(1.05)'" onmouseleave="this.querySelector('img').style.transform='scale(1)'">
                         <img src="${imageUrl}" alt="${dw.prompt}" loading="lazy" style="transition: transform 0.2s ease; transform-origin: center;">
                     </div>
@@ -5429,7 +5433,11 @@ function renderMinhasCriacoesView() {
             stories.forEach((st, idx) => {
                 const card = document.createElement('div');
                 card.className = 'drawing-card';
+                card.style.position = 'relative';
                 card.innerHTML = `
+                    <button onclick="deleteMyCreation('${st.coverUrl}', 'story')" style="position: absolute; top: 8px; right: 8px; background: rgba(231, 76, 60, 0.9); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; z-index: 5;" title="Excluir História" onmouseover="this.style.background='#c0392b'; this.style.transform='scale(1.1)';" onmouseout="this.style.background='rgba(231, 76, 60, 0.9)'; this.style.transform='scale(1)';">
+                        <i class="fa-solid fa-trash" style="font-size: 0.85rem;"></i>
+                    </button>
                     <div class="card-img-wrapper" style="cursor: pointer;" onclick="openSavedStoryViewer(${idx})">
                         <img src="${st.coverUrl}" alt="${st.title}" loading="lazy">
                     </div>
@@ -5465,7 +5473,11 @@ function renderMinhasCriacoesView() {
             paintings.forEach(pt => {
                 const card = document.createElement('div');
                 card.className = 'drawing-card';
+                card.style.position = 'relative';
                 card.innerHTML = `
+                    <button onclick="deleteMyCreation('${pt.url}', 'painting')" style="position: absolute; top: 8px; right: 8px; background: rgba(231, 76, 60, 0.9); color: white; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; z-index: 5;" title="Excluir Pintura" onmouseover="this.style.background='#c0392b'; this.style.transform='scale(1.1)';" onmouseout="this.style.background='rgba(231, 76, 60, 0.9)'; this.style.transform='scale(1)';">
+                        <i class="fa-solid fa-trash" style="font-size: 0.85rem;"></i>
+                    </button>
                     <div class="card-img-wrapper" onclick="openImageLightbox('${pt.url}', '${pt.prompt}')" style="cursor: pointer; transition: transform 0.2s ease;">
                         <img src="${pt.url}" alt="${pt.prompt}" loading="lazy" style="transition: transform 0.2s ease; transform-origin: center;">
                     </div>
@@ -5483,6 +5495,49 @@ function renderMinhasCriacoesView() {
         }
     }
 }
+
+window.deleteMyCreation = function(url, type) {
+    let textType = 'pintura';
+    if (type === 'story') textType = 'história';
+    if (type === 'drawing') textType = 'desenho';
+
+    showCustomConfirm(
+        'Confirmar Exclusão? 🗑️',
+        `Tem certeza de que deseja excluir este ${textType} permanentemente? Não será possível recuperá-lo!`,
+        async () => {
+            try {
+                const response = await fetch('/api/user/delete-creation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-session-token': localStorage.getItem('session_token') || ''
+                    },
+                    body: JSON.stringify({ url })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    // Atualiza dados locais
+                    if (data.myPaintings) currentUser.myPaintings = data.myPaintings;
+                    if (data.myStories) currentUser.myStories = data.myStories;
+                    if (data.myImages) currentUser.myImages = data.myImages;
+                    
+                    // Salvar no localStorage também para consistência
+                    localStorage.setItem('user_session', JSON.stringify(currentUser));
+
+                    showToast('Criação excluída com sucesso! ✨', 'success');
+                    
+                    // Re-renderizar as abas correspondentes
+                    renderMinhasCriacoesView();
+                } else {
+                    showToast(data.message || 'Erro ao excluir a criação.', 'error');
+                }
+            } catch (err) {
+                console.error('[Delete Creation Error]:', err);
+                showToast('Erro de conexão ao excluir.', 'error');
+            }
+        }
+    );
+};
 
 async function downloadSavedImage(url, prompt) {
     const cleanPrompt = prompt.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
