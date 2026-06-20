@@ -5199,8 +5199,9 @@ button, input, select, textarea {
     max-width: 640px; /* Aumentado de 580px para 640px para destacar mais a ilustração e os cachorros */
     height: auto;
     border: none; /* Removida borda grossa de card */
-    border-radius: 0; /* Removido arredondamento */
-    box-shadow: none; /* Removida sombra de card */
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.12);
+    overflow: hidden;
     background-color: transparent; /* Removido fundo branco do card */
     transition: transform 0.2s ease;
 }
