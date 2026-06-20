@@ -5196,7 +5196,7 @@ button, input, select, textarea {
 
 .hero-image-new {
     width: 100%;
-    max-width: 640px; /* Aumentado de 580px para 640px para destacar mais a ilustração e os cachorros */
+    max-width: 580px; /* Reduzido em 10% para maior equilíbrio visual */
     height: auto;
     border: none; /* Removida borda grossa de card */
     border-radius: 24px;
@@ -9619,6 +9619,25 @@ button, input, select, textarea {
     }
 }
 
+/* --- GAMIFICATION PROGRESS FLOW --- */
+@keyframes bounceRight {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+}
 
+@keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+}
 
-
+@media (max-width: 768px) {
+    .gamification-flow-card {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+    .gamification-arrow {
+        transform: rotate(90deg);
+        animation: bounceDown 2s infinite !important;
+        margin: 5px 0;
+    }
+}

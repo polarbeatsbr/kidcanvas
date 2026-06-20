@@ -1113,7 +1113,10 @@ function navigate(path, pushState = true) {
     } else if (cleanPath === '/planos') {
         renderPlanosView();
     } else if (cleanPath === '/gerar-desenho') {
-        renderGerarDesenhoView();
+        renderHomeView();
+        setTimeout(() => {
+            document.getElementById('home-generator-section')?.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
     } else if (cleanPath === '/historias-magicas' || cleanPath === '/historia') {
         renderHistoriasMagicasView();
     } else if (cleanPath === '/historias-exemplo') {
@@ -1637,6 +1640,10 @@ async function checkPendingUpgrade() {
 function renderHomeView() {
     document.title = "KidCanvas — Desenhos para Colorir e Imprimir Grátis 🎨";
     setMetaDescription("Milhares de desenhos para colorir e imprimir grátis. Animais selvagens, mar, domésticos, dinossauros, contos de fada e muito mais para colorir!");
+    
+    if (typeof checkActiveEvent === 'function') {
+        checkActiveEvent();
+    }
     
     const view = document.getElementById('view-home');
     view.style.display = 'block';
@@ -11989,6 +11996,37 @@ async function checkActiveEvent() {
             
             if (heroBtn) {
                 heroBtn.style.display = 'block';
+                
+                // Atualizar título do tema dinamicamente
+                const titleEl = heroBtn.querySelector('h3');
+                if (titleEl) {
+                    const themeNames = {
+                        'Dinossauros': 'Expedição Mágica dos Dinossauros',
+                        'Animais': 'Expedição Mágica dos Animais',
+                        'Fantasia': 'Expedição Fantástica',
+                        'Veículos': 'Expedição Mágica dos Veículos',
+                        'Oceano': 'Expedição Mágica do Oceano',
+                        'Espaço': 'Expedição Mágica do Espaço',
+                        'Piratas': 'Expedição Mágica dos Piratas'
+                    };
+                    titleEl.textContent = themeNames[data.week.theme] || `Expedição Mágica: ${data.week.theme}`;
+                }
+                
+                // Atualizar progresso real
+                const progressTextEl = document.getElementById('hero-event-progress-text');
+                const progressBarEl = document.getElementById('hero-event-progress-bar');
+                if (progressTextEl && progressBarEl && data.progress && data.week.missions) {
+                    const mainMissions = data.week.missions.filter(m => m.tier !== 'epica');
+                    let completedCount = 0;
+                    mainMissions.forEach(m => {
+                        const p = data.progress[m.id] || { current: 0, claimed: false };
+                        if (p.current >= m.req) {
+                            completedCount++;
+                        }
+                    });
+                    progressTextEl.textContent = `${completedCount} / ${mainMissions.length} missões concluídas`;
+                    progressBarEl.style.width = `${(completedCount / mainMissions.length) * 100}%`;
+                }
             }
             
             if (heroTimer) {
