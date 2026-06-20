@@ -11920,8 +11920,9 @@ let currentActiveEvent = null;
 
 async function checkActiveEvent() {
     try {
+        const token = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
         const res = await fetch('/api/events/current', {
-            headers: { 'X-Session-Token': sessionToken }
+            headers: { 'X-Session-Token': token }
         });
         const data = await res.json();
         
@@ -12091,11 +12092,12 @@ function renderEventMissions() {
 
 async function claimEventMission(missionId) {
     try {
+        const token = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
         const res = await fetch('/api/events/claim', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Session-Token': sessionToken
+                'X-Session-Token': token
             },
             body: JSON.stringify({ missionId })
         });

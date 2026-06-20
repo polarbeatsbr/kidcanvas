@@ -5343,6 +5343,9 @@ async function checkDrawingWithGeminiVision(base64Image) {
         return null;
     }
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4500);
+
     try {
         let rawBase64 = base64Image;
         let mimeType = 'image/jpeg';
@@ -5358,6 +5361,7 @@ async function checkDrawingWithGeminiVision(base64Image) {
         const googleUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
         const response = await fetch(googleUrl, {
             method: 'POST',
+            signal: controller.signal,
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -5380,6 +5384,8 @@ async function checkDrawingWithGeminiVision(base64Image) {
             })
         });
 
+        clearTimeout(timeoutId);
+
         if (response.ok) {
             const data = await response.json();
             const textResult = data.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -5391,7 +5397,12 @@ async function checkDrawingWithGeminiVision(base64Image) {
             return null;
         }
     } catch (err) {
-        console.error('[Gemini Vision] Erro durante chamada à API:', err);
+        clearTimeout(timeoutId);
+        if (err.name === 'AbortError') {
+            console.error('[Gemini Vision] Chamada abortada por timeout (limite 4.5s excedido)');
+        } else {
+            console.error('[Gemini Vision] Erro durante chamada à API:', err);
+        }
         return null;
     }
 }
@@ -5409,6 +5420,9 @@ async function checkDrawingWithClaudeVision(base64Image, mockResponse = null) {
         return checkDrawingWithGeminiVision(base64Image);
     }
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4500);
+
     try {
         let rawBase64 = base64Image;
         let mimeType = 'image/png';
@@ -5423,6 +5437,7 @@ async function checkDrawingWithClaudeVision(base64Image, mockResponse = null) {
         console.log(`[Claude Vision] Enviando desenho para o modelo claude-haiku-4-5-20251001...`);
         const response = await fetch('https://api.anthropic.com/v1/messages', {
             method: 'POST',
+            signal: controller.signal,
             headers: {
                 'x-api-key': apiKey,
                 'anthropic-version': '2023-06-01',
@@ -5453,6 +5468,8 @@ async function checkDrawingWithClaudeVision(base64Image, mockResponse = null) {
             })
         });
 
+        clearTimeout(timeoutId);
+
         if (response.ok) {
             const data = await response.json();
             const textResult = data.content?.[0]?.text;
@@ -5464,7 +5481,12 @@ async function checkDrawingWithClaudeVision(base64Image, mockResponse = null) {
             return null;
         }
     } catch (err) {
-        console.error('[Claude Vision] Erro durante chamada à API:', err);
+        clearTimeout(timeoutId);
+        if (err.name === 'AbortError') {
+            console.error('[Claude Vision] Chamada abortada por timeout (limite 4.5s excedido)');
+        } else {
+            console.error('[Claude Vision] Erro durante chamada à API:', err);
+        }
         return null;
     }
 }
