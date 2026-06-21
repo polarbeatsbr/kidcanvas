@@ -5144,25 +5144,104 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         generatePDFFromData(characterName, generatedCoverUrl, generatedParagraphs, 'btnDownloadPDF');
     }
 
-    async function getLocalBlobUrl(imageUrl, cleanupArray) {
-        if (!imageUrl || imageUrl.startsWith('data:') || imageUrl.startsWith('blob:') || imageUrl.startsWith('/')) {
-            return imageUrl;
+    function getProxiedImageUrl(url) {
+        if (!url) return url;
+        if (url.startsWith('data:') || url.startsWith('blob:') || url.startsWith('/')) {
+            return url;
         }
-        try {
-            const proxiedUrl = `/api/proxy-image?url=${encodeURIComponent(imageUrl)}&t=${Date.now()}`;
-            const res = await fetch(proxiedUrl);
-            if (!res.ok) return imageUrl;
-            const blob = await res.blob();
-            const blobUrl = URL.createObjectURL(blob);
-            if (cleanupArray) cleanupArray.push(blobUrl);
-            return blobUrl;
-        } catch (e) {
-            console.warn('Erro ao obter blob local para imagem:', e);
-            return imageUrl;
-        }
+        return `/api/proxy-image?url=${encodeURIComponent(url)}&t=${Date.now()}`;
     }
 
     async function generatePDFFromData(characterName, coverUrl, paragraphs, btnId) {
+        const cleanCharName = capitalizeFirstLetter(characterName || 'Crianca');
+        
+        const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'fixed';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '-9999px';
+        tempContainer.style.width = '210mm';
+        tempContainer.style.background = '#FFFFFF';
+        tempContainer.style.color = '#3D281A';
+        tempContainer.style.fontFamily = 'sans-serif';
+        document.body.appendChild(tempContainer);
+
+        const proxiedCoverUrl = (coverUrl && (coverUrl.startsWith('data:') || coverUrl.startsWith('blob:') || coverUrl.startsWith('/'))) 
+            ? coverUrl 
+            : `/api/proxy-image?url=${encodeURIComponent(coverUrl)}&t=${Date.now()}`;
+
+        // 1. Cover Page
+        const coverPage = document.createElement('div');
+        coverPage.style.width = '210mm';
+        coverPage.style.height = '297mm';
+        coverPage.style.pageBreakAfter = 'always';
+        coverPage.style.display = 'flex';
+        coverPage.style.flexDirection = 'column';
+        coverPage.style.alignItems = 'center';
+        coverPage.style.justifyContent = 'center';
+        coverPage.style.boxSizing = 'border-box';
+        coverPage.style.padding = '20mm';
+        coverPage.style.textAlign = 'center';
+
+        coverPage.innerHTML = `
+            <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 10mm 0;">
+                <div>
+                    <h1 style="font-size: 30px; color: #7B4FA6; margin-bottom: 5px; font-family: 'Fredoka', sans-serif; text-align: center;">A História Mágica de ${cleanCharName}</h1>
+                    <p style="font-size: 16px; color: #5C4033; font-weight: bold; text-align: center; margin: 0;">Uma história criada especialmente para ${cleanCharName}</p>
+                </div>
+                <div style="width: 140mm; height: 140mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
+                    <img crossorigin="anonymous" src="${proxiedCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 15px; font-weight: bold; color: #7B4FA6;">KidCanvas</div>
+                    <div style="font-size: 12px; color: #5C4033;">www.kidcanvas.com.br</div>
+                </div>
+            </div>
+        `;
+        tempContainer.appendChild(coverPage);
+
+        // 2. Inner Pages
+        paragraphs.forEach((page, idx) => {
+            const pageDiv = document.createElement('div');
+            pageDiv.style.width = '210mm';
+            pageDiv.style.height = '297mm';
+            pageDiv.style.pageBreakAfter = (idx === paragraphs.length - 1) ? 'avoid' : 'always';
+            pageDiv.style.display = 'flex';
+            pageDiv.style.flexDirection = 'column';
+            pageDiv.style.alignItems = 'center';
+            pageDiv.style.justifyContent = 'space-between';
+            pageDiv.style.boxSizing = 'border-box';
+            pageDiv.style.padding = '20mm 20mm';
+
+            const proxiedImageUrl = (page.imageUrl && (page.imageUrl.startsWith('data:') || page.imageUrl.startsWith('blob:') || page.imageUrl.startsWith('/'))) 
+                ? page.imageUrl 
+                : `/api/proxy-image?url=${encodeURIComponent(page.imageUrl)}&t=${Date.now()}`;
+
+            pageDiv.innerHTML = `
+                <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 5px; font-weight: bold; color: #7B4FA6; font-size: 16px; display: flex; justify-content: space-between;">
+                    <span>A História Mágica de ${cleanCharName}</span>
+                    <span>Página ${idx + 1}</span>
+                </div>
+                <div style="width: 130mm; height: 130mm; border: 3px solid #3D281A; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 15px 0;">
+                    <img crossorigin="anonymous" src="${proxiedImageUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p style="font-size: 16px; line-height: 1.6; text-align: justify; text-indent: 15px; margin: 0; color: #3D281A; max-width: 170mm; flex-grow: 1; display: flex; align-items: center;">${page.text}</p>
+                <div style="width: 100%; border-top: 1px solid #eee; padding-top: 5px; font-size: 11px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between;">
+                    <span>Criado em www.kidcanvas.com.br</span>
+                    <span>KidCanvas IA Mágica</span>
+                </div>
+            `;
+            tempContainer.appendChild(pageDiv);
+        });
+
+        const cleanCharNameLower = cleanCharName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const opt = {
+            margin: 0,
+            filename: `historia-${cleanCharNameLower}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
         const btnPDF = document.getElementById(btnId);
         let oldText = "";
         if (btnPDF) {
@@ -5171,132 +5250,86 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
             btnPDF.disabled = true;
         }
 
-        const blobUrlsToCleanup = [];
-        const cleanCharName = capitalizeFirstLetter(characterName || 'Crianca');
+        waitForImages(tempContainer).then(() => {
+            html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
+                console.log('PDF Canvas width:', canvas.width);
+                console.log('PDF Canvas height:', canvas.height);
+                const ctx = canvas.getContext('2d');
+                const pixel = ctx.getImageData(0, 0, 1, 1);
+                console.log('PDF Canvas pixel data:', pixel);
 
-        try {
-            const localCoverUrl = await getLocalBlobUrl(coverUrl, blobUrlsToCleanup);
-            const paragraphsWithLocalImages = await Promise.all(paragraphs.map(async (p) => {
-                const localImgUrl = await getLocalBlobUrl(p.imageUrl, blobUrlsToCleanup);
-                return { ...p, localImgUrl };
-            }));
+                const imgData = canvas.toDataURL('image/png');
+                console.log('PDF imgData preview:', imgData.substring(0, 50));
 
-            const tempContainer = document.createElement('div');
-            tempContainer.style.position = 'fixed';
-            tempContainer.style.left = '0';
-            tempContainer.style.top = '0';
-            tempContainer.style.width = '210mm';
-            tempContainer.style.zIndex = '-9999';
-            tempContainer.style.opacity = '0.01';
-            tempContainer.style.pointerEvents = 'none';
-            tempContainer.style.background = '#FFFFFF';
-            tempContainer.style.color = '#3D281A';
-            tempContainer.style.fontFamily = 'sans-serif';
-            document.body.appendChild(tempContainer);
-
-            // 1. Cover Page
-            const coverPage = document.createElement('div');
-            coverPage.style.width = '210mm';
-            coverPage.style.height = '297mm';
-            coverPage.style.pageBreakAfter = 'always';
-            coverPage.style.display = 'flex';
-            coverPage.style.flexDirection = 'column';
-            coverPage.style.alignItems = 'center';
-            coverPage.style.justifyContent = 'center';
-            coverPage.style.boxSizing = 'border-box';
-            coverPage.style.padding = '20mm';
-            coverPage.style.textAlign = 'center';
-
-            coverPage.innerHTML = `
-                <div style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 10mm 0;">
-                    <div>
-                        <h1 style="font-size: 30px; color: #7B4FA6; margin-bottom: 5px; font-family: 'Fredoka', sans-serif; text-align: center;">A História Mágica de ${cleanCharName}</h1>
-                        <p style="font-size: 16px; color: #5C4033; font-weight: bold; text-align: center; margin: 0;">Uma história criada especialmente para ${cleanCharName}</p>
-                    </div>
-                    <div style="width: 140mm; height: 140mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                        <img src="${localCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 15px; font-weight: bold; color: #7B4FA6;">KidCanvas</div>
-                        <div style="font-size: 12px; color: #5C4033;">www.kidcanvas.com.br</div>
-                    </div>
-                </div>
-            `;
-            tempContainer.appendChild(coverPage);
-
-            // 2. Inner Pages
-            paragraphsWithLocalImages.forEach((page, idx) => {
-                const pageDiv = document.createElement('div');
-                pageDiv.style.width = '210mm';
-                pageDiv.style.height = '297mm';
-                pageDiv.style.pageBreakAfter = (idx === paragraphsWithLocalImages.length - 1) ? 'avoid' : 'always';
-                pageDiv.style.display = 'flex';
-                pageDiv.style.flexDirection = 'column';
-                pageDiv.style.alignItems = 'center';
-                pageDiv.style.justifyContent = 'space-between';
-                pageDiv.style.boxSizing = 'border-box';
-                pageDiv.style.padding = '20mm 20mm';
-
-                pageDiv.innerHTML = `
-                    <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 5px; font-weight: bold; color: #7B4FA6; font-size: 16px; display: flex; justify-content: space-between;">
-                        <span>A História Mágica de ${cleanCharName}</span>
-                        <span>Página ${idx + 1}</span>
-                    </div>
-                    <div style="width: 130mm; height: 130mm; border: 3px solid #3D281A; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 15px 0;">
-                        <img src="${page.localImgUrl}" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <p style="font-size: 16px; line-height: 1.6; text-align: justify; text-indent: 15px; margin: 0; color: #3D281A; max-width: 170mm; flex-grow: 1; display: flex; align-items: center;">${page.text}</p>
-                    <div style="width: 100%; border-top: 1px solid #eee; padding-top: 5px; font-size: 11px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between;">
-                        <span>Criado em www.kidcanvas.com.br</span>
-                        <span>KidCanvas IA Mágica</span>
-                    </div>
-                `;
-                tempContainer.appendChild(pageDiv);
-            });
-
-            const cleanCharNameLower = cleanCharName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-            const opt = {
-                margin: 0,
-                filename: `historia-${cleanCharNameLower}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, logging: false },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            await waitForImages(tempContainer);
-            
-            const canvas = await html2pdf().from(tempContainer).set(opt).toCanvas().get('canvas');
-            const imgData = canvas.toDataURL('image/png');
-            if (!imgData || imgData.length < 1000) {
-                throw new Error('Canvas em branco ou inválido');
-            }
-
-            await html2pdf().from(tempContainer).set(opt).save();
-
-            document.body.removeChild(tempContainer);
-            blobUrlsToCleanup.forEach(url => URL.revokeObjectURL(url));
-            
-            if (btnPDF) {
-                btnPDF.textContent = oldText;
-                btnPDF.disabled = false;
-            }
-            showToast('PDF pronto para impressão! ⬇️', 'success');
-
-        } catch (err) {
-            const tempContainer = document.querySelector('body > div[style*="z-index: -9999"]');
-            if (tempContainer) {
+                if (!imgData || imgData.length < 1000) {
+                    throw new Error('Canvas vazio');
+                }
+                
+                return html2pdf().from(tempContainer).set(opt).save();
+            }).then(() => {
                 document.body.removeChild(tempContainer);
-            }
-            blobUrlsToCleanup.forEach(url => URL.revokeObjectURL(url));
-            console.error("Erro ao gerar PDF da História:", err);
-            if (btnPDF) {
-                btnPDF.textContent = oldText;
-                btnPDF.disabled = false;
-            }
-            alert("Erro ao exportar PDF: " + (err.message || err) + "\n\nTente recarregar a página ou usar outro navegador.");
-        }
+                if (btnPDF) {
+                    btnPDF.textContent = oldText;
+                    btnPDF.disabled = false;
+                }
+                showToast('PDF pronto para impressão! ⬇️', 'success');
+            }).catch(err => {
+                document.body.removeChild(tempContainer);
+                console.error("Erro ao gerar PDF:", err);
+                if (btnPDF) {
+                    btnPDF.textContent = oldText;
+                    btnPDF.disabled = false;
+                }
+                alert("Erro ao exportar PDF. Tente novamente.");
+            });
+        });
     }
-    async function downloadCustomDrawingPDF(imageUrl, promptText) {
+function downloadCustomDrawingPDF(imageUrl, promptText) {
+        const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'fixed';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '-9999px';
+        tempContainer.style.width = '210mm';
+        tempContainer.style.height = '297mm';
+        tempContainer.style.background = '#FFFFFF';
+        tempContainer.style.color = '#3D281A';
+        tempContainer.style.fontFamily = 'sans-serif';
+        tempContainer.style.display = 'flex';
+        tempContainer.style.flexDirection = 'column';
+        tempContainer.style.alignItems = 'center';
+        tempContainer.style.justifyContent = 'space-between';
+        tempContainer.style.boxSizing = 'border-box';
+        tempContainer.style.padding = '20mm 20mm';
+        document.body.appendChild(tempContainer);
+
+        const proxiedUrl = (imageUrl && (imageUrl.startsWith('data:') || imageUrl.startsWith('blob:') || imageUrl.startsWith('/'))) 
+            ? imageUrl 
+            : `/api/proxy-image?url=${encodeURIComponent(imageUrl)}&t=${Date.now()}`;
+
+        tempContainer.innerHTML = `
+            <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
+                Desenho Mágico — KidCanvas
+            </div>
+            <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
+                <img crossorigin="anonymous" src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
+                <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
+            </div>
+            <div style="width: 100%; border-top: 1px solid #eee; padding-top: 10px; font-size: 12px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between; font-family: sans-serif;">
+                <span>Criado em www.kidcanvas.com.br</span>
+                <span>KidCanvas IA Mágica</span>
+            </div>
+        `;
+
+        const opt = {
+            margin: 0,
+            filename: `desenho-magico-kidcanvas.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
         const btnPDF = document.getElementById('btn-download-pdf-custom');
         let oldText = "";
         if (btnPDF) {
@@ -5305,98 +5338,39 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
             btnPDF.disabled = true;
         }
 
-        const blobUrlsToCleanup = [];
+        waitForImages(tempContainer).then(() => {
+            html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
+                console.log('PDF Canvas width:', canvas.width);
+                console.log('PDF Canvas height:', canvas.height);
+                const ctx = canvas.getContext('2d');
+                const pixel = ctx.getImageData(0, 0, 1, 1);
+                console.log('PDF Canvas pixel data:', pixel);
 
-        try {
-            const localImgUrl = await getLocalBlobUrl(imageUrl, blobUrlsToCleanup);
+                const imgData = canvas.toDataURL('image/png');
+                console.log('PDF imgData preview:', imgData.substring(0, 50));
 
-            const tempContainer = document.createElement('div');
-            tempContainer.style.position = 'fixed';
-            tempContainer.style.left = '0';
-            tempContainer.style.top = '0';
-            tempContainer.style.width = '210mm';
-            tempContainer.style.height = '297mm';
-            tempContainer.style.zIndex = '-9999';
-            tempContainer.style.opacity = '0.01';
-            tempContainer.style.pointerEvents = 'none';
-            tempContainer.style.background = '#FFFFFF';
-            tempContainer.style.color = '#3D281A';
-            tempContainer.style.fontFamily = 'sans-serif';
-            tempContainer.style.display = 'flex';
-            tempContainer.style.flexDirection = 'column';
-            tempContainer.style.alignItems = 'center';
-            tempContainer.style.justifyContent = 'space-between';
-            tempContainer.style.boxSizing = 'border-box';
-            tempContainer.style.padding = '20mm 20mm';
-            document.body.appendChild(tempContainer);
-
-            tempContainer.innerHTML = `
-                <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
-                    Desenho Mágico — KidCanvas
-                </div>
-                <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                    <img src="${localImgUrl}" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
-                    <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
-                </div>
-                <div style="width: 100%; border-top: 1px solid #eee; padding-top: 10px; font-size: 12px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between; font-family: sans-serif;">
-                    <span>Criado em www.kidcanvas.com.br</span>
-                    <span>KidCanvas IA Mágica</span>
-                </div>
-            `;
-
-            const opt = {
-                margin: 0,
-                filename: `desenho-magico-kidcanvas.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, useCORS: true, logging: false },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            await waitForImages(tempContainer);
-            
-            const canvas = await html2pdf().from(tempContainer).set(opt).toCanvas().get('canvas');
-            const imgData = canvas.toDataURL('image/png');
-            if (!imgData || imgData.length < 1000) {
-                throw new Error('Canvas em branco ou inválido');
-            }
-
-            await html2pdf().from(tempContainer).set(opt).save();
-
-            document.body.removeChild(tempContainer);
-            blobUrlsToCleanup.forEach(url => URL.revokeObjectURL(url));
-            
-            if (btnPDF) {
-                btnPDF.textContent = oldText;
-                btnPDF.disabled = false;
-            }
-            showToast('PDF pronto para impressão! ⬇️', 'success');
-
-        } catch (err) {
-            const tempContainer = document.querySelector('body > div[style*="z-index: -9999"]');
-            if (tempContainer) {
+                if (!imgData || imgData.length < 1000) {
+                    throw new Error('Canvas vazio');
+                }
+                
+                return html2pdf().from(tempContainer).set(opt).save();
+            }).then(() => {
                 document.body.removeChild(tempContainer);
-            }
-            blobUrlsToCleanup.forEach(url => URL.revokeObjectURL(url));
-            console.error("Erro ao gerar PDF do desenho personalizado:", err);
-            if (btnPDF) {
-                btnPDF.textContent = oldText;
-                btnPDF.disabled = false;
-            }
-            
-            // Fallback automático para download da imagem direta
-            alert("Não foi possível gerar o formato PDF neste dispositivo (Erro: " + (err.message || err) + ").\n\nBaixando a imagem do seu desenho diretamente...");
-            
-            const a = document.createElement('a');
-            a.href = imageUrl;
-            const cleanPrompt = (promptText || 'desenho-magico').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
-            a.download = `desenho-magico-${cleanPrompt}.jpg`;
-            a.target = '_blank';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
+                if (btnPDF) {
+                    btnPDF.textContent = oldText;
+                    btnPDF.disabled = false;
+                }
+                showToast('PDF pronto para impressão! ⬇️', 'success');
+            }).catch(err => {
+                document.body.removeChild(tempContainer);
+                console.error("Erro ao gerar PDF:", err);
+                if (btnPDF) {
+                    btnPDF.textContent = oldText;
+                    btnPDF.disabled = false;
+                }
+                alert("Erro ao exportar PDF. Tente novamente.");
+            });
+        });
     }
 function shareDrawingOnWhatsApp(imageUrl, promptText) {
         let absoluteImageUrl = imageUrl;
@@ -5863,6 +5837,51 @@ function waitForImages(container) {
 }
 
 async function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
+    const tempContainer = document.createElement('div');
+    tempContainer.style.position = 'fixed';
+    tempContainer.style.left = '-9999px';
+    tempContainer.style.top = '-9999px';
+    tempContainer.style.width = '210mm';
+    tempContainer.style.height = '297mm';
+    tempContainer.style.background = '#FFFFFF';
+    tempContainer.style.color = '#3D281A';
+    tempContainer.style.fontFamily = 'sans-serif';
+    tempContainer.style.display = 'flex';
+    tempContainer.style.flexDirection = 'column';
+    tempContainer.style.alignItems = 'center';
+    tempContainer.style.justifyContent = 'space-between';
+    tempContainer.style.boxSizing = 'border-box';
+    tempContainer.style.padding = '20mm 20mm';
+    document.body.appendChild(tempContainer);
+
+    const proxiedUrl = (imageUrl && (imageUrl.startsWith('data:') || imageUrl.startsWith('blob:') || imageUrl.startsWith('/'))) 
+        ? imageUrl 
+        : `/api/proxy-image?url=${encodeURIComponent(imageUrl)}&t=${Date.now()}`;
+
+    tempContainer.innerHTML = `
+        <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
+            Desenho Mágico — KidCanvas
+        </div>
+        <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
+            <img crossorigin="anonymous" src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
+        </div>
+        <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
+            <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
+        </div>
+        <div style="width: 100%; border-top: 1px solid #eee; padding-top: 10px; font-size: 12px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between; font-family: sans-serif;">
+            <span>Criado em www.kidcanvas.com.br</span>
+            <span>KidCanvas IA Mágica</span>
+        </div>
+    `;
+
+    const opt = {
+        margin: 0,
+        filename: `desenho-magico-kidcanvas.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
     let oldText = "";
     if (btnEl) {
         oldText = btnEl.innerHTML;
@@ -5870,98 +5889,39 @@ async function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
         btnEl.disabled = true;
     }
 
-    const blobUrlsToCleanup = [];
+    waitForImages(tempContainer).then(() => {
+        html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
+            console.log('PDF Canvas width:', canvas.width);
+            console.log('PDF Canvas height:', canvas.height);
+            const ctx = canvas.getContext('2d');
+            const pixel = ctx.getImageData(0, 0, 1, 1);
+            console.log('PDF Canvas pixel data:', pixel);
 
-    try {
-        const localImgUrl = await getLocalBlobUrl(imageUrl, blobUrlsToCleanup);
+            const imgData = canvas.toDataURL('image/png');
+            console.log('PDF imgData preview:', imgData.substring(0, 50));
 
-        const tempContainer = document.createElement('div');
-        tempContainer.style.position = 'fixed';
-        tempContainer.style.left = '0';
-        tempContainer.style.top = '0';
-        tempContainer.style.width = '210mm';
-        tempContainer.style.height = '297mm';
-        tempContainer.style.zIndex = '-9999';
-        tempContainer.style.opacity = '0.01';
-        tempContainer.style.pointerEvents = 'none';
-        tempContainer.style.background = '#FFFFFF';
-        tempContainer.style.color = '#3D281A';
-        tempContainer.style.fontFamily = 'sans-serif';
-        tempContainer.style.display = 'flex';
-        tempContainer.style.flexDirection = 'column';
-        tempContainer.style.alignItems = 'center';
-        tempContainer.style.justifyContent = 'space-between';
-        tempContainer.style.boxSizing = 'border-box';
-        tempContainer.style.padding = '20mm 20mm';
-        document.body.appendChild(tempContainer);
-
-        tempContainer.innerHTML = `
-            <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
-                Desenho Mágico — KidCanvas
-            </div>
-            <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                <img src="${localImgUrl}" style="width: 100%; height: 100%; object-fit: contain;">
-            </div>
-            <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
-                <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
-            </div>
-            <div style="width: 100%; border-top: 1px solid #eee; padding-top: 10px; font-size: 12px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between; font-family: sans-serif;">
-                <span>Criado em www.kidcanvas.com.br</span>
-                <span>KidCanvas IA Mágica</span>
-            </div>
-        `;
-
-        const opt = {
-            margin: 0,
-            filename: `desenho-magico-kidcanvas.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, logging: false },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
-        await waitForImages(tempContainer);
-        
-        const canvas = await html2pdf().from(tempContainer).set(opt).toCanvas().get('canvas');
-        const imgData = canvas.toDataURL('image/png');
-        if (!imgData || imgData.length < 1000) {
-            throw new Error('Canvas em branco ou inválido');
-        }
-
-        await html2pdf().from(tempContainer).set(opt).save();
-
-        document.body.removeChild(tempContainer);
-        blobUrlsToCleanup.forEach(url => URL.revokeObjectURL(url));
-        
-        if (btnEl) {
-            btnEl.innerHTML = oldText;
-            btnEl.disabled = false;
-        }
-        showToast('PDF pronto para impressão! ⬇️', 'success');
-
-    } catch (err) {
-        const tempContainer = document.querySelector('body > div[style*="z-index: -9999"]');
-        if (tempContainer) {
+            if (!imgData || imgData.length < 1000) {
+                throw new Error('Canvas vazio');
+            }
+            
+            return html2pdf().from(tempContainer).set(opt).save();
+        }).then(() => {
             document.body.removeChild(tempContainer);
-        }
-        blobUrlsToCleanup.forEach(url => URL.revokeObjectURL(url));
-        console.error("Erro ao gerar PDF do desenho salvo:", err);
-        if (btnEl) {
-            btnEl.innerHTML = oldText;
-            btnEl.disabled = false;
-        }
-        
-        // Fallback automático para download da imagem direta
-        alert("Não foi possível gerar o formato PDF neste dispositivo (Erro: " + (err.message || err) + ").\n\nBaixando a imagem do seu desenho diretamente...");
-        
-        const a = document.createElement('a');
-        a.href = imageUrl;
-        const cleanPrompt = (promptText || 'desenho-magico').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
-        a.download = `desenho-magico-${cleanPrompt}.jpg`;
-        a.target = '_blank';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
+            if (btnEl) {
+                btnEl.innerHTML = oldText;
+                btnEl.disabled = false;
+            }
+            showToast('PDF pronto para impressão! ⬇️', 'success');
+        }).catch(err => {
+            document.body.removeChild(tempContainer);
+            console.error("Erro ao gerar PDF:", err);
+            if (btnEl) {
+                btnEl.innerHTML = oldText;
+                btnEl.disabled = false;
+            }
+            alert("Erro ao exportar PDF. Tente novamente.");
+        });
+    });
 }
 function shareSavedDrawingOnWhatsApp(imageUrl, promptText) {
     let absoluteImageUrl = imageUrl;
