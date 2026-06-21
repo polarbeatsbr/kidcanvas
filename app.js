@@ -3533,8 +3533,13 @@ function renderGerarDesenhoView() {
     // Reset quality selectors and button text
     const customDrawingRadioMedium = document.getElementById('customDrawingQualityMedium');
     const customDrawingRadioHigh = document.getElementById('customDrawingQualityHigh');
-    if (customDrawingRadioMedium) customDrawingRadioMedium.classList.add('active');
-    if (customDrawingRadioHigh) customDrawingRadioHigh.classList.remove('active');
+    if (customDrawingRadioMedium) customDrawingRadioMedium.classList.remove('active');
+    if (customDrawingRadioHigh) customDrawingRadioHigh.classList.add('active');
+    
+    const radioMedium = document.querySelector('input[name="customDrawingQuality"][value="medium"]');
+    const radioHigh = document.querySelector('input[name="customDrawingQuality"][value="high"]');
+    if (radioMedium) radioMedium.checked = false;
+    if (radioHigh) radioHigh.checked = true;
     
     if (typeof window.updateCustomDrawingSubmitButtonText === 'function') {
         window.updateCustomDrawingSubmitButtonText();
