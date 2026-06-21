@@ -5154,7 +5154,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
 
     async function getImageBase64(url) {
         if (!url) return '';
-        if (url.startsWith('data:')) return url;
+        if (url.startsWith('data:') || url.startsWith('blob:')) return url;
         
         let targetUrl = url;
         if (url.startsWith('/')) {
@@ -5324,7 +5324,21 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
             alert("Erro ao exportar PDF. Tente novamente.");
         }
     }
-function downloadCustomDrawingPDF(imageUrl, promptText) {
+async function downloadCustomDrawingPDF(imageUrl, promptText) {
+    const btnPDF = document.getElementById('btn-download-pdf-custom');
+    let oldText = "";
+    if (btnPDF) {
+        oldText = btnPDF.textContent;
+        btnPDF.textContent = "⏳ Gerando PDF...";
+        btnPDF.disabled = true;
+    }
+
+    try {
+        console.log('Iniciando downloadCustomDrawingPDF para url:', imageUrl);
+        
+        // 1. Converter a imagem em Base64 previamente
+        const base64Img = await getImageBase64(imageUrl);
+
         const tempContainer = document.createElement('div');
         tempContainer.style.position = 'fixed';
         tempContainer.style.left = '-9999px';
@@ -5342,16 +5356,12 @@ function downloadCustomDrawingPDF(imageUrl, promptText) {
         tempContainer.style.padding = '20mm 20mm';
         document.body.appendChild(tempContainer);
 
-        const proxiedUrl = (imageUrl && (imageUrl.startsWith('data:') || imageUrl.startsWith('blob:') || imageUrl.startsWith('/'))) 
-            ? imageUrl 
-            : `/api/proxy-image?url=${encodeURIComponent(imageUrl)}&t=${Date.now()}`;
-
         tempContainer.innerHTML = `
             <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
                 Desenho Mágico — KidCanvas
             </div>
             <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                <img crossorigin="anonymous" src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
+                <img crossorigin="anonymous" src="${base64Img}" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
                 <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
@@ -5370,48 +5380,46 @@ function downloadCustomDrawingPDF(imageUrl, promptText) {
             jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
         };
 
-        const btnPDF = document.getElementById('btn-download-pdf-custom');
-        let oldText = "";
-        if (btnPDF) {
-            oldText = btnPDF.textContent;
-            btnPDF.textContent = "⏳ Gerando PDF...";
-            btnPDF.disabled = true;
+        await waitForImages(tempContainer);
+
+        const canvas = await html2pdf().from(tempContainer).set(opt).toCanvas().get('canvas');
+        console.log('--- LOGS DE DIAGNÓSTICO DO PDF (Custom Drawing) ---');
+        console.log('Largura do canvas (width):', canvas.width);
+        console.log('Altura do canvas (height):', canvas.height);
+        
+        const ctx = canvas.getContext('2d');
+        const pixel = ctx.getImageData(0, 0, 1, 1);
+        console.log('Dados de pixels do Canvas:', pixel);
+
+        const imgData = canvas.toDataURL('image/png');
+        console.log('Comprimento do dataURL:', imgData ? imgData.length : 0);
+        console.log('----------------------------------------------------');
+
+        if (!imgData || imgData.length < 1000) {
+            throw new Error('Canvas vazio');
         }
 
-        waitForImages(tempContainer).then(() => {
-            html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
-                console.log('PDF Canvas width:', canvas.width);
-                console.log('PDF Canvas height:', canvas.height);
-                const ctx = canvas.getContext('2d');
-                const pixel = ctx.getImageData(0, 0, 1, 1);
-                console.log('PDF Canvas pixel data:', pixel);
+        await html2pdf().from(tempContainer).set(opt).save();
+        document.body.removeChild(tempContainer);
+        if (btnPDF) {
+            btnPDF.textContent = oldText;
+            btnPDF.disabled = false;
+        }
+        showToast('PDF pronto para impressão! ⬇️', 'success');
 
-                const imgData = canvas.toDataURL('image/png');
-                console.log('PDF imgData preview:', imgData.substring(0, 50));
-
-                if (!imgData || imgData.length < 1000) {
-                    throw new Error('Canvas vazio');
-                }
-                
-                return html2pdf().from(tempContainer).set(opt).save();
-            }).then(() => {
-                document.body.removeChild(tempContainer);
-                if (btnPDF) {
-                    btnPDF.textContent = oldText;
-                    btnPDF.disabled = false;
-                }
-                showToast('PDF pronto para impressão! ⬇️', 'success');
-            }).catch(err => {
-                document.body.removeChild(tempContainer);
-                console.error("Erro ao gerar PDF:", err);
-                if (btnPDF) {
-                    btnPDF.textContent = oldText;
-                    btnPDF.disabled = false;
-                }
-                alert("Erro ao exportar PDF. Tente novamente.");
-            });
-        });
+    } catch (err) {
+        console.error("Erro ao gerar PDF:", err);
+        const tempContainer = document.querySelector('body > div[style*="z-index: -9999"]');
+        if (tempContainer) {
+            document.body.removeChild(tempContainer);
+        }
+        if (btnPDF) {
+            btnPDF.textContent = oldText;
+            btnPDF.disabled = false;
+        }
+        alert("Erro ao exportar PDF. Tente novamente.");
     }
+}
 function shareDrawingOnWhatsApp(imageUrl, promptText) {
         let absoluteImageUrl = imageUrl;
         if (imageUrl && imageUrl.startsWith('/')) {
@@ -5877,51 +5885,6 @@ function waitForImages(container) {
 }
 
 async function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
-    const tempContainer = document.createElement('div');
-    tempContainer.style.position = 'fixed';
-    tempContainer.style.left = '-9999px';
-    tempContainer.style.top = '-9999px';
-    tempContainer.style.width = '210mm';
-    tempContainer.style.height = '297mm';
-    tempContainer.style.background = '#FFFFFF';
-    tempContainer.style.color = '#3D281A';
-    tempContainer.style.fontFamily = 'sans-serif';
-    tempContainer.style.display = 'flex';
-    tempContainer.style.flexDirection = 'column';
-    tempContainer.style.alignItems = 'center';
-    tempContainer.style.justifyContent = 'space-between';
-    tempContainer.style.boxSizing = 'border-box';
-    tempContainer.style.padding = '20mm 20mm';
-    document.body.appendChild(tempContainer);
-
-    const proxiedUrl = (imageUrl && (imageUrl.startsWith('data:') || imageUrl.startsWith('blob:') || imageUrl.startsWith('/'))) 
-        ? imageUrl 
-        : `/api/proxy-image?url=${encodeURIComponent(imageUrl)}&t=${Date.now()}`;
-
-    tempContainer.innerHTML = `
-        <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
-            Desenho Mágico — KidCanvas
-        </div>
-        <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-            <img crossorigin="anonymous" src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
-        </div>
-        <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
-            <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
-        </div>
-        <div style="width: 100%; border-top: 1px solid #eee; padding-top: 10px; font-size: 12px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between; font-family: sans-serif;">
-            <span>Criado em www.kidcanvas.com.br</span>
-            <span>KidCanvas IA Mágica</span>
-        </div>
-    `;
-
-    const opt = {
-        margin: 0,
-        filename: `desenho-magico-kidcanvas.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
     let oldText = "";
     if (btnEl) {
         oldText = btnEl.innerHTML;
@@ -5929,39 +5892,92 @@ async function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
         btnEl.disabled = true;
     }
 
-    waitForImages(tempContainer).then(() => {
-        html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
-            console.log('PDF Canvas width:', canvas.width);
-            console.log('PDF Canvas height:', canvas.height);
-            const ctx = canvas.getContext('2d');
-            const pixel = ctx.getImageData(0, 0, 1, 1);
-            console.log('PDF Canvas pixel data:', pixel);
+    try {
+        console.log('Iniciando downloadSavedDrawingPDF para url:', imageUrl);
+        
+        // 1. Converter a imagem em Base64 previamente
+        const base64Img = await getImageBase64(imageUrl);
 
-            const imgData = canvas.toDataURL('image/png');
-            console.log('PDF imgData preview:', imgData.substring(0, 50));
+        const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'fixed';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '-9999px';
+        tempContainer.style.width = '210mm';
+        tempContainer.style.height = '297mm';
+        tempContainer.style.background = '#FFFFFF';
+        tempContainer.style.color = '#3D281A';
+        tempContainer.style.fontFamily = 'sans-serif';
+        tempContainer.style.display = 'flex';
+        tempContainer.style.flexDirection = 'column';
+        tempContainer.style.alignItems = 'center';
+        tempContainer.style.justifyContent = 'space-between';
+        tempContainer.style.boxSizing = 'border-box';
+        tempContainer.style.padding = '20mm 20mm';
+        document.body.appendChild(tempContainer);
 
-            if (!imgData || imgData.length < 1000) {
-                throw new Error('Canvas vazio');
-            }
-            
-            return html2pdf().from(tempContainer).set(opt).save();
-        }).then(() => {
+        tempContainer.innerHTML = `
+            <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
+                Desenho Mágico — KidCanvas
+            </div>
+            <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
+                <img crossorigin="anonymous" src="${base64Img}" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
+                <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
+            </div>
+            <div style="width: 100%; border-top: 1px solid #eee; padding-top: 10px; font-size: 12px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between; font-family: sans-serif;">
+                <span>Criado em www.kidcanvas.com.br</span>
+                <span>KidCanvas IA Mágica</span>
+            </div>
+        `;
+
+        const opt = {
+            margin: 0,
+            filename: `desenho-magico-kidcanvas.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        await waitForImages(tempContainer);
+
+        const canvas = await html2pdf().from(tempContainer).set(opt).toCanvas().get('canvas');
+        console.log('--- LOGS DE DIAGNÓSTICO DO PDF (Saved Drawing) ---');
+        console.log('Largura do canvas (width):', canvas.width);
+        console.log('Altura do canvas (height):', canvas.height);
+        
+        const ctx = canvas.getContext('2d');
+        const pixel = ctx.getImageData(0, 0, 1, 1);
+        console.log('Dados de pixels do Canvas:', pixel);
+
+        const imgData = canvas.toDataURL('image/png');
+        console.log('Comprimento do dataURL:', imgData ? imgData.length : 0);
+        console.log('--------------------------------------------------');
+
+        if (!imgData || imgData.length < 1000) {
+            throw new Error('Canvas vazio');
+        }
+
+        await html2pdf().from(tempContainer).set(opt).save();
+        document.body.removeChild(tempContainer);
+        if (btnEl) {
+            btnEl.innerHTML = oldText;
+            btnEl.disabled = false;
+        }
+        showToast('PDF pronto para impressão! ⬇️', 'success');
+
+    } catch (err) {
+        console.error("Erro ao gerar PDF:", err);
+        const tempContainer = document.querySelector('body > div[style*="z-index: -9999"]');
+        if (tempContainer) {
             document.body.removeChild(tempContainer);
-            if (btnEl) {
-                btnEl.innerHTML = oldText;
-                btnEl.disabled = false;
-            }
-            showToast('PDF pronto para impressão! ⬇️', 'success');
-        }).catch(err => {
-            document.body.removeChild(tempContainer);
-            console.error("Erro ao gerar PDF:", err);
-            if (btnEl) {
-                btnEl.innerHTML = oldText;
-                btnEl.disabled = false;
-            }
-            alert("Erro ao exportar PDF. Tente novamente.");
-        });
-    });
+        }
+        if (btnEl) {
+            btnEl.innerHTML = oldText;
+            btnEl.disabled = false;
+        }
+        alert("Erro ao exportar PDF. Tente novamente.");
+    }
 }
 function shareSavedDrawingOnWhatsApp(imageUrl, promptText) {
     let absoluteImageUrl = imageUrl;
