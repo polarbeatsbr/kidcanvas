@@ -47,6 +47,74 @@ async function trackEvent(type, data) {
     }
 }
 
+// Registrar métricas de geração de IA por data com alertas de observabilidade
+async function recordGenerationMetric({ engine, success, fallbackUsed, durationSec, creditsCharged }) {
+    try {
+        const analytics = await loadAnalytics();
+        if (!analytics.generationMetrics) {
+            analytics.generationMetrics = {};
+        }
+        
+        // Data no fuso horário -03:00 (Brasil)
+        const todayStr = new Date(Date.now() - 3 * 3600 * 1000).toISOString().split('T')[0];
+        
+        if (!analytics.generationMetrics[todayStr]) {
+            analytics.generationMetrics[todayStr] = {
+                normal: 0,
+                ultra: 0,
+                failures: 0,
+                fallbackFal: 0,
+                totalDuration: 0,
+                successCount: 0,
+                creditsConsumed: 0
+            };
+        }
+        
+        const dayStats = analytics.generationMetrics[todayStr];
+        
+        if (success) {
+            dayStats.successCount = (dayStats.successCount || 0) + 1;
+            if (engine === 'flux') {
+                dayStats.normal = (dayStats.normal || 0) + 1;
+                if (fallbackUsed) {
+                    dayStats.fallbackFal = (dayStats.fallbackFal || 0) + 1;
+                }
+            } else if (engine === 'ideogram') {
+                dayStats.ultra = (dayStats.ultra || 0) + 1;
+            }
+            dayStats.creditsConsumed = (dayStats.creditsConsumed || 0) + (creditsCharged || 0);
+        } else {
+            dayStats.failures = (dayStats.failures || 0) + 1;
+        }
+        
+        dayStats.totalDuration = (dayStats.totalDuration || 0) + (durationSec || 0);
+        
+        await saveAnalytics(analytics);
+        console.log(`[Metrics] Registrada geração: Modo=${engine}, Sucesso=${success}, Duração=${durationSec.toFixed(2)}s, Fallback=${fallbackUsed}, Créditos=${creditsCharged}`);
+        
+        // Alertas de observabilidade simples em log
+        const totalGens = dayStats.successCount + dayStats.failures;
+        if (totalGens > 0) {
+            const errorRate = (dayStats.failures / totalGens) * 100;
+            const avgDuration = dayStats.totalDuration / totalGens;
+            const normalGens = dayStats.normal || 0;
+            const fallbackRate = normalGens > 0 ? ((dayStats.fallbackFal || 0) / normalGens) * 100 : 0;
+            
+            if (errorRate > 5) {
+                console.warn(`[QA ALERT] Taxa de erro do gerador ultrapassou 5%: ${errorRate.toFixed(2)}% (${dayStats.failures}/${totalGens})`);
+            }
+            if (normalGens > 0 && fallbackRate > 50) {
+                console.warn(`[QA ALERT] Uso de fallback Fal.ai ultrapassou 50% das gerações Normal: ${fallbackRate.toFixed(2)}% (${dayStats.fallbackFal}/${normalGens})`);
+            }
+            if (avgDuration > 20) {
+                console.warn(`[QA ALERT] Tempo médio de geração ultrapassou 20 segundos: ${avgDuration.toFixed(2)}s`);
+            }
+        }
+    } catch (e) {
+        console.error('[Metrics Error] Falha ao registrar métricas de geração:', e.message);
+    }
+}
+
 // Inicializar dados estimados se o banco analytics.json estiver vazio
 async function initAnalyticsData() {
     try {
@@ -3951,6 +4019,12 @@ app.post('/api/drawings/delete', async (req, res) => {
 
 // Endpoint para gerar desenho para colorir personalizado (consome 1 ou 2 créditos)
 app.post('/api/generate-custom-drawing', async (req, res) => {
+    const genStart = Date.now();
+    let engine = 'flux';
+    let cost = 1;
+    let fallbackUsed = false;
+    let metricRecorded = false;
+
     try {
         const { userPrompt, styleType, imageQuality } = req.body;
         if (!userPrompt || !userPrompt.trim()) {
@@ -4002,8 +4076,8 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
             });
         }
 
-        const engine = imageQuality === 'high' ? 'ideogram' : 'flux';
-        const cost = engine === 'flux' ? 1 : 3;
+        engine = imageQuality === 'high' ? 'ideogram' : 'flux';
+        cost = engine === 'flux' ? 1 : 3;
 
         if (getUserTotalCredits(user) < cost) {
             return res.status(400).json({
@@ -4116,6 +4190,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                                 const buffer = await imgRes.arrayBuffer();
                                 bytesBase64 = Buffer.from(buffer).toString('base64');
                                 success = true;
+                                fallbackUsed = true;
                                 console.log(`[Custom Drawing] Sucesso ao baixar e converter imagem do Fal.ai.`);
                             } else {
                                 const errText = await imgRes.text().catch(() => '');
@@ -4184,6 +4259,12 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
 
         if (!bytesBase64) {
             console.log(`[QA LOG] Modo: ${engine.toUpperCase()} | Status: FALHA | Razão: ${lastError} | Créditos Cobrados: 0 | Saldo Mantido: ${getUserTotalCredits(user)} | Usuário: ${user.email}`);
+            
+            // Record metrics
+            const durationSec = (Date.now() - genStart) / 1000;
+            await recordGenerationMetric({ engine, success: false, fallbackUsed, durationSec, creditsCharged: 0 });
+            metricRecorded = true;
+
             return res.status(500).json({
                 success: false,
                 message: 'Serviço temporariamente indisponível, tente novamente em alguns minutos.',
@@ -4240,6 +4321,11 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         
         await saveUsers(users);
 
+        // Record metrics
+        const durationSec = (Date.now() - genStart) / 1000;
+        await recordGenerationMetric({ engine, success: true, fallbackUsed, durationSec, creditsCharged: cost });
+        metricRecorded = true;
+
         return res.json({
             success: true,
             imageUrl: imageUrl,
@@ -4249,6 +4335,12 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
 
     } catch (error) {
         console.error('[Custom Drawing Error]:', error);
+        
+        if (!metricRecorded) {
+            const durationSec = (Date.now() - genStart) / 1000;
+            await recordGenerationMetric({ engine, success: false, fallbackUsed: false, durationSec, creditsCharged: 0 });
+        }
+
         return res.status(500).json({
             success: false,
             message: 'Erro interno ao processar a geração do desenho pelo servidor.',
@@ -4639,6 +4731,7 @@ app.get('/api/admin/stats', isAdmin, async (req, res) => {
                 refusedPayments,
                 erroredGenerations
             },
+            generationMetrics: analytics.generationMetrics || {},
             paymentsList: analytics.payments || []
         });
     } catch (err) {

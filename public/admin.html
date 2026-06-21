@@ -1399,6 +1399,31 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Painel de Observabilidade do Gerador IA -->
+            <div class="panel" style="margin-top: 25px;">
+                <div class="panel-header">
+                    <h3 class="panel-title"><i class="fa-solid fa-chart-line"></i> 📈 Observabilidade e Monitoramento de Geração</h3>
+                </div>
+                <div class="table-responsive" style="margin-top: 15px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Gerações Normal</th>
+                                <th>Gerações Ultra</th>
+                                <th>Falhas</th>
+                                <th>Fallback Fal.ai</th>
+                                <th>Tempo Médio</th>
+                                <th>Créditos Consumidos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="generation-metrics-tbody">
+                            <tr><td colspan="7" style="text-align:center;">Carregando métricas...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- ========================================== -->
@@ -2152,6 +2177,41 @@
                         </tr>
                     `;
                 });
+            }
+
+            // Popular tabela de métricas diárias por data
+            const metricsTbody = document.getElementById('generation-metrics-tbody');
+            if (metricsTbody) {
+                metricsTbody.innerHTML = '';
+                const metrics = statsData.generationMetrics || {};
+                const sortedDates = Object.keys(metrics).sort().reverse();
+                
+                if (sortedDates.length === 0) {
+                    metricsTbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Nenhuma métrica de observabilidade registrada ainda.</td></tr>';
+                } else {
+                    sortedDates.forEach(date => {
+                        const day = metrics[date];
+                        const totalDayGens = (day.successCount || 0) + (day.failures || 0);
+                        const avgTime = totalDayGens > 0 ? (day.totalDuration / totalDayGens).toFixed(1) : '0.0';
+                        
+                        // Destacar falhas maiores do que zero com estilo diferenciado
+                        const failuresText = day.failures > 0 
+                            ? `<strong style="color: var(--secondary); font-size: 1.05rem;">${day.failures}</strong>` 
+                            : '0';
+
+                        metricsTbody.innerHTML += `
+                            <tr>
+                                <td><strong>${date}</strong></td>
+                                <td>${day.normal || 0} gerações</td>
+                                <td>${day.ultra || 0} gerações</td>
+                                <td>${failuresText}</td>
+                                <td>${day.fallbackFal || 0}</td>
+                                <td><strong>${avgTime}s</strong></td>
+                                <td><span style="font-weight: 700; color: #f59e0b;"><i class="fa-solid fa-coins"></i> ${day.creditsConsumed || 0}</span></td>
+                            </tr>
+                        `;
+                    });
+                }
             }
         }
 
