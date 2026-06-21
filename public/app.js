@@ -398,6 +398,9 @@ function updateHeaderAuthDisplay() {
     if (typeof window.updateCustomDrawingSubmitButtonText === 'function') {
         window.updateCustomDrawingSubmitButtonText();
     }
+    if (typeof window.updateGeneratorCreditsInfo === 'function') {
+        window.updateGeneratorCreditsInfo();
+    }
 }
 
 function updateCustomDrawingSubmitButtonText() {
@@ -418,6 +421,62 @@ function updateCustomDrawingSubmitButtonText() {
     }
 }
 window.updateCustomDrawingSubmitButtonText = updateCustomDrawingSubmitButtonText;
+
+function updateGeneratorCreditsInfo() {
+    const infoPanel = document.getElementById('generator-credits-info');
+    if (!infoPanel) return;
+
+    if (!currentUser) {
+        infoPanel.style.display = 'none';
+        return;
+    }
+
+    infoPanel.style.display = 'flex';
+
+    const checkedQuality = document.querySelector('input[name="customDrawingQuality"]:checked');
+    const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
+    const cost = imageQuality === 'high' ? 3 : 1;
+    
+    const balance = currentUser.paginasRestantes || 0;
+    
+    const balanceSpan = document.getElementById('gen-cred-balance');
+    const costSpan = document.getElementById('gen-cred-cost');
+    const remainingSpan = document.getElementById('gen-cred-remaining');
+    
+    const rowBalance = document.getElementById('generator-credits-row-balance');
+    const rowCost = document.getElementById('generator-credits-row-cost');
+    const rowRemaining = document.getElementById('generator-credits-row-remaining');
+
+    if (balanceSpan) balanceSpan.textContent = balance;
+
+    if (balance >= cost) {
+        infoPanel.style.backgroundColor = '#faf5ff';
+        infoPanel.style.borderColor = 'var(--color-purple)';
+        infoPanel.style.color = 'var(--color-dark)';
+
+        if (rowCost) {
+            rowCost.innerHTML = `⚡ Esta geração custará <span id="gen-cred-cost" style="font-weight: 700; color: var(--color-purple);">${cost}</span> ${cost === 1 ? 'crédito' : 'créditos'}`;
+            rowCost.style.color = 'var(--color-dark)';
+        }
+        if (rowRemaining) {
+            rowRemaining.style.display = 'block';
+            if (remainingSpan) remainingSpan.textContent = balance - cost;
+        }
+    } else {
+        infoPanel.style.backgroundColor = '#fff5f5';
+        infoPanel.style.borderColor = '#f56565';
+        infoPanel.style.color = '#c53030';
+
+        if (rowCost) {
+            rowCost.innerHTML = `⚠ Você precisa de <span id="gen-cred-cost" style="font-weight: 700; color: #e53e3e;">${cost}</span> créditos para usar o modo ${imageQuality === 'high' ? 'Ultra' : 'Normal'}`;
+            rowCost.style.color = '#c53030';
+        }
+        if (rowRemaining) {
+            rowRemaining.style.display = 'none';
+        }
+    }
+}
+window.updateGeneratorCreditsInfo = updateGeneratorCreditsInfo;
 
 async function initGoogleSignIn() {
     try {
@@ -3544,6 +3603,9 @@ function renderGerarDesenhoView() {
     if (typeof window.updateCustomDrawingSubmitButtonText === 'function') {
         window.updateCustomDrawingSubmitButtonText();
     }
+    if (typeof window.updateGeneratorCreditsInfo === 'function') {
+        window.updateGeneratorCreditsInfo();
+    }
     
     if (loginGate) {
         loginGate.style.display = currentUser ? 'none' : 'block';
@@ -4521,8 +4583,11 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                     if (customDrawingRadioHigh) customDrawingRadioHigh.classList.remove('active');
                 }
                 if (typeof window.updateCustomDrawingSubmitButtonText === 'function') {
-                    window.updateCustomDrawingSubmitButtonText();
-                }
+        window.updateCustomDrawingSubmitButtonText();
+    }
+    if (typeof window.updateGeneratorCreditsInfo === 'function') {
+        window.updateGeneratorCreditsInfo();
+    }
             });
         });
     }
