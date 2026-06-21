@@ -7201,6 +7201,8 @@ function renderPintarOnlineView() {
                 startPanY = window.paintPanY;
                 startMouseX = e.clientX;
                 startMouseY = e.clientY;
+                workspaceContainer.style.cursor = 'grabbing';
+                if (paintCanvas) paintCanvas.style.cursor = 'grabbing';
                 e.preventDefault();
             }
         };
@@ -7217,10 +7219,22 @@ function renderPintarOnlineView() {
 
         workspaceContainer.addEventListener('mouseup', () => {
             isPanning = false;
+            workspaceContainer.style.cursor = 'default';
+            if (activePaintTool === 'pan' && paintCanvas) {
+                paintCanvas.style.cursor = 'grab';
+            } else {
+                updatePaintCursor(activePaintTool);
+            }
         });
 
         workspaceContainer.addEventListener('mouseleave', () => {
             isPanning = false;
+            workspaceContainer.style.cursor = 'default';
+            if (activePaintTool === 'pan' && paintCanvas) {
+                paintCanvas.style.cursor = 'grab';
+            } else {
+                updatePaintCursor(activePaintTool);
+            }
         });
 
         // Touch systems for Mobile (Pinch to Zoom & Pan)
@@ -8306,6 +8320,8 @@ function updatePaintCursor(tool, stamp) {
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>💧</text></svg>") 11 11, auto';
     } else if (tool === 'select') {
         paintCanvas.style.cursor = 'default';
+    } else if (tool === 'pan') {
+        paintCanvas.style.cursor = 'grab';
     } else if (tool === 'brush-magic') {
         // Usa o pincel comum 🖌️ que é universalmente suportado, para evitar a caixinha quadrada
         paintCanvas.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' style=\'font-size:22px\'><text y=\'22\'>🖌️</text></svg>") 4 22, auto';
@@ -8478,6 +8494,10 @@ function setPaintTool(tool) {
     } else if (tool === 'select') {
         document.getElementById('paint-tool-select').classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'none';
+    } else if (tool === 'pan') {
+        const btnPan = document.getElementById('paint-tool-pan');
+        if (btnPan) btnPan.classList.add('active');
+        if (sliderGroup) sliderGroup.style.display = 'none';
     }
     
     updatePaintCursor(tool);
@@ -8496,6 +8516,8 @@ document.getElementById('paint-tool-eraser').onclick = () => setPaintTool('erase
 document.getElementById('paint-tool-pipette').onclick = () => setPaintTool('pipette');
 document.getElementById('paint-tool-text').onclick = () => setPaintTool('text');
 document.getElementById('paint-tool-select').onclick = () => setPaintTool('select');
+const btnPanTool = document.getElementById('paint-tool-pan');
+if (btnPanTool) btnPanTool.onclick = () => setPaintTool('pan');
 
 // Configurar carimbos rápidos (clique insere instantaneamente no centro)
 document.querySelectorAll('.paint-stamp-btn').forEach(btn => {
@@ -8526,6 +8548,9 @@ function getPaintMousePos(evt) {
 }
 
 function startPaintingDraw(evt) {
+    if (activePaintTool === 'pan') {
+        return;
+    }
     if (!window.paintStartTime) {
         window.paintStartTime = Date.now();
     }
@@ -8666,6 +8691,9 @@ function startPaintingDraw(evt) {
 }
 
 function executePaintingDraw(evt) {
+    if (activePaintTool === 'pan') {
+        return;
+    }
     const pos = getPaintMousePos(evt);
     const brushSizeInput = document.getElementById('paint-brush-size');
     const brushSizeVal = brushSizeInput ? parseInt(brushSizeInput.value) : 8;
@@ -8775,42 +8803,42 @@ function executePaintingDraw(evt) {
         paintBgCtx.drawImage(magicBrushTempCanvas, 0, 0);
         paintBgCtx.restore();
     } else if (activePaintTool === 'brush') {
-        paintFgCtx.save();
-        paintFgCtx.beginPath();
-        paintFgCtx.moveTo(paintLastX, paintLastY);
-        paintFgCtx.lineTo(pos.x, pos.y);
-        paintFgCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
-        paintFgCtx.lineWidth = brushSizeVal;
-        paintFgCtx.lineCap = 'round';
-        paintFgCtx.lineJoin = 'round';
-        paintFgCtx.stroke();
-        paintFgCtx.restore();
+        paintBgCtx.save();
+        paintBgCtx.beginPath();
+        paintBgCtx.moveTo(paintLastX, paintLastY);
+        paintBgCtx.lineTo(pos.x, pos.y);
+        paintBgCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        paintBgCtx.lineWidth = brushSizeVal;
+        paintBgCtx.lineCap = 'round';
+        paintBgCtx.lineJoin = 'round';
+        paintBgCtx.stroke();
+        paintBgCtx.restore();
     } else if (activePaintTool === 'neon') {
         // Neon Glow Pass
-        paintFgCtx.save();
-        paintFgCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
-        paintFgCtx.lineWidth = brushSizeVal * 1.5;
-        paintFgCtx.lineCap = 'round';
-        paintFgCtx.lineJoin = 'round';
-        paintFgCtx.shadowColor = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
-        paintFgCtx.shadowBlur = brushSizeVal * 1.2;
-        paintFgCtx.beginPath();
-        paintFgCtx.moveTo(paintLastX, paintLastY);
-        paintFgCtx.lineTo(pos.x, pos.y);
-        paintFgCtx.stroke();
-        paintFgCtx.restore();
+        paintBgCtx.save();
+        paintBgCtx.strokeStyle = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        paintBgCtx.lineWidth = brushSizeVal * 1.5;
+        paintBgCtx.lineCap = 'round';
+        paintBgCtx.lineJoin = 'round';
+        paintBgCtx.shadowColor = `rgb(${selectedPaintColor[0]}, ${selectedPaintColor[1]}, ${selectedPaintColor[2]})`;
+        paintBgCtx.shadowBlur = brushSizeVal * 1.2;
+        paintBgCtx.beginPath();
+        paintBgCtx.moveTo(paintLastX, paintLastY);
+        paintBgCtx.lineTo(pos.x, pos.y);
+        paintBgCtx.stroke();
+        paintBgCtx.restore();
         
         // Neon Inner Core Pass
-        paintFgCtx.save();
-        paintFgCtx.strokeStyle = '#ffffff';
-        paintFgCtx.lineWidth = brushSizeVal * 0.4;
-        paintFgCtx.lineCap = 'round';
-        paintFgCtx.lineJoin = 'round';
-        paintFgCtx.beginPath();
-        paintFgCtx.moveTo(paintLastX, paintLastY);
-        paintFgCtx.lineTo(pos.x, pos.y);
-        paintFgCtx.stroke();
-        paintFgCtx.restore();
+        paintBgCtx.save();
+        paintBgCtx.strokeStyle = '#ffffff';
+        paintBgCtx.lineWidth = brushSizeVal * 0.4;
+        paintBgCtx.lineCap = 'round';
+        paintBgCtx.lineJoin = 'round';
+        paintBgCtx.beginPath();
+        paintBgCtx.moveTo(paintLastX, paintLastY);
+        paintBgCtx.lineTo(pos.x, pos.y);
+        paintBgCtx.stroke();
+        paintBgCtx.restore();
     } else if (activePaintTool === 'eraser') {
         [paintBgCtx, paintFgCtx].forEach(ctx => {
             ctx.save();
