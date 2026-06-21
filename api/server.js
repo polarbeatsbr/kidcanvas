@@ -4035,30 +4035,47 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                 let hfSuccess = false;
                 
                 if (hfToken) {
-                    try {
-                        const hfRes = await fetch("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell", {
-                            method: "POST",
-                            headers: {
-                                "Authorization": `Bearer ${hfToken}`,
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify({ inputs: finalPrompt })
-                        });
-                        
-                        if (hfRes.ok) {
-                            const buffer = await hfRes.arrayBuffer();
-                            bytesBase64 = Buffer.from(buffer).toString('base64');
-                            success = true;
-                            hfSuccess = true;
-                            console.log(`[Custom Drawing] Sucesso com Hugging Face FLUX.1-schnell.`);
-                        } else {
-                            const errText = await hfRes.text().catch(() => '');
-                            console.warn(`[Custom Drawing Warning] Hugging Face falhou com status ${hfRes.status}:`, errText);
-                            lastError = `Hugging Face (Status ${hfRes.status}): ${errText}`;
+                    let attempts = 0;
+                    const maxAttempts = 3;
+                    while (attempts < maxAttempts && !hfSuccess) {
+                        attempts++;
+                        try {
+                            console.log(`[Custom Drawing] Hugging Face tentativa ${attempts} de ${maxAttempts}...`);
+                            const hfRes = await fetch("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell", {
+                                method: "POST",
+                                headers: {
+                                    "Authorization": `Bearer ${hfToken}`,
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({ inputs: finalPrompt })
+                            });
+                            
+                            if (hfRes.ok) {
+                                const buffer = await hfRes.arrayBuffer();
+                                bytesBase64 = Buffer.from(buffer).toString('base64');
+                                success = true;
+                                hfSuccess = true;
+                                console.log(`[Custom Drawing] Sucesso com Hugging Face FLUX.1-schnell.`);
+                                break;
+                            } else {
+                                const errText = await hfRes.text().catch(() => '');
+                                console.warn(`[Custom Drawing Warning] Hugging Face falhou com status ${hfRes.status} (tentativa ${attempts}):`, errText);
+                                lastError = `Hugging Face (Status ${hfRes.status}): ${errText}`;
+                                
+                                // Se for erro de carregamento (503, 424) ou menção a "loading", esperar e tentar novamente
+                                if (errText.includes("loading") || hfRes.status === 503 || hfRes.status === 424) {
+                                    console.log(`[Custom Drawing] Modelo está carregando. Aguardando 4 segundos...`);
+                                    await new Promise(resolve => setTimeout(resolve, 4000));
+                                } else {
+                                    // Outros erros (ex: token inválido ou rate limit 429), sair do loop para ir ao fallback rápido
+                                    break;
+                                }
+                            }
+                        } catch (err) {
+                            console.warn(`[Custom Drawing HF Error] Falha de conexão (tentativa ${attempts}):`, err.message);
+                            lastError = `Hugging Face connection error: ${err.message}`;
+                            await new Promise(resolve => setTimeout(resolve, 3000));
                         }
-                    } catch (err) {
-                        console.warn(`[Custom Drawing HF Error] Falha de conexão:`, err.message);
-                        lastError = `Hugging Face connection error: ${err.message}`;
                     }
                 } else {
                     console.warn(`[Custom Drawing] HUGGING_FACE_TOKEN não encontrado. Tentando fallback direto para Fal.ai...`);
