@@ -112,6 +112,7 @@
                         </li>
                         <li><a href="/gerar-desenho" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho</a></li>
                         <li><a href="/pintura-livre" class="nav-link" id="nav-free-paint"><i class="fa-solid fa-paintbrush"></i> Pintura Livre</a></li>
+                        <li><a href="#" onclick="window.playRandomDrawing(); return false;" class="nav-link" id="nav-random-paint" style="color: var(--color-orange); font-weight: 700;"><i class="fa-solid fa-shuffle"></i> Desenho Aleatório</a></li>
                         <li><a href="/historias-magicas" class="nav-link"><i class="fa-solid fa-book-open"></i> Histórias Mágicas</a></li>
                         <li><a href="#" onclick="openAlbumModal(); return false;" class="nav-link"><i class="fa-solid fa-book-open"></i> Livro das Descobertas</a></li>
                         <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
@@ -397,10 +398,15 @@
                             </div>
                         </div>
                         
-                        <div class="features-cta">
-                            <a href="/gerar-desenho" class="btn-features-cta">
-                                Comece agora ✨
-                            </a>
+                        <div class="features-cta" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <a href="/gerar-desenho" class="btn-features-cta">
+                                    Comece agora ✨
+                                </a>
+                                <a href="#" onclick="window.playRandomDrawing(); return false;" class="btn btn-secondary" style="font-size: 1.05rem; padding: 8px 18px; border-radius: 12px; font-weight: 800; border: var(--border-medium); box-shadow: 0 3px 0 var(--color-dark); background: var(--color-white); color: var(--color-dark); cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+                                    🎲 Desenho Aleatório
+                                </a>
+                            </div>
                             <span class="features-cta-sub">A imaginação não tem limites! 💜</span>
                         </div>
                     </div>
@@ -454,7 +460,12 @@
                                 
                                 <form id="customDrawingForm" onsubmit="handleCustomDrawingSubmit(event)">
                                     <div style="margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
-                                        <label style="font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; color: var(--color-dark);">✏️ O que você quer colorir hoje?</label>
+                                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                            <label style="font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; color: var(--color-dark); margin: 0;">✏️ O que você quer colorir hoje?</label>
+                                            <button type="button" onclick="window.fillRandomIdea();" class="btn btn-secondary" style="font-size: 0.9rem; padding: 6px 12px; border-radius: 10px; font-weight: 700; border: var(--border-medium); box-shadow: 0 2px 0 var(--color-dark); background: var(--color-white); color: var(--color-dark); cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                                                🎲 Ideia Aleatória
+                                            </button>
+                                        </div>
                                         <textarea id="customDrawingPrompt" required placeholder="Ex: Um cachorrinho fofo andando de skate em um parque ensolarado..." maxlength="200" style="padding: 15px; font-size: 1rem; border: var(--border-medium); border-radius: var(--radius-sm); font-family: var(--font-body); height: 100px; resize: none; outline: none;"></textarea>
                                         <span style="font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500; text-align: right;">Descreva o que você quer desenhar (até 200 letras)</span>
                                     </div>

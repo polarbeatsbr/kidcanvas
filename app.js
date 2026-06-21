@@ -927,6 +927,86 @@ async function loadDrawings() {
     }
 }
 
+// --- ESCOLHA DE DESENHO ALEATÓRIO E GERADOR DE IDEIAS ALEATÓRIAS (SURPREENDA-ME) ---
+window.playRandomDrawing = function() {
+    if (!allDrawings || allDrawings.length === 0) {
+        showToast('Ainda estamos carregando a biblioteca... Tente novamente em um segundo! ⏳', 'info');
+        return;
+    }
+    
+    // Filtrar desenhos free para usuários sem plano pago
+    let pool = allDrawings;
+    if (!currentUser || !currentUser.plan || currentUser.plan === 'Aprendiz' || currentUser.plan === 'Grátis') {
+        pool = pool.filter(d => d.tier === 'free');
+    }
+    
+    if (pool.length === 0) {
+        showToast('Carregando biblioteca de desenhos... ⏳', 'info');
+        return;
+    }
+    
+    // Sortear um desenho aleatório da biblioteca
+    const randomIndex = Math.floor(Math.random() * pool.length);
+    const drawing = pool[randomIndex];
+    
+    window.currentPaintingData = {
+        imgUrl: drawing.url,
+        name: drawing.title || drawing.pt || 'Desenho',
+        backUrl: '/',
+        category: drawing.category,
+        originalCategory: drawing.category
+    };
+    
+    showToast(`Sorteamos para você: "${drawing.pt}"! Divirta-se! 🎨🎲`, 'success');
+    navigate('/pintar-online');
+};
+
+window.suggestRandomPrompt = function() {
+    const prompts = [
+        "Um dinossauro fofo de patinete comendo um sorvete gigante",
+        "Um astronauta de pijama flutuando no espaço com balões coloridos",
+        "Um polvo tocando bateria com os oito tentáculos no fundo do mar",
+        "Um gato pirata navegando em uma xícara de chá gigante no oceano",
+        "Um unicórnio de óculos escuros comendo algodão doce em cima de uma nuvem",
+        "Um cachorrinho fofo andando de skate em um parque ensolarado",
+        "Um urso panda jogando basquete com uma bola de melancia",
+        "Um coelhinho super-herói voando com uma capa vermelha no céu azul",
+        "Um dragãozinho bebê soprando bolhas de sabão em vez de fogo",
+        "Um leãozinho com juba de flores coloridas tomando sol na floresta",
+        "Uma girafa de cachecol patinando no gelo com pinguins fofos",
+        "Um esquilo cientista misturando poções coloridas no laboratório da árvore",
+        "Uma tartaruga ninja comendo pizza gigante em cima de um cogumelo",
+        "Um elefante de asas voando feliz ao lado de borboletas gerais"
+    ];
+    
+    const textarea = document.getElementById('customDrawingPrompt');
+    if (textarea) {
+        const randomIndex = Math.floor(Math.random() * prompts.length);
+        const selectedPrompt = prompts[randomIndex];
+        
+        // Efeito de digitação suave
+        textarea.value = '';
+        let i = 0;
+        textarea.focus();
+        
+        const btn = document.querySelector('[onclick="window.fillRandomIdea();"]') || document.querySelector('[onclick="window.suggestRandomPrompt()"]');
+        if (btn) btn.disabled = true;
+        
+        function typeWriter() {
+            if (i < selectedPrompt.length) {
+                textarea.value += selectedPrompt.charAt(i);
+                i++;
+                setTimeout(typeWriter, 15);
+            } else {
+                if (btn) btn.disabled = false;
+                textarea.dispatchEvent(new Event('input'));
+            }
+        }
+        typeWriter();
+    }
+};
+window.fillRandomIdea = window.suggestRandomPrompt;
+
 // --- ROTEAMENTO SPA (CLIENT-SIDE ROUTING) ---
 function initGlobalEventListeners() {
     const menuToggleBtn = document.getElementById('menu-toggle-btn');
