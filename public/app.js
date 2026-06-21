@@ -5149,9 +5149,12 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         
         const tempContainer = document.createElement('div');
         tempContainer.style.position = 'fixed';
-        tempContainer.style.left = '-9999px';
-        tempContainer.style.top = '-9999px';
+        tempContainer.style.left = '0';
+        tempContainer.style.top = '0';
         tempContainer.style.width = '210mm';
+        tempContainer.style.zIndex = '-9999';
+        tempContainer.style.opacity = '0.01';
+        tempContainer.style.pointerEvents = 'none';
         tempContainer.style.background = '#FFFFFF';
         tempContainer.style.color = '#3D281A';
         tempContainer.style.fontFamily = 'sans-serif';
@@ -5181,7 +5184,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                     <p style="font-size: 16px; color: #5C4033; font-weight: bold; text-align: center; margin: 0;">Uma história criada especialmente para ${cleanCharName}</p>
                 </div>
                 <div style="width: 140mm; height: 140mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                    <img crossorigin="anonymous" src="${proxiedCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="${proxiedCoverUrl}" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div style="text-align: center;">
                     <div style="font-size: 15px; font-weight: bold; color: #7B4FA6;">KidCanvas</div>
@@ -5214,7 +5217,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                     <span>Página ${idx + 1}</span>
                 </div>
                 <div style="width: 130mm; height: 130mm; border: 3px solid #3D281A; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 15px 0;">
-                    <img crossorigin="anonymous" src="${proxiedImageUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="${proxiedImageUrl}" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <p style="font-size: 16px; line-height: 1.6; text-align: justify; text-indent: 15px; margin: 0; color: #3D281A; max-width: 170mm; flex-grow: 1; display: flex; align-items: center;">${page.text}</p>
                 <div style="width: 100%; border-top: 1px solid #eee; padding-top: 5px; font-size: 11px; color: #7B4FA6; font-weight: bold; display: flex; justify-content: space-between;">
@@ -5270,10 +5273,13 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
 function downloadCustomDrawingPDF(imageUrl, promptText) {
         const tempContainer = document.createElement('div');
         tempContainer.style.position = 'fixed';
-        tempContainer.style.left = '-9999px';
-        tempContainer.style.top = '-9999px';
+        tempContainer.style.left = '0';
+        tempContainer.style.top = '0';
         tempContainer.style.width = '210mm';
         tempContainer.style.height = '297mm';
+        tempContainer.style.zIndex = '-9999';
+        tempContainer.style.opacity = '0.01';
+        tempContainer.style.pointerEvents = 'none';
         tempContainer.style.background = '#FFFFFF';
         tempContainer.style.color = '#3D281A';
         tempContainer.style.fontFamily = 'sans-serif';
@@ -5294,7 +5300,7 @@ function downloadCustomDrawingPDF(imageUrl, promptText) {
                 Desenho Mágico — KidCanvas
             </div>
             <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                <img crossorigin="anonymous" src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
+                <img src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
                 <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
@@ -5824,10 +5830,13 @@ function waitForImages(container) {
 function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
     const tempContainer = document.createElement('div');
     tempContainer.style.position = 'fixed';
-    tempContainer.style.left = '-9999px';
-    tempContainer.style.top = '-9999px';
+    tempContainer.style.left = '0';
+    tempContainer.style.top = '0';
     tempContainer.style.width = '210mm';
     tempContainer.style.height = '297mm';
+    tempContainer.style.zIndex = '-9999';
+    tempContainer.style.opacity = '0.01';
+    tempContainer.style.pointerEvents = 'none';
     tempContainer.style.background = '#FFFFFF';
     tempContainer.style.color = '#3D281A';
     tempContainer.style.fontFamily = 'sans-serif';
@@ -5848,7 +5857,7 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
             Desenho Mágico — KidCanvas
         </div>
         <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-            <img crossorigin="anonymous" src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
+            <img src="${proxiedUrl}" style="width: 100%; height: 100%; object-fit: contain;">
         </div>
         <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
             <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
