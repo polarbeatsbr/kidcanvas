@@ -5243,8 +5243,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         }
 
         waitForImages(tempContainer).then(() => {
-            const worker = html2pdf().from(tempContainer).set(opt).toCanvas();
-            worker.then((canvas) => {
+            html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
                 console.log('PDF Canvas width:', canvas.width);
                 console.log('PDF Canvas height:', canvas.height);
                 const ctx = canvas.getContext('2d');
@@ -5258,7 +5257,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                     throw new Error('Canvas vazio');
                 }
                 
-                return worker.toPdf().save();
+                return html2pdf().from(tempContainer).set(opt).save();
             }).then(() => {
                 document.body.removeChild(tempContainer);
                 if (btnPDF) {
@@ -5332,8 +5331,7 @@ function downloadCustomDrawingPDF(imageUrl, promptText) {
         }
 
         waitForImages(tempContainer).then(() => {
-            const worker = html2pdf().from(tempContainer).set(opt).toCanvas();
-            worker.then((canvas) => {
+            html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
                 console.log('PDF Canvas width:', canvas.width);
                 console.log('PDF Canvas height:', canvas.height);
                 const ctx = canvas.getContext('2d');
@@ -5347,7 +5345,7 @@ function downloadCustomDrawingPDF(imageUrl, promptText) {
                     throw new Error('Canvas vazio');
                 }
                 
-                return worker.toPdf().save();
+                return html2pdf().from(tempContainer).set(opt).save();
             }).then(() => {
                 document.body.removeChild(tempContainer);
                 if (btnPDF) {
@@ -5884,8 +5882,7 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
     }
 
     waitForImages(tempContainer).then(() => {
-        const worker = html2pdf().from(tempContainer).set(opt).toCanvas();
-        worker.then((canvas) => {
+        html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
             console.log('PDF Canvas width:', canvas.width);
             console.log('PDF Canvas height:', canvas.height);
             const ctx = canvas.getContext('2d');
@@ -5899,7 +5896,7 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
                 throw new Error('Canvas vazio');
             }
             
-            return worker.toPdf().save();
+            return html2pdf().from(tempContainer).set(opt).save();
         }).then(() => {
             document.body.removeChild(tempContainer);
             if (btnEl) {
