@@ -5243,7 +5243,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         }
 
         waitForImages(tempContainer).then(() => {
-            html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
+            html2pdf().from(tempContainer).set(opt).toCanvas().get('canvas').then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
                 if (!imgData || imgData.length < 1000) {
                     throw new Error('Canvas em branco ou inválido');
@@ -5322,7 +5322,7 @@ function downloadCustomDrawingPDF(imageUrl, promptText) {
         }
 
         waitForImages(tempContainer).then(() => {
-            html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
+            html2pdf().from(tempContainer).set(opt).toCanvas().get('canvas').then((canvas) => {
                 const imgData = canvas.toDataURL('image/png');
                 if (!imgData || imgData.length < 1000) {
                     throw new Error('Canvas em branco ou inválido');
@@ -5875,7 +5875,7 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
     }
 
     waitForImages(tempContainer).then(() => {
-        html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
+        html2pdf().from(tempContainer).set(opt).toCanvas().get('canvas').then((canvas) => {
             const imgData = canvas.toDataURL('image/png');
             if (!imgData || imgData.length < 1000) {
                 throw new Error('Canvas em branco ou inválido');
