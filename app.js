@@ -774,6 +774,12 @@ async function handleRegisterSubmit(event) {
     const name = document.getElementById('regName').value.trim();
     const email = document.getElementById('regEmail').value.trim();
     const password = document.getElementById('regPassword').value;
+    const confirmPassword = document.getElementById('regConfirmPassword').value;
+    
+    if (password !== confirmPassword) {
+        showToast("As senhas não coincidem! 🔑", "error");
+        return;
+    }
     
     try {
         const refCode = localStorage.getItem('kidcanvas_ref') || undefined;
@@ -5151,9 +5157,9 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         tempContainer.style.fontFamily = 'sans-serif';
         document.body.appendChild(tempContainer);
 
-        const proxiedCoverUrl = (coverUrl && (coverUrl.startsWith('data:') || coverUrl.startsWith('blob:'))) 
+        const proxiedCoverUrl = (coverUrl && (coverUrl.startsWith('data:') || coverUrl.startsWith('blob:') || coverUrl.startsWith('/'))) 
             ? coverUrl 
-            : `/api/proxy-image?url=${encodeURIComponent(coverUrl)}`;
+            : `/api/proxy-image?url=${encodeURIComponent(coverUrl)}&t=${Date.now()}`;
 
         // 1. Cover Page
         const coverPage = document.createElement('div');
@@ -5198,9 +5204,9 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
             pageDiv.style.boxSizing = 'border-box';
             pageDiv.style.padding = '20mm 20mm';
 
-            const proxiedImageUrl = (page.imageUrl && (page.imageUrl.startsWith('data:') || page.imageUrl.startsWith('blob:'))) 
+            const proxiedImageUrl = (page.imageUrl && (page.imageUrl.startsWith('data:') || page.imageUrl.startsWith('blob:') || page.imageUrl.startsWith('/'))) 
                 ? page.imageUrl 
-                : `/api/proxy-image?url=${encodeURIComponent(page.imageUrl)}`;
+                : `/api/proxy-image?url=${encodeURIComponent(page.imageUrl)}&t=${Date.now()}`;
 
             pageDiv.innerHTML = `
                 <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 5px; font-weight: bold; color: #7B4FA6; font-size: 16px; display: flex; justify-content: space-between;">
@@ -5289,9 +5295,9 @@ function downloadCustomDrawingPDF(imageUrl, promptText) {
         tempContainer.style.padding = '20mm 20mm';
         document.body.appendChild(tempContainer);
 
-        const proxiedUrl = (imageUrl && (imageUrl.startsWith('data:') || imageUrl.startsWith('blob:'))) 
+        const proxiedUrl = (imageUrl && (imageUrl.startsWith('data:') || imageUrl.startsWith('blob:') || imageUrl.startsWith('/'))) 
             ? imageUrl 
-            : `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`;
+            : `/api/proxy-image?url=${encodeURIComponent(imageUrl)}&t=${Date.now()}`;
 
         tempContainer.innerHTML = `
             <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
@@ -5842,9 +5848,9 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
     tempContainer.style.padding = '20mm 20mm';
     document.body.appendChild(tempContainer);
 
-    const proxiedUrl = (imageUrl && (imageUrl.startsWith('data:') || imageUrl.startsWith('blob:'))) 
+    const proxiedUrl = (imageUrl && (imageUrl.startsWith('data:') || imageUrl.startsWith('blob:') || imageUrl.startsWith('/'))) 
         ? imageUrl 
-        : `/api/proxy-image?url=${encodeURIComponent(imageUrl)}`;
+        : `/api/proxy-image?url=${encodeURIComponent(imageUrl)}&t=${Date.now()}`;
 
     tempContainer.innerHTML = `
         <div style="width: 100%; border-bottom: 2px dashed #E67E22; padding-bottom: 10px; font-weight: bold; color: #7B4FA6; font-size: 18px; text-align: center; font-family: 'Fredoka', sans-serif;">
