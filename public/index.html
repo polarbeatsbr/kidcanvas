@@ -2166,18 +2166,6 @@
                         </button>
                         <hr style="width: 100%; border: none; border-top: 1px dashed #ccc; margin: 4px 0;">
                         
-                        <div style="font-size: 0.75rem; font-weight: bold; color: var(--color-dark-light); margin-bottom: 4px; text-transform: uppercase;">Selos</div>
-                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; width: 100%;">
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="⭐" title="Estrela" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">⭐</button>
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="❤️" title="Coração" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">❤️</button>
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🌈" title="Arco-íris" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">🌈</button>
-                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🐶" title="Cachorrinho" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">🐶</button>
-                            <button class="paint-tool-btn" onclick="openStickerConsoleModal()" title="Todos os Adesivos" style="width: 100%; height: 36px; font-size: 0.75rem; border-radius: 8px; padding: 0; grid-column: span 2; font-weight: bold; background-color: var(--color-purple); border: 2px solid var(--color-dark); color: white; display: flex; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 2px 0 var(--color-dark); cursor: pointer; transition: all 0.2s ease;">
-                                <i class="fa-solid fa-gift"></i> + Adesivos
-                            </button>
-                        </div>
-                        
-                        <hr style="width: 100%; border: none; border-top: 1px dashed #ccc; margin: 4px 0;">
                         <div style="font-size: 0.75rem; font-weight: bold; color: var(--color-dark-light); margin-bottom: 4px; text-transform: uppercase;">Texto</div>
                         <input type="text" id="paint-text-value" placeholder="Nome..." maxlength="25" style="width: 100%; padding: 6px; border-radius: 8px; border: 2px solid var(--color-dark); font-size: 0.85rem; outline: none; box-sizing: border-box; text-align: center; font-family: var(--font-body); margin-bottom: 6px;">
                         
@@ -2188,6 +2176,18 @@
                             <option value="Courier New">Máquina</option>
                             <option value="Georgia">Clássica</option>
                         </select>
+                        
+                        <hr style="width: 100%; border: none; border-top: 1px dashed #ccc; margin: 4px 0;">
+                        <div style="font-size: 0.75rem; font-weight: bold; color: var(--color-dark-light); margin-bottom: 4px; text-transform: uppercase;">Selos</div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; width: 100%;">
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="⭐" title="Estrela" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">⭐</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="❤️" title="Coração" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">❤️</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🌈" title="Arco-íris" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">🌈</button>
+                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🐶" title="Cachorrinho" style="width: 100%; height: 36px; font-size: 1.15rem; border-radius: 8px; padding: 0;">🐶</button>
+                            <button class="paint-tool-btn" onclick="openStickerConsoleModal()" title="Todos os Adesivos" style="width: 100%; height: 36px; font-size: 0.75rem; border-radius: 8px; padding: 0; grid-column: span 2; font-weight: bold; background-color: var(--color-purple); border: 2px solid var(--color-dark); color: white; display: flex; align-items: center; justify-content: center; gap: 4px; box-shadow: 0 2px 0 var(--color-dark); cursor: pointer; transition: all 0.2s ease;">
+                                <i class="fa-solid fa-gift"></i> + Adesivos
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Canvas e Painéis -->
@@ -2203,6 +2203,7 @@
                                 <button class="paint-zoom-btn" id="paint-btn-zoom-out" title="Zoom Out" style="width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 var(--color-dark); font-size: 0.9rem; transition: all 0.1s ease;"><i class="fa-solid fa-minus"></i></button>
                                 <span id="paint-zoom-indicator" style="font-weight: 800; font-size: 0.9rem; min-width: 48px; text-align: center; font-family: var(--font-body); color: var(--color-dark);">100%</span>
                                 <button class="paint-zoom-btn" id="paint-btn-zoom-in" title="Zoom In" style="width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 var(--color-dark); font-size: 0.9rem; transition: all 0.1s ease;"><i class="fa-solid fa-plus"></i></button>
+                                <button class="paint-zoom-btn" id="paint-btn-zoom-pan" title="Mover Tela (🖐️)" style="width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 var(--color-dark); font-size: 0.9rem; color: var(--color-dark-light); transition: all 0.1s ease;"><i class="fa-solid fa-hand"></i></button>
                                 <button class="paint-zoom-btn" id="paint-btn-zoom-fit" title="Ajustar à Tela (🎯)" style="width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 0 var(--color-dark); font-size: 0.9rem; color: var(--color-purple); transition: all 0.1s ease;"><i class="fa-solid fa-expand-arrows-alt"></i></button>
                             </div>
                             <!-- Viewport wrapper to apply scale/translate -->

@@ -1113,9 +1113,6 @@ function navigate(path, pushState = true) {
         window.paintAutosaveInterval = null;
     }
     let cleanPath = path.trim();
-    if (!cleanPath.startsWith('/pintar')) {
-        localStorage.removeItem('kidcanvas_autosave');
-    }
     if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
         cleanPath = cleanPath.slice(0, -1);
     }
@@ -6928,7 +6925,6 @@ function renderPintarOnlineView() {
                 clearInterval(window.paintAutosaveInterval);
                 window.paintAutosaveInterval = null;
             }
-            localStorage.removeItem('kidcanvas_autosave');
             navigate(data.backUrl);
         };
     }
@@ -7142,6 +7138,16 @@ function renderPintarOnlineView() {
             updateZoomTransform();
         };
     }
+    const btnZoomPan = document.getElementById('paint-btn-zoom-pan');
+    if (btnZoomPan) {
+        btnZoomPan.onclick = () => {
+            if (activePaintTool === 'pan') {
+                setPaintTool('bucket'); // default fallback tool
+            } else {
+                setPaintTool('pan');
+            }
+        };
+    }
 
     // Configurar Eventos do Canvas
     paintCanvas.onmousedown = startPaintingDraw;
@@ -7271,12 +7277,21 @@ function renderPintarOnlineView() {
                 lastTouchX = (t1.clientX + t2.clientX) / 2;
                 lastTouchY = (t1.clientY + t2.clientY) / 2;
             } else if (e.touches.length === 1) {
-                const touch = e.touches[0];
-                const mouseEvent = new MouseEvent('mousedown', {
-                    clientX: touch.clientX,
-                    clientY: touch.clientY
-                });
-                paintCanvas.dispatchEvent(mouseEvent);
+                if (activePaintTool === 'pan') {
+                    isPanning = true;
+                    startPanX = window.paintPanX;
+                    startPanY = window.paintPanY;
+                    const touch = e.touches[0];
+                    startMouseX = touch.clientX;
+                    startMouseY = touch.clientY;
+                } else {
+                    const touch = e.touches[0];
+                    const mouseEvent = new MouseEvent('mousedown', {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    });
+                    paintCanvas.dispatchEvent(mouseEvent);
+                }
             }
         };
 
@@ -7310,16 +7325,29 @@ function renderPintarOnlineView() {
                 
                 updateZoomTransform();
             } else if (e.touches.length === 1) {
-                const touch = e.touches[0];
-                const mouseEvent = new MouseEvent('mousemove', {
-                    clientX: touch.clientX,
-                    clientY: touch.clientY
-                });
-                paintCanvas.dispatchEvent(mouseEvent);
+                if (activePaintTool === 'pan' && isPanning) {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    const dx = touch.clientX - startMouseX;
+                    const dy = touch.clientY - startMouseY;
+                    window.paintPanX = startPanX + dx;
+                    window.paintPanY = startPanY + dy;
+                    updateZoomTransform();
+                } else {
+                    const touch = e.touches[0];
+                    const mouseEvent = new MouseEvent('mousemove', {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    });
+                    paintCanvas.dispatchEvent(mouseEvent);
+                }
             }
         };
 
         workspaceContainer.ontouchend = (e) => {
+            if (activePaintTool === 'pan') {
+                isPanning = false;
+            }
             if (e.touches.length === 0) {
                 const mouseEvent = new MouseEvent('mouseup', {});
                 paintCanvas.dispatchEvent(mouseEvent);
@@ -8522,6 +8550,20 @@ function setPaintTool(tool) {
         const btnPan = document.getElementById('paint-tool-pan');
         if (btnPan) btnPan.classList.add('active');
         if (sliderGroup) sliderGroup.style.display = 'none';
+    }
+
+    // Atualizar o botão de pan no controle de zoom
+    const btnZoomPan = document.getElementById('paint-btn-zoom-pan');
+    if (btnZoomPan) {
+        if (tool === 'pan') {
+            btnZoomPan.style.backgroundColor = 'var(--color-purple)';
+            btnZoomPan.style.color = '#ffffff';
+            btnZoomPan.style.borderColor = 'var(--color-purple)';
+        } else {
+            btnZoomPan.style.backgroundColor = 'white';
+            btnZoomPan.style.color = 'var(--color-dark-light)';
+            btnZoomPan.style.borderColor = 'var(--color-dark)';
+        }
     }
     
     updatePaintCursor(tool);
