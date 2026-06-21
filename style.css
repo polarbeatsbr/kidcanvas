@@ -9826,3 +9826,24 @@ body {
     }
 }
 
+/* ==========================================================================
+   NARRADOR MÁGICO (TEXT-TO-SPEECH)
+   ========================================================================== */
+.story-page.reading-active {
+    border: 3px solid var(--color-orange) !important;
+    box-shadow: 0 0 18px rgba(230, 126, 34, 0.35) !important;
+    background-color: #fffdf9 !important;
+    transform: scale(1.01);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes tts-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.04); opacity: 0.85; }
+}
+
+.animate-pulse {
+    animation: tts-pulse 2s infinite ease-in-out;
+}
+
+

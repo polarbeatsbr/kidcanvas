@@ -1192,6 +1192,9 @@ function navigate(path, pushState = true) {
         clearInterval(window.paintAutosaveInterval);
         window.paintAutosaveInterval = null;
     }
+    if (window.KidCanvasTTS) {
+        window.KidCanvasTTS.stop();
+    }
     let cleanPath = path.trim();
     if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
         cleanPath = cleanPath.slice(0, -1);
@@ -4318,6 +4321,33 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         viewerModalTitle.textContent = `✨ A História Mágica de ${story.characterName}`;
         
         let html = `
+            <!-- PLAYER DE VOZ GERAL ESTÁTICO (NARRADOR MÁGICO) -->
+            <div class="magic-tts-player" id="preloaded-story-tts-player" style="background: linear-gradient(135deg, #fff9e6, #fff3cd); border: 2px solid var(--color-orange); border-radius: var(--radius-sm); padding: 15px 20px; margin: 10px auto 20px auto; max-width: 600px; text-align: center; box-shadow: 0 6px 0 rgba(230, 126, 34, 0.15); display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%;">
+                <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--color-orange); display: flex; align-items: center; gap: 6px;">
+                    🧙‍♂️ Narrador Mágico
+                </div>
+                <div class="tts-status-text animate-pulse" style="display: none; background: var(--color-orange); color: white; padding: 4px 12px; border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 700; font-family: var(--font-heading);">
+                    Lendo agora...
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                    <button class="btn-tts-play" onclick="window.startTTSPlayPreloaded('${storyKey}')" style="background-color: var(--color-green); border: none; border-radius: 50%; width: 54px; height: 54px; display: inline-flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 0 #219653; transition: transform 0.1s;">
+                        <span style="font-size: 1.5rem; color: white; margin-left: 4px;">▶️</span>
+                    </button>
+                    <button class="btn-tts-pause" onclick="window.pauseTTSPlay()" style="display: none; background-color: var(--color-orange); border: none; border-radius: 50%; width: 54px; height: 54px; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 0 #d35400; transition: transform 0.1s;">
+                        <span style="font-size: 1.5rem; color: white;">⏸️</span>
+                    </button>
+                    <button class="btn-tts-resume" onclick="window.resumeTTSPlay()" style="display: none; background-color: var(--color-green); border: none; border-radius: 50%; width: 54px; height: 54px; display: inline-flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 0 #219653; transition: transform 0.1s;">
+                        <span style="font-size: 1.5rem; color: white; margin-left: 4px;">▶️</span>
+                    </button>
+                    <button class="btn-tts-stop" onclick="window.stopTTSPlay()" style="display: none; background-color: var(--color-red); border: none; border-radius: 50%; width: 54px; height: 54px; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 0 #c0392b; transition: transform 0.1s;">
+                        <span style="font-size: 1.5rem; color: white;">⏹️</span>
+                    </button>
+                </div>
+                <div style="font-family: var(--font-body); font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">
+                    Ouça a história inteira com uma voz mágica!
+                </div>
+            </div>
+
             <div class="cover-page-card" style="margin-top: 10px;">
                 <div class="cover-header">
                     <h2 class="cover-title">A História Mágica de ${story.characterName}</h2>
@@ -4338,7 +4368,10 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                 <div class="story-page" style="margin-bottom: 30px;">
                     <div class="page-grid">
                         <div class="page-text">
-                            <span class="page-number">Página ${idx + 1}</span>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span class="page-number">Página ${idx + 1}</span>
+                                <button class="btn-tts-single-page" onclick="window.readSinglePageTTS(this)" data-text="${encodeURIComponent(page.text)}" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; transition: transform 0.1s;" title="Ouvir esta página">🔊</button>
+                            </div>
                             <p>${page.text}</p>
                         </div>
                         <div class="page-art">
@@ -4365,6 +4398,9 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
     }
 
     function closeViewer() {
+        if (window.KidCanvasTTS) {
+            window.KidCanvasTTS.stop();
+        }
         viewerModal.classList.remove('open');
         viewerContent.innerHTML = '';
     }

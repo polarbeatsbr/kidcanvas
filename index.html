@@ -112,7 +112,6 @@
                         </li>
                         <li><a href="/gerar-desenho" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho</a></li>
                         <li><a href="/pintura-livre" class="nav-link" id="nav-free-paint"><i class="fa-solid fa-paintbrush"></i> Pintura Livre</a></li>
-                        <li><a href="#" onclick="window.playRandomDrawing(); return false;" class="nav-link" id="nav-random-paint" style="color: var(--color-orange); font-weight: 700;"><i class="fa-solid fa-shuffle"></i> Desenho Aleatório</a></li>
                         <li><a href="/historias-magicas" class="nav-link"><i class="fa-solid fa-book-open"></i> Histórias Mágicas</a></li>
                         <li><a href="#" onclick="openAlbumModal(); return false;" class="nav-link"><i class="fa-solid fa-book-open"></i> Livro das Descobertas</a></li>
                         <li><a href="/planos" class="nav-link"><i class="fa-solid fa-credit-card"></i> Planos</a></li>
@@ -1794,6 +1793,34 @@
     <!-- Output Section -->
     <div class="output-container" id="outputSection">
         <h2 class="book-title" id="bookTitle">A História Mágica</h2>
+
+        <!-- PLAYER DE VOZ GERAL ESTÁTICO (NARRADOR MÁGICO) -->
+        <div class="magic-tts-player" id="generated-story-tts-player" style="display: none; background: linear-gradient(135deg, #fff9e6, #fff3cd); border: 2px solid var(--color-orange); border-radius: var(--radius-sm); padding: 15px 20px; margin: 20px auto; max-width: 600px; text-align: center; box-shadow: 0 6px 0 rgba(230, 126, 34, 0.15); flex-direction: column; align-items: center; gap: 10px; width: 100%;">
+            <div style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--color-orange); display: flex; align-items: center; gap: 6px;">
+                🧙‍♂️ Narrador Mágico
+            </div>
+            <div class="tts-status-text animate-pulse" style="display: none; background: var(--color-orange); color: white; padding: 4px 12px; border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 700; font-family: var(--font-heading);">
+                Lendo agora...
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+                <button class="btn-tts-play" onclick="window.startTTSPlayGenerated()" style="background-color: var(--color-green); border: none; border-radius: 50%; width: 54px; height: 54px; display: inline-flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 0 #219653; transition: transform 0.1s;">
+                    <span style="font-size: 1.5rem; color: white; margin-left: 4px;">▶️</span>
+                </button>
+                <button class="btn-tts-pause" onclick="window.pauseTTSPlay()" style="display: none; background-color: var(--color-orange); border: none; border-radius: 50%; width: 54px; height: 54px; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 0 #d35400; transition: transform 0.1s;">
+                    <span style="font-size: 1.5rem; color: white;">⏸️</span>
+                </button>
+                <button class="btn-tts-resume" onclick="window.resumeTTSPlay()" style="display: none; background-color: var(--color-green); border: none; border-radius: 50%; width: 54px; height: 54px; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 0 #219653; transition: transform 0.1s;">
+                    <span style="font-size: 1.5rem; color: white; margin-left: 4px;">▶️</span>
+                </button>
+                <button class="btn-tts-stop" onclick="window.stopTTSPlay()" style="display: none; background-color: var(--color-red); border: none; border-radius: 50%; width: 54px; height: 54px; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 0 #c0392b; transition: transform 0.1s;">
+                    <span style="font-size: 1.5rem; color: white;">⏹️</span>
+                </button>
+            </div>
+            <div style="font-family: var(--font-body); font-size: 0.85rem; color: var(--color-dark-light); font-weight: 500;">
+                Ouça a história inteira com uma voz mágica!
+            </div>
+        </div>
+
         
         <!-- Cover Section -->
         <div class="cover-page-card" id="coverPageCard">
@@ -2299,6 +2326,7 @@
                                 <button class="btn btn-secondary btn-sm" id="paint-btn-whatsapp" style="background-color: #25d366; border-color: #25d366; color: white; display: flex; align-items: center; gap: 4px;" title="Enviar por WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
                                 <button class="btn btn-secondary btn-sm" id="paint-btn-print" style="background-color: var(--color-blue); border-color: var(--color-blue); color: white; display: flex; align-items: center; gap: 4px;" title="Imprimir Desenho"><i class="fa-solid fa-print"></i> Imprimir</button>
                                 <button class="btn btn-secondary btn-sm" id="paint-btn-clear" style="display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-trash-can"></i> Limpar</button>
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-random" onclick="window.playRandomDrawing(); return false;" style="background-color: var(--color-orange); border-color: var(--color-orange); color: white; display: flex; align-items: center; gap: 4px; font-weight: 800;" title="Sortear Desenho"><i class="fa-solid fa-shuffle"></i> Sortear Desenho</button>
                             </div>
                         </div>
                     </div>
