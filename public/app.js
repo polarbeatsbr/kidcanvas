@@ -1113,6 +1113,9 @@ function navigate(path, pushState = true) {
         window.paintAutosaveInterval = null;
     }
     let cleanPath = path.trim();
+    if (!cleanPath.startsWith('/pintar')) {
+        localStorage.removeItem('kidcanvas_autosave');
+    }
     if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
         cleanPath = cleanPath.slice(0, -1);
     }
@@ -6817,6 +6820,13 @@ function startConfettiCelebration() {
 // 7. Auto-Save System
 function saveAutosaveToLocalStorage() {
     if (!paintCanvas || !window.currentPaintingData) return;
+    
+    // Se a tela estiver limpa (sem traços e sem stickers), removemos o autosave do LocalStorage
+    if ((!window.strokeCount || window.strokeCount === 0) && (!window.activeStickers || window.activeStickers.length === 0)) {
+        localStorage.removeItem('kidcanvas_autosave');
+        return;
+    }
+    
     try {
         const autosave = {
             drawingId: window.currentPaintingData.id || window.currentPaintingData.name,
@@ -6845,6 +6855,12 @@ function checkAndRestoreAutosave() {
         const autosave = JSON.parse(raw);
         // Expirar autosave mais antigo que 24 horas
         if (Date.now() - autosave.timestamp > 86400000) {
+            localStorage.removeItem('kidcanvas_autosave');
+            return;
+        }
+        
+        // Se o autosave não tem traços e não tem stickers, não há o que restaurar
+        if ((!autosave.strokes || autosave.strokes === 0) && (!autosave.stickers || autosave.stickers.length === 0)) {
             localStorage.removeItem('kidcanvas_autosave');
             return;
         }
@@ -6908,6 +6924,11 @@ function renderPintarOnlineView() {
         backBtn.textContent = data.name;
         backBtn.onclick = (e) => {
             e.preventDefault();
+            if (window.paintAutosaveInterval) {
+                clearInterval(window.paintAutosaveInterval);
+                window.paintAutosaveInterval = null;
+            }
+            localStorage.removeItem('kidcanvas_autosave');
             navigate(data.backUrl);
         };
     }
@@ -7647,6 +7668,7 @@ function savePaintHistory() {
     }
     paintHistoryIndex = paintHistory.length - 1;
     updateUndoRedoButtons();
+    saveAutosaveToLocalStorage();
 }
 
 function undoPaint() {
@@ -7659,6 +7681,7 @@ function undoPaint() {
         window.selectedSticker = null;
         composePaintCanvas();
         updateUndoRedoButtons();
+        saveAutosaveToLocalStorage();
     }
 }
 
@@ -7672,6 +7695,7 @@ function redoPaint() {
         window.selectedSticker = null;
         composePaintCanvas();
         updateUndoRedoButtons();
+        saveAutosaveToLocalStorage();
     }
 }
 
@@ -9898,6 +9922,7 @@ async function savePaintingToGallery() {
         const resData = await response.json();
 
         if (response.ok && resData.success) {
+            localStorage.removeItem('kidcanvas_autosave');
             currentUser.myPaintings = resData.myPaintings;
             if (resData.cards) currentUser.cards = resData.cards;
             if (resData.activeChallengeSuccess) {
