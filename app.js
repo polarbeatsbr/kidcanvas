@@ -4274,7 +4274,6 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         html += `
             <div style="text-align: center; margin-top: 40px; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
                 <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 12px 30px;" onclick="scrollToFormAndClose()">✨ Criar a sua história agora! ✨</button>
-                <button class="btn-generate btn-bottom" style="background-color: var(--color-blue); display: inline-block; width: auto; padding: 12px 30px;" id="btnDownloadPreloadedPDF" onclick="generatePreloadedPDF('${storyKey}')">📥 Baixar PDF A4</button>
                 <button class="btn-generate btn-bottom" style="background-color: #25d366; display: inline-block; width: auto; padding: 12px 30px;" onclick="sharePreloadedStoryOnWhatsApp('${storyKey}')"><i class="fa-brands fa-whatsapp"></i> Enviar pelo WhatsApp</button>
                 <button class="btn-generate btn-bottom" style="background-color: var(--color-orange); display: inline-block; width: auto; padding: 12px 30px;" onclick="printPreloadedStory('${storyKey}')"><i class="fa-solid fa-print"></i> Imprimir Livro</button>
             </div>
@@ -6250,7 +6249,6 @@ function openSavedStoryViewer(storyIdx) {
 
     html += `
         <div style="text-align: center; margin-top: 40px; margin-bottom: 10px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
-            <button class="btn-generate btn-bottom" style="background-color: var(--color-blue); display: inline-block; width: auto; padding: 12px 30px;" id="btnDownloadSavedStoryPDF" onclick="downloadSavedStoryPDF(${storyIdx})">📥 Baixar PDF A4</button>
             <button class="btn-generate btn-bottom" style="background-color: #25d366; display: inline-block; width: auto; padding: 12px 30px;" onclick="shareSavedStoryOnWhatsApp(${storyIdx})"><i class="fa-brands fa-whatsapp"></i> Enviar pelo WhatsApp</button>
             <button class="btn-generate btn-bottom" style="background-color: var(--color-orange); display: inline-block; width: auto; padding: 12px 30px;" onclick="printSavedStory(${storyIdx})"><i class="fa-solid fa-print"></i> Imprimir Livro</button>
             <button class="btn-generate btn-bottom" style="background-color: var(--color-purple); display: inline-block; width: auto; padding: 12px 30px;" onclick="closeViewer()">Fechar História</button>
@@ -11362,24 +11360,11 @@ async function viewPublicStory(url) {
 
     html += `
         <div style="margin-top: 30px; display: flex; gap: 10px; justify-content: center; width: 100%;">
-            <button class="btn btn-secondary" id="btnDownloadPublicPDF" style="background-color: var(--color-blue); color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: var(--radius-sm); cursor: pointer;"><i class="fa-solid fa-file-pdf"></i> Baixar PDF</button>
             <button class="btn btn-secondary" id="btnPrintPublicBook" style="background-color: var(--color-green); color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: var(--radius-sm); cursor: pointer;"><i class="fa-solid fa-print"></i> Imprimir</button>
         </div>
     `;
 
     viewerContent.innerHTML = html;
-
-    const btnDownload = document.getElementById('btnDownloadPublicPDF');
-    if (btnDownload) {
-        btnDownload.onclick = () => {
-            if (!currentUser) {
-                showToast('Faça login ou crie uma conta grátis para baixar histórias em PDF! 📚', 'info');
-                openAuthModal();
-                return;
-            }
-            generatePDFFromData(matchedStory.title, matchedStory.coverUrl || matchedStory.imageUrl || url, matchedStory.paragraphs, 'btnDownloadPublicPDF');
-        };
-    }
     
     const btnPrint = document.getElementById('btnPrintPublicBook');
     if (btnPrint) {
