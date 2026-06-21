@@ -9641,3 +9641,186 @@ button, input, select, textarea {
         margin: 5px 0;
     }
 }
+
+/* ==============================================
+   PROTEÇÃO GLOBAL CONTRA SCROLL HORIZONTAL
+   ============================================= */
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* ==============================================
+   CLASSES DO GERADOR DE IA DA HOME PAGE (PINTAI)
+   ============================================= */
+.home-generator-section {
+    padding: 60px 20px;
+    background-color: #ffffff;
+    border-bottom: var(--border-medium);
+}
+
+.home-generator-section .container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.home-generator-section .section-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    color: var(--color-dark);
+    margin: 0 0 10px 0;
+}
+
+.home-generator-section .section-subtitle {
+    font-size: 1.15rem;
+    color: var(--color-dark-light);
+    font-weight: 600;
+    margin: 0 auto;
+    max-width: 700px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Layout Grid padrão no Desktop (>768px) */
+.generator-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    text-align: left;
+}
+
+.generator-form-column {
+    width: 100%;
+}
+
+.creator-card-form {
+    background: white;
+    border: var(--border-medium);
+    border-radius: var(--radius-sm);
+    padding: 25px;
+    box-shadow: var(--shadow-cartoon);
+}
+
+.generator-preview-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.drawing-sheet-frame {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1/1;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: var(--border-medium);
+    box-shadow: var(--shadow-cartoon);
+}
+
+/* Container de botões de ações abaixo do preview */
+.custom-drawing-actions-grid {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.custom-drawing-actions-grid button,
+.custom-drawing-actions-grid a {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 140px;
+    font-size: 1rem;
+    padding: 10px 15px;
+    font-weight: 700;
+    text-align: center;
+    justify-content: center;
+}
+
+/* Ajustes de estilo e qualidade (Labels de estilo) */
+.home-generator-section .style-radio-label {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: var(--border-thin);
+    border-radius: var(--radius-xs);
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+/* ==============================================
+   RESPONSIVIDADE MOBILE (< 768px)
+   ============================================= */
+@media (max-width: 768px) {
+    .home-generator-section {
+        padding: 40px 15px;
+    }
+    
+    .home-generator-section .section-title {
+        font-size: 1.6rem;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .home-generator-section .section-subtitle {
+        font-size: 1rem;
+    }
+
+    /* Transformar layout do Gerador em coluna única */
+    .generator-layout {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .creator-card-form {
+        padding: 18px;
+    }
+
+    /* Centralizar e limitar preview */
+    .drawing-sheet-frame {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
+    /* Grid responsivo de 2 colunas para botões de ação */
+    .custom-drawing-actions-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        width: 100%;
+        max-width: 320px;
+        margin: 20px auto 0 auto;
+    }
+
+    .custom-drawing-actions-grid button,
+    .custom-drawing-actions-grid a {
+        width: 100%;
+        max-width: 100%;
+        flex: none;
+        padding: 12px 10px; /* Toque confortável */
+        font-size: 0.95rem;
+    }
+
+    /* O botão de compartilhar (último botão) ocupa toda a largura */
+    #btn-share-whatsapp-custom {
+        grid-column: span 2;
+    }
+}
+

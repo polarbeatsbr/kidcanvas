@@ -429,21 +429,21 @@
             <!-- ==============================================
                  GERADOR DE IA NA HOME PAGE (FLAGSHIP EXPERIENCE)
                  ============================================= -->
-            <section id="home-generator-section" style="padding: 60px 20px; background-color: #ffffff; border-bottom: var(--border-medium);">
-                <div class="container" style="max-width: 1100px;">
-                    <div class="section-title-wrapper" style="text-align: center; margin-bottom: 40px;">
-                        <h2 class="section-title" style="display: flex; align-items: center; justify-content: center; gap: 12px; font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-dark); margin: 0 0 10px 0;">
+            <section id="home-generator-section" class="home-generator-section">
+                <div class="container">
+                    <div class="section-title-wrapper" style="margin-bottom: 40px;">
+                        <h2 class="section-title">
                             🔮 Gere o seu Desenho Mágico com IA!
                         </h2>
-                        <p class="section-subtitle" style="font-size: 1.15rem; color: var(--color-dark-light); font-weight: 600; margin: 0; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+                        <p class="section-subtitle">
                             Escreva qualquer ideia e a inteligência artificial criará um desenho exclusivo para você colorir, salvar ou imprimir!
                         </p>
                     </div>
 
-                    <div class="generator-layout" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; text-align: left;">
+                    <div class="generator-layout">
                         <!-- Coluna do Formulário -->
                         <div class="generator-form-column">
-                            <div class="creator-card-form" style="background: white; border: var(--border-medium); border-radius: var(--radius-sm); padding: 25px; box-shadow: var(--shadow-cartoon);">
+                            <div class="creator-card-form">
                                 <!-- Login Gate Banner for Custom Drawing (Visible only when logged out) -->
                                 <div id="gerar-desenho-login-gate" style="display: none; background: #fff8eb; border: 2px dashed var(--color-orange); border-radius: var(--radius-sm); padding: 20px; text-align: center; margin-bottom: 20px; box-shadow: 0 4px 0 rgba(61, 40, 26, 0.15);">
                                     <p style="font-weight: 700; font-size: 1.05rem; color: var(--color-dark); margin-bottom: 12px; font-family: var(--font-heading);">Crie uma conta grátis para ganhar seus primeiros créditos mágicos!</p>
@@ -462,11 +462,11 @@
                                     <div style="margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px;">
                                         <label style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--color-dark);">🎨 Estilo do Desenho:</label>
                                         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                                            <label id="customDrawingLabelBw" class="style-radio-label active" style="flex: 1; justify-content: center; padding: 10px 15px; font-size: 0.95rem;">
+                                            <label id="customDrawingLabelBw" class="style-radio-label active">
                                                 <input type="radio" name="customDrawingStyle" value="bw" checked style="width: 18px; height: 18px; cursor: pointer;">
                                                 Preto e Branco
                                             </label>
-                                            <label id="customDrawingLabelColor" class="style-radio-label" style="flex: 1; justify-content: center; padding: 10px 15px; font-size: 0.95rem;">
+                                            <label id="customDrawingLabelColor" class="style-radio-label">
                                                 <input type="radio" name="customDrawingStyle" value="color" style="width: 18px; height: 18px; cursor: pointer;">
                                                 Colorido 🌈
                                             </label>
@@ -476,11 +476,11 @@
                                     <div style="margin-bottom: 25px; display: flex; flex-direction: column; gap: 8px;">
                                         <label style="font-family: var(--font-heading); font-weight: 700; font-size: 1.1rem; color: var(--color-dark);">⚡ Qualidade do Desenho:</label>
                                         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                                            <label id="customDrawingQualityMedium" class="style-radio-label active" style="flex: 1; justify-content: center; padding: 10px 15px; font-size: 0.95rem;">
+                                            <label id="customDrawingQualityMedium" class="style-radio-label active">
                                                 <input type="radio" name="customDrawingQuality" value="medium" checked style="width: 18px; height: 18px; cursor: pointer;">
                                                 Normal (1 c. 🪙)
                                             </label>
-                                            <label id="customDrawingQualityHigh" class="style-radio-label" style="flex: 1; justify-content: center; padding: 10px 15px; font-size: 0.95rem;">
+                                            <label id="customDrawingQualityHigh" class="style-radio-label">
                                                 <input type="radio" name="customDrawingQuality" value="high" style="width: 18px; height: 18px; cursor: pointer;">
                                                 Ultra (2 c. 🌟)
                                             </label>
@@ -503,8 +503,8 @@
                         </div>
                         
                         <!-- Coluna do Preview / Resultado -->
-                        <div class="generator-preview-column" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                            <div class="drawing-sheet-frame" id="custom-drawing-frame" style="width: 100%; max-width: 500px; aspect-ratio: 1/1; position: relative; border-radius: 20px; overflow: hidden; border: var(--border-medium); box-shadow: var(--shadow-cartoon);">
+                        <div class="generator-preview-column">
+                            <div class="drawing-sheet-frame" id="custom-drawing-frame">
                                 <div class="drawing-sheet-border" style="pointer-events: none;"></div>
                                 <div class="drawing-sheet-image-wrapper" id="custom-drawing-wrapper" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #fafafa;">
                                     <!-- Loader ou Placeholder de Desenho -->
@@ -546,7 +546,7 @@
                                 </div>
                             </div>
                             
-                            <div id="custom-drawing-actions" style="display: none; margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                            <div id="custom-drawing-actions" class="custom-drawing-actions-grid" style="display: none;">
                                 <button class="btn btn-primary" id="btn-paint-custom-online" style="background-color: var(--color-orange); border-color: var(--color-orange);"><i class="fa-solid fa-paintbrush"></i> Pintar Online 🎨</button>
                                 <button class="btn btn-primary" id="btn-save-custom-gallery" style="background-color: var(--color-green); border-color: var(--color-green); display: none;"><i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria</button>
                                 <button class="btn btn-secondary" id="btn-download-custom"><i class="fa-solid fa-download"></i> Baixar PNG</button>
