@@ -2382,36 +2382,6 @@ app.post('/api/user/upgrade', async (req, res) => {
     }
 });
 
-// Endpoint proxy para carregar imagens do R2 e evitar bloqueios de CORS / Canvas Taint
-app.get('/api/proxy-image', async (req, res) => {
-    try {
-        const { url } = req.query;
-        if (!url) {
-            return res.status(400).send('URL do desenho é obrigatória.');
-        }
-        
-        // Validar se o domínio é do R2
-        if (!url.startsWith('https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/')) {
-            return res.status(403).send('Acesso não permitido.');
-        }
-
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Erro ao buscar imagem: ${response.statusText}`);
-        }
-
-        const arrayBuffer = await response.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
-
-        res.setHeader('Content-Type', response.headers.get('content-type') || 'image/png');
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        return res.send(buffer);
-    } catch (err) {
-        console.error('[Proxy Image Error]:', err);
-        return res.status(500).send('Erro ao processar imagem.');
-    }
-});
-
 // Endpoint para salvar uma pintura online na galeria do usuário
 app.post('/api/user/save-painting', async (req, res) => {
     try {

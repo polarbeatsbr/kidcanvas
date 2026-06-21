@@ -5244,19 +5244,10 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
 
         waitForImages(tempContainer).then(() => {
             html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
-                console.log('PDF Canvas width:', canvas.width);
-                console.log('PDF Canvas height:', canvas.height);
-                const ctx = canvas.getContext('2d');
-                const pixel = ctx.getImageData(0, 0, 1, 1);
-                console.log('PDF Canvas pixel data:', pixel);
-
                 const imgData = canvas.toDataURL('image/png');
-                console.log('PDF imgData preview:', imgData.substring(0, 50));
-
                 if (!imgData || imgData.length < 1000) {
-                    throw new Error('Canvas vazio');
+                    throw new Error('Canvas em branco ou inválido');
                 }
-                
                 return html2pdf().from(tempContainer).set(opt).save();
             }).then(() => {
                 document.body.removeChild(tempContainer);
@@ -5267,12 +5258,12 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
                 showToast('PDF pronto para impressão! ⬇️', 'success');
             }).catch(err => {
                 document.body.removeChild(tempContainer);
-                console.error("Erro ao gerar PDF:", err);
+                console.error("Erro ao gerar PDF da História:", err);
                 if (btnPDF) {
                     btnPDF.textContent = oldText;
                     btnPDF.disabled = false;
                 }
-                alert("Erro ao exportar PDF. Tente novamente.");
+                alert("Erro ao exportar PDF: " + (err.message || err) + "\n\nTente recarregar a página ou usar outro navegador.");
             });
         });
     }
@@ -5332,19 +5323,10 @@ function downloadCustomDrawingPDF(imageUrl, promptText) {
 
         waitForImages(tempContainer).then(() => {
             html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
-                console.log('PDF Canvas width:', canvas.width);
-                console.log('PDF Canvas height:', canvas.height);
-                const ctx = canvas.getContext('2d');
-                const pixel = ctx.getImageData(0, 0, 1, 1);
-                console.log('PDF Canvas pixel data:', pixel);
-
                 const imgData = canvas.toDataURL('image/png');
-                console.log('PDF imgData preview:', imgData.substring(0, 50));
-
                 if (!imgData || imgData.length < 1000) {
-                    throw new Error('Canvas vazio');
+                    throw new Error('Canvas em branco ou inválido');
                 }
-                
                 return html2pdf().from(tempContainer).set(opt).save();
             }).then(() => {
                 document.body.removeChild(tempContainer);
@@ -5355,12 +5337,23 @@ function downloadCustomDrawingPDF(imageUrl, promptText) {
                 showToast('PDF pronto para impressão! ⬇️', 'success');
             }).catch(err => {
                 document.body.removeChild(tempContainer);
-                console.error("Erro ao gerar PDF:", err);
+                console.error("Erro ao gerar PDF do desenho personalizado:", err);
                 if (btnPDF) {
                     btnPDF.textContent = oldText;
                     btnPDF.disabled = false;
                 }
-                alert("Erro ao exportar PDF. Tente novamente.");
+                
+                // Fallback automático para download da imagem direta
+                alert("Não foi possível gerar o formato PDF neste dispositivo (Erro: " + (err.message || err) + ").\n\nBaixando a imagem do seu desenho diretamente...");
+                
+                const a = document.createElement('a');
+                a.href = imageUrl;
+                const cleanPrompt = (promptText || 'desenho-magico').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
+                a.download = `desenho-magico-${cleanPrompt}.jpg`;
+                a.target = '_blank';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
             });
         });
     }
@@ -5883,19 +5876,10 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
 
     waitForImages(tempContainer).then(() => {
         html2pdf().from(tempContainer).set(opt).toCanvas().then((canvas) => {
-            console.log('PDF Canvas width:', canvas.width);
-            console.log('PDF Canvas height:', canvas.height);
-            const ctx = canvas.getContext('2d');
-            const pixel = ctx.getImageData(0, 0, 1, 1);
-            console.log('PDF Canvas pixel data:', pixel);
-
             const imgData = canvas.toDataURL('image/png');
-            console.log('PDF imgData preview:', imgData.substring(0, 50));
-
             if (!imgData || imgData.length < 1000) {
-                throw new Error('Canvas vazio');
+                throw new Error('Canvas em branco ou inválido');
             }
-            
             return html2pdf().from(tempContainer).set(opt).save();
         }).then(() => {
             document.body.removeChild(tempContainer);
@@ -5906,12 +5890,23 @@ function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
             showToast('PDF pronto para impressão! ⬇️', 'success');
         }).catch(err => {
             document.body.removeChild(tempContainer);
-            console.error("Erro ao gerar PDF:", err);
+            console.error("Erro ao gerar PDF do desenho salvo:", err);
             if (btnEl) {
                 btnEl.innerHTML = oldText;
                 btnEl.disabled = false;
             }
-            alert("Erro ao exportar PDF. Tente novamente.");
+            
+            // Fallback automático para download da imagem direta
+            alert("Não foi possível gerar o formato PDF neste dispositivo (Erro: " + (err.message || err) + ").\n\nBaixando a imagem do seu desenho diretamente...");
+            
+            const a = document.createElement('a');
+            a.href = imageUrl;
+            const cleanPrompt = (promptText || 'desenho-magico').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
+            a.download = `desenho-magico-${cleanPrompt}.jpg`;
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         });
     });
 }
