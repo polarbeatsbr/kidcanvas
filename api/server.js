@@ -1412,6 +1412,7 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
                                 body: JSON.stringify({ inputs: item.prompt })
                             });
                             
+                            console.log(`[QA LOG] Modo: FLUX | Provedor: Hugging Face | Tentativa: ${attempts} | Status API: ${hfRes.status}`);
                             if (hfRes.ok) {
                                 const buffer = await hfRes.arrayBuffer();
                                 nodeBuffer = Buffer.from(buffer);
@@ -1448,7 +1449,8 @@ Retorne a resposta estritamente no formato JSON estruturado com o seguinte esque
                             })
                         });
                         
-                        if (falRes.ok) {
+                        console.log(`[QA LOG] Modo: FLUX | Provedor: Fal.ai | Status API: ${falRes.status}`);
+                    if (falRes.ok) {
                             const falData = await falRes.json();
                             const imgUrl = falData.images?.[0]?.url;
                             if (imgUrl) {
@@ -4041,6 +4043,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                         attempts++;
                         try {
                             console.log(`[Custom Drawing] Hugging Face tentativa ${attempts} de ${maxAttempts}...`);
+                            console.log(`[QA LOG] Modo: FLUX | Provedor: Hugging Face | Tentativa: ${attempts} | Chamando API...`);
                             const hfRes = await fetch("https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell", {
                                 method: "POST",
                                 headers: {
@@ -4149,6 +4152,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
                 });
 
                 console.log(`[Custom Drawing] Ideogram status:`, response.status);
+                console.log(`[QA LOG] Modo: IDEOGRAM | Status API: ${response.status}`);
                 if (response.ok) {
                     const data = await response.json();
                     const url = data.data?.[0]?.url;
@@ -4179,6 +4183,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         }
 
         if (!bytesBase64) {
+            console.log(`[QA LOG] Modo: ${engine.toUpperCase()} | Status: FALHA | Razão: ${lastError} | Créditos Cobrados: 0 | Saldo Mantido: ${getUserTotalCredits(user)} | Usuário: ${user.email}`);
             return res.status(500).json({
                 success: false,
                 message: 'Serviço temporariamente indisponível, tente novamente em alguns minutos.',
@@ -4225,6 +4230,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
 
         // Deduce user credits and save
         deductUserCredits(user, cost);
+        console.log(`[QA LOG] Modo: ${engine.toUpperCase()} | Status: SUCESSO | Créditos Cobrados: ${cost} | Novo Saldo: ${getUserTotalCredits(user)} | Usuário: ${user.email}`);
         
         // Alerta de créditos baixos
         const totalAfterDraw = getUserTotalCredits(user);
