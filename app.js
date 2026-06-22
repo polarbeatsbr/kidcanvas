@@ -6035,7 +6035,7 @@ async function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
                 Desenho Mágico — KidCanvas
             </div>
             <div style="width: 160mm; height: 160mm; border: 4px solid #3D281A; border-radius: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #fafbfc; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 20px 0;">
-                <img crossorigin="anonymous" src="${base64Img}" style="width: 100%; height: 100%; object-fit: contain;">
+                <img src="${base64Img}" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <div style="text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; max-width: 170mm;">
                 <p style="font-size: 16px; font-style: italic; color: #5c4033; font-weight: bold; line-height: 1.5; margin: 0; word-break: break-word;">"${promptText}"</p>
