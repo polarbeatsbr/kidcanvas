@@ -4191,11 +4191,13 @@ button, input, select, textarea {
     color: var(--color-purple);
 }
 
-.paint-tool-btn.active {
-    background-color: var(--color-purple);
-    color: #ffffff;
-    border-color: var(--color-purple);
-    box-shadow: 0 4px 8px rgba(156, 39, 176, 0.3);
+.paint-tool-btn.active, .paint-stamp-btn.active {
+    background-color: #fff9db !important;
+    color: var(--color-purple) !important;
+    border: 3.5px solid var(--color-purple) !important;
+    transform: scale(1.08) !important;
+    box-shadow: 0 4px 10px rgba(121, 80, 242, 0.25) !important;
+    z-index: 2;
 }
 
 .paint-canvas-container {
@@ -4265,6 +4267,25 @@ button, input, select, textarea {
     transform: scale(1.15);
     border-color: var(--color-dark);
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Indicador de ferramenta ativa no mobile e desktop */
+#paint-status-indicator {
+    display: flex !important;
+}
+
+@media (max-width: 768px) {
+    #paint-status-indicator {
+        display: flex !important;
+        width: auto !important;
+        margin-bottom: 0 !important;
+        margin-right: 8px !important;
+        font-size: 0.65rem !important;
+        padding: 4px 6px !important;
+        flex-shrink: 0;
+        height: 36px !important;
+        align-self: center;
+    }
 }
 
 .paint-slider-group {
@@ -9845,5 +9866,28 @@ body {
 .animate-pulse {
     animation: tts-pulse 2s infinite ease-in-out;
 }
+
+/* Otimizações de Touch Target e Touch Action */
+.password-toggle-btn {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--color-dark-light);
+    font-size: 1.1rem;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.btn, .paint-tool-btn, .color-crayon, .paint-stamp-btn, .livro-fechar-btn, .btn-close-modal {
+    touch-action: manipulation;
+}
+
 
 

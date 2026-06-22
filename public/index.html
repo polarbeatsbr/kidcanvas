@@ -2159,6 +2159,11 @@
                 <div class="paint-workspace-layout">
                     <!-- Barra de Ferramentas -->
                     <div class="paint-toolbar">
+                        <!-- Indicador de Ferramenta Ativa -->
+                        <div id="paint-status-indicator" style="width: 100%; text-align: center; font-size: 0.7rem; font-weight: bold; background: var(--color-purple); color: white; padding: 6px 4px; border-radius: 8px; margin-bottom: 8px; text-transform: uppercase; border: 2px solid var(--color-dark); box-shadow: 1px 1px 0 var(--color-dark); display: flex; align-items: center; justify-content: center; gap: 4px; box-sizing: border-box;">
+                            <i class="fa-solid fa-fill-drip"></i> <span>Balde de Tinta</span>
+                        </div>
+
                         <!-- Desfazer / Refazer -->
                         <div style="display: flex; gap: 6px; width: 100%; justify-content: center; margin-bottom: 4px;">
                             <button class="paint-tool-btn" id="paint-btn-undo" title="Desfazer (Ctrl+Z)" style="width: 34px; height: 34px; font-size: 1.05rem; border-radius: 8px;">

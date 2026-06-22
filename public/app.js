@@ -6612,6 +6612,7 @@ function renderFavoriteColors() {
     }
     window.paintColorFavorites.forEach(hex => {
         const div = document.createElement('div');
+        div.className = 'favorite-color-circle';
         div.style.width = '26px';
         div.style.height = '26px';
         div.style.borderRadius = '50%';
