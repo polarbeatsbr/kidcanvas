@@ -6046,34 +6046,30 @@ async function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
             </div>
         `;
 
-        const opt = {
-            margin: 0,
-            filename: `desenho-magico-kidcanvas.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, logging: false },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-
         await waitForImages(tempContainer);
 
-        const canvas = await html2pdf().from(tempContainer).set(opt).toCanvas().get('canvas');
-        console.log('--- LOGS DE DIAGNÓSTICO DO PDF (Saved Drawing) ---');
-        console.log('Largura do canvas (width):', canvas.width);
-        console.log('Altura do canvas (height):', canvas.height);
-        
-        const ctx = canvas.getContext('2d');
-        const pixel = ctx.getImageData(0, 0, 1, 1);
-        console.log('Dados de pixels do Canvas:', pixel);
+        const imgCanvas = await html2canvas(tempContainer, {
+            useCORS: true,
+            allowTaint: true,
+            scale: 2
+        });
 
-        const imgData = canvas.toDataURL('image/png');
-        console.log('Comprimento do dataURL:', imgData ? imgData.length : 0);
-        console.log('--------------------------------------------------');
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+        });
 
-        if (!imgData || imgData.length < 1000) {
-            throw new Error('Canvas vazio');
-        }
+        pdf.addImage(
+            imgCanvas.toDataURL('image/png'),
+            'PNG', 0, 0,
+            210, 297
+        );
 
-        await html2pdf().from(tempContainer).set(opt).save();
+        const cleanPrompt = promptText ? promptText.toLowerCase().replace(/[^a-z0-9]+/g, '-') : 'desenho';
+        pdf.save(`desenho-magico-${cleanPrompt}.pdf`);
+
         document.body.removeChild(tempContainer);
         if (btnEl) {
             btnEl.innerHTML = oldText;
@@ -6083,17 +6079,85 @@ async function downloadSavedDrawingPDF(imageUrl, promptText, btnEl) {
 
     } catch (err) {
         console.error("Erro ao gerar PDF:", err);
-        const tempContainer = document.querySelector('body > div[style*="z-index: -9999"]');
-        if (tempContainer) {
-            document.body.removeChild(tempContainer);
+        const tc = document.querySelector('body > div[style*="z-index: -9999"]');
+        if (tc) {
+            document.body.removeChild(tc);
         }
         if (btnEl) {
             btnEl.innerHTML = oldText;
             btnEl.disabled = false;
         }
-        alert("Erro ao exportar PDF. Tente novamente.");
+        alert("Erro ao exportar PDF: " + err.message);
     }
 }
+
+async function exportarPDF() {
+    const btnPDF = document.getElementById('paint-btn-pdf');
+    let oldText = "";
+    if (btnPDF) {
+        oldText = btnPDF.innerHTML;
+        btnPDF.innerHTML = "⏳ PDF...";
+        btnPDF.disabled = true;
+    }
+
+    try {
+        // Compose without handles before export
+        const originalSticker = window.selectedSticker;
+        window.selectedSticker = null;
+        composePaintCanvas();
+
+        const viewport = document.getElementById('paint-canvas-viewport');
+        const originalTransform = viewport ? viewport.style.transform : '';
+        if (viewport) {
+            viewport.style.transform = '';
+        }
+
+        const container = document.getElementById('paint-canvas-viewport') || document.getElementById('main-paint-canvas');
+
+        const imgData = await html2canvas(container, {
+            useCORS: true,
+            allowTaint: true,
+            scale: 2
+        });
+
+        if (viewport) {
+            viewport.style.transform = originalTransform;
+        }
+
+        window.selectedSticker = originalSticker;
+        composePaintCanvas();
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({
+            orientation: 'landscape',
+            unit: 'px',
+            format: [imgData.width / 2, imgData.height / 2]
+        });
+
+        pdf.addImage(
+            imgData.toDataURL('image/png'),
+            'PNG', 0, 0,
+            imgData.width / 2,
+            imgData.height / 2
+        );
+
+        const drawingName = (window.currentPaintingData && window.currentPaintingData.name) ? window.currentPaintingData.name : 'minha-arte';
+        const cleanPrompt = drawingName.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 40);
+        pdf.save(`${cleanPrompt}-kidcanvas.pdf`);
+
+        showToast('PDF gerado com sucesso! ⬇️', 'success');
+
+    } catch (err) {
+        console.error('Erro PDF:', err);
+        alert('Erro ao gerar PDF: ' + err.message);
+    } finally {
+        if (btnPDF) {
+            btnPDF.innerHTML = oldText;
+            btnPDF.disabled = false;
+        }
+    }
+}
+window.exportarPDF = exportarPDF;
 function shareSavedDrawingOnWhatsApp(imageUrl, promptText) {
     let absoluteImageUrl = imageUrl;
     if (imageUrl && imageUrl.startsWith('/')) {
@@ -7542,14 +7606,7 @@ function renderPintarOnlineView() {
     const btnPDF = document.getElementById('paint-btn-pdf');
     if (btnPDF) {
         btnPDF.onclick = () => {
-            // Compose without handles before export
-            const originalSticker = window.selectedSticker;
-            window.selectedSticker = null;
-            composePaintCanvas();
-            const dataUrl = paintCanvas.toDataURL('image/png');
-            downloadSavedDrawingPDF(dataUrl, window.currentPaintingData.name, btnPDF);
-            window.selectedSticker = originalSticker;
-            composePaintCanvas();
+            exportarPDF();
         };
     }
 
