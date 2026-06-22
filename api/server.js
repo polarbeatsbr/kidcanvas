@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const compression = require('compression');
 const cors = require('cors');
 const path = require('path');
 const crypto = require('crypto');
@@ -372,6 +373,9 @@ async function activateUserPlanOrCredits(user, planName, users) {
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Habilitar compressão Gzip/Brotli
+app.use(compression());
 
 // Habilitar CORS para desenvolvimento local se necessário
 app.use(cors());
@@ -832,9 +836,23 @@ app.post('/api/mercadopago/webhook', async (req, res) => {
 });
 
 
-// Servir os arquivos estáticos do frontend da raiz do projeto e da pasta public
-app.use(express.static(path.join(__dirname, '..')));
-app.use(express.static(path.join(__dirname, '..', 'public')));
+// Servir os arquivos estáticos do frontend da raiz do projeto e da pasta public com cabeçalhos Cache-Control otimizados
+app.use(express.static(path.join(__dirname, '..'), {
+    maxAge: '1d',
+    setHeaders: (res, path) => {
+        if (path.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        }
+    }
+}));
+app.use(express.static(path.join(__dirname, '..', 'public'), {
+    maxAge: '30d',
+    setHeaders: (res, path) => {
+        if (path.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        }
+    }
+}));
 
 // Rate Limit Helper for anti-bot
 const ipRequestCounts = {}; // { ip: [timestamp1, timestamp2, ...] }
