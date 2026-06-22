@@ -648,110 +648,176 @@
                     
                     <div class="popular-drawings-grid">
                         <!-- Card 1: Astronauta Fofo -->
-                        <div class="drawing-card" data-id="astronauta-fofo" data-category="destaques">
-                            <a href="/destaques/astronauta-fofo" onclick="navigate('/destaques/astronauta-fofo'); return false;" class="drawing-card-link">
-                                <div class="card-img-wrapper">
-                                    <span class="card-badge" style="background: var(--color-purple);">🚀 Destaque do Dia</span>
-                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/astronauta.png" alt="Astronauta Fofo" loading="lazy">
-                                </div>
-                            </a>
-                            <div class="card-bottom-info">
-                                <span class="drawing-card-category">Destaques</span>
-                                <h4 class="drawing-card-title">Astronauta Fofo</h4>
+                        <div class="drawing-card" data-id="astronauta-fofo" data-category="destaques" style="padding: 0; gap: 0; overflow: hidden; display: flex; flex-direction: column;">
+                            <!-- ÁREA DA IMAGEM: bloco isolado, aspect-ratio quadrado -->
+                            <div style="position: relative; aspect-ratio: 1/1; overflow: hidden; background: #FCF9F5; display: flex; align-items: center; justify-content: center; border-bottom: var(--border-thin);">
+                                <a href="/destaques/astronauta-fofo" onclick="navigate('/destaques/astronauta-fofo'); return false;" class="drawing-card-link" style="display: block; width: 100%; height: 100%;">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/astronauta.png" alt="Astronauta Fofo" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                </a>
+                                <!-- badge DENTRO da área da imagem, canto superior esquerdo -->
+                                <span class="card-badge" style="position: absolute; top: 8px; left: 8px; 
+                                             max-width: calc(100% - 16px);
+                                             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                                             font-size: 10px; font-weight: 700; padding: 3px 8px; 
+                                             border-radius: 20px; background: var(--color-purple); color: #ede9fe; z-index: 2;">
+                                    🚀 Destaque do Dia
+                                </span>
                             </div>
-                            <div class="card-bottom">
-                                <span class="badge-free">Grátis</span>
-                                <a href="/destaques/astronauta-fofo" onclick="navigate('/destaques/astronauta-fofo'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            <!-- CORPO: título e botões FORA da área da imagem -->
+                            <div style="padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; justify-content: space-between;">
+                                <div>
+                                    <p class="drawing-card-category" style="font-size: 9px; color: #a8a29e; margin: 0 0 2px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Destaques</p>
+                                    <h4 class="drawing-card-title" style="font-size: 14px; font-weight: 700; margin: 0 0 8px; color: var(--color-dark); line-height: 1.2;">Astronauta Fofo</h4>
+                                </div>
+                                <div class="card-bottom" style="display: flex; gap: 6px; align-items: center; justify-content: space-between; margin-top: auto;">
+                                    <span class="badge-free">Grátis</span>
+                                    <a href="/destaques/astronauta-fofo" onclick="navigate('/destaques/astronauta-fofo'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white); font-size: 0.85rem; padding: 6px 12px; border-radius: 8px; border: var(--border-thin); box-shadow: 0 3px 0 var(--color-dark); font-weight: bold;"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Card 2: Gatinho & Morango -->
-                        <div class="drawing-card" data-id="gatinho-morango" data-category="destaques">
-                            <a href="/destaques/gatinho-morango" onclick="navigate('/destaques/gatinho-morango'); return false;" class="drawing-card-link">
-                                <div class="card-img-wrapper">
-                                    <span class="card-badge" style="background: #ff4757;">🍓 Moranguinho</span>
-                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/gatinho_morango.png" alt="Gatinho & Morango" loading="lazy">
-                                </div>
-                            </a>
-                            <div class="card-bottom-info">
-                                <span class="drawing-card-category">Destaques</span>
-                                <h4 class="drawing-card-title">Gatinho & Morango</h4>
+                        <div class="drawing-card" data-id="gatinho-morango" data-category="destaques" style="padding: 0; gap: 0; overflow: hidden; display: flex; flex-direction: column;">
+                            <!-- ÁREA DA IMAGEM: bloco isolado, aspect-ratio quadrado -->
+                            <div style="position: relative; aspect-ratio: 1/1; overflow: hidden; background: #FCF9F5; display: flex; align-items: center; justify-content: center; border-bottom: var(--border-thin);">
+                                <a href="/destaques/gatinho-morango" onclick="navigate('/destaques/gatinho-morango'); return false;" class="drawing-card-link" style="display: block; width: 100%; height: 100%;">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/gatinho_morango.png" alt="Gatinho & Morango" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                </a>
+                                <!-- badge DENTRO da área da imagem, canto superior esquerdo -->
+                                <span class="card-badge" style="position: absolute; top: 8px; left: 8px; 
+                                             max-width: calc(100% - 16px);
+                                             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                                             font-size: 10px; font-weight: 700; padding: 3px 8px; 
+                                             border-radius: 20px; background: #ff4757; color: #ede9fe; z-index: 2;">
+                                    🍓 Moranguinho
+                                </span>
                             </div>
-                            <div class="card-bottom">
-                                <span class="badge-free">Grátis</span>
-                                <a href="/destaques/gatinho-morango" onclick="navigate('/destaques/gatinho-morango'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            <!-- CORPO: título e botões FORA da área da imagem -->
+                            <div style="padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; justify-content: space-between;">
+                                <div>
+                                    <p class="drawing-card-category" style="font-size: 9px; color: #a8a29e; margin: 0 0 2px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Destaques</p>
+                                    <h4 class="drawing-card-title" style="font-size: 14px; font-weight: 700; margin: 0 0 8px; color: var(--color-dark); line-height: 1.2;">Gatinho & Morango</h4>
+                                </div>
+                                <div class="card-bottom" style="display: flex; gap: 6px; align-items: center; justify-content: space-between; margin-top: auto;">
+                                    <span class="badge-free">Grátis</span>
+                                    <a href="/destaques/gatinho-morango" onclick="navigate('/destaques/gatinho-morango'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white); font-size: 0.85rem; padding: 6px 12px; border-radius: 8px; border: var(--border-thin); box-shadow: 0 3px 0 var(--color-dark); font-weight: bold;"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Card 3: Buzz Desenhista -->
-                        <div class="drawing-card" data-id="buzz-desenhista" data-category="destaques">
-                            <a href="/destaques/buzz-desenhista" onclick="navigate('/destaques/buzz-desenhista'); return false;" class="drawing-card-link">
-                                <div class="card-img-wrapper">
-                                    <span class="card-badge" style="background: #2ed573;">🚀 Herói Espacial</span>
-                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/buzz_desenhando.png" alt="Buzz Desenhista" loading="lazy">
-                                </div>
-                            </a>
-                            <div class="card-bottom-info">
-                                <span class="drawing-card-category">Destaques</span>
-                                <h4 class="drawing-card-title">Buzz Desenhista</h4>
+                        <div class="drawing-card" data-id="buzz-desenhista" data-category="destaques" style="padding: 0; gap: 0; overflow: hidden; display: flex; flex-direction: column;">
+                            <!-- ÁREA DA IMAGEM: bloco isolado, aspect-ratio quadrado -->
+                            <div style="position: relative; aspect-ratio: 1/1; overflow: hidden; background: #FCF9F5; display: flex; align-items: center; justify-content: center; border-bottom: var(--border-thin);">
+                                <a href="/destaques/buzz-desenhista" onclick="navigate('/destaques/buzz-desenhista'); return false;" class="drawing-card-link" style="display: block; width: 100%; height: 100%;">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/buzz_desenhando.png" alt="Buzz Desenhista" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                </a>
+                                <!-- badge DENTRO da área da imagem, canto superior esquerdo -->
+                                <span class="card-badge" style="position: absolute; top: 8px; left: 8px; 
+                                             max-width: calc(100% - 16px);
+                                             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                                             font-size: 10px; font-weight: 700; padding: 3px 8px; 
+                                             border-radius: 20px; background: #2ed573; color: #ede9fe; z-index: 2;">
+                                    🚀 Herói Espacial
+                                </span>
                             </div>
-                            <div class="card-bottom">
-                                <span class="badge-free">Grátis</span>
-                                <a href="/destaques/buzz-desenhista" onclick="navigate('/destaques/buzz-desenhista'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            <!-- CORPO: título e botões FORA da área da imagem -->
+                            <div style="padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; justify-content: space-between;">
+                                <div>
+                                    <p class="drawing-card-category" style="font-size: 9px; color: #a8a29e; margin: 0 0 2px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Destaques</p>
+                                    <h4 class="drawing-card-title" style="font-size: 14px; font-weight: 700; margin: 0 0 8px; color: var(--color-dark); line-height: 1.2;">Buzz Desenhista</h4>
+                                </div>
+                                <div class="card-bottom" style="display: flex; gap: 6px; align-items: center; justify-content: space-between; margin-top: auto;">
+                                    <span class="badge-free">Grátis</span>
+                                    <a href="/destaques/buzz-desenhista" onclick="navigate('/destaques/buzz-desenhista'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white); font-size: 0.85rem; padding: 6px 12px; border-radius: 8px; border: var(--border-thin); box-shadow: 0 3px 0 var(--color-dark); font-weight: bold;"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Card 4: Rei Gatinho -->
-                        <div class="drawing-card" data-id="gatinho-rei" data-category="destaques">
-                            <a href="/destaques/gatinho-rei" onclick="navigate('/destaques/gatinho-rei'); return false;" class="drawing-card-link">
-                                <div class="card-img-wrapper">
-                                    <span class="card-badge" style="background: #ffa502;">👑 Gatinho Príncipe</span>
-                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/gatinho_coroa.png" alt="Rei Gatinho" loading="lazy">
-                                </div>
-                            </a>
-                            <div class="card-bottom-info">
-                                <span class="drawing-card-category">Destaques</span>
-                                <h4 class="drawing-card-title">Rei Gatinho</h4>
+                        <div class="drawing-card" data-id="gatinho-rei" data-category="destaques" style="padding: 0; gap: 0; overflow: hidden; display: flex; flex-direction: column;">
+                            <!-- ÁREA DA IMAGEM: bloco isolado, aspect-ratio quadrado -->
+                            <div style="position: relative; aspect-ratio: 1/1; overflow: hidden; background: #FCF9F5; display: flex; align-items: center; justify-content: center; border-bottom: var(--border-thin);">
+                                <a href="/destaques/gatinho-rei" onclick="navigate('/destaques/gatinho-rei'); return false;" class="drawing-card-link" style="display: block; width: 100%; height: 100%;">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/gatinho_coroa.png" alt="Rei Gatinho" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                </a>
+                                <!-- badge DENTRO da área da imagem, canto superior esquerdo -->
+                                <span class="card-badge" style="position: absolute; top: 8px; left: 8px; 
+                                             max-width: calc(100% - 16px);
+                                             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                                             font-size: 10px; font-weight: 700; padding: 3px 8px; 
+                                             border-radius: 20px; background: #ffa502; color: #ede9fe; z-index: 2;">
+                                    👑 Gatinho Príncipe
+                                </span>
                             </div>
-                            <div class="card-bottom">
-                                <span class="badge-free">Grátis</span>
-                                <a href="/destaques/gatinho-rei" onclick="navigate('/destaques/gatinho-rei'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            <!-- CORPO: título e botões FORA da área da imagem -->
+                            <div style="padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; justify-content: space-between;">
+                                <div>
+                                    <p class="drawing-card-category" style="font-size: 9px; color: #a8a29e; margin: 0 0 2px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Destaques</p>
+                                    <h4 class="drawing-card-title" style="font-size: 14px; font-weight: 700; margin: 0 0 8px; color: var(--color-dark); line-height: 1.2;">Rei Gatinho</h4>
+                                </div>
+                                <div class="card-bottom" style="display: flex; gap: 6px; align-items: center; justify-content: space-between; margin-top: auto;">
+                                    <span class="badge-free">Grátis</span>
+                                    <a href="/destaques/gatinho-rei" onclick="navigate('/destaques/gatinho-rei'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white); font-size: 0.85rem; padding: 6px 12px; border-radius: 8px; border: var(--border-thin); box-shadow: 0 3px 0 var(--color-dark); font-weight: bold;"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Card 5: Unicórnio Mágico -->
-                        <div class="drawing-card" data-id="unicornio-feliz-na-nuvem" data-category="unicornios">
-                            <a href="/unicornios/unicornio-feliz-na-nuvem" onclick="navigate('/unicornios/unicornio-feliz-na-nuvem'); return false;" class="drawing-card-link">
-                                <div class="card-img-wrapper">
-                                    <span class="card-badge" style="background: var(--color-purple);">🏆 Destaque Clássico</span>
-                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/unicornios/01-unicornio-feliz-na-nuvem__unicorn.png" alt="Unicórnio Mágico" loading="lazy">
-                                </div>
-                            </a>
-                            <div class="card-bottom-info">
-                                <span class="drawing-card-category">Unicórnios</span>
-                                <h4 class="drawing-card-title">Unicórnio Mágico</h4>
+                        <div class="drawing-card" data-id="unicornio-feliz-na-nuvem" data-category="unicornios" style="padding: 0; gap: 0; overflow: hidden; display: flex; flex-direction: column;">
+                            <!-- ÁREA DA IMAGEM: bloco isolado, aspect-ratio quadrado -->
+                            <div style="position: relative; aspect-ratio: 1/1; overflow: hidden; background: #FCF9F5; display: flex; align-items: center; justify-content: center; border-bottom: var(--border-thin);">
+                                <a href="/unicornios/unicornio-feliz-na-nuvem" onclick="navigate('/unicornios/unicornio-feliz-na-nuvem'); return false;" class="drawing-card-link" style="display: block; width: 100%; height: 100%;">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/unicornios/01-unicornio-feliz-na-nuvem__unicorn.png" alt="Unicórnio Mágico" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                </a>
+                                <!-- badge DENTRO da área da imagem, canto superior esquerdo -->
+                                <span class="card-badge" style="position: absolute; top: 8px; left: 8px; 
+                                             max-width: calc(100% - 16px);
+                                             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                                             font-size: 10px; font-weight: 700; padding: 3px 8px; 
+                                             border-radius: 20px; background: var(--color-purple); color: #ede9fe; z-index: 2;">
+                                    🏆 Destaque Clássico
+                                </span>
                             </div>
-                            <div class="card-bottom">
-                                <span class="badge-free">Grátis</span>
-                                <a href="/unicornios/unicornio-feliz-na-nuvem" onclick="navigate('/unicornios/unicornio-feliz-na-nuvem'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            <!-- CORPO: título e botões FORA da área da imagem -->
+                            <div style="padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; justify-content: space-between;">
+                                <div>
+                                    <p class="drawing-card-category" style="font-size: 9px; color: #a8a29e; margin: 0 0 2px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Unicórnios</p>
+                                    <h4 class="drawing-card-title" style="font-size: 14px; font-weight: 700; margin: 0 0 8px; color: var(--color-dark); line-height: 1.2;">Unicórnio Mágico</h4>
+                                </div>
+                                <div class="card-bottom" style="display: flex; gap: 6px; align-items: center; justify-content: space-between; margin-top: auto;">
+                                    <span class="badge-free">Grátis</span>
+                                    <a href="/unicornios/unicornio-feliz-na-nuvem" onclick="navigate('/unicornios/unicornio-feliz-na-nuvem'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white); font-size: 0.85rem; padding: 6px 12px; border-radius: 8px; border: var(--border-thin); box-shadow: 0 3px 0 var(--color-dark); font-weight: bold;"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Card 6: T-Rex Feliz -->
-                        <div class="drawing-card" data-id="t-rex-correndo-feliz" data-category="dinossauros">
-                            <a href="/dinossauros/t-rex-correndo-feliz" onclick="navigate('/dinossauros/t-rex-correndo-feliz'); return false;" class="drawing-card-link">
-                                <div class="card-img-wrapper">
-                                    <span class="card-badge" style="background: #10ac84;">🦖 Campeão de Colorir</span>
-                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/01-t-rex-correndo-feliz__t-rex.png" alt="T-Rex Feliz" loading="lazy">
-                                </div>
-                            </a>
-                            <div class="card-bottom-info">
-                                <span class="drawing-card-category">Dinossauros</span>
-                                <h4 class="drawing-card-title">T-Rex Feliz</h4>
+                        <div class="drawing-card" data-id="t-rex-correndo-feliz" data-category="dinossauros" style="padding: 0; gap: 0; overflow: hidden; display: flex; flex-direction: column;">
+                            <!-- ÁREA DA IMAGEM: bloco isolado, aspect-ratio quadrado -->
+                            <div style="position: relative; aspect-ratio: 1/1; overflow: hidden; background: #FCF9F5; display: flex; align-items: center; justify-content: center; border-bottom: var(--border-thin);">
+                                <a href="/dinossauros/t-rex-correndo-feliz" onclick="navigate('/dinossauros/t-rex-correndo-feliz'); return false;" class="drawing-card-link" style="display: block; width: 100%; height: 100%;">
+                                    <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/01-t-rex-correndo-feliz__t-rex.png" alt="T-Rex Feliz" loading="lazy" style="width: 100%; height: 100%; object-fit: contain;">
+                                </a>
+                                <!-- badge DENTRO da área da imagem, canto superior esquerdo -->
+                                <span class="card-badge" style="position: absolute; top: 8px; left: 8px; 
+                                             max-width: calc(100% - 16px);
+                                             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                                             font-size: 10px; font-weight: 700; padding: 3px 8px; 
+                                             border-radius: 20px; background: #10ac84; color: #ede9fe; z-index: 2;">
+                                    🦖 Campeão de Colorir
+                                </span>
                             </div>
-                            <div class="card-bottom">
-                                <span class="badge-free">Grátis</span>
-                                <a href="/dinossauros/t-rex-correndo-feliz" onclick="navigate('/dinossauros/t-rex-correndo-feliz'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white);"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                            <!-- CORPO: título e botões FORA da área da imagem -->
+                            <div style="padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1; justify-content: space-between;">
+                                <div>
+                                    <p class="drawing-card-category" style="font-size: 9px; color: #a8a29e; margin: 0 0 2px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">Dinossauros</p>
+                                    <h4 class="drawing-card-title" style="font-size: 14px; font-weight: 700; margin: 0 0 8px; color: var(--color-dark); line-height: 1.2;">T-Rex Feliz</h4>
+                                </div>
+                                <div class="card-bottom" style="display: flex; gap: 6px; align-items: center; justify-content: space-between; margin-top: auto;">
+                                    <span class="badge-free">Grátis</span>
+                                    <a href="/dinossauros/t-rex-correndo-feliz" onclick="navigate('/dinossauros/t-rex-correndo-feliz'); return false;" class="btn-download-card" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px; background-color: var(--color-purple); color: var(--color-white); font-size: 0.85rem; padding: 6px 12px; border-radius: 8px; border: var(--border-thin); box-shadow: 0 3px 0 var(--color-dark); font-weight: bold;"><i class="fa-solid fa-paint-brush"></i> Colorir</a>
+                                </div>
                             </div>
                         </div>
                     </div>
