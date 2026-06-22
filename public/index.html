@@ -571,6 +571,7 @@
                                 <button class="btn btn-primary" id="btn-paint-custom-online" style="background-color: var(--color-orange); border-color: var(--color-orange);"><i class="fa-solid fa-paintbrush"></i> Pintar Online 🎨</button>
                                 <button class="btn btn-primary" id="btn-save-custom-gallery" style="background-color: var(--color-green); border-color: var(--color-green); display: none;"><i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria</button>
                                 <button class="btn btn-secondary" id="btn-download-custom"><i class="fa-solid fa-download"></i> Baixar PNG</button>
+                                <button class="btn btn-secondary" id="btn-download-pdf-custom" style="background-color: #e74c3c; border-color: #e74c3c; color: white;"><i class="fa-solid fa-file-pdf"></i> Baixar PDF</button>
                                 <button class="btn btn-primary" id="btn-print-custom" style="background-color: var(--color-purple); border-color: var(--color-purple);"><i class="fa-solid fa-print"></i> Imprimir</button>
                                 <button class="btn btn-success" id="btn-share-whatsapp-custom" style="background-color: #25d366; border-color: #25d366; color: white;"><i class="fa-brands fa-whatsapp"></i> Compartilhar</button>
                             </div>
@@ -648,7 +649,7 @@
                         <div class="drawing-card" data-id="astronauta-fofo" data-category="destaques">
                             <a href="/destaques/astronauta-fofo" onclick="navigate('/destaques/astronauta-fofo'); return false;" class="drawing-card-link">
                                 <div class="card-img-wrapper">
-                                    <span style="position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; color: white; background: var(--color-purple); box-shadow: 0 2px 4px rgba(0,0,0,0.15);">🚀 Destaque do Dia</span>
+                                    <span class="card-badge" style="background: var(--color-purple);">🚀 Destaque do Dia</span>
                                     <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/astronauta.png" alt="Astronauta Fofo" loading="lazy">
                                 </div>
                             </a>
@@ -666,7 +667,7 @@
                         <div class="drawing-card" data-id="gatinho-morango" data-category="destaques">
                             <a href="/destaques/gatinho-morango" onclick="navigate('/destaques/gatinho-morango'); return false;" class="drawing-card-link">
                                 <div class="card-img-wrapper">
-                                    <span style="position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; color: white; background: #ff4757; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">🍓 Moranguinho</span>
+                                    <span class="card-badge" style="background: #ff4757;">🍓 Moranguinho</span>
                                     <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/gatinho_morango.png" alt="Gatinho & Morango" loading="lazy">
                                 </div>
                             </a>
@@ -684,7 +685,7 @@
                         <div class="drawing-card" data-id="buzz-desenhista" data-category="destaques">
                             <a href="/destaques/buzz-desenhista" onclick="navigate('/destaques/buzz-desenhista'); return false;" class="drawing-card-link">
                                 <div class="card-img-wrapper">
-                                    <span style="position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; color: white; background: #2ed573; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">🚀 Herói Espacial</span>
+                                    <span class="card-badge" style="background: #2ed573;">🚀 Herói Espacial</span>
                                     <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/buzz_desenhando.png" alt="Buzz Desenhista" loading="lazy">
                                 </div>
                             </a>
@@ -702,7 +703,7 @@
                         <div class="drawing-card" data-id="gatinho-rei" data-category="destaques">
                             <a href="/destaques/gatinho-rei" onclick="navigate('/destaques/gatinho-rei'); return false;" class="drawing-card-link">
                                 <div class="card-img-wrapper">
-                                    <span style="position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; color: white; background: #ffa502; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">👑 Gatinho Príncipe</span>
+                                    <span class="card-badge" style="background: #ffa502;">👑 Gatinho Príncipe</span>
                                     <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/destaques/gatinho_coroa.png" alt="Rei Gatinho" loading="lazy">
                                 </div>
                             </a>
@@ -720,7 +721,7 @@
                         <div class="drawing-card" data-id="unicornio-feliz-na-nuvem" data-category="unicornios">
                             <a href="/unicornios/unicornio-feliz-na-nuvem" onclick="navigate('/unicornios/unicornio-feliz-na-nuvem'); return false;" class="drawing-card-link">
                                 <div class="card-img-wrapper">
-                                    <span style="position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; color: white; background: var(--color-purple); box-shadow: 0 2px 4px rgba(0,0,0,0.15);">🏆 Destaque Clássico</span>
+                                    <span class="card-badge" style="background: var(--color-purple);">🏆 Destaque Clássico</span>
                                     <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/unicornios/01-unicornio-feliz-na-nuvem__unicorn.png" alt="Unicórnio Mágico" loading="lazy">
                                 </div>
                             </a>
@@ -738,7 +739,7 @@
                         <div class="drawing-card" data-id="t-rex-correndo-feliz" data-category="dinossauros">
                             <a href="/dinossauros/t-rex-correndo-feliz" onclick="navigate('/dinossauros/t-rex-correndo-feliz'); return false;" class="drawing-card-link">
                                 <div class="card-img-wrapper">
-                                    <span style="position: absolute; top: 10px; left: 10px; z-index: 10; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; color: white; background: #10ac84; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">🦖 Campeão de Colorir</span>
+                                    <span class="card-badge" style="background: #10ac84;">🦖 Campeão de Colorir</span>
                                     <img src="https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/01-t-rex-correndo-feliz__t-rex.png" alt="T-Rex Feliz" loading="lazy">
                                 </div>
                             </a>
@@ -1215,10 +1216,10 @@
                                     </li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> 🎨 Acesso a 2.000 desenhos</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Colorir online</li>
+                                    <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Download em PNG e PDF</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Hall da Fama</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Avatares e Conquistas</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Ler histórias da comunidade</li>
-                                    <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Download em PNG</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> Impressão</li>
                                     <li><i class="fa-solid fa-circle-check" style="color: var(--color-green); margin-right: 8px;"></i> <strong style="color: #2ecc71;">3 créditos por mês</strong> <i class="fa-solid fa-circle-info" style="font-size: 0.8rem; cursor: pointer; color: #a09eb5;" title="Renovam todo mês e não são cumulativos."></i></li>
                                 </ul>
@@ -1848,6 +1849,7 @@
         <!-- Bottom Actions -->
         <div class="bottom-actions">
             <button class="btn-generate btn-bottom" style="background-color: var(--color-purple);" onclick="resetForm()">📖 Criar Outra História</button>
+            <button class="btn-generate btn-bottom" style="background-color: var(--color-blue);" id="btnDownloadPDF" onclick="generatePDF()">📥 Baixar PDF A4</button>
             <button class="btn-generate btn-bottom" style="background-color: var(--color-green);" id="btnPrintFullBook">🖨️ Imprimir História Completa</button>
             <button class="btn-generate btn-bottom" style="background-color: #25d366; color: white;" id="btnShareWhatsAppBook" onclick="shareGeneratedStory()"><i class="fa-brands fa-whatsapp"></i> Enviar pelo WhatsApp</button>
         </div>
@@ -1860,7 +1862,7 @@
                 <div style="text-align: center; margin-bottom: 40px;">
                     <h1 style="font-family: var(--font-heading); font-weight: 700; font-size: 2.5rem; color: var(--color-dark); margin-bottom: 10px;">📚 Histórias Mágicas de Exemplo</h1>
                     <p style="font-family: var(--font-body); font-size: 1.1rem; color: var(--color-dark-light); max-width: 600px; margin: 0 auto;">
-                        Confira exemplos reais de histórias ilustradas geradas pela Inteligência Artificial do KidCanvas. Você pode ler ou imprimir a história completa gratuitamente!
+                        Confira exemplos reais de histórias ilustradas geradas pela Inteligência Artificial do KidCanvas. Você pode ler, imprimir ou baixar o PDF completo gratuitamente!
                     </p>
                 </div>
                 
@@ -2165,7 +2167,7 @@
                         </div>
 
                         <!-- Desfazer / Refazer -->
-                        <div style="display: flex; gap: 6px; width: 100%; justify-content: center; margin-bottom: 4px;">
+                        <div class="paint-undo-redo-container" style="display: flex; gap: 6px; width: 100%; justify-content: center; margin-bottom: 4px;">
                             <button class="paint-tool-btn" id="paint-btn-undo" title="Desfazer (Ctrl+Z)" style="width: 34px; height: 34px; font-size: 1.05rem; border-radius: 8px;">
                                 <i class="fa-solid fa-arrow-rotate-left"></i>
                             </button>
@@ -2332,6 +2334,7 @@
                                 <button class="btn btn-primary btn-sm" id="paint-btn-save-public" style="background-color: var(--color-purple); border-color: var(--color-purple); color: white; display: flex; align-items: center; gap: 4px; font-weight: 800;"><i class="fa-solid fa-star"></i> Salvar e Compartilhar</button>
                                 <button class="btn btn-secondary btn-sm" id="paint-btn-whatsapp" style="background-color: #25d366; border-color: #25d366; color: white; display: flex; align-items: center; gap: 4px;" title="Enviar por WhatsApp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
                                 <button class="btn btn-secondary btn-sm" id="paint-btn-print" style="background-color: var(--color-blue); border-color: var(--color-blue); color: white; display: flex; align-items: center; gap: 4px;" title="Imprimir Desenho"><i class="fa-solid fa-print"></i> Imprimir</button>
+                                <button class="btn btn-secondary btn-sm" id="paint-btn-pdf" style="background-color: #e74c3c; border-color: #e74c3c; color: white; display: flex; align-items: center; gap: 4px;" title="Baixar PDF"><i class="fa-solid fa-file-pdf"></i> PDF</button>
                                 <button class="btn btn-secondary btn-sm" id="paint-btn-clear" style="display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-trash-can"></i> Limpar</button>
                                 <button class="btn btn-secondary btn-sm" id="paint-btn-random" onclick="window.playRandomDrawing(); return false;" style="background-color: var(--color-orange); border-color: var(--color-orange); color: white; display: flex; align-items: center; gap: 4px; font-weight: 800;" title="Sortear Desenho"><i class="fa-solid fa-shuffle"></i> Sortear Desenho</button>
                             </div>
