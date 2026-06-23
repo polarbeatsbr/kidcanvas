@@ -2006,7 +2006,7 @@ async function checkPendingUpgrade() {
 // 1. HOME VIEW
 function renderHomeView() {
     document.title = "KidCanvas — Desenhos para Colorir e Imprimir Grátis 🎨";
-    setMetaDescription("Milhares de desenhos para colorir e imprimir grátis. Animais selvagens, mar, domésticos, dinossauros, contos de fada e muito mais para colorir!");
+    setMetaDescription("KidCanvas é um universo de criatividade para crianças. Colorir, pintar online, criar histórias, jogar, conquistar certificados e aprender brincando em um ambiente seguro e divertido.");
     
     if (typeof checkActiveEvent === 'function') {
         checkActiveEvent();
