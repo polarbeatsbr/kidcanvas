@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quebra-Cabeça KidCanvas 🎨</title>
+    
+    <!-- Google Fonts: Fredoka One para visual infantil premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fdf8f0;
+            --coral: #ff6b6b;
+            --purple: #7c3aed;
+            --purple-light: #f3e8ff;
+            --green: #16a34a;
+            --green-light: #dcfce7;
+            --orange: #f97316;
+            --orange-light: #ffedd5;
+            --yellow: #facc15;
+            --yellow-light: #fef9c3;
+            --red: #dc2626;
+            --text-dark: #2d3748;
+            --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --border-radius-lg: 24px;
+            --border-radius-md: 16px;
+            --font-friendly: 'Fredoka One', cursive, sans-serif;
+            --font-body: 'Outfit', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            overflow-x: hidden;
+        }
+
+        /* Container Principal */
+        .game-container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Cabeçalho de Mascotes */
+        .mascot-header {
+            background: white;
+            border-radius: var(--border-radius-md);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-soft);
+            border: 3px solid #f1f5f9;
+            position: relative;
+        }
+
+        .mascot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .mascot-avatar {
+            font-size: 2.2rem;
+            animation: bounce 3s ease-in-out infinite alternate;
+        }
+
+        .mascot:last-child .mascot-avatar {
+            animation-delay: 1.5s;
+        }
+
+        .mascot-name {
+            font-family: var(--font-friendly);
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .mascot-status {
+            font-size: 0.7rem;
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        /* Painel Central de Informações / Contador */
+        .stats-panel {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            flex: 1;
+            padding: 0 8px;
+        }
+
+        .stats-title {
+            font-family: var(--font-friendly);
+            font-size: 1.1rem;
+            color: var(--purple);
+            text-shadow: 1px 1px 0px rgba(124, 58, 237, 0.1);
+        }
+
+        .stats-counter {
+            font-family: var(--font-friendly);
+            font-size: 0.95rem;
+            background: var(--purple-light);
+            color: var(--purple);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 2px dashed var(--purple);
+            display: inline-block;
+        }
+
+        /* Seletores de Dificuldade */
+        .difficulty-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .diff-btn {
+            font-family: var(--font-friendly);
+            font-size: 0.95rem;
+            padding: 10px;
+            border: none;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+            transition: all 0.15s ease;
+            text-align: center;
+        }
+
+        .diff-btn:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .diff-btn-easy {
+            background-color: var(--green);
+            opacity: 0.6;
+        }
+        .diff-btn-easy.active {
+            opacity: 1;
+            box-shadow: 0 4px 0 #115e59, 0 0 12px rgba(22, 163, 74, 0.4);
+            border: 2px solid white;
+        }
+
+        .diff-btn-medium {
+            background-color: var(--orange);
+            opacity: 0.6;
+        }
+        .diff-btn-medium.active {
+            opacity: 1;
+            box-shadow: 0 4px 0 #c2410c, 0 0 12px rgba(249, 115, 22, 0.4);
+            border: 2px solid white;
+        }
+
+        .diff-btn-hard {
+            background-color: var(--red);
+            opacity: 0.6;
+        }
+        .diff-btn-hard.active {
+            opacity: 1;
+            box-shadow: 0 4px 0 #991b1b, 0 0 12px rgba(220, 38, 38, 0.4);
+            border: 2px solid white;
+        }
+
+        /* Seletores de Imagem */
+        .image-selector-wrapper {
+            background: white;
+            border-radius: var(--border-radius-md);
+            padding: 10px;
+            box-shadow: var(--shadow-soft);
+            border: 3px solid #f1f5f9;
+        }
+
+        .image-selector-title {
+            font-family: var(--font-friendly);
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .image-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .img-btn {
+            font-family: var(--font-body);
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 8px 4px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .img-btn-emoji {
+            font-size: 1.5rem;
+        }
+
+        .img-btn.active {
+            border-color: var(--purple);
+            background: var(--purple-light);
+            color: var(--purple);
+            transform: scale(1.05);
+        }
+
+        /* Container do Grid e Miniatura */
+        .board-wrapper {
+            position: relative;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 12px;
+            box-shadow: var(--shadow-soft);
+            border: 4px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Grid do Quebra Cabeça */
+        .puzzle-grid {
+            width: 100%;
+            aspect-ratio: 1; /* Mantém quadrado responsivo */
+            position: relative;
+            background: #f1f5f9;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #e2e8f0;
+        }
+
+        /* Peça do Puzzle */
+        .puzzle-piece {
+            position: absolute;
+            box-sizing: border-box;
+            border: 2px solid #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            /* Suave transição na troca de posições */
+            transition: left 0.25s cubic-bezier(0.25, 0.8, 0.25, 1.1), 
+                        top 0.25s cubic-bezier(0.25, 0.8, 0.25, 1.1), 
+                        border-color 0.2s, 
+                        box-shadow 0.2s,
+                        transform 0.2s;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .puzzle-piece:hover {
+            transform: scale(1.02);
+            z-index: 10;
+        }
+
+        /* Feedback: Peça Selecionada */
+        .puzzle-piece.selected {
+            border: 3px solid var(--purple) !important;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.7) !important;
+            z-index: 20;
+            animation: pulse-selection 1s infinite alternate;
+        }
+
+        /* Feedback: Peça no lugar correto */
+        .puzzle-piece.correct {
+            border: 2px solid var(--green) !important;
+            box-shadow: inset 0 0 10px rgba(22, 163, 74, 0.2);
+        }
+
+        /* Indicador de que está correto (estilo game premium) */
+        .puzzle-piece.correct::after {
+            content: "✓";
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: var(--green);
+            color: white;
+            font-size: 9px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Overlay do Gabarito Completo */
+        .gabarito-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 30;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            border-radius: 12px;
+        }
+
+        .gabarito-overlay.visible {
+            opacity: 1;
+        }
+
+        /* Controles do Gabarito/Jogo */
+        .controls-row {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .control-btn {
+            font-family: var(--font-friendly);
+            font-size: 0.95rem;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .control-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-restart {
+            background-color: var(--coral);
+        }
+
+        .btn-gabarito {
+            background-color: var(--yellow);
+            color: #78350f;
+        }
+
+        /* Referência Miniatura Lateral */
+        .reference-thumbnail {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            border: 3px solid #e2e8f0;
+            background-size: cover;
+            background-position: center;
+            box-shadow: var(--shadow-soft);
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .reference-thumbnail::before {
+            content: "Gabarito";
+            position: absolute;
+            bottom: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            font-weight: bold;
+            color: #64748b;
+        }
+
+        /* Caixa de Mensagens Dinâmicas */
+        .message-box {
+            background: white;
+            border-radius: var(--border-radius-md);
+            padding: 14px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            border: 3px solid #f1f5f9;
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .message-text {
+            font-family: var(--font-friendly);
+            font-size: 0.95rem;
+            color: var(--purple);
+            animation: popText 0.3s ease;
+        }
+
+        /* Modal / Overlay de Vitória */
+        .win-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(253, 248, 240, 0.95);
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            border-radius: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .win-overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .win-title {
+            font-family: var(--font-friendly);
+            font-size: 2rem;
+            color: var(--coral);
+            margin-bottom: 8px;
+            animation: bounce 0.6s ease infinite alternate;
+        }
+
+        .win-mascots {
+            font-size: 3rem;
+            margin: 12px 0;
+            letter-spacing: 10px;
+        }
+
+        .win-message {
+            font-family: var(--font-friendly);
+            font-size: 1.1rem;
+            color: var(--purple);
+            margin-bottom: 12px;
+            padding: 0 10px;
+        }
+
+        .win-stats {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #475569;
+            margin-bottom: 24px;
+            background: #f1f5f9;
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        .btn-win-restart {
+            background-color: var(--green);
+            font-family: var(--font-friendly);
+            font-size: 1.1rem;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 18px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #115e59;
+            transition: all 0.15s ease;
+        }
+
+        .btn-win-restart:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #115e59;
+        }
+
+        /* Sistema de Confetes */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .confetti-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0.85;
+            top: -20px;
+            animation: fall linear forwards;
+        }
+
+        /* Animações CSS */
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes pulse-selection {
+            from {
+                border-color: var(--purple);
+                box-shadow: 0 0 8px rgba(124, 58, 237, 0.5);
+            }
+            to {
+                border-color: #a855f7;
+                box-shadow: 0 0 20px rgba(168, 85, 247, 0.9);
+            }
+        }
+
+        @keyframes popText {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
+            }
+            100% {
+                transform: translateY(105vh) rotate(720deg);
+            }
+        }
+
+        /* Responsividade Desktop */
+        @media (min-width: 768px) {
+            .game-container {
+                max-width: 480px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        
+        <!-- Cabeçalho com Mascotes -->
+        <div class="mascot-header">
+            <div class="mascot">
+                <span class="mascot-avatar">👵</span>
+                <span class="mascot-name">Vovó Sônia</span>
+                <span class="mascot-status">te apoia!</span>
+            </div>
+            
+            <div class="stats-panel">
+                <h1 class="stats-title">Quebra-Cabeça</h1>
+                <div class="stats-counter" id="counters">Movimentos: 0 | Peças: 0/9</div>
+            </div>
+            
+            <div class="mascot">
+                <span class="mascot-avatar">👦</span>
+                <span class="mascot-name">Pedrinho</span>
+                <span class="mascot-status">torcendo!</span>
+            </div>
+        </div>
+
+        <!-- Seletores de Dificuldade -->
+        <div class="difficulty-selector">
+            <button class="diff-btn diff-btn-easy active" onclick="setDifficulty(3)">Fácil</button>
+            <button class="diff-btn diff-btn-medium" onclick="setDifficulty(4)">Médio</button>
+            <button class="diff-btn diff-btn-hard" onclick="setDifficulty(5)">Difícil</button>
+        </div>
+
+        <!-- Seletor de Imagens -->
+        <div class="image-selector-wrapper">
+            <div class="image-selector-title">Escolha o desenho do puzzle:</div>
+            <div class="image-buttons">
+                <button class="img-btn active" onclick="setImageOption(1)" id="btn-img-1">
+                    <span class="img-btn-emoji">🐱</span>
+                    <span>Gato Fofo</span>
+                </button>
+                <button class="img-btn" onclick="setImageOption(2)" id="btn-img-2">
+                    <span class="img-btn-emoji">🐶</span>
+                    <span>Cão Fofo</span>
+                </button>
+                <button class="img-btn" onclick="setImageOption(3)" id="btn-img-3">
+                    <span class="img-btn-emoji">🦖</span>
+                    <span>Dinossauro</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Área Principal de Jogo -->
+        <div class="board-wrapper">
+            <div class="puzzle-grid" id="puzzle-grid">
+                <!-- As peças do quebra-cabeça serão geradas dinamicamente aqui -->
+                <div class="gabarito-overlay" id="gabarito-overlay"></div>
+                
+                <!-- Overlay de Vitória -->
+                <div class="win-overlay" id="win-overlay">
+                    <div class="win-title">PARABÉNS! 🎉</div>
+                    <div class="win-mascots">👵👦✨</div>
+                    <div class="win-message" id="win-message">Você conseguiu!</div>
+                    <div class="win-stats" id="win-stats">Movimentos: 0</div>
+                    <button class="btn-win-restart" onclick="restartGame()">Jogar de novo 🔁</button>
+                </div>
+            </div>
+
+            <!-- Controles e Referência Miniatura -->
+            <div class="controls-row">
+                <button class="control-btn btn-restart" onclick="restartGame()">Novo Jogo 🔁</button>
+                <button class="control-btn btn-gabarito" onclick="showFullGabarito()">Ver Gabarito 👁️</button>
+                <div class="reference-thumbnail" id="ref-thumbnail"></div>
+            </div>
+        </div>
+
+        <!-- Mensagens Dinâmicas -->
+        <div class="message-box">
+            <div class="message-text" id="message-text">Monte o quebra-cabeça! Clique em duas peças para trocar.</div>
+        </div>
+
+    </div>
+
+    <!-- Container para confetes -->
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <script>
+        // --- CONFIGURAÇÃO E ESTADO GLOBAL ---
+        let N = 3; // 3x3 por padrão (Fácil)
+        let selectedPieceIndex = null; // Índice da peça atualmente selecionada
+        let movesCount = 0;
+        let correctCount = 0;
+        let isGameFinished = false;
+        let isGabaritoActive = false;
+
+        // Imagens Picsum curadas
+        const images = {
+            1: "https://picsum.photos/480/480?random=10", // Gato
+            2: "https://picsum.photos/480/480?random=20", // Cão
+            3: "https://picsum.photos/480/480?random=30"  // Dinossauro
+        };
+        let currentImageId = 1;
+
+        // Representa o estado do Grid: grid[v] contém o índice original da peça que está na posição v
+        let grid = [];
+
+        // Mensagens motivacionais aleatórias
+        const encouragingPhrases = [
+            "Boa jogada! 🌟",
+            "Continue assim! 💪",
+            "Quase lá! ✨",
+            "Isso aí! 🚀",
+            "Muito bem! 🎨",
+            "Uau, que inteligência! 🧠",
+            "Excelente escolha! 👵",
+            "Pedrinho adorou! 👦"
+        ];
+
+        // --- SISTEMA DE AUDIO (Web Audio API para som de jogos) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'select') {
+                    // Som curto de clique agudo
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+                    osc.start(now);
+                    osc.stop(now + 0.08);
+                } else if (type === 'swap') {
+                    // Som de movimento suave (whoosh)
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(400, now);
+                    osc.frequency.exponentialRampToValueAtTime(200, now + 0.15);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                    osc.start(now);
+                    osc.stop(now + 0.15);
+                } else if (type === 'correct') {
+                    // Ding triplo satisfatório
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.06); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.12); // G5
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                } else if (type === 'victory') {
+                    // Fanfarra alegre
+                    const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]; // Acorde maior
+                    notes.forEach((freq, index) => {
+                        const noteOsc = audioCtx.createOscillator();
+                        const noteGain = audioCtx.createGain();
+                        noteOsc.connect(noteGain);
+                        noteGain.connect(audioCtx.destination);
+                        
+                        noteOsc.type = 'triangle';
+                        noteOsc.frequency.setValueAtTime(freq, now + index * 0.1);
+                        noteGain.gain.setValueAtTime(0.12, now + index * 0.1);
+                        noteGain.gain.exponentialRampToValueAtTime(0.01, now + index * 0.1 + 0.3);
+                        
+                        noteOsc.start(now + index * 0.1);
+                        noteOsc.stop(now + index * 0.1 + 0.3);
+                    });
+                }
+            } catch (e) {
+                console.warn("Audio não disponível no navegador.", e);
+            }
+        }
+
+        // --- SISTEMA DE CONFETES (CSS Puro) ---
+        function spawnConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            
+            const colors = ['#ff6b6b', '#7c3aed', '#16a34a', '#facc15', '#f97316', '#3b82f6', '#ec4899'];
+            const count = 75;
+
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('confetti-particle');
+                
+                // Propriedades randômicas
+                const left = Math.random() * 100; // %
+                const size = Math.random() * 8 + 6; // px
+                const delay = Math.random() * 3; // s
+                const duration = Math.random() * 3 + 2; // s
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const shape = Math.random() > 0.5 ? '50%' : '2px'; // Círculo ou Quadrado
+
+                particle.style.left = `${left}vw`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = color;
+                particle.style.borderRadius = shape;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // --- INICIALIZAÇÃO E CONTROLE DO GAME ---
+
+        // Inicia o jogo na montagem
+        window.addEventListener('DOMContentLoaded', () => {
+            initGame();
+        });
+
+        function initGame() {
+            movesCount = 0;
+            selectedPieceIndex = null;
+            isGameFinished = false;
+            isGabaritoActive = false;
+
+            // Esconder overlay de vitória e gabarito
+            document.getElementById('win-overlay').classList.remove('visible');
+            document.getElementById('gabarito-overlay').classList.remove('visible');
+
+            // Atualizar referências de imagem
+            const imageUrl = images[currentImageId];
+            document.getElementById('ref-thumbnail').style.backgroundImage = `url(${imageUrl})`;
+            document.getElementById('gabarito-overlay').style.backgroundImage = `url(${imageUrl})`;
+
+            // Criar array ordenado das peças: [0, 1, 2, ..., N*N - 1]
+            grid = Array.from({ length: N * N }, (_, i) => i);
+
+            // Embaralhar até que a solução não seja trivial
+            shuffleGrid();
+            
+            // Renderizar as peças no DOM
+            buildPuzzleDOM();
+
+            // Atualizar informações de tela
+            updateStats();
+            updateMessage("Monte o quebra-cabeça! Clique em duas peças para trocar.");
+        }
+
+        // Fisher-Yates Shuffle
+        function shuffleGrid() {
+            do {
+                for (let i = grid.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [grid[i], grid[j]] = [grid[j], grid[i]];
+                }
+            } while (checkWinCondition() || countCorrectPositions() > 1); // Evita começar quase completo
+        }
+
+        function countCorrectPositions() {
+            let correct = 0;
+            for (let i = 0; i < grid.length; i++) {
+                if (grid[i] === i) correct++;
+            }
+            return correct;
+        }
+
+        function checkWinCondition() {
+            for (let i = 0; i < grid.length; i++) {
+                if (grid[i] !== i) return false;
+            }
+            return true;
+        }
+
+        // Constrói as <div> das peças do Puzzle
+        function buildPuzzleDOM() {
+            const gridContainer = document.getElementById('puzzle-grid');
+            
+            // Remove as peças antigas do puzzle (mantendo os overlays)
+            const oldPieces = gridContainer.querySelectorAll('.puzzle-piece');
+            oldPieces.forEach(p => p.remove());
+
+            const imageUrl = images[currentImageId];
+
+            for (let i = 0; i < N * N; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'puzzle-piece';
+                piece.id = `piece-${i}`;
+                
+                // Configuração da imagem de fundo
+                piece.style.backgroundImage = `url(${imageUrl})`;
+                piece.style.backgroundSize = `${N * 100}% ${N * 100}%`;
+                
+                // Posição correta da imagem de fundo (fatiamento)
+                const origCol = i % N;
+                const origRow = Math.floor(i / N);
+                // Evitar divisão por zero para 1x1 (embora o mínimo seja 3x3)
+                const denom = N > 1 ? N - 1 : 1;
+                const bgX = (origCol / denom) * 100;
+                const bgY = (origRow / denom) * 100;
+                piece.style.backgroundPosition = `${bgX}% ${bgY}%`;
+
+                // Dimensão proporcional da peça
+                piece.style.width = `${100 / N}%`;
+                piece.style.height = `${100 / N}%`;
+
+                // Evento de Clique
+                piece.addEventListener('click', () => handlePieceClick(i));
+
+                gridContainer.appendChild(piece);
+            }
+
+            // Atualiza as posições visuais
+            renderPositions();
+        }
+
+        // Posiciona cada peça do DOM de acordo com a ordem do array 'grid'
+        function renderPositions() {
+            correctCount = 0;
+
+            for (let v = 0; v < grid.length; v++) {
+                const pieceIndex = grid[v];
+                const pieceEl = document.getElementById(`piece-${pieceIndex}`);
+                
+                if (pieceEl) {
+                    const visCol = v % N;
+                    const visRow = Math.floor(v / N);
+                    
+                    // Posicionamento absoluto responsivo por porcentagem
+                    pieceEl.style.left = `${(visCol / N) * 100}%`;
+                    pieceEl.style.top = `${(visRow / N) * 100}%`;
+
+                    // Verifica se está na posição correta
+                    if (pieceIndex === v) {
+                        pieceEl.classList.add('correct');
+                        correctCount++;
+                    } else {
+                        pieceEl.classList.remove('correct');
+                    }
+                }
+            }
+
+            updateStats();
+        }
+
+        // Trata clique nas peças do Puzzle
+        function handlePieceClick(pieceIndex) {
+            if (isGameFinished || isGabaritoActive) return;
+
+            // Encontra a posição visual da peça clicada
+            const visualPos = grid.indexOf(pieceIndex);
+
+            if (selectedPieceIndex === null) {
+                // Primeira seleção
+                selectedPieceIndex = pieceIndex;
+                const pieceEl = document.getElementById(`piece-${pieceIndex}`);
+                pieceEl.classList.add('selected');
+                playSound('select');
+            } else if (selectedPieceIndex === pieceIndex) {
+                // Desmarca se clicar na mesma
+                const pieceEl = document.getElementById(`piece-${pieceIndex}`);
+                pieceEl.classList.remove('selected');
+                selectedPieceIndex = null;
+                playSound('select');
+            } else {
+                // Troca as duas de lugar
+                const indexA = selectedPieceIndex;
+                const indexB = pieceIndex;
+
+                const posA = grid.indexOf(indexA);
+                const posB = grid.indexOf(indexB);
+
+                // Efetua a troca no array lógico
+                [grid[posA], grid[posB]] = [grid[posB], grid[posA]];
+                
+                // Desmarca a seleção
+                document.getElementById(`piece-${indexA}`).classList.remove('selected');
+                selectedPieceIndex = null;
+
+                movesCount++;
+                playSound('swap');
+
+                // Atualizar renderização das posições
+                renderPositions();
+
+                // Checa se o movimento levou a uma peça no lugar certo
+                const checkA_Correct = (grid[posA] === posA);
+                const checkB_Correct = (grid[posB] === posB);
+                if (checkA_Correct || checkB_Correct) {
+                    playSound('correct');
+                }
+
+                // Checar Vitória
+                if (checkWinCondition()) {
+                    triggerVictory();
+                } else {
+                    // Escolhe uma frase aleatória de encorajamento
+                    const randomPhrase = encouragingPhrases[Math.floor(Math.random() * encouragingPhrases.length)];
+                    updateMessage(randomPhrase);
+                }
+            }
+        }
+
+        // --- SISTEMAS DE FEEDBACK DE MENSAGENS E STATS ---
+
+        // Atualiza contadores
+        function updateStats() {
+            const countersEl = document.getElementById('counters');
+            countersEl.innerHTML = `Movimentos: <strong>${movesCount}</strong> | Peças: <strong>${correctCount}/${N * N}</strong>`;
+        }
+
+        function updateMessage(txt) {
+            const msgEl = document.getElementById('message-text');
+            msgEl.textContent = txt;
+            
+            // Reinicia animação de popup
+            msgEl.style.animation = 'none';
+            msgEl.offsetHeight; // Trigger reflow
+            msgEl.style.animation = 'popText 0.3s ease';
+        }
+
+        // Ação de Mostrar Gabarito por 2 Segundos
+        function showFullGabarito() {
+            if (isGameFinished || isGabaritoActive) return;
+
+            isGabaritoActive = true;
+            const gabaritoEl = document.getElementById('gabarito-overlay');
+            gabaritoEl.classList.add('visible');
+            playSound('select');
+
+            updateMessage("Olhe bem o gabarito! Voltando em 2 segundos...");
+
+            setTimeout(() => {
+                gabaritoEl.classList.remove('visible');
+                isGabaritoActive = false;
+                updateMessage("De volta ao jogo! Encontre a posição das peças.");
+            }, 2000);
+        }
+
+        // Ajusta a Dificuldade e Reinicia
+        function setDifficulty(size) {
+            if (size === N) return;
+            N = size;
+
+            // Atualiza botões ativos
+            document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('active'));
+            if (size === 3) document.querySelector('.diff-btn-easy').classList.add('active');
+            else if (size === 4) document.querySelector('.diff-btn-medium').classList.add('active');
+            else if (size === 5) document.querySelector('.diff-btn-hard').classList.add('active');
+
+            playSound('select');
+            initGame();
+        }
+
+        // Altera Imagem do Puzzle
+        function setImageOption(optionId) {
+            if (optionId === currentImageId) return;
+            currentImageId = optionId;
+
+            // Atualiza botões ativos
+            document.querySelectorAll('.img-btn').forEach((btn, idx) => {
+                if (idx + 1 === optionId) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            playSound('select');
+            initGame();
+        }
+
+        // Reinicia Jogo no Nível Atual
+        function restartGame() {
+            playSound('select');
+            initGame();
+        }
+
+        // Lógica de Vitória
+        function triggerVictory() {
+            isGameFinished = true;
+            playSound('victory');
+            spawnConfetti();
+
+            const winOverlay = document.getElementById('win-overlay');
+            const winMessageEl = document.getElementById('win-message');
+            const winStatsEl = document.getElementById('win-stats');
+
+            let congratsText = "";
+
+            // Lógica de classificação por movimentos
+            if (N === 3) {
+                congratsText = movesCount <= 15 ? "Incrível! Você é um gênio do puzzle! 🧠✨" : "Parabéns! Tente bater seu recorde!";
+            } else if (N === 4) {
+                congratsText = movesCount <= 30 ? "Que talento! Puzzle resolvido! 🎨💪" : "Parabéns! Tente bater seu recorde!";
+            } else if (N === 5) {
+                congratsText = movesCount <= 50 ? "UAU! Mestre dos quebra-cabeças! 🏆🌟" : "Parabéns! Tente bater seu recorde!";
+            }
+
+            winMessageEl.textContent = congratsText;
+            winStatsEl.innerHTML = `Movimentos: <strong>${movesCount}</strong> | Peças: <strong>${correctCount}/${N * N}</strong>`;
+            
+            winOverlay.classList.add('visible');
+            updateMessage("🏆 Sensacional! Você completou o puzzle!");
+        }
+
+    </script>
+</body>
+</html>

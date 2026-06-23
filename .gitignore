@@ -45,3 +45,7 @@ suspeitas/
 
 .vercel
 .env*
+
+# Protótipos locais — não publicar
+/prototipos/
+prototipos/

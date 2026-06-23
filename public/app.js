@@ -738,6 +738,13 @@ function renderResetPasswordView() {
 }
 window.renderResetPasswordView = renderResetPasswordView;
 
+function render404View() {
+    document.title = "Página Não Encontrada — KidCanvas 🎨";
+    const view = document.getElementById('view-404');
+    if (view) view.style.display = 'block';
+}
+window.render404View = render404View;
+
 async function handleLoginSubmit(event) {
     event.preventDefault();
     const email = document.getElementById('loginEmail').value.trim();
@@ -1080,10 +1087,23 @@ function initGlobalEventListeners() {
     if (mobileSearchTrigger) {
         mobileSearchTrigger.addEventListener('click', (e) => {
             e.preventDefault();
-            const globalSearch = document.getElementById('global-search-input');
-            if (globalSearch) {
-                globalSearch.focus();
-                globalSearch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const homeSearch = document.getElementById('search-input-home');
+            if (homeSearch) {
+                if (window.location.pathname !== '/') {
+                    navigate('/');
+                    setTimeout(() => {
+                        const hs = document.getElementById('search-input-home');
+                        if (hs) {
+                            hs.focus();
+                            hs.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 200);
+                } else {
+                    homeSearch.focus();
+                    homeSearch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                navigate('/');
             }
         });
     }
@@ -1340,9 +1360,8 @@ function navigate(path, pushState = true) {
                 }
             }
         } else {
-            // Rota não encontrada -> Redirecionar para home
-            renderHomeView();
-            cleanPath = '/';
+            // Rota não encontrada -> Renderizar página 404
+            render404View();
         }
     }
     
@@ -1591,7 +1610,7 @@ async function handlePayWithCard() {
         const data = await res.json();
         if (res.ok && data.success && data.url) {
             localStorage.removeItem("kidcanvas_pending_upgrade");
-            window.open(data.url, '_blank');
+            window.location.href = data.url;
         } else {
             showToast(`Erro ao abrir checkout: ${data.message || 'Erro desconhecido'}`, 'error');
             if (res.status === 401 || (data.message && (data.message.includes('Sessão inválida') || data.message.includes('Sessão expirada') || data.message.includes('Faça login novamente')))) {

@@ -2775,6 +2775,34 @@
                 </div>
             </div>
         </section>
+
+        <!-- Tela 404 Personalizada -->
+        <section id="view-404" class="page-view" style="display: none;">
+            <div class="container" style="max-width: 600px; text-align: center; padding: 60px 20px;">
+                <div style="background-color: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 40px 30px; box-shadow: var(--shadow-cartoon); position: relative; overflow: visible;">
+                    
+                    <!-- Mascotes saltando nas laterais/fundo do container -->
+                    <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+                        <img src="/mascot_artista.png" alt="Mascote Pedrinho" style="height: 100px; animation: floatMascot 3s infinite ease-in-out;" />
+                        <img src="/mascot_mago.png" alt="Mascote Vovó Sônia" style="height: 100px; animation: floatMascot 3s infinite ease-in-out 1.5s;" />
+                    </div>
+
+                    <h1 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 3.5rem; margin-bottom: 10px; text-shadow: var(--shadow-text);">404</h1>
+                    <h2 style="font-family: var(--font-heading); color: var(--color-orange); margin-bottom: 20px;">Ops! Caminho Perdido...</h2>
+                    
+                    <!-- Balão de fala do Mascote -->
+                    <div style="background: #f0ece4; border: var(--border-thin); border-radius: var(--radius-sm); padding: 15px 20px; margin-bottom: 30px; position: relative;">
+                        <p style="color: var(--color-dark); font-size: 1.1rem; line-height: 1.5; font-family: var(--font-heading); margin: 0;">
+                            "Procuramos por todo o KidCanvas, mas essa página sumiu com um passe de mágica! 🪄 Que tal voltarmos para a página inicial para pintar desenhos coloridos?"
+                        </p>
+                    </div>
+
+                    <a href="/" onclick="navigate('/'); return false;" class="btn btn-secondary" style="font-size: 1.2rem; padding: 14px 28px; border-radius: var(--radius-sm); font-weight: 700; display: inline-block;">
+                        Ir para a Home 🏠
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
 

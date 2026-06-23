@@ -1,0 +1,836 @@
+/* VARIABLES & BASE DESIGN SYSTEM */
+:root {
+    --font-primary: 'Fredoka', 'Quicksand', sans-serif;
+    --color-bg-light: #FDFBF7;   /* Fundo bege bem suave e quente */
+    --color-primary: #4CAF50;    /* Verde Perigo */
+    --color-primary-dark: #388E3C;
+    --color-accent: #FFEB3B;     /* Amarelo Estrela */
+    --color-accent-dark: #F57F17;
+    --color-coral: #FF7043;      /* Coral alegre */
+    --color-purple-mythic: #E040FB; /* Roxo para o Card Mítico */
+    --color-dark: #2D3748;
+    --color-light: #FFFFFF;
+    --shadow-soft: 0 8px 24px rgba(67, 160, 71, 0.12);
+    --shadow-heavy: 0 16px 32px rgba(67, 160, 71, 0.2);
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    --border-radius-sm: 12px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-primary);
+    background-color: #F3EFE9; /* Bege da identidade visual do KidCanvas */
+    color: var(--color-dark);
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px; /* Layout móvel centralizado */
+    height: 100%;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #FFFDF9 0%, #F5F1E9 100%);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ESTILOS DE TELA */
+.game-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.game-screen.active {
+    display: flex;
+}
+
+/* 1. TELA INICIAL */
+#screen-start {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #FFF9E6 0%, #E8F5E9 100%);
+}
+
+.start-card {
+    background: var(--color-light);
+    border: 5px solid var(--color-primary);
+    border-radius: var(--border-radius-lg);
+    padding: 24px 20px;
+    box-shadow: var(--shadow-heavy);
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mascot-badge {
+    background: #E8F5E9;
+    border-radius: 50%;
+    padding: 10px;
+    margin-bottom: 12px;
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.05);
+    animation: float 3s ease-in-out infinite;
+}
+
+.dino-svg {
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+}
+
+.game-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-dark);
+    margin-bottom: 8px;
+}
+
+.game-title .highlight {
+    color: var(--color-primary-dark);
+    text-shadow: 2px 2px 0 var(--color-accent);
+}
+
+.game-description {
+    font-size: 0.95rem;
+    color: #718096;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    padding: 0 8px;
+}
+
+/* SELETOR DE DIFICULDADE */
+.difficulty-container {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.selector-title {
+    font-size: 0.95rem;
+    color: #4A5568;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.difficulty-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.diff-btn {
+    display: flex;
+    align-items: center;
+    background: #F7FAFC;
+    border: 2px solid #E2E8F0;
+    border-radius: var(--border-radius-sm);
+    padding: 10px 14px;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    text-align: left;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.diff-btn .diff-emoji {
+    font-size: 1.3rem;
+    margin-right: 12px;
+}
+
+.diff-btn .diff-label {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-dark);
+    flex: 1;
+}
+
+.diff-btn .diff-info {
+    font-size: 0.75rem;
+    color: #718096;
+    font-weight: 600;
+    background: #EDF2F7;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.diff-btn:hover {
+    border-color: #CBD5E0;
+    background: #EDF2F7;
+}
+
+.diff-btn.active {
+    border-color: var(--color-primary);
+    background: #E8F5E9;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.15);
+}
+
+.diff-btn.active .diff-info {
+    background: var(--color-primary);
+    color: white;
+}
+
+.btn-play {
+    background: linear-gradient(135deg, #FF9100 0%, #FF3D00 100%);
+    color: var(--color-light);
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding: 12px 36px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(255, 61, 0, 0.25);
+    border-bottom: 4px solid #D84315;
+    transition: transform 0.1s, box-shadow 0.2s;
+    animation: pulse 1.8s infinite;
+    width: 80%;
+}
+
+.btn-play:active {
+    transform: scale(0.96) translateY(2px);
+    box-shadow: 0 3px 6px rgba(255, 61, 0, 0.25);
+    border-bottom-width: 2px;
+}
+
+/* 2. TELA DE JOGABILIDADE */
+
+/* Barra Superior */
+.game-header {
+    height: 65px;
+    background: var(--color-light);
+    border-bottom: 3px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    z-index: 20;
+    gap: 8px;
+}
+
+.btn-back {
+    background: #EDF2F7;
+    color: #4A5568;
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Temporizador */
+.timer-box {
+    background: #FFF3CD;
+    border: 2px solid #FFC107;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #856404;
+}
+
+.timer-box.hurry {
+    background: #F8D7DA;
+    border-color: #DC3545;
+    color: #721C24;
+    animation: pulse 0.5s infinite;
+}
+
+.timer-icon {
+    margin-right: 4px;
+}
+
+.stars-counter {
+    background: #FFFDE7;
+    border: 2px solid var(--color-accent-dark);
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-accent-dark);
+}
+
+.star-icon {
+    margin-right: 3px;
+    animation: spin 8s linear infinite;
+}
+
+.progress-container-wrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    max-width: 150px;
+}
+
+.progress-bar-container {
+    flex: 1;
+    height: 10px;
+    background: #EDF2F7;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #CBD5E0;
+    margin-right: 6px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50 0%, #81C784 100%);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #718096;
+    white-space: nowrap;
+}
+
+/* Cenário de Busca */
+.search-scene {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(180deg, #C5E1A5 0%, #E8F5E9 100%); /* Fundo floresta pastel */
+    border-bottom: 5px solid var(--color-primary);
+    overflow: hidden;
+}
+
+.scene-decorations {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.cloud {
+    position: absolute;
+    font-size: 2.2rem;
+    opacity: 0.5;
+}
+.cloud-1 { top: 12%; left: 8%; animation: floatSlow 24s linear infinite; }
+.cloud-2 { top: 20%; right: 10%; animation: floatSlow 32s linear infinite reverse; }
+
+.sun {
+    position: absolute;
+    top: 6%;
+    right: 6%;
+    font-size: 2.6rem;
+    animation: float 4s ease-in-out infinite;
+}
+
+.tree {
+    position: absolute;
+    bottom: -5px;
+    font-size: 5rem;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.06));
+}
+.tree-1 { left: -15px; font-size: 5.5rem; z-index: 1; }
+.tree-2 { right: -20px; font-size: 5rem; z-index: 1; }
+.tree-3 { left: 35%; font-size: 4.5rem; opacity: 0.7; z-index: 0; }
+
+.bush {
+    position: absolute;
+    bottom: -5px;
+    font-size: 2.6rem;
+    z-index: 2;
+}
+.bush-1 { left: 22%; }
+.bush-2 { right: 28%; }
+
+.mountain {
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    font-size: 6rem;
+    opacity: 0.3;
+    z-index: 0;
+}
+
+/* Itens Escondidos */
+.hidden-item {
+    position: absolute;
+    z-index: 5;
+    transition: transform 0.2s, opacity 0.5s;
+    display: none; /* Controlado via JS baseado na dificuldade */
+}
+
+/* Hitbox ampliada para pelo menos 44px */
+.hidden-item .hitbox {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.hidden-item:hover {
+    transform: scale(1.15) rotate(5deg);
+    animation: wiggle 0.4s ease infinite;
+}
+
+.hidden-item.found {
+    opacity: 0;
+    transform: scale(0) rotate(180deg);
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+
+/* Posições Sneaky dos Itens (Distribuídos) */
+#item-star { top: 8%; left: 12%; opacity: 0.8; }
+#item-butterfly { top: 42%; left: 75%; opacity: 0.85; }
+#item-egg { bottom: 4%; left: 8%; z-index: 2; }
+#item-apple { top: 55%; right: 3%; z-index: 2; }
+#item-mushroom { bottom: 3%; left: 58%; z-index: 2; }
+#item-shell { bottom: 2%; right: 38%; opacity: 0.85; }
+#item-flower { top: 48%; left: 32%; opacity: 0.85; }
+#item-clover { bottom: 5%; right: 18%; opacity: 0.85; }
+#item-ladybug { top: 22%; right: 36%; opacity: 0.85; }
+#item-key { top: 12%; right: 15%; opacity: 0.8; }
+
+/* Rodapé: Perigo com Dicas e Lista de Objetivos */
+.game-footer {
+    background: var(--color-light);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-top: 2px solid #E2E8F0;
+    z-index: 20;
+}
+
+.guide-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #FAF8F5; /* Cor bege claro */
+    border-radius: var(--border-radius-md);
+    padding: 6px 10px;
+    border: 2px solid #F0ECE4;
+}
+
+.mini-perigo {
+    flex-shrink: 0;
+    animation: bounceSlow 3s ease-in-out infinite;
+}
+
+.speech-bubble {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4A5568;
+    line-height: 1.3;
+}
+
+.target-panel h3 {
+    font-size: 0.8rem;
+    color: #718096;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.target-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+}
+
+.target-item {
+    background: #F7FAFC;
+    border: 2px solid #E2E8F0;
+    border-radius: 8px;
+    padding: 4px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.target-item .emoji {
+    font-size: 1.15rem;
+    margin-bottom: 2px;
+    filter: grayscale(1);
+    opacity: 0.4;
+    transition: all 0.3s;
+}
+
+.target-item .label {
+    font-size: 0.6rem;
+    color: #A0AEC0;
+    font-weight: 600;
+}
+
+.target-item.completed {
+    background: #E8F5E9;
+    border-color: #A5D6A7;
+}
+
+.target-item.completed .emoji {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+.target-item.completed .label {
+    color: var(--color-primary-dark);
+}
+
+/* 3. TELA DE VITÓRIA / RECOMPENSA */
+#screen-victory {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #FFFDE7 0%, #F5E1FF 100%);
+    overflow-y: auto;
+}
+
+#victory-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 12;
+}
+
+.victory-card {
+    background: var(--color-light);
+    border: 5px solid var(--color-accent);
+    border-radius: var(--border-radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-heavy);
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 15;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.victory-title {
+    font-size: 2rem;
+    color: var(--color-accent-dark);
+    margin-bottom: 4px;
+    text-shadow: 2px 2px 0 #FFF9C4;
+}
+
+.victory-subtitle {
+    font-size: 0.9rem;
+    color: #718096;
+    margin-bottom: 16px;
+}
+
+.reward-stars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.star-pop {
+    font-size: 2.2rem;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.star-pop:nth-child(1) { animation-delay: 0.2s; }
+.star-pop:nth-child(2) { animation-delay: 0.4s; font-size: 2.7rem; }
+.star-pop:nth-child(3) { animation-delay: 0.6s; }
+
+.stars-earned-text {
+    font-size: 1rem;
+    color: var(--color-accent-dark);
+    margin-top: 4px;
+}
+
+/* Efeito Mítico Holográfico 3D da Carta */
+.card-reward-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.card-intro {
+    font-size: 0.85rem;
+    color: #4A5568;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.magic-card {
+    width: 150px;
+    height: 220px;
+    perspective: 1000px;
+    margin: 0 auto;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+    border-radius: var(--border-radius-md);
+    animation: cardAppear 1s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+}
+
+.magic-card:hover .card-inner {
+    transform: rotateY(15deg) rotateX(10deg);
+}
+
+/* Estilo Holográfico Roxo Mítico */
+.card-front.mythic-style {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: linear-gradient(135deg, #F3E5F5 0%, #E040FB 50%, #6A1B9A 100%);
+    border: 4px dashed #EA80FC;
+    border-radius: var(--border-radius-md);
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    color: white;
+    box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.card-header-mythic {
+    background: rgba(255,255,255,0.25);
+    border-radius: 6px;
+    padding: 1px 4px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header-mythic .rarity {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #FFF9C4;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.card-header-mythic .sparkle-icon {
+    font-size: 0.7rem;
+    animation: pulse 0.8s infinite;
+}
+
+.card-image-wrap {
+    flex: 1;
+    background: #FFFDE7;
+    border-radius: 6px;
+    border: 2px solid #E040FB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-dino-img {
+    width: 75%;
+    height: 75%;
+    animation: float 2.5s ease-in-out infinite;
+}
+
+.card-footer {
+    margin-top: 6px;
+}
+
+.card-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.card-stats {
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.6rem;
+    font-weight: 700;
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 2px;
+    color: #FFF9C4;
+}
+
+.btn-restart {
+    background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+    color: var(--color-light);
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(46, 125, 50, 0.25);
+    border-bottom: 4px solid #1B5E20;
+    transition: transform 0.1s;
+}
+
+.btn-restart:active {
+    transform: scale(0.96);
+}
+
+/* 4. TELA DE DERROTA AMIGÁVEL */
+#screen-defeat {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #FFF0E6 0%, #FFEBE6 100%);
+}
+
+.defeat-card {
+    background: var(--color-light);
+    border: 5px solid var(--color-coral);
+    border-radius: var(--border-radius-lg);
+    padding: 28px 20px;
+    box-shadow: var(--shadow-heavy);
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.defeat-mascot {
+    margin-bottom: 16px;
+    animation: float 4s ease-in-out infinite;
+}
+
+.defeat-title {
+    font-size: 1.8rem;
+    color: var(--color-coral);
+    margin-bottom: 8px;
+}
+
+.defeat-text {
+    font-size: 0.95rem;
+    color: #718096;
+    margin-bottom: 24px;
+    line-height: 1.4;
+}
+
+.btn-defeat-restart {
+    background: linear-gradient(135deg, #FF7043 0%, #F4511E 100%);
+    color: var(--color-light);
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 12px 32px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 6px 12px rgba(244, 81, 30, 0.25);
+    border-bottom: 4px solid #D84315;
+    transition: transform 0.1s;
+    width: 80%;
+}
+
+.btn-defeat-restart:active {
+    transform: scale(0.96);
+}
+
+/* ANIMATIONS */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes floatSlow {
+    0% { transform: translateX(-50px); }
+    100% { transform: translateX(550px); }
+}
+
+@keyframes bounceSlow {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-4px) scale(1.02); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: rotate(0deg) scale(1.15); }
+    25% { transform: rotate(-8deg) scale(1.15); }
+    75% { transform: rotate(8deg) scale(1.15); }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes cardAppear {
+    0% { transform: scale(0.5) rotateY(90deg); opacity: 0; }
+    100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+}
+
+/* RESPONSIVIDADE MOBILE EXTRA */
+@media (max-width: 480px) {
+    .game-title {
+        font-size: 1.6rem;
+    }
+    .btn-play {
+        font-size: 1.15rem;
+        padding: 10px 28px;
+    }
+    .target-list {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 3px;
+    }
+    .target-item {
+        padding: 3px 2px;
+    }
+    .target-item .emoji {
+        font-size: 1.1rem;
+    }
+    .target-item .label {
+        font-size: 0.55rem;
+    }
+}

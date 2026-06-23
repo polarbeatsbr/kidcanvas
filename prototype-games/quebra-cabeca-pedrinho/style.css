@@ -1,0 +1,896 @@
+/* VARIABLES & DESIGN SYSTEM (ROXO & DOURADO) */
+:root {
+    --font-primary: 'Fredoka', 'Quicksand', sans-serif;
+    --color-purple: #673AB7;      /* Roxo KidCanvas */
+    --color-purple-light: #9575CD;
+    --color-purple-bg: #F3E5F5;
+    --color-blue: #2196F3;        /* Azul Claro */
+    --color-blue-light: #90CAF9;
+    --color-gold: #FFC107;        /* Amarelo Dourado */
+    --color-gold-dark: #FF9800;
+    --color-dark: #374151;
+    --color-light: #FFFFFF;
+    
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    --border-radius-sm: 12px;
+    
+    --shadow-soft: 0 8px 20px rgba(103, 58, 183, 0.1);
+    --shadow-heavy: 0 16px 32px rgba(103, 58, 183, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-primary);
+    background-color: #ECEAF0; /* Roxo-acizentado de fundo do KidCanvas */
+    color: var(--color-dark);
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px; /* Layout mobile centralizado */
+    height: 100%;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #FAF8FC 0%, #EFEAF4 100%);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ESTILOS DE TELA */
+.game-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.game-screen.active {
+    display: flex;
+}
+
+/* BANNER DE CABEÇALHO */
+.header-banner {
+    padding: 24px 16px 12px;
+    text-align: center;
+    position: relative;
+}
+
+.btn-header-back {
+    position: absolute;
+    top: 24px;
+    left: 16px;
+    background: #EDE7F6;
+    color: var(--color-purple);
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.main-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--color-purple);
+    line-height: 1.2;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #718096;
+    margin-top: 6px;
+    font-weight: 500;
+}
+
+/* 1. TELA DE ESCOLHA DA IMAGEM */
+.image-gallery {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px 16px;
+    overflow-y: auto;
+}
+
+.gallery-card {
+    background: var(--color-light);
+    border: 3px solid #E2E8F0;
+    border-radius: var(--border-radius-md);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gallery-card .card-preview {
+    font-size: 3rem;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.06));
+    transition: transform 0.2s;
+}
+
+.gallery-card .card-name {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.gallery-card:hover {
+    border-color: var(--color-purple-light);
+    transform: translateY(-2px);
+}
+
+.gallery-card.active {
+    border-color: var(--color-purple);
+    background: #F3E5F5;
+    box-shadow: 0 6px 16px rgba(103, 58, 183, 0.12);
+}
+
+.gallery-card.active .card-preview {
+    transform: scale(1.15) rotate(5deg);
+}
+
+/* 2. TELA DE SELEÇÃO DE DIFICULDADE */
+.difficulty-options {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    justify-content: center;
+}
+
+.diff-option-card {
+    background: var(--color-light);
+    border: 3px solid #E2E8F0;
+    border-radius: var(--border-radius-md);
+    padding: 14px 16px;
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    row-gap: 4px;
+    align-items: center;
+    font-family: var(--font-primary);
+    text-align: left;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.diff-option-card .diff-emoji {
+    grid-row: 1 / span 2;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.diff-option-card .diff-level {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+.diff-option-card .diff-pieces {
+    grid-column: 3;
+    grid-row: 1;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-purple);
+    background: #EDE7F6;
+    padding: 2px 10px;
+    border-radius: 20px;
+}
+
+.diff-option-card .diff-age {
+    grid-row: 2;
+    font-size: 0.75rem;
+    color: #718096;
+    font-weight: 600;
+}
+
+.diff-option-card .diff-reward {
+    grid-column: 3;
+    grid-row: 2;
+    font-size: 0.75rem;
+    color: var(--color-gold-dark);
+    font-weight: 700;
+}
+
+.diff-option-card:hover {
+    border-color: var(--color-purple-light);
+    background: #FAF8FD;
+}
+
+.diff-option-card.active {
+    border-color: var(--color-purple);
+    background: #F3E5F5;
+    box-shadow: 0 6px 16px rgba(103, 58, 183, 0.12);
+}
+
+/* PAINEL DE BOTÕES DE AÇÃO */
+.actions-panel {
+    padding: 16px;
+    text-align: center;
+}
+
+.btn-primary-action {
+    background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+    color: var(--color-light);
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 12px 48px;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(103, 58, 183, 0.25);
+    border-bottom: 4px solid #4527A0;
+    transition: transform 0.1s, box-shadow 0.2s;
+    width: 85%;
+}
+
+.btn-primary-action:active {
+    transform: scale(0.96) translateY(2px);
+    box-shadow: 0 4px 8px rgba(103, 58, 183, 0.2);
+    border-bottom-width: 2px;
+}
+
+/* 3. TELA DE GAMEPLAY (MODO DE ROTAÇÃO) */
+
+/* Cabeçalho da Jogabilidade */
+.gameplay-header {
+    height: 60px;
+    background: var(--color-light);
+    border-bottom: 3px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 16px;
+}
+
+.progress-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.progress-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4A5568;
+}
+
+.progress-bar-wrap {
+    height: 10px;
+    background: #EDF2F7;
+    border-radius: 10px;
+    border: 1px solid #CBD5E0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #9C27B0 0%, #673AB7 100%);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+/* Área do Tabuleiro */
+.board-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: #E8F5E9; /* Fundo verde relaxante */
+    border-bottom: 4px solid #C8E6C9;
+    position: relative;
+}
+
+.puzzle-board.rotation-mode {
+    position: relative;
+    width: 360px;   /* Tabuleiro maior pois não há bandeja inferior */
+    height: 225px;  /* Proporção exata 1.6 */
+    background: rgba(255, 255, 255, 0.4);
+    border: 4px solid var(--color-purple-light);
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 8px 24px rgba(103, 58, 183, 0.1);
+    overflow: visible;
+}
+
+/* Peças de Quebra-cabeça de Rotação */
+.puzzle-piece {
+    position: absolute;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1.5px dashed rgba(255, 255, 255, 0.5);
+    background-repeat: no-repeat;
+    background-size: 360px 225px; /* Tamanho exato do tabuleiro */
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    touch-action: none;
+}
+
+/* Feedback ao pairar/interagir */
+.puzzle-piece:hover:not(.solved) {
+    filter: brightness(1.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 5;
+}
+
+/* Estado Completo/Encaixado */
+.puzzle-piece.solved {
+    border: 1.5px solid transparent;
+    cursor: default;
+    pointer-events: none;
+    box-shadow: none;
+    animation: snapPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+    z-index: 2;
+}
+
+/* Dica: Destaca a peça piscando */
+.puzzle-piece.hint-highlight {
+    animation: hintBlink 0.6s ease infinite alternate !important;
+    z-index: 10;
+}
+
+/* Dica de Slot */
+.board-slot.hint-slot-highlight {
+    box-shadow: 0 0 16px var(--color-blue);
+    background: rgba(33, 150, 243, 0.15);
+}
+
+/* Rodapé */
+.game-footer.rotation-footer {
+    background: var(--color-light);
+    padding: 14px 16px;
+    border-top: 2px solid #E2E8F0;
+    z-index: 10;
+}
+
+.guide-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #FAF8F5;
+    border-radius: var(--border-radius-md);
+    padding: 8px 12px;
+    border: 2px solid #F0ECE4;
+}
+
+.mini-pedrinho-avatar {
+    flex-shrink: 0;
+    animation: bounceSlow 3s ease-in-out infinite;
+}
+
+.speech-bubble {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4A5568;
+    line-height: 1.4;
+}
+
+/* PEDRINHO DANDO AJUDA AUTOMÁTICA */
+.pedrinho-help-bar {
+    position: absolute;
+    bottom: 120px; /* Acima do rodapé */
+    left: 12px;
+    right: 12px;
+    background: var(--color-light);
+    border: 3px solid var(--color-blue);
+    border-radius: var(--border-radius-md);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: var(--shadow-heavy);
+    z-index: 50;
+    animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.help-speech {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.help-speech p {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-dark);
+}
+
+.btn-get-hint {
+    background: linear-gradient(135deg, #00B0FF 0%, #2979FF 100%);
+    color: white;
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(41, 121, 255, 0.3);
+    border-bottom: 2px solid #1565C0;
+    width: fit-content;
+}
+
+.btn-get-hint:active {
+    transform: scale(0.96);
+}
+
+/* 4. TELA DE VITÓRIA E CELEBRAÇÃO */
+#screen-victory {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #FFF9E6 0%, #E8F5E9 100%);
+    overflow-y: auto;
+}
+
+#victory-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 12;
+}
+
+.victory-card {
+    background: var(--color-light);
+    border: 5px solid var(--color-gold);
+    border-radius: var(--border-radius-lg);
+    padding: 20px 16px;
+    box-shadow: var(--shadow-heavy);
+    width: 94%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 15;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Personagens */
+.victory-characters {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 12px;
+    gap: 8px;
+}
+
+.char-pedrinho, .char-perigo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.speech-bubble-victory {
+    background: #F3E5F5;
+    border: 2px solid var(--color-purple-light);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-purple-dark);
+    margin-top: 4px;
+    max-width: 120px;
+    line-height: 1.2;
+}
+
+/* Estrelas */
+.reward-stars-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.reward-stars-display .star-emoji {
+    font-size: 2rem;
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2) both;
+}
+
+/* CAIXA DO BAÚ */
+.chest-box-container {
+    width: 100%;
+    background: #FFFDE7;
+    border: 3px solid #FFF59D;
+    border-radius: var(--border-radius-md);
+    padding: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.chest-title {
+    font-size: 1.15rem;
+    color: var(--color-gold-dark);
+    margin-bottom: 2px;
+}
+
+.chest-desc {
+    font-size: 0.75rem;
+    color: #718096;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.treasure-chest {
+    width: 100px;
+    height: 80px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s;
+    animation: float 2.5s ease-in-out infinite;
+}
+
+.treasure-chest:hover {
+    transform: scale(1.1);
+}
+
+.treasure-chest.open {
+    animation: chestOpenBurst 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+}
+
+.glow-effect {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,235,59,0.6) 0%, rgba(255,235,59,0) 70%);
+    z-index: -1;
+    animation: spin 8s linear infinite;
+    opacity: 0.8;
+}
+
+/* PAINEL DE REVELAÇÃO DA RECOMPENSA */
+.reward-reveal-panel {
+    width: 100%;
+    margin-bottom: 16px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.reward-caption {
+    font-size: 0.95rem;
+    color: var(--color-purple);
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+.reward-item-box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Cartas */
+.magic-card {
+    width: 130px;
+    height: 190px;
+    perspective: 800px;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+    border-radius: var(--border-radius-sm);
+    animation: cardAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+}
+
+.card-front {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    color: white;
+}
+
+/* Mítica */
+.card-front.mythic {
+    background: linear-gradient(135deg, #F3E5F5 0%, #D500F9 50%, #4A148C 100%);
+    border: 3.5px dashed #F50057;
+}
+
+/* Épica */
+.card-front.epic {
+    background: linear-gradient(135deg, #E0F7FA 0%, #00E5FF 50%, #006064 100%);
+    border: 3.5px solid #00B0FF;
+}
+
+/* Rara */
+.card-front.rare {
+    background: linear-gradient(135deg, #FFF8E1 0%, #FFC107 50%, #FF6F00 100%);
+    border: 3.5px solid #FFD54F;
+}
+
+.card-label {
+    background: rgba(255,255,255,0.25);
+    border-radius: 4px;
+    font-size: 0.55rem;
+    font-weight: 800;
+    padding: 1px 2px;
+    text-align: center;
+    color: #FFF;
+}
+
+.card-img-wrap {
+    flex: 1;
+    background: rgba(255,255,255,0.85);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4px 0;
+    overflow: hidden;
+}
+
+.card-img-wrap span {
+    font-size: 2.2rem;
+}
+
+.card-title {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.card-desc {
+    font-size: 0.55rem;
+    text-align: center;
+    opacity: 0.9;
+}
+
+/* Certificado */
+.certificate-scroll {
+    background: #FFF9E6;
+    border: 4px solid #A1887F;
+    border-radius: var(--border-radius-sm);
+    padding: 8px;
+    width: 180px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom-width: 8px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+}
+
+.cert-header {
+    font-size: 0.55rem;
+    font-weight: 800;
+    color: #8D6E63;
+    text-transform: uppercase;
+}
+
+.cert-title {
+    font-size: 0.9rem;
+    font-weight: 850;
+    color: #3E2723;
+    margin: 4px 0;
+    text-align: center;
+}
+
+.cert-seal {
+    font-size: 1.8rem;
+    margin: 4px 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.cert-footer {
+    font-size: 0.55rem;
+    color: #795548;
+    font-weight: 600;
+}
+
+/* Estrelas no Baú */
+.stars-reward-bundle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FFF9C4;
+    border: 3px solid #FFF176;
+    padding: 12px;
+    border-radius: var(--border-radius-md);
+    width: 130px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+}
+
+.stars-bundle-emoji {
+    font-size: 2.5rem;
+    animation: pulse 1s infinite alternate;
+}
+
+.stars-bundle-qty {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #E65100;
+    margin-top: 4px;
+}
+
+/* Botões da Tela de Vitória */
+.victory-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.btn-victory-action {
+    border: none;
+    font-family: var(--font-primary);
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 10px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.1s;
+}
+
+.btn-victory-action.primary {
+    background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+    color: white;
+    border-bottom: 3.5px solid #4527A0;
+}
+
+.btn-victory-action.secondary {
+    background: #EDF2F7;
+    color: #4A5568;
+    border-bottom: 3.5px solid #CBD5E0;
+}
+
+.btn-victory-action:active {
+    transform: scale(0.96);
+}
+
+/* NOVOS ESTILOS PARA SELEÇÃO E TOQUE (TELA 3) */
+.puzzle-piece.selected {
+    border: 3px solid var(--color-gold) !important;
+    box-shadow: 0 0 16px var(--color-gold) !important;
+    z-index: 10 !important;
+    animation: selectedBob 1s ease-in-out infinite alternate !important;
+}
+
+@keyframes selectedBob {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
+}
+
+.puzzle-piece.shake-piece {
+    animation: shake 0.5s ease !important;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.board-slot.error-flash {
+    animation: redFlash 0.5s ease;
+}
+
+@keyframes redFlash {
+    0%, 100% { background: transparent; }
+    50% { background: rgba(244, 67, 54, 0.4); border-color: #F44336; }
+}
+
+/* ANIMATIONS */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes floatSlow {
+    0% { transform: translateX(-50px); }
+    100% { transform: translateX(550px); }
+}
+
+@keyframes bounceSlow {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-4px) scale(1.02); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes snapPop {
+    0% { transform: scale(1); }
+    55% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slideUp {
+    0% { transform: translateY(50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes hintBlink {
+    0% { border-color: rgba(255,255,255,0.5); box-shadow: none; }
+    100% { border-color: var(--color-gold); box-shadow: 0 0 14px var(--color-gold); }
+}
+
+@keyframes chestOpenBurst {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+@keyframes cardAppear {
+    0% { transform: scale(0.5) rotateY(90deg); opacity: 0; }
+    100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+}
+
+/* RESPONSIVIDADE MOBILE */
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 1.4rem;
+    }
+    .puzzle-board.rotation-mode {
+        width: 300px;
+        height: 187.5px;
+    }
+    .puzzle-piece {
+        background-size: 300px 187.5px;
+    }
+}

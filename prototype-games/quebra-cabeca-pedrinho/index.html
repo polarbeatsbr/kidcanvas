@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quebra-Cabeça de Rotação do Pedrinho - KidCanvas</title>
+    <!-- Google Fonts: Fredoka para um design infantil arredondado e amigável -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        
+        <!-- TELA 1: ESCOLHA DO DESENHO -->
+        <div id="screen-choose-image" class="game-screen active">
+            <div class="header-banner">
+                <h1 class="main-title">🧩 Quebra-Cabeça Mágico<br>do Pedrinho</h1>
+                <p class="subtitle">Toque nas peças para girar e montar o desenho!</p>
+            </div>
+            
+            <div class="image-gallery">
+                <div class="gallery-card active" onclick="selectImage('lion')">
+                    <div class="card-preview" id="preview-lion">🦁</div>
+                    <span class="card-name">Leão</span>
+                </div>
+                <div class="gallery-card" onclick="selectImage('rocket')">
+                    <div class="card-preview" id="preview-rocket">🚀</div>
+                    <span class="card-name">Foguete</span>
+                </div>
+                <div class="gallery-card" onclick="selectImage('dino')">
+                    <div class="card-preview" id="preview-dino">🦖</div>
+                    <span class="card-name">Dinossauro</span>
+                </div>
+                <div class="gallery-card" onclick="selectImage('mermaid')">
+                    <div class="card-preview" id="preview-mermaid">🧜</div>
+                    <span class="card-name">Sereia</span>
+                </div>
+                <div class="gallery-card" onclick="selectImage('dog')">
+                    <div class="card-preview" id="preview-dog">🐶</div>
+                    <span class="card-name">Cachorro</span>
+                </div>
+                <div class="gallery-card" onclick="selectImage('car')">
+                    <div class="card-preview" id="preview-car">🏎️</div>
+                    <span class="card-name">Corrida</span>
+                </div>
+            </div>
+            
+            <div class="actions-panel">
+                <button class="btn-primary-action" onclick="goToDifficulty()">COMEÇAR</button>
+            </div>
+        </div>
+
+        <!-- TELA 2: ESCOLHA DA DIFICULDADE -->
+        <div id="screen-choose-difficulty" class="game-screen">
+            <div class="header-banner">
+                <button class="btn-header-back" onclick="goToChooseImage()">◀ Voltar</button>
+                <h1 class="main-title">Escolha a Dificuldade</h1>
+                <p class="subtitle">Selecione o nível do desafio:</p>
+            </div>
+
+            <div class="difficulty-options">
+                <button class="diff-option-card active" id="diff-card-easy" onclick="selectDifficulty('easy')">
+                    <span class="diff-emoji">🟢</span>
+                    <span class="diff-level">Fácil</span>
+                    <span class="diff-pieces">6 Partes</span>
+                    <span class="diff-age">Sugerido: 3 a 5 anos</span>
+                    <span class="diff-reward">Recompensa: ⭐ +1 Estrela</span>
+                </button>
+                <button class="diff-option-card" id="diff-card-medium" onclick="selectDifficulty('medium')">
+                    <span class="diff-emoji">🟡</span>
+                    <span class="diff-level">Médio</span>
+                    <span class="diff-pieces">12 Partes</span>
+                    <span class="diff-age">Sugerido: 5 a 8 anos</span>
+                    <span class="diff-reward">Recompensa: ⭐⭐ +2 Estrelas</span>
+                </button>
+                <button class="diff-option-card" id="diff-card-hard" onclick="selectDifficulty('hard')">
+                    <span class="diff-emoji">🔴</span>
+                    <span class="diff-level">Difícil</span>
+                    <span class="diff-pieces">24 Partes</span>
+                    <span class="diff-age">Sugerido: 8+ anos</span>
+                    <span class="diff-reward">Recompensa: ⭐⭐⭐ +3 Estrelas</span>
+                </button>
+            </div>
+
+            <div class="actions-panel">
+                <button class="btn-primary-action" onclick="startGame()">COMEÇAR AVENTURA 🚀</button>
+            </div>
+        </div>
+
+        <!-- TELA 3: JOGO E JOGABILIDADE (MECÂNICA DE ROTAÇÃO) -->
+        <div id="screen-gameplay" class="game-screen">
+            <div class="gameplay-header">
+                <button class="btn-header-back" onclick="goToDifficulty()">◀ Voltar</button>
+                
+                <!-- Progresso Textual e Visual -->
+                <div class="progress-section">
+                    <span id="progress-text" class="progress-text">🧩 0 de 12 corretas</span>
+                    <div class="progress-bar-wrap">
+                        <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ÁREA DO TABULEIRO DE ROTAÇÃO -->
+            <div class="board-area">
+                <div id="puzzle-board" class="puzzle-board rotation-mode">
+                    <!-- As peças do quebra-cabeça serão geradas aqui em suas posições corretas, mas rotacionadas -->
+                </div>
+            </div>
+
+            <!-- ÁREA DE DICAS E ORIENTAÇÃO DO PEDRINHO -->
+            <div class="game-footer rotation-footer">
+                <!-- Personagem Pedrinho e Balão -->
+                <div class="guide-wrapper">
+                    <div class="mini-pedrinho-avatar">
+                        <svg viewBox="0 0 100 100" width="60" height="60">
+                            <circle cx="50" cy="50" r="45" fill="#BBDEFB" />
+                            <path d="M25,35 Q15,10 38,22 Q50,5 62,22 Q85,10 75,35 Z" fill="#673AB7" />
+                            <path d="M30,35 C30,35 25,60 50,60 C75,60 70,35 70,35 Z" fill="#FFE082" />
+                            <circle cx="42" cy="40" r="6" fill="white" /><circle cx="43" cy="40" r="3" fill="#333" />
+                            <circle cx="58" cy="40" r="6" fill="white" /><circle cx="57" cy="40" r="3" fill="#333" />
+                            <path d="M44,48 Q50,52 56,48" stroke="#333" stroke-width="2" stroke-linecap="round" fill="none" />
+                        </svg>
+                    </div>
+                    <div class="speech-bubble">
+                        <p id="guide-text">Toque em qualquer parte do desenho para girá-la até ficar na posição certa!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PEDRINHO DANDO AJUDA AUTOMÁTICA -->
+            <div id="pedrinho-help-bar" class="pedrinho-help-bar" style="display: none;">
+                <div class="pedrinho-avatar">
+                    <svg viewBox="0 0 100 100" width="60" height="60">
+                        <circle cx="50" cy="50" r="45" fill="#BBDEFB" stroke="#2196F3" stroke-width="3"/>
+                        <path d="M25,35 Q15,10 38,22 Q50,5 62,22 Q85,10 75,35 Z" fill="#673AB7" />
+                        <path d="M30,35 C30,35 25,60 50,60 C75,60 70,35 70,35 Z" fill="#FFE082" />
+                        <circle cx="42" cy="40" r="6" fill="white" /><circle cx="43" cy="40" r="3" fill="#333" />
+                        <circle cx="58" cy="40" r="6" fill="white" /><circle cx="57" cy="40" r="3" fill="#333" />
+                        <path d="M44,48 Q50,52 56,48" stroke="#333" stroke-width="2" fill="none" />
+                    </svg>
+                </div>
+                <div class="help-speech">
+                    <p>Precisa de ajuda para achar uma peça errada?</p>
+                    <button class="btn-get-hint" onclick="showHint()">✨ Mostrar dica</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TELA 4: VITÓRIA, CELEBRAÇÃO E BAÚ MISTERIOSO -->
+        <div id="screen-victory" class="game-screen">
+            <canvas id="victory-canvas"></canvas>
+            
+            <div class="victory-card">
+                <!-- Personagens comemorando -->
+                <div class="victory-characters">
+                    <div class="char-pedrinho">
+                        <svg viewBox="0 0 100 100" width="70" height="70">
+                            <circle cx="50" cy="50" r="45" fill="#BBDEFB" />
+                            <path d="M25,35 Q15,10 38,22 Q50,5 62,22 Q85,10 75,35 Z" fill="#673AB7" />
+                            <path d="M30,35 C30,35 25,60 50,60 C75,60 70,35 70,35 Z" fill="#FFE082" />
+                            <circle cx="42" cy="40" r="6" fill="white" /><circle cx="43" cy="40" r="3" fill="#333" />
+                            <circle cx="58" cy="40" r="6" fill="white" /><circle cx="57" cy="40" r="3" fill="#333" />
+                            <path d="M42,48 Q50,55 58,48" stroke="#333" stroke-width="3" stroke-linecap="round" fill="none" />
+                        </svg>
+                        <div class="speech-bubble-victory">🎉 "Você conseguiu!"</div>
+                    </div>
+                    <div class="char-perigo">
+                        <svg viewBox="0 0 100 100" width="70" height="70">
+                            <circle cx="50" cy="50" r="45" fill="#C8E6C9" />
+                            <path d="M20,60 C20,35 50,25 70,35 C85,42 88,58 83,72 C78,85 58,88 38,85 Z" fill="#4CAF50" />
+                            <circle cx="62" cy="45" r="7" fill="white" /><circle cx="63" cy="45" r="3" fill="#333" />
+                            <path d="M58,60 Q65,65 68,58" stroke="#333" stroke-width="2.5" fill="none" />
+                        </svg>
+                        <div class="speech-bubble-victory">🐶 "Au au! Excelente trabalho!"</div>
+                    </div>
+                </div>
+
+                <div class="reward-stars-display" id="victory-stars-reward">
+                    <!-- Estrelas ganhas -->
+                </div>
+
+                <!-- BAÚ MISTERIOSO -->
+                <div class="chest-box-container">
+                    <h2 class="chest-title">🎁 Baú Misterioso Encontrado!</h2>
+                    <p class="chest-desc">Toque no baú para descobrir seu prêmio secreto!</p>
+                    
+                    <div id="treasure-chest" class="treasure-chest" onclick="openChest()">
+                        <svg viewBox="0 0 100 80" class="chest-svg">
+                            <path d="M15,40 L85,40 L78,75 L22,75 Z" fill="#795548" stroke="#3E2723" stroke-width="4"/>
+                            <path id="chest-lid" d="M12,40 C12,15 88,15 88,40 Z" fill="#A1887F" stroke="#3E2723" stroke-width="4"/>
+                            <rect x="45" y="32" width="10" height="15" rx="3" fill="#FFD54F" stroke="#F57F17" stroke-width="2"/>
+                            <circle cx="50" cy="40" r="2.5" fill="#333"/>
+                            <line x1="28" y1="23" x2="31" y2="74" stroke="#D7CCC8" stroke-width="4"/>
+                            <line x1="72" y1="23" x2="69" y2="74" stroke="#D7CCC8" stroke-width="4"/>
+                        </svg>
+                        <div class="glow-effect"></div>
+                    </div>
+                </div>
+
+                <!-- RECOMPENSA REVELADA -->
+                <div id="reward-reveal-panel" class="reward-reveal-panel" style="display: none;">
+                    <h3 class="reward-caption">Recompensa Revelada! ✨</h3>
+                    <div id="reward-item-box" class="reward-item-box">
+                        <!-- Injetado via JS -->
+                    </div>
+                </div>
+
+                <!-- AÇÕES FINAIS -->
+                <div class="victory-actions" style="display: none;" id="victory-actions-btns">
+                    <button class="btn-victory-action secondary" onclick="restartGame()">Jogar Novamente 🔄</button>
+                    <button class="btn-victory-action primary" onclick="goToChooseImage()">Voltar ao Início 🏠</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script de lógica -->
+    <script src="game.js"></script>
+</body>
+</html>

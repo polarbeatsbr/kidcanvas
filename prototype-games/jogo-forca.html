@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Forca KidCanvas 👦👵</title>
+    
+    <!-- Google Fonts: Fredoka One e Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fdf8f0;
+            --coral: #ff6b6b;
+            --purple: #7c3aed;
+            --purple-light: #f3e8ff;
+            --green: #16a34a;
+            --green-light: #dcfce7;
+            --orange: #f97316;
+            --orange-light: #ffedd5;
+            --yellow: #facc15;
+            --yellow-light: #fef9c3;
+            --red: #dc2626;
+            --text-dark: #2d3748;
+            --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.08);
+            --border-radius-lg: 24px;
+            --border-radius-md: 16px;
+            --font-friendly: 'Fredoka One', cursive, sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --difficulty-color: var(--green);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            overflow-x: hidden;
+        }
+
+        /* Container Principal */
+        .game-container {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Seletor de Dificuldade */
+        .difficulty-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .diff-btn {
+            font-family: var(--font-friendly);
+            font-size: 0.95rem;
+            padding: 10px;
+            border: none;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.15);
+            transition: all 0.15s ease;
+            text-align: center;
+        }
+
+        .diff-btn:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .diff-btn-easy {
+            background-color: var(--green);
+            opacity: 0.6;
+        }
+        .diff-btn-easy.active {
+            opacity: 1;
+            box-shadow: 0 4px 0 #115e59, 0 0 12px rgba(22, 163, 74, 0.4);
+            border: 2px solid white;
+        }
+
+        .diff-btn-medium {
+            background-color: var(--orange);
+            opacity: 0.6;
+        }
+        .diff-btn-medium.active {
+            opacity: 1;
+            box-shadow: 0 4px 0 #c2410c, 0 0 12px rgba(249, 115, 22, 0.4);
+            border: 2px solid white;
+        }
+
+        .diff-btn-hard {
+            background-color: var(--red);
+            opacity: 0.6;
+        }
+        .diff-btn-hard.active {
+            opacity: 1;
+            box-shadow: 0 4px 0 #991b1b, 0 0 12px rgba(220, 38, 38, 0.4);
+            border: 2px solid white;
+        }
+
+        /* Bloco da Vovó Sônia (Dica) */
+        .sonia-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            border-radius: var(--border-radius-md);
+            padding: 12px 16px;
+            box-shadow: var(--shadow-soft);
+            border: 3px solid #f1f5f9;
+            position: relative;
+        }
+
+        .sonia-avatar {
+            font-size: 2.5rem;
+            animation: gentle-bounce 3s ease-in-out infinite alternate;
+        }
+
+        /* Balão de Diálogo da Vovó */
+        .sonia-bubble {
+            background-color: var(--yellow-light);
+            border: 2px solid #fef08a;
+            border-radius: 12px;
+            padding: 8px 12px;
+            position: relative;
+            flex: 1;
+        }
+
+        /* Seta apontada para a vovó */
+        .sonia-bubble::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: -10px;
+            transform: translateY(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent var(--yellow-light) transparent transparent;
+        }
+        .sonia-bubble::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: -12px;
+            transform: translateY(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent #fef08a transparent transparent;
+            z-index: -1;
+        }
+
+        .sonia-text {
+            font-family: var(--font-friendly);
+            font-size: 0.9rem;
+            color: #78350f;
+            line-height: 1.25;
+        }
+
+        /* Painel Central do Pedrinho e Status */
+        .pedrinho-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-soft);
+            border: 4px solid #f1f5f9;
+            gap: 8px;
+        }
+
+        .pedrinho-avatar {
+            font-size: 5rem;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: pulse-pedrinho 2s infinite ease-in-out alternate;
+        }
+
+        .errors-counter {
+            font-family: var(--font-friendly);
+            font-size: 1rem;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 4px 14px;
+            border-radius: 20px;
+        }
+
+        /* Palavra Oculta */
+        .word-display {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 12px 0;
+            min-height: 52px;
+            align-items: center;
+        }
+
+        .letter-slot {
+            font-family: var(--font-friendly);
+            font-size: 1.8rem;
+            width: 32px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 4px solid var(--difficulty-color);
+            transition: all 0.2s ease;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        .letter-slot.revealed {
+            animation: letter-bounce 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .letter-slot.special {
+            border-bottom: none;
+            color: #94a3b8;
+            font-size: 1.6rem;
+            width: auto;
+        }
+
+        /* Letras Erradas */
+        .wrong-letters-container {
+            font-family: var(--font-friendly);
+            font-size: 0.95rem;
+            color: var(--coral);
+            text-align: center;
+            min-height: 24px;
+        }
+
+        .wrong-list {
+            font-family: var(--font-body);
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-left: 6px;
+        }
+
+        /* Teclado Virtual */
+        .keyboard-wrapper {
+            background: white;
+            border-radius: var(--border-radius-md);
+            padding: 12px;
+            box-shadow: var(--shadow-soft);
+            border: 3px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .key-btn {
+            font-family: var(--font-friendly);
+            font-size: 0.95rem;
+            min-width: 38px;
+            height: 38px;
+            border: 2px solid var(--purple-light);
+            background: white;
+            color: var(--purple);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 0 var(--purple-light);
+            transition: all 0.1s ease;
+            flex: 1 1 38px;
+            max-width: 44px;
+        }
+
+        .key-btn:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+
+        /* Cores de Teclas Clicadas */
+        .key-btn.correct {
+            background-color: var(--green) !important;
+            border-color: #15803d !important;
+            color: white !important;
+            box-shadow: 0 3px 0 #15803d !important;
+            pointer-events: none;
+        }
+
+        .key-btn.wrong {
+            background-color: var(--red) !important;
+            border-color: #991b1b !important;
+            color: white !important;
+            box-shadow: 0 3px 0 #991b1b !important;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .key-btn:disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* Botões Extras */
+        .extra-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .action-btn {
+            font-family: var(--font-friendly);
+            font-size: 0.95rem;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .action-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-new-word {
+            background-color: var(--purple);
+        }
+
+        .btn-hint-extra {
+            background-color: var(--yellow);
+            color: #78350f;
+        }
+        .btn-hint-extra:disabled {
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+            pointer-events: none;
+        }
+
+        /* Modal / Overlay de Sucesso ou Erro */
+        .win-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(253, 248, 240, 0.97);
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            text-align: center;
+            border-radius: var(--border-radius-lg);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .win-overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .win-title {
+            font-family: var(--font-friendly);
+            font-size: 2.2rem;
+            color: var(--coral);
+            margin-bottom: 8px;
+            animation: bounce 0.6s ease infinite alternate;
+        }
+
+        .win-message {
+            font-family: var(--font-friendly);
+            font-size: 1.1rem;
+            color: var(--purple);
+            margin-bottom: 12px;
+            padding: 0 10px;
+        }
+
+        .win-stats {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #475569;
+            margin-bottom: 24px;
+            background: #f1f5f9;
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        .btn-next-word {
+            background-color: var(--green);
+            font-family: var(--font-friendly);
+            font-size: 1.1rem;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 18px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #115e59;
+            transition: all 0.15s ease;
+        }
+
+        .btn-next-word:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #115e59;
+        }
+
+        /* Animações CSS */
+        @keyframes gentle-bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse-pedrinho {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes letter-bounce {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.2); color: var(--difficulty-color); }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-8px); }
+        }
+
+        /* Confetes */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .confetti-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0.85;
+            top: -20px;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-20px) rotate(0deg); }
+            100% { transform: translateY(105vh) rotate(720deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-container">
+        
+        <!-- Seletores de Dificuldade -->
+        <div class="difficulty-selector">
+            <button class="diff-btn diff-btn-easy active" onclick="setDifficulty('easy')">Fácil</button>
+            <button class="diff-btn diff-btn-medium" onclick="setDifficulty('medium')">Médio</button>
+            <button class="diff-btn diff-btn-hard" onclick="setDifficulty('hard')">Difícil</button>
+        </div>
+
+        <!-- Dica da Vovó Sônia -->
+        <div class="sonia-box">
+            <span class="sonia-avatar">👵</span>
+            <div class="sonia-bubble">
+                <div class="sonia-text" id="sonia-hint">Dica da Vovó...</div>
+            </div>
+        </div>
+
+        <!-- Personagem Pedrinho e Status -->
+        <div class="pedrinho-container">
+            <div class="pedrinho-avatar" id="pedrinho-emoji">😄</div>
+            <div class="errors-counter" id="errors-display">Erros: 0/7</div>
+            
+            <!-- Palavra Oculta -->
+            <div class="word-display" id="word-display"></div>
+
+            <!-- Letras Erradas -->
+            <div class="wrong-letters-container">
+                Letras erradas:<span class="wrong-list" id="wrong-list">-</span>
+            </div>
+
+            <!-- Overlay de Sucesso/Fracasso -->
+            <div class="win-overlay" id="win-overlay">
+                <div class="win-title" id="win-title">PARABÉNS! 🎉</div>
+                <div class="win-message" id="win-message">Você conseguiu!</div>
+                <div class="win-stats" id="win-stats">Erros cometidos: 0</div>
+                <button class="btn-next-word" id="btn-win-restart" onclick="restartOrNext()">Próxima palavra 🔁</button>
+            </div>
+        </div>
+
+        <!-- Teclado Virtual -->
+        <div class="keyboard-wrapper" id="keyboard-wrapper">
+            <!-- As teclas normais e especiais serão renderizadas pelo JS -->
+        </div>
+
+        <!-- Controles Extras -->
+        <div class="extra-row">
+            <button class="action-btn btn-new-word" onclick="newGame()">Nova Palavra 🔁</button>
+            <button class="action-btn btn-hint-extra" id="btn-hint-extra" onclick="useExtraHint()">Dica? 💡</button>
+        </div>
+
+    </div>
+
+    <!-- Container para confetes -->
+    <div class="confetti-container" id="confetti-container"></div>
+
+    <script>
+        // --- BANCO DE DADOS DE PALAVRAS E DICAS ---
+        const wordsDatabase = {
+            easy: [
+                { word: "GATO", hint: "É um animal que faz miau 🐱" },
+                { word: "CÃO", hint: "É o melhor amigo do homem 🐶" },
+                { word: "BOI", hint: "É um animal grande da fazenda 🐮" },
+                { word: "PAU", hint: "Um pedaço de madeira de árvore 🪵" },
+                { word: "RIO", hint: "Água doce que corre para o mar 🌊" },
+                { word: "MAR", hint: "Água salgada gigante com peixinhos 🐟" },
+                { word: "SOL", hint: "A estrela brilhante que esquenta o dia ☀️" },
+                { word: "LUA", hint: "Brilha no céu durante a noite 🌙" },
+                { word: "PÉ", hint: "Usamos para andar e chutar bola ⚽" },
+                { word: "MÃO", hint: "Usamos para acenar e desenhar 🖐️" },
+                { word: "OVO", hint: "A galinha põe e o pintinho nasce dele 🥚" },
+                { word: "MEL", hint: "Docinho feito pelas abelhas 🐝" },
+                { word: "PÃO", hint: "Comemos quentinho no café da manhã 🥖" },
+                { word: "CHÁ", hint: "Bebida quentinha feita com ervas ☕" },
+                { word: "UVA", hint: "Fruta roxinha ou verdinha que cresce em cachos 🍇" },
+                { word: "ACE", hint: "Saque perfeito no jogo de tênis 🎾" },
+                { word: "CEU", hint: "Fica lá no alto, azul com nuvens ☁️" },
+                { word: "VEU", hint: "A noiva usa na cabeça no casamento 👰" },
+                { word: "GEL", hint: "Usamos para arrumar o cabelo 💇" },
+                { word: "FIM", hint: "O que aparece quando a história acaba 🎬" }
+            ],
+            medium: [
+                { word: "ELEFANTE", hint: "Tem uma tromba bem comprida 🐘" },
+                { word: "GIRAFA", hint: "Tem o pescoço mais longo do mundo 🦒" },
+                { word: "MACACO", hint: "Adora comer banana e subir em árvores 🐒" },
+                { word: "PALHAÇO", hint: "Faz palhaçadas no circo e nos faz rir 🤡" },
+                { word: "CASTELO", hint: "Onde moram reis, rainhas e princesas 🏰" },
+                { word: "FLORESTA", hint: "Cheia de árvores e animais selvagens 🌲" },
+                { word: "MONTANHA", hint: "Muito alta, de pedra e terra, toca as nuvens ⛰️" },
+                { word: "OCEANO", hint: "Lugar imenso com muita água salgada e baleias 🐳" },
+                { word: "PLANETA", hint: "A Terra é um deles no espaço 🌍" },
+                { word: "FOGUETE", hint: "Viaja até o espaço e vai à Lua 🚀" },
+                { word: "DRAGÃO", hint: "Ser lendário que cospe fogo pelas narinas 🐉" },
+                { word: "PRINCESA", hint: "Usa coroa e vive em contos de fadas 👑" },
+                { word: "CAVALO", hint: "Corre rápido e as pessoas podem cavalgar 🐎" },
+                { word: "BORBOLETA", hint: "Inseto com asas coloridas que voa nas flores 🦋" },
+                { word: "TARTARUGA", hint: "Anda devagar e tem uma casca forte 🐢" },
+                { word: "ARCO-IRIS", hint: "Cores lindas no céu depois da chuva 🌈" },
+                { word: "VULCÃO", hint: "Montanha que lança lava quente 🌋" },
+                { word: "TESOURO", hint: "Baú cheio de moedas de ouro e joias 🪙" }
+            ],
+            difficult: [
+                { word: "DINOSSAURO", hint: "Viveu há milhões de anos atrás 🦖" },
+                { word: "ASTRONAUTA", hint: "Viaja no espaço com roupa espacial 🧑‍🚀" },
+                { word: "SUBMARINO", hint: "Navega debaixo da água do mar 🚢" },
+                { word: "BIBLIOTECA", hint: "Lugar silencioso cheio de livros para ler 📚" },
+                { word: "CROCODILO", hint: "Réptil grande com dentes afiados que vive na água 🐊" },
+                { word: "HELICÓPTERO", hint: "Tem hélices que giram no topo para voar 🚁" },
+                { word: "COMPUTADOR", hint: "Usamos para estudar, jogar e pesquisar 💻" },
+                { word: "TELESCÓPIO", hint: "Aparelho para olhar as estrelas de perto 🔭" },
+                { word: "MICROSCÓPIO", hint: "Usado para ver coisas minúsculas em laboratório 🔬" },
+                { word: "FOTOSSÍNTESE", hint: "Como as plantas usam a luz do sol para respirar 🍃" },
+                { word: "MATEMÁTICA", hint: "Ciência dos números e das contas de somar ➕" },
+                { word: "GEOGRAFIA", hint: "Estuda os mapas, os rios e os países do mundo 🗺️" },
+                { word: "CARANGUEJO", hint: "Anda de lado na areia da praia 🦀" },
+                { word: "RINOCERONTE", hint: "Tem um ou dois chifres no nariz 🦏" },
+                { word: "HIPOPÓTAMO", hint: "Animal gigante e pesado que adora ficar na água 🦛" }
+            ]
+        };
+
+        // Emojis de reação do Pedrinho conforme erros
+        const pedrinhoEmojis = {
+            easy: ["😄", "😊", "😐", "😟", "😢", "😭", "😰", "😵"],
+            medium: ["😄", "😊", "😐", "😟", "😢", "😭", "😵"],
+            difficult: ["😄", "😊", "😐", "😟", "😢", "💀"]
+        };
+
+        // --- ESTADO GLOBAL ---
+        let currentDifficulty = 'easy';
+        let currentWordData = null;
+        let guessedLetters = new Set();
+        let errorsCount = 0;
+        let isGameFinished = false;
+        let isExtraHintUsed = false;
+
+        const maxErrorsAllowed = {
+            easy: 7,
+            medium: 6,
+            difficult: 5
+        };
+
+        // Alfabeto e teclas especiais
+        const mainAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const specialKeys = ["Ã", "Õ", "Ç", "É", "Á", "Ó", "Ú", "Â", "Ê"];
+
+        // --- SISTEMA DE AUDIO (Web Audio API) ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                const now = audioCtx.currentTime;
+
+                if (type === 'click') {
+                    // Clique rápido
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(500, now);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+                    osc.start(now);
+                    osc.stop(now + 0.05);
+                } else if (type === 'correct') {
+                    // Som agudo ascendente
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, now);
+                    osc.frequency.exponentialRampToValueAtTime(1000, now + 0.15);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                    osc.start(now);
+                    osc.stop(now + 0.15);
+                } else if (type === 'wrong') {
+                    // Som grave descendente
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.exponentialRampToValueAtTime(110, now + 0.25);
+                    gain.gain.setValueAtTime(0.15, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                } else if (type === 'victory') {
+                    // Fanfarra feliz
+                    const notes = [329.63, 392.00, 523.25, 659.25, 783.99];
+                    notes.forEach((freq, index) => {
+                        const noteOsc = audioCtx.createOscillator();
+                        const noteGain = audioCtx.createGain();
+                        noteOsc.connect(noteGain);
+                        noteGain.connect(audioCtx.destination);
+                        
+                        noteOsc.type = 'triangle';
+                        noteOsc.frequency.setValueAtTime(freq, now + index * 0.08);
+                        noteGain.gain.setValueAtTime(0.12, now + index * 0.08);
+                        noteGain.gain.exponentialRampToValueAtTime(0.01, now + index * 0.08 + 0.25);
+                        
+                        noteOsc.start(now + index * 0.08);
+                        noteOsc.stop(now + index * 0.08 + 0.25);
+                    });
+                }
+            } catch (e) {
+                console.warn("Audio não disponível.", e);
+            }
+        }
+
+        // --- SISTEMA DE CONFETES ---
+        function spawnConfetti() {
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            
+            const colors = ['#ff6b6b', '#7c3aed', '#16a34a', '#facc15', '#f97316', '#3b82f6'];
+            const count = 60;
+
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('confetti-particle');
+                
+                const left = Math.random() * 100;
+                const size = Math.random() * 8 + 6;
+                const delay = Math.random() * 2.5;
+                const duration = Math.random() * 2.5 + 2;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+
+                particle.style.left = `${left}vw`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.backgroundColor = color;
+                particle.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // --- LÓGICA DO JOGO ---
+
+        window.addEventListener('DOMContentLoaded', () => {
+            buildKeyboard();
+            initGame();
+        });
+
+        // Constrói teclado estático
+        function buildKeyboard() {
+            const wrapper = document.getElementById('keyboard-wrapper');
+            wrapper.innerHTML = '';
+
+            // Linha 1: A - M
+            const row1 = document.createElement('div');
+            row1.className = 'keyboard-row';
+            for (let i = 0; i < 13; i++) {
+                row1.appendChild(createKey(mainAlphabet[i]));
+            }
+            wrapper.appendChild(row1);
+
+            // Linha 2: N - Z
+            const row2 = document.createElement('div');
+            row2.className = 'keyboard-row';
+            for (let i = 13; i < 26; i++) {
+                row2.appendChild(createKey(mainAlphabet[i]));
+            }
+            wrapper.appendChild(row2);
+
+            // Linha 3: Especiais
+            const row3 = document.createElement('div');
+            row3.className = 'keyboard-row';
+            specialKeys.forEach(char => {
+                row3.appendChild(createKey(char));
+            });
+            wrapper.appendChild(row3);
+        }
+
+        function createKey(char) {
+            const btn = document.createElement('button');
+            btn.className = 'key-btn';
+            btn.textContent = char;
+            btn.id = `key-${char}`;
+            btn.addEventListener('click', () => handleGuess(char));
+            return btn;
+        }
+
+        function initGame() {
+            isGameFinished = false;
+            isExtraHintUsed = false;
+            errorsCount = 0;
+            guessedLetters.clear();
+
+            // Esconder overlay
+            document.getElementById('win-overlay').classList.remove('visible');
+            document.getElementById('btn-hint-extra').disabled = false;
+
+            // Definir cores de estilo de acordo com a dificuldade
+            const colorsMap = {
+                easy: 'var(--green)',
+                medium: 'var(--orange)',
+                difficult: 'var(--purple)'
+            };
+            document.documentElement.style.setProperty('--difficulty-color', colorsMap[currentDifficulty]);
+
+            // Sorteia palavra
+            const pool = wordsDatabase[currentDifficulty];
+            currentWordData = pool[Math.floor(Math.random() * pool.length)];
+
+            // Auto-revelar acentos e hífen
+            autoRevealSpecialChars();
+
+            // Resetar Teclado
+            resetKeyboardUI();
+
+            // Atualizar UI
+            updateUI();
+        }
+
+        function autoRevealSpecialChars() {
+            const word = currentWordData.word;
+            for (let i = 0; i < word.length; i++) {
+                const char = word[i];
+                // Se não for uma letra comum A-Z, considera revelada automaticamente
+                if (!mainAlphabet.includes(char)) {
+                    guessedLetters.add(char);
+                }
+            }
+        }
+
+        function resetKeyboardUI() {
+            document.querySelectorAll('.key-btn').forEach(btn => {
+                btn.className = 'key-btn';
+                btn.disabled = false;
+
+                // Desabilitar de cara os acentos/hífen se já auto-revelados
+                const char = btn.textContent;
+                if (!mainAlphabet.includes(char)) {
+                    btn.disabled = true;
+                }
+            });
+        }
+
+        function updateUI() {
+            // Dica da Vovó Sônia
+            document.getElementById('sonia-hint').textContent = `Dica: ${currentWordData.hint}`;
+
+            // Emoji do Pedrinho
+            const emojis = pedrinhoEmojis[currentDifficulty];
+            const maxErrors = maxErrorsAllowed[currentDifficulty];
+            document.getElementById('pedrinho-emoji').textContent = emojis[errorsCount];
+
+            // Contador de erros
+            document.getElementById('errors-display').textContent = `Erros: ${errorsCount}/${maxErrors}`;
+
+            // Palavra oculta
+            const displayEl = document.getElementById('word-display');
+            displayEl.innerHTML = '';
+
+            const word = currentWordData.word;
+            for (let i = 0; i < word.length; i++) {
+                const char = word[i];
+                const slot = document.createElement('span');
+                
+                if (char === ' ') {
+                    slot.className = 'letter-slot special';
+                    slot.textContent = ' ';
+                } else if (char === '-') {
+                    slot.className = 'letter-slot special';
+                    slot.textContent = '-';
+                } else {
+                    slot.className = 'letter-slot';
+                    if (guessedLetters.has(char)) {
+                        slot.textContent = char;
+                        slot.classList.add('revealed');
+                    } else {
+                        slot.textContent = '_';
+                    }
+                }
+                displayEl.appendChild(slot);
+            }
+
+            // Letras Erradas
+            const wrongEl = document.getElementById('wrong-list');
+            const wrongList = [];
+            guessedLetters.forEach(char => {
+                if (!word.includes(char) && mainAlphabet.includes(char)) {
+                    wrongList.push(char);
+                }
+            });
+            wrongEl.textContent = wrongList.length > 0 ? ` ${wrongList.join(', ')}` : ' -';
+        }
+
+        function handleGuess(char) {
+            if (isGameFinished) return;
+
+            const btn = document.getElementById(`key-${char}`);
+            btn.disabled = true;
+
+            const word = currentWordData.word;
+
+            if (word.includes(char)) {
+                // Letra correta
+                guessedLetters.add(char);
+                btn.classList.add('correct');
+                playSound('correct');
+                
+                updateUI();
+                checkWin();
+            } else {
+                // Letra errada
+                guessedLetters.add(char);
+                btn.classList.add('wrong');
+                errorsCount++;
+                playSound('wrong');
+                
+                updateUI();
+                checkLose();
+            }
+        }
+
+        function checkWin() {
+            const word = currentWordData.word;
+            let complete = true;
+            for (let i = 0; i < word.length; i++) {
+                const char = word[i];
+                if (char !== ' ' && char !== '-' && !guessedLetters.has(char)) {
+                    complete = false;
+                    break;
+                }
+            }
+
+            if (complete) {
+                isGameFinished = true;
+                playSound('victory');
+                spawnConfetti();
+
+                const overlay = document.getElementById('win-overlay');
+                const titleEl = document.getElementById('win-title');
+                const msgEl = document.getElementById('win-message');
+                const statsEl = document.getElementById('win-stats');
+                const btnRestart = document.getElementById('btn-win-restart');
+
+                // Animar Pedrinho
+                document.getElementById('pedrinho-emoji').textContent = "🎉";
+
+                titleEl.textContent = "PARABÉNS! 🎉";
+                titleEl.style.color = "var(--green)";
+
+                let phrase = "";
+                if (currentDifficulty === 'easy' && errorsCount === 0) {
+                    phrase = "Perfeito! Zero erros! Incrível! 🌟";
+                } else if (currentDifficulty === 'medium' && errorsCount <= 2) {
+                    phrase = "Que talento! Quase perfeito! 💪";
+                } else if (currentDifficulty === 'difficult' && errorsCount <= 2) {
+                    phrase = "UAU! Gênio das palavras! 🧠✨";
+                } else {
+                    phrase = "Parabéns! Tente zerar da próxima vez! 👵👦";
+                }
+
+                msgEl.textContent = `A Vovó Sônia disse: "Parabéns! Você é muito inteligente!" \n\n${phrase}`;
+                statsEl.innerHTML = `Erros cometidos: <strong>${errorsCount}</strong>`;
+                btnRestart.textContent = "Próxima palavra 🔁";
+
+                overlay.classList.add('visible');
+            }
+        }
+
+        function checkLose() {
+            const maxErrors = maxErrorsAllowed[currentDifficulty];
+            if (errorsCount >= maxErrors) {
+                isGameFinished = true;
+
+                const overlay = document.getElementById('win-overlay');
+                const titleEl = document.getElementById('win-title');
+                const msgEl = document.getElementById('win-message');
+                const statsEl = document.getElementById('win-stats');
+                const btnRestart = document.getElementById('btn-win-restart');
+
+                // Animar Pedrinho como derrotado (😵 ou 💀 no difícil)
+                const finalEmoji = currentDifficulty === 'difficult' ? "💀" : "😵";
+                document.getElementById('pedrinho-emoji').textContent = finalEmoji;
+
+                titleEl.textContent = "NÃO FOI DESSA VEZ... 😢";
+                titleEl.style.color = "var(--red)";
+
+                msgEl.textContent = `A palavra era: ${currentWordData.word}`;
+                statsEl.innerHTML = `Vovó Sônia disse: "Não fique triste, tente novamente!"`;
+                btnRestart.textContent = "Tentar de novo 🔁";
+
+                // Revelar palavra em vermelho na tela principal
+                revealWordInRed();
+
+                overlay.classList.add('visible');
+            }
+        }
+
+        function revealWordInRed() {
+            const displayEl = document.getElementById('word-display');
+            displayEl.innerHTML = '';
+            const word = currentWordData.word;
+            for (let i = 0; i < word.length; i++) {
+                const char = word[i];
+                const slot = document.createElement('span');
+                if (char === ' ') {
+                    slot.className = 'letter-slot special';
+                    slot.textContent = ' ';
+                } else if (char === '-') {
+                    slot.className = 'letter-slot special';
+                    slot.textContent = '-';
+                } else {
+                    slot.className = 'letter-slot';
+                    slot.style.borderBottomColor = 'var(--red)';
+                    slot.style.color = 'var(--red)';
+                    slot.textContent = char;
+                }
+                displayEl.appendChild(slot);
+            }
+        }
+
+        function useExtraHint() {
+            if (isGameFinished || isExtraHintUsed) return;
+            isExtraHintUsed = true;
+            document.getElementById('btn-hint-extra').disabled = true;
+            playSound('click');
+
+            const firstLetter = currentWordData.word[0];
+            const soniaBubble = document.getElementById('sonia-hint');
+            soniaBubble.textContent = `Dica extra: Começa com a letra ${firstLetter}! 💡`;
+        }
+
+        function setDifficulty(level) {
+            if (level === currentDifficulty) return;
+            currentDifficulty = level;
+
+            document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('active'));
+            if (level === 'easy') document.querySelector('.diff-btn-easy').classList.add('active');
+            else if (level === 'medium') document.querySelector('.diff-btn-medium').classList.add('active');
+            else if (level === 'difficult') document.querySelector('.diff-btn-hard').classList.add('active');
+
+            playSound('click');
+            initGame();
+        }
+
+        function newGame() {
+            playSound('click');
+            initGame();
+        }
+
+        function restartOrNext() {
+            playSound('click');
+            initGame();
+        }
+    </script>
+</body>
+</html>

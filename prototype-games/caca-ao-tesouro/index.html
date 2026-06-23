@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Caça ao Tesouro do Perigo - KidCanvas</title>
+    <!-- Google Fonts: Fredoka para um design infantil arredondado e amigável -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- TELA INICIAL -->
+        <div id="screen-start" class="game-screen active">
+            <div class="start-card">
+                <div class="mascot-badge">
+                    <!-- SVG do Perigo, o simpático dinossaurinho do KidCanvas -->
+                    <svg class="dino-svg" viewBox="0 0 100 100" width="120" height="120">
+                        <path d="M20,60 C20,30 50,20 70,30 C85,38 90,55 85,70 C80,85 60,90 40,88 C25,86 20,75 20,60 Z" fill="#4CAF50" />
+                        <path d="M22,70 Q5,80 15,90 Q30,85 30,75 Z" fill="#388E3C" />
+                        <polygon points="68,22 75,15 78,24" fill="#FFEB3B" />
+                        <polygon points="76,28 85,24 84,33" fill="#FFEB3B" />
+                        <polygon points="82,37 92,36 88,44" fill="#FFEB3B" />
+                        <circle cx="62" cy="42" r="8" fill="white" />
+                        <circle cx="64" cy="42" r="4" fill="#333" />
+                        <circle cx="56" cy="52" r="5" fill="#FF8A80" opacity="0.8" />
+                        <path d="M58,58 Q66,62 70,55" stroke="#333" stroke-width="3" stroke-linecap="round" fill="none" />
+                        <path d="M48,68 Q58,66 56,74" stroke="#4CAF50" stroke-width="6" stroke-linecap="round" fill="none" />
+                    </svg>
+                </div>
+                <h1 class="game-title">Caça ao Tesouro<br><span class="highlight">do Perigo! 🦖✨</span></h1>
+                <p class="game-description">Encontre todos os tesouros escondidos antes que o tempo acabe!</p>
+                
+                <!-- SELETOR DE DIFICULDADE -->
+                <div class="difficulty-container">
+                    <h3 class="selector-title">Escolha a Dificuldade:</h3>
+                    <div class="difficulty-options">
+                        <button class="diff-btn active" id="btn-diff-easy" onclick="selectDifficulty('easy')">
+                            <span class="diff-emoji">🟢</span>
+                            <span class="diff-label">Fácil</span>
+                            <span class="diff-info">6 itens • Sem tempo</span>
+                        </button>
+                        <button class="diff-btn" id="btn-diff-medium" onclick="selectDifficulty('medium')">
+                            <span class="diff-emoji">🟡</span>
+                            <span class="diff-label">Médio</span>
+                            <span class="diff-info">8 itens • 90 seg</span>
+                        </button>
+                        <button class="diff-btn" id="btn-diff-hard" onclick="selectDifficulty('hard')">
+                            <span class="diff-emoji">🔴</span>
+                            <span class="diff-label">Difícil</span>
+                            <span class="diff-info">10 itens • 60 seg</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button id="btn-start" class="btn-play" onclick="startGame()">Começar aventura 🚀</button>
+            </div>
+        </div>
+
+        <!-- TELA DE JOGABILIDADE -->
+        <div id="screen-play" class="game-screen">
+            <!-- Barra Superior -->
+            <div class="game-header">
+                <button class="btn-back" onclick="goToStart()">◀ Sair</button>
+                
+                <!-- Temporizador (Exibido apenas no Médio/Difícil) -->
+                <div id="timer-box" class="timer-box" style="display: none;">
+                    <span class="timer-icon">⏰</span>
+                    <span id="timer-value">90s</span>
+                </div>
+
+                <div class="stars-counter">
+                    <span class="star-icon">⭐</span>
+                    <span id="stars-value">0</span>
+                </div>
+                
+                <div class="progress-container-wrapper">
+                    <div class="progress-bar-container">
+                        <div id="progress-fill" class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div class="progress-text"><span id="found-count">0</span>/<span id="total-count">6</span></div>
+                </div>
+            </div>
+
+            <!-- Cenário de Busca -->
+            <div id="search-scene" class="search-scene">
+                <!-- Fundo decorativo da floresta -->
+                <div class="scene-decorations">
+                    <div class="cloud cloud-1">☁️</div>
+                    <div class="cloud cloud-2">☁️</div>
+                    <div class="sun">☀️</div>
+                    <div class="tree tree-1">🌲</div>
+                    <div class="tree tree-2">🌳</div>
+                    <div class="tree tree-3">🌲</div>
+                    <div class="bush bush-1">🌿</div>
+                    <div class="bush bush-2">🌱</div>
+                    <div class="mountain">⛰️</div>
+                </div>
+
+                <!-- ITENS ESCONDIDOS (Posicionados de forma sneaky via CSS, área de toque >= 44px) -->
+                <!-- 1. Estrela Mágica -->
+                <div id="item-star" class="hidden-item" onclick="findItem('star')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 24 24" width="44" height="44">
+                            <path d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" fill="#FFEB3B" stroke="#F57F17" stroke-width="1.5" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- 2. Borboleta Azul -->
+                <div id="item-butterfly" class="hidden-item" onclick="findItem('butterfly')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 100 100" width="44" height="44">
+                            <path d="M50,45 C45,30 25,25 25,45 C25,60 45,65 50,55 C55,65 75,60 75,45 C75,25 55,30 50,45 Z" fill="#2196F3" stroke="#0D47A1" stroke-width="4" />
+                            <path d="M50,52 C47,40 35,38 35,52 C35,62 47,65 50,58 C53,65 65,62 65,52 C65,38 53,40 50,52 Z" fill="#90CAF9" />
+                            <line x1="50" y1="45" x2="50" y2="60" stroke="#333" stroke-width="4" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- 3. Ovo de Dinossauro -->
+                <div id="item-egg" class="hidden-item" onclick="findItem('egg')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 100 120" width="40" height="48">
+                            <path d="M50,5 C25,5 15,50 15,80 C15,105 30,115 50,115 C70,115 85,105 85,80 C85,50 75,5 C50,5 Z" fill="#FFF59D" stroke="#F57F17" stroke-width="4" />
+                            <circle cx="35" cy="60" r="8" fill="#81C784" />
+                            <circle cx="65" cy="85" r="10" fill="#81C784" />
+                            <circle cx="45" cy="95" r="6" fill="#81C784" />
+                            <circle cx="55" cy="40" r="7" fill="#81C784" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- 4. Maçã Vermelha -->
+                <div id="item-apple" class="hidden-item" onclick="findItem('apple')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 24 24" width="44" height="44">
+                            <path d="M20,10C22,13 19,19 16,21C13,23 11,21 12,19C9,21 7,23 4,21C1,19 1,13 4,10C7,7 9,9 12,9C15,9 17,7 20,10Z" fill="#F44336" stroke="#b71c1c" stroke-width="1" />
+                            <path d="M12,9 Q11,4 14,2" fill="none" stroke="#795548" stroke-width="2" stroke-linecap="round" />
+                            <path d="M14,2 Q17,4 15,6 Z" fill="#4CAF50" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- 5. Cogumelo -->
+                <div id="item-mushroom" class="hidden-item" onclick="findItem('mushroom')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 100 100" width="44" height="44">
+                            <path d="M10,60 C10,25 90,25 90,60 Z" fill="#FF5722" stroke="#d84315" stroke-width="4" />
+                            <circle cx="30" cy="42" r="6" fill="white" />
+                            <circle cx="50" cy="35" r="7" fill="white" />
+                            <circle cx="70" cy="45" r="6" fill="white" />
+                            <path d="M38,60 C38,85 42,92 50,92 C58,92 62,85 62,60 Z" fill="#FFF8E1" stroke="#d84315" stroke-width="4" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- 6. Concha do Mar -->
+                <div id="item-shell" class="hidden-item" onclick="findItem('shell')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 100 100" width="44" height="44">
+                            <path d="M50,90 C85,90 90,45 75,20 C65,10 50,15 50,15 C50,15 35,10 25,20 C10,45 15,90 50,90 Z" fill="#FFAB91" stroke="#E64A19" stroke-width="4" />
+                            <line x1="50" y1="15" x2="50" y2="90" stroke="#E64A19" stroke-width="3" />
+                            <line x1="50" y1="15" x2="32" y2="80" stroke="#E64A19" stroke-width="3" />
+                            <line x1="50" y1="15" x2="68" y2="80" stroke="#E64A19" stroke-width="3" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- 7. Flor Amarela (NOVO - Médio/Difícil) -->
+                <div id="item-flower" class="hidden-item" onclick="findItem('flower')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 100 100" width="44" height="44">
+                            <circle cx="50" cy="50" r="16" fill="#FFEB3B" stroke="#F57F17" stroke-width="3"/>
+                            <!-- Pétalas -->
+                            <circle cx="50" cy="22" r="15" fill="#FFF59D" stroke="#F57F17" stroke-width="3"/>
+                            <circle cx="50" cy="78" r="15" fill="#FFF59D" stroke="#F57F17" stroke-width="3"/>
+                            <circle cx="22" cy="50" r="15" fill="#FFF59D" stroke="#F57F17" stroke-width="3"/>
+                            <circle cx="78" cy="50" r="15" fill="#FFF59D" stroke="#F57F17" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="12" fill="#F57F17" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- 8. Trevo de 4 Folhas (NOVO - Médio/Difícil) -->
+                <div id="item-clover" class="hidden-item" onclick="findItem('clover')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 100 100" width="44" height="44">
+                            <path d="M50,50 Q40,30 30,40 Q20,50 40,60 Q50,70 60,60 Q70,50 50,50 Z" fill="#4CAF50" stroke="#1B5E20" stroke-width="3"/>
+                            <path d="M50,50 Q60,30 70,40 Q80,50 60,60 Q50,70 40,60 Q30,50 50,50 Z" fill="#4CAF50" stroke="#1B5E20" stroke-width="3"/>
+                            <!-- Haste -->
+                            <path d="M50,60 Q48,85 35,90" fill="none" stroke="#1B5E20" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <!-- 9. Joaninha (NOVO - Difícil) -->
+                <div id="item-ladybug" class="hidden-item" onclick="findItem('ladybug')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 100 100" width="44" height="44">
+                            <circle cx="50" cy="55" r="35" fill="#F44336" stroke="#212121" stroke-width="4" />
+                            <!-- Cabeça -->
+                            <circle cx="50" cy="20" r="15" fill="#212121" />
+                            <!-- Divisão asas -->
+                            <line x1="50" y1="20" x2="50" y2="90" stroke="#212121" stroke-width="4" />
+                            <!-- Pintinhas -->
+                            <circle cx="32" cy="45" r="5" fill="#212121" />
+                            <circle cx="68" cy="45" r="5" fill="#212121" />
+                            <circle cx="32" cy="70" r="5" fill="#212121" />
+                            <circle cx="68" cy="70" r="5" fill="#212121" />
+                            <!-- Antenas -->
+                            <path d="M42,12 Q38,2 30,4" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" />
+                            <path d="M58,12 Q62,2 70,4" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- 10. Chave Dourada (NOVO - Difícil) -->
+                <div id="item-key" class="hidden-item" onclick="findItem('key')">
+                    <div class="hitbox">
+                        <svg viewBox="0 0 100 100" width="44" height="44">
+                            <!-- Cabeça da chave -->
+                            <circle cx="30" cy="50" r="20" fill="none" stroke="#FFD54F" stroke-width="6" />
+                            <!-- Haste -->
+                            <line x1="50" y1="50" x2="90" y2="50" stroke="#FFD54F" stroke-width="8" stroke-linecap="round" />
+                            <!-- Dentes -->
+                            <line x1="75" y1="50" x2="75" y2="70" stroke="#FFD54F" stroke-width="8" stroke-linecap="round" />
+                            <line x1="85" y1="50" x2="85" y2="70" stroke="#FFD54F" stroke-width="8" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rodapé: Perigo com Dicas e Lista de Objetivos -->
+            <div class="game-footer">
+                <!-- Personagem Perigo e Balão -->
+                <div class="guide-wrapper">
+                    <div class="mini-perigo">
+                        <svg viewBox="0 0 100 100" width="70" height="70">
+                            <path d="M20,60 C20,30 50,20 70,30 C85,38 90,55 85,70 C80,85 60,90 40,88 Z" fill="#4CAF50" />
+                            <circle cx="62" cy="42" r="8" fill="white" />
+                            <circle cx="64" cy="42" r="4" fill="#333" />
+                            <circle cx="56" cy="52" r="5" fill="#FF8A80" opacity="0.8" />
+                            <path d="M58,58 Q66,62 70,55" stroke="#333" stroke-width="2.5" fill="none" />
+                        </svg>
+                    </div>
+                    <div class="speech-bubble">
+                        <p id="guide-text">Escolha um item da lista e procure na floresta!</p>
+                    </div>
+                </div>
+
+                <!-- Lista Visual de Tesouros a Achar (Injetado dinamicamente no JS) -->
+                <div class="target-panel">
+                    <h3>Itens Restantes:</h3>
+                    <div id="target-list" class="target-list">
+                        <!-- Gerado dinamicamente por JS para adequar a dificuldade -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TELA DE VITÓRIA / RECOMPENSA -->
+        <div id="screen-victory" class="game-screen">
+            <canvas id="victory-canvas"></canvas>
+            <div class="victory-card">
+                <h1 class="victory-title">🏆 Parabéns!</h1>
+                <p class="victory-subtitle">Você encontrou todos os tesouros do Perigo!</p>
+
+                <div class="reward-stars">
+                    <span class="star-pop">⭐</span>
+                    <span class="star-pop">⭐</span>
+                    <span class="star-pop">⭐</span>
+                    <h2 class="stars-earned-text">+3 Estrelas ganhas!</h2>
+                </div>
+
+                <!-- Carta Desbloqueada MÍTICA -->
+                <div class="card-reward-container">
+                    <p class="card-intro">Você desbloqueou uma carta de colecionador!</p>
+                    <div class="magic-card">
+                        <div class="card-inner">
+                            <div class="card-front mythic-style">
+                                <div class="card-header-mythic">
+                                    <span class="rarity">MÍTICA</span>
+                                    <span class="sparkle-icon">✨</span>
+                                </div>
+                                <div class="card-image-wrap">
+                                    <svg viewBox="0 0 100 100" class="card-dino-img">
+                                        <path d="M20,60 C20,30 50,20 70,30 C85,38 90,55 85,70 C80,85 60,90 40,88 Z" fill="#4CAF50" />
+                                        <path d="M45,28 C50,15 75,15 80,28 Z" fill="#212121" />
+                                        <path d="M38,28 Q62,35 85,28 Z" fill="#212121" stroke="#E040FB" stroke-width="2" />
+                                        <circle cx="62" cy="22" r="3" fill="#E040FB" />
+                                        <circle cx="62" cy="42" r="8" fill="white" />
+                                        <path d="M54,42 L70,42" stroke="#212121" stroke-width="4" />
+                                        <circle cx="62" cy="42" r="4" fill="#333" />
+                                        <polygon points="50,38 74,48 70,52 46,42" fill="#212121" />
+                                        <circle cx="53" cy="43" r="6" fill="#212121" />
+                                    </svg>
+                                </div>
+                                <div class="card-footer">
+                                    <h3 class="card-name">Perigo Explorador</h3>
+                                    <div class="card-stats">
+                                        <span>⚔️ Explora: 95</span>
+                                        <span>🛡️ Fofura: 99</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-restart" onclick="restartGame()">Jogar novamente 🔄</button>
+            </div>
+        </div>
+
+        <!-- TELA DE DERROTA AMIGÁVEL (NOVO) -->
+        <div id="screen-defeat" class="game-screen">
+            <div class="defeat-card">
+                <div class="defeat-mascot">
+                    <svg viewBox="0 0 100 100" width="100" height="100">
+                        <path d="M20,60 C20,30 50,20 70,30 C85,38 90,55 85,70 C80,85 60,90 40,88 Z" fill="#4CAF50" />
+                        <!-- Olhos tristes/preocupados -->
+                        <path d="M58,40 Q62,36 66,40" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round" />
+                        <path d="M50,44 Q54,40 58,44" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round" />
+                        <circle cx="56" cy="54" r="4" fill="#FF8A80" opacity="0.8" />
+                        <!-- Boca triste curva para baixo -->
+                        <path d="M56,62 Q62,56 66,60" stroke="#333" stroke-width="3" stroke-linecap="round" fill="none" />
+                    </svg>
+                </div>
+                <h1 class="defeat-title">O tempo acabou! ⏰</h1>
+                <p class="defeat-text">Quase! O Perigo te ajuda na próxima tentativa.</p>
+                <button class="btn-defeat-restart" onclick="restartGame()">Tentar de novo 🔄</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de lógica -->
+    <script src="game.js"></script>
+</body>
+</html>
