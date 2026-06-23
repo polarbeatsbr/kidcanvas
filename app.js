@@ -1100,6 +1100,15 @@ window.addEventListener('DOMContentLoaded', async () => {
             triggerMascotSpeak('/', "Olá! Bem-vindo ao KidCanvas! Aqui você pode colorir centenas de desenhos grátis. Para começar, escolha qualquer desenho abaixo! 🎨✨");
         }
     }, 1500);
+
+    // Registrar Service Worker para PWA (Offline & Cache)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then((reg) => console.log('Service Worker registrado:', reg.scope))
+                .catch((err) => console.error('Erro ao registrar Service Worker:', err));
+        });
+    }
 });
 
 // --- CARREGAMENTO DE DESENHOS ---
@@ -3655,16 +3664,20 @@ function triggerDrawingDownload(drawing) {
 }
 
 // Notificação Toast estilo cartoon
-function showToast(message, type = 'success') {
+function showToast(message, type = 'success', duration = 3500) {
     const toast = document.getElementById('toast-notification');
     if (!toast) return;
     
-    toast.textContent = message;
+    toast.innerHTML = message;
     toast.className = `toast active ${type}`;
     
-    setTimeout(() => {
+    if (window.toastTimeout) {
+        clearTimeout(window.toastTimeout);
+    }
+    
+    window.toastTimeout = setTimeout(() => {
         toast.classList.remove('active');
-    }, 3500);
+    }, duration);
 }
 
 // Metas

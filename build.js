@@ -27,7 +27,9 @@ const filesToCopy = [
     'og-image.jpg',
     'apple-touch-icon.png',
     'android-chrome-192.png',
-    'android-chrome-512.png'
+    'android-chrome-512.png',
+    'manifest.json',
+    'sw.js'
 ];
 
 const publicDir = path.join(__dirname, 'public');
