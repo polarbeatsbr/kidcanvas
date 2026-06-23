@@ -4308,8 +4308,8 @@ button, input, select, textarea {
 }
 
 .color-crayon {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     border: 3px solid #ffffff;
     cursor: pointer;
@@ -10019,6 +10019,108 @@ body {
 
 .btn, .paint-tool-btn, .color-crayon, .paint-stamp-btn, .livro-fechar-btn, .btn-close-modal {
     touch-action: manipulation;
+}
+
+/* Mascote Auxiliar Flutuante */
+.mascot-helper-widget {
+    position: fixed;
+    bottom: 95px; /* Acima da mobile bottom nav bar */
+    right: 20px;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 9999;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px) scale(0.8);
+}
+
+.mascot-helper-widget.visible {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.mascot-helper-avatar-img {
+    width: 85px;
+    height: 85px;
+    object-fit: contain;
+    cursor: pointer;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    animation: floatMascot 3s infinite ease-in-out;
+    transition: transform 0.2s ease;
+    pointer-events: auto;
+}
+
+.mascot-helper-avatar-img:hover {
+    transform: scale(1.1);
+}
+
+.mascot-helper-bubble {
+    background-color: var(--color-white);
+    border: var(--border-thick);
+    border-radius: 18px;
+    padding: 10px 14px;
+    box-shadow: var(--shadow-cartoon);
+    max-width: 200px;
+    position: relative;
+    margin-bottom: 12px;
+    pointer-events: auto;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--color-dark);
+    line-height: 1.4;
+}
+
+/* Balão arrow */
+.mascot-helper-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 30px;
+    border-width: 10px 10px 0 0;
+    border-style: solid;
+    border-color: var(--color-dark) transparent transparent transparent;
+    display: block;
+    width: 0;
+}
+
+.mascot-helper-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: 31px;
+    border-width: 8px 8px 0 0;
+    border-style: solid;
+    border-color: var(--color-white) transparent transparent transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+}
+
+.mascot-helper-sound-btn {
+    background: none;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    padding: 2px 4px;
+    margin-left: 4px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.mascot-helper-sound-btn:hover {
+    background-color: #f0ece4;
+}
+
+@media (min-width: 768px) {
+    .mascot-helper-widget {
+        bottom: 30px;
+        right: 30px;
+    }
 }
 
 

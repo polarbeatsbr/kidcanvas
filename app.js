@@ -14,6 +14,186 @@ function escapeHTML(str) {
 }
 window.escapeHTML = escapeHTML;
 
+// --- MÓDULO DE EFEITOS SONOROS (WEB AUDIO API) ---
+window.KidCanvasAudio = {
+    ctx: null,
+    init: function() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    },
+    playPop: function() {
+        try {
+            this.init();
+            const ctx = this.ctx;
+            if (ctx.state === 'suspended') ctx.resume();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(200, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.15, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.16);
+        } catch(e) {
+            console.error('Erro áudio Pop:', e);
+        }
+    },
+    playSuccess: function() {
+        try {
+            this.init();
+            const ctx = this.ctx;
+            if (ctx.state === 'suspended') ctx.resume();
+            const now = ctx.currentTime;
+            const notes = [261.63, 329.63, 392.00, 523.25];
+            notes.forEach((freq, idx) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.value = freq;
+                const startTime = now + idx * 0.1;
+                const endTime = startTime + 0.4;
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.setValueAtTime(0.08, startTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, endTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(startTime);
+                osc.stop(endTime);
+            });
+        } catch(e) {
+            console.error('Erro áudio Success:', e);
+        }
+    },
+    playMagic: function() {
+        try {
+            this.init();
+            const ctx = this.ctx;
+            if (ctx.state === 'suspended') ctx.resume();
+            const now = ctx.currentTime;
+            const steps = 8;
+            for (let i = 0; i < steps; i++) {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = 600 + i * 150;
+                const startTime = now + i * 0.04;
+                const endTime = startTime + 0.1;
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.setValueAtTime(0.06, startTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, endTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(startTime);
+                osc.stop(endTime);
+            }
+        } catch(e) {
+            console.error('Erro áudio Magic:', e);
+        }
+    }
+};
+
+// --- MÓDULO DE VOZ / TTS PARA CRIANÇAS ---
+window.KidCanvasTTS = {
+    speak: function(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            setTimeout(() => {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'pt-BR';
+                utterance.rate = 1.0;
+                const voices = window.speechSynthesis.getVoices();
+                const googlePt = voices.find(v => v.lang.startsWith('pt') && v.name.includes('Google'));
+                const anyPt = voices.find(v => v.lang.startsWith('pt'));
+                if (googlePt) {
+                    utterance.voice = googlePt;
+                } else if (anyPt) {
+                    utterance.voice = anyPt;
+                }
+                window.speechSynthesis.speak(utterance);
+            }, 50);
+        }
+    },
+    stop: function() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+    }
+};
+
+// --- MÓDULO DOS MASCOTES AUXILIARES ---
+window.currentMascotText = '';
+function triggerMascotSpeak(context, customText = null) {
+    const helper = document.getElementById('kidcanvas-mascot-helper');
+    const avatar = document.getElementById('mascot-helper-avatar');
+    const textEl = document.getElementById('mascot-helper-text');
+    if (!helper || !avatar || !textEl) return;
+
+    let mascotImg = '/mascot_artista.png'; // Padrão: Pedrinho Artista
+    let text = 'Vamos nos divertir colorindo!';
+
+    if (customText) {
+        text = customText;
+    } else {
+        const cleanCtx = context.split('?')[0]; // Ignora query params
+        if (cleanCtx === '/' || cleanCtx === '/home' || cleanCtx === '') {
+            mascotImg = '/mascot_artista.png';
+            text = "Olá! Eu sou o Pedrinho. Vamos escolher um desenho lindo para colorir juntos? 🎨";
+        } else if (cleanCtx === '/pintar-online' || cleanCtx === '/pintura-livre') {
+            mascotImg = '/mascot_mago.png';
+            text = "Que legal! Qual cor você vai usar primeiro no seu desenho? 👵✨";
+        } else if (cleanCtx === '/minhas-criacoes') {
+            mascotImg = '/mascot_aprendiz.png';
+            text = "Olha só as suas obras de arte! Estão maravilhosas! 🏆";
+        } else if (cleanCtx === '/hall-da-fama') {
+            mascotImg = '/mascot_lenda.png';
+            text = "Veja só estes artistas incríveis no Hall da Fama! 🌟";
+        } else if (cleanCtx === '/planos') {
+            mascotImg = '/mascot_mago.png';
+            text = "Assine nossos planos para liberar desenhos super mágicos! 🚀";
+        } else if (cleanCtx === '/conquistas') {
+            mascotImg = '/mascot_artista.png';
+            text = "Veja quantos troféus você já ganhou pintando! 🥇";
+        } else if (cleanCtx === '/certificados') {
+            mascotImg = '/mascot_lenda.png';
+            text = "Parabéns! Aqui estão seus certificados de grande artista! 📜🏆";
+        } else if (cleanCtx.startsWith('/categoria/')) {
+            mascotImg = '/mascot_artista.png';
+            const cat = cleanCtx.replace('/categoria/', '');
+            const catName = CATEGORIES_DATA[cat] ? CATEGORIES_DATA[cat].name : 'Especial';
+            text = `Nossa! A categoria ${catName} está recheada de desenhos incríveis! Qual você mais gostou? 🌟`;
+        } else {
+            mascotImg = '/mascot_artista.png';
+            text = "Estou adorando te ver por aqui! Vamos pintar e brincar bastante! 😊";
+        }
+    }
+
+    avatar.src = mascotImg;
+    textEl.innerHTML = text;
+    window.currentMascotText = text;
+
+    // Mostrar widget com efeito suave
+    helper.classList.add('visible');
+
+    // Falar a mensagem (removendo emojis para voz limpa)
+    if (window.KidCanvasTTS) {
+        const cleanText = text.replace(/[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF]/g, '');
+        window.KidCanvasTTS.speak(cleanText);
+    }
+}
+window.triggerMascotSpeak = triggerMascotSpeak;
+
+function speakMascotBubble() {
+    if (window.currentMascotText && window.KidCanvasTTS) {
+        const cleanText = window.currentMascotText.replace(/[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF]/g, '');
+        window.KidCanvasTTS.speak(cleanText);
+    }
+}
+window.speakMascotBubble = speakMascotBubble;
+
 // --- BASE DE DADOS DAS CATEGORIAS (12 ITENS) ---
 const CATEGORIES_DATA = {
     'novidades': { name: 'Novidades', emoji: '✨', desc: 'Confira os novos desenhos para colorir e imprimir grátis no KidCanvas! Desenhos fresquinhos adicionados nos últimos 30 dias para pintar e se divertir.' },
@@ -912,6 +1092,14 @@ window.addEventListener('DOMContentLoaded', async () => {
         localStorage.removeItem("kidcanvas_trigger_auth");
         openAuthModal();
     }
+
+    // Onboarding de primeiro acesso com o mascote Pedrinho
+    setTimeout(() => {
+        if (!localStorage.getItem('kidcanvas_onboarded')) {
+            localStorage.setItem('kidcanvas_onboarded', 'true');
+            triggerMascotSpeak('/', "Olá! Bem-vindo ao KidCanvas! Aqui você pode colorir centenas de desenhos grátis. Para começar, escolha qualquer desenho abaixo! 🎨✨");
+        }
+    }, 1500);
 });
 
 // --- CARREGAMENTO DE DESENHOS ---
@@ -1392,6 +1580,9 @@ function navigate(path, pushState = true) {
             page_path: cleanPath
         });
     }
+
+    // Falar com o mascote correspondente à seção atual
+    triggerMascotSpeak(cleanPath);
 }
 
 // --- RENDERIZADORES DE VIEW ---
@@ -1935,6 +2126,7 @@ function renderHomeView() {
     // Configurar tags rápidas de busca
     document.querySelectorAll('.quick-tag-btn').forEach(btn => {
         btn.onclick = () => {
+            if (window.KidCanvasAudio) window.KidCanvasAudio.playPop();
             const query = btn.getAttribute('data-search');
             triggerSearch(query);
         };
@@ -4141,6 +4333,8 @@ function setupCustomDrawingActionListeners(imageUrl, drawingId) {
                         if (resData.alreadySaved) {
                             showToast('Desenho já salvo na sua galeria! 🎉', 'success');
                         } else {
+                            if (window.KidCanvasAudio) window.KidCanvasAudio.playSuccess();
+                            triggerMascotSpeak('vitoria');
                             checkNewAchievements();
                             showToast('Desenho salvo na sua galeria com sucesso! 🎉', 'success');
                         }
@@ -7280,8 +7474,8 @@ function renderPintarOnlineView() {
             const div = document.createElement('div');
             div.className = 'color-crayon' + (index === 0 ? ' selected' : '');
             div.style.backgroundColor = crayon.hex;
-            div.style.width = '36px';
-            div.style.height = '36px';
+            div.style.width = '44px';
+            div.style.height = '44px';
             div.style.borderRadius = '50%';
             div.style.border = '3px solid white';
             div.style.cursor = 'pointer';
@@ -10176,6 +10370,8 @@ async function savePaintingToGallery() {
             if (!isPinturaLivre) {
                 checkNewAchievements();
             }
+            if (window.KidCanvasAudio) window.KidCanvasAudio.playSuccess();
+            triggerMascotSpeak('vitoria');
             if (isPublic) {
                 showToast('Pintura enviada para o Hall da Fama! Ela passará por moderação antes de aparecer publicamente. 🎉', 'success');
             } else {
