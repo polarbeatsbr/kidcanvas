@@ -4380,14 +4380,30 @@ button, input, select, textarea {
         flex-direction: row !important;
         overflow-x: auto;
         width: 100%;
-        justify-content: center;
+        justify-content: flex-start;
         padding: 8px;
+        gap: 8px;
     }
     .paint-toolbar hr {
         display: none;
     }
-    .paint-toolbar div {
+    #paint-status-indicator,
+    .paint-toolbar > div:not(.paint-undo-redo-container),
+    .paint-toolbar > span,
+    .paint-toolbar > label {
         display: none !important;
+    }
+    .paint-undo-redo-container {
+        display: flex !important;
+        margin-bottom: 0 !important;
+        gap: 6px !important;
+        flex-shrink: 0;
+    }
+    .paint-tool-btn {
+        width: 50px !important;
+        height: 50px !important;
+        flex-shrink: 0;
+        font-size: 1.1rem !important;
     }
 }
 
@@ -5832,7 +5848,7 @@ button, input, select, textarea {
     font-weight: 800;
     color: var(--color-brown-dark);
     margin: 0 0 8px;
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
 }
 
 .plc-option-card p {
@@ -5877,7 +5893,7 @@ button, input, select, textarea {
     font-weight: 800;
     color: var(--color-purple);
     margin: 0 0 8px;
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
 }
 
 .plc-roulette-header p {
@@ -6154,7 +6170,7 @@ button, input, select, textarea {
 .conquistas-rarity-title {
     font-weight: 800;
     font-size: 1.1rem;
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     color: var(--color-brown-dark);
 }
 
@@ -6330,7 +6346,7 @@ button, input, select, textarea {
 .achievement-unlock-name {
     font-size: 1.5rem;
     font-weight: 900;
-    font-family: var(--font-display);
+    font-family: var(--font-heading);
     color: var(--color-brown-dark);
     margin: 4px 0;
     line-height: 1.2;
@@ -6498,7 +6514,7 @@ button, input, select, textarea {
     padding: 10px;
     width: 280px;
     margin: 0 auto;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     position: relative;
     border: 3px solid #fff;
@@ -6875,7 +6891,7 @@ button, input, select, textarea {
     font-weight: 900;
     color: #2d3436;
     margin-bottom: 8px;
-    font-family: 'Fredoka-Variable', 'Comic Sans MS', sans-serif;
+    font-family: 'Fredoka', 'Comic Sans MS', sans-serif;
     text-shadow: 1px 1px 0px #fff;
     display: flex;
     align-items: center;
@@ -6886,7 +6902,7 @@ button, input, select, textarea {
     color: #636e72;
     margin-bottom: 25px;
     line-height: 1.4;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 
 /* Capítulos (Sumário na esquerda) */
@@ -7288,7 +7304,7 @@ button, input, select, textarea {
         font-size: 0.85rem;
         cursor: pointer;
         margin-bottom: 15px;
-        font-family: 'Fredoka-Variable', sans-serif;
+        font-family: 'Fredoka', sans-serif;
     }
 }
 
@@ -7377,7 +7393,7 @@ button, input, select, textarea {
     font-size: 1.4rem;
     font-weight: 900;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     text-align: center;
     padding: 0 10px;
 }
@@ -7434,7 +7450,7 @@ button, input, select, textarea {
     font-weight: 900;
     color: #6c5ce7;
     margin: 8px 0;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     line-height: 1.25;
 }
 .revelacao-curiosidade-box {
@@ -7487,7 +7503,7 @@ button, input, select, textarea {
     font-weight: 900;
     color: #2d3436;
     text-align: center;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     width: 90%;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
@@ -7504,7 +7520,7 @@ button, input, select, textarea {
     cursor: pointer;
     box-shadow: 0 6px 15px rgba(0, 184, 148, 0.3);
     transition: all 0.2s ease;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     transform: scale(0.9);
     opacity: 0;
     pointer-events: none;
@@ -7631,7 +7647,7 @@ button, input, select, textarea {
     border-radius: 10px;
     font-weight: 900;
     cursor: pointer;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 0.9rem;
     transition: transform 0.2s, background-color 0.2s;
     margin-top: 5px;
@@ -7690,7 +7706,7 @@ button, input, select, textarea {
     font-weight: 900;
     color: #2d3436;
     margin: 0 0 10px 0;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     letter-spacing: 0.5px;
     border-bottom: 2px dashed #f1edd9;
     padding-bottom: 4px;
@@ -7846,7 +7862,7 @@ button, input, select, textarea {
     letter-spacing: 1px;
     margin-top: 0;
     margin-bottom: 12px;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 
 .livro-compartilhar-botoes-grid {
@@ -7871,7 +7887,7 @@ button, input, select, textarea {
     padding: 10px 8px;
     font-size: 0.82rem;
     font-weight: 900;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     cursor: pointer;
     color: white;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -7951,7 +7967,7 @@ button, input, select, textarea {
     color: #2d3436;
     margin-top: 0;
     margin-bottom: 18px;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 
 .livro-share-platforms-list {
@@ -7969,7 +7985,7 @@ button, input, select, textarea {
     padding: 12px 16px;
     font-size: 0.95rem;
     font-weight: 900;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     cursor: pointer;
     background: white;
     transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
@@ -8035,7 +8051,7 @@ button, input, select, textarea {
     background: linear-gradient(135deg, #e17055, #ff7675);
     border: none;
     color: #fff;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-weight: 900;
     font-size: 1rem;
     padding: 10px 20px;
@@ -8062,7 +8078,7 @@ button, input, select, textarea {
     padding: 6px 12px;
     font-size: 0.8rem;
     font-weight: 900;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     cursor: pointer;
     color: #d35400;
     box-shadow: 0 2px 5px rgba(253, 150, 68, 0.20);
@@ -8124,7 +8140,7 @@ button, input, select, textarea {
 }
 .livro-unlock-guide-title {
     margin: 0 0 16px 0;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     font-size: 1.35rem;
     font-weight: 900;
     color: #e67e22;
@@ -8170,7 +8186,7 @@ button, input, select, textarea {
     padding: 10px;
     border-radius: 10px;
     font-weight: 800;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     cursor: pointer;
     width: 100%;
     display: flex;
@@ -8210,7 +8226,7 @@ button, input, select, textarea {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 .livro-estatistica-label {
     font-size: 0.9rem;
@@ -8269,7 +8285,7 @@ button, input, select, textarea {
     font-size: 0.82rem;
     font-weight: 600;
     color: #d35400;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     line-height: 1.25;
 }
 
@@ -8373,7 +8389,7 @@ button, input, select, textarea {
     text-align: center;
     transform: scale(0.85);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     position: relative;
     overflow: hidden;
 }
@@ -8457,7 +8473,7 @@ button, input, select, textarea {
     font-weight: 800;
     cursor: pointer;
     width: 100%;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     box-shadow: 0 5px 15px rgba(243, 156, 18, 0.35);
     transition: all 0.2s ease;
 }
@@ -8501,7 +8517,7 @@ button, input, select, textarea {
     padding-bottom: 12px;
     border-bottom: 2px dashed #eee;
     text-align: left;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 .livro-expedition-titulo {
     font-size: 1.6rem;
@@ -8628,7 +8644,7 @@ button, input, select, textarea {
     font-weight: 800;
     border: none;
     cursor: pointer;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     transition: all 0.2s ease;
 }
 .livro-expedition-btn-action.paint {
@@ -8666,7 +8682,7 @@ button, input, select, textarea {
     padding: 16px;
     text-align: center;
     box-shadow: 0 8px 20px rgba(241, 196, 15, 0.15);
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     position: relative;
     overflow: hidden;
 }
@@ -8843,7 +8859,7 @@ button, input, select, textarea {
     flex-direction: column;
     align-items: center;
     color: #ffffff;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     transform: scale(0.9);
     transition: transform 0.3s ease;
 }
@@ -8963,7 +8979,7 @@ button, input, select, textarea {
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 .discovery-flip-btn:hover {
     transform: scale(1.05);
@@ -9421,7 +9437,7 @@ button, input, select, textarea {
     border-radius: var(--radius-sm);
     padding: 15px;
     margin-bottom: 20px;
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
     box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 .livro-regras-title {
@@ -9556,7 +9572,7 @@ button, input, select, textarea {
     pointer-events: none;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    font-family: 'Fredoka-Variable', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 
 .expedition-tooltip-text::after {
