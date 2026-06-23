@@ -7567,6 +7567,33 @@ function renderPintarOnlineView() {
         };
     }
 
+    const btnFullscreen = document.getElementById('paint-btn-fullscreen');
+    if (btnFullscreen) {
+        btnFullscreen.onclick = () => {
+            if (window.KidCanvasAudio) window.KidCanvasAudio.playPop();
+            const container = document.querySelector('.paint-canvas-container');
+            if (!container) return;
+            
+            if (!document.fullscreenElement) {
+                container.requestFullscreen().catch(err => {
+                    console.error(`Erro ao ativar tela cheia: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        };
+        
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                btnFullscreen.innerHTML = '<i class="fa-solid fa-compress"></i>';
+                btnFullscreen.title = "Sair da Tela Cheia (📺)";
+            } else {
+                btnFullscreen.innerHTML = '<i class="fa-solid fa-expand"></i>';
+                btnFullscreen.title = "Tela Cheia (📺)";
+            }
+        });
+    }
+
     // Configurar Eventos do Canvas
     paintCanvas.onmousedown = startPaintingDraw;
     paintCanvas.onmousemove = executePaintingDraw;

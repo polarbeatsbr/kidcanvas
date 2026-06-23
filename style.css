@@ -10123,5 +10123,25 @@ body {
     }
 }
 
+/* Otimização para Modo Tela Cheia */
+.paint-canvas-container:fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    aspect-ratio: auto !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #ececec !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.paint-canvas-container:fullscreen #paint-canvas-viewport {
+    position: relative !important;
+    margin: 0 auto !important;
+}
+
 
 
