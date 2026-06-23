@@ -3297,6 +3297,11 @@ function closeAllSuggestions() {
 function createDrawingCard(dw, position = null, showTrending = false) {
     const card = document.createElement('div');
     card.className = 'drawing-card';
+    card.style.padding = '0';
+    card.style.gap = '0';
+    card.style.overflow = 'hidden';
+    card.style.display = 'flex';
+    card.style.flexDirection = 'column';
     card.setAttribute('data-id', dw.slug);
     card.setAttribute('data-category', dw.category);
     
@@ -3312,23 +3317,26 @@ function createDrawingCard(dw, position = null, showTrending = false) {
             rankClass = 'rank-silver';
             medal = '🥈';
         }
-        rankBadgeHtml = `<div class="rank-badge ${rankClass}">#${position} ${medal}</div>`;
+        rankBadgeHtml = `<div class="rank-badge ${rankClass}" style="z-index: 3;">#${position} ${medal}</div>`;
     }
     
     // Badge de "EM ALTA 🔥"
-    const trendingBadgeHtml = showTrending ? '<div class="trending-badge">EM ALTA 🔥</div>' : '';
+    const trendingBadgeHtml = showTrending ? '<div class="trending-badge" style="z-index: 3;">EM ALTA 🔥</div>' : '';
     
     // Badge do tier com suporte a tag Novo
     const isLocked = !isDrawingAccessible(dw);
     let cardLink = `/${dw.category}/${dw.slug}`;
-    let badgeHtml = '<span class="badge-free">Grátis</span>';
+    let badgeColorStyle = 'background-color: #16a34a; border-color: var(--color-dark); color: #fff;';
+    let badgeText = '<i class="fa-solid fa-gift"></i> Grátis';
     
     if (isLocked) {
         cardLink = '#';
         const requiredPlan = getRequiredPlanForDrawing(dw);
-        badgeHtml = `<span class="badge-free" style="background-color: var(--color-orange); border-color: var(--color-dark);"><i class="fa-solid fa-lock"></i> Plano ${requiredPlan}</span>`;
+        badgeColorStyle = 'background-color: var(--color-orange); border-color: var(--color-dark); color: #fff;';
+        badgeText = `<i class="fa-solid fa-lock"></i> Plano ${requiredPlan}`;
     } else if (dw.isNew) {
-        badgeHtml = '<span class="badge-free" style="background-color: var(--color-yellow); border-color: var(--color-dark);"><i class="fa-solid fa-star"></i> Novo!</span>';
+        badgeColorStyle = 'background-color: var(--color-yellow); border-color: var(--color-dark); color: var(--color-dark);';
+        badgeText = '<i class="fa-solid fa-star"></i> Novo!';
     }
     
     const isAdminUser = currentUser && currentUser.email === 'foneoliver@gmail.com';
@@ -3338,20 +3346,36 @@ function createDrawingCard(dw, position = null, showTrending = false) {
     
     card.innerHTML = `
         ${deleteBtnHtml}
-        ${rankBadgeHtml}
-        ${trendingBadgeHtml}
-        <a href="${cardLink}" class="drawing-card-link">
-            <div class="card-img-wrapper" style="${isLocked ? 'filter: blur(5px) grayscale(0.2) opacity(0.8);' : ''}">
-                <img src="${dw.url}" alt="${dw.pt}" loading="lazy">
-            </div>
-        </a>
-        <div class="card-bottom-info">
-            <span class="drawing-card-category">${CATEGORIES_DATA[dw.category].name}</span>
-            <h4 class="drawing-card-title">${dw.pt}</h4>
+        <!-- ÁREA DA IMAGEM: bloco isolado, aspect-ratio quadrado -->
+        <div style="position: relative; aspect-ratio: 1/1; overflow: hidden; background: #FCF9F5; display: flex; align-items: center; justify-content: center; border-bottom: var(--border-thin);">
+            <a href="${cardLink}" class="drawing-card-link" style="display: block; width: 100%; height: 100%;">
+                <img src="${dw.url}" alt="${dw.pt}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain; ${isLocked ? 'filter: blur(5px) grayscale(0.2) opacity(0.8);' : ''}">
+            </a>
+            <!-- badge DENTRO da área da imagem, canto superior esquerdo -->
+            <span class="card-badge" style="position: absolute; top: 8px; left: 8px; 
+                         max-width: calc(100% - 16px);
+                         white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                         font-size: 10px; font-weight: 700; padding: 3px 8px; 
+                         border-radius: 20px; ${badgeColorStyle} z-index: 2;">
+                ${badgeText}
+            </span>
+            ${rankBadgeHtml}
+            ${trendingBadgeHtml}
         </div>
-        <div class="card-bottom">
-            ${badgeHtml}
-            <button class="btn-download-card" title="${isLocked ? 'Assine para desbloquear' : 'Baixar desenho'}"><i class="fa-solid ${isLocked ? 'fa-lock' : 'fa-download'}"></i> ${isLocked ? 'Desbloquear' : 'Imprimir'}</button>
+        <!-- CORPO: título e botões FORA da área da imagem -->
+        <div class="card-body-info" style="padding: 8px 10px 10px; display: flex; flex-direction: column; justify-content: space-between; flex: 1;">
+            <div>
+                <p class="drawing-card-category" style="font-size: 9px; color: #a8a29e; margin: 0 0 2px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px;">${CATEGORIES_DATA[dw.category].name}</p>
+                <h4 class="drawing-card-title" style="font-size: 14px; font-weight: 700; margin: 0 0 8px; color: var(--color-dark); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${dw.pt}</h4>
+            </div>
+            <div class="card-btns">
+                <button class="btn-gratis btn-download-card ${isLocked ? 'btn-lock' : ''}" title="${isLocked ? 'Assine para desbloquear' : 'Baixar desenho'}" style="${isLocked ? 'background: var(--color-orange);' : 'background: #16a34a;'} color: #fff; border: none; border-radius: 20px; font-size: 11px; font-weight: 700; padding: 6px 12px; white-space: nowrap; flex-shrink: 0; cursor: pointer;">
+                    <i class="fa-solid ${isLocked ? 'fa-lock' : 'fa-download'}"></i> ${isLocked ? 'Bloqueado' : 'Imprimir'}
+                </button>
+                <a href="${cardLink}" class="btn-colorir" style="background: #7c3aed; color: #fff; border: none; border-radius: 20px; font-size: 11px; font-weight: 700; padding: 6px 10px; white-space: nowrap; flex: 1; text-align: center; cursor: pointer; overflow: hidden; text-overflow: ellipsis; display: block; text-decoration: none;">
+                    <i class="fa-solid fa-paint-brush"></i> Colorir
+                </a>
+            </div>
         </div>
     `;
     
