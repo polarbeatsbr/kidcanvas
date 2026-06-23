@@ -6781,6 +6781,64 @@ button, input, select, textarea {
     position: relative;
 }
 
+/* Abas laterais do Livro (Estilo Planner) */
+.livro-abas-laterais {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 21px;
+    top: 90px;
+    z-index: 99;
+    align-items: flex-start;
+}
+
+.livro-aba {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    border-radius: 8px 0 0 8px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.livro-aba.ativa {
+    padding: 12px 6px;
+    font-size: 11px;
+    font-weight: 700;
+    width: 28px;
+    box-shadow: -2px 2px 6px rgba(0,0,0,0.25);
+    max-height: 140px;
+    opacity: 1;
+    z-index: 2;
+}
+
+.livro-aba.inativa {
+    padding: 10px 5px;
+    font-size: 10px;
+    font-weight: 600;
+    width: 24px;
+    opacity: 0.75;
+    max-height: 120px;
+    z-index: 1;
+}
+
+.livro-aba.inativa:hover {
+    opacity: 0.95;
+    width: 26px;
+}
+
+@media (max-width: 768px) {
+    .livro-abas-laterais {
+        right: 14px;
+        top: 80px;
+    }
+}
+
 /* Divisor central das páginas */
 .livro-divisor-central {
     position: absolute;

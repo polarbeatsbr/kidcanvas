@@ -13459,6 +13459,62 @@ window.openAlbumModal = async function() {
     }
 };
 
+window.renderBookTabs = function() {
+    const container = document.getElementById('livro-abas-laterais');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    const catalog = window.globalCatalog || [];
+    const collections = {};
+    catalog.forEach(c => {
+        const colName = c.collection ? c.collection.split(' ')[1] : 'Geral';
+        if (!collections[colName]) collections[colName] = [];
+        collections[colName].push(c);
+    });
+    
+    const chapterOrder = ['expedition', 'Pinturas', 'Dinossauros', 'Livros', 'Comunidade', 'Lendárias', 'Lendas-do-Desenho'];
+    const activeCol = window.activeChapterName || 'Pinturas';
+    
+    const chapterTabConfig = {
+        'expedition': { name: 'Expedição', bg: '#ddd6fe', color: '#3b0764' },
+        'Pinturas': { name: 'Pinturas', bg: '#f9a8d4', color: '#831843' },
+        'Dinossauros': { name: 'Dinossauros', bg: '#fed7aa', color: '#7c2d12' },
+        'Livros': { name: 'Livros', bg: '#fef08a', color: '#713f12' },
+        'Comunidade': { name: 'Comunidade', bg: '#bfdbfe', color: '#1e3a8a' },
+        'Lendárias': { name: 'Lendárias', bg: '#99f6e4', color: '#134e4a' },
+        'Lendas-do-Desenho': { name: 'Lendas', bg: '#bbf7d0', color: '#14532d' }
+    };
+    
+    chapterOrder.forEach(colName => {
+        let shouldShow = false;
+        if (colName === 'expedition') {
+            if (typeof currentActiveEvent !== 'undefined' && currentActiveEvent && currentActiveEvent.active) {
+                shouldShow = true;
+            }
+        } else if (collections[colName] && collections[colName].length > 0) {
+            shouldShow = true;
+        }
+        
+        if (!shouldShow) return;
+        
+        const config = chapterTabConfig[colName] || { name: colName, bg: '#e2e8f0', color: '#1e293b' };
+        const isActive = colName === activeCol;
+        
+        const tab = document.createElement('div');
+        tab.className = `livro-aba ${isActive ? 'ativa' : 'inativa'}`;
+        tab.onclick = (e) => {
+            e.stopPropagation();
+            selectChapter(colName);
+        };
+        tab.innerText = config.name;
+        tab.style.background = config.bg;
+        tab.style.color = config.color;
+        
+        container.appendChild(tab);
+    });
+};
+
 window.activeChapterName = null;
 
 window.selectChapter = function(colName) {
@@ -13503,6 +13559,9 @@ window.selectChapter = function(colName) {
     const wrap = document.querySelector('.livro-paginas-wrap');
     if (wrap && window.innerWidth <= 768) {
         wrap.scrollTo({ left: wrap.clientWidth, behavior: 'smooth' });
+    }
+    if (typeof renderBookTabs === 'function') {
+        renderBookTabs();
     }
 };
 
