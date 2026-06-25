@@ -7429,7 +7429,8 @@ function renderPintarOnlineView() {
     isPaintDrawing = false;
     setPaintTool('bucket');
     
-    window.paintZoomLevel = parseFloat(sessionStorage.getItem('kidcanvas_zoom')) || 1.0;
+    window.paintZoomLevel = 1.0;
+    sessionStorage.removeItem('kidcanvas_zoom');
     window.paintPanX = 0;
     window.paintPanY = 0;
     updateZoomTransform();
