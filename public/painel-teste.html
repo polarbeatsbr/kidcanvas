@@ -4732,52 +4732,41 @@
             }
         }
         
-        // Intercepta a inicialização e set de ferramentas do painel
-        if (typeof window.renderPintarOnlineView === 'function') {
-            wrapRenderAndTools();
-        } else {
-            let attempts = 0;
-            const renderInterval = setInterval(() => {
-                attempts++;
-                if (typeof window.renderPintarOnlineView === 'function') {
-                    wrapRenderAndTools();
-                    clearInterval(renderInterval);
-                } else if (attempts > 50) {
-                    clearInterval(renderInterval);
-                }
-            }, 50);
-        }
-        
-        function wrapRenderAndTools() {
+        // Intercepta a inicialização e set de ferramentas do painel após carregamento total da página
+        window.addEventListener('load', () => {
             // Intercepta renderPintarOnlineView para reestruturar a paleta de cores
             const originalRender = window.renderPintarOnlineView;
-            window.renderPintarOnlineView = function() {
-                originalRender();
-                window.restructureColorsGrid();
-            };
+            if (typeof originalRender === 'function') {
+                window.renderPintarOnlineView = function() {
+                    originalRender();
+                    window.restructureColorsGrid();
+                };
+            }
             
             // Intercepta setPaintTool para alternar classes no body de acordo com a ferramenta ativa
             const originalSetPaintTool = window.setPaintTool;
-            window.setPaintTool = function(toolName) {
-                // Remove all previous tool classes to prevent accumulation
-                document.body.classList.forEach(className => {
-                    if (className.startsWith('tool-') && className.endsWith('-active')) {
-                        document.body.classList.remove(className);
-                    }
-                });
-                document.body.classList.add(`tool-${toolName}-active`);
-                
-                // Sincroniza a classe ativa do botão no layout do rodapé
-                document.querySelectorAll('.bottom-bar .tool-btn').forEach(btn => {
-                    if (btn.id === `paint-tool-${toolName}` || (toolName === 'pan' && btn.id === 'paint-btn-zoom-pan')) {
-                        btn.classList.add('active');
-                    } else if (toolName !== 'pan' || btn.id !== 'paint-btn-zoom-pan') {
-                        btn.classList.remove('active');
-                    }
-                });
-                
-                return originalSetPaintTool(toolName);
-            };
+            if (typeof originalSetPaintTool === 'function') {
+                window.setPaintTool = function(toolName) {
+                    // Remove all previous tool classes to prevent accumulation
+                    document.body.classList.forEach(className => {
+                        if (className.startsWith('tool-') && className.endsWith('-active')) {
+                            document.body.classList.remove(className);
+                        }
+                    });
+                    document.body.classList.add(`tool-${toolName}-active`);
+                    
+                    // Sincroniza a classe ativa do botão no layout do rodapé
+                    document.querySelectorAll('.bottom-bar .tool-btn').forEach(btn => {
+                        if (btn.id === `paint-tool-${toolName}` || (toolName === 'pan' && btn.id === 'paint-btn-zoom-pan')) {
+                            btn.classList.add('active');
+                        } else if (toolName !== 'pan' || btn.id !== 'paint-btn-zoom-pan') {
+                            btn.classList.remove('active');
+                        }
+                    });
+                    
+                    return originalSetPaintTool(toolName);
+                };
+            }
 
             // Intercepta selectPaintingColor para manter a classe selected em sincronia no acordeão e barra mobile
             if (typeof window.selectPaintingColor === 'function') {
@@ -4811,7 +4800,7 @@
             
             // Caso já esteja renderizado
             window.restructureColorsGrid();
-        }
+        });
         
         // Função de Acordeão para alternar categorias da paleta
         window.toggleAccordion = function(header) {
