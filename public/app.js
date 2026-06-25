@@ -8024,33 +8024,15 @@ function renderPintarOnlineView() {
                     paintBgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
                     paintFgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
                     
-                    if (window.currentPaintingData && window.currentPaintingData.imgUrl === 'blank') {
-                        paintBgCtx.fillStyle = '#ffffff';
-                        paintBgCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
-                    } else if (paintDrawingImage) {
-                        const aspect = paintDrawingImage.width / paintDrawingImage.height;
-                        let w = paintCanvas.width;
-                        let h = paintCanvas.height;
-                        let x = 0;
-                        let y = 0;
-
-                        if (aspect > 4/3) {
-                            h = paintCanvas.width / aspect;
-                            y = (paintCanvas.height - h) / 2;
-                        } else {
-                            w = paintCanvas.height * aspect;
-                            x = (paintCanvas.width - w) / 2;
-                        }
-
-                        paintBgCtx.fillStyle = '#ffffff';
-                        paintBgCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
-                        paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
-                        
-                        cleanPaintCanvasOutlineDirect(paintBgCtx);
-                    } else {
-                        paintBgCtx.fillStyle = '#ffffff';
-                        paintBgCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
+                    // Voltar para página em branco para pintar a mão livre
+                    paintDrawingImage = null;
+                    if (window.currentPaintingData) {
+                        window.currentPaintingData.imgUrl = 'blank';
+                        window.currentPaintingData.name = 'Mão Livre';
                     }
+
+                    paintBgCtx.fillStyle = '#ffffff';
+                    paintBgCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
 
                     window.activeStickers = [];
                     window.selectedSticker = null;
