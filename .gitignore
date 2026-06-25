@@ -19,6 +19,8 @@ C:\\Users\\foneo\\.gemini\antigravity\brain/
 !server.js
 !build.js
 !api/mailer.js
+!sw.js
+!public/sw.js
 
 # JSON files
 *.json
