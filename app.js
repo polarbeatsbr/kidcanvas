@@ -154,51 +154,48 @@ function triggerMascotSpeak(context, customText = null) {
     const textEl = document.getElementById('mascot-helper-text');
     if (!helper || !avatar || !textEl) return;
 
-    let mascotImg = '/mascot_artista.png'; // Padrão: Pedrinho Artista
     let text = 'Vamos nos divertir colorindo!';
 
     if (customText) {
         text = customText;
     } else {
-        const cleanCtx = context.split('?')[0]; // Ignora query params
+        const cleanCtx = context.split('?')[0];
         if (cleanCtx === '/' || cleanCtx === '/home' || cleanCtx === '') {
-            mascotImg = '/mascot_artista.png';
-            text = "Olá! Eu sou o Pedrinho. Vamos escolher um desenho lindo para colorir juntos? 🎨";
+            text = "Olá! Eu sou o Perigo. Vamos escolher um desenho lindo para colorir juntos? 🎨";
         } else if (cleanCtx === '/pintar-online' || cleanCtx === '/pintura-livre') {
-            mascotImg = '/mascot_mago.png';
-            text = "Que legal! Qual cor você vai usar primeiro no seu desenho? 👵✨";
+            text = "Que legal! Qual cor você vai usar primeiro no seu desenho? ✨";
         } else if (cleanCtx === '/minhas-criacoes') {
-            mascotImg = '/mascot_aprendiz.png';
             text = "Olha só as suas obras de arte! Estão maravilhosas! 🏆";
         } else if (cleanCtx === '/hall-da-fama') {
-            mascotImg = '/mascot_lenda.png';
             text = "Veja só estes artistas incríveis no Hall da Fama! 🌟";
         } else if (cleanCtx === '/planos') {
-            mascotImg = '/mascot_mago.png';
             text = "Assine nossos planos para liberar desenhos super mágicos! 🚀";
         } else if (cleanCtx === '/conquistas') {
-            mascotImg = '/mascot_artista.png';
             text = "Veja quantos troféus você já ganhou pintando! 🥇";
         } else if (cleanCtx === '/certificados') {
-            mascotImg = '/mascot_lenda.png';
             text = "Parabéns! Aqui estão seus certificados de grande artista! 📜🏆";
         } else if (cleanCtx.startsWith('/categoria/')) {
-            mascotImg = '/mascot_artista.png';
             const cat = cleanCtx.replace('/categoria/', '');
             const catName = CATEGORIES_DATA[cat] ? CATEGORIES_DATA[cat].name : 'Especial';
             text = `Nossa! A categoria ${catName} está recheada de desenhos incríveis! Qual você mais gostou? 🌟`;
         } else {
-            mascotImg = '/mascot_artista.png';
             text = "Estou adorando te ver por aqui! Vamos pintar e brincar bastante! 😊";
         }
     }
 
-    avatar.src = mascotImg;
+    avatar.src = '/perigo-artista.png';
     textEl.innerHTML = text;
     window.currentMascotText = text;
 
-    // Mostrar widget com efeito suave
-    helper.classList.add('visible');
+    // Respeitar estado minimizado do sessionStorage
+    const isMinimized = sessionStorage.getItem('kidcanvas_mascot_minimized') === 'true';
+    const casinha = document.getElementById('mascot-casinha-helper');
+    if (isMinimized) {
+        if (casinha) casinha.classList.remove('hidden-mascot');
+    } else {
+        helper.classList.add('visible');
+        if (casinha) casinha.classList.add('hidden-mascot');
+    }
 
     // Falar a mensagem (removendo emojis para voz limpa)
     if (window.KidCanvasTTS) {
@@ -215,6 +212,26 @@ function speakMascotBubble() {
     }
 }
 window.speakMascotBubble = speakMascotBubble;
+
+function minimizeMascotHelper(event) {
+    if (event) event.stopPropagation();
+    const helper = document.getElementById('kidcanvas-mascot-helper');
+    const casinha = document.getElementById('mascot-casinha-helper');
+    if (helper) helper.classList.add('hidden-mascot');
+    if (casinha) casinha.classList.remove('hidden-mascot');
+    sessionStorage.setItem('kidcanvas_mascot_minimized', 'true');
+}
+
+function restoreMascotHelper() {
+    const helper = document.getElementById('kidcanvas-mascot-helper');
+    const casinha = document.getElementById('mascot-casinha-helper');
+    if (helper) { helper.classList.remove('hidden-mascot'); helper.classList.add('visible'); }
+    if (casinha) casinha.classList.add('hidden-mascot');
+    sessionStorage.setItem('kidcanvas_mascot_minimized', 'false');
+}
+
+window.minimizeMascotHelper = minimizeMascotHelper;
+window.restoreMascotHelper = restoreMascotHelper;
 
 // --- BASE DE DADOS DAS CATEGORIAS (12 ITENS) ---
 const CATEGORIES_DATA = {
