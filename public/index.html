@@ -132,11 +132,6 @@
             justify-content: space-between !important;
         }
 
-        /* OCULTAR ASSISTENTE FLUTUANTE GLOBAL */
-        #kidcanvas-mascot-helper {
-            display: none !important;
-        }
-
         /* SIDEBAR CONTAINER TOTALMENTE ENQUADRADO SEM NECESSIDADE DE SCROLL */
         .paint-sidebar-container {
             display: flex !important; 
@@ -4709,7 +4704,15 @@
         <span id="mascot-helper-text">Olá! Vamos colorir juntos?</span>
         <button class="mascot-helper-sound-btn" onclick="speakMascotBubble()" title="Ouvir novamente">🔊</button>
     </div>
-    <img id="mascot-helper-avatar" class="mascot-helper-avatar-img" src="/mascot_artista.png" alt="Mascote Auxiliar" onclick="speakMascotBubble()" />
+    <div class="mascot-avatar-wrapper">
+        <div class="mascot-close-btn" onclick="minimizeMascotHelper(event)">&times;</div>
+        <img id="mascot-helper-avatar" class="mascot-helper-avatar-img" src="/perigo-artista.png" alt="Perigo Artista" onerror="this.src='/mascot_artista.png'" onclick="speakMascotBubble()" />
+    </div>
+</div>
+
+<!-- Casinha do Perigo (estado minimizado) -->
+<div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-helper" onclick="restoreMascotHelper()">
+    <img src="/perigo-casinha.png" alt="Casa do Perigo" class="mascot-casinha-img">
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

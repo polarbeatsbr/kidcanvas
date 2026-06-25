@@ -9042,32 +9042,6 @@ window.setPaintTool = setPaintTool;
 // MC PERIGO — DICAS CONTEXTUAIS DO PAINT
 // ==============================================
 
-window.PerigoPaintTTS = {
-    speak: function(text) {
-        if (!('speechSynthesis' in window)) return;
-        window.speechSynthesis.cancel();
-        setTimeout(() => {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'pt-BR';
-            utterance.rate = 0.92;
-            utterance.pitch = 0.72;
-            const voices = window.speechSynthesis.getVoices();
-            const maleVoice = voices.find(v =>
-                v.lang.startsWith('pt') &&
-                (v.name.includes('Male') || v.name.includes('Masculino') ||
-                 v.name.includes('Daniel') || v.name.includes('Ricardo') ||
-                 v.name.includes('Luciano'))
-            );
-            const googlePt = voices.find(v => v.lang.startsWith('pt') && v.name.includes('Google'));
-            const anyPt = voices.find(v => v.lang.startsWith('pt'));
-            if (maleVoice) utterance.voice = maleVoice;
-            else if (googlePt) utterance.voice = googlePt;
-            else if (anyPt) utterance.voice = anyPt;
-            window.speechSynthesis.speak(utterance);
-        }, 50);
-    }
-};
-
 const PERIGO_TIPS = {
     bucket:      "É o balde de tinta! Clica em qualquer área fechada e ela preenche todinha de uma vez. Rápido demais!",
     brush:       "Pincel clássico na área! Faz traços suaves. Começa pelos detalhes menores — fica muito mais bonito!",
@@ -9110,8 +9084,6 @@ function showPerigoTip(key) {
     window.currentMascotText = tip;
     helper.classList.add('visible');
 
-    const cleanTip = tip.replace(/[✀-➿]|[-]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[‑-⛿]|\uD83E[\uDD10-\uDDFF]/g, '');
-    window.PerigoPaintTTS.speak(cleanTip);
 }
 
 window.showPerigoTip = showPerigoTip;
