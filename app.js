@@ -1,3 +1,25 @@
+
+window.activeMaterial = 'crayon';
+window.applyMaterialStroke = function(ctx, baseSize, tool, material) {
+    const activeTool = tool || window.activePaintTool;
+    if (activeTool === 'neon' || activeTool === 'glitter' || activeTool === 'eraser') {
+        return;
+    }
+    const mat = material || window.activeMaterial || 'crayon';
+    if (mat === 'paint') {
+        ctx.globalAlpha = 1.0;
+        ctx.lineWidth = baseSize;
+    } else if (mat === 'crayon') {
+        ctx.globalAlpha = 0.85;
+        ctx.lineWidth = baseSize;
+    } else if (mat === 'marker') {
+        ctx.globalAlpha = 0.55;
+        ctx.lineWidth = baseSize;
+    } else if (mat === 'pencil') {
+        ctx.globalAlpha = 0.4;
+        ctx.lineWidth = Math.max(1.5, baseSize * 0.35);
+    }
+};
 /* ==========================================================================
    LÓGICA PRINCIPAL DO SITE KIDCANVAS.COM.BR
    Roteador SPA, Galeria 100% Grátis, Busca Global, Auto-Sugestões e Downloads
@@ -7300,12 +7322,12 @@ function checkAndRestoreAutosave() {
                 () => {
                     const bgImg = new Image();
                     bgImg.onload = () => {
-                        paintBgCtx.clearRect(0, 0, 800, 600);
+                        paintBgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
                         paintBgCtx.drawImage(bgImg, 0, 0);
                         
                         const fgImg = new Image();
                         fgImg.onload = () => {
-                            paintFgCtx.clearRect(0, 0, 800, 600);
+                            paintFgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
                             paintFgCtx.drawImage(fgImg, 0, 0);
                             
                             window.activeStickers = autosave.stickers || [];
@@ -7335,13 +7357,16 @@ function renderPintarOnlineView() {
     document.title = "Colorir Online — KidCanvas 🎨";
     setMetaDescription("Colore e pinte online usando lápis de cor, balde de tinta e glitter mágico de forma interativa.");
 
+    // Setup dynamic Golden Frame sizing (disabled - reverted to fixed full-size frame layout)
+    window.resizePaintFrame = function() {};
+
     const view = document.getElementById('view-pintar-online');
     if (view) {
         view.style.display = 'block';
     }
 
     const data = window.currentPaintingData;
-    if (!data || !data.imgUrl) {
+    if (!data) {
         navigate('/');
         return;
     }
@@ -7360,30 +7385,37 @@ function renderPintarOnlineView() {
         };
     }
 
+    const isBlank = (!data || !data.imgUrl || data.imgUrl === 'blank');
+    const initW = 800;
+    const initH = 600;
+
     // Inicializar Canvas Principal
     paintCanvas = document.getElementById('main-paint-canvas');
     pCtx = paintCanvas.getContext('2d');
     
-    paintCanvas.width = 800;
-    paintCanvas.height = 600;
+    paintCanvas.width = initW;
+    paintCanvas.height = initH;
+    paintCanvas.setAttribute('width', initW);
+    paintCanvas.setAttribute('height', initH);
 
     // Inicializar Canvases Auxiliares
     if (!paintBgCanvas) {
         paintBgCanvas = document.createElement('canvas');
-        paintBgCanvas.width = 800;
-        paintBgCanvas.height = 600;
-        paintBgCtx = paintBgCanvas.getContext('2d');
     }
+    paintBgCanvas.width = initW;
+    paintBgCanvas.height = initH;
+    paintBgCtx = paintBgCanvas.getContext('2d');
+
     if (!paintFgCanvas) {
         paintFgCanvas = document.createElement('canvas');
-        paintFgCanvas.width = 800;
-        paintFgCanvas.height = 600;
-        paintFgCtx = paintFgCanvas.getContext('2d');
     }
+    paintFgCanvas.width = initW;
+    paintFgCanvas.height = initH;
+    paintFgCtx = paintFgCanvas.getContext('2d');
 
     // Limpar camadas
-    paintBgCtx.clearRect(0, 0, 800, 600);
-    paintFgCtx.clearRect(0, 0, 800, 600);
+    paintBgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+    paintFgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
 
     // Limpar Histórico
     paintHistory = [];
@@ -7435,41 +7467,38 @@ function renderPintarOnlineView() {
         chkPublicWrapper.style.display = 'flex';
     }
 
-    if (data.imgUrl === 'blank') {
+    if (!data.imgUrl || data.imgUrl === 'blank') {
         paintDrawingImage = null;
         paintBorderImage = null;
         
         // Desenhar no background inicial branco
         paintBgCtx.fillStyle = '#ffffff';
-        paintBgCtx.fillRect(0, 0, 800, 600);
+        paintBgCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
         
         composePaintCanvas();
         savePaintHistory();
         if (loader) loader.style.display = 'none';
+        if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
     } else {
         if (chkPublicWrapper) chkPublicWrapper.style.display = 'flex';
         paintDrawingImage = new Image();
         paintDrawingImage.crossOrigin = "anonymous";
         paintDrawingImage.onload = () => {
-            // Ajustar dimensões preservando proporção
-            const aspect = paintDrawingImage.width / paintDrawingImage.height;
-            let w = paintCanvas.width;
-            let h = paintCanvas.height;
-            let x = 0;
-            let y = 0;
+            const w = paintDrawingImage.naturalWidth || 800;
+            const h = paintDrawingImage.naturalHeight || 600;
 
-            if (aspect > 4/3) {
-                h = paintCanvas.width / aspect;
-                y = (paintCanvas.height - h) / 2;
-            } else {
-                w = paintCanvas.height * aspect;
-                x = (paintCanvas.width - w) / 2;
-            }
+            // Define canvas real dimensions dynamically based on natural image size
+            paintCanvas.width = w;
+            paintCanvas.height = h;
+            paintBgCanvas.width = w;
+            paintBgCanvas.height = h;
+            paintFgCanvas.width = w;
+            paintFgCanvas.height = h;
 
             // Desenhar no background inicial
             paintBgCtx.fillStyle = '#ffffff';
-            paintBgCtx.fillRect(0, 0, 800, 600);
-            paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+            paintBgCtx.fillRect(0, 0, w, h);
+            paintBgCtx.drawImage(paintDrawingImage, 0, 0, w, h);
             
             // Limpar outlines do desenho
             cleanPaintCanvasOutlineDirect(paintBgCtx);
@@ -7478,6 +7507,7 @@ function renderPintarOnlineView() {
             composePaintCanvas();
             savePaintHistory();
             if (loader) loader.style.display = 'none';
+            if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
         };
         paintDrawingImage.src = '/api/proxy-image?url=' + encodeURIComponent(data.imgUrl);
     }
@@ -7991,12 +8021,12 @@ function renderPintarOnlineView() {
                 'Limpar Pintura? 🎨',
                 'Tem certeza que quer limpar a sua pintura e começar de novo? 🎨',
                 () => {
-                    paintBgCtx.clearRect(0, 0, 800, 600);
-                    paintFgCtx.clearRect(0, 0, 800, 600);
+                    paintBgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+                    paintFgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
                     
                     if (window.currentPaintingData && window.currentPaintingData.imgUrl === 'blank') {
                         paintBgCtx.fillStyle = '#ffffff';
-                        paintBgCtx.fillRect(0, 0, 800, 600);
+                        paintBgCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
                     } else if (paintDrawingImage) {
                         const aspect = paintDrawingImage.width / paintDrawingImage.height;
                         let w = paintCanvas.width;
@@ -8013,13 +8043,13 @@ function renderPintarOnlineView() {
                         }
 
                         paintBgCtx.fillStyle = '#ffffff';
-                        paintBgCtx.fillRect(0, 0, 800, 600);
+                        paintBgCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
                         paintBgCtx.drawImage(paintDrawingImage, x, y, w, h);
                         
                         cleanPaintCanvasOutlineDirect(paintBgCtx);
                     } else {
                         paintBgCtx.fillStyle = '#ffffff';
-                        paintBgCtx.fillRect(0, 0, 800, 600);
+                        paintBgCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
                     }
 
                     window.activeStickers = [];
@@ -8076,6 +8106,11 @@ function renderPintarOnlineView() {
             challengeBar.style.display = 'none';
         }
     }
+    
+    // Initial paint frame sizing trigger
+    setTimeout(() => {
+        if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
+    }, 100);
 }
 
 // Atalhos do teclado para Desfazer/Refazer
@@ -8136,8 +8171,10 @@ function savePaintHistory() {
         paintHistory = paintHistory.slice(0, paintHistoryIndex + 1);
     }
     
-    const bgData = paintBgCtx.getImageData(0, 0, 800, 600);
-    const fgData = paintFgCtx.getImageData(0, 0, 800, 600);
+    const w = paintCanvas.width;
+    const h = paintCanvas.height;
+    const bgData = paintBgCtx.getImageData(0, 0, w, h);
+    const fgData = paintFgCtx.getImageData(0, 0, w, h);
     const stickersCopy = (window.activeStickers || []).map(st => ({ ...st }));
     
     paintHistory.push({ bg: bgData, fg: fgData, stickers: stickersCopy });
@@ -8216,50 +8253,44 @@ function initReplayCanvases() {
     if (!replayCanvas) return;
     replayCtx = replayCanvas.getContext('2d');
     
+    const w = paintCanvas.width;
+    const h = paintCanvas.height;
+    replayCanvas.width = w;
+    replayCanvas.height = h;
+    
     if (!replayBgCanvas) {
         replayBgCanvas = document.createElement('canvas');
-        replayBgCanvas.width = 800;
-        replayBgCanvas.height = 600;
-        replayBgCtx = replayBgCanvas.getContext('2d');
     }
+    replayBgCanvas.width = w;
+    replayBgCanvas.height = h;
+    replayBgCtx = replayBgCanvas.getContext('2d');
+    
     if (!replayFgCanvas) {
         replayFgCanvas = document.createElement('canvas');
-        replayFgCanvas.width = 800;
-        replayFgCanvas.height = 600;
-        replayFgCtx = replayFgCanvas.getContext('2d');
     }
+    replayFgCanvas.width = w;
+    replayFgCanvas.height = h;
+    replayFgCtx = replayFgCanvas.getContext('2d');
 }
 
 function composeReplayCanvas() {
     if (!replayCtx) return;
-    replayCtx.clearRect(0, 0, 800, 600);
+    const w = replayCanvas.width;
+    const h = replayCanvas.height;
+    replayCtx.clearRect(0, 0, w, h);
     
     // White background
     replayCtx.fillStyle = '#ffffff';
-    replayCtx.fillRect(0, 0, 800, 600);
+    replayCtx.fillRect(0, 0, w, h);
     
     // Background layer
     replayCtx.drawImage(replayBgCanvas, 0, 0);
     
     // Multiply drawing outline
     if (paintDrawingImage) {
-        const aspect = paintDrawingImage.width / paintDrawingImage.height;
-        let w = 800;
-        let h = 600;
-        let x = 0;
-        let y = 0;
-
-        if (aspect > 4/3) {
-            h = 800 / aspect;
-            y = (600 - h) / 2;
-        } else {
-            w = 600 * aspect;
-            x = (800 - w) / 2;
-        }
-        
         replayCtx.save();
         replayCtx.globalCompositeOperation = 'multiply';
-        replayCtx.drawImage(paintDrawingImage, x, y, w, h);
+        replayCtx.drawImage(paintDrawingImage, 0, 0, w, h);
         replayCtx.restore();
     }
     
@@ -8280,27 +8311,17 @@ function openReplayModal() {
     if (!modal) return;
     modal.style.display = 'flex';
     
+    const w = replayCanvas.width;
+    const h = replayCanvas.height;
+    
     // Clear and draw white background
     replayBgCtx.fillStyle = '#ffffff';
-    replayBgCtx.fillRect(0, 0, 800, 600);
-    replayFgCtx.clearRect(0, 0, 800, 600);
+    replayBgCtx.fillRect(0, 0, w, h);
+    replayFgCtx.clearRect(0, 0, w, h);
     replayActiveStickers = [];
     
     if (paintDrawingImage) {
-        const aspect = paintDrawingImage.width / paintDrawingImage.height;
-        let w = 800;
-        let h = 600;
-        let x = 0;
-        let y = 0;
-
-        if (aspect > 4/3) {
-            h = 800 / aspect;
-            y = (600 - h) / 2;
-        } else {
-            w = 600 * aspect;
-            x = (800 - w) / 2;
-        }
-        replayBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+        replayBgCtx.drawImage(paintDrawingImage, 0, 0, w, h);
         cleanPaintCanvasOutlineDirect(replayBgCtx);
     }
     
@@ -8361,26 +8382,15 @@ function playReplay() {
     }
     
     if (replayCurrentIndex >= window.paintActions.length) {
+        const w = replayCanvas.width;
+        const h = replayCanvas.height;
         replayBgCtx.fillStyle = '#ffffff';
-        replayBgCtx.fillRect(0, 0, 800, 600);
-        replayFgCtx.clearRect(0, 0, 800, 600);
+        replayBgCtx.fillRect(0, 0, w, h);
+        replayFgCtx.clearRect(0, 0, w, h);
         replayActiveStickers = [];
         
         if (paintDrawingImage) {
-            const aspect = paintDrawingImage.width / paintDrawingImage.height;
-            let w = 800;
-            let h = 600;
-            let x = 0;
-            let y = 0;
-
-            if (aspect > 4/3) {
-                h = 800 / aspect;
-                y = (600 - h) / 2;
-            } else {
-                w = 600 * aspect;
-                x = (800 - w) / 2;
-            }
-            replayBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+            replayBgCtx.drawImage(paintDrawingImage, 0, 0, w, h);
             cleanPaintCanvasOutlineDirect(replayBgCtx);
         }
         
@@ -8450,41 +8460,30 @@ function updateReplayProgressBar() {
 
 function executeReplayAction(act) {
     if (act.type === 'clear') {
+        const w = replayCanvas.width;
+        const h = replayCanvas.height;
         replayBgCtx.fillStyle = '#ffffff';
-        replayBgCtx.fillRect(0, 0, 800, 600);
-        replayFgCtx.clearRect(0, 0, 800, 600);
+        replayBgCtx.fillRect(0, 0, w, h);
+        replayFgCtx.clearRect(0, 0, w, h);
         replayActiveStickers = [];
         
         if (paintDrawingImage) {
-            const aspect = paintDrawingImage.width / paintDrawingImage.height;
-            let w = 800;
-            let h = 600;
-            let x = 0;
-            let y = 0;
-
-            if (aspect > 4/3) {
-                h = 800 / aspect;
-                y = (600 - h) / 2;
-            } else {
-                w = 600 * aspect;
-                x = (800 - w) / 2;
-            }
-            replayBgCtx.drawImage(paintDrawingImage, x, y, w, h);
+            replayBgCtx.drawImage(paintDrawingImage, 0, 0, w, h);
             cleanPaintCanvasOutlineDirect(replayBgCtx);
         }
         return;
     }
     
     if (act.type === 'magic-mask-init') {
+        const width = replayCanvas.width;
+        const height = replayCanvas.height;
         replayMagicBrushMaskCanvas = document.createElement('canvas');
-        replayMagicBrushMaskCanvas.width = 800;
-        replayMagicBrushMaskCanvas.height = 600;
+        replayMagicBrushMaskCanvas.width = width;
+        replayMagicBrushMaskCanvas.height = height;
         replayMagicBrushMaskCtx = replayMagicBrushMaskCanvas.getContext('2d');
         
-        const imgData = replayCtx.getImageData(0, 0, 800, 600);
+        const imgData = replayCtx.getImageData(0, 0, width, height);
         const data = imgData.data;
-        const width = 800;
-        const height = 600;
         
         const startIdx = (act.y * width + act.x) * 4;
         const startR = data[startIdx];
@@ -8545,13 +8544,16 @@ function executeReplayAction(act) {
         const color = act.color;
         
         if (act.tool === 'brush-magic') {
+            const w = replayCanvas.width;
+            const h = replayCanvas.height;
             if (!replayMagicBrushTempCanvas) {
                 replayMagicBrushTempCanvas = document.createElement('canvas');
-                replayMagicBrushTempCanvas.width = 800;
-                replayMagicBrushTempCanvas.height = 600;
-                replayMagicBrushTempCtx = replayMagicBrushTempCanvas.getContext('2d');
             }
-            replayMagicBrushTempCtx.clearRect(0, 0, 800, 600);
+            replayMagicBrushTempCanvas.width = w;
+            replayMagicBrushTempCanvas.height = h;
+            replayMagicBrushTempCtx = replayMagicBrushTempCanvas.getContext('2d');
+            
+            replayMagicBrushTempCtx.clearRect(0, 0, w, h);
             
             replayMagicBrushTempCtx.save();
             replayMagicBrushTempCtx.beginPath();
@@ -8561,7 +8563,7 @@ function executeReplayAction(act) {
             replayMagicBrushTempCtx.lineWidth = brushSizeVal;
             replayMagicBrushTempCtx.lineCap = 'round';
             replayMagicBrushTempCtx.lineJoin = 'round';
-            replayMagicBrushTempCtx.stroke();
+            if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(replayMagicBrushTempCtx, brushSizeVal, act.tool, act.material); replayMagicBrushTempCtx.stroke();
             replayMagicBrushTempCtx.restore();
             
             if (replayMagicBrushMaskCanvas) {
@@ -8583,7 +8585,7 @@ function executeReplayAction(act) {
             replayFgCtx.lineWidth = brushSizeVal;
             replayFgCtx.lineCap = 'round';
             replayFgCtx.lineJoin = 'round';
-            replayFgCtx.stroke();
+            if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(replayFgCtx, brushSizeVal, act.tool, act.material); replayFgCtx.stroke();
             replayFgCtx.restore();
         } else if (act.tool === 'glitter') {
             replayBgCtx.save();
@@ -8594,7 +8596,7 @@ function executeReplayAction(act) {
             replayBgCtx.beginPath();
             replayBgCtx.moveTo(act.x1, act.y1);
             replayBgCtx.lineTo(act.x2, act.y2);
-            replayBgCtx.stroke();
+            if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(replayBgCtx, brushSizeVal, act.tool, act.material); replayBgCtx.stroke();
             replayBgCtx.restore();
         } else if (act.tool === 'neon') {
             // Neon Glow Pass
@@ -8608,7 +8610,7 @@ function executeReplayAction(act) {
             replayFgCtx.beginPath();
             replayFgCtx.moveTo(act.x1, act.y1);
             replayFgCtx.lineTo(act.x2, act.y2);
-            replayFgCtx.stroke();
+            if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(replayFgCtx, brushSizeVal, act.tool, act.material); replayFgCtx.stroke();
             replayFgCtx.restore();
             
             // Neon Inner Core Pass
@@ -8620,7 +8622,7 @@ function executeReplayAction(act) {
             replayFgCtx.beginPath();
             replayFgCtx.moveTo(act.x1, act.y1);
             replayFgCtx.lineTo(act.x2, act.y2);
-            replayFgCtx.stroke();
+            if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(replayFgCtx, brushSizeVal, act.tool, act.material); replayFgCtx.stroke();
             replayFgCtx.restore();
         } else if (act.tool === 'eraser') {
             [replayBgCtx, replayFgCtx].forEach(ctx => {
@@ -8640,10 +8642,10 @@ function executeReplayAction(act) {
     }
     
     if (act.type === 'flood-fill') {
-        const imgData = replayCtx.getImageData(0, 0, 800, 600);
+        const width = replayCanvas.width;
+        const height = replayCanvas.height;
+        const imgData = replayCtx.getImageData(0, 0, width, height);
         const data = imgData.data;
-        const width = 800;
-        const height = 600;
         
         const startIdx = (act.startY * width + act.startX) * 4;
         const startR = data[startIdx];
@@ -8783,7 +8785,9 @@ function shareReplayVideo() {
 }
 
 function cleanPaintCanvasOutlineDirect(ctx) {
-    const imgData = ctx.getImageData(0, 0, 800, 600);
+    const w = ctx.canvas.width;
+    const h = ctx.canvas.height;
+    const imgData = ctx.getImageData(0, 0, w, h);
     const data = imgData.data;
     for (let i = 0; i < data.length; i += 4) {
         const r = data[i];
@@ -8966,28 +8970,28 @@ function setPaintTool(tool) {
     
     if (tool === 'bucket') {
         document.getElementById('paint-tool-bucket').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'none';
+        // sliderGroup kept visible
     } else if (tool === 'glitter') {
         document.getElementById('paint-tool-glitter').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'flex'; // Allow brush size for glitter brush
+        // sliderGroup kept visible // Allow brush size for glitter brush
     } else if (tool === 'brush') {
         document.getElementById('paint-tool-brush').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'flex';
+        // sliderGroup kept visible
     } else if (tool === 'neon') {
         document.getElementById('paint-tool-neon').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'flex';
+        // sliderGroup kept visible
     } else if (tool === 'brush-magic') {
         document.getElementById('paint-tool-brush-magic').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'flex';
+        // sliderGroup kept visible
     } else if (tool === 'eraser') {
         document.getElementById('paint-tool-eraser').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'flex';
+        // sliderGroup kept visible
     } else if (tool === 'pipette') {
         document.getElementById('paint-tool-pipette').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'none';
+        // sliderGroup kept visible
     } else if (tool === 'text') {
         document.getElementById('paint-tool-text').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'flex';
+        // sliderGroup kept visible
         
         // Auto-preenche o campo de texto se estiver vazio para dar feedback visual imediato no cursor
         const textInput = document.getElementById('paint-text-value');
@@ -8996,11 +9000,11 @@ function setPaintTool(tool) {
         }
     } else if (tool === 'select') {
         document.getElementById('paint-tool-select').classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'none';
+        // sliderGroup kept visible
     } else if (tool === 'pan') {
         const btnPan = document.getElementById('paint-tool-pan');
         if (btnPan) btnPan.classList.add('active');
-        if (sliderGroup) sliderGroup.style.display = 'none';
+        // sliderGroup kept visible
     }
 
     // Atualizar o botão de pan no controle de zoom
@@ -9248,7 +9252,7 @@ function executePaintingDraw(evt) {
             paintBgCtx.beginPath();
             paintBgCtx.moveTo(paintLastX, paintLastY);
             paintBgCtx.lineTo(pos.x, pos.y);
-            paintBgCtx.stroke();
+            if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(paintBgCtx, brushSizeVal, activePaintTool); paintBgCtx.stroke();
             paintBgCtx.restore();
             
             // Record to replay actions
@@ -9278,6 +9282,7 @@ function executePaintingDraw(evt) {
         window.paintActions.push({
             type: 'draw',
             tool: activePaintTool,
+            material: window.activeMaterial || 'crayon',
             x1: paintLastX,
             y1: paintLastY,
             x2: pos.x,
@@ -9306,7 +9311,7 @@ function executePaintingDraw(evt) {
         magicBrushTempCtx.lineWidth = brushSizeVal;
         magicBrushTempCtx.lineCap = 'round';
         magicBrushTempCtx.lineJoin = 'round';
-        magicBrushTempCtx.stroke();
+        if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(magicBrushTempCtx, brushSizeVal, activePaintTool); magicBrushTempCtx.stroke();
         magicBrushTempCtx.restore();
         
         if (magicBrushMaskCanvas) {
@@ -9328,7 +9333,7 @@ function executePaintingDraw(evt) {
         paintBgCtx.lineWidth = brushSizeVal;
         paintBgCtx.lineCap = 'round';
         paintBgCtx.lineJoin = 'round';
-        paintBgCtx.stroke();
+        if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(paintBgCtx, brushSizeVal, activePaintTool); paintBgCtx.stroke();
         paintBgCtx.restore();
     } else if (activePaintTool === 'neon') {
         // Neon Glow Pass
@@ -9342,7 +9347,7 @@ function executePaintingDraw(evt) {
         paintBgCtx.beginPath();
         paintBgCtx.moveTo(paintLastX, paintLastY);
         paintBgCtx.lineTo(pos.x, pos.y);
-        paintBgCtx.stroke();
+        if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(paintBgCtx, brushSizeVal, activePaintTool); paintBgCtx.stroke();
         paintBgCtx.restore();
         
         // Neon Inner Core Pass
@@ -9354,7 +9359,7 @@ function executePaintingDraw(evt) {
         paintBgCtx.beginPath();
         paintBgCtx.moveTo(paintLastX, paintLastY);
         paintBgCtx.lineTo(pos.x, pos.y);
-        paintBgCtx.stroke();
+        if (typeof window.applyMaterialStroke === 'function') window.applyMaterialStroke(paintBgCtx, brushSizeVal, activePaintTool); paintBgCtx.stroke();
         paintBgCtx.restore();
     } else if (activePaintTool === 'eraser') {
         [paintBgCtx, paintFgCtx].forEach(ctx => {
