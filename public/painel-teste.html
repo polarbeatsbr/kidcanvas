@@ -4712,8 +4712,8 @@
                 return originalNavigate(path, pushState);
             };
             
-            // Força a navegação inicial para pintar-online caso acesse o arquivo diretamente
-            if (window.location.pathname.includes('painel-teste.html')) {
+            // Força a navegação inicial para pintar-online caso acesse o arquivo diretamente ou por /t
+            if (window.location.pathname.includes('painel-teste.html') || window.location.pathname === '/t' || window.location.pathname.endsWith('/t')) {
                 if (document.readyState === 'complete' || document.readyState === 'interactive') {
                     window.navigate('/pintar-online', false);
                 } else {

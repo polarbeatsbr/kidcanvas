@@ -7,6 +7,10 @@
   },
   "rewrites": [
     {
+      "source": "/t",
+      "destination": "/painel-teste.html"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/server.js"
     },
