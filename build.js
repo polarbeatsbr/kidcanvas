@@ -29,7 +29,9 @@ const filesToCopy = [
     'android-chrome-192.png',
     'android-chrome-512.png',
     'manifest.json',
-    'sw.js'
+    'sw.js',
+    'painel-teste.html',
+    'painel-teste2.html'
 ];
 
 const publicDir = path.join(__dirname, 'public');

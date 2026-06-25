@@ -6875,6 +6875,7 @@ function selectPaintingColor(rgb) {
         updatePaintCursor('text');
     }
 }
+window.selectPaintingColor = selectPaintingColor;
 
 // 2. Recent Colors History
 function addColorToRecentHistory(hex) {
@@ -9008,6 +9009,7 @@ function setPaintTool(tool) {
         composePaintCanvas();
     }
 }
+window.setPaintTool = setPaintTool;
 
 // Configurar Toolbar de Pintura
 document.getElementById('paint-tool-bucket').onclick = () => setPaintTool('bucket');
