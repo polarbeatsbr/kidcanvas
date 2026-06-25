@@ -7478,6 +7478,7 @@ function renderPintarOnlineView() {
         
         composePaintCanvas();
         savePaintHistory();
+        checkAndRestoreAutosave();
         if (loader) loader.style.display = 'none';
         if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
     } else {
@@ -7507,6 +7508,7 @@ function renderPintarOnlineView() {
             paintBorderImage = null;
             composePaintCanvas();
             savePaintHistory();
+            checkAndRestoreAutosave();
             if (loader) loader.style.display = 'none';
             if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
         };
@@ -8070,9 +8072,6 @@ function renderPintarOnlineView() {
     window.paintAutosaveInterval = setInterval(() => {
         saveAutosaveToLocalStorage();
     }, 30000);
-
-    // Check for auto-save recovery prompt
-    checkAndRestoreAutosave();
 
     // Configurar barra de desafio de desenho se ativo
     const challengeBar = document.getElementById('paint-challenge-bar');
