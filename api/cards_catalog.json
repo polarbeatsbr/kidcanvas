@@ -1215,6 +1215,30 @@
         "unlockHint": "Desbloqueada ao obter todas as 19 descobertas do Capítulo Expedições."
     },
     {
+        "id": "jornada_dinos_s1",
+        "name": "T-REX DOURADO",
+        "emoji": "🦖",
+        "rarity": "Lendária",
+        "collection": "🗺️ Jornadas 1",
+        "curiosity": "O T-Rex Dourado foi conquistado na Expedição Jurássica! Pouquíssimos exploradores completaram todas as missões e ganharam esta descoberta lendária.",
+        "obtidoEm": "Expedição da Semana",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/jornada_dinos_s1.jpg",
+        "unlockCondition": { "type": "expedition_week", "weekId": "semana_dinos" },
+        "unlockHint": "Completar todas as missões da Expedição dos Dinossauros."
+    },
+    {
+        "id": "jornada_piratas_s2",
+        "name": "KRAKEN SOMBRIO",
+        "emoji": "🐙",
+        "rarity": "Lendária",
+        "collection": "🗺️ Jornadas 2",
+        "curiosity": "O Kraken Sombrio habita as profundezas mais escuras do oceano! Dizem que apenas os Capitães lendários já o viram com os próprios olhos.",
+        "obtidoEm": "Expedição da Semana",
+        "imageUrl": "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/cards/jornada_piratas_s2.jpg",
+        "unlockCondition": { "type": "expedition_week", "weekId": "semana_piratas" },
+        "unlockHint": "Completar todas as missões da Expedição dos Piratas."
+    },
+    {
         "id": "comunidade_01",
         "name": "COMPARTILHOU ALEGRIA",
         "emoji": "📣",

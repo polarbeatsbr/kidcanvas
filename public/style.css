@@ -10118,7 +10118,11 @@ body {
 
 @media (min-width: 768px) {
     .mascot-helper-widget {
-        bottom: 30px;
+        bottom: 185px;
+        right: 30px;
+    }
+    .mascot-casinha-container {
+        bottom: 185px;
         right: 30px;
     }
 }

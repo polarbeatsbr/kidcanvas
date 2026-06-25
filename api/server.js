@@ -5272,6 +5272,100 @@ app.post('/api/events/claim', requireAuth, async (req, res) => {
     });
 });
 
+// ========= SEGUNDA CHANCE =========
+
+app.get('/api/events/past', requireAuth, async (req, res) => {
+    const eventsData = await loadEvents();
+    if (!eventsData) return res.json({ success: true, pastWeeks: [] });
+
+    const now = new Date();
+    const user = req.user;
+    const userCardIds = (user.cards || []).map(c => c.id || c.value);
+    const secondChanceClaims = user.secondChanceClaims || [];
+
+    const pastWeeks = eventsData.weeks
+        .filter(w => new Date(w.endDate) < now)
+        .map(w => {
+            const epicMission = w.missions.find(m => m.tier === 'epica');
+            const rewardCard = epicMission && epicMission.reward.type === 'card' ? epicMission.reward : null;
+            const weeksDelay = w.secondChanceAfterWeeks || 4;
+            const secondChanceAvailableAt = new Date(new Date(w.endDate).getTime() + weeksDelay * 7 * 24 * 60 * 60 * 1000);
+            const cardId = rewardCard ? rewardCard.id : null;
+
+            return {
+                weekId: w.id,
+                weekNumber: w.weekNumber,
+                theme: w.theme,
+                endDate: w.endDate,
+                rewardCard,
+                secondChanceAvailableAt,
+                secondChanceAvailable: now >= secondChanceAvailableAt,
+                userEarned: cardId ? userCardIds.includes(cardId) : false,
+                secondChanceClaimed: cardId ? secondChanceClaims.includes(cardId) : false
+            };
+        })
+        .reverse(); // mais recente primeiro
+
+    res.json({ success: true, pastWeeks });
+});
+
+app.post('/api/events/second-chance', requireAuth, async (req, res) => {
+    const { weekId } = req.body;
+    if (!weekId) return res.status(400).json({ success: false, message: 'weekId obrigatório.' });
+
+    const eventsData = await loadEvents();
+    if (!eventsData) return res.status(400).json({ success: false, message: 'Dados de evento não encontrados.' });
+
+    const week = eventsData.weeks.find(w => w.id === weekId);
+    if (!week) return res.status(404).json({ success: false, message: 'Semana não encontrada.' });
+
+    const now = new Date();
+    if (now <= new Date(week.endDate)) {
+        return res.status(400).json({ success: false, message: 'Esta expedição ainda está ativa.' });
+    }
+
+    const weeksDelay = week.secondChanceAfterWeeks || 4;
+    const availableAt = new Date(new Date(week.endDate).getTime() + weeksDelay * 7 * 24 * 60 * 60 * 1000);
+    if (now < availableAt) {
+        return res.status(400).json({ success: false, message: 'Segunda chance ainda não disponível.', availableAt });
+    }
+
+    const epicMission = week.missions.find(m => m.tier === 'epica');
+    if (!epicMission || epicMission.reward.type !== 'card') {
+        return res.status(400).json({ success: false, message: 'Sem card de recompensa nesta semana.' });
+    }
+
+    const rewardCardId = epicMission.reward.id;
+    const user = req.user;
+
+    user.secondChanceClaims = user.secondChanceClaims || [];
+    if (user.secondChanceClaims.includes(rewardCardId)) {
+        return res.status(400).json({ success: false, message: 'Segunda chance já resgatada.' });
+    }
+
+    user.cards = user.cards || [];
+    if (user.cards.find(c => (c.id || c.value) === rewardCardId)) {
+        return res.status(400).json({ success: false, message: 'Você já tem esta descoberta.' });
+    }
+
+    const catalogPath = require('path').join(__dirname, 'cards_catalog.json');
+    const catalog = fs.existsSync(catalogPath) ? JSON.parse(fs.readFileSync(catalogPath, 'utf8')) : [];
+    const catalogCard = catalog.find(c => c.id === rewardCardId);
+    const cardToAdd = catalogCard ? { ...catalogCard, secondChance: true } : { ...epicMission.reward, secondChance: true };
+
+    user.cards.push(cardToAdd);
+    user.secondChanceClaims.push(rewardCardId);
+
+    const { newlyUnlocked } = await refreshUserDiscoveries(user);
+
+    const users = await loadUsers();
+    const idx = users.findIndex(u => u.email === user.email);
+    if (idx !== -1) users[idx] = user;
+    await saveUsers(users);
+
+    res.json({ success: true, card: cardToAdd, newlyUnlocked });
+});
+
 // ========= ADMIN: GERENCIAR EXPEDIÇÕES =========
 
 // Listar temas disponíveis

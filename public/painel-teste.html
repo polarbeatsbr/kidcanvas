@@ -895,6 +895,40 @@
                 cursor: pointer !important;
             }
 
+            /* Custom mascot positioning and sizes on mobile to prevent overlapping */
+            .mascot-container,
+            .mascot-casinha-container {
+                bottom: 60px !important;
+                right: 8px !important;
+            }
+            .mascot-img {
+                width: 80px !important;
+                height: 80px !important;
+            }
+            .mascot-platform {
+                width: 60px !important;
+                height: 14px !important;
+                right: 10px !important;
+                bottom: -2px !important;
+            }
+            .speech-bubble {
+                max-width: 110px !important;
+                font-size: 0.68rem !important;
+                margin-bottom: 30px !important;
+                padding: 4px 8px !important;
+            }
+            .mascot-close-btn {
+                width: 18px !important;
+                height: 18px !important;
+                font-size: 11px !important;
+                line-height: 14px !important;
+                top: 0px !important;
+                right: 0px !important;
+            }
+            .mascot-casinha-img {
+                width: 60px !important;
+            }
+
         }
 
         /* Mascot Minimization and Casinha Styles */
@@ -4766,7 +4800,7 @@
         function wrapRouter() {
             const originalNavigate = window.navigate;
             window.navigate = function(path, pushState) {
-                if (path.includes('painel-teste.html') || path === '/t' || path.endsWith('/t') || path === '/t/') {
+                if (path.includes('painel-teste.html') || path === '/t' || path.endsWith('/t') || path === '/t/' || path === '/' || path.endsWith('/') || path.includes('index.html')) {
                     path = '/pintar-online';
                 }
                 
@@ -4780,7 +4814,7 @@
             };
             
             // Força a navegação inicial para pintar-online caso acesse o arquivo diretamente ou por /t
-            if (window.location.pathname.includes('painel-teste.html') || window.location.pathname === '/t' || window.location.pathname.endsWith('/t')) {
+            if (window.location.pathname.includes('painel-teste.html') || window.location.pathname === '/t' || window.location.pathname.endsWith('/t') || window.location.pathname === '/' || window.location.pathname.includes('index.html')) {
                 if (document.readyState === 'complete' || document.readyState === 'interactive') {
                     window.navigate('/pintar-online', false);
                 } else {

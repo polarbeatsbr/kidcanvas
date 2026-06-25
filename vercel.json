@@ -11,6 +11,14 @@
       "destination": "/painel-teste.html"
     },
     {
+      "source": "/t/",
+      "destination": "/painel-teste.html"
+    },
+    {
+      "source": "/pintar-online",
+      "destination": "/index.html"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/server.js"
     },

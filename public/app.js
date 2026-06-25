@@ -12751,6 +12751,54 @@ window.copyInviteLink = function() {
 
 let currentActiveEvent = null;
 
+function renderHomeBannerRewardCard(eventData) {
+    const col = document.getElementById('home-expedition-reward-col');
+    if (!col) return;
+
+    const epicMission = eventData.week && eventData.week.missions
+        ? eventData.week.missions.find(m => m.tier === 'epica')
+        : null;
+    const reward = epicMission ? epicMission.reward : null;
+
+    const rewardBadge = col.querySelector('span');
+
+    if (!reward || reward.type !== 'card') {
+        col.innerHTML = '';
+        if (rewardBadge) col.appendChild(rewardBadge);
+        col.insertAdjacentHTML('beforeend', `
+            <div style="font-size: 1.6rem;">🏅</div>
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-dark-light);">
+                Complete todas as missões e ganhe uma conquista especial!
+            </div>
+        `);
+        return;
+    }
+
+    const cardName = reward.name || 'Descoberta Lendária';
+    const cardEmoji = reward.emoji || '✨';
+    const hasImage = reward.imageUrl || (window.globalCatalog || []).find(c => c.id === reward.id)?.imageUrl;
+    const imageUrl = hasImage || null;
+
+    col.innerHTML = '';
+    col.insertAdjacentHTML('beforeend', `
+        <span style="position: absolute; top: -10px; right: 10px; background: #e74c3c; color: white; font-size: 0.75rem; font-weight: 800; padding: 2px 8px; border-radius: 10px; border: var(--border-thin); box-shadow: 0 2px 0 var(--color-dark); transform: rotate(5deg);">
+            Recompensa 🎁
+        </span>
+        <div style="width: 80px; height: 110px; background: linear-gradient(135deg, #FFE259 0%, #FFA751 100%); border: 2.5px solid #3d281a; border-radius: 8px; box-shadow: 0 6px 12px rgba(0,0,0,0.15); display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; transform: rotate(-3deg); overflow: hidden;">
+            ${imageUrl
+                ? `<img src="${imageUrl}" alt="${cardName}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 6px;">`
+                : `<div style="font-size: 1.8rem; margin-top: 5px;">${cardEmoji}</div>
+                   <div style="font-size: 0.5rem; font-weight: 800; color: #3d281a; margin-top: 5px; text-transform: uppercase; background: white; padding: 1px 6px; border-radius: 4px; text-align: center; line-height: 1.2;">${cardName}</div>`
+            }
+            <span style="position: absolute; top: 5px; left: 5px; font-size: 0.6rem;">✨</span>
+            <span style="position: absolute; bottom: 5px; right: 5px; font-size: 0.6rem;">✨</span>
+        </div>
+        <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-dark-light); margin-top: 4px;">
+            Desbloqueie <strong>${cardName}</strong>!
+        </div>
+    `);
+}
+
 async function checkActiveEvent() {
     try {
         const token = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
@@ -12761,7 +12809,8 @@ async function checkActiveEvent() {
         
         if (data.success && data.active) {
             currentActiveEvent = data;
-            
+            renderHomeBannerRewardCard(data);
+
             const heroBtn = document.getElementById('hero-event-button');
             const heroTimer = document.getElementById('hero-event-timer');
             
@@ -15408,11 +15457,99 @@ window.renderWeeklyExpeditionPage = function() {
     }
     
     container.innerHTML = html;
-    
+
     // Run countdown update
     updateCountdown();
     if (window.expeditionTimerInterval) clearInterval(window.expeditionTimerInterval);
     window.expeditionTimerInterval = setInterval(updateCountdown, 1000);
+
+    // Carrega histórico de expedições passadas e segunda chance
+    renderPastExpeditionsHistory(container);
+};
+
+async function renderPastExpeditionsHistory(container) {
+    const token = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
+    let pastWeeks = [];
+    try {
+        const res = await fetch('/api/events/past', { headers: { 'X-Session-Token': token } });
+        const data = await res.json();
+        if (data.success) pastWeeks = data.pastWeeks;
+    } catch (e) { return; }
+
+    if (!pastWeeks.length) return;
+
+    let histHtml = `
+        <div class="livro-expedition-history" style="margin-top: 24px; border-top: 2px dashed #d0c8f0; padding-top: 18px;">
+            <h4 style="font-family: var(--font-heading); font-size: 1rem; font-weight: 800; color: var(--color-dark); margin: 0 0 12px 0; display: flex; align-items: center; gap: 6px;">
+                🗺️ Jornadas Passadas
+            </h4>
+    `;
+
+    pastWeeks.forEach(pw => {
+        if (!pw.rewardCard) return;
+
+        const cardName = pw.rewardCard.name || 'Descoberta';
+        const cardEmoji = pw.rewardCard.emoji || '✨';
+        const userHasCard = pw.userEarned || pw.secondChanceClaimed;
+
+        let actionHtml = '';
+        if (userHasCard) {
+            const label = pw.secondChanceClaimed && !pw.userEarned ? '2ª Chance' : 'Conquistada';
+            actionHtml = `<span style="font-size: 0.7rem; font-weight: 800; color: #27ae60; background: #d5f5e3; border-radius: 20px; padding: 2px 8px;">✅ ${label}</span>`;
+        } else if (pw.secondChanceAvailable) {
+            actionHtml = `<button onclick="claimSecondChance('${pw.weekId}')" style="font-size: 0.72rem; font-weight: 800; background: #6c5ce7; color: white; border: none; border-radius: 20px; padding: 4px 10px; cursor: pointer; font-family: inherit;">🔄 2ª Chance</button>`;
+        } else {
+            const daysLeft = Math.ceil((new Date(pw.secondChanceAvailableAt) - new Date()) / (1000 * 60 * 60 * 24));
+            actionHtml = `<span style="font-size: 0.7rem; font-weight: 700; color: #b2bec3;">⏳ 2ª chance em ${daysLeft}d</span>`;
+        }
+
+        const borderColor = userHasCard ? '#27ae60' : (pw.secondChanceAvailable ? '#6c5ce7' : '#b2bec3');
+        const cardBg = pw.secondChanceClaimed && !pw.userEarned
+            ? 'linear-gradient(135deg, #dfe6e9 0%, #b2bec3 100%)'
+            : 'linear-gradient(135deg, #FFE259 0%, #FFA751 100%)';
+
+        histHtml += `
+            <div style="display: flex; align-items: center; gap: 12px; background: white; border: 2px solid ${borderColor}; border-radius: 12px; padding: 10px 12px; margin-bottom: 8px;">
+                <div style="width: 44px; height: 62px; background: ${cardBg}; border: 2px solid #3d281a; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; flex-shrink: 0; position: relative; overflow: hidden;">
+                    <div style="font-size: 1.3rem;">${cardEmoji}</div>
+                    ${pw.secondChanceClaimed && !pw.userEarned
+                        ? `<span style="position: absolute; bottom: 0; left: 0; right: 0; font-size: 0.38rem; font-weight: 800; background: #636e72; color: white; text-align: center; padding: 1px;">2ª CHANCE</span>`
+                        : ''}
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                    <div style="font-size: 0.82rem; font-weight: 800; color: var(--color-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${cardName}</div>
+                    <div style="font-size: 0.72rem; color: #636e72; font-weight: 600;">Semana ${pw.weekNumber} — ${pw.theme}</div>
+                </div>
+                <div style="flex-shrink: 0;">${actionHtml}</div>
+            </div>
+        `;
+    });
+
+    histHtml += `</div>`;
+    container.insertAdjacentHTML('beforeend', histHtml);
+}
+
+window.claimSecondChance = async function(weekId) {
+    const token = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
+    try {
+        const res = await fetch('/api/events/second-chance', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Session-Token': token },
+            body: JSON.stringify({ weekId })
+        });
+        const data = await res.json();
+        if (data.success) {
+            showToast(`🎉 Segunda Chance resgatada! ${data.card.name} adicionada ao seu Livro!`, 'success');
+            if (data.newlyUnlocked && data.newlyUnlocked.length > 0) {
+                setTimeout(() => revealCardAnimation(data.newlyUnlocked[0]), 600);
+            }
+            window.renderWeeklyExpeditionPage();
+        } else {
+            showToast(data.message || 'Não foi possível resgatar.', 'error');
+        }
+    } catch (e) {
+        showToast('Erro ao resgatar segunda chance.', 'error');
+    }
 };
 
 window.goPaintExpedition = function(categorySlug) {

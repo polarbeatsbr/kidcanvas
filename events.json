@@ -9,6 +9,7 @@
       "startDate": "2026-06-15T00:00:00.000Z",
       "endDate": "2026-06-22T23:59:59.999Z",
       "chainItem": "egg_1",
+      "secondChanceAfterWeeks": 4,
       "missions": [
         {
           "id": "dino_facil",
@@ -56,11 +57,11 @@
           "req": 3,
           "reward": {
             "type": "card",
-            "id": "dino_19",
-            "value": "dino_19",
-            "name": "T-REX IMPERIAL",
-            "curiosity": "O T-Rex Imperial é o mais temido de todos! Seus dentes tinham o tamanho de uma banana.",
-            "collection": "Dinossauros 19/20"
+            "id": "jornada_dinos_s1",
+            "value": "jornada_dinos_s1",
+            "name": "T-REX DOURADO",
+            "curiosity": "O T-Rex Dourado foi conquistado na Expedição Jurássica! Pouquíssimos exploradores completaram todas as missões e ganharam esta descoberta lendária.",
+            "collection": "🗺️ Jornadas 1"
           },
           "tier": "epica",
           "title": "Mestre Jurássico",
@@ -75,6 +76,7 @@
       "startDate": "2026-06-23T00:00:00.000Z",
       "endDate": "2026-06-30T23:59:59.999Z",
       "chainItem": "egg_2",
+      "secondChanceAfterWeeks": 4,
       "missions": [
         {
           "id": "pirata_facil",
@@ -121,8 +123,12 @@
           "target": "semana_piratas",
           "req": 3,
           "reward": {
-            "type": "badge",
-            "value": "lenda_dos_mares"
+            "type": "card",
+            "id": "jornada_piratas_s2",
+            "value": "jornada_piratas_s2",
+            "name": "KRAKEN SOMBRIO",
+            "curiosity": "O Kraken Sombrio habita as profundezas mais escuras do oceano! Dizem que apenas os Capitães lendários já o viram com os próprios olhos.",
+            "collection": "🗺️ Jornadas 2"
           },
           "tier": "epica",
           "title": "Lenda dos Mares",
