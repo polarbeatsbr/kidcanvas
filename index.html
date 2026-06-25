@@ -61,7 +61,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1782800000000">
+    <link rel="stylesheet" href="/style.css?v=1781893000000">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -866,17 +866,6 @@
             opacity: 0 !important;
             visibility: hidden !important;
             pointer-events: none !important;
-        }
-        
-        /* Remove o assistente Perigo de todo o site de forma definitiva */
-        .mascot-container,
-        .mascot-helper-widget,
-        .mascot-casinha-container,
-        #kidcanvas-mascot-helper,
-        #mascot-full-container,
-        #mascot-casinha-helper,
-        #mascot-casinha-container {
-            display: none !important;
         }
     </style>
     
@@ -3248,7 +3237,12 @@
                             </div>
                         </div>
 
-
+                        <!-- Mascot fixo removido — substituído pelo widget flutuante #kidcanvas-mascot-helper -->
+                        <div class="mascot-container" style="display:none">
+                            <div class="speech-bubble" id="mascot-bubble"></div>
+                            <div class="mascot-platform"></div>
+                            <img src="/perigo-artista.png" alt="Perigo Pintor" class="mascot-img" id="mascot-photo">
+                        </div>
 
                         <!-- Paleta de Giz de Cera -->
                         <div class="paint-palette-card">
@@ -4701,10 +4695,24 @@
     </div>
 </div>
 
+<!-- Mascote Assistente Flutuante -->
+<div id="kidcanvas-mascot-helper" class="mascot-helper-widget">
+    <div class="mascot-helper-bubble">
+        <span id="mascot-helper-text">Olá! Vamos colorir juntos?</span>
+    </div>
+    <div class="mascot-avatar-wrapper">
+        <div class="mascot-close-btn" onclick="minimizeMascotHelper(event)">&times;</div>
+        <img id="mascot-helper-avatar" class="mascot-helper-avatar-img" src="/perigo-artista.png" alt="Perigo Artista" onerror="this.src='/mascot_artista.png'" />
+    </div>
+</div>
 
+<!-- Casinha do Perigo (estado minimizado) -->
+<div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-helper" onclick="restoreMascotHelper()">
+    <img src="/perigo-casinha.png" alt="Casa do Perigo" class="mascot-casinha-img">
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/app.js?v=1782800000000"></script>
+<script src="/app.js?v=1781893000000"></script>
 
     <script>
         (function() {
@@ -4761,9 +4769,33 @@
                 }
             };
 
-            // Função de fala do Mascote Perigo (DESATIVADO)
+            // Função de fala do Mascote Perigo com síntese de voz (pt-BR)
             window.speakMascot = function() {
-                // No-op
+                if (window.KidCanvasAudio) {
+                    window.KidCanvasAudio.playPop();
+                }
+                const phrases = [
+                    "E aí! Escolha uma cor ou um adesivo para começar sua obra! 🎨✨",
+                    "Você é um grande artista! 🖌️⭐",
+                    "Nossa, que cores lindas! 🌈💖",
+                    "Vamos fazer uma obra prima juntos! 🎨💎",
+                    "Se precisar mover a tela, use o botão da mãozinha 🖐️!"
+                ];
+                const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+                const bubble = document.getElementById('mascot-bubble');
+                if (bubble) {
+                    bubble.innerText = `"${phrase}"`;
+                }
+                
+                if ('speechSynthesis' in window) {
+                    try {
+                        window.speechSynthesis.cancel();
+                        const utterance = new SpeechSynthesisUtterance(phrase.replace(/[🎨✨🖌️⭐🌈💖💎🖐️]/g, ''));
+                        utterance.lang = 'pt-BR';
+                        utterance.rate = 1.1;
+                        window.speechSynthesis.speak(utterance);
+                    } catch(e) {}
+                }
             };
 
             // Animação de confetes ao salvar a pintura

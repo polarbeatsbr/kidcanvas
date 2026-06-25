@@ -72,7 +72,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1782800000000">
+    <link rel="stylesheet" href="/style.css?v=1782356600000">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -977,17 +977,6 @@
             display: block !important;
         }
         .hidden-mascot {
-            display: none !important;
-        }
-        
-        /* Remove o assistente Perigo de todo o site de forma definitiva */
-        .mascot-container,
-        .mascot-helper-widget,
-        .mascot-casinha-container,
-        #kidcanvas-mascot-helper,
-        #mascot-full-container,
-        #mascot-casinha-helper,
-        #mascot-casinha-container {
             display: none !important;
         }
     </style>
@@ -4707,7 +4696,23 @@
             </div>
         </div>
 
+        <!-- Mascot Perigo Overlay positioned OUTSIDE the frame, bottom-right of workspace -->
+        <div class="mascot-container" id="mascot-full-container">
+            <div class="speech-bubble" id="mascot-bubble" onclick="speakMascot()">
+                "E aí! Escolha uma cor ou um adesivo para começar a criar magia! 🎨✨"
+            </div>
+            <div class="mascot-platform"></div>
+            <div class="mascot-wrapper" style="position: relative; pointer-events: auto;">
+                <div class="mascot-close-btn" onclick="minimizeMascot(event)">&times;</div>
+                <!-- Load Perigo Pintor dynamic image -->
+                <img src="/perigo-artista.png" alt="Perigo Artista" class="mascot-img" id="mascot-photo" onclick="speakMascot()" onerror="this.src='/mascot_artista.png'">
+            </div>
+        </div>
 
+        <!-- Mascot Casinha (Minimized State) -->
+        <div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-container" onclick="restoreMascot()">
+            <img src="/perigo-casinha.png" alt="Casa do Perigo" class="mascot-casinha-img">
+        </div>
 
     </div>
 
@@ -4759,7 +4764,7 @@
     </div>
 </section>
 
-<script src="/app.js?v=1782800000000"></script>
+<script src="/app.js?v=1782356600000"></script>
 
     <script>
         // Sandbox 2.0 SPA Routing and Seeding Hook
@@ -5059,9 +5064,26 @@
             };
         }
 
-        // Speech bubble mascot speak helper (DESATIVADO)
+        // Speech bubble mascot speak helper
         window.speakMascot = function() {
-            // No-op
+            if (window.KidCanvasAudio) window.KidCanvasAudio.playPop();
+            const phrases = [
+                "E aí! Escolha uma cor ou um adesivo para começar a criar magia! 🎨✨",
+                "Você é demais! O stegossauro vai ficar incrível! 🦖",
+                "Experimente arrastar um adesivo de estrela ou coração para o desenho! 🌈",
+                "Quer mover o desenho? Ative a ferramenta Mão (🖐️) lá em cima!"
+            ];
+            const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+            const bubble = document.getElementById('mascot-bubble');
+            if (bubble) bubble.innerText = `"${phrase}"`;
+            
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(phrase);
+                utterance.lang = 'pt-BR';
+                utterance.rate = 1.05;
+                window.speechSynthesis.speak(utterance);
+            }
         };
 
         // Mobile Color Selection helper (selectColor)
@@ -5102,18 +5124,75 @@
             }
         });
 
-        // Mascot Minimization Logic (DESATIVADO)
+        // Mascot Minimization Logic
         window.minimizeMascot = function(event) {
-            // No-op
+            if (event) event.stopPropagation();
+            const fullEl = document.getElementById('mascot-full-container');
+            const casinhaEl = document.getElementById('mascot-casinha-container');
+            if (fullEl) fullEl.classList.add('hidden-mascot');
+            if (casinhaEl) casinhaEl.classList.remove('hidden-mascot');
+            sessionStorage.setItem('kidcanvas_mascot_minimized', 'true');
         };
 
         window.restoreMascot = function() {
-            // No-op
+            const fullEl = document.getElementById('mascot-full-container');
+            const casinhaEl = document.getElementById('mascot-casinha-container');
+            if (fullEl) fullEl.classList.remove('hidden-mascot');
+            if (casinhaEl) casinhaEl.classList.add('hidden-mascot');
+            sessionStorage.setItem('kidcanvas_mascot_minimized', 'false');
         };
 
-        // Redirecionar dicas contextuais do Perigo (DESATIVADO)
+        // Initialize state from sessionStorage immediately
+        (function() {
+            const isMinimized = sessionStorage.getItem('kidcanvas_mascot_minimized') === 'true';
+            const fullEl = document.getElementById('mascot-full-container');
+            const casinhaEl = document.getElementById('mascot-casinha-container');
+            if (isMinimized) {
+                if (fullEl) fullEl.classList.add('hidden-mascot');
+                if (casinhaEl) casinhaEl.classList.remove('hidden-mascot');
+            } else {
+                if (fullEl) fullEl.classList.remove('hidden-mascot');
+                if (casinhaEl) casinhaEl.classList.add('hidden-mascot');
+            }
+        })();
+
+        // Redirecionar dicas contextuais do Perigo para o balão local
         window.showPerigoTip = function(key) {
-            // No-op
+            const tips = {
+                bucket:      "É o balde de tinta! Clica em área fechada e preenche tudo de uma vez!",
+                brush:       "Pincel clássico! Começa pelos detalhes menores — fica lindo!",
+                'brush-magic': "Pincel mágico! Pinta por baixo do contorno sem sair da linha!",
+                glitter:     "Glitter mágico! Passa em cima de qualquer cor pra brilhar!",
+                neon:        "Efeito neon! Fica incrível nas bordas e nos olhos!",
+                eraser:      "Borracha! Tamanho P pra detalhes, GG pra apagar bastante.",
+                pipette:     "Conta-gotas! Clica numa cor do desenho pra selecioná-la.",
+                text:        "Modo texto! Clica onde quer escrever e digita seu nome!",
+                select:      "Modo de adesivos! Arrasta os emojis pra onde quiser!",
+                welcome:     "E aí! Sou o Perigo e tô aqui pra te ajudar. Escolhe uma ferramenta!",
+                firstColor:  "Nova cor! Combinação de cores é o segredo do artista!",
+                firstUndo:   "Desfez! Ctrl Z é o melhor amigo do artista.",
+                firstBucket: "Primeiro balde! Área toda colorida numa tacada só!",
+                milestone5:  "Cinco traços! Você tá pegando o jeito. Continua assim!",
+                milestone20: "Vinte traços! Olha que lindo. Você é artista de verdade!"
+            };
+            const tip = tips[key];
+            if (!tip) return;
+            if (window._perigoTipsShown && window._perigoTipsShown[key]) return;
+            if (window._perigoTipCooldown) return;
+            window._perigoTipsShown = window._perigoTipsShown || {};
+            window._perigoTipsShown[key] = true;
+            window._perigoTipCooldown = true;
+            setTimeout(() => { window._perigoTipCooldown = false; }, 5000);
+            const bubble = document.getElementById('mascot-bubble');
+            const fullEl = document.getElementById('mascot-full-container');
+            if (bubble) bubble.innerText = tip;
+            if (fullEl && fullEl.classList.contains('hidden-mascot')) {
+                // se minimizado, restaura brevemente
+                fullEl.classList.remove('hidden-mascot');
+                const casinhaEl = document.getElementById('mascot-casinha-container');
+                if (casinhaEl) casinhaEl.classList.add('hidden-mascot');
+                sessionStorage.setItem('kidcanvas_mascot_minimized', 'false');
+            }
         };
     </script>
     
