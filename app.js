@@ -7271,7 +7271,8 @@ function startConfettiCelebration() {
 // 7. Auto-Save System
 function saveAutosaveToLocalStorage() {
     if (!paintCanvas || !window.currentPaintingData) return;
-    
+    if (window.paintInitializing) return;
+
     // Se a tela estiver limpa (sem traços e sem stickers), removemos o autosave do LocalStorage
     if ((!window.strokeCount || window.strokeCount === 0) && (!window.activeStickers || window.activeStickers.length === 0)) {
         localStorage.removeItem('kidcanvas_autosave');
@@ -7355,6 +7356,7 @@ function checkAndRestoreAutosave() {
 }
 
 function renderPintarOnlineView() {
+    window.paintInitializing = true;
     document.title = "Colorir Online — KidCanvas 🎨";
     setMetaDescription("Colore e pinte online usando lápis de cor, balde de tinta e glitter mágico de forma interativa.");
 
@@ -7427,7 +7429,8 @@ function renderPintarOnlineView() {
     isPaintDrawing = false;
     setPaintTool('bucket');
     
-    window.paintZoomLevel = parseFloat(sessionStorage.getItem('kidcanvas_zoom')) || 1.0;
+    window.paintZoomLevel = 1.0;
+    sessionStorage.removeItem('kidcanvas_zoom');
     window.paintPanX = 0;
     window.paintPanY = 0;
     updateZoomTransform();
@@ -7478,6 +7481,8 @@ function renderPintarOnlineView() {
         
         composePaintCanvas();
         savePaintHistory();
+        window.paintInitializing = false;
+        checkAndRestoreAutosave();
         if (loader) loader.style.display = 'none';
         if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
     } else {
@@ -7507,6 +7512,8 @@ function renderPintarOnlineView() {
             paintBorderImage = null;
             composePaintCanvas();
             savePaintHistory();
+            window.paintInitializing = false;
+            checkAndRestoreAutosave();
             if (loader) loader.style.display = 'none';
             if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
         };
@@ -8070,9 +8077,6 @@ function renderPintarOnlineView() {
     window.paintAutosaveInterval = setInterval(() => {
         saveAutosaveToLocalStorage();
     }, 30000);
-
-    // Check for auto-save recovery prompt
-    checkAndRestoreAutosave();
 
     // Configurar barra de desafio de desenho se ativo
     const challengeBar = document.getElementById('paint-challenge-bar');
