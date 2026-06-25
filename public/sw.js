@@ -1,15 +1,11 @@
-const CACHE_NAME = 'kidcanvas-cache-v4';
+const CACHE_NAME = 'kidcanvas-cache-v20';
 const ASSETS = [
   '/',
   '/index.html',
   '/style.css',
   '/app.js',
   '/favicon.ico',
-  '/favicon-32x32.png',
-  '/mascot_artista.png',
-  '/mascot_mago.png',
-  '/mascot_aprendiz.png',
-  '/mascot_lenda.png'
+  '/favicon-32x32.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -47,21 +43,21 @@ self.addEventListener('fetch', (event) => {
   }
   
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
+    // Estratégia Network-First: Tenta a rede primeiro para garantir conteúdo fresco
+    fetch(event.request).then((networkResponse) => {
+      if (event.request.method === 'GET' && networkResponse.status === 200) {
+        const cacheCopy = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, cacheCopy);
+        });
       }
-      return fetch(event.request).then((networkResponse) => {
-        // Cachear arquivos estáticos locais novos dinamicamente
-        if (event.request.method === 'GET' && networkResponse.status === 200 && (event.request.url.endsWith('.png') || event.request.url.endsWith('.css') || event.request.url.endsWith('.js'))) {
-          const cacheCopy = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, cacheCopy);
-          });
+      return networkResponse;
+    }).catch(() => {
+      // Fallback para o Cache se estiver offline
+      return caches.match(event.request).then((cachedResponse) => {
+        if (cachedResponse) {
+          return cachedResponse;
         }
-        return networkResponse;
-      }).catch(() => {
-        // Fallback offline se o HTML principal falhar
         if (event.request.headers.get('accept') && event.request.headers.get('accept').includes('text/html')) {
           return caches.match('/index.html');
         }
