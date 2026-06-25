@@ -3006,254 +3006,314 @@
         <!-- ==============================================
              7. TELA DE PINTAR ONLINE
              ============================================== -->
-<section id="view-pintar-online" class="page-view" style="display: none;">
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <div class="action-btns">
-            <!-- Salvar na Galeria (Image) -->
-            <button class="btn-action btn-img" id="paint-btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria</button>
-            <!-- Salvar e Compartilhar (Hall da Fama) -->
-            <button class="btn-action btn-hall" id="paint-btn-save-public"><i class="fa-solid fa-trophy"></i> Hall da Fama</button>
-            <!-- WhatsApp -->
-            <button class="btn-action btn-wp" id="paint-btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
-            <!-- PDF -->
-            <button class="btn-action btn-pdf" id="paint-btn-pdf"><i class="fa-solid fa-file-pdf"></i> Salvar PDF</button>
-        </div>
-    </div>
+        <section id="view-pintar-online" class="page-view" style="display: none;">
+            <div class="container page-content-padding">
+                <div class="breadcrumbs">
+                    <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <a href="#" id="paint-breadcrumbs-back">Desenho</a>
+                    <span class="separator"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="current">Colorir Online</span>
+                </div>
 
-    <!-- Active Challenge Bar (Dynamic) -->
-    <div id="paint-challenge-bar" style="display: none; background: #fff3cd; border: 2px solid #ffe082; color: #856404; padding: 6px 12px; border-radius: 12px; margin-bottom: 8px; font-weight: 800; align-items: center; justify-content: space-between; font-family: var(--font-heading); box-shadow: var(--shadow-cartoon); width: 100%; max-width: 1300px; box-sizing: border-box; z-index: 10; font-size: 0.85rem;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 1.1rem;">🏆</span>
-            <span id="paint-challenge-text">Desafio ativo</span>
-        </div>
-        <button onclick="window.cancelActiveDrawingChallenge()" style="background: #e74c3c; color: white; border: none; border-radius: 6px; padding: 4px 8px; font-weight: bold; cursor: pointer; font-size: 0.75rem;">
-            Cancelar
-        </button>
-    </div>
+                <div class="section-title-wrapper align-left" style="margin-bottom: 20px;">
+                    <h1 class="page-title">Pintar Online 🎨</h1>
+                    <p class="section-subtitle">Use a sua imaginação com a paleta colorida, balde de tinta e brilho mágico!</p>
+                </div>
 
-    <!-- WORKSPACE -->
-    <div class="workspace">
-        
-        <!-- CONTROL COLUMN (Left side: Palette + Stickers + Text Tools) -->
-        <div class="control-column">
-            <!-- Glassmorphic Ornate Palette Accordion -->
-            <div class="wood-palette">
-                <div class="palette-header"><i class="fa-solid fa-palette"></i> Paleta</div>
-                
-                <div class="palette-accordion">
-                    <!-- Básicas -->
-                    <div class="accordion-item active">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>🎨 Básicas</span>
-                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="paint-colors-grid" id="category-basicas"></div>
-                        </div>
+                <!-- Barra de Desafio de Desenho Ativo -->
+                <div id="paint-challenge-bar" style="display: none; background: #fff3cd; border: 2px solid #ffe082; color: #856404; padding: 12px 18px; border-radius: 12px; margin-bottom: 20px; font-weight: 800; align-items: center; justify-content: space-between; font-family: var(--font-heading); box-shadow: var(--shadow-cartoon);">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 1.3rem;">🏆</span>
+                        <span id="paint-challenge-text">Desafio ativo: desenhe um elefante para desbloquear Gigante Gentil.</span>
                     </div>
-                    <!-- Pastel -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>🎨 Pastel</span>
-                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    <button onclick="window.cancelActiveDrawingChallenge()" style="background: #e74c3c; color: white; border: none; border-radius: 6px; padding: 6px 12px; font-weight: bold; cursor: pointer; font-size: 0.85rem;">
+                        Cancelar
+                    </button>
+                </div>
+
+                <div class="paint-workspace-layout">
+                    <!-- Barra de Ferramentas -->
+                    <div class="paint-sidebar-container">
+                    <div class="paint-toolbar">
+                        <!-- Capsula de Titulo principal do painel -->
+                        <div class="paint-card-header-capsule" style="margin-bottom: 6px !important;">
+                            <i class="fa-solid fa-paint-roller"></i> Pintar
                         </div>
-                        <div class="accordion-content">
-                            <div class="paint-colors-grid" id="category-pastel"></div>
+
+                        <!-- Grupo 1: Ferramenta ativa -->
+                        <div class="tool-group" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                            <span style="font-size: 0.65rem; font-weight: 800; color: #ffe066; text-transform: uppercase; letter-spacing: 0.5px; font-family: var(--font-heading);">⚡ Ferramenta ativa</span>
+                            <div style="display: flex; gap: 6px; justify-content: center; width: 100%;">
+                                <!-- Balde -->
+                                <button class="paint-tool-btn active" id="paint-tool-bucket" title="Balde de Tinta">
+                                    <svg viewBox="0 0 576 512" width="16" height="16" fill="currentColor">
+                                        <path d="M41.4 9.4C53.9-3.1 74.1-3.1 86.6 9.4L168 90.7l53.1-53.1c28.1-28.1 73.7-28.1 101.8 0L474.3 189.1c28.1 28.1 28.1 73.7 0 101.8L283.9 481.4c-37.5 37.5-98.3 37.5-135.8 0L30.6 363.9c-37.5-37.5-37.5-98.3 0-135.8L122.7 136 41.4 54.6c-12.5-12.5-12.5-32.8 0-45.3zm176 221.3L168 181.3 75.9 273.4c-4.2 4.2-7 9.3-8.4 14.6H386.7l42.3-42.3c3.1-3.1 3.1-8.2 0-11.3L277.7 82.9c-3.1-3.1-8.2-3.1-11.3 0L213.3 136l49.4 49.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0zM512 512c-35.3 0-64-28.7-64-64c0-25.2 32.6-79.6 51.2-108.7c6-9.4 19.5-9.4 25.5 0C543.4 368.4 576 422.8 576 448c0 35.3-28.7 64-64 64z"/>
+                                    </svg>
+                                </button>
+                                <!-- Pincel -->
+                                <button class="paint-tool-btn" id="paint-tool-brush" title="Pincel Comum">
+                                    <i class="fa-solid fa-paintbrush"></i>
+                                </button>
+                                <!-- Borracha -->
+                                <button class="paint-tool-btn" id="paint-tool-eraser" title="Borracha">
+                                    <i class="fa-solid fa-eraser"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Neon -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>🎨 Neon</span>
-                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+
+                        <!-- Separador -->
+                        <div style="width: 100%; border-top: 1.5px dashed rgba(255, 255, 255, 0.15); margin: 3px 0;"></div>
+
+                        <!-- Grupo 2: Histórico -->
+                        <div class="tool-group" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                            <span style="font-size: 0.65rem; font-weight: 800; color: #ffe066; text-transform: uppercase; letter-spacing: 0.5px; font-family: var(--font-heading);">🕒 Histórico</span>
+                            <div style="display: flex; gap: 6px; justify-content: center; width: 100%;">
+                                <button class="paint-undo-redo-btn" id="paint-btn-undo" title="Desfazer (Ctrl+Z)">
+                                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                                </button>
+                                <button class="paint-undo-redo-btn" id="paint-btn-redo" title="Refazer (Ctrl+Y)">
+                                    <i class="fa-solid fa-arrow-rotate-right"></i>
+                                </button>
+                            </div>
                         </div>
-                        <div class="accordion-content">
-                            <div class="paint-colors-grid" id="category-neon"></div>
+
+                        <!-- Separador -->
+                        <div style="width: 100%; border-top: 1.5px dashed rgba(255, 255, 255, 0.15); margin: 3px 0;"></div>
+
+                        <!-- Grupo 3: Ferramentas (Accordions) -->
+                        <div class="tool-group" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                            <span style="font-size: 0.65rem; font-weight: 800; color: #ffe066; text-transform: uppercase; letter-spacing: 0.5px; font-family: var(--font-heading); margin-bottom: 2px;">🛠️ Ferramentas</span>
+                            <div class="palette-accordion" style="width: 100%;">
+                                <!-- Accordion 1: Desenhar -->
+                                <div class="accordion-item active">
+                                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                                        <span>🖌️ Desenhar</span>
+                                        <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="paint-tools-grid" style="margin-top: 4px;">
+                                            <!-- Pincel Mágico -->
+                                            <button class="paint-tool-btn" id="paint-tool-brush-magic" title="Pincel Mágico (Atrás da Linha)">
+                                                <i class="fa-solid fa-magic"></i>
+                                            </button>
+                                            <!-- Glitter Mágico -->
+                                            <button class="paint-tool-btn" id="paint-tool-glitter" title="Glitter Mágico">
+                                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                            </button>
+                                            <!-- Brilho Neon -->
+                                            <button class="paint-tool-btn" id="paint-tool-neon" title="Brilho Neon">
+                                                <i class="fa-solid fa-lightbulb"></i>
+                                            </button>
+                                            <!-- Conta-Gotas -->
+                                            <button class="paint-tool-btn" id="paint-tool-pipette" title="Conta-Gotas">
+                                                <i class="fa-solid fa-eye-dropper"></i>
+                                            </button>
+                                            <!-- Mover Tela -->
+                                            <button class="paint-tool-btn" id="paint-tool-pan" title="Mover Tela">
+                                                <i class="fa-solid fa-hand"></i>
+                                            </button>
+                                            <!-- Selecionar Adesivo -->
+                                            <button class="paint-tool-btn" id="paint-tool-select" title="Selecionar Adesivo">
+                                                <i class="fa-solid fa-arrow-pointer"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Accordion 2: Texto -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                                        <span>✍️ Texto</span>
+                                        <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                                    </div>
+                                    <div class="accordion-content" id="accordion-text-content" style="padding: 4px 2px;">
+                                        <button class="paint-tool-btn" id="paint-tool-text" title="Escrever Texto" style="width: 30px; height: 30px; border-radius: 50% !important; border: 1.5px solid #ffb703 !important; background: #2b004a !important; color: #ffe066 !important; display: flex !important; align-items: center; justify-content: center; cursor: pointer; font-size: 0.85rem; transition: all 0.15s ease; margin: 0 auto 4px auto; box-shadow: 0 1.5px 0 #120826 !important;">
+                                            <i class="fa-solid fa-font"></i>
+                                        </button>
+                                        <div style="font-size: 0.65rem; font-weight: bold; color: #ffe066; margin-bottom: 2px; text-transform: uppercase;">Texto</div>
+                                        <input type="text" id="paint-text-value" placeholder="Nome..." maxlength="25">
+                                        <div style="font-size: 0.65rem; font-weight: bold; color: #ffe066; margin-bottom: 2px; text-transform: uppercase;">Fonte</div>
+                                        <select id="paint-text-font">
+                                            <option value="Fredoka">Divertida</option>
+                                            <option value="'Arial Black'">Forte</option>
+                                            <option value="Comic Sans MS">Gibi</option>
+                                            <option value="Courier New">Máquina</option>
+                                            <option value="Georgia">Clássica</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Accordion 3: Selos -->
+                                <div class="accordion-item">
+                                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                                        <span>⭐ Selos</span>
+                                        <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                                    </div>
+                                    <div class="accordion-content" style="padding: 4px 2px;">
+                                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; width: 100%; justify-items: center;">
+                                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="⭐" title="Estrela">⭐</button>
+                                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="❤️" title="Coração">❤️</button>
+                                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🌈" title="Arco-íris">🌈</button>
+                                            <button class="paint-tool-btn paint-stamp-btn" data-stamp="🐶" title="Cachorrinho">🐶</button>
+                                            <button class="sticker-more-btn" onclick="openStickerConsoleModal()" title="Todos os Adesivos">
+                                                <i class="fa-solid fa-gift"></i> + Adesivos
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <!-- Pele -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>🎨 Pele</span>
-                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                    </div> <!-- /paint-toolbar -->
+
+                    <!-- CARD DE AÇÕES E SALVAMENTO -->
+                    <div class="paint-actions-card">
+                        <!-- Capsula de Titulo -->
+                        <div class="paint-card-header-capsule">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Ações & Salvar
                         </div>
-                        <div class="accordion-content">
-                            <div class="paint-colors-grid" id="category-pele"></div>
+
+                        <!-- Hall da Fama Checkbox Wrapper (Custom Styled) -->
+                        <div id="paint-chk-public-wrapper" style="display: flex; flex-direction: column; gap: 2px; cursor: pointer; user-select: none; transition: all 0.2s ease; width: 100%; box-sizing: border-box;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" id="paint-chk-public" style="cursor: pointer; accent-color: #ffb703; pointer-events: none;">
+                                <span style="font-family: var(--font-heading); font-weight: 800; color: #ffe066; display: flex; align-items: center; gap: 4px;">
+                                    ⭐ Hall da Fama!
+                                </span>
+                            </div>
+                            <div style="line-height: 1.2;">
+                                Quero mostrar minha arte para outros exploradores!
+                            </div>
                         </div>
-                    </div>
-                    <!-- Metálicas -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>🎨 Metálicas</span>
-                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="paint-colors-grid" id="category-metalicas"></div>
-                        </div>
-                    </div>
-                    <!-- Favoritas -->
-                    <div class="accordion-item">
-                        <div class="accordion-header" onclick="toggleAccordion(this)">
-                            <span>⭐ Favoritas</span>
-                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="paint-colors-grid" id="category-favoritas"></div>
-                            <button class="favorite-save-btn" id="paint-btn-add-favorite" style="width: 100%; margin-top: 6px; padding: 4px; font-size: 0.72rem; font-weight: 700; border-radius: 6px; cursor: pointer; border: 2px solid var(--color-dark); background: var(--color-gold); color: var(--color-dark); box-shadow: 0 1.5px 0 var(--color-dark);">Salvar esta Cor</button>
+
+                        <!-- Actions Buttons Grid -->
+                        <div style="display: flex; flex-direction: column; gap: 4px; width: 100%; box-sizing: border-box; margin-top: 4px;">
+                            <!-- Salvar na Galeria -->
+                            <button class="action-btn-new btn-save-gallery" id="paint-btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria</button>
+                            <!-- Salvar e Compartilhar -->
+                            <button class="action-btn-new btn-save-share" id="paint-btn-save-public"><i class="fa-solid fa-star"></i> Salvar e Compartilhar</button>
+                            
+                            <!-- Row of WhatsApp / Imprimir / PDF -->
+                            <div style="display: flex; gap: 4px; width: 100%;">
+                                <button class="action-btn-new btn-whatsapp" id="paint-btn-whatsapp" title="Enviar por WhatsApp" style="flex: 1;"><i class="fa-brands fa-whatsapp"></i> Zap</button>
+                                <button class="action-btn-new btn-print" id="paint-btn-print" title="Imprimir Desenho" style="flex: 1;"><i class="fa-solid fa-print"></i> Imprimir</button>
+                                <button class="action-btn-new btn-pdf" id="paint-btn-pdf" title="Baixar PDF" style="flex: 1;"><i class="fa-solid fa-file-pdf"></i> PDF</button>
+                            </div>
+
+                            <!-- Limpar tudo -->
+                            <button class="action-btn-new btn-clear-all" id="paint-btn-clear" title="Limpar Tudo"><i class="fa-solid fa-trash-can"></i> Limpar Tudo</button>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Helper container so app.js can inject fallback items without crashing -->
-                <div id="paint-colors-grid" style="display:none !important;"></div>
-                <div id="paint-recent-colors" style="display:none !important;"></div>
-                <div id="paint-favorite-colors" style="display:none !important;"></div>
-            </div>
 
-            <!-- Stickers Panel (Most Used Stamps + Plus button) -->
-            <div class="panel-stickers">
-                <div class="panel-stickers-title">Adesivos</div>
-                <div class="stickers-grid">
-                    <button class="sticker-item paint-stamp-btn" data-stamp="⭐" title="Estrela" style="border: none; background: transparent; cursor: pointer;">⭐</button>
-                    <button class="sticker-item paint-stamp-btn" data-stamp="❤️" title="Coração" style="border: none; background: transparent; cursor: pointer;">❤️</button>
-                    <button class="sticker-item paint-stamp-btn" data-stamp="🌈" title="Arco-íris" style="border: none; background: transparent; cursor: pointer;">🌈</button>
-                    <button class="sticker-item paint-stamp-btn" data-stamp="🐶" title="Cachorrinho" style="border: none; background: transparent; cursor: pointer;">🐶</button>
-                    <button class="sticker-item paint-stamp-btn" data-stamp="🦄" title="Unicórnio" style="border: none; background: transparent; cursor: pointer;">🦄</button>
-                    <button class="sticker-item paint-stamp-btn" data-stamp="🦖" title="Dinossauro" style="border: none; background: transparent; cursor: pointer;">🦖</button>
-                </div>
-                <!-- Plus Stickers Modal Trigger -->
-                <button class="sticker-more-btn" onclick="openStickerConsoleModal()">
-                    <i class="fa-solid fa-gift"></i> + Mais Adesivos
-                </button>
-            </div>
-            
-            <!-- Brush size slider group, dynamically shown/hidden by app.js -->
-            <div class="paint-slider-group" id="paint-slider-group" style="display: none; flex-direction: column; gap: 4px; box-sizing: border-box;">
-                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                    <span style="font-weight: 800;">Tamanho:</span>
-                    <span id="paint-brush-size-val">10px</span>
-                </div>
-                <input type="range" id="paint-brush-size" min="3" max="40" value="10" style="width: 100%; accent-color: var(--color-purple); margin: 2px 0;">
-                <div style="display: none;">
-                    <button class="paint-size-preset-btn" data-size="4"></button>
-                    <button class="paint-size-preset-btn" data-size="10"></button>
-                    <button class="paint-size-preset-btn" data-size="20"></button>
-                    <button class="paint-size-preset-btn" data-size="35"></button>
-                </div>
-            </div>
-            
-            <!-- Text/Font Tool Panel (Hidden by default, shown when text tool active) -->
-            <div class="text-tool-panel">
-                <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-gold-light); text-align: center;">Texto</div>
-                <input type="text" id="paint-text-value" placeholder="Digite..." maxlength="25" style="width: 100%; padding: 4px; border-radius: 6px; border: 2px solid var(--color-dark); font-size: 0.75rem; box-sizing: border-box; text-align: center;">
-                <select id="paint-text-font" style="width: 100%; padding: 4px; border-radius: 6px; border: 2px solid var(--color-dark); font-size: 0.7rem; background: white; font-weight: bold; cursor: pointer;">
-                    <option value="Fredoka">Divertida</option>
-                    <option value="'Arial Black'">Forte</option>
-                    <option value="Comic Sans MS">Gibi</option>
-                    <option value="Courier New">Máquina</option>
-                    <option value="Georgia">Clássica</option>
-                </select>
-            </div>
-            
-            <!-- Hidden wrapper for the original checkbox to keep compatibility -->
-            <div id="paint-chk-public-wrapper" style="display: none;">
-                <input type="checkbox" id="paint-chk-public">
-            </div>
-        </div>
+                    <!-- Canvas e Painéis -->
+                    <div style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+                        <!-- MAIN MAGIC PAINT FRAME -->
+                        <div class="magic-frame-outer">
+                            <!-- Ornate top crown gem -->
+                            <div class="frame-crown">
+                                <div class="crown-gem"></div>
+                            </div>
+                            
+                            <!-- Ornate corner gems -->
+                            <div class="frame-gem gem-tl"></div>
+                            <div class="frame-gem gem-tr"></div>
+                            <div class="frame-gem gem-bl"></div>
+                            <div class="frame-gem gem-br"></div>
 
-        <!-- MAIN MAGIC PAINT FRAME -->
-        <div class="magic-frame-outer">
-            <!-- Ornate top crown gem -->
-            <div class="frame-crown">
-                <div class="crown-gem"></div>
-            </div>
-            
-            <!-- Ornate corner gems -->
-            <div class="frame-gem gem-tl"></div>
-            <div class="frame-gem gem-tr"></div>
-            <div class="frame-gem gem-bl"></div>
-            <div class="frame-gem gem-br"></div>
+                            <div class="magic-frame-inner">
+                                <!-- Canvas viewport container -->
+                                <div class="canvas-viewport paint-canvas-container" id="viewport">
+                                    <!-- Real Loader -->
+                                    <div id="paint-canvas-loader" style="z-index: 120;">
+                                        <div class="spinner"></div>
+                                        <span>Carregando desenho...</span>
+                                    </div>
+                                    
+                                    <!-- Floating HUD Zoom controls with real IDs -->
+                                    <div class="hud-controls paint-zoom-controls">
+                                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-out" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+                                        <span class="zoom-indicator" id="paint-zoom-indicator">100%</span>
+                                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-in" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+                                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-fit" title="Resetar Zoom"><i class="fa-solid fa-expand-arrows-alt"></i></button>
+                                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-pan" title="Mover Tela (🖐️)"><i class="fa-solid fa-hand"></i></button>
+                                        <button class="hud-btn paint-zoom-btn" id="paint-btn-fullscreen" title="Tela Cheia (📺)"><i class="fa-solid fa-expand"></i></button>
+                                    </div>
+                                    
+                                    <!-- Real Canvas Viewport Wrapper -->
+                                    <div id="paint-canvas-viewport" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-origin: 0 0; user-select: none;">
+                                        <canvas id="main-paint-canvas" style="display: block; background: white; cursor: crosshair;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-            <div class="magic-frame-inner">
-                <!-- Canvas viewport container -->
-                <div class="canvas-viewport paint-canvas-container" id="viewport">
-                    <!-- Real Loader -->
-                    <div id="paint-canvas-loader" style="z-index: 120;">
-                        <div class="spinner"></div>
-                        <span>Carregando desenho...</span>
+
+
+                        <!-- Paleta de Giz de Cera -->
+                        <div class="paint-palette-card">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: nowrap; gap: 10px;">
+                                <!-- Lado esquerdo: Título e Slider inline -->
+                                <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                                    <div class="paint-palette-card-title" style="white-space: nowrap;">🖍️ Materiais</div>
+                                    
+                                    <!-- Slider de Tamanho do Pincel/Carimbo (Inserido aqui no header!) -->
+                                    <div class="paint-slider-group" id="paint-slider-group">
+                                        <span style="font-weight: 800; font-size: 0.65rem; color: #ffe066; font-family: var(--font-heading); text-transform: uppercase; white-space: nowrap;">Tamanho:</span>
+                                        <div class="paint-size-presets" style="display: flex; gap: 3px; align-items: center;">
+                                            <button class="paint-size-preset-btn" data-size="4" title="Pequeno" style="padding: 2px 5px; border-radius: 6px; border: 1.5px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 2px; font-size: 0.62rem; box-shadow: 0 1.5px 0 var(--color-dark); color: #120826;">P</button>
+                                            <button class="paint-size-preset-btn active" data-size="10" title="Médio" style="padding: 2px 5px; border-radius: 6px; border: 1.5px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 2px; font-size: 0.62rem; box-shadow: 0 1.5px 0 var(--color-dark); color: #120826;">M</button>
+                                            <button class="paint-size-preset-btn" data-size="20" title="Grande" style="padding: 2px 5px; border-radius: 6px; border: 1.5px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 2px; font-size: 0.62rem; box-shadow: 0 1.5px 0 var(--color-dark); color: #120826;">G</button>
+                                            <button class="paint-size-preset-btn" data-size="35" title="Gigante" style="padding: 2px 5px; border-radius: 6px; border: 1.5px solid var(--color-dark); background: white; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 2px; font-size: 0.62rem; box-shadow: 0 1.5px 0 var(--color-dark); color: #120826;">GG</button>
+                                        </div>
+                                        <input type="range" id="paint-brush-size" min="3" max="40" value="10" style="width: 65px; accent-color: #ffb703; cursor: pointer; height: 4px; margin: 0 2px;">
+                                        <span id="paint-brush-size-val" style="font-weight: 800; font-size: 0.68rem; color: #ffe066; min-width: 28px; font-family: var(--font-heading);">10px</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Lado direito: Cores Recentes -->
+                                <div style="display: flex; align-items: center; gap: 6px; white-space: nowrap;">
+                                    <span class="paint-palette-sublabel">🕒 Recentes:</span>
+                                    <div id="paint-recent-colors">
+                                        <!-- Injetado por JS -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Abas de Materiais -->
+                            <div class="paint-palette-tabs" style="display: flex; gap: 4px; margin: 0px 0 6px 0; border-bottom: 1.5px dashed rgba(255,255,255,0.15); padding-bottom: 4px; flex-wrap: wrap; align-items: center;">
+                                <button class="palette-tab-btn active" onclick="selectPaletteTab(this)">🖍️ Giz de Cera</button>
+                                <button class="palette-tab-btn" onclick="selectPaletteTab(this)">🎨 Tinta</button>
+                                <button class="palette-tab-btn" onclick="selectPaletteTab(this)">🖊️ Canetinha</button>
+                                <button class="palette-tab-btn" onclick="selectPaletteTab(this)">✏️ Lápis de Cor</button>
+                                <button class="palette-tab-btn btn-random-tab" onclick="window.playRandomDrawing(); return false;" style="background: #f97316 !important; color: white !important; border-color: #ffb703 !important; font-weight: 900 !important; box-shadow: 0 2px 0 #120826 !important;"><i class="fa-solid fa-shuffle"></i> Sortear Desenho</button>
+                            </div>
+
+                            <div class="paint-colors-grid" id="paint-colors-grid" style="margin-bottom: 4px; gap: 4px;">
+                                <!-- Cores injetadas por JS -->
+                            </div>
+                            
+                            <!-- Favoritos de Cores -->
+                            <div style="margin-top: 6px; padding-top: 6px; border-top: 1.5px dashed rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span class="paint-palette-sublabel">❤️ Favoritas:</span>
+                                    <div id="paint-favorite-colors">
+                                        <span style="font-size: 0.65rem; color: rgba(255, 255, 255, 0.6); font-style: italic;">Nenhuma favorita ainda</span>
+                                    </div>
+                                </div>
+                                <button class="btn btn-secondary" id="paint-btn-add-favorite" style="padding: 3px 6px; font-size: 0.65rem; border-radius: 6px;"><i class="fa-solid fa-plus"></i> Salvar esta Cor</button>
+                            </div>
+                        </div>
+
+                        
                     </div>
-                    
-                    <!-- Floating HUD Zoom controls with real IDs -->
-                    <div class="hud-controls paint-zoom-controls">
-                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-out" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
-                        <span class="zoom-indicator" id="paint-zoom-indicator">100%</span>
-                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-in" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
-                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-fit" title="Resetar Zoom"><i class="fa-solid fa-expand-arrows-alt"></i></button>
-                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-pan" title="Mover Tela (🖐️)"><i class="fa-solid fa-hand"></i></button>
-                        <button class="hud-btn paint-zoom-btn" id="paint-btn-fullscreen" title="Tela Cheia (📺)"><i class="fa-solid fa-expand"></i></button>
-                    </div>
-                    
-                    <!-- Real Canvas Viewport Wrapper -->
-                    <div id="paint-canvas-viewport" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-origin: 0 0; user-select: none;">
-                        <canvas id="main-paint-canvas" style="display: block; background: white; cursor: crosshair;"></canvas>
-                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-
-
-    </div>
-
-    <!-- BOTTOM TOOL PALETTE -->
-    <div class="mobile-color-bar" id="mobile-color-bar">
-      <div class="mobile-color-dot" style="background:#e74c3c;" data-hex="#e74c3c" onclick="selectColor('#e74c3c')"></div>
-      <div class="mobile-color-dot" style="background:#ff8c00;" data-hex="#ff8c00" onclick="selectColor('#ff8c00')"></div>
-      <div class="mobile-color-dot" style="background:#ffb703;" data-hex="#ffb703" onclick="selectColor('#ffb703')"></div>
-      <div class="mobile-color-dot" style="background:#22c55e;" data-hex="#22c55e" onclick="selectColor('#22c55e')"></div>
-      <div class="mobile-color-dot" style="background:#4ECDC4;" data-hex="#4ecdc4" onclick="selectColor('#4ecdc4')"></div>
-      <div class="mobile-color-dot" style="background:#378ADD;" data-hex="#378add" onclick="selectColor('#378add')"></div>
-      <div class="mobile-color-dot" style="background:#9d4edd;" data-hex="#9d4edd" onclick="selectColor('#9d4edd')"></div>
-      <div class="mobile-color-dot" style="background:#ffffff; border-color: #ccc;" data-hex="#ffffff" onclick="selectColor('#ffffff')"></div>
-      <div class="mobile-color-dot" style="background:#000000;" data-hex="#000000" onclick="selectColor('#000000')"></div>
-      <div class="mobile-color-more" onclick="toggleAccordionMobile()">+</div>
-    </div>
-    <div class="bottom-bar">
-        <!-- Pincel -->
-        <button class="tool-btn paint-tool-btn" id="paint-tool-brush" title="Pincel" style="color: var(--color-purple-medium);"><i class="fa-solid fa-paintbrush"></i></button>
-        <!-- Balde de Tinta -->
-        <button class="tool-btn paint-tool-btn active" id="paint-tool-bucket" title="Balde de tinta" style="color: #ff8787;"><i class="fa-solid fa-fill-drip"></i></button>
-        <!-- Glitter Mágico -->
-        <button class="tool-btn paint-tool-btn" id="paint-tool-glitter" title="Glitter Mágico" style="color: #ff5e7e;"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
-        <!-- Pincel Mágico (Atrás da linha) -->
-        <button class="tool-btn paint-tool-btn" id="paint-tool-brush-magic" title="Pincel Mágico" style="color: var(--color-orange);"><i class="fa-solid fa-magic"></i></button>
-        <!-- Brilho Neon -->
-        <button class="tool-btn paint-tool-btn" id="paint-tool-neon" title="Neon" style="color: #ffd43b;"><i class="fa-solid fa-lightbulb"></i></button>
-        <!-- Borracha -->
-        <button class="tool-btn paint-tool-btn" id="paint-tool-eraser" title="Borracha" style="color: #4dabf7;"><i class="fa-solid fa-eraser"></i></button>
-        <!-- Conta-gotas -->
-        <button class="tool-btn paint-tool-btn" id="paint-tool-pipette" title="Conta-Gotas" style="color: #22b8cf;"><i class="fa-solid fa-eye-dropper"></i></button>
-        <!-- Escrever Texto -->
-        <button class="tool-btn paint-tool-btn" id="paint-tool-text" title="Texto" style="color: var(--color-purple);"><i class="fa-solid fa-font"></i></button>
-        <!-- Selecionar Adesivo -->
-        <button class="tool-btn paint-tool-btn" id="paint-tool-select" title="Mover Adesivo" style="color: var(--color-blue);"><i class="fa-solid fa-arrow-pointer"></i></button>
-        <!-- Desfazer -->
-        <button class="tool-btn paint-tool-btn" id="paint-btn-undo" title="Desfazer" style="color: #495057;"><i class="fa-solid fa-arrow-rotate-left"></i></button>
-        <!-- Refazer -->
-        <button class="tool-btn paint-tool-btn" id="paint-btn-redo" title="Refazer" style="color: #495057;"><i class="fa-solid fa-arrow-rotate-right"></i></button>
-        <!-- Limpar tudo -->
-        <button class="tool-btn paint-tool-btn" id="paint-btn-clear" title="Limpar tudo" style="color: #e64980;"><i class="fa-solid fa-trash-can"></i></button>
-    </div>
-    
-    <!-- Hidden controls to keep compatibility -->
-    <div style="display: none;">
-        <canvas id="certificate-render-canvas" width="800" height="600"></canvas>
-        <button id="paint-btn-watch-replay"></button>
-        <button id="paint-btn-random"></button>
-    </div>
-</section>
-
+        <!-- ==============================================
+             8. ÁLBUM DE CONQUISTAS
+             ============================================== -->
         <section id="view-conquistas" class="page-view" style="display: none;">
             <div class="container page-content-padding">
                 <div class="breadcrumbs" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
@@ -4648,334 +4708,6 @@
 
     <script>
         (function() {
-
-        if (typeof window.navigate === 'function') {
-            wrapRouter();
-        } else {
-            let attempts = 0;
-            const interval = setInterval(() => {
-                attempts++;
-                if (typeof window.navigate === 'function') {
-                    wrapRouter();
-                    clearInterval(interval);
-                } else if (attempts > 50) {
-                    clearInterval(interval);
-                }
-            }, 50);
-        }
-        
-        function wrapRouter() {
-            const originalNavigate = window.navigate;
-            window.navigate = function(path, pushState) {
-                if (path === '/pintar-online') {
-                    document.body.classList.add('paint-active');
-                } else {
-                    document.body.classList.remove('paint-active');
-                }
-                return originalNavigate(path, pushState);
-            };
-            
-            if (window.location.pathname === '/pintar-online' || window.location.pathname.endsWith('/pintar-online')) {
-                document.body.classList.add('paint-active');
-            }
-        }
-        
-        // Wrapper que intercepta o selectPaintingColor original do app.js para atualizar o CSS no mobile
-        function wrapSelectPaintingColor() {
-            if (typeof window.selectPaintingColor === 'function' && !window.selectPaintingColor.wrapped) {
-                const originalSelectColor = window.selectPaintingColor;
-                window.selectPaintingColor = function(rgb) {
-                    // Executa a função interna original (atualiza a variável de desenho)
-                    originalSelectColor(rgb);
-                    
-                    const hex = '#' + rgb.map(x => x.toString(16).padStart(2, '0')).join('');
-                    
-                    // Sincroniza a seleção visual no acordeão lateral desktop
-                    document.querySelectorAll('.color-crayon').forEach(c => {
-                        if (c.getAttribute('data-hex') === hex) {
-                            c.classList.add('selected');
-                        } else {
-                            c.classList.remove('selected');
-                        }
-                    });
-                    
-                    // Sincroniza a seleção visual nas bolinhas da barra mobile
-                    document.querySelectorAll('.mobile-color-dot').forEach(d => {
-                        const dHex = d.getAttribute('data-hex');
-                        if (dHex && dHex.toLowerCase() === hex.toLowerCase()) {
-                            d.classList.add('selected');
-                        } else {
-                            d.classList.remove('selected');
-                        }
-                    });
-                    
-                    window.selectedColorHex = hex;
-                };
-                window.selectPaintingColor.wrapped = true;
-            }
-        }
-        
-        // Tenta envelopar imediatamente (pois o app.js já foi carregado sincronicamente)
-        wrapSelectPaintingColor();
-        
-        // Tenta também no DOMContentLoaded
-        document.addEventListener('DOMContentLoaded', wrapSelectPaintingColor);
-        
-        // Intercepta a inicialização e set de ferramentas do painel após carregamento total da página
-        window.addEventListener('load', () => {
-            // Garante o wrapper de selectPaintingColor ativo
-            wrapSelectPaintingColor();
-            
-            // Intercepta renderPintarOnlineView para reestruturar a paleta de cores
-            const originalRender = window.renderPintarOnlineView;
-            if (typeof originalRender === 'function') {
-                window.renderPintarOnlineView = function() {
-                    originalRender();
-                    window.restructureColorsGrid();
-                };
-            }
-            
-            // Intercepta setPaintTool para alternar classes no body de acordo com a ferramenta ativa
-            const originalSetPaintTool = window.setPaintTool;
-            if (typeof originalSetPaintTool === 'function') {
-                window.setPaintTool = function(toolName) {
-                    // Remove all previous tool classes to prevent accumulation
-                    document.body.classList.forEach(className => {
-                        if (className.startsWith('tool-') && className.endsWith('-active')) {
-                            document.body.classList.remove(className);
-                        }
-                    });
-                    document.body.classList.add(`tool-${toolName}-active`);
-                    
-                    // Sincroniza a classe ativa do botão no layout do rodapé
-                    document.querySelectorAll('.bottom-bar .tool-btn').forEach(btn => {
-                        if (btn.id === `paint-tool-${toolName}` || (toolName === 'pan' && btn.id === 'paint-btn-zoom-pan')) {
-                            btn.classList.add('active');
-                        } else if (toolName !== 'pan' || btn.id !== 'paint-btn-zoom-pan') {
-                            btn.classList.remove('active');
-                        }
-                    });
-                    
-                    return originalSetPaintTool(toolName);
-                };
-            }
-            
-            // Caso já esteja renderizado
-            window.restructureColorsGrid();
-        });
-        
-        // Função de Acordeão para alternar categorias da paleta
-        window.toggleAccordion = function(header) {
-            const item = header.parentElement;
-            const isActive = item.classList.contains('active');
-            
-            document.querySelectorAll('.accordion-item').forEach(i => {
-                i.classList.remove('active');
-            });
-            
-            if (!isActive) {
-                item.classList.add('active');
-            }
-        };
-        
-        // Restruturação da paleta de cores em categorias
-        window.restructureColorsGrid = function() {
-            const categories = {
-                basicas: [
-                    { hex: '#ff2800', rgb: [255, 40, 0], name: 'Vermelho' },
-                    { hex: '#ff8138', rgb: [255, 129, 56], name: 'Laranja' },
-                    { hex: '#ffd43b', rgb: [255, 212, 59], name: 'Amarelo' },
-                    { hex: '#40c057', rgb: [64, 192, 87], name: 'Verde' },
-                    { hex: '#4dabf7', rgb: [77, 171, 247], name: 'Azul' },
-                    { hex: '#7950f2', rgb: [121, 80, 242], name: 'Roxo' },
-                    { hex: '#e64980', rgb: [230, 73, 128], name: 'Rosa' },
-                    { hex: '#a61e4d', rgb: [166, 30, 77], name: 'Vinho' },
-                    { hex: '#cd853f', rgb: [205, 133, 63], name: 'Marrom Claro' },
-                    { hex: '#5c3d2e', rgb: [92, 61, 46], name: 'Marrom Escuro' },
-                    { hex: '#868e96', rgb: [134, 142, 150], name: 'Cinza' },
-                    { hex: '#212529', rgb: [33, 37, 41], name: 'Preto' }
-                ],
-                pastel: [
-                    { hex: '#ffb3c6', rgb: [255, 179, 198], name: 'Rosa Claro' },
-                    { hex: '#d0bfff', rgb: [208, 191, 255], name: 'Lilás' },
-                    { hex: '#a5d8ff', rgb: [165, 216, 255], name: 'Azul Bebê' },
-                    { hex: '#b2f2bb', rgb: [178, 242, 187], name: 'Verde Claro' },
-                    { hex: '#12b886', rgb: [18, 184, 134], name: 'Verde Água' },
-                    { hex: '#22b8cf', rgb: [34, 184, 207], name: 'Azul Claro' },
-                    { hex: '#f5e6d3', rgb: [245, 230, 211], name: 'Bege' },
-                    { hex: '#ffffff', rgb: [255, 255, 255], name: 'Branco' }
-                ],
-                neon: [
-                    { hex: '#ff007f', rgb: [255, 0, 127], name: 'Rosa Neon' },
-                    { hex: '#39ff14', rgb: [57, 255, 20], name: 'Verde Neon' },
-                    { hex: '#00f0ff', rgb: [0, 240, 255], name: 'Azul Neon' },
-                    { hex: '#fff000', rgb: [255, 240, 0], name: 'Amarelo Neon' },
-                    { hex: '#ff6c00', rgb: [255, 108, 0], name: 'Laranja Neon' },
-                    { hex: '#bf00ff', rgb: [191, 0, 255], name: 'Roxo Neon' }
-                ],
-                pele: [
-                    { hex: '#fed7aa', rgb: [254, 215, 170], name: 'Pele Clara' },
-                    { hex: '#f0b878', rgb: [240, 184, 120], name: 'Pele Média' },
-                    { hex: '#8d5524', rgb: [141, 85, 36], name: 'Pele Morena' },
-                    { hex: '#4a2c11', rgb: [74, 44, 17], name: 'Pele Escura' }
-                ],
-                metalicas: [
-                    { hex: '#ffd700', rgb: [255, 215, 0], name: 'Ouro' },
-                    { hex: '#c0c0c0', rgb: [192, 192, 192], name: 'Prata' },
-                    { hex: '#cd7f32', rgb: [205, 127, 50], name: 'Bronze' },
-                    { hex: '#b87333', rgb: [184, 115, 51], name: 'Cobre' },
-                    { hex: '#e5e4e2', rgb: [229, 228, 226], name: 'Platina' },
-                    { hex: '#f0ead6', rgb: [240, 234, 214], name: 'Pérola' }
-                ]
-            };
-            
-            for (const [catName, colors] of Object.entries(categories)) {
-                const grid = document.getElementById(`category-${catName}`);
-                if (!grid) continue;
-                grid.innerHTML = '';
-                
-                colors.forEach(crayon => {
-                    const div = document.createElement('div');
-                    const isSelected = window.selectedColorHex === crayon.hex;
-                    div.className = 'color-crayon' + (isSelected ? ' selected' : '');
-                    div.style.backgroundColor = crayon.hex;
-                    div.title = crayon.name;
-                    div.setAttribute('data-hex', crayon.hex);
-                    
-                    div.addEventListener('click', () => {
-                        if (typeof window.selectPaintingColor === 'function') {
-                            window.selectPaintingColor(crayon.rgb);
-                        }
-                        
-                        document.querySelectorAll('.color-crayon').forEach(c => {
-                            if (c.getAttribute('data-hex') === crayon.hex) {
-                                c.classList.add('selected');
-                            } else {
-                                c.classList.remove('selected');
-                            }
-                        });
-                        window.selectedColorHex = crayon.hex;
-                    });
-                    grid.appendChild(div);
-                });
-            }
-            
-            // Histórico de Favoritas no acordeão
-            const favGrid = document.getElementById('category-favoritas');
-            if (favGrid) {
-                favGrid.innerHTML = '';
-                const savedColors = window.paintColorFavorites || [];
-                if (savedColors.length === 0) {
-                    favGrid.innerHTML = '<span style="font-size: 0.72rem; color: rgba(255,255,255,0.6); font-style: italic; grid-column: span 4; text-align: center; padding: 10px 0;">Nenhuma favorita</span>';
-                } else {
-                    savedColors.forEach(hex => {
-                        const div = document.createElement('div');
-                        div.className = 'color-crayon';
-                        div.style.backgroundColor = hex;
-                        div.setAttribute('data-hex', hex);
-                        div.addEventListener('click', () => {
-                            const r = parseInt(hex.slice(1,3), 16);
-                            const g = parseInt(hex.slice(3,5), 16);
-                            const b = parseInt(hex.slice(5,7), 16);
-                            if (typeof window.selectPaintingColor === 'function') {
-                                window.selectPaintingColor([r, g, b]);
-                            }
-                        });
-                        favGrid.appendChild(div);
-                    });
-                }
-            }
-        };
-        
-        // Redefine renderFavoriteColors para atualizar também o acordeão
-        if (typeof window.renderFavoriteColors === 'function') {
-            const originalFavs = window.renderFavoriteColors;
-            window.renderFavoriteColors = function() {
-                originalFavs();
-                const favGrid = document.getElementById('category-favoritas');
-                if (favGrid) {
-                    favGrid.innerHTML = '';
-                    const savedColors = window.paintColorFavorites || [];
-                    if (savedColors.length === 0) {
-                        favGrid.innerHTML = '<span style="font-size: 0.72rem; color: rgba(255,255,255,0.6); font-style: italic; grid-column: span 4; text-align: center; padding: 10px 0;">Nenhuma favorita</span>';
-                    } else {
-                        savedColors.forEach(hex => {
-                            const div = document.createElement('div');
-                            div.className = 'color-crayon';
-                            div.style.backgroundColor = hex;
-                            div.setAttribute('data-hex', hex);
-                            div.addEventListener('click', () => {
-                                const r = parseInt(hex.slice(1,3), 16);
-                                const g = parseInt(hex.slice(3,5), 16);
-                                const b = parseInt(hex.slice(5,7), 16);
-                                if (typeof window.selectPaintingColor === 'function') {
-                                    window.selectPaintingColor([r, g, b]);
-                                }
-                            });
-                            favGrid.appendChild(div);
-                        });
-                    }
-                }
-            };
-        }
-
-        // Speech bubble mascot speak helper (DESATIVADO)
-        window.speakMascot = function() {
-            // No-op
-        };
-
-        // Mobile Color Selection helper (selectColor)
-        window.selectColor = function(hex) {
-            let r = 0, g = 0, b = 0;
-            if (hex.startsWith('#')) {
-                hex = hex.slice(1);
-            }
-            if (hex.length === 3) {
-                r = parseInt(hex[0] + hex[0], 16);
-                g = parseInt(hex[1] + hex[1], 16);
-                b = parseInt(hex[2] + hex[2], 16);
-            } else if (hex.length === 6) {
-                r = parseInt(hex.slice(0, 2), 16);
-                g = parseInt(hex.slice(2, 4), 16);
-                b = parseInt(hex.slice(4, 6), 16);
-            }
-            if (typeof window.selectPaintingColor === 'function') {
-                window.selectPaintingColor([r, g, b]);
-            }
-        };
-
-        // Toggle mobile control drawer
-        window.toggleAccordionMobile = function() {
-            const col = document.querySelector('.control-column');
-            if (col) {
-                col.classList.toggle('mobile-open');
-            }
-        };
-
-        // Automatically close mobile open column when picking a crayon or stamp
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.color-crayon') || e.target.closest('.paint-stamp-btn')) {
-                const col = document.querySelector('.control-column');
-                if (col && col.classList.contains('mobile-open')) {
-                    col.classList.remove('mobile-open');
-                }
-            }
-        });
-
-        // Mascot Minimization Logic (DESATIVADO)
-        window.minimizeMascot = function(event) {
-            // No-op
-        };
-
-        window.restoreMascot = function() {
-            // No-op
-        };
-
-        // Redirecionar dicas contextuais do Perigo (DESATIVADO)
-        window.showPerigoTip = function(key) {
-            // No-op
-        };
-
 
 
             // Função toggleAccordion
