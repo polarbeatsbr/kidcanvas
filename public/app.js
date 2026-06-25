@@ -118,33 +118,8 @@ window.KidCanvasAudio = {
     }
 };
 
-// --- MÓDULO DE VOZ / TTS PARA CRIANÇAS ---
-window.KidCanvasTTS = {
-    speak: function(text) {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            setTimeout(() => {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'pt-BR';
-                utterance.rate = 1.0;
-                const voices = window.speechSynthesis.getVoices();
-                const googlePt = voices.find(v => v.lang.startsWith('pt') && v.name.includes('Google'));
-                const anyPt = voices.find(v => v.lang.startsWith('pt'));
-                if (googlePt) {
-                    utterance.voice = googlePt;
-                } else if (anyPt) {
-                    utterance.voice = anyPt;
-                }
-                window.speechSynthesis.speak(utterance);
-            }, 50);
-        }
-    },
-    stop: function() {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-        }
-    }
-};
+// TTS desativado — áudio removido do site
+window.KidCanvasTTS = { speak: function() {}, stop: function() {} };
 
 // --- MÓDULO DOS MASCOTES AUXILIARES ---
 window.currentMascotText = '';
