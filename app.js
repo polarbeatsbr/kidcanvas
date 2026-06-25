@@ -7502,6 +7502,8 @@ function renderPintarOnlineView() {
         checkAndRestoreAutosave();
         if (loader) loader.style.display = 'none';
         if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
+        window._perigoTipsShown = {};
+        setTimeout(() => showPerigoTip('welcome'), 1200);
     } else {
         if (chkPublicWrapper) chkPublicWrapper.style.display = 'flex';
         paintDrawingImage = new Image();
@@ -7533,6 +7535,8 @@ function renderPintarOnlineView() {
             checkAndRestoreAutosave();
             if (loader) loader.style.display = 'none';
             if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
+            window._perigoTipsShown = {};
+            setTimeout(() => showPerigoTip('welcome'), 1200);
         };
         paintDrawingImage.src = '/api/proxy-image?url=' + encodeURIComponent(data.imgUrl);
     }
@@ -8194,6 +8198,7 @@ function savePaintHistory() {
 function undoPaint() {
     if (paintHistoryIndex > 0) {
         paintHistoryIndex--;
+        showPerigoTip('firstUndo');
         const state = paintHistory[paintHistoryIndex];
         paintBgCtx.putImageData(state.bg, 0, 0);
         paintFgCtx.putImageData(state.fg, 0, 0);
@@ -8967,6 +8972,7 @@ function setPaintTool(tool) {
         window.selectedSticker = null;
     }
     activePaintTool = tool;
+    if (tool !== 'pan') setTimeout(() => showPerigoTip(tool), 800);
     document.querySelectorAll('.paint-tool-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.paint-stamp-btn').forEach(btn => btn.classList.remove('active'));
 
@@ -9031,6 +9037,84 @@ function setPaintTool(tool) {
     }
 }
 window.setPaintTool = setPaintTool;
+
+// ==============================================
+// MC PERIGO — DICAS CONTEXTUAIS DO PAINT
+// ==============================================
+
+window.PerigoPaintTTS = {
+    speak: function(text) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        setTimeout(() => {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'pt-BR';
+            utterance.rate = 0.92;
+            utterance.pitch = 0.72;
+            const voices = window.speechSynthesis.getVoices();
+            const maleVoice = voices.find(v =>
+                v.lang.startsWith('pt') &&
+                (v.name.includes('Male') || v.name.includes('Masculino') ||
+                 v.name.includes('Daniel') || v.name.includes('Ricardo') ||
+                 v.name.includes('Luciano'))
+            );
+            const googlePt = voices.find(v => v.lang.startsWith('pt') && v.name.includes('Google'));
+            const anyPt = voices.find(v => v.lang.startsWith('pt'));
+            if (maleVoice) utterance.voice = maleVoice;
+            else if (googlePt) utterance.voice = googlePt;
+            else if (anyPt) utterance.voice = anyPt;
+            window.speechSynthesis.speak(utterance);
+        }, 50);
+    }
+};
+
+const PERIGO_TIPS = {
+    bucket:      "É o balde de tinta! Clica em qualquer área fechada e ela preenche todinha de uma vez. Rápido demais!",
+    brush:       "Pincel clássico na área! Faz traços suaves. Começa pelos detalhes menores — fica muito mais bonito!",
+    'brush-magic': "Pincel mágico ativado! Ele pinta por baixo do contorno sem sair da linha. Ideal pra não estragar o desenho!",
+    glitter:     "Glitter mágico! Passa em cima de qualquer cor pra adicionar brilho. Experimenta nos cabelos e asas — fica incrível!",
+    neon:        "Efeito neon ligado! Esse brilho fica mais bonito nas bordas e nos olhos do personagem. Vai lá!",
+    eraser:      "Borracha em campo! Usa o tamanho P pra corrigir detalhes e o GG pra apagar bastante de uma vez.",
+    pipette:     "Conta-gotas! Clica em qualquer cor que já está no desenho pra selecioná-la. Combina cores fácil!",
+    text:        "Modo texto! Clica onde você quer escrever e digita. Dá pra colocar seu nome na obra de arte!",
+    select:      "Modo de adesivos! Arrasta os adesivos pra onde você quiser e redimensiona pelos pontinhos nas bordas.",
+    milestone5:  "Cinco traços feitos! Você tá pegando o jeito. Continua assim que vai ficar incrível!",
+    milestone20: "Vinte traços! Olha só como tá ficando bonito. Você é um artista de verdade!",
+    firstBucket: "Primeiro balde usado! Área toda colorida numa tacada só. Eficiência máxima!",
+    firstUndo:   "Desfez! Ctrl Z é o melhor amigo do artista. Testa de novo sem medo!",
+    firstColor:  "Nova cor selecionada! Combinação de cores é o segredo de uma pintura marcante. Vai fundo!",
+    welcome:     "E aí! Sou o MC Perigo e tô aqui pra te ajudar nas pinturas. Escolhe uma ferramenta e manda ver!"
+};
+
+window._perigoTipsShown = window._perigoTipsShown || {};
+window._perigoTipCooldown = false;
+
+function showPerigoTip(key) {
+    const tip = PERIGO_TIPS[key];
+    if (!tip) return;
+    if (window._perigoTipsShown[key]) return;
+    if (window._perigoTipCooldown) return;
+
+    window._perigoTipsShown[key] = true;
+    window._perigoTipCooldown = true;
+    setTimeout(() => { window._perigoTipCooldown = false; }, 6000);
+
+    const helper = document.getElementById('kidcanvas-mascot-helper');
+    const textEl = document.getElementById('mascot-helper-text');
+    const casinha = document.getElementById('mascot-casinha-helper');
+    const isMinimized = sessionStorage.getItem('kidcanvas_mascot_minimized') === 'true';
+
+    if (isMinimized || !helper) return;
+
+    if (textEl) textEl.innerHTML = tip;
+    window.currentMascotText = tip;
+    helper.classList.add('visible');
+
+    const cleanTip = tip.replace(/[✀-➿]|[-]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[‑-⛿]|\uD83E[\uDD10-\uDDFF]/g, '');
+    window.PerigoPaintTTS.speak(cleanTip);
+}
+
+window.showPerigoTip = showPerigoTip;
 
 // Configurar Toolbar de Pintura
 document.getElementById('paint-tool-bucket').onclick = () => setPaintTool('bucket');
@@ -9420,8 +9504,10 @@ function stopPaintingDraw() {
         } else {
             window.strokeCount = (window.strokeCount || 0) + 1;
             savePaintHistory();
+            if (window.strokeCount === 5) showPerigoTip('milestone5');
+            if (window.strokeCount === 20) showPerigoTip('milestone20');
         }
-        
+
         // Resetar máscaras do pincel mágico
         magicBrushMaskCanvas = null;
         magicBrushMaskCtx = null;
@@ -9557,6 +9643,7 @@ function createGlitterPattern(colorRgb) {
 }
 
 function executePaintFloodFill(startX, startY, isGlitter) {
+    if (!isGlitter) showPerigoTip('firstBucket');
     const imgData = pCtx.getImageData(0, 0, paintCanvas.width, paintCanvas.height);
     const data = imgData.data;
     const width = paintCanvas.width;
