@@ -1053,9 +1053,22 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     // Registrar Service Worker para PWA (Offline & Cache)
     if ('serviceWorker' in navigator) {
+        // Recarregar a página automaticamente se o Service Worker for atualizado
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+                refreshing = true;
+                window.location.reload();
+            }
+        });
+
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js')
-                .then((reg) => console.log('Service Worker registrado:', reg.scope))
+                .then((reg) => {
+                    console.log('Service Worker registrado:', reg.scope);
+                    // Forçar verificação de atualização imediata
+                    reg.update();
+                })
                 .catch((err) => console.error('Erro ao registrar Service Worker:', err));
         });
     }

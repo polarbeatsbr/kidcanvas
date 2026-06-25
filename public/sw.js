@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kidcanvas-cache-v20';
+const CACHE_NAME = 'kidcanvas-cache-v22';
 const ASSETS = [
   '/',
   '/index.html',
