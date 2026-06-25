@@ -4825,54 +4825,17 @@
             }
         }
         
-        // Função robusta de envelopamento para selectPaintingColor (evita quebras e normaliza rgb/hex)
+        // Wrapper que intercepta o selectPaintingColor original do app.js para atualizar o CSS no mobile
         function wrapSelectPaintingColor() {
             if (typeof window.selectPaintingColor === 'function' && !window.selectPaintingColor.wrapped) {
                 const originalSelectColor = window.selectPaintingColor;
                 window.selectPaintingColor = function(rgb) {
-                    let normalizedRgb = [255, 94, 126]; // rosa padrão de fallback
-                    let hex = '#ff5e7e';
+                    // Executa a função interna original (atualiza a variável de desenho)
+                    originalSelectColor(rgb);
                     
-                    try {
-                        if (Array.isArray(rgb) && rgb.length >= 3) {
-                            let r = parseInt(rgb[0]);
-                            let g = parseInt(rgb[1]);
-                            let b = parseInt(rgb[2]);
-                            if (isNaN(r)) r = 0;
-                            if (isNaN(g)) g = 0;
-                            if (isNaN(b)) b = 0;
-                            normalizedRgb = [
-                                Math.max(0, Math.min(255, r)),
-                                Math.max(0, Math.min(255, g)),
-                                Math.max(0, Math.min(255, b))
-                            ];
-                            hex = '#' + normalizedRgb.map(x => x.toString(16).padStart(2, '0')).join('');
-                        } else if (typeof rgb === 'string') {
-                            let cleanHex = rgb.trim();
-                            if (cleanHex.startsWith('#')) {
-                                cleanHex = cleanHex.slice(1);
-                            }
-                            if (cleanHex.length === 3) {
-                                cleanHex = cleanHex[0] + cleanHex[0] + cleanHex[1] + cleanHex[1] + cleanHex[2] + cleanHex[2];
-                            }
-                            if (cleanHex.length === 6) {
-                                let r = parseInt(cleanHex.slice(0, 2), 16);
-                                let g = parseInt(cleanHex.slice(2, 4), 16);
-                                let b = parseInt(cleanHex.slice(4, 6), 16);
-                                if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
-                                    normalizedRgb = [r, g, b];
-                                    hex = '#' + cleanHex;
-                                }
-                            }
-                        }
-                    } catch (err) {
-                        console.warn("Erro ao processar cor em selectPaintingColor:", err);
-                    }
+                    const hex = '#' + rgb.map(x => x.toString(16).padStart(2, '0')).join('');
                     
-                    // Executa original
-                    originalSelectColor(normalizedRgb);
-                    
-                    // Sincroniza acordeão
+                    // Sincroniza a seleção visual no acordeão lateral desktop
                     document.querySelectorAll('.color-crayon').forEach(c => {
                         if (c.getAttribute('data-hex') === hex) {
                             c.classList.add('selected');
@@ -4881,7 +4844,7 @@
                         }
                     });
                     
-                    // Sincroniza barra de cores rápida mobile
+                    // Sincroniza a seleção visual nas bolinhas da barra mobile
                     document.querySelectorAll('.mobile-color-dot').forEach(d => {
                         const dHex = d.getAttribute('data-hex');
                         if (dHex && dHex.toLowerCase() === hex.toLowerCase()) {
@@ -4894,7 +4857,6 @@
                     window.selectedColorHex = hex;
                 };
                 window.selectPaintingColor.wrapped = true;
-                console.log("window.selectPaintingColor wrapped successfully.");
             }
         }
         
