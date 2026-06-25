@@ -4700,7 +4700,7 @@
         function wrapRouter() {
             const originalNavigate = window.navigate;
             window.navigate = function(path, pushState) {
-                if (path.includes('painel-teste.html')) {
+                if (path.includes('painel-teste.html') || path === '/t' || path.endsWith('/t') || path === '/t/') {
                     path = '/pintar-online';
                 }
                 
