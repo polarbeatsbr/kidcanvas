@@ -674,9 +674,9 @@
             position: fixed !important;
             bottom: 190px !important;
             right: 15px !important;
-            z-index: 1050 !important;
+            z-index: 9999 !important;
             pointer-events: none !important;
-            display: flex !important;
+            display: none !important;
             align-items: flex-end !important;
         }
 
@@ -898,8 +898,9 @@
             /* Custom mascot positioning and sizes on mobile to prevent overlapping */
             .mascot-container,
             .mascot-casinha-container {
-                bottom: 60px !important;
-                right: 8px !important;
+                bottom: 90px !important;
+                right: 10px !important;
+                z-index: 9999 !important;
             }
             .mascot-img {
                 width: 80px !important;
@@ -961,9 +962,10 @@
             position: fixed !important;
             bottom: 190px !important;
             right: 15px !important;
-            z-index: 1050 !important;
+            z-index: 9999 !important;
             cursor: pointer !important;
             pointer-events: auto !important;
+            display: none !important;
             animation: float 2.5s infinite ease-in-out !important;
             filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.2)) !important;
             transition: transform 0.2s ease !important;
@@ -978,6 +980,14 @@
         }
         .hidden-mascot {
             display: none !important;
+        }
+        
+        /* Oculta o mascote por padrão e mostra apenas quando o editor está ativo (body.paint-active) */
+        body.paint-active .mascot-container:not(.hidden-mascot) {
+            display: flex !important;
+        }
+        body.paint-active .mascot-casinha-container:not(.hidden-mascot) {
+            display: block !important;
         }
     </style>
     
@@ -4696,23 +4706,7 @@
             </div>
         </div>
 
-        <!-- Mascot Perigo Overlay positioned OUTSIDE the frame, bottom-right of workspace -->
-        <div class="mascot-container" id="mascot-full-container">
-            <div class="speech-bubble" id="mascot-bubble" onclick="speakMascot()">
-                "E aí! Escolha uma cor ou um adesivo para começar a criar magia! 🎨✨"
-            </div>
-            <div class="mascot-platform"></div>
-            <div class="mascot-wrapper" style="position: relative; pointer-events: auto;">
-                <div class="mascot-close-btn" onclick="minimizeMascot(event)">&times;</div>
-                <!-- Load Perigo Pintor dynamic image -->
-                <img src="/perigo-artista.png" alt="Perigo Artista" class="mascot-img" id="mascot-photo" onclick="speakMascot()" onerror="this.src='/mascot_artista.png'">
-            </div>
-        </div>
 
-        <!-- Mascot Casinha (Minimized State) -->
-        <div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-container" onclick="restoreMascot()">
-            <img src="/perigo-casinha.png" alt="Casa do Perigo" class="mascot-casinha-img">
-        </div>
 
     </div>
 
@@ -5233,6 +5227,24 @@
             }
         };
     </script>
+
+    <!-- Mascot Perigo Overlay (Child of body to prevent nesting issues) -->
+    <div class="mascot-container" id="mascot-full-container">
+        <div class="speech-bubble" id="mascot-bubble" onclick="speakMascot()">
+            "E aí! Escolha uma cor ou um adesivo para começar a criar magia! 🎨✨"
+        </div>
+        <div class="mascot-platform"></div>
+        <div class="mascot-wrapper" style="position: relative; pointer-events: auto;">
+            <div class="mascot-close-btn" onclick="minimizeMascot(event)">&times;</div>
+            <!-- Load Perigo Pintor dynamic image -->
+            <img src="/perigo-artista.png" alt="Perigo Artista" class="mascot-img" id="mascot-photo" onclick="speakMascot()" onerror="this.src='/mascot_artista.png'">
+        </div>
+    </div>
+
+    <!-- Mascot Casinha (Minimized State) -->
+    <div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-container" onclick="restoreMascot()">
+        <img src="/perigo-casinha.png" alt="Casa do Perigo" class="mascot-casinha-img">
+    </div>
     
 </body>
 </html>
