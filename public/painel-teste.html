@@ -885,6 +885,55 @@
             }
 
         }
+
+        /* Mascot Minimization and Casinha Styles */
+        .mascot-close-btn {
+            position: absolute !important;
+            top: 2px !important;
+            right: 2px !important;
+            background: #e64980 !important;
+            color: white !important;
+            border: 2px solid #120826 !important;
+            border-radius: 50% !important;
+            width: 22px !important;
+            height: 22px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            font-size: 0.85rem !important;
+            font-weight: bold !important;
+            cursor: pointer !important;
+            pointer-events: auto !important;
+            z-index: 107 !important;
+            box-shadow: 2px 2px 0px #120826 !important;
+            transition: all 0.1s ease !important;
+        }
+        .mascot-close-btn:hover {
+            transform: scale(1.1) !important;
+            background: #ff2800 !important;
+        }
+        .mascot-casinha-container {
+            position: absolute !important;
+            bottom: 10px !important;
+            right: 15px !important;
+            z-index: 1050 !important;
+            cursor: pointer !important;
+            pointer-events: auto !important;
+            animation: float 2.5s infinite ease-in-out !important;
+            filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.2)) !important;
+            transition: transform 0.2s ease !important;
+        }
+        .mascot-casinha-container:hover {
+            transform: scale(1.08) !important;
+        }
+        .mascot-casinha-img {
+            width: 80px !important;
+            height: auto !important;
+            display: block !important;
+        }
+        .hidden-mascot {
+            display: none !important;
+        }
     </style>
     
 </head>
@@ -4612,13 +4661,21 @@
         </div>
 
         <!-- Mascot Perigo Overlay positioned OUTSIDE the frame, bottom-right of workspace -->
-        <div class="mascot-container">
+        <div class="mascot-container" id="mascot-full-container">
             <div class="speech-bubble" id="mascot-bubble" onclick="speakMascot()">
                 "E aí! Escolha uma cor ou um adesivo para começar a criar magia! 🎨✨"
             </div>
             <div class="mascot-platform"></div>
-            <!-- Load Perigo Pintor dynamic image -->
-            <img src="/mascot_perigo_3d.png" alt="Perigo Rapper" class="mascot-img" id="mascot-photo" onclick="speakMascot()" onerror="this.src='/mascot_artista.png'">
+            <div class="mascot-wrapper" style="position: relative; pointer-events: auto;">
+                <div class="mascot-close-btn" onclick="minimizeMascot(event)">&times;</div>
+                <!-- Load Perigo Pintor dynamic image -->
+                <img src="/perigo-artista.png" alt="Perigo Artista" class="mascot-img" id="mascot-photo" onclick="speakMascot()" onerror="this.src='/mascot_artista.png'">
+            </div>
+        </div>
+
+        <!-- Mascot Casinha (Minimized State) -->
+        <div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-container" onclick="restoreMascot()">
+            <img src="/perigo-casinha.png" alt="Casa do Perigo" class="mascot-casinha-img">
         </div>
 
     </div>
@@ -5016,6 +5073,38 @@
                 }
             }
         });
+
+        // Mascot Minimization Logic
+        window.minimizeMascot = function(event) {
+            if (event) event.stopPropagation();
+            const fullEl = document.getElementById('mascot-full-container');
+            const casinhaEl = document.getElementById('mascot-casinha-container');
+            if (fullEl) fullEl.classList.add('hidden-mascot');
+            if (casinhaEl) casinhaEl.classList.remove('hidden-mascot');
+            sessionStorage.setItem('kidcanvas_mascot_minimized', 'true');
+        };
+
+        window.restoreMascot = function() {
+            const fullEl = document.getElementById('mascot-full-container');
+            const casinhaEl = document.getElementById('mascot-casinha-container');
+            if (fullEl) fullEl.classList.remove('hidden-mascot');
+            if (casinhaEl) casinhaEl.classList.add('hidden-mascot');
+            sessionStorage.setItem('kidcanvas_mascot_minimized', 'false');
+        };
+
+        // Initialize state from sessionStorage immediately
+        (function() {
+            const isMinimized = sessionStorage.getItem('kidcanvas_mascot_minimized') === 'true';
+            const fullEl = document.getElementById('mascot-full-container');
+            const casinhaEl = document.getElementById('mascot-casinha-container');
+            if (isMinimized) {
+                if (fullEl) fullEl.classList.add('hidden-mascot');
+                if (casinhaEl) casinhaEl.classList.remove('hidden-mascot');
+            } else {
+                if (fullEl) fullEl.classList.remove('hidden-mascot');
+                if (casinhaEl) casinhaEl.classList.add('hidden-mascot');
+            }
+        })();
     </script>
     
 </body>

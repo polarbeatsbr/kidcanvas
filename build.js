@@ -11,6 +11,8 @@ const filesToCopy = [
     'mascot_artista.png',
     'mascot_mago.png',
     'mascot_lenda.png',
+    'perigo-artista.png',
+    'perigo-casinha.png',
     'index.html',
     'historia.html',
     'admin.html',
