@@ -61,7 +61,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1781893000000">
+    <link rel="stylesheet" href="/style.css?v=1782800000000">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -4723,7 +4723,7 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/app.js?v=1781893000000"></script>
+<script src="/app.js?v=1782800000000"></script>
 
     <script>
         (function() {
@@ -4780,33 +4780,9 @@
                 }
             };
 
-            // Função de fala do Mascote Perigo com síntese de voz (pt-BR)
+            // Função de fala do Mascote Perigo (DESATIVADO)
             window.speakMascot = function() {
-                if (window.KidCanvasAudio) {
-                    window.KidCanvasAudio.playPop();
-                }
-                const phrases = [
-                    "E aí! Escolha uma cor ou um adesivo para começar sua obra! 🎨✨",
-                    "Você é um grande artista! 🖌️⭐",
-                    "Nossa, que cores lindas! 🌈💖",
-                    "Vamos fazer uma obra prima juntos! 🎨💎",
-                    "Se precisar mover a tela, use o botão da mãozinha 🖐️!"
-                ];
-                const phrase = phrases[Math.floor(Math.random() * phrases.length)];
-                const bubble = document.getElementById('mascot-bubble');
-                if (bubble) {
-                    bubble.innerText = `"${phrase}"`;
-                }
-                
-                if ('speechSynthesis' in window) {
-                    try {
-                        window.speechSynthesis.cancel();
-                        const utterance = new SpeechSynthesisUtterance(phrase.replace(/[🎨✨🖌️⭐🌈💖💎🖐️]/g, ''));
-                        utterance.lang = 'pt-BR';
-                        utterance.rate = 1.1;
-                        window.speechSynthesis.speak(utterance);
-                    } catch(e) {}
-                }
+                // No-op
             };
 
             // Animação de confetes ao salvar a pintura
