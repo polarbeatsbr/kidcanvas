@@ -72,7 +72,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1782900000000">
+    <link rel="stylesheet" href="/style.css?v=1783000000000">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -4697,7 +4697,7 @@
         </div>
 
         <!-- Mascot Perigo Overlay positioned OUTSIDE the frame, bottom-right of workspace -->
-        <div class="mascot-container" id="mascot-full-container">
+        <div class="mascot-container" id="mascot-full-container" style="display: none !important;">
             <div class="speech-bubble" id="mascot-bubble" onclick="speakMascot()">
                 "E aí! Escolha uma cor ou um adesivo para começar a criar magia! 🎨✨"
             </div>
@@ -4710,7 +4710,7 @@
         </div>
 
         <!-- Mascot Casinha (Minimized State) -->
-        <div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-container" onclick="restoreMascot()">
+        <div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-container" onclick="restoreMascot()" style="display: none !important;">
             <img src="/perigo-casinha.png" alt="Casa do Perigo" class="mascot-casinha-img">
         </div>
 
@@ -4764,7 +4764,7 @@
     </div>
 </section>
 
-<script src="/app.js?v=1782356600000"></script>
+<script src="/app.js?v=1783000000000"></script>
 
     <script>
         // Sandbox 2.0 SPA Routing and Seeding Hook
@@ -5124,36 +5124,28 @@
             }
         });
 
-        // Mascot Minimization Logic
+        // Mascot Minimization Logic (Neutralized)
         window.minimizeMascot = function(event) {
             if (event) event.stopPropagation();
             const fullEl = document.getElementById('mascot-full-container');
             const casinhaEl = document.getElementById('mascot-casinha-container');
-            if (fullEl) fullEl.classList.add('hidden-mascot');
-            if (casinhaEl) casinhaEl.classList.remove('hidden-mascot');
-            sessionStorage.setItem('kidcanvas_mascot_minimized', 'true');
+            if (fullEl) fullEl.style.setProperty('display', 'none', 'important');
+            if (casinhaEl) casinhaEl.style.setProperty('display', 'none', 'important');
         };
 
         window.restoreMascot = function() {
             const fullEl = document.getElementById('mascot-full-container');
             const casinhaEl = document.getElementById('mascot-casinha-container');
-            if (fullEl) fullEl.classList.remove('hidden-mascot');
-            if (casinhaEl) casinhaEl.classList.add('hidden-mascot');
-            sessionStorage.setItem('kidcanvas_mascot_minimized', 'false');
+            if (fullEl) fullEl.style.setProperty('display', 'none', 'important');
+            if (casinhaEl) casinhaEl.style.setProperty('display', 'none', 'important');
         };
 
         // Initialize state from sessionStorage immediately
         (function() {
-            const isMinimized = sessionStorage.getItem('kidcanvas_mascot_minimized') === 'true';
             const fullEl = document.getElementById('mascot-full-container');
             const casinhaEl = document.getElementById('mascot-casinha-container');
-            if (isMinimized) {
-                if (fullEl) fullEl.classList.add('hidden-mascot');
-                if (casinhaEl) casinhaEl.classList.remove('hidden-mascot');
-            } else {
-                if (fullEl) fullEl.classList.remove('hidden-mascot');
-                if (casinhaEl) casinhaEl.classList.add('hidden-mascot');
-            }
+            if (fullEl) fullEl.style.setProperty('display', 'none', 'important');
+            if (casinhaEl) casinhaEl.style.setProperty('display', 'none', 'important');
         })();
 
         // Redirecionar dicas contextuais do Perigo para o balão local

@@ -61,7 +61,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1782900000000">
+    <link rel="stylesheet" href="/style.css?v=1783000000000">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -3238,7 +3238,7 @@
                         </div>
 
                         <!-- Mascot fixo removido — substituído pelo widget flutuante #kidcanvas-mascot-helper -->
-                        <div class="mascot-container" style="display:none">
+                        <div class="mascot-container" style="display: none !important;">
                             <div class="speech-bubble" id="mascot-bubble"></div>
                             <div class="mascot-platform"></div>
                             <img src="/perigo-artista.png" alt="Perigo Pintor" class="mascot-img" id="mascot-photo">
@@ -4696,7 +4696,7 @@
 </div>
 
 <!-- Mascote Assistente Flutuante -->
-<div id="kidcanvas-mascot-helper" class="mascot-helper-widget">
+<div id="kidcanvas-mascot-helper" class="mascot-helper-widget" style="display: none !important;">
     <div class="mascot-helper-bubble">
         <span id="mascot-helper-text">Olá! Vamos colorir juntos?</span>
     </div>
@@ -4707,12 +4707,12 @@
 </div>
 
 <!-- Casinha do Perigo (estado minimizado) -->
-<div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-helper" onclick="restoreMascotHelper()">
+<div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-helper" onclick="restoreMascotHelper()" style="display: none !important;">
     <img src="/perigo-casinha.png" alt="Casa do Perigo" class="mascot-casinha-img">
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/app.js?v=1781893000000"></script>
+<script src="/app.js?v=1783000000000"></script>
 
     <script>
         (function() {
