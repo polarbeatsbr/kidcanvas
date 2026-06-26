@@ -1370,6 +1370,23 @@ function initGlobalEventListeners() {
     }
 }
 
+window.goBackFromPaint = function(e) {
+    if (e) e.preventDefault();
+    if (window.paintAutosaveInterval) {
+        clearInterval(window.paintAutosaveInterval);
+        window.paintAutosaveInterval = null;
+    }
+    const data = window.currentPaintingData;
+    const backUrl = (data && data.backUrl) ? data.backUrl : '/';
+    
+    if (window.location.pathname.includes('/t') || window.location.pathname.includes('painel-teste.html')) {
+        window.location.href = backUrl;
+    } else {
+        document.body.classList.remove('paint-active');
+        navigate(backUrl);
+    }
+};
+
 function navigate(path, pushState = true) {
     if (window.paintAutosaveInterval) {
         clearInterval(window.paintAutosaveInterval);
@@ -1381,6 +1398,10 @@ function navigate(path, pushState = true) {
     let cleanPath = path.trim();
     if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
         cleanPath = cleanPath.slice(0, -1);
+    }
+    
+    if (cleanPath !== '/pintar-online') {
+        document.body.classList.remove('paint-active');
     }
     
     // Salvar posição de scroll antes de navegar
@@ -7303,6 +7324,7 @@ function renderPintarOnlineView() {
     window.paintInitializing = true;
     document.title = "Colorir Online — KidCanvas 🎨";
     setMetaDescription("Colore e pinte online usando lápis de cor, balde de tinta e glitter mágico de forma interativa.");
+    document.body.classList.add('paint-active');
 
     // Setup dynamic Golden Frame sizing (disabled - reverted to fixed full-size frame layout)
     window.resizePaintFrame = function() {};
@@ -9570,6 +9592,52 @@ function executePaintFloodFill(startX, startY, isGlitter) {
         return;
     }
 
+    // Gerar máscara de colisão dilatada (linhas mais grossas) para fechar pequenas frestas
+    const dilatedCanvas = document.createElement('canvas');
+    dilatedCanvas.width = width;
+    dilatedCanvas.height = height;
+    const dCtx = dilatedCanvas.getContext('2d');
+    
+    // Preenche fundo com branco
+    dCtx.fillStyle = '#ffffff';
+    dCtx.fillRect(0, 0, width, height);
+    
+    // Desenha o outline original deslocado em 1px nas 8 direções para dilatar
+    if (paintDrawingImage) {
+        const aspect = paintDrawingImage.width / paintDrawingImage.height;
+        let dw = width;
+        let dh = height;
+        let dx = 0;
+        let dy = 0;
+        if (aspect > 4/3) {
+            dh = width / aspect;
+            dy = (height - dh) / 2;
+        } else {
+            dw = height * aspect;
+            dx = (width - dw) / 2;
+        }
+        
+        const offset = 1;
+        for (let ox = -offset; ox <= offset; ox++) {
+            for (let oy = -offset; oy <= offset; oy++) {
+                dCtx.drawImage(paintDrawingImage, dx + ox, dy + oy, dw, dh);
+            }
+        }
+    }
+    
+    // Desenha as linhas manuais desenhadas pelo usuário com offsets
+    if (paintFgCanvas) {
+        const offset = 1;
+        for (let ox = -offset; ox <= offset; ox++) {
+            for (let oy = -offset; oy <= offset; oy++) {
+                dCtx.drawImage(paintFgCanvas, ox, oy);
+            }
+        }
+    }
+    
+    const dilatedImgData = dCtx.getImageData(0, 0, width, height);
+    const dilatedData = dilatedImgData.data;
+
     // Log action for replay
     if (!window.paintActions) window.paintActions = [];
     window.paintActions.push({
@@ -9626,7 +9694,8 @@ function executePaintFloodFill(startX, startY, isGlitter) {
                     visited[nIdx] = 1;
                     const pIdx = nIdx * 4;
 
-                    if (!isOutline(data[pIdx], data[pIdx+1], data[pIdx+2], data[pIdx+3])) {
+                    // Verifica se é contorno no mapa DILATADO para evitar vazamentos
+                    if (!isOutline(dilatedData[pIdx], dilatedData[pIdx+1], dilatedData[pIdx+2], dilatedData[pIdx+3])) {
                         stack.push([nx, ny]);
                     }
                 }
