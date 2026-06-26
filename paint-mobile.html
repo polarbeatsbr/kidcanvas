@@ -1418,6 +1418,18 @@ function hexToRgb(hex) {
 function clearCanvas() {
   if (!confirm('Limpar tudo? Isso não pode ser desfeito!')) return;
   saveHistory();
+
+  // Remove any active (unconfirmed) stickers/texts from DOM
+  const wrapper = document.getElementById('canvas-wrapper');
+  if (wrapper) {
+    const children = Array.from(wrapper.children);
+    children.forEach(child => {
+      if (child.id !== 'main-canvas' && !child.classList.contains('canvas-hud')) {
+        wrapper.removeChild(child);
+      }
+    });
+  }
+
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   if (STATE.currentDrawingUrl) loadImageToCanvas(STATE.currentDrawingUrl, false);
@@ -2145,6 +2157,7 @@ function makeDraggable(el, wrapper, onConfirm) {
   updateTransform();
 
   el.addEventListener('touchstart', (e) => {
+    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
     e.stopPropagation();
     if (e.touches.length === 2) {
       startPinchDist = Math.hypot(
@@ -2164,6 +2177,7 @@ function makeDraggable(el, wrapper, onConfirm) {
   }, {passive:false});
 
   el.addEventListener('touchmove', (e) => {
+    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
     e.stopPropagation();
     e.preventDefault();
     if (e.touches.length === 2) {
@@ -2183,6 +2197,7 @@ function makeDraggable(el, wrapper, onConfirm) {
   }, {passive:false});
 
   el.addEventListener('touchend', (e) => {
+    if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
     e.stopPropagation();
     isDragging = false;
   });
