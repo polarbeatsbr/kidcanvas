@@ -2145,6 +2145,7 @@ function makeDraggable(el, wrapper, onConfirm) {
   updateTransform();
 
   el.addEventListener('touchstart', (e) => {
+    e.stopPropagation();
     if (e.touches.length === 2) {
       startPinchDist = Math.hypot(
         e.touches[0].clientX-e.touches[1].clientX,
@@ -2163,6 +2164,7 @@ function makeDraggable(el, wrapper, onConfirm) {
   }, {passive:false});
 
   el.addEventListener('touchmove', (e) => {
+    e.stopPropagation();
     e.preventDefault();
     if (e.touches.length === 2) {
       const dist = Math.hypot(
@@ -2180,7 +2182,10 @@ function makeDraggable(el, wrapper, onConfirm) {
     updateTransform();
   }, {passive:false});
 
-  el.addEventListener('touchend', () => { isDragging = false; });
+  el.addEventListener('touchend', (e) => {
+    e.stopPropagation();
+    isDragging = false;
+  });
 
   // Mouse (desktop)
   el.addEventListener('mousedown', (e) => {
