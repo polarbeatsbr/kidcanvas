@@ -10815,6 +10815,10 @@ function selectRouletteDrawing(index) {
 }
 
 function startBlankCanvas() {
+    if (window.innerWidth <= 768) {
+        window.location.href = '/t';
+        return;
+    }
     window.currentPaintingData = {
         imgUrl: 'blank',
         name: 'Desenho Livre',
