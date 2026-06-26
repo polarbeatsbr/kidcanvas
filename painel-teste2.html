@@ -1105,7 +1105,32 @@ function rgbToHex(rgb) {
 }
 
 // ==================== FERRAMENTAS ====================
+function bindAction(btn, handler) {
+  let executed = false;
+  const run = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (executed) return;
+    executed = true;
+    setTimeout(() => { executed = false; }, 500);
+    handler(e);
+  };
+  btn.addEventListener('touchstart', run, { passive: false });
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (executed) return;
+    handler(e);
+  });
+}
+
 function selectTool(t) {
+  // If selecting a drawing tool, deactivate pan mode!
+  if (t !== 'pan') {
+    isPanMode = false;
+    const btn = document.getElementById('hud-pan');
+    if (btn) btn.classList.remove('active');
+  }
+
   STATE.tool = t;
   document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
   const btn = document.getElementById('tool-' + t);
@@ -2230,6 +2255,7 @@ function makeDraggable(el, wrapper, onConfirm) {
     STATE.isInteractingWithSticker = true;
     e.stopPropagation();
     if (e.touches.length === 2) {
+      e.preventDefault();
       startPinchDist = Math.hypot(
         e.touches[0].clientX-e.touches[1].clientX,
         e.touches[0].clientY-e.touches[1].clientY
@@ -2270,7 +2296,17 @@ function makeDraggable(el, wrapper, onConfirm) {
     if (e.target.tagName === 'BUTTON' || e.target.closest('button')) return;
     e.stopPropagation();
     isDragging = false;
-    STATE.isInteractingWithSticker = false;
+    if (e.touches.length === 0) {
+      STATE.isInteractingWithSticker = false;
+    }
+  });
+
+  el.addEventListener('touchcancel', (e) => {
+    e.stopPropagation();
+    isDragging = false;
+    if (e.touches.length === 0) {
+      STATE.isInteractingWithSticker = false;
+    }
   });
 
   // Mouse (desktop)
@@ -2324,8 +2360,7 @@ function placeSvgSticker(key, src) {
 
   const dragger = makeDraggable(el, wrapper);
 
-  okBtn.onclick = (e) => {
-    e.stopPropagation();
+  bindAction(okBtn, (e) => {
     const { posX, posY, scale, rotation } = dragger.getState();
     saveHistory();
     const wrapRect = wrapper.getBoundingClientRect();
@@ -2343,14 +2378,18 @@ function placeSvgSticker(key, src) {
       ctx.rotate(rotation * Math.PI / 180);
       ctx.drawImage(svgImg, -w/2, -h/2, w, h);
       ctx.restore();
-      wrapper.removeChild(el);
+      if (wrapper.contains(el)) wrapper.removeChild(el);
+      STATE.isInteractingWithSticker = false;
       STATE.frames.push(canvas.toDataURL('image/jpeg',0.5));
       saveHistory(); autoSave();
       showToast('Adesivo colado! ✅');
     };
     svgImg.src = src;
-  };
-  cancelBtn.onclick = (e) => { e.stopPropagation(); wrapper.removeChild(el); };
+  });
+  bindAction(cancelBtn, (e) => {
+    if (wrapper.contains(el)) wrapper.removeChild(el);
+    STATE.isInteractingWithSticker = false;
+  });
   showToast('Arraste • Belisque pra escalar • Gire com 2 dedos • ✅');
 }
 
@@ -2394,8 +2433,7 @@ function placeSticker(emoji) {
 
   const dragger = makeDraggable(el, wrapper);
 
-  okBtn.onclick = (ev) => {
-    ev.stopPropagation();
+  bindAction(okBtn, (ev) => {
     const { posX, posY, scale, rotation } = dragger.getState();
     saveHistory();
     const wrapRect = wrapper.getBoundingClientRect();
@@ -2414,15 +2452,16 @@ function placeSticker(emoji) {
     ctx.fillText(emoji, 0, 0);
     ctx.restore();
     if (wrapper.contains(el)) wrapper.removeChild(el);
+    STATE.isInteractingWithSticker = false;
     STATE.frames.push(canvas.toDataURL('image/jpeg', 0.5));
     saveHistory(); autoSave();
     showToast('Adesivo colado! ✅');
-  };
+  });
 
-  cancelBtn.onclick = (ev) => {
-    ev.stopPropagation();
+  bindAction(cancelBtn, (ev) => {
     if (wrapper.contains(el)) wrapper.removeChild(el);
-  };
+    STATE.isInteractingWithSticker = false;
+  });
 
   showToast('Arraste • Belisque • Gire com 2 dedos • ✅');
 }
@@ -2498,8 +2537,7 @@ function addTextToCanvas() {
 
   const dragger = makeDraggable(el, wrapper);
 
-  okBtn.onclick = (ev) => {
-    ev.stopPropagation();
+  bindAction(okBtn, (ev) => {
     const { posX, posY, scale, rotation } = dragger.getState();
     saveHistory();
     const wrapRect = wrapper.getBoundingClientRect();
@@ -2548,15 +2586,16 @@ function addTextToCanvas() {
     }
     ctx.restore();
     if (wrapper.contains(el)) wrapper.removeChild(el);
+    STATE.isInteractingWithSticker = false;
     STATE.frames.push(canvas.toDataURL('image/jpeg', 0.5));
     saveHistory(); autoSave();
     showToast('Texto colado! ✅');
-  };
+  });
 
-  cancelBtn.onclick = (ev) => {
-    ev.stopPropagation();
+  bindAction(cancelBtn, (ev) => {
     if (wrapper.contains(el)) wrapper.removeChild(el);
-  };
+    STATE.isInteractingWithSticker = false;
+  });
 
   showToast('Arraste • Belisque • Gire com 2 dedos • ✅');
 }
@@ -2681,6 +2720,12 @@ function togglePan() {
   btn.classList.toggle('active', isPanMode);
   canvas.style.cursor = isPanMode ? 'grab' : 'crosshair';
   STATE.drawing = false;
+  if (isPanMode) {
+    document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+  } else {
+    const tbtn = document.getElementById('tool-' + STATE.tool);
+    if (tbtn) tbtn.classList.add('active');
+  }
 }
 
 // Pan unificado (touch e mouse)
