@@ -72,7 +72,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1783000000000">
+    <link rel="stylesheet" href="/style.css?v=1783100000000">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -4696,23 +4696,7 @@
             </div>
         </div>
 
-        <!-- Mascot Perigo Overlay positioned OUTSIDE the frame, bottom-right of workspace -->
-        <div class="mascot-container" id="mascot-full-container" style="display: none !important;">
-            <div class="speech-bubble" id="mascot-bubble" onclick="speakMascot()">
-                "E aí! Escolha uma cor ou um adesivo para começar a criar magia! 🎨✨"
-            </div>
-            <div class="mascot-platform"></div>
-            <div class="mascot-wrapper" style="position: relative; pointer-events: auto;">
-                <div class="mascot-close-btn" onclick="minimizeMascot(event)">&times;</div>
-                <!-- Load Perigo Pintor dynamic image -->
-                <img src="/perigo-artista.png" alt="Perigo Artista" class="mascot-img" id="mascot-photo" onclick="speakMascot()" onerror="this.src='/mascot_artista.png'">
-            </div>
-        </div>
-
-        <!-- Mascot Casinha (Minimized State) -->
-        <div class="mascot-casinha-container hidden-mascot" id="mascot-casinha-container" onclick="restoreMascot()" style="display: none !important;">
-            <img src="/perigo-casinha.png" alt="Casa do Perigo" class="mascot-casinha-img">
-        </div>
+        <!-- Mascot Perigo Overlay removido completamente do HTML DOM -->
 
     </div>
 
@@ -4764,7 +4748,7 @@
     </div>
 </section>
 
-<script src="/app.js?v=1783000000000"></script>
+<script src="/app.js?v=1783100000000"></script>
 
     <script>
         // Sandbox 2.0 SPA Routing and Seeding Hook
