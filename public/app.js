@@ -10940,6 +10940,64 @@ window.startBlankCanvas = startBlankCanvas;
 // ==============================================
 
 const stickerCategories = {
+    chapeus: [
+        { name: "Chapéu 1", url: "/stickers/chapeus/hat_001.png" },
+        { name: "Chapéu 2", url: "/stickers/chapeus/hat_002.png" },
+        { name: "Chapéu 3", url: "/stickers/chapeus/hat_003.png" },
+        { name: "Chapéu 4", url: "/stickers/chapeus/hat_004.png" },
+        { name: "Chapéu 5", url: "/stickers/chapeus/hat_005.png" },
+        { name: "Chapéu 6", url: "/stickers/chapeus/hat_006.png" },
+        { name: "Chapéu 7", url: "/stickers/chapeus/hat_007.png" },
+        { name: "Chapéu 8", url: "/stickers/chapeus/hat_008.png" },
+        { name: "Chapéu 9", url: "/stickers/chapeus/hat_009.png" },
+        { name: "Chapéu 10", url: "/stickers/chapeus/hat_010.png" },
+        { name: "Chapéu 11", url: "/stickers/chapeus/hat_011.png" },
+        { name: "Chapéu 12", url: "/stickers/chapeus/hat_012.png" },
+        { name: "Chapéu 13", url: "/stickers/chapeus/hat_013.png" },
+        { name: "Chapéu 14", url: "/stickers/chapeus/hat_014.png" },
+        { name: "Chapéu 15", url: "/stickers/chapeus/hat_015.png" },
+        { name: "Chapéu 16", url: "/stickers/chapeus/hat_016.png" },
+        { name: "Chapéu 17", url: "/stickers/chapeus/hat_017.png" },
+        { name: "Chapéu 18", url: "/stickers/chapeus/hat_018.png" },
+        { name: "Chapéu 19", url: "/stickers/chapeus/hat_019.png" },
+        { name: "Chapéu 20", url: "/stickers/chapeus/hat_020.png" },
+        { name: "Chapéu 21", url: "/stickers/chapeus/hat_021.png" },
+        { name: "Chapéu 22", url: "/stickers/chapeus/hat_022.png" },
+        { name: "Chapéu 23", url: "/stickers/chapeus/hat_023.png" },
+        { name: "Chapéu 24", url: "/stickers/chapeus/hat_025.png" },
+        { name: "Chapéu 25", url: "/stickers/chapeus/hat_026.png" },
+        { name: "Chapéu 26", url: "/stickers/chapeus/hat_027.png" },
+        { name: "Chapéu 27", url: "/stickers/chapeus/hat_028.png" },
+        { name: "Chapéu 28", url: "/stickers/chapeus/hat_029.png" },
+        { name: "Chapéu 29", url: "/stickers/chapeus/hat_030.png" },
+        { name: "Chapéu 30", url: "/stickers/chapeus/hat_031.png" },
+        { name: "Chapéu 31", url: "/stickers/chapeus/hat_032.png" },
+        { name: "Chapéu 32", url: "/stickers/chapeus/hat_034.png" },
+        { name: "Chapéu 33", url: "/stickers/chapeus/hat_035.png" },
+        { name: "Chapéu 34", url: "/stickers/chapeus/hat_037.png" },
+        { name: "Chapéu 35", url: "/stickers/chapeus/hat_038.png" },
+        { name: "Chapéu 36", url: "/stickers/chapeus/hat_039.png" },
+        { name: "Chapéu 37", url: "/stickers/chapeus/hat_040.png" },
+        { name: "Chapéu 38", url: "/stickers/chapeus/hat_041.png" },
+        { name: "Chapéu 39", url: "/stickers/chapeus/hat_042.png" },
+        { name: "Chapéu 40", url: "/stickers/chapeus/hat_043.png" },
+        { name: "Chapéu 41", url: "/stickers/chapeus/hat_044.png" },
+        { name: "Chapéu 42", url: "/stickers/chapeus/hat_045.png" },
+        { name: "Chapéu 43", url: "/stickers/chapeus/hat_046.png" },
+        { name: "Chapéu 44", url: "/stickers/chapeus/hat_047.png" },
+        { name: "Chapéu 45", url: "/stickers/chapeus/hat_048.png" },
+        { name: "Chapéu 46", url: "/stickers/chapeus/hat_049.png" },
+        { name: "Chapéu 47", url: "/stickers/chapeus/hat_050.png" },
+        { name: "Chapéu 48", url: "/stickers/chapeus/hat_051.png" },
+        { name: "Chapéu 49", url: "/stickers/chapeus/hat_053.png" },
+        { name: "Chapéu 50", url: "/stickers/chapeus/hat_054.png" },
+        { name: "Chapéu 51", url: "/stickers/chapeus/hat_055.png" },
+        { name: "Chapéu 52", url: "/stickers/chapeus/hat_056.png" },
+        { name: "Chapéu 53", url: "/stickers/chapeus/hat_057.png" },
+        { name: "Chapéu 54", url: "/stickers/chapeus/hat_058.png" },
+        { name: "Chapéu 55", url: "/stickers/chapeus/hat_059.png" },
+        { name: "Chapéu 56", url: "/stickers/chapeus/hat_060.png" },
+    ],
     top: ['😎', '👑', '🌈', '⭐', '❤️', '🎈', '🦋', '🐶', '🐱', '☀️', '🌙', '🚀', '🏆'],
     animais: ['🦁', '🐯', '🐱', '🐶', '🐰', '🦊', '🐻', '🐼', '🐨', '🐵', '🐸', '🐹', '🐧', '🐥', '🐝', '🐞', '🦋'],
     dinossauros: ['🦖', '🦕', '🐊', '🐢', '🦎', '🐍', '🐲', '🐉', '🥚'],
@@ -11022,7 +11080,7 @@ function switchStickerTab(tab) {
             btn.classList.remove('active');
         });
         const btns = container.querySelectorAll('.sticker-tab-btn');
-        const tabNames = ['top', 'animais', 'dinossauros', 'natureza', 'festa', 'espaco', 'fantasia', 'acessorios', 'desbloqueaveis'];
+        const tabNames = ['top', 'animais', 'dinossauros', 'natureza', 'festa', 'espaco', 'fantasia', 'acessorios', 'chapeus', 'desbloqueaveis'];
         const idx = tabNames.indexOf(tab);
         if (idx !== -1 && btns[idx]) {
             btns[idx].classList.add('active');

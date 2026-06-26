@@ -783,6 +783,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--kc-d
       <button class="sticker-cat-btn" onclick="filterStickers(8,this)">🎨 Variados</button>
       <button class="sticker-cat-btn" onclick="filterStickers(9,this)">👓 Óculos</button>
       <button class="sticker-cat-btn" onclick="filterStickers(10,this)">👄 Bocas</button>
+      <button class="sticker-cat-btn" onclick="filterStickers(11,this)">🎩 Chapéus</button>
     </div>
     <div id="sticker-grid"></div>
   </div>
@@ -2126,6 +2127,124 @@ const BOCAS_NAMES = {
   "boca1": "Boca 1",
   "boca2": "Boca 2",
 };
+const CHAPEUS_STICKERS = {
+  "hat_001": "/stickers/chapeus/hat_001.png",
+  "hat_002": "/stickers/chapeus/hat_002.png",
+  "hat_003": "/stickers/chapeus/hat_003.png",
+  "hat_004": "/stickers/chapeus/hat_004.png",
+  "hat_005": "/stickers/chapeus/hat_005.png",
+  "hat_006": "/stickers/chapeus/hat_006.png",
+  "hat_007": "/stickers/chapeus/hat_007.png",
+  "hat_008": "/stickers/chapeus/hat_008.png",
+  "hat_009": "/stickers/chapeus/hat_009.png",
+  "hat_010": "/stickers/chapeus/hat_010.png",
+  "hat_011": "/stickers/chapeus/hat_011.png",
+  "hat_012": "/stickers/chapeus/hat_012.png",
+  "hat_013": "/stickers/chapeus/hat_013.png",
+  "hat_014": "/stickers/chapeus/hat_014.png",
+  "hat_015": "/stickers/chapeus/hat_015.png",
+  "hat_016": "/stickers/chapeus/hat_016.png",
+  "hat_017": "/stickers/chapeus/hat_017.png",
+  "hat_018": "/stickers/chapeus/hat_018.png",
+  "hat_019": "/stickers/chapeus/hat_019.png",
+  "hat_020": "/stickers/chapeus/hat_020.png",
+  "hat_021": "/stickers/chapeus/hat_021.png",
+  "hat_022": "/stickers/chapeus/hat_022.png",
+  "hat_023": "/stickers/chapeus/hat_023.png",
+  "hat_025": "/stickers/chapeus/hat_025.png",
+  "hat_026": "/stickers/chapeus/hat_026.png",
+  "hat_027": "/stickers/chapeus/hat_027.png",
+  "hat_028": "/stickers/chapeus/hat_028.png",
+  "hat_029": "/stickers/chapeus/hat_029.png",
+  "hat_030": "/stickers/chapeus/hat_030.png",
+  "hat_031": "/stickers/chapeus/hat_031.png",
+  "hat_032": "/stickers/chapeus/hat_032.png",
+  "hat_034": "/stickers/chapeus/hat_034.png",
+  "hat_035": "/stickers/chapeus/hat_035.png",
+  "hat_037": "/stickers/chapeus/hat_037.png",
+  "hat_038": "/stickers/chapeus/hat_038.png",
+  "hat_039": "/stickers/chapeus/hat_039.png",
+  "hat_040": "/stickers/chapeus/hat_040.png",
+  "hat_041": "/stickers/chapeus/hat_041.png",
+  "hat_042": "/stickers/chapeus/hat_042.png",
+  "hat_043": "/stickers/chapeus/hat_043.png",
+  "hat_044": "/stickers/chapeus/hat_044.png",
+  "hat_045": "/stickers/chapeus/hat_045.png",
+  "hat_046": "/stickers/chapeus/hat_046.png",
+  "hat_047": "/stickers/chapeus/hat_047.png",
+  "hat_048": "/stickers/chapeus/hat_048.png",
+  "hat_049": "/stickers/chapeus/hat_049.png",
+  "hat_050": "/stickers/chapeus/hat_050.png",
+  "hat_051": "/stickers/chapeus/hat_051.png",
+  "hat_053": "/stickers/chapeus/hat_053.png",
+  "hat_054": "/stickers/chapeus/hat_054.png",
+  "hat_055": "/stickers/chapeus/hat_055.png",
+  "hat_056": "/stickers/chapeus/hat_056.png",
+  "hat_057": "/stickers/chapeus/hat_057.png",
+  "hat_058": "/stickers/chapeus/hat_058.png",
+  "hat_059": "/stickers/chapeus/hat_059.png",
+  "hat_060": "/stickers/chapeus/hat_060.png",
+};
+
+const CHAPEUS_NAMES = {
+  "hat_001": "Chapéu 1",
+  "hat_002": "Chapéu 2",
+  "hat_003": "Chapéu 3",
+  "hat_004": "Chapéu 4",
+  "hat_005": "Chapéu 5",
+  "hat_006": "Chapéu 6",
+  "hat_007": "Chapéu 7",
+  "hat_008": "Chapéu 8",
+  "hat_009": "Chapéu 9",
+  "hat_010": "Chapéu 10",
+  "hat_011": "Chapéu 11",
+  "hat_012": "Chapéu 12",
+  "hat_013": "Chapéu 13",
+  "hat_014": "Chapéu 14",
+  "hat_015": "Chapéu 15",
+  "hat_016": "Chapéu 16",
+  "hat_017": "Chapéu 17",
+  "hat_018": "Chapéu 18",
+  "hat_019": "Chapéu 19",
+  "hat_020": "Chapéu 20",
+  "hat_021": "Chapéu 21",
+  "hat_022": "Chapéu 22",
+  "hat_023": "Chapéu 23",
+  "hat_025": "Chapéu 24",
+  "hat_026": "Chapéu 25",
+  "hat_027": "Chapéu 26",
+  "hat_028": "Chapéu 27",
+  "hat_029": "Chapéu 28",
+  "hat_030": "Chapéu 29",
+  "hat_031": "Chapéu 30",
+  "hat_032": "Chapéu 31",
+  "hat_034": "Chapéu 32",
+  "hat_035": "Chapéu 33",
+  "hat_037": "Chapéu 34",
+  "hat_038": "Chapéu 35",
+  "hat_039": "Chapéu 36",
+  "hat_040": "Chapéu 37",
+  "hat_041": "Chapéu 38",
+  "hat_042": "Chapéu 39",
+  "hat_043": "Chapéu 40",
+  "hat_044": "Chapéu 41",
+  "hat_045": "Chapéu 42",
+  "hat_046": "Chapéu 43",
+  "hat_047": "Chapéu 44",
+  "hat_048": "Chapéu 45",
+  "hat_049": "Chapéu 46",
+  "hat_050": "Chapéu 47",
+  "hat_051": "Chapéu 48",
+  "hat_053": "Chapéu 49",
+  "hat_054": "Chapéu 50",
+  "hat_055": "Chapéu 51",
+  "hat_056": "Chapéu 52",
+  "hat_057": "Chapéu 53",
+  "hat_058": "Chapéu 54",
+  "hat_059": "Chapéu 55",
+  "hat_060": "Chapéu 56",
+};
+
 const STICKER_CATS = [
   STICKERS.slice(0, 16),   // Emoções
   STICKERS.slice(16, 24),  // Brilhos
@@ -2138,14 +2257,15 @@ const STICKER_CATS = [
   'EXTRA',                 // Variados
   'OCULOS',               // Oculos
   'BOCAS',                // Bocas
+  'CHAPEUS',              // Chapéus
 ];
 
 function renderStickerGrid(list) {
   const grid = document.getElementById('sticker-grid');
   grid.innerHTML = '';
-  if (list === 'OCULOS' || list === 'BOCAS') {
-    const srcMap = list === 'OCULOS' ? OCULOS_STICKERS : BOCAS_STICKERS;
-    const nameMap = list === 'OCULOS' ? OCULOS_NAMES : BOCAS_NAMES;
+  if (list === 'OCULOS' || list === 'BOCAS' || list === 'CHAPEUS') {
+    const srcMap = list === 'OCULOS' ? OCULOS_STICKERS : (list === 'BOCAS' ? BOCAS_STICKERS : CHAPEUS_STICKERS);
+    const nameMap = list === 'OCULOS' ? OCULOS_NAMES : (list === 'BOCAS' ? BOCAS_NAMES : CHAPEUS_NAMES);
     Object.entries(srcMap).forEach(([key, src]) => {
       const btn = document.createElement('button');
       btn.className = 'sticker-btn sticker-svg-btn';
@@ -2210,6 +2330,7 @@ function filterStickers(catIdx, btn) {
   if (cat === 'EXTRA') renderStickerGrid('EXTRA');
   else if (cat === 'OCULOS') renderStickerGrid('OCULOS');
   else if (cat === 'BOCAS') renderStickerGrid('BOCAS');
+  else if (cat === 'CHAPEUS') renderStickerGrid('CHAPEUS');
   else renderStickerGrid(cat || STICKERS);
 }
 
