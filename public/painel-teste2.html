@@ -830,6 +830,40 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--kc-d
   </div>
 </div>
 
+<!-- ==================== CUSTOM SAVE MODAL ==================== -->
+<div id="save-modal" style="position:fixed; inset:0; z-index:600; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; padding:24px;">
+  <div style="background:var(--kc-cream); border-radius:var(--radius); padding:28px 24px; text-align:center; width:100%; max-width:340px; box-sizing:border-box; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 3px solid var(--kc-purple);">
+    <h2 style="font-family:'Fredoka', sans-serif; font-size:1.4rem; font-weight:700; color:var(--kc-purple); margin:0 0 12px 0;">Salvar Desenho! 🎨</h2>
+    
+    <!-- State 1: Choose option -->
+    <div id="save-options-view">
+      <p style="font-size:0.95rem; color:#7a6a8a; margin:0 0 24px 0; line-height:1.5; font-family:'Quicksand', sans-serif;">Escolha como você quer guardar a sua pintura:</p>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button onclick="handleSaveAction('download')" style="padding:14px; border:none; border-radius:var(--radius-sm); font-family:'Fredoka', sans-serif; font-size:1rem; font-weight:700; background:#3b82f6; color:#fff; box-shadow:0 4px 0 #1d4ed8; cursor:pointer;">Baixar no Celular 💾</button>
+        <button onclick="handleSaveAction('hall')" style="padding:14px; border:none; border-radius:var(--radius-sm); font-family:'Fredoka', sans-serif; font-size:1rem; font-weight:700; background:#f59e0b; color:#fff; box-shadow:0 4px 0 #b45309; cursor:pointer;">Enviar pro Hall da Fama 🏆</button>
+        <button onclick="closeSaveModal()" style="margin-top:8px; padding:10px; border:2px solid #ddd; border-radius:var(--radius-sm); font-family:'Fredoka', sans-serif; font-size:0.95rem; font-weight:700; background:#fff; color:var(--kc-dark); cursor:pointer;">Voltar</button>
+      </div>
+    </div>
+
+    <!-- State 2: Hall of Fame fields -->
+    <div id="save-hall-view" style="display:none; text-align:left;">
+      <p style="font-size:0.92rem; color:#7a6a8a; margin:0 0 16px 0; line-height:1.5; font-family:'Quicksand', sans-serif; text-align:center;">Dê um nome bem legal para a sua pintura!</p>
+      
+      <label style="font-family:'Fredoka', sans-serif; font-size:0.85rem; font-weight:700; color:var(--kc-dark); display:block; margin-bottom:6px;">Título do desenho:</label>
+      <input type="text" id="hall-drawing-name" placeholder="Ex: Meu Gatinho Feliz" style="width:100%; padding:10px; border:2.5px solid #d2c6e2; border-radius:10px; box-sizing:border-box; margin-bottom:14px; font-family:'Quicksand', sans-serif; font-size:0.95rem;">
+
+      <label style="font-family:'Fredoka', sans-serif; font-size:0.85rem; font-weight:700; color:var(--kc-dark); display:block; margin-bottom:6px;">Seu nome (criador):</label>
+      <input type="text" id="hall-creator-name" placeholder="Ex: Sebastião" style="width:100%; padding:10px; border:2.5px solid #d2c6e2; border-radius:10px; box-sizing:border-box; margin-bottom:20px; font-family:'Quicksand', sans-serif; font-size:0.95rem;">
+
+      <div style="display:flex; gap:12px; justify-content:center;">
+        <button onclick="showSaveOptionsView()" style="flex:1; padding:12px; border:2px solid #ddd; border-radius:var(--radius-sm); font-family:'Fredoka', sans-serif; font-size:0.95rem; font-weight:700; background:#fff; color:var(--kc-dark); cursor:pointer;">Voltar</button>
+        <button onclick="submitToHall()" style="flex:1; padding:12px; border:none; border-radius:var(--radius-sm); font-family:'Fredoka', sans-serif; font-size:0.95rem; font-weight:700; background:#10b981; color:#fff; box-shadow:0 4px 0 #047857; cursor:pointer;">Enviar! 🚀</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <!-- ==================== CUSTOM CONFIRM MODAL ==================== -->
 <div id="confirm-modal" style="position:fixed; inset:0; z-index:600; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; padding:24px;">
   <div style="background:var(--kc-cream); border-radius:var(--radius); padding:28px 24px; text-align:center; width:100%; max-width:320px; box-sizing:border-box;">
@@ -1498,15 +1532,104 @@ async function clearCanvas() {
 }
 
 function saveToGallery() {
-  const dataUrl = canvas.toDataURL('image/png');
-  const a = document.createElement('a');
-  a.href = dataUrl;
-  a.download = 'kidcanvas-' + Date.now() + '.png';
-  a.click();
-  showToast('💾 Imagem salva!');
-  // Abrir modal de replay se tiver strokes
-  if (STATE.strokes.length > 0) {
-    setTimeout(() => openReplayModal(), 600);
+  openSaveModal();
+}
+
+function openSaveModal() {
+  const modal = document.getElementById('save-modal');
+  document.getElementById('save-options-view').style.display = 'block';
+  document.getElementById('save-hall-view').style.display = 'none';
+  const savedName = localStorage.getItem('kidcanvas_username') || '';
+  document.getElementById('hall-creator-name').value = savedName;
+  document.getElementById('hall-drawing-name').value = '';
+  modal.style.display = 'flex';
+}
+
+function closeSaveModal() {
+  document.getElementById('save-modal').style.display = 'none';
+}
+
+function showSaveOptionsView() {
+  document.getElementById('save-options-view').style.display = 'block';
+  document.getElementById('save-hall-view').style.display = 'none';
+}
+
+function handleSaveAction(action) {
+  if (action === 'download') {
+    closeSaveModal();
+    const dataUrl = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = 'kidcanvas-' + Date.now() + '.png';
+    a.click();
+    showToast('💾 Imagem salva!');
+    if (STATE.strokes && STATE.strokes.length > 0) {
+      setTimeout(() => openReplayModal(), 600);
+    }
+  } else if (action === 'hall') {
+    const token = localStorage.getItem('kidcanvas_session_token');
+    if (!token) {
+      showToast('Faça login ou crie uma conta grátis para compartilhar no Hall da Fama! 🧙‍♂️');
+      return;
+    }
+    document.getElementById('save-options-view').style.display = 'none';
+    document.getElementById('save-hall-view').style.display = 'block';
+  }
+}
+
+async function submitToHall() {
+  const token = localStorage.getItem('kidcanvas_session_token');
+  if (!token) {
+    showToast('Faça login para compartilhar no Hall da Fama! 🧙‍♂️');
+    return;
+  }
+  const drawingName = document.getElementById('hall-drawing-name').value.trim();
+  const creatorName = document.getElementById('hall-creator-name').value.trim();
+  
+  if (!drawingName) {
+    showToast('Por favor, dê um título para a sua pintura! ✏️');
+    return;
+  }
+  if (!creatorName) {
+    showToast('Por favor, informe o seu nome! 👤');
+    return;
+  }
+
+  localStorage.setItem('kidcanvas_username', creatorName);
+  closeSaveModal();
+  showToast('Enviando para o Hall... ⏳', 'info');
+
+  try {
+    const dataUrl = canvas.toDataURL('image/png');
+    
+    const response = await fetch('/api/user/save-painting', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-session-token': token
+      },
+      body: JSON.stringify({
+        imageBase64: dataUrl,
+        prompt: drawingName,
+        isPublic: true,
+        category: 'Mão Livre',
+        creatorName: creatorName,
+        fromPinturaLivre: true
+      })
+    });
+
+    const resData = await response.json();
+    if (response.ok && resData.success) {
+      showToast('Pintura enviada para o Hall da Fama! Ela passará por moderação. 🎉');
+      if (STATE.strokes && STATE.strokes.length > 0) {
+        setTimeout(() => openReplayModal(), 600);
+      }
+    } else {
+      showToast('Erro ao enviar: ' + (resData.message || 'Erro desconhecido.'));
+    }
+  } catch (err) {
+    console.error('Error submitting to Hall:', err);
+    showToast('Erro de conexão ao enviar para o Hall da Fama.');
   }
 }
 
