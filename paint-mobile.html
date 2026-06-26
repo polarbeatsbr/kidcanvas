@@ -547,15 +547,15 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--kc-d
 .sticker-cats {
   display: flex; gap: 6px; padding: 10px 12px;
   overflow-x: auto; scrollbar-width: none;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid #e5ddeb;
   -webkit-overflow-scrolling: touch;
   min-height: 48px; align-items: center;
 }
 .sticker-cats::-webkit-scrollbar { display: none; }
 .sticker-cat-btn {
   flex-shrink: 0; padding: 6px 14px; border-radius: 20px;
-  border: 1.5px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8);
+  border: 1.5px solid #d2c6e2;
+  background: #ffffff; color: #4c3a6b;
   font-family: 'Fredoka', sans-serif; font-size: 0.82rem; font-weight: 600;
   cursor: pointer; transition: all 0.15s; white-space: nowrap;
   min-width: max-content; display: inline-flex; align-items: center;
@@ -614,13 +614,6 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--kc-d
   <!-- Navbar -->
   <div class="paint-navbar">
     <a href="/" class="navbar-logo">🎨 Kid<span>canvas</span></a>
-    <div class="navbar-center">
-      <div class="navbar-stars">⭐ <span id="nav-stars">0</span></div>
-      <div class="navbar-avatar" id="nav-avatar">
-        <img id="nav-avatar-img" src="" alt="">
-        <span id="nav-avatar-emoji">👤</span>
-      </div>
-    </div>
     <button class="navbar-close" onclick="closePaint()">✕</button>
   </div>
 
@@ -2156,12 +2149,12 @@ function renderStickerGrid(list) {
     Object.entries(srcMap).forEach(([key, src]) => {
       const btn = document.createElement('button');
       btn.className = 'sticker-btn sticker-svg-btn';
-      btn.style.cssText = 'background:rgba(255,255,255,0.08);border-radius:10px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:4px;';
+      btn.style.cssText = 'background:#ffffff;border:1.5px solid #e2d9eb;border-radius:12px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 2px 4px rgba(0,0,0,0.04);cursor:pointer;';
       const img = document.createElement('img');
       img.src = src;
       img.style.cssText = 'width:52px;height:52px;object-fit:contain;';
       const lbl = document.createElement('span');
-      lbl.style.cssText = 'font-size:0.55rem;color:rgba(255,255,255,0.6);font-family:Quicksand,sans-serif;text-align:center;';
+      lbl.style.cssText = 'font-size:0.6rem;color:#4c3a6b;font-weight:700;font-family:Quicksand,sans-serif;text-align:center;word-break:break-word;';
       lbl.textContent = nameMap[key] || key;
       btn.appendChild(img); btn.appendChild(lbl);
       btn.onclick = () => { placeSvgSticker(key, src); closeStickerModal(); };
@@ -2171,12 +2164,12 @@ function renderStickerGrid(list) {
     Object.entries(EXTRA_STICKERS).forEach(([key, src]) => {
       const btn = document.createElement('button');
       btn.className = 'sticker-btn sticker-svg-btn';
-      btn.style.cssText = 'background:rgba(255,255,255,0.08);border-radius:10px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:4px;';
+      btn.style.cssText = 'background:#ffffff;border:1.5px solid #e2d9eb;border-radius:12px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 2px 4px rgba(0,0,0,0.04);cursor:pointer;';
       const img = document.createElement('img');
       img.src = src;
       img.style.cssText = 'width:52px;height:52px;object-fit:contain;';
       const lbl = document.createElement('span');
-      lbl.style.cssText = 'font-size:0.55rem;color:rgba(255,255,255,0.6);font-family:Quicksand,sans-serif;text-align:center;';
+      lbl.style.cssText = 'font-size:0.6rem;color:#4c3a6b;font-weight:700;font-family:Quicksand,sans-serif;text-align:center;word-break:break-word;';
       lbl.textContent = EXTRA_STICKER_NAMES[key] || key;
       btn.appendChild(img); btn.appendChild(lbl);
       btn.onclick = () => { placeSvgSticker(key, src); closeStickerModal(); };
@@ -2187,12 +2180,12 @@ function renderStickerGrid(list) {
     Object.entries(SVG_STICKERS).forEach(([key, src]) => {
       const btn = document.createElement('button');
       btn.className = 'sticker-btn sticker-svg-btn';
-      btn.style.cssText = 'background:rgba(255,255,255,0.08);border-radius:10px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:4px;';
+      btn.style.cssText = 'background:#ffffff;border:1.5px solid #e2d9eb;border-radius:12px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 2px 4px rgba(0,0,0,0.04);cursor:pointer;';
       const img = document.createElement('img');
       img.src = src;
       img.style.cssText = 'width:52px;height:40px;object-fit:contain;';
       const lbl = document.createElement('span');
-      lbl.style.cssText = 'font-size:0.55rem;color:rgba(255,255,255,0.6);font-family:Quicksand,sans-serif;text-align:center;line-height:1.2;';
+      lbl.style.cssText = 'font-size:0.6rem;color:#4c3a6b;font-weight:700;font-family:Quicksand,sans-serif;text-align:center;line-height:1.2;word-break:break-word;';
       lbl.textContent = SVG_STICKER_NAMES[key] || key;
       btn.appendChild(img);
       btn.appendChild(lbl);
