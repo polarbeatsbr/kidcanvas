@@ -2483,7 +2483,7 @@ function placeSvgSticker(key, src) {
     const scaleY = canvas.height/canvasRect.height;
     const cx = (posX-(canvasRect.left-wrapRect.left))*scaleX;
     const cy = (posY-(canvasRect.top-wrapRect.top))*scaleY;
-    const w = 120*scale*scaleX;
+    const w = 80*scale*scaleX;
     const svgImg = new Image();
     svgImg.onload = () => {
       const h = svgImg.naturalHeight * (w / svgImg.naturalWidth);
