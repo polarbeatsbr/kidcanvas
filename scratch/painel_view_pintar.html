@@ -1,0 +1,247 @@
+<section id="view-pintar-online" class="page-view" style="display: none;">
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="action-btns">
+            <!-- Salvar na Galeria (Image) -->
+            <button class="btn-action btn-img" id="paint-btn-save"><i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria</button>
+            <!-- Salvar e Compartilhar (Hall da Fama) -->
+            <button class="btn-action btn-hall" id="paint-btn-save-public"><i class="fa-solid fa-trophy"></i> Hall da Fama</button>
+            <!-- WhatsApp -->
+            <button class="btn-action btn-wp" id="paint-btn-whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <!-- PDF -->
+            <button class="btn-action btn-pdf" id="paint-btn-pdf"><i class="fa-solid fa-file-pdf"></i> Salvar PDF</button>
+        </div>
+    </div>
+
+    <!-- Active Challenge Bar (Dynamic) -->
+    <div id="paint-challenge-bar" style="display: none; background: #fff3cd; border: 2px solid #ffe082; color: #856404; padding: 6px 12px; border-radius: 12px; margin-bottom: 8px; font-weight: 800; align-items: center; justify-content: space-between; font-family: var(--font-heading); box-shadow: var(--shadow-cartoon); width: 100%; max-width: 1300px; box-sizing: border-box; z-index: 10; font-size: 0.85rem;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.1rem;">🏆</span>
+            <span id="paint-challenge-text">Desafio ativo</span>
+        </div>
+        <button onclick="window.cancelActiveDrawingChallenge()" style="background: #e74c3c; color: white; border: none; border-radius: 6px; padding: 4px 8px; font-weight: bold; cursor: pointer; font-size: 0.75rem;">
+            Cancelar
+        </button>
+    </div>
+
+    <!-- WORKSPACE -->
+    <div class="workspace">
+        
+        <!-- CONTROL COLUMN (Left side: Palette + Stickers + Text Tools) -->
+        <div class="control-column">
+            <!-- Glassmorphic Ornate Palette Accordion -->
+            <div class="wood-palette">
+                <div class="palette-header"><i class="fa-solid fa-palette"></i> Paleta</div>
+                
+                <div class="palette-accordion">
+                    <!-- Básicas -->
+                    <div class="accordion-item active">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🎨 Básicas</span>
+                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="paint-colors-grid" id="category-basicas"></div>
+                        </div>
+                    </div>
+                    <!-- Pastel -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🎨 Pastel</span>
+                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="paint-colors-grid" id="category-pastel"></div>
+                        </div>
+                    </div>
+                    <!-- Neon -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🎨 Neon</span>
+                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="paint-colors-grid" id="category-neon"></div>
+                        </div>
+                    </div>
+                    <!-- Pele -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🎨 Pele</span>
+                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="paint-colors-grid" id="category-pele"></div>
+                        </div>
+                    </div>
+                    <!-- Metálicas -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>🎨 Metálicas</span>
+                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="paint-colors-grid" id="category-metalicas"></div>
+                        </div>
+                    </div>
+                    <!-- Favoritas -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span>⭐ Favoritas</span>
+                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="paint-colors-grid" id="category-favoritas"></div>
+                            <button class="favorite-save-btn" id="paint-btn-add-favorite" style="width: 100%; margin-top: 6px; padding: 4px; font-size: 0.72rem; font-weight: 700; border-radius: 6px; cursor: pointer; border: 2px solid var(--color-dark); background: var(--color-gold); color: var(--color-dark); box-shadow: 0 1.5px 0 var(--color-dark);">Salvar esta Cor</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Helper container so app.js can inject fallback items without crashing -->
+                <div id="paint-colors-grid" style="display:none !important;"></div>
+                <div id="paint-recent-colors" style="display:none !important;"></div>
+                <div id="paint-favorite-colors" style="display:none !important;"></div>
+            </div>
+
+            <!-- Stickers Panel (Most Used Stamps + Plus button) -->
+            <div class="panel-stickers">
+                <div class="panel-stickers-title">Adesivos</div>
+                <div class="stickers-grid">
+                    <button class="sticker-item paint-stamp-btn" data-stamp="⭐" title="Estrela" style="border: none; background: transparent; cursor: pointer;">⭐</button>
+                    <button class="sticker-item paint-stamp-btn" data-stamp="❤️" title="Coração" style="border: none; background: transparent; cursor: pointer;">❤️</button>
+                    <button class="sticker-item paint-stamp-btn" data-stamp="🌈" title="Arco-íris" style="border: none; background: transparent; cursor: pointer;">🌈</button>
+                    <button class="sticker-item paint-stamp-btn" data-stamp="🐶" title="Cachorrinho" style="border: none; background: transparent; cursor: pointer;">🐶</button>
+                    <button class="sticker-item paint-stamp-btn" data-stamp="🦄" title="Unicórnio" style="border: none; background: transparent; cursor: pointer;">🦄</button>
+                    <button class="sticker-item paint-stamp-btn" data-stamp="🦖" title="Dinossauro" style="border: none; background: transparent; cursor: pointer;">🦖</button>
+                </div>
+                <!-- Plus Stickers Modal Trigger -->
+                <button class="sticker-more-btn" onclick="openStickerConsoleModal()">
+                    <i class="fa-solid fa-gift"></i> + Mais Adesivos
+                </button>
+            </div>
+            
+            <!-- Brush size slider group, dynamically shown/hidden by app.js -->
+            <div class="paint-slider-group" id="paint-slider-group" style="display: none; flex-direction: column; gap: 4px; box-sizing: border-box;">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                    <span style="font-weight: 800;">Tamanho:</span>
+                    <span id="paint-brush-size-val">10px</span>
+                </div>
+                <input type="range" id="paint-brush-size" min="3" max="40" value="10" style="width: 100%; accent-color: var(--color-purple); margin: 2px 0;">
+                <div style="display: none;">
+                    <button class="paint-size-preset-btn" data-size="4"></button>
+                    <button class="paint-size-preset-btn" data-size="10"></button>
+                    <button class="paint-size-preset-btn" data-size="20"></button>
+                    <button class="paint-size-preset-btn" data-size="35"></button>
+                </div>
+            </div>
+            
+            <!-- Text/Font Tool Panel (Hidden by default, shown when text tool active) -->
+            <div class="text-tool-panel">
+                <div style="font-size: 0.78rem; font-weight: 700; color: var(--color-gold-light); text-align: center;">Texto</div>
+                <input type="text" id="paint-text-value" placeholder="Digite..." maxlength="25" style="width: 100%; padding: 4px; border-radius: 6px; border: 2px solid var(--color-dark); font-size: 0.75rem; box-sizing: border-box; text-align: center;">
+                <select id="paint-text-font" style="width: 100%; padding: 4px; border-radius: 6px; border: 2px solid var(--color-dark); font-size: 0.7rem; background: white; font-weight: bold; cursor: pointer;">
+                    <option value="Fredoka">Divertida</option>
+                    <option value="'Arial Black'">Forte</option>
+                    <option value="Comic Sans MS">Gibi</option>
+                    <option value="Courier New">Máquina</option>
+                    <option value="Georgia">Clássica</option>
+                </select>
+            </div>
+            
+            <!-- Hidden wrapper for the original checkbox to keep compatibility -->
+            <div id="paint-chk-public-wrapper" style="display: none;">
+                <input type="checkbox" id="paint-chk-public">
+            </div>
+        </div>
+
+        <!-- MAIN MAGIC PAINT FRAME -->
+        <div class="magic-frame-outer">
+            <!-- Ornate top crown gem -->
+            <div class="frame-crown">
+                <div class="crown-gem"></div>
+            </div>
+            
+            <!-- Ornate corner gems -->
+            <div class="frame-gem gem-tl"></div>
+            <div class="frame-gem gem-tr"></div>
+            <div class="frame-gem gem-bl"></div>
+            <div class="frame-gem gem-br"></div>
+
+            <div class="magic-frame-inner">
+                <!-- Canvas viewport container -->
+                <div class="canvas-viewport paint-canvas-container" id="viewport">
+                    <!-- Real Loader -->
+                    <div id="paint-canvas-loader" style="z-index: 120;">
+                        <div class="spinner"></div>
+                        <span>Carregando desenho...</span>
+                    </div>
+                    
+                    <!-- Floating HUD Zoom controls with real IDs -->
+                    <div class="hud-controls paint-zoom-controls">
+                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-out" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+                        <span class="zoom-indicator" id="paint-zoom-indicator">100%</span>
+                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-in" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-fit" title="Resetar Zoom"><i class="fa-solid fa-expand-arrows-alt"></i></button>
+                        <button class="hud-btn paint-zoom-btn" id="paint-btn-zoom-pan" title="Mover Tela (🖐️)"><i class="fa-solid fa-hand"></i></button>
+                        <button class="hud-btn paint-zoom-btn" id="paint-btn-fullscreen" title="Tela Cheia (📺)"><i class="fa-solid fa-expand"></i></button>
+                    </div>
+                    
+                    <!-- Real Canvas Viewport Wrapper -->
+                    <div id="paint-canvas-viewport" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; transform-origin: 0 0; user-select: none;">
+                        <canvas id="main-paint-canvas" style="display: block; background: white; cursor: crosshair;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- BOTTOM TOOL PALETTE -->
+    <div class="mobile-color-bar" id="mobile-color-bar">
+      <div class="mobile-color-dot" style="background:#e74c3c;" data-hex="#e74c3c" onclick="selectColor('#e74c3c')"></div>
+      <div class="mobile-color-dot" style="background:#ff8c00;" data-hex="#ff8c00" onclick="selectColor('#ff8c00')"></div>
+      <div class="mobile-color-dot" style="background:#ffb703;" data-hex="#ffb703" onclick="selectColor('#ffb703')"></div>
+      <div class="mobile-color-dot" style="background:#22c55e;" data-hex="#22c55e" onclick="selectColor('#22c55e')"></div>
+      <div class="mobile-color-dot" style="background:#4ECDC4;" data-hex="#4ecdc4" onclick="selectColor('#4ecdc4')"></div>
+      <div class="mobile-color-dot" style="background:#378ADD;" data-hex="#378add" onclick="selectColor('#378add')"></div>
+      <div class="mobile-color-dot" style="background:#9d4edd;" data-hex="#9d4edd" onclick="selectColor('#9d4edd')"></div>
+      <div class="mobile-color-dot" style="background:#ffffff; border-color: #ccc;" data-hex="#ffffff" onclick="selectColor('#ffffff')"></div>
+      <div class="mobile-color-dot" style="background:#000000;" data-hex="#000000" onclick="selectColor('#000000')"></div>
+      <div class="mobile-color-more" onclick="toggleAccordionMobile()">+</div>
+    </div>
+    <div class="bottom-bar">
+        <!-- Pincel -->
+        <button class="tool-btn paint-tool-btn" id="paint-tool-brush" title="Pincel" style="color: var(--color-purple-medium);"><i class="fa-solid fa-paintbrush"></i></button>
+        <!-- Balde de Tinta -->
+        <button class="tool-btn paint-tool-btn active" id="paint-tool-bucket" title="Balde de tinta" style="color: #ff8787;"><i class="fa-solid fa-fill-drip"></i></button>
+        <!-- Glitter Mágico -->
+        <button class="tool-btn paint-tool-btn" id="paint-tool-glitter" title="Glitter Mágico" style="color: #ff5e7e;"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
+        <!-- Pincel Mágico (Atrás da linha) -->
+        <button class="tool-btn paint-tool-btn" id="paint-tool-brush-magic" title="Pincel Mágico" style="color: var(--color-orange);"><i class="fa-solid fa-magic"></i></button>
+        <!-- Brilho Neon -->
+        <button class="tool-btn paint-tool-btn" id="paint-tool-neon" title="Neon" style="color: #ffd43b;"><i class="fa-solid fa-lightbulb"></i></button>
+        <!-- Borracha -->
+        <button class="tool-btn paint-tool-btn" id="paint-tool-eraser" title="Borracha" style="color: #4dabf7;"><i class="fa-solid fa-eraser"></i></button>
+        <!-- Conta-gotas -->
+        <button class="tool-btn paint-tool-btn" id="paint-tool-pipette" title="Conta-Gotas" style="color: #22b8cf;"><i class="fa-solid fa-eye-dropper"></i></button>
+        <!-- Escrever Texto -->
+        <button class="tool-btn paint-tool-btn" id="paint-tool-text" title="Texto" style="color: var(--color-purple);"><i class="fa-solid fa-font"></i></button>
+        <!-- Selecionar Adesivo -->
+        <button class="tool-btn paint-tool-btn" id="paint-tool-select" title="Mover Adesivo" style="color: var(--color-blue);"><i class="fa-solid fa-arrow-pointer"></i></button>
+        <!-- Desfazer -->
+        <button class="tool-btn paint-tool-btn" id="paint-btn-undo" title="Desfazer" style="color: #495057;"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+        <!-- Refazer -->
+        <button class="tool-btn paint-tool-btn" id="paint-btn-redo" title="Refazer" style="color: #495057;"><i class="fa-solid fa-arrow-rotate-right"></i></button>
+        <!-- Limpar tudo -->
+        <button class="tool-btn paint-tool-btn" id="paint-btn-clear" title="Limpar tudo" style="color: #e64980;"><i class="fa-solid fa-trash-can"></i></button>
+    </div>
+    
+    <!-- Hidden controls to keep compatibility -->
+    <div style="display: none;">
+        <canvas id="certificate-render-canvas" width="800" height="600"></canvas>
+        <button id="paint-btn-watch-replay"></button>
+        <button id="paint-btn-random"></button>
+    </div>
+</section>

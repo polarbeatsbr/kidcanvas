@@ -7342,6 +7342,15 @@ function checkAndRestoreAutosave() {
 }
 
 function renderPintarOnlineView() {
+    if (window.innerWidth <= 1024) {
+        const data = window.currentPaintingData;
+        if (data && data.imgUrl && data.imgUrl !== 'blank') {
+            window.location.href = '/t?drawing=' + encodeURIComponent(data.imgUrl);
+        } else {
+            window.location.href = '/t?blank=true';
+        }
+        return;
+    }
     window.paintInitializing = true;
     document.title = "Colorir Online — KidCanvas 🎨";
     setMetaDescription("Colore e pinte online usando lápis de cor, balde de tinta e glitter mágico de forma interativa.");
@@ -10905,8 +10914,8 @@ function selectRouletteDrawing(index) {
 }
 
 function startBlankCanvas() {
-    if (window.innerWidth <= 768) {
-        window.location.href = '/t';
+    if (window.innerWidth <= 1024) {
+        window.location.href = '/t?blank=true';
         return;
     }
     window.currentPaintingData = {

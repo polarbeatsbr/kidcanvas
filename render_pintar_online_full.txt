@@ -1,0 +1,215 @@
+function renderPintarOnlineView() {
+    document.title = "Colorir Online — KidCanvas 🎨";
+    setMetaDescription("Colore e pinte online usando lápis de cor, balde de tinta e glitter mágico de forma interativa.");
+
+    // Setup dynamic Golden Frame sizing
+    window.resizePaintFrame = function() {
+        const frameContainer = document.querySelector('.frame-container');
+        const frameOuter = document.querySelector('.magic-frame-outer');
+        const canvas = document.getElementById('main-paint-canvas');
+        if (!frameContainer || !frameOuter || !canvas) return;
+        
+        const w = canvas.width || 800;
+        const h = canvas.height || 600;
+        const aspect = w / h;
+        
+        let availW = frameContainer.clientWidth;
+        let availH = frameContainer.clientHeight;
+        
+        // Fallbacks if layout container is not fully rendered or hidden during initial pass
+        if (availW <= 0 || availH <= 0) {
+            const workspace = document.querySelector('.workspace');
+            if (workspace) {
+                availW = workspace.clientWidth - 240; // Subtract control column (220px) + margin
+                availH = workspace.clientHeight;
+            }
+        }
+        if (availW <= 0) availW = window.innerWidth - 260;
+        if (availH <= 0) availH = window.innerHeight - 150;
+        
+        if (availW <= 0) availW = 800;
+        if (availH <= 0) availH = 600;
+        
+        const maxCanvasW = availW - 60; // 30px margin on each side
+        const maxCanvasH = availH - 60; // 30px margin on each side
+        
+        let canvasVisW, canvasVisH;
+        if (aspect > maxCanvasW / maxCanvasH) {
+            canvasVisW = maxCanvasW;
+            canvasVisH = maxCanvasW / aspect;
+        } else {
+            canvasVisH = maxCanvasH;
+            canvasVisW = maxCanvasH * aspect;
+        }
+        
+        frameOuter.style.width = (canvasVisW + 36) + 'px'; // width of canvas + golden frame chrome padding/border
+        frameOuter.style.height = (canvasVisH + 36) + 'px';
+    };
+    
+    // Add/remove window resize event listener
+    window.removeEventListener('resize', window.resizePaintFrame);
+    window.addEventListener('resize', window.resizePaintFrame);
+
+    const view = document.getElementById('view-pintar-online');
+    if (view) {
+        view.style.display = 'block';
+    }
+
+    const data = window.currentPaintingData;
+    if (!data || !data.imgUrl) {
+        navigate('/');
+        return;
+    }
+
+    // Configurar botão de voltar
+    const backBtn = document.getElementById('paint-breadcrumbs-back');
+    if (backBtn) {
+        backBtn.textContent = data.name;
+        backBtn.onclick = (e) => {
+            e.preventDefault();
+            if (window.paintAutosaveInterval) {
+                clearInterval(window.paintAutosaveInterval);
+                window.paintAutosaveInterval = null;
+            }
+            navigate(data.backUrl);
+        };
+    }
+
+    const isBlank = (!data || !data.imgUrl || data.imgUrl === 'blank');
+    const initW = isBlank ? 794 : 800;
+    const initH = isBlank ? 1123 : 600;
+
+    // Inicializar Canvas Principal
+    paintCanvas = document.getElementById('main-paint-canvas');
+    pCtx = paintCanvas.getContext('2d');
+    
+    paintCanvas.width = initW;
+    paintCanvas.height = initH;
+    paintCanvas.setAttribute('width', initW);
+    paintCanvas.setAttribute('height', initH);
+
+    // Inicializar Canvases Auxiliares
+    if (!paintBgCanvas) {
+        paintBgCanvas = document.createElement('canvas');
+    }
+    paintBgCanvas.width = initW;
+    paintBgCanvas.height = initH;
+    paintBgCtx = paintBgCanvas.getContext('2d');
+
+    if (!paintFgCanvas) {
+        paintFgCanvas = document.createElement('canvas');
+    }
+    paintFgCanvas.width = initW;
+    paintFgCanvas.height = initH;
+    paintFgCtx = paintFgCanvas.getContext('2d');
+
+    // Limpar camadas
+    paintBgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+    paintFgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+
+    // Limpar Histórico
+    paintHistory = [];
+    paintHistoryIndex = -1;
+    updateUndoRedoButtons();
+
+    // Resetar estado de desenho e zoom
+    isPaintDrawing = false;
+    setPaintTool('bucket');
+    
+    window.paintZoomLevel = parseFloat(sessionStorage.getItem('kidcanvas_zoom')) || 1.0;
+    window.paintPanX = 0;
+    window.paintPanY = 0;
+    updateZoomTransform();
+
+    window.activeStickers = [];
+    window.selectedSticker = null;
+    window.stickerDragMode = null;
+    window.paintActions = [];
+    window.strokeCount = 0;
+    window.paintStartTime = null;
+    window.colorsUsedInPainting = new Set();
+    window.paintColorHistory = window.paintColorHistory || [];
+
+    // Resetar checkbox público e botão de salvar
+    const resetChkPublic = document.getElementById('paint-chk-public');
+    const resetBtnSave = document.getElementById('paint-btn-save');
+    const publicCard = document.getElementById('paint-chk-public-wrapper');
+    if (resetChkPublic) {
+        resetChkPublic.checked = false;
+        if (publicCard) {
+            publicCard.style.background = '#fffdf0';
+            publicCard.style.borderColor = 'var(--color-dark)';
+        }
+    }
+    if (resetBtnSave) {
+        resetBtnSave.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Salvar na Galeria';
+        resetBtnSave.style.backgroundColor = 'var(--color-green)';
+        resetBtnSave.style.borderColor = 'var(--color-green)';
+        resetBtnSave.classList.remove('pulse-button');
+    }
+
+    // Carregar imagem de desenho
+    const loader = document.getElementById('paint-canvas-loader');
+    if (loader) loader.style.display = 'flex';
+
+    const chkPublicWrapper = document.getElementById('paint-chk-public-wrapper');
+    if (chkPublicWrapper) {
+        chkPublicWrapper.style.display = 'flex';
+    }
+
+    if (data.imgUrl === 'blank') {
+        paintDrawingImage = null;
+        paintBorderImage = null;
+        
+        // Desenhar no background inicial branco
+        paintBgCtx.fillStyle = '#ffffff';
+        paintBgCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
+        
+        composePaintCanvas();
+        savePaintHistory();
+        if (loader) loader.style.display = 'none';
+        if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
+    } else {
+        if (chkPublicWrapper) chkPublicWrapper.style.display = 'flex';
+        paintDrawingImage = new Image();
+        paintDrawingImage.crossOrigin = "anonymous";
+        paintDrawingImage.onload = () => {
+            const w = paintDrawingImage.naturalWidth || 800;
+            const h = paintDrawingImage.naturalHeight || 600;
+
+            // Define canvas real dimensions dynamically based on natural image size
+            paintCanvas.width = w;
+            paintCanvas.height = h;
+            paintBgCanvas.width = w;
+            paintBgCanvas.height = h;
+            paintFgCanvas.width = w;
+            paintFgCanvas.height = h;
+
+            // Desenhar no background inicial
+            paintBgCtx.fillStyle = '#ffffff';
+            paintBgCtx.fillRect(0, 0, w, h);
+            paintBgCtx.drawImage(paintDrawingImage, 0, 0, w, h);
+            
+            // Limpar outlines do desenho
+            cleanPaintCanvasOutlineDirect(paintBgCtx);
+
+            paintBorderImage = null;
+            composePaintCanvas();
+            savePaintHistory();
+            if (loader) loader.style.display = 'none';
+            if (typeof window.resizePaintFrame === 'function') window.resizePaintFrame();
+        };
+        paintDrawingImage.src = '/api/proxy-image?url=' + encodeURIComponent(data.imgUrl);
+    }
+
+    // Configurar Paleta e Rastrear Cores
+    if (paintCrayons && paintCrayons.length > 0) {
+        window.colorsUsedInPainting.add(paintCrayons[0].hex); // Cor inicial padrão
+    }
+
+    const colorsGrid = document.getElementById('paint-colors-grid');
+    if (colorsGrid) {
+        colorsGrid.innerHTML = '';
+        
+        // Criar as duas linhas na interface
+        const row1El = docume

@@ -2481,74 +2481,10 @@ function showLoading(v) {
   el.classList.toggle('visible', v);
 }
 
-// ==================== LOAD USER PROFILE ====================
-async function loadUserProfile() {
-  const sessionToken = localStorage.getItem("kidcanvas_session_token");
-  if (!sessionToken) return;
-
-  try {
-    const res = await fetch('/api/auth/me', {
-      headers: { 'X-Session-Token': sessionToken }
-    });
-    const data = await res.json();
-    if (res.ok && data.success && data.user) {
-      const user = data.user;
-      
-      // Update stars
-      const starsEl = document.getElementById('nav-stars');
-      if (starsEl) starsEl.textContent = user.stars || 0;
-      
-      // Update avatar
-      const navAvatarImg = document.getElementById('nav-avatar-img');
-      const navAvatarEmoji = document.getElementById('nav-avatar-emoji');
-      
-      const defaultEmojis = {
-        'avatar_default_1': '👦',
-        'avatar_default_2': '👧',
-        'avatar_default_3': '👦🏽',
-        'avatar_default_4': '👧🏽'
-      };
-      
-      let avatar = user.avatar || user.photo || 'avatar_default_1';
-      const isUrl = avatar.startsWith('http') || avatar.startsWith('/');
-      
-      if (isUrl) {
-        if (navAvatarImg) {
-          navAvatarImg.src = avatar;
-          navAvatarImg.style.display = 'block';
-        }
-        if (navAvatarEmoji) navAvatarEmoji.style.display = 'none';
-      } else {
-        const emoji = defaultEmojis[avatar] || avatar;
-        if (navAvatarEmoji) {
-          navAvatarEmoji.textContent = emoji;
-          navAvatarEmoji.style.display = 'block';
-        }
-        if (navAvatarImg) navAvatarImg.style.display = 'none';
-      }
-    }
-  } catch (e) {
-    console.error("Erro ao carregar perfil do usuário:", e);
-  }
-}
-
 // ==================== INIT ====================
 window.addEventListener('DOMContentLoaded', () => {
   // Verifica auto-save
   checkAutoSave();
-  // Carrega perfil do usuário logado
-  loadUserProfile();
-
-  // Parse URL parameters for deep linking
-  const params = new URLSearchParams(window.location.search);
-  const drawingUrl = params.get('drawing');
-  const isBlank = params.get('blank') === 'true';
-
-  if (drawingUrl) {
-    startPaint('drawing', drawingUrl);
-  } else if (isBlank) {
-    startPaint('blank');
-  }
 });
 
 // ==================== ZOOM / PAN ====================

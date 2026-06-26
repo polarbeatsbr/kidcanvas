@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup Mobile — Mascote</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: sans-serif; background: #1a1a2e; color: white; padding: 20px; display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
+
+  h2 { font-size: 13px; color: #aaa; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Simulação de tela mobile 375x700 */
+  .phone {
+    width: 375px;
+    height: 700px;
+    background: #f5f0e8;
+    border-radius: 32px;
+    border: 3px solid #444;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+  }
+
+  /* Header */
+  .ph-header {
+    position: absolute; top: 0; left: 0; right: 0; height: 50px;
+    background: white;
+    border-bottom: 2px solid #eee;
+    display: flex; align-items: center; padding: 0 12px;
+    font-size: 12px; font-weight: bold; color: #333;
+    z-index: 10;
+  }
+
+  /* Canvas area */
+  .ph-canvas {
+    position: absolute;
+    top: 50px; left: 0; right: 0; bottom: 120px;
+    background: white;
+    border: 3px solid #f5a623;
+    margin: 6px;
+    border-radius: 8px;
+  }
+
+  .ph-canvas-content {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #fff8f0 0%, #fff 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #ccc; font-size: 13px;
+  }
+
+  /* Palette bar */
+  .ph-palette {
+    position: absolute; bottom: 60px; left: 0; right: 0; height: 60px;
+    background: #3d1557;
+    display: flex; align-items: center; padding: 0 10px; gap: 6px;
+    z-index: 5;
+  }
+  .ph-color { width: 28px; height: 28px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); flex-shrink: 0; }
+
+  /* Bottom nav */
+  .ph-nav {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+    background: white;
+    border-top: 2px solid #eee;
+    display: flex; align-items: center; justify-content: space-around;
+    z-index: 10;
+  }
+  .ph-nav-item { font-size: 10px; color: #999; text-align: center; display: flex; flex-direction: column; gap: 2px; align-items: center; }
+  .ph-nav-item.active { color: #7c3aed; }
+  .ph-nav-item span { font-size: 18px; }
+
+  /* ======================= */
+  /* ESTADO ERRADO (atual)   */
+  /* ======================= */
+  .mascot-wrong {
+    position: absolute;
+    bottom: 95px; right: 20px;
+    z-index: 20;
+    display: flex; align-items: flex-end; gap: 8px;
+  }
+  .bubble-wrong {
+    background: white;
+    border: 2px solid #333;
+    border-radius: 16px;
+    padding: 10px 12px;
+    max-width: 200px;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #333;
+    box-shadow: 2px 2px 0 #333;
+  }
+  .avatar-wrong {
+    width: 70px; height: 70px;
+    background: url('/perigo-artista.png') center/contain no-repeat, #f0e8ff;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid #7c3aed;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .btn-x {
+    position: absolute; top: -8px; right: -8px;
+    width: 20px; height: 20px;
+    background: red; color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: bold;
+  }
+
+  /* ======================= */
+  /* ESTADO CERTO            */
+  /* ======================= */
+  .mascot-correct {
+    position: absolute;
+    bottom: 68px; right: 10px;  /* logo acima da palette, encostado na direita */
+    z-index: 20;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+  }
+  .bubble-correct {
+    background: #1e0b36;
+    border: 2px solid #f5a623;
+    border-radius: 12px;
+    padding: 6px 10px;
+    max-width: 160px;
+    font-size: 10px;
+    line-height: 1.3;
+    color: #ffe066;
+    font-weight: 700;
+    box-shadow: 2px 2px 0 #120826;
+  }
+  .bubble-correct-arrow {
+    width: 0; height: 0;
+    border-left: 6px solid #f5a623;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    align-self: flex-end;
+    margin-right: 18px;
+  }
+  .avatar-correct {
+    width: 52px; height: 52px;
+    background: #f0e8ff;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid #f5a623;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  }
+  .btn-x-correct {
+    position: absolute; top: -6px; right: -6px;
+    width: 16px; height: 16px;
+    background: #ff4444; color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: bold;
+  }
+
+  /* casinha */
+  .casinha-correct {
+    position: absolute;
+    bottom: 68px; right: 10px;
+    z-index: 20;
+    width: 52px; height: 52px;
+    background: #7c3aed;
+    border-radius: 12px;
+    border: 2px solid #f5a623;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+  }
+
+  /* label de anotação */
+  .label-bad {
+    background: #ff4444; color: white;
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 10px; font-weight: bold;
+    position: absolute; top: -24px; right: 0; white-space: nowrap;
+  }
+  .label-good {
+    background: #22c55e; color: white;
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 10px; font-weight: bold;
+    position: absolute; top: -24px; right: 0; white-space: nowrap;
+  }
+
+  .desc { max-width: 300px; }
+  .desc p { font-size: 13px; line-height: 1.6; color: #ccc; margin-bottom: 8px; }
+  .desc ul { font-size: 12px; color: #aaa; padding-left: 16px; }
+  .desc ul li { margin-bottom: 4px; }
+  .tag { display: inline-block; background: #7c3aed; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-right: 4px; margin-bottom: 4px; }
+  .tag.red { background: #dc2626; }
+  .tag.green { background: #16a34a; }
+
+  h1 { font-size: 18px; font-weight: bold; color: white; }
+  .section { display: flex; flex-direction: column; gap: 12px; }
+</style>
+</head>
+<body>
+
+<!-- ESTADO ATUAL (errado) -->
+<div class="section">
+  <h2>Estado Atual — <span style="color:#ff6b6b">ERRADO</span></h2>
+  <div style="position:relative">
+    <div class="phone">
+      <div class="ph-header">🎨 KidCanvas — Pintar Online</div>
+      <div class="ph-canvas"><div class="ph-canvas-content">canvas de pintura</div></div>
+      <div class="ph-palette">
+        <div class="ph-color" style="background:#e74c3c"></div>
+        <div class="ph-color" style="background:#f39c12"></div>
+        <div class="ph-color" style="background:#27ae60"></div>
+        <div class="ph-color" style="background:#3498db"></div>
+        <div class="ph-color" style="background:#9b59b6"></div>
+        <div class="ph-color" style="background:#1abc9c"></div>
+        <div class="ph-color" style="background:#e91e63"></div>
+        <div class="ph-color" style="background:#ff5722"></div>
+      </div>
+      <div class="ph-nav">
+        <div class="ph-nav-item"><span>🏠</span>Home</div>
+        <div class="ph-nav-item"><span>🎭</span>Temas</div>
+        <div class="ph-nav-item active"><span>📖</span>Histórias</div>
+        <div class="ph-nav-item"><span>📚</span>Livro</div>
+        <div class="ph-nav-item"><span>🔍</span>Buscar</div>
+      </div>
+
+      <!-- Mascote ERRADO: bubble grande cobrindo o canvas -->
+      <div class="mascot-wrong" style="position:absolute">
+        <span class="label-bad">PROBLEMA: cobre o canvas</span>
+        <div style="position:relative">
+          <div class="bubble-wrong">É o balde de tinta! Clica em qualquer área fechada e ela preenche todinha de uma vez. Rápido demais!</div>
+        </div>
+        <div style="position:relative">
+          <div class="avatar-wrong">🐶</div>
+          <div class="btn-x">✕</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="desc">
+    <p><span class="tag red">Problema</span></p>
+    <ul>
+      <li>Bubble larga (200px) cobre metade da tela</li>
+      <li>Texto longo ocupa muitas linhas</li>
+      <li>Avatar grande (70px) no mobile</li>
+      <li>Posição <code>bottom: 95px</code> fica no meio da tela</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ESTADO PROPOSTO (correto) - com bubble -->
+<div class="section">
+  <h2>Proposta — <span style="color:#4ade80">CORRETO com dica</span></h2>
+  <div style="position:relative">
+    <div class="phone">
+      <div class="ph-header">🎨 KidCanvas — Pintar Online</div>
+      <div class="ph-canvas"><div class="ph-canvas-content">canvas de pintura</div></div>
+      <div class="ph-palette">
+        <div class="ph-color" style="background:#e74c3c"></div>
+        <div class="ph-color" style="background:#f39c12"></div>
+        <div class="ph-color" style="background:#27ae60"></div>
+        <div class="ph-color" style="background:#3498db"></div>
+        <div class="ph-color" style="background:#9b59b6"></div>
+        <div class="ph-color" style="background:#1abc9c"></div>
+        <div class="ph-color" style="background:#e91e63"></div>
+        <div class="ph-color" style="background:#ff5722"></div>
+      </div>
+      <div class="ph-nav">
+        <div class="ph-nav-item"><span>🏠</span>Home</div>
+        <div class="ph-nav-item"><span>🎭</span>Temas</div>
+        <div class="ph-nav-item active"><span>📖</span>Histórias</div>
+        <div class="ph-nav-item"><span>📚</span>Livro</div>
+        <div class="ph-nav-item"><span>🔍</span>Buscar</div>
+      </div>
+
+      <!-- Mascote CORRETO: pequeno, colado acima da palette -->
+      <div class="mascot-correct">
+        <span class="label-good">CORRETO</span>
+        <div class="bubble-correct">Balde: preenche área fechada de uma vez!</div>
+        <div class="bubble-correct-arrow"></div>
+        <div style="position:relative">
+          <div class="avatar-correct">🐶</div>
+          <div class="btn-x-correct">✕</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="desc">
+    <p><span class="tag green">Solução</span></p>
+    <ul>
+      <li>Avatar menor: 52px no mobile</li>
+      <li>Bubble mais estreita: max-width 150px</li>
+      <li>Texto encurtado no mobile (versão curta)</li>
+      <li>Posição colada na palette: <code>bottom: 68px</code></li>
+      <li>Bubble ACIMA do avatar (coluna), não ao lado</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ESTADO MINIMIZADO -->
+<div class="section">
+  <h2>Proposta — <span style="color:#4ade80">MINIMIZADO (casinha)</span></h2>
+  <div style="position:relative">
+    <div class="phone">
+      <div class="ph-header">🎨 KidCanvas — Pintar Online</div>
+      <div class="ph-canvas"><div class="ph-canvas-content">canvas de pintura</div></div>
+      <div class="ph-palette">
+        <div class="ph-color" style="background:#e74c3c"></div>
+        <div class="ph-color" style="background:#f39c12"></div>
+        <div class="ph-color" style="background:#27ae60"></div>
+        <div class="ph-color" style="background:#3498db"></div>
+        <div class="ph-color" style="background:#9b59b6"></div>
+        <div class="ph-color" style="background:#1abc9c"></div>
+        <div class="ph-color" style="background:#e91e63"></div>
+        <div class="ph-color" style="background:#ff5722"></div>
+      </div>
+      <div class="ph-nav">
+        <div class="ph-nav-item"><span>🏠</span>Home</div>
+        <div class="ph-nav-item"><span>🎭</span>Temas</div>
+        <div class="ph-nav-item active"><span>📖</span>Histórias</div>
+        <div class="ph-nav-item"><span>📚</span>Livro</div>
+        <div class="ph-nav-item"><span>🔍</span>Buscar</div>
+      </div>
+
+      <!-- Casinha minimizada -->
+      <div class="casinha-correct">🏠</div>
+    </div>
+  </div>
+  <div class="desc">
+    <p><span class="tag green">Minimizado</span></p>
+    <ul>
+      <li>Casinha 52×52px, colada na palette</li>
+      <li>Mesma posição do avatar (<code>bottom: 68px</code>)</li>
+      <li>Tap na casinha restaura o Perigo</li>
+      <li>Discreta, não interfere com o canvas</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
