@@ -61,7 +61,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1783100000000">
+    <link rel="stylesheet" href="/style.css?v=1783100000002">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -1015,6 +1015,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="#" class="paint-close-btn" id="paint-close-btn" onclick="goBackFromPaint(event); return false;">&times;</a>
             </div>
         </div>
     </header>
@@ -2904,30 +2905,50 @@
                 </div>
 
                 <div class="section-title-wrapper" style="margin-bottom: 30px;">
-                    <h1 class="page-title">🎨 O que você quer pintar hoje?</h1>
-                    <p class="section-subtitle">Escolha entre uma tela em branco ou deixe a mágica te surpreender!</p>
+                    <h1 class="page-title">🖍️ O que você quer pintar hoje?</h1>
+                    <p class="section-subtitle">Escolha e solte a imaginação!</p>
                 </div>
 
                 <!-- Opções principais -->
                 <div class="plc-options-grid">
                     <!-- Card Tela em Branco -->
-                    <div class="plc-option-card plc-blank-card" onclick="startBlankCanvas()" id="plc-blank-btn">
-                        <div class="plc-card-icon">
-                            <i class="fa-solid fa-paintbrush"></i>
+                    <div class="plc-option-card plc-blank-card-new" onclick="startBlankCanvas()" id="plc-blank-btn">
+                        <div class="plc-card-icon-new">
+                            <span class="plc-emoji-icon">✏️</span>
                         </div>
-                        <h3>Tela em Branco</h3>
-                        <p>Desenhe e pinte do zero usando toda a sua imaginação!</p>
+                        <div class="plc-card-info-new">
+                            <h3>Tela em Branco</h3>
+                            <p>Crie do zero com a sua imaginação!</p>
+                        </div>
                     </div>
 
                     <!-- Card Me Surpreenda -->
-                    <div class="plc-option-card plc-surprise-card" onclick="openMagicRoulette()" id="plc-surprise-btn">
-                        <div class="plc-card-icon plc-icon-magic">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <div class="plc-option-card plc-surprise-card-new" onclick="openMagicRoulette()" id="plc-surprise-btn">
+                        <div class="plc-card-icon-new">
+                            <span class="plc-emoji-icon">✨</span>
                         </div>
-                        <h3>🎲 Me Surpreenda!</h3>
-                        <p>Receba 3 sugestões aleatórias e escolha a sua favorita!</p>
-                        <div class="plc-sparkles">✨</div>
+                        <div class="plc-card-info-new">
+                            <h3>Me Surpreenda!</h3>
+                            <p>3 desenhos aleatórios pra escolher</p>
+                        </div>
                     </div>
+
+                    <!-- Card Escolher da Galeria -->
+                    <div class="plc-option-card plc-gallery-card-new" onclick="navigate('/categorias')" id="plc-gallery-btn">
+                        <div class="plc-card-icon-new">
+                            <span class="plc-emoji-icon">🖼️</span>
+                        </div>
+                        <div class="plc-card-info-new">
+                            <h3>Escolher da Galeria</h3>
+                            <p>Mais de 14.000 desenhos!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aviso de imagens de IA -->
+                <div class="plc-warning-notice">
+                    <span class="plc-warning-emoji">💡</span>
+                    <p><strong>Aviso:</strong> Como os desenhos da galeria são gerados por Inteligência Artificial (IA), algumas imagens podem conter pequenas imperfeições. Divirta-se colorindo!</p>
                 </div>
 
                 <!-- Painel da Roleta Mágica (inicialmente escondido) -->
@@ -4693,7 +4714,7 @@
 <!-- Mascote Assistente Flutuante removido do HTML DOM -->
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/app.js?v=1783100000000"></script>
+<script src="/app.js?v=1783100000002"></script>
 
     <script>
         (function() {

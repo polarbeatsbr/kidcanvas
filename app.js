@@ -1050,8 +1050,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     initGlobalEventListeners();
     initSearchAutocomplete();
     
-    // Roteamento inicial baseado na URL atual
-    navigate(window.location.pathname, false);
+    // Roteamento inicial baseado na URL atual (suporta hash para servidores de teste locais)
+    let initialPath = window.location.pathname;
+    if (window.location.hash) {
+        initialPath = window.location.hash.replace('#', '');
+        if (!initialPath.startsWith('/')) {
+            initialPath = '/' + initialPath;
+        }
+    }
+    navigate(initialPath, false);
 
     // Abrir modal de login se foi redirecionado
     if (localStorage.getItem("kidcanvas_trigger_auth") === "true") {
@@ -1245,6 +1252,17 @@ function initGlobalEventListeners() {
         navigate(window.location.pathname, false);
     });
     
+    // Escutar mudança de hash para suportar servidores de teste locais
+    window.addEventListener('hashchange', () => {
+        let hashPath = window.location.hash.replace('#', '');
+        if (hashPath) {
+            if (!hashPath.startsWith('/')) {
+                hashPath = '/' + hashPath;
+            }
+            navigate(hashPath, false);
+        }
+    });
+    
     // Configurar o gatilho da busca mobile na barra inferior
     const mobileSearchTrigger = document.getElementById('mobile-nav-search-trigger');
     if (mobileSearchTrigger) {
@@ -1398,6 +1416,9 @@ function navigate(path, pushState = true) {
     let cleanPath = path.trim();
     if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
         cleanPath = cleanPath.slice(0, -1);
+    }
+    if (cleanPath === '/index.html') {
+        cleanPath = '/';
     }
     
     if (cleanPath !== '/pintar-online') {

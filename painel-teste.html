@@ -72,7 +72,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <!-- Estilos Personalizados -->
-    <link rel="stylesheet" href="/style.css?v=1783100000000">
+    <link rel="stylesheet" href="/style.css?v=1783100000002">
     
     <!-- Google Identity Services (Google Sign-In) -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -669,102 +669,7 @@
             transform: scale(0.95) !important;
         }
 
-        /* Mascote fixo na viewport, próximo à paleta de cores */
-        .mascot-container {
-            position: fixed !important;
-            bottom: 190px !important;
-            right: 15px !important;
-            z-index: 1050 !important;
-            pointer-events: none !important;
-            display: flex !important;
-            align-items: flex-end !important;
-        }
 
-        .speech-bubble {
-            background: #1e0b36 !important; /* Roxo escuro */
-            border: 2px solid var(--color-gold) !important;
-            border-radius: 12px !important;
-            padding: 6px 10px !important;
-            max-width: 140px !important;
-            margin-right: -4px !important;
-            margin-bottom: 50px !important;
-            font-size: 0.75rem !important;
-            font-weight: 700 !important;
-            color: #ffe066 !important; /* Texto amarelado */
-            box-shadow: 4px 4px 0px #120826 !important;
-            position: relative !important;
-            animation: bounce 3s infinite ease-in-out !important;
-            pointer-events: auto !important;
-            cursor: pointer !important;
-        }
-
-        .speech-bubble::after {
-            content: '' !important;
-            position: absolute !important;
-            right: -6px !important;
-            bottom: 12px !important;
-            border-width: 6px 0 6px 7px !important;
-            border-style: solid !important;
-            border-color: transparent transparent transparent #1e0b36 !important;
-            display: block !important;
-            width: 0 !important;
-            z-index: 1 !important;
-        }
-
-        .speech-bubble::before {
-            content: '' !important;
-            position: absolute !important;
-            right: -8px !important;
-            bottom: 11px !important;
-            border-width: 7px 0 7px 9px !important;
-            border-style: solid !important;
-            border-color: transparent transparent transparent var(--color-gold) !important;
-            display: block !important;
-            width: 0 !important;
-            z-index: 0 !important;
-        }
-
-        .mascot-img {
-            width: 120px !important; /* tamanho aumentado */
-            height: 120px !important;
-            object-fit: contain !important;
-            pointer-events: auto !important;
-            cursor: pointer !important;
-            transition: transform 0.2s ease !important;
-            animation: float 2.5s infinite ease-in-out !important;
-            filter: drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.2)) !important;
-            position: relative !important;
-            z-index: 106 !important;
-        }
-
-        .mascot-img:hover {
-            transform: scale(1.06) !important;
-        }
-
-        .mascot-platform {
-            position: absolute;
-            bottom: -3px;
-            right: 15px;
-            width: 90px;
-            height: 20px;
-            background: radial-gradient(ellipse at center, rgba(255, 183, 3, 0.6) 0%, rgba(157, 78, 221, 0.2) 60%, transparent 100%);
-            border-radius: 50%;
-            z-index: 104;
-            pointer-events: none;
-        }
-
-        /* Animations */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @keyframes bounce {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-3px); }
-            100% { transform: translateY(0px); }
-        }
 
         /* Esconder barra mobile no desktop */
         .mobile-color-bar {
@@ -982,7 +887,7 @@
     </style>
     
 </head>
-<body>
+<body class="paint-active">
 
     <!-- HEADER / NAVBAR -->
     <header class="main-header">
@@ -1127,6 +1032,7 @@
                         </div>
                     </div>
                 </div>
+                <a href="#" class="paint-close-btn" id="paint-close-btn" onclick="goBackFromPaint(event); return false;">&times;</a>
             </div>
         </div>
     </header>
@@ -4748,20 +4654,20 @@
     </div>
 </section>
 
-<script src="/app.js?v=1783100000000"></script>
+<script src="/app.js?v=1783100000002"></script>
 
     <script>
         // Sandbox 2.0 SPA Routing and Seeding Hook
         
         // Se não houver dados de desenho ativo no carregamento direto, 
-        // injeta o Unicórnio Feliz na Nuvem como desenho padrão de teste
+        // injeta uma tela em branco (Pintura Livre) como padrão
         if (!window.currentPaintingData) {
             window.currentPaintingData = {
-                imgUrl: "https://pub-80073e247d7e49e6957cfb54297792ed.r2.dev/pintai-biblioteca/dinossauros/01-t-rex-correndo-feliz__t-rex.png",
-                name: "T-Rex Correndo Feliz 🦖",
+                imgUrl: "blank",
+                name: "Desenho Livre",
                 backUrl: "/",
-                category: "dinossauros",
-                slug: "01-t-rex-correndo-feliz__t-rex"
+                category: "livre",
+                slug: "blank"
             };
         }
         

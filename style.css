@@ -5758,104 +5758,146 @@ button, input, select, textarea {
 
 /* Grid de opções principais */
 .plc-options-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    max-width: 700px;
-    margin: 0 auto 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 520px;
+    margin: 0 auto 30px;
 }
 
 .plc-option-card {
     background: white;
-    border-radius: 20px;
-    padding: 40px 28px;
-    text-align: center;
+    border-radius: 24px;
+    padding: 16px 24px;
     cursor: pointer;
-    border: 3px solid transparent;
-    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    border: 3px solid var(--color-dark);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 20px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 8px 0 var(--color-dark);
 }
 
 .plc-option-card:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 0 var(--color-dark);
 }
 
-.plc-option-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    border-radius: 20px 20px 0 0;
+.plc-option-card:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px 0 var(--color-dark);
 }
 
-.plc-blank-card {
-    border-color: #e8e0f4;
-}
-
-.plc-blank-card::before {
-    background: linear-gradient(90deg, var(--color-orange), var(--color-yellow));
-}
-
-.plc-blank-card:hover {
-    border-color: var(--color-orange);
-}
-
-.plc-surprise-card {
-    border-color: #e0e8f4;
-}
-
-.plc-surprise-card::before {
-    background: linear-gradient(90deg, var(--color-purple), #6366f1);
-}
-
-.plc-surprise-card:hover {
+.plc-blank-card-new {
     border-color: var(--color-purple);
+    box-shadow: 0 8px 0 var(--color-purple);
 }
 
-.plc-card-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+.plc-blank-card-new:hover {
+    box-shadow: 0 12px 0 var(--color-purple);
+}
+
+.plc-blank-card-new:active {
+    box-shadow: 0 4px 0 var(--color-purple);
+}
+
+.plc-surprise-card-new {
+    background-color: var(--color-purple);
+    border-color: var(--color-dark);
+    box-shadow: 0 8px 0 var(--color-dark);
+    color: white;
+}
+
+.plc-surprise-card-new h3 {
+    color: white !important;
+}
+
+.plc-surprise-card-new p {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.plc-gallery-card-new {
+    background-color: var(--color-orange);
+    border-color: var(--color-dark);
+    box-shadow: 0 8px 0 var(--color-dark);
+    color: white;
+}
+
+.plc-gallery-card-new h3 {
+    color: white !important;
+}
+
+.plc-gallery-card-new p {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.plc-card-icon-new {
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    border: 3px solid var(--color-dark);
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 18px;
-    font-size: 32px;
-    background: linear-gradient(135deg, #fff3e0, #ffe0b2);
-    color: var(--color-orange);
-    box-shadow: 0 4px 16px rgba(255, 152, 0, 0.2);
+    box-shadow: 0 4px 0 var(--color-dark);
+    flex-shrink: 0;
 }
 
-.plc-icon-magic {
-    background: linear-gradient(135deg, #ede9fe, #c4b5fd);
-    color: var(--color-purple);
-    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
-    animation: plc-pulse-glow 2s ease-in-out infinite;
+.plc-emoji-icon {
+    font-size: 30px;
 }
 
-@keyframes plc-pulse-glow {
-    0%, 100% { box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25); }
-    50% { box-shadow: 0 4px 30px rgba(139, 92, 246, 0.45); }
+.plc-card-info-new {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
 }
 
 .plc-option-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 800;
-    color: var(--color-brown-dark);
-    margin: 0 0 8px;
+    color: var(--color-dark);
+    margin: 0;
     font-family: var(--font-heading);
 }
 
 .plc-option-card p {
-    font-size: 0.92rem;
-    color: #78716c;
+    font-size: 0.95rem;
+    color: var(--color-gray);
     margin: 0;
-    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* Aviso de imagens de IA */
+.plc-warning-notice {
+    max-width: 520px;
+    margin: 30px auto 0;
+    padding: 14px 20px;
+    background-color: #fffbeb;
+    border: 3px solid var(--color-dark);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 6px 0 var(--color-dark);
+    color: #7c2d12;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.plc-warning-emoji {
+    font-size: 28px;
+    flex-shrink: 0;
+}
+
+.plc-warning-notice p {
+    margin: 0;
+    font-weight: 600;
 }
 
 .plc-sparkles {
@@ -10213,6 +10255,182 @@ body {
 #mascot-casinha-helper,
 #mascot-casinha-container {
     display: none !important;
+}
+
+/* Botão de fechar do modo pintura (oculto por padrão) */
+#paint-close-btn {
+    display: none !important;
+}
+
+/* Refatoração da Navbar Mobile da Tela de Pintura (KidCanvas) */
+@media (max-width: 768px) {
+    /* 1. Header Compacto */
+    body.paint-active .main-header {
+        height: 56px !important;
+        max-height: 56px !important;
+        padding: 0 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        box-sizing: border-box !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        z-index: 2000 !important;
+        background-color: var(--color-white) !important;
+        border-bottom: var(--border-medium) !important;
+    }
+
+    body.paint-active .header-container {
+        height: 100% !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        flex-wrap: nowrap !important;
+        gap: 10px !important;
+        width: 100% !important;
+    }
+
+    /* Ocultar menu sanduíche */
+    body.paint-active #menu-toggle-btn {
+        display: none !important;
+    }
+
+    /* 2. Ajustar logo: redução de 20% e esconder sufixo */
+    body.paint-active #header-logo {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        font-size: 1.08rem !important; /* reduzido de 1.35rem */
+        font-weight: 800 !important;
+        white-space: nowrap !important;
+        color: var(--color-dark) !important;
+    }
+    
+    body.paint-active #header-logo .logo-icon {
+        height: 30px !important; /* reduzido de 38px */
+        width: auto !important;
+    }
+
+    body.paint-active #header-logo .logo-dot {
+        display: none !important;
+    }
+
+    /* 3. Alinhamento dos widgets da direita */
+    body.paint-active .header-right-wrapper {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    body.paint-active .header-auth {
+        position: static !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        z-index: auto !important;
+        height: 100% !important;
+    }
+
+    body.paint-active .user-profile-widget {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        background: none !important;
+        box-shadow: none !important;
+        height: 100% !important;
+    }
+
+    /* Ocultar nome de usuário e engrenagem de configurações */
+    body.paint-active .user-meta-info {
+        display: none !important;
+    }
+    body.paint-active .profile-settings-dropdown-wrapper {
+        display: none !important;
+    }
+
+    /* 4. Estrelas: contador compacto */
+    body.paint-active .iphone-battery-wrapper {
+        display: flex !important;
+        align-items: center !important;
+        gap: 4px !important;
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        font-size: 0.9rem !important;
+        font-weight: 800 !important;
+        color: var(--color-dark) !important;
+        height: auto !important;
+    }
+    
+    body.paint-active .iphone-battery-wrapper::before {
+        content: "⭐" !important;
+        font-size: 0.95rem !important;
+    }
+    
+    body.paint-active .iphone-battery-wrapper .iphone-battery {
+        display: none !important;
+    }
+
+    /* 5. Avatar reduzido em 10% */
+    body.paint-active #user-avatar-container {
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        border: var(--border-thin) !important;
+        margin: 0 !important;
+    }
+
+    /* 6. Progresso compacto */
+    body.paint-active #header-achievement-count {
+        display: inline-flex !important;
+        align-items: center !important;
+        font-size: 0.8rem !important;
+        font-weight: 800 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: none !important;
+        box-shadow: none !important;
+        border: none !important;
+        color: var(--color-dark) !important;
+        height: auto !important;
+    }
+
+    /* 7. Botão fechar discreto no canto superior direito */
+    body.paint-active #paint-close-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 26px !important;
+        height: 26px !important;
+        border-radius: 50% !important;
+        background-color: #f1edd9 !important;
+        border: var(--border-thin) !important;
+        color: var(--color-dark) !important;
+        font-size: 1.1rem !important;
+        font-weight: bold !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        transition: transform 0.1s ease !important;
+        margin: 0 !important;
+    }
+    body.paint-active #paint-close-btn:hover {
+        transform: scale(1.1) !important;
+        background-color: #e74c3c !important;
+        color: white !important;
+    }
 }
 
 
