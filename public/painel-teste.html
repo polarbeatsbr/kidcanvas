@@ -411,10 +411,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--kc-d
   background: var(--kc-yellow); color: var(--kc-dark); border: none;
   border-radius: 20px; padding: 7px 14px; font-family: 'Fredoka', sans-serif;
   font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: 0 3px 0 #c9920a;
-  display: none; transition: transform 0.15s;
+  display: none !important; transition: transform 0.15s;
 }
 #btn-sortear-paint:active { transform: scale(0.94); }
-#btn-sortear-paint.visible { display: block; }
+#btn-sortear-paint.visible { display: none !important; }
 
 /* ===================== HUD ZOOM/PAN ===================== */
 .canvas-hud {
