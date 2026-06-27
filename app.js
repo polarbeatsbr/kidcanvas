@@ -1433,6 +1433,44 @@ function initGlobalEventListeners() {
             navigate('/perfil');
         });
     }
+
+    // Offline / Online detection banner
+    const showConnectionBanner = (status) => {
+        let banner = document.getElementById('connection-status-banner');
+        if (!banner) {
+            banner = document.createElement('div');
+            banner.id = 'connection-status-banner';
+            banner.style.cssText = 'position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); padding: 12px 24px; border-radius: 30px; font-weight: 700; font-size: 14px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 8px; z-index: 11000; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; opacity: 0; pointer-events: none; font-family: "Outfit", sans-serif;';
+            document.body.appendChild(banner);
+        }
+        
+        if (status === 'offline') {
+            banner.style.background = '#fef2f2';
+            banner.style.color = '#ef4444';
+            banner.style.border = '1px solid #fee2e2';
+            banner.innerHTML = '<i class="fa-solid fa-wifi-slash fa-bounce"></i> Você está sem internet. Suas alterações serão salvas localmente!';
+            banner.style.transform = 'translateX(-50%) translateY(0)';
+            banner.style.opacity = '1';
+        } else if (status === 'online') {
+            banner.style.background = '#f0fdf4';
+            banner.style.color = '#22c55e';
+            banner.style.border = '1px solid #dcfce7';
+            banner.innerHTML = '<i class="fa-solid fa-wifi"></i> Conexão restabelecida!';
+            banner.style.transform = 'translateX(-50%) translateY(0)';
+            banner.style.opacity = '1';
+            setTimeout(() => {
+                banner.style.transform = 'translateX(-50%) translateY(100px)';
+                banner.style.opacity = '0';
+            }, 3000);
+        }
+    };
+    window.addEventListener('offline', () => showConnectionBanner('offline'));
+    window.addEventListener('online', () => showConnectionBanner('online'));
+    
+    // Check initial state
+    if (!navigator.onLine) {
+        showConnectionBanner('offline');
+    }
 }
 
 window.goBackFromPaint = function(e) {
@@ -3413,7 +3451,10 @@ function createDrawingCard(dw, position = null, showTrending = false) {
         <!-- ÁREA DA IMAGEM: bloco isolado, aspect-ratio quadrado -->
         <div style="position: relative; aspect-ratio: 1/1; overflow: hidden; background: #FCF9F5; display: flex; align-items: center; justify-content: center; border-bottom: var(--border-thin);">
             <a href="${cardLink}" class="drawing-card-link" style="display: block; width: 100%; height: 100%;">
-                <img src="${dw.url}" alt="${dw.pt}" loading="lazy" style="width: 100%; height: 100%; object-fit: contain; ${isLocked ? 'filter: blur(5px) grayscale(0.2) opacity(0.8);' : ''}">
+                <picture style="width: 100%; height: 100%; display: block;">
+                    <source data-srcset="${dw.url.replace('.png', '.webp')}" type="image/webp">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3C/svg%3E" data-src="${dw.url}" alt="${dw.pt}" class="lazy" style="width: 100%; height: 100%; object-fit: contain; ${isLocked ? 'filter: blur(5px) grayscale(0.2) opacity(0.8);' : ''}">
+                </picture>
             </a>
             <!-- badge DENTRO da área da imagem, canto superior esquerdo -->
             <span class="card-badge" style="position: absolute; top: 8px; left: 8px; 
@@ -8205,13 +8246,12 @@ function savePaintHistory() {
         paintHistory = paintHistory.slice(0, paintHistoryIndex + 1);
     }
     
-    const w = paintCanvas.width;
-    const h = paintCanvas.height;
-    const bgData = paintBgCtx.getImageData(0, 0, w, h);
-    const fgData = paintFgCtx.getImageData(0, 0, w, h);
+    // Comprimir e converter o canvas para economizar memória (JPEG para o fundo opaco, PNG para o foreground transparente)
+    const bgDataUrl = paintBgCanvas.toDataURL('image/jpeg', 0.7);
+    const fgDataUrl = paintFgCanvas.toDataURL('image/png');
     const stickersCopy = (window.activeStickers || []).map(st => ({ ...st }));
     
-    paintHistory.push({ bg: bgData, fg: fgData, stickers: stickersCopy });
+    paintHistory.push({ bg: bgDataUrl, fg: fgDataUrl, stickers: stickersCopy });
     
     if (paintHistory.length > maxHistoryStates) {
         paintHistory.shift();
@@ -8226,13 +8266,7 @@ function undoPaint() {
         paintHistoryIndex--;
         showPerigoTip('firstUndo');
         const state = paintHistory[paintHistoryIndex];
-        paintBgCtx.putImageData(state.bg, 0, 0);
-        paintFgCtx.putImageData(state.fg, 0, 0);
-        window.activeStickers = (state.stickers || []).map(st => ({ ...st }));
-        window.selectedSticker = null;
-        composePaintCanvas();
-        updateUndoRedoButtons();
-        saveAutosaveToLocalStorage();
+        restorePaintState(state);
     }
 }
 
@@ -8240,14 +8274,39 @@ function redoPaint() {
     if (paintHistoryIndex < paintHistory.length - 1) {
         paintHistoryIndex++;
         const state = paintHistory[paintHistoryIndex];
-        paintBgCtx.putImageData(state.bg, 0, 0);
-        paintFgCtx.putImageData(state.fg, 0, 0);
-        window.activeStickers = (state.stickers || []).map(st => ({ ...st }));
-        window.selectedSticker = null;
-        composePaintCanvas();
-        updateUndoRedoButtons();
-        saveAutosaveToLocalStorage();
+        restorePaintState(state);
     }
+}
+
+function restorePaintState(state) {
+    window.activeStickers = (state.stickers || []).map(st => ({ ...st }));
+    window.selectedSticker = null;
+    
+    let loadedCount = 0;
+    const checkCompose = () => {
+        loadedCount++;
+        if (loadedCount === 2) {
+            composePaintCanvas();
+            updateUndoRedoButtons();
+            saveAutosaveToLocalStorage();
+        }
+    };
+    
+    const bgImg = new Image();
+    bgImg.onload = () => {
+        paintBgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+        paintBgCtx.drawImage(bgImg, 0, 0);
+        checkCompose();
+    };
+    bgImg.src = state.bg;
+    
+    const fgImg = new Image();
+    fgImg.onload = () => {
+        paintFgCtx.clearRect(0, 0, paintCanvas.width, paintCanvas.height);
+        paintFgCtx.drawImage(fgImg, 0, 0);
+        checkCompose();
+    };
+    fgImg.src = state.fg;
 }
 
 function updateUndoRedoButtons() {
@@ -9726,7 +9785,11 @@ function executePaintFloodFill(startX, startY, isGlitter) {
         time: Date.now()
     });
 
-    const stack = [[startX, startY]];
+    const queue = new Int32Array(width * height);
+    let head = 0;
+    let tail = 0;
+    queue[tail++] = startY * width + startX;
+    
     const visited = new Uint8Array(width * height);
     visited[startY * width + startX] = 1;
 
@@ -9740,16 +9803,17 @@ function executePaintFloodFill(startX, startY, isGlitter) {
         maskData = fCtx.createImageData(width, height);
     }
 
-    while (stack.length > 0) {
-        const [cx, cy] = stack.pop();
-        const idx = (cy * width + cx) * 4;
+    while (head < tail) {
+        const curr = queue[head++];
+        const cx = curr % width;
+        const cy = (curr / width) | 0; // fast trunc
+        const idx = curr * 4;
 
         if (isGlitter) {
-            const mIdx = (cy * width + cx) * 4;
-            maskData.data[mIdx] = 255;
-            maskData.data[mIdx+1] = 255;
-            maskData.data[mIdx+2] = 255;
-            maskData.data[mIdx+3] = 255;
+            maskData.data[idx] = 255;
+            maskData.data[idx+1] = 255;
+            maskData.data[idx+2] = 255;
+            maskData.data[idx+3] = 255;
         } else {
             bgData[idx] = fillR;
             bgData[idx+1] = fillG;
@@ -9757,24 +9821,47 @@ function executePaintFloodFill(startX, startY, isGlitter) {
             bgData[idx+3] = fillA;
         }
 
-        const neighbors = [
-            [cx + 1, cy],
-            [cx - 1, cy],
-            [cx, cy + 1],
-            [cx, cy - 1]
-        ];
-
-        for (const [nx, ny] of neighbors) {
-            if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
-                const nIdx = ny * width + nx;
-                if (!visited[nIdx]) {
-                    visited[nIdx] = 1;
-                    const pIdx = nIdx * 4;
-
-                    // Verifica se é contorno no mapa DILATADO para evitar vazamentos
-                    if (!isOutline(dilatedData[pIdx], dilatedData[pIdx+1], dilatedData[pIdx+2], dilatedData[pIdx+3])) {
-                        stack.push([nx, ny]);
-                    }
+        // Check right
+        if (cx + 1 < width) {
+            const nIdx = curr + 1;
+            if (!visited[nIdx]) {
+                visited[nIdx] = 1;
+                const pIdx = nIdx * 4;
+                if (!isOutline(dilatedData[pIdx], dilatedData[pIdx+1], dilatedData[pIdx+2], dilatedData[pIdx+3])) {
+                    queue[tail++] = nIdx;
+                }
+            }
+        }
+        // Check left
+        if (cx - 1 >= 0) {
+            const nIdx = curr - 1;
+            if (!visited[nIdx]) {
+                visited[nIdx] = 1;
+                const pIdx = nIdx * 4;
+                if (!isOutline(dilatedData[pIdx], dilatedData[pIdx+1], dilatedData[pIdx+2], dilatedData[pIdx+3])) {
+                    queue[tail++] = nIdx;
+                }
+            }
+        }
+        // Check down
+        if (cy + 1 < height) {
+            const nIdx = curr + width;
+            if (!visited[nIdx]) {
+                visited[nIdx] = 1;
+                const pIdx = nIdx * 4;
+                if (!isOutline(dilatedData[pIdx], dilatedData[pIdx+1], dilatedData[pIdx+2], dilatedData[pIdx+3])) {
+                    queue[tail++] = nIdx;
+                }
+            }
+        }
+        // Check up
+        if (cy - 1 >= 0) {
+            const nIdx = curr - width;
+            if (!visited[nIdx]) {
+                visited[nIdx] = 1;
+                const pIdx = nIdx * 4;
+                if (!isOutline(dilatedData[pIdx], dilatedData[pIdx+1], dilatedData[pIdx+2], dilatedData[pIdx+3])) {
+                    queue[tail++] = nIdx;
                 }
             }
         }
@@ -10490,8 +10577,7 @@ window.likePublicPainting = likePublicPainting;
 
 async function savePaintingToGallery() {
     if (!currentUser) {
-        showToast('Faça login ou crie uma conta grátis para salvar suas pinturas! 🎨', 'info');
-        openAuthModal();
+        openPaintConversionModal();
         return;
     }
 
@@ -10647,6 +10733,96 @@ async function savePaintingToGallery() {
         }
         showToast('Erro ao se conectar ao servidor.', 'error');
     }
+}
+
+function openPaintConversionModal() {
+    let modal = document.getElementById('paint-conversion-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'paint-conversion-modal';
+        modal.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10000; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; font-family: "Outfit", sans-serif;';
+        
+        modal.innerHTML = `
+            <div style="background: white; border-radius: 24px; max-width: 480px; width: 90%; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); transform: scale(0.9); transition: transform 0.3s ease; position: relative;">
+                <button onclick="closePaintConversionModal()" style="position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; font-size: 18px; transition: background 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'">
+                    &times;
+                </button>
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div style="font-size: 48px; margin-bottom: 12px;">🎨</div>
+                    <h3 style="font-size: 24px; font-weight: 800; color: #1e293b; margin: 0 0 8px 0; font-family: 'Outfit', sans-serif;">Salvar na sua Galeria!</h3>
+                    <p style="font-size: 15px; color: #64748b; margin: 0; line-height: 1.5;">Não perca o seu desenho! Crie uma conta grátis em menos de 1 minuto para ter acesso a super poderes:</p>
+                </div>
+                <div style="margin-bottom: 28px; display: flex; flex-direction: column; gap: 16px;">
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="font-size: 20px; background: #e0f2fe; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">💾</span>
+                        <div>
+                            <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 0 0 2px 0;">Galeria Personalizada</h4>
+                            <p style="font-size: 13px; color: #64748b; margin: 0;">Guarde todas as suas criações para colorir ou editar quando quiser.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="font-size: 20px; background: #fef3c7; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">🏆</span>
+                        <div>
+                            <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 0 0 2px 0;">Conquistas e Certificados</h4>
+                            <p style="font-size: 13px; color: #64748b; margin: 0;">Desbloqueie medalhas exclusivas e emita certificados oficiais com seu nome.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: flex-start; gap: 12px;">
+                        <span style="font-size: 20px; background: #f3e8ff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">🃏</span>
+                        <div>
+                            <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 0 0 2px 0;">Cartas Colecionáveis</h4>
+                            <p style="font-size: 13px; color: #64748b; margin: 0;">Ganhe cartas mágicas raras de personagens colecionáveis do KidCanvas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <button onclick="closePaintConversionModal(); openAuthModal();" style="width: 100%; background: #8b5cf6; color: white; border: none; border-radius: 14px; padding: 14px; font-size: 16px; font-weight: 700; cursor: pointer; transition: transform 0.2s, background 0.2s; box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);" onmouseover="this.style.background='#7c3aed'" onmouseout="this.style.background='#8b5cf6'">
+                        ✨ Criar Minha Conta Grátis
+                    </button>
+                    <button onclick="closePaintConversionModal(); downloadPaintedCanvasLocally();" style="width: 100%; background: #f8fafc; color: #475569; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#f1f5f9'" onmouseout="this.style.background='#f8fafc'">
+                        📥 Apenas baixar no computador (sem salvar)
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+    modal.style.display = 'flex';
+    // Trigger transition
+    setTimeout(() => {
+        modal.style.opacity = '1';
+        modal.children[0].style.transform = 'scale(1)';
+    }, 10);
+}
+
+function closePaintConversionModal() {
+    const modal = document.getElementById('paint-conversion-modal');
+    if (modal) {
+        modal.style.opacity = '0';
+        modal.children[0].style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+}
+
+function downloadPaintedCanvasLocally() {
+    const originalSticker = window.selectedSticker;
+    window.selectedSticker = null;
+    composePaintCanvas();
+    
+    const imageBase64 = paintCanvas.toDataURL('image/jpeg', 0.85);
+    
+    window.selectedSticker = originalSticker;
+    composePaintCanvas();
+    
+    const a = document.createElement('a');
+    a.href = imageBase64;
+    a.download = `desenho-${window.currentPaintingData ? window.currentPaintingData.name.replace(/\\s+/g, '-').toLowerCase() : 'colorido'}.jpg`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    showToast('Download concluído com sucesso! 📥🎨', 'success');
 }
 
 function openCertificateModal(drawingName) {

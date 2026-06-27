@@ -10433,5 +10433,125 @@ body {
     }
 }
 
+/* ==========================================================================
+   KIDCANVAS - PERFORMANCE & MOBILE OPTIMIZATIONS (FASE 2)
+   ========================================================================== */
+
+/* 1. Safe areas para notch e barra de navegação gestual */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* Header do modo pintura — não cortar no notch */
+.paint-active .paint-header,
+.paint-toolbar-top {
+  padding-top: calc(8px + var(--safe-top)) !important;
+}
+
+/* Barra de ferramentas inferior — não cortar na barra home do iPhone */
+.paint-toolbar-bottom,
+.paint-color-palette {
+  padding-bottom: calc(8px + var(--safe-bottom)) !important;
+}
+
+/* Conteúdo geral */
+body {
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+}
+
+/* 2. Garantir área mínima de toque em todos os botões e ferramentas */
+.paint-tool-btn,
+.color-swatch,
+.toolbar-action,
+.sticker-control-btn {
+  min-width: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation; /* evita duplo clique dar zoom */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Para ícones que são menores que 48px visualmente,
+   aumentar a área clicável sem mudar o visual */
+.paint-tool-btn::before {
+  content: '';
+  position: absolute;
+  min-width: 48px;
+  min-height: 48px;
+}
+
+/* 3. Impedir duplo clique de dar zoom na página no iOS/Android */
+* {
+  touch-action: manipulation;
+}
+
+/* Exceção: canvas de pintura usa gestos livres */
+#drawing-canvas,
+.sticker-layer {
+  touch-action: none; /* gerenciado manualmente pelo JS de pinch/pan */
+}
+
+/* Impedir que inputs deem zoom no iOS (mínimo 16px previne o zoom automático) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+  font-size: 16px;
+}
+
+/* 4. Skeleton loading animation */
+@keyframes skeleton-pulse {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200px 100%;
+  animation: skeleton-pulse 1.4s ease infinite;
+  border-radius: 8px;
+}
+
+.skeleton-card {
+  height: 200px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+}
+
+.skeleton-text {
+  height: 14px;
+  margin: 8px 0;
+  border-radius: 4px;
+}
+
+.skeleton-text.short {
+  width: 60%;
+}
+
+/* 5. Lazy loading image states */
+img.lazy {
+  background: #f0f0f0;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+img.lazy-loaded {
+  opacity: 1;
+}
+
+
 
 

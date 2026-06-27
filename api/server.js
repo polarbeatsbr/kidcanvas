@@ -380,8 +380,15 @@ async function activateUserPlanOrCredits(user, planName, users) {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Habilitar compressão Gzip/Brotli
-app.use(compression());
+// Habilitar Brotli/GZIP em todos os assets estáticos
+app.use(compression({
+  level: 6,
+  threshold: 1024, // só comprimir acima de 1KB
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) return false;
+    return compression.filter(req, res);
+  }
+}));
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || '').split(',').map(o => o.trim()).filter(Boolean);
 
