@@ -869,6 +869,51 @@
         }
     </style>
     
+    <!-- SEO & Metadata Script -->
+    <script src="/js/seo.js"></script>
+
+    <!-- Meta tags base (serão sobrescritas dinamicamente pelo seo.js) -->
+    <meta name="description" content="Mais de 14.000 desenhos para colorir online, histórias geradas por IA e cartas colecionáveis. Grátis para começar!">
+    <link rel="canonical" href="https://kidcanvas.com.br/">
+    <meta property="og:title" content="KidCanvas — Pintura e Histórias Mágicas para Crianças">
+    <meta property="og:description" content="Mais de 14.000 desenhos para colorir online, histórias geradas por IA e cartas colecionáveis.">
+    <meta property="og:image" content="https://kidcanvas.com.br/images/og/home.jpg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Schema.org WebApplication Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "KidCanvas",
+      "url": "https://kidcanvas.com.br",
+      "description": "Plataforma de pintura online e histórias com IA para crianças",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Plano Grátis",
+          "price": "0",
+          "priceCurrency": "BRL"
+        },
+        {
+          "@type": "Offer",
+          "name": "Plano Família",
+          "price": "14.90",
+          "priceCurrency": "BRL",
+          "billingIncrement": "P1M"
+        }
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Crianças de 3 a 12 anos"
+      },
+      "inLanguage": "pt-BR",
+      "screenshot": "https://kidcanvas.com.br/images/og/home.jpg"
+    }
+    </script>
 </head>
 <body>
 
@@ -876,7 +921,7 @@
     <header class="main-header">
         <div class="container header-container">
             <a href="/" class="logo" id="header-logo">
-                <img src="/mascot_artista.png" class="logo-icon" style="height: 38px; width: auto; vertical-align: middle; margin-right: 8px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); transform: rotate(-5deg); transition: transform 0.2s ease;" />
+                <img alt="Mascote Artista" src="/mascot_artista.png" class="logo-icon" style="height: 38px; width: auto; vertical-align: middle; margin-right: 8px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); transform: rotate(-5deg); transition: transform 0.2s ease;" />
                 <span class="logo-text">kidcanvas<span class="logo-dot">.com.br</span></span>
             </a>
             
@@ -1825,7 +1870,7 @@
                 </div>
                 
                 <div class="section-title-wrapper align-left">
-                    <h1 class="page-title">Categorias de Desenhos 🎒</h1>
+                    <h2 class="page-title">Categorias de Desenhos 🎒</h2>
                     <p class="section-subtitle">Explore nossos temas e encontre os desenhos favoritos para colorir:</p>
                 </div>
                 
@@ -1847,7 +1892,7 @@
                 </div>
                 
                 <div class="section-title-wrapper align-left">
-                    <h1 class="page-title">Top 50 Desenhos Mais Amados 🏆</h1>
+                    <h2 class="page-title">Top 50 Desenhos Mais Amados 🏆</h2>
                     <p class="section-subtitle">Escolhidos pelas crianças e selecionados pela Vovó Sônia!</p>
                 </div>
                 
@@ -1873,7 +1918,7 @@
                 <div class="category-header-banner">
                     <div class="category-header-info">
                         <span class="category-header-icon" id="category-detail-icon">🦁</span>
-                        <h1 class="page-title" id="category-detail-title">Nome da Categoria</h1>
+                        <h2 class="page-title" id="category-detail-title">Nome da Categoria</h2>
                         <p class="category-header-desc" id="category-detail-desc">Veja todos os desenhos prontos para você salvar e imprimir gratuitamente!</p>
                     </div>
                 </div>
@@ -1948,7 +1993,7 @@
                     <!-- Lado Direito: Ações e Info -->
                     <div class="drawing-info-column">
                         <span class="badge badge-free">100% Grátis</span>
-                        <h1 class="drawing-detail-name" id="drawing-detail-name">Nome do Desenho</h1>
+                        <h2 class="drawing-detail-name" id="drawing-detail-name">Nome do Desenho</h2>
                         
                         <!-- Balão de Fala do Personagem (Exibição na Tela) -->
                         <div class="character-speech-container" id="character-speech-box">
@@ -2046,7 +2091,7 @@
                 </div>
                 
                 <div class="plans-header-text" style="text-align: center; margin-bottom: 30px;">
-                    <h1 class="page-title" style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--color-dark); margin-bottom: 10px;">Escolha o plano ideal<br><span style="color: var(--color-purple);">para soltar a imaginação</span></h1>
+                    <h2 class="page-title" style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--color-dark); margin-bottom: 10px;">Escolha o plano ideal<br><span style="color: var(--color-purple);">para soltar a imaginação</span></h2>
                     <p class="section-subtitle" style="font-size: 1.1rem; color: var(--color-dark-light); font-weight: 500;">Mais desenhos, mais criação, mais magia. Sempre do jeitinho das crianças.</p>
                 </div>
 
@@ -2327,7 +2372,7 @@
                 </div>
                 
                 <div class="privacy-policy-container">
-                    <h1 class="page-title">Política de Privacidade 🔒</h1>
+                    <h2 class="page-title">Política de Privacidade 🔒</h2>
                     <p class="privacy-last-update">Última atualização: Junho de 2026</p>
                     
                     <div class="privacy-content">
@@ -2390,7 +2435,7 @@
             <div class="container page-content-padding" style="max-width: 650px; margin: 0 auto;">
                 <div class="plans-header-text" style="text-align: center; margin-bottom: 30px; margin-top: 20px;">
                     <span style="font-size: 3.5rem; display: block; margin-bottom: 10px;">🐛</span>
-                    <h1 class="section-title">Reportar Bug</h1>
+                    <h2 class="section-title">Reportar Bug</h2>
                     <p class="section-subtitle" style="font-size: 1.1rem; color: var(--color-dark-light); font-weight: 500;">
                         Encontrou algo que não funcionou bem? Nos diga o que aconteceu para que possamos arrumar!
                     </p>
@@ -2471,10 +2516,10 @@
                 </div>
                 
                 <div class="magic-book-header" style="text-align: center; margin-top: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <h1 class="page-title" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-dark); margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <h2 class="page-title" style="font-family: var(--font-heading); font-size: 2.2rem; color: var(--color-dark); margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;">
                         <img src="/magician_icon.png" alt="Aprendiz de Feiticeiro" style="width: 2.6rem; height: 2.6rem; object-fit: contain;">
                         KidCanvas - Histórias Mágicas
-                    </h1>
+                    </h2>
                     <p class="section-subtitle" style="font-size: 1.15rem; color: var(--color-dark-light); font-weight: 500; margin-bottom: 30px;">Crie e ilustre histórias personalizadas consumindo seus créditos mágicos! ✨🎨</p>
                 </div>
                 
@@ -2724,7 +2769,7 @@
         <section id="view-historias-exemplo" class="page-view" style="display: none;">
             <div class="container" style="padding-top: 40px; padding-bottom: 60px;">
                 <div style="text-align: center; margin-bottom: 40px;">
-                    <h1 style="font-family: var(--font-heading); font-weight: 700; font-size: 2.5rem; color: var(--color-dark); margin-bottom: 10px;">📚 Histórias Mágicas de Exemplo</h1>
+                    <h2 style="font-family: var(--font-heading); font-weight: 700; font-size: 2.5rem; color: var(--color-dark); margin-bottom: 10px;">📚 Histórias Mágicas de Exemplo</h2>
                     <p style="font-family: var(--font-body); font-size: 1.1rem; color: var(--color-dark-light); max-width: 600px; margin: 0 auto;">
                         Confira exemplos reais de histórias ilustradas geradas pela Inteligência Artificial do KidCanvas. Você pode ler, imprimir ou baixar o PDF completo gratuitamente!
                     </p>
@@ -2773,7 +2818,7 @@
                 </div>
                 
                 <div class="section-title-wrapper align-left">
-                    <h1 class="page-title">Minhas Criações 🎨</h1>
+                    <h2 class="page-title">Minhas Criações 🎨</h2>
                     <p class="section-subtitle">Aqui ficam salvos os desenhos e histórias mágicas que você criou!</p>
                 </div>
                 
@@ -2812,10 +2857,10 @@
                 </div>
 
                 <div class="section-title-wrapper align-center" style="margin-bottom: 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                    <h1 class="page-title" style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.5rem; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <h2 class="page-title" style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.5rem; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px;">
                         <img src="/magician_icon.png" alt="Aprendiz de Feiticeiro" style="width: 2.8rem; height: 2.8rem; object-fit: contain;">
                         Hall da Fama
-                    </h1>
+                    </h2>
                     <p class="section-subtitle" style="font-size: 1.15rem; color: var(--color-dark-light); font-weight: 500;">Veja as criações mais votadas da comunidade KidCanvas.</p>
                 </div>
 
@@ -2905,7 +2950,7 @@
                 </div>
 
                 <div class="section-title-wrapper" style="margin-bottom: 30px;">
-                    <h1 class="page-title">🖍️ O que você quer pintar hoje?</h1>
+                    <h2 class="page-title">🖍️ O que você quer pintar hoje?</h2>
                     <p class="section-subtitle">Escolha e solte a imaginação!</p>
                 </div>
 
@@ -3027,7 +3072,7 @@
                 </div>
 
                 <div class="section-title-wrapper align-left" style="margin-bottom: 20px;">
-                    <h1 class="page-title">Pintar Online 🎨</h1>
+                    <h2 class="page-title">Pintar Online 🎨</h2>
                     <p class="section-subtitle">Use a sua imaginação com a paleta colorida, balde de tinta e brilho mágico!</p>
                 </div>
 
@@ -3336,7 +3381,7 @@
                 </div>
 
                 <div class="section-title-wrapper" style="margin-bottom: 10px;">
-                    <h1 class="page-title">🏆 Álbum de Conquistas</h1>
+                    <h2 class="page-title">🏆 Álbum de Conquistas</h2>
                     <p class="section-subtitle" id="conquistas-subtitle">Colecione selos e suba de nível!</p>
                 </div>
 
@@ -3696,7 +3741,7 @@
                         <img src="/mascot_mago.png" alt="Mascote Vovó Sônia" style="height: 100px; animation: floatMascot 3s infinite ease-in-out 1.5s;" />
                     </div>
 
-                    <h1 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 3.5rem; margin-bottom: 10px; text-shadow: var(--shadow-text);">404</h1>
+                    <h2 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 3.5rem; margin-bottom: 10px; text-shadow: var(--shadow-text);">404</h2>
                     <h2 style="font-family: var(--font-heading); color: var(--color-orange); margin-bottom: 20px;">Ops! Caminho Perdido...</h2>
                     
                     <!-- Balão de fala do Mascote -->
@@ -3817,7 +3862,7 @@
             <div style="position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; background: rgba(254,202,87,0.15); border-radius: 50%; filter: blur(20px);"></div>
             <div style="position: absolute; bottom: -50px; right: -50px; width: 150px; height: 150px; background: rgba(139,92,246,0.15); border-radius: 50%; filter: blur(20px);"></div>
             
-            <h1 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.5rem; margin-bottom: 5px; animation: bounce-slow 3s infinite;">🎉 PARABÉNS!</h1>
+            <h2 style="font-family: var(--font-heading); color: var(--color-purple); font-size: 2.5rem; margin-bottom: 5px; animation: bounce-slow 3s infinite;">🎉 PARABÉNS!</h2>
             <p style="color: var(--color-dark-light); font-size: 1.1rem; font-weight: 700; margin-bottom: 25px;">Você conquistou um novo certificado oficial!</p>
             
             <!-- Mini Certificado Box Preview -->
@@ -4410,7 +4455,7 @@
             
             <!-- Folha Esquerda (Sumário / Capítulos) -->
             <div class="livro-folha-esquerda">
-                <h1 class="livro-titulo">📖 Livro das Descobertas</h1>
+                <h2 class="livro-titulo">📖 Livro das Descobertas</h2>
                 <p class="livro-subtitulo">Pinte, explore e descubra criaturas, lugares e aventuras incríveis. <button class="livro-help-btn" onclick="openDiscoveriesHelpModal()" style="background: none; border: none; color: #6c5ce7; font-weight: 800; cursor: pointer; text-decoration: underline; padding: 0; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 4px; font-family: inherit;"><i class="fa-solid fa-circle-info"></i> Como funciona?</button></p>
 
                 <!-- Estatística Global e Dicas Rotativas -->

@@ -1,0 +1,5 @@
+SEO Audit Report
+Generated: 2026-06-27T01:38:07.417Z
+File: C:\Users\foneo\.gemini\antigravity\scratch\pintai\public\index.html
+Errors: 0
+Warnings: 1

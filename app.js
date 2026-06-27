@@ -1674,6 +1674,11 @@ function navigate(path, pushState = true) {
         window.history.pushState({}, '', cleanPath);
     }
 
+    // Atualizar SEO em cada mudança de rota
+    if (window.updateSEO) {
+        window.updateSEO(cleanPath);
+    }
+
     // Enviar evento de visualização de página para o Google Analytics (SPA)
     if (typeof gtag === 'function') {
         gtag('event', 'page_view', {
@@ -2367,8 +2372,16 @@ function renderCategoriaDetalheView(categorySlug) {
         return;
     }
     
-    document.title = `Desenhos de ${catInfo.name} para Colorir e Imprimir — KidCanvas 🎨`;
-    setMetaDescription(catInfo.desc);
+    // SEO
+    if (window.updateDrawingSEO) {
+        const totalCount = categorySlug === 'novidades' 
+            ? allDrawings.filter(d => d.isNew).length 
+            : allDrawings.filter(d => d.category === categorySlug).length;
+        window.updateDrawingSEO(categorySlug, totalCount);
+    } else {
+        document.title = `Desenhos de ${catInfo.name} para Colorir e Imprimir — KidCanvas 🎨`;
+        setMetaDescription(catInfo.desc);
+    }
     
     const view = document.getElementById('view-categoria-detalhe');
     view.style.display = 'block';
@@ -3056,8 +3069,12 @@ function renderDesenhoIndividualView(categorySlug, drawingSlug) {
     const catInfo = CATEGORIES_DATA[categorySlug];
     
     // SEO
-    document.title = `Desenho de ${drawing.pt} para Colorir e Imprimir — KidCanvas`;
-    setMetaDescription(`Desenho de ${drawing.pt} para colorir e imprimir grátis! Baixe em alta resolução a ilustração de ${drawing.pt} (${drawing.en}) para pintar e colorir em casa.`);
+    if (window.updateSingleDrawingSEO) {
+        window.updateSingleDrawingSEO(drawing);
+    } else {
+        document.title = `Desenho de ${drawing.pt} para Colorir e Imprimir — KidCanvas`;
+        setMetaDescription(`Desenho de ${drawing.pt} para colorir e imprimir grátis! Baixe em alta resolução a ilustração de ${drawing.pt} (${drawing.en}) para pintar e colorir em casa.`);
+    }
     
     const view = document.getElementById('view-desenho-individual');
     view.style.display = 'block';

@@ -121,6 +121,24 @@ async function build() {
             console.error('Error: app.js source file not found!');
         }
 
+        // Copy and Minify js/seo.js
+        const jsDirDest = path.join(publicDir, 'js');
+        if (!fs.existsSync(jsDirDest)) {
+            fs.mkdirSync(jsDirDest, { recursive: true });
+        }
+        const seoSrcPath = path.join(__dirname, '..', 'js', 'seo.js');
+        const seoDestPath = path.join(jsDirDest, 'seo.js');
+        if (fs.existsSync(seoSrcPath)) {
+            console.log('Minifying JS (seo.js)...');
+            const seoInput = fs.readFileSync(seoSrcPath, 'utf8');
+            const seoResult = await minify(seoInput, {
+                compress: { drop_console: true },
+                mangle: true,
+            });
+            fs.writeFileSync(seoDestPath, seoResult.code, 'utf8');
+            console.log('Minified and copied seo.js to public/js/seo.js');
+        }
+
         // Minify style.css
         console.log('Minifying CSS (style.css)...');
         const cssSrcPath = path.join(__dirname, '..', 'style.css');
