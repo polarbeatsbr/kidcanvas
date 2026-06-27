@@ -10997,7 +10997,7 @@ const stickerCategories = {
         { name: "Chapéu 54", url: "/stickers/chapeus/hat_058.png" },
         { name: "Chapéu 55", url: "/stickers/chapeus/hat_059.png" },
         { name: "Chapéu 56", url: "/stickers/chapeus/hat_060.png" },
-    ],,
+    ],
     orelhas: [
         { name: "Orelhas de Gato", url: "/stickers/orelhas/ear_001.png" },
         { name: "Orelhas de Cachorro", url: "/stickers/orelhas/ear_002.png" },
