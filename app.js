@@ -1,4 +1,47 @@
 
+// Secure Session Polyfill for KidCanvas (localStorage removal & cookie credentials mapping)
+(function() {
+    // 1. Interceptar localStorage para não armazenar tokens de sessão
+    const originalGet = localStorage.getItem.bind(localStorage);
+    const originalSet = localStorage.setItem.bind(localStorage);
+    const originalRemove = localStorage.removeItem.bind(localStorage);
+    
+    localStorage.getItem = function(key) {
+        if (key === 'kidcanvas_session_token') {
+            return ''; // Retorna vazio para o backend ler o cookie HttpOnly
+        }
+        return originalGet(key);
+    };
+    
+    localStorage.setItem = function(key, value) {
+        if (key === 'kidcanvas_session_token') {
+            return; // Impede gravação do token no localStorage por segurança
+        }
+        return originalSet(key, value);
+    };
+    
+    localStorage.removeItem = function(key) {
+        if (key === 'kidcanvas_session_token') {
+            return;
+        }
+        return originalRemove(key);
+    };
+
+    // 2. Interceptar fetch global para adicionar automaticamente credentials: 'include'
+    const originalFetch = window.fetch;
+    window.fetch = function(input, init) {
+        if (typeof input === 'string' && input.includes('/api/')) {
+            init = init || {};
+            init.credentials = 'include';
+        } else if (input instanceof Request && input.url.includes('/api/')) {
+            try {
+                input = new Request(input, { credentials: 'include' });
+            } catch(e) {}
+        }
+        return originalFetch(input, init);
+    };
+})();
+
 window.activeMaterial = 'crayon';
 window.applyMaterialStroke = function(ctx, baseSize, tool, material) {
     const activeTool = tool || window.activePaintTool;
@@ -966,6 +1009,10 @@ function handleHeaderLogout() {
     sessionToken = null;
     currentUser = null;
     localStorage.removeItem("kidcanvas_session_token");
+    
+    // Notificar o backend para limpar o cookie de sessão e invalidar o token
+    fetch('/api/auth/logout', { method: 'POST' }).catch(err => console.error('Erro no logout backend:', err));
+    
     updateHeaderAuthDisplay();
     showToast("Você saiu da sua conta.", "info");
     

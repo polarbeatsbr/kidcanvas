@@ -20,6 +20,13 @@ C:\\Users\\foneo\\.gemini\antigravity\brain/
 !build.js
 !tools/build.js
 !api/mailer.js
+!api/db.js
+!api/auth.js
+!api/session.js
+!api/stars.js
+!api/middleware/auth.js
+!scripts/migrate-users.js
+!scripts/export-backup.js
 !sw.js
 !public/sw.js
 
@@ -54,3 +61,5 @@ suspeitas/
 prototipos/
 painel-teste.html
 public/painel-teste.html
+
+.env*

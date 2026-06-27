@@ -2,6 +2,7 @@ const { S3Client, GetObjectCommand, PutObjectCommand } = require('@aws-sdk/clien
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const supabase = require('./db');
 
 // Caminho do backup local
 const LOCAL_USERS_FILE = path.join(__dirname, '..', 'users.json');
@@ -37,32 +38,84 @@ function streamToString(stream) {
     });
 }
 
-// Carregar usuários da base de dados (R2 com fallback local)
+const useSupabase = process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY && !process.env.SUPABASE_URL.includes('placeholder');
+
 async function loadUsers() {
-    // 1. Tentar ler do R2 se disponível
-    if (s3Client && bucketName) {
+    if (useSupabase) {
         try {
-            console.log(`[R2DB] Lendo banco de dados users.json do Cloudflare R2...`);
-            const command = new GetObjectCommand({
-                Bucket: bucketName,
-                Key: 'users.json',
+            console.log(`[R2DB] Lendo banco de dados do Supabase...`);
+            const { data: dbUsers, error: usersErr } = await supabase.from('users').select('*');
+            if (usersErr) throw usersErr;
+
+            const { data: dbDrawings, error: drawingsErr } = await supabase.from('drawings').select('*');
+            if (drawingsErr) throw drawingsErr;
+
+            const { data: dbCards, error: cardsErr } = await supabase.from('cards').select('*');
+            if (cardsErr) throw cardsErr;
+
+            const { data: dbAchievements, error: achievementsErr } = await supabase.from('achievements').select('*');
+            if (achievementsErr) throw achievementsErr;
+
+            const { data: dbSessions, error: sessionsErr } = await supabase.from('sessions').select('*');
+            if (sessionsErr) throw sessionsErr;
+
+            const returnUsers = [];
+            dbUsers.forEach(dbUser => {
+                const drawings = dbDrawings.filter(d => d.user_id === dbUser.id).map(d => ({
+                    drawingId: d.id,
+                    title: d.title,
+                    imageUrl: d.image_url,
+                    url: d.image_url,
+                    thumbnailUrl: d.thumbnail_url,
+                    category: d.category,
+                    templateId: d.template_id,
+                    createdAt: d.created_at
+                }));
+                const cards = dbCards.filter(c => c.user_id === dbUser.id).map(c => ({
+                    id: c.card_id,
+                    name: c.card_name,
+                    rarity: c.rarity,
+                    obtainedAt: c.obtained_at
+                }));
+                const achievements = dbAchievements.filter(a => a.user_id === dbUser.id).map(a => a.achievement_id);
+
+                const baseUserObj = {
+                    id: dbUser.id,
+                    email: dbUser.email,
+                    passwordHash: dbUser.password_hash,
+                    username: dbUser.username,
+                    plan: dbUser.plan,
+                    stars: dbUser.stars,
+                    avatarUrl: dbUser.avatar_url,
+                    myPaintings: drawings,
+                    cards: cards,
+                    achievements: achievements,
+                    paginasRestantes: dbUser.stars,
+                    createdAt: dbUser.created_at,
+                    lastLogin: dbUser.updated_at
+                };
+
+                const userSessions = dbSessions.filter(s => s.user_id === dbUser.id && new Date(s.expires_at) > new Date());
+                if (userSessions.length > 0) {
+                    userSessions.forEach(session => {
+                        returnUsers.push({
+                            ...baseUserObj,
+                            token: session.token_hash,
+                            tokenExpiry: new Date(session.expires_at).getTime()
+                        });
+                    });
+                } else {
+                    returnUsers.push({
+                        ...baseUserObj,
+                        token: null,
+                        tokenExpiry: null
+                    });
+                }
             });
-            const response = await s3Client.send(command);
-            const dataStr = await streamToString(response.Body);
-            
-            // Salvar cópia local de sincronização
-            try {
-                fs.writeFileSync(LOCAL_USERS_FILE, dataStr, 'utf8');
-            } catch(e) {}
-            
-            return JSON.parse(dataStr);
+
+            return returnUsers;
         } catch (err) {
-            // Se o arquivo não existir no bucket (NoSuchKey), retornar array vazio
-            if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || err.message.includes('NoSuchKey')) {
-                console.log('[R2DB] Arquivo users.json não existe no bucket R2. Retornando vazio.');
-                return [];
-            }
-            console.error('[R2DB] Erro ao carregar do R2 (usando fallback local):', err.message);
+            console.error('[R2DB] Falha ao carregar dados do Supabase (usando fallback local):', err.message);
         }
     }
 
@@ -78,34 +131,100 @@ async function loadUsers() {
     return [];
 }
 
-// Salvar usuários na base de dados (R2 e local)
 async function saveUsers(users) {
-    const dataStr = JSON.stringify(users, null, 2);
+    if (useSupabase) {
+        try {
+            console.log(`[R2DB] Salvando dados no Supabase...`);
+            const processedIds = new Set();
+            for (const user of users) {
+                if (processedIds.has(user.id)) continue;
+                processedIds.add(user.id);
 
-    // 1. Sempre salvar localmente primeiro como backup
+                // 1. Salvar ou atualizar usuário
+                const { error: userErr } = await supabase.from('users').upsert({
+                    id: user.id,
+                    email: user.email.toLowerCase(),
+                    password_hash: user.passwordHash || user.password,
+                    username: user.username || user.name || user.email.split('@')[0],
+                    plan: user.plan || 'free',
+                    stars: user.stars || user.paginasRestantes || 0,
+                    avatar_url: user.avatarUrl || user.photo || null
+                });
+                if (userErr) throw userErr;
+
+                // 2. Sincronizar desenhos (deleta e re-insere)
+                await supabase.from('drawings').delete().eq('user_id', user.id);
+                const drawings = user.myPaintings || user.drawings || [];
+                if (drawings.length > 0) {
+                    const dbDrawings = drawings.map(d => ({
+                        user_id: user.id,
+                        title: d.title || d.prompt || 'Sem título',
+                        image_url: d.imageUrl || d.url,
+                        thumbnail_url: d.thumbnailUrl || d.url,
+                        category: d.category,
+                        template_id: d.templateId,
+                        created_at: d.createdAt || new Date().toISOString()
+                    }));
+                    const { error: drwErr } = await supabase.from('drawings').insert(dbDrawings);
+                    if (drwErr) throw drwErr;
+                }
+
+                // 3. Sincronizar cartas
+                await supabase.from('cards').delete().eq('user_id', user.id);
+                const cards = user.cards || [];
+                if (cards.length > 0) {
+                    const dbCards = cards.map(c => ({
+                        user_id: user.id,
+                        card_id: c.id || c.cardId,
+                        card_name: c.name || c.cardName,
+                        rarity: c.rarity || 'comum',
+                        obtained_at: c.obtainedAt || new Date().toISOString()
+                    }));
+                    const { error: crdErr } = await supabase.from('cards').insert(dbCards);
+                    if (crdErr) throw crdErr;
+                }
+
+                // 4. Sincronizar conquistas
+                await supabase.from('achievements').delete().eq('user_id', user.id);
+                const achievements = user.achievements || [];
+                if (achievements.length > 0) {
+                    const dbAchievements = achievements.map(a => ({
+                        user_id: user.id,
+                        achievement_id: a.achievementId || a,
+                        unlocked_at: new Date().toISOString()
+                    }));
+                    const { error: achErr } = await supabase.from('achievements').insert(dbAchievements);
+                    if (achErr) throw achErr;
+                }
+
+                // 5. Sincronizar sessões ativas criadas de forma legada (se houver token)
+                if (user.token) {
+                    const tokenHash = user.token.length === 64 ? user.token : crypto.createHash('sha256').update(user.token).digest('hex');
+                    const expiresAt = user.tokenExpiry ? new Date(user.tokenExpiry).toISOString() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+                    await supabase.from('sessions').upsert({
+                        user_id: user.id,
+                        token_hash: tokenHash,
+                        expires_at: expiresAt,
+                        user_agent: 'legacy_compatibility',
+                        ip_address: '127.0.0.1'
+                    });
+                }
+            }
+            console.log('[R2DB] Sincronização com o Supabase concluída com sucesso.');
+            return true;
+        } catch (err) {
+            console.error('[R2DB] Erro ao salvar no Supabase (usando fallback local):', err.message);
+        }
+    }
+
+    // Fallback: Salvar localmente
+    const dataStr = JSON.stringify(users, null, 2);
     try {
         fs.writeFileSync(LOCAL_USERS_FILE, dataStr, 'utf8');
         console.log('[R2DB] Backup local de users.json gravado com sucesso.');
+        return true;
     } catch (e) {
         console.error('[R2DB] Falha ao gravar cópia local de backup:', e.message);
-    }
-
-    // 2. Enviar para o Cloudflare R2 se disponível
-    if (s3Client && bucketName) {
-        try {
-            console.log(`[R2DB] Enviando users.json atualizado para o Cloudflare R2...`);
-            const command = new PutObjectCommand({
-                Bucket: bucketName,
-                Key: 'users.json',
-                Body: dataStr,
-                ContentType: 'application/json',
-            });
-            await s3Client.send(command);
-            console.log('[R2DB] Banco de dados users.json persistido no R2.');
-            return true;
-        } catch (err) {
-            console.error('[R2DB] Falha crítica ao persistir no R2:', err.message);
-        }
     }
     return false;
 }

@@ -2,8 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const compression = require('compression');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const rateLimit = require('express-rate-limit');
 const path = require('path');
 const crypto = require('crypto');
+
+const { register, login: authLogin, verifyPassword } = require('./auth');
+const { createSession, validateSession, destroySession } = require('./session');
+const { addStars, spendStars } = require('./stars');
 const fs = require('fs');
 const { loadUsers, saveUsers, loadWaitlist, saveWaitlist, loadBugs, saveBugs, loadAnalytics, saveAnalytics, hashPassword, uploadImage, loadPublicPaintings, loadEvents, saveEvents, loadFeaturedDrawings, saveFeaturedDrawings, loadDrawings } = require('./r2db');
 const stripe = process.env.STRIPE_SECRET_KEY ? require('stripe')(process.env.STRIPE_SECRET_KEY) : null;
@@ -377,8 +383,69 @@ const PORT = process.env.PORT || 3000;
 // Habilitar compressão Gzip/Brotli
 app.use(compression());
 
-// Habilitar CORS para desenvolvimento local se necessário
-app.use(cors());
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || '').split(',').map(o => o.trim()).filter(Boolean);
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // Permitir requests sem origin (mobile apps, curl, etc.)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    callback(new Error(`Origin ${origin} not allowed by CORS`));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-session-token']
+}));
+
+// Cookie parser para podermos ler cookies da sessão
+app.use(cookieParser());
+
+// Middleware global de compatibilidade: popula e hashes x-session-token a partir do cookie ou cabeçalho
+app.use((req, res, next) => {
+  let token = req.headers['x-session-token'] || req.cookies?.kidcanvas_session;
+  if (token) {
+    // Se o token não for um hash SHA-256 (comprimento 64), nós o hasheamos
+    if (token.length !== 64) {
+      token = crypto.createHash('sha256').update(token).digest('hex');
+    }
+    req.headers['x-session-token'] = token;
+  }
+  next();
+});
+
+// Headers de segurança para o Express
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  next();
+});
+
+// Rate limiting por IP
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutos
+  max: 15, // máximo 15 tentativas de login/cadastro por IP
+  message: { success: false, message: 'Limite de requisições excedido. Tente novamente mais tarde.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minuto
+  max: 100, // máximo 100 requisições por IP
+  message: { success: false, message: 'Muitas requisições. Tente novamente mais tarde.' },
+  skip: (req) => {
+    // Pular rate limit para webhooks de pagamento (Stripe / Mercado Pago)
+    return req.originalUrl.includes('/webhook');
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use('/api/auth', authLimiter);
+app.use('/api', apiLimiter);
 
 // Rota Stripe Webhook (deve vir antes do express.json() geral)
 app.post(['/api/stripe/webhook', '/api/stripc/webhook'], express.raw({type: 'application/json'}), async (req, res) => {
@@ -461,7 +528,7 @@ app.post(['/api/stripe/webhook', '/api/stripc/webhook'], express.raw({type: 'app
 });
 
 // Middleware para processar JSON (limite aumentado para suportar imagens base64 do canvas)
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '2mb' }));
 
 // Middleware para verificar virada de mês e aplicar premiações automáticas
 app.use(async (req, res, next) => {
@@ -2133,67 +2200,52 @@ app.post('/api/auth/google', async (req, res) => {
 // Endpoint de Cadastro
 app.post('/api/auth/signup', async (req, res) => {
     try {
-        const { name, email, password, refCode } = req.body;
+        const { name, email, password } = req.body;
         if (!name || !email || !password) {
             return res.status(400).json({ success: false, message: 'Todos os campos são obrigatórios.' });
         }
         
         const cleanEmail = email.trim().toLowerCase();
-        const users = await loadUsers();
         
-        const existingUser = users.find(u => u.email === cleanEmail);
-        if (existingUser) {
-            return res.status(400).json({ success: false, message: 'Este e-mail já está cadastrado.' });
-        }
-        
-        const sessionToken = crypto.randomBytes(16).toString('hex');
-        const inviteCode = crypto.randomBytes(4).toString('hex'); // Gerar código de convite único de 8 caracteres
-        let userPlan = 'Aprendiz';
-        let userCredits = 3;
-        if (cleanEmail === 'foneoliver@gmail.com') {
-            userPlan = 'Ultra';
-            userCredits = 400;
+        let userData;
+        try {
+            userData = await register(cleanEmail, password, name.trim());
+        } catch (regErr) {
+            if (regErr.message === 'EMAIL_ALREADY_EXISTS') {
+                return res.status(400).json({ success: false, message: 'Este e-mail já está cadastrado.' });
+            }
+            throw regErr;
         }
 
-        const newUser = {
-            id: crypto.randomUUID(),
-            name: name.trim(),
-            email: cleanEmail,
-            passwordHash: hashPassword(password),
-            plan: userPlan,
-            paginasRestantes: userCredits,
-            photo: '',
-            token: sessionToken,
-            tokenExpiry: Date.now() + 30 * 24 * 60 * 60 * 1000, // 30 dias
-            createdAt: new Date().toISOString(),
-            lastLogin: new Date().toISOString(),
-            consecutiveDays: 1,
-            inviteCode: inviteCode,
-            referredUsers: [],
-            invitedBy: null
-        };
-        
-        // Lógica de indicação
-        if (refCode) {
-            const inviter = users.find(u => u.inviteCode === refCode);
-            if (inviter) {
-                newUser.invitedBy = inviter.id;
-                inviter.referredUsers = inviter.referredUsers || [];
-                inviter.referredUsers.push(newUser.id);
-                
-                await refreshUserDiscoveries(inviter);
-            }
-        }
-        
-        users.push(newUser);
-        await saveUsers(users);
-        
+        // Criar código de convite / atributos adicionais se necessário, mas o principal está no Supabase
+        const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
+        const userAgent = req.headers['user-agent'] || '';
+        const sessionToken = await createSession(userData.id, userAgent, ipAddress);
+
+        // Definir cookie HttpOnly seguro
+        res.cookie('kidcanvas_session', sessionToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production' || req.secure || req.headers['x-forwarded-proto'] === 'https',
+            sameSite: 'strict',
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 30 dias
+            path: '/',
+        });
+
         // Enviar email de boas-vindas
-        sendWelcomeEmail(newUser);
-        
+        sendWelcomeEmail({ email: cleanEmail, name: name.trim() });
+
         return res.json({
             success: true,
-            user: formatUserProfile(newUser, users),
+            user: {
+                id: userData.id,
+                email: userData.email,
+                username: userData.username,
+                plan: userData.plan || 'Aprendiz',
+                stars: userData.stars || 0,
+                consecutiveDays: 1,
+                inviteCode: '',
+                referredUsers: []
+            },
             token: sessionToken,
             isNewUser: true
         });
@@ -2212,32 +2264,40 @@ app.post('/api/auth/login', async (req, res) => {
         }
         
         const cleanEmail = email.trim().toLowerCase();
-        const users = await loadUsers();
         
-        const user = users.find(u => u.email === cleanEmail);
-        if (!user || user.passwordHash !== hashPassword(password)) {
+        let user;
+        try {
+            user = await authLogin(cleanEmail, password);
+        } catch (authErr) {
             return res.status(400).json({ success: false, message: 'E-mail ou senha incorretos.' });
         }
-        
-        if (user.isBanned) {
-            return res.status(403).json({ success: false, message: 'Sua conta foi suspensa por violação dos termos de uso da plataforma.' });
-        }
-        
-        const sessionToken = crypto.randomBytes(16).toString('hex');
-        user.token = sessionToken;
-        user.tokenExpiry = Date.now() + 30 * 24 * 60 * 60 * 1000; // 30 dias
-        user.lastLogin = new Date().toISOString();
-        if (!user.createdAt) {
-            user.createdAt = new Date().toISOString();
-        }
-        
-        await saveUsers(users);
-        
-        
+
+        const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
+        const userAgent = req.headers['user-agent'] || '';
+        const sessionToken = await createSession(user.id, userAgent, ipAddress);
+
+        // Definir cookie HttpOnly seguro
+        res.cookie('kidcanvas_session', sessionToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production' || req.secure || req.headers['x-forwarded-proto'] === 'https',
+            sameSite: 'strict',
+            maxAge: 30 * 24 * 60 * 60 * 1000, // 30 dias
+            path: '/',
+        });
 
         return res.json({
             success: true,
-            user: formatUserProfile(user, users),
+            user: {
+                id: user.id,
+                email: user.email,
+                username: user.username,
+                plan: user.plan || 'Aprendiz',
+                stars: user.stars || 0,
+                avatarUrl: user.avatar_url,
+                consecutiveDays: 1,
+                inviteCode: '',
+                referredUsers: []
+            },
             token: sessionToken
         });
     } catch(err) {
@@ -2319,6 +2379,21 @@ app.post('/api/auth/reset-password', async (req, res) => {
     } catch(err) {
         console.error('Erro ao redefinir senha:', err);
         return res.status(500).json({ success: false, message: 'Erro interno no servidor ao redefinir a senha.' });
+    }
+});
+
+// Endpoint de Logout
+app.post('/api/auth/logout', async (req, res) => {
+    try {
+        const token = req.cookies?.kidcanvas_session;
+        if (token) {
+            await destroySession(token);
+        }
+        res.clearCookie('kidcanvas_session', { path: '/' });
+        return res.json({ success: true, message: 'Você saiu da sua conta.' });
+    } catch(err) {
+        console.error('Erro no logout:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao deslogar.' });
     }
 });
 
