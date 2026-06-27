@@ -9266,7 +9266,7 @@ function executePaintingDraw(evt) {
         } else if (window.stickerDragMode === 'scale') {
             const currentDist = Math.hypot(pos.x - window.selectedSticker.x, pos.y - window.selectedSticker.y);
             const scale = currentDist / window.stickerStartDist;
-            window.selectedSticker.size = Math.max(20, Math.min(600, window.stickerStartSize * scale));
+            window.selectedSticker.size = Math.max(40, Math.min(400, window.stickerStartSize * scale));
         } else if (window.stickerDragMode === 'rotate') {
             const currentAngle = Math.atan2(pos.y - window.selectedSticker.y, pos.x - window.selectedSticker.x);
             window.selectedSticker.rotation = currentAngle - window.stickerStartAngle;
