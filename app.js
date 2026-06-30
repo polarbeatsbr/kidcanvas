@@ -1577,6 +1577,8 @@ function navigate(path, pushState = true) {
         }, 150);
     } else if (cleanPath === '/historias-magicas' || cleanPath === '/historia') {
         renderHistoriasMagicasView();
+    } else if (cleanPath === '/cientista-maluco') {
+        renderCientistaMalucoView();
     } else if (cleanPath === '/historias-exemplo') {
         renderHistoriasExemploView();
     } else if (cleanPath === '/politica-de-privacidade') {
@@ -6939,6 +6941,12 @@ let paintBorderImage = null;
 
 // 1. Color System Helper
 function selectPaintingColor(rgb) {
+    if (window.Sound && typeof window.Sound.play === 'function') {
+        window.Sound.play('click', 0.3);
+    }
+    if (window.Perigo && typeof window.Perigo.react === 'function') {
+        window.Perigo.react('color');
+    }
     selectedPaintColor = rgb;
     const hex = '#' + rgb.map(x => x.toString(16).padStart(2, '0')).join('');
     
@@ -8279,6 +8287,12 @@ function savePaintHistory() {
 }
 
 function undoPaint() {
+    if (window.Sound && typeof window.Sound.play === 'function') {
+        window.Sound.play('click', 0.5);
+    }
+    if (window.Perigo && typeof window.Perigo.react === 'function') {
+        window.Perigo.react('undo');
+    }
     if (paintHistoryIndex > 0) {
         paintHistoryIndex--;
         showPerigoTip('firstUndo');
@@ -9141,53 +9155,12 @@ function setPaintTool(tool) {
 window.setPaintTool = setPaintTool;
 
 // ==============================================
-// MC PERIGO — DICAS CONTEXTUAIS DO PAINT
+// MC PERIGO — DESATIVADO
 // ==============================================
 
-const PERIGO_TIPS = {
-    bucket:      "É o balde de tinta! Clica em qualquer área fechada e ela preenche todinha de uma vez. Rápido demais!",
-    brush:       "Pincel clássico na área! Faz traços suaves. Começa pelos detalhes menores — fica muito mais bonito!",
-    'brush-magic': "Pincel mágico ativado! Ele pinta por baixo do contorno sem sair da linha. Ideal pra não estragar o desenho!",
-    glitter:     "Glitter mágico! Passa em cima de qualquer cor pra adicionar brilho. Experimenta nos cabelos e asas — fica incrível!",
-    neon:        "Efeito neon ligado! Esse brilho fica mais bonito nas bordas e nos olhos do personagem. Vai lá!",
-    eraser:      "Borracha em campo! Usa o tamanho P pra corrigir detalhes e o GG pra apagar bastante de uma vez.",
-    pipette:     "Conta-gotas! Clica em qualquer cor que já está no desenho pra selecioná-la. Combina cores fácil!",
-    text:        "Modo texto! Clica onde você quer escrever e digita. Dá pra colocar seu nome na obra de arte!",
-    select:      "Modo de adesivos! Arrasta os adesivos pra onde você quiser e redimensiona pelos pontinhos nas bordas.",
-    milestone5:  "Cinco traços feitos! Você tá pegando o jeito. Continua assim que vai ficar incrível!",
-    milestone20: "Vinte traços! Olha só como tá ficando bonito. Você é um artista de verdade!",
-    firstBucket: "Primeiro balde usado! Área toda colorida numa tacada só. Eficiência máxima!",
-    firstUndo:   "Desfez! Ctrl Z é o melhor amigo do artista. Testa de novo sem medo!",
-    firstColor:  "Nova cor selecionada! Combinação de cores é o segredo de uma pintura marcante. Vai fundo!",
-    welcome:     "E aí! Sou o MC Perigo e tô aqui pra te ajudar nas pinturas. Escolhe uma ferramenta e manda ver!"
-};
-
-window._perigoTipsShown = window._perigoTipsShown || {};
-window._perigoTipCooldown = false;
-
 function showPerigoTip(key) {
-    const tip = PERIGO_TIPS[key];
-    if (!tip) return;
-    if (window._perigoTipsShown[key]) return;
-    if (window._perigoTipCooldown) return;
-
-    window._perigoTipsShown[key] = true;
-    window._perigoTipCooldown = true;
-    setTimeout(() => { window._perigoTipCooldown = false; }, 6000);
-
-    const helper = document.getElementById('kidcanvas-mascot-helper');
-    const textEl = document.getElementById('mascot-helper-text');
-    const casinha = document.getElementById('mascot-casinha-helper');
-    const isMinimized = sessionStorage.getItem('kidcanvas_mascot_minimized') === 'true';
-
-    if (isMinimized || !helper) return;
-
-    if (textEl) textEl.innerHTML = tip;
-    window.currentMascotText = tip;
-    helper.classList.add('visible');
-
+    // O mascot widget MC Perigo foi removido completamente do site.
 }
-
 window.showPerigoTip = showPerigoTip;
 
 // Configurar Toolbar de Pintura
@@ -9370,6 +9343,14 @@ function startPaintingDraw(evt) {
                 size: brushSizeVal,
                 time: Date.now()
             });
+        }
+        if (isPaintDrawing && ['brush', 'neon', 'eraser', 'brush-magic', 'glitter'].includes(activePaintTool)) {
+            if (window.Sound && typeof window.Sound.play === 'function') {
+                window.Sound.play('paint', 0.4);
+            }
+            if (window.Perigo && typeof window.Perigo.react === 'function') {
+                window.Perigo.react('paint');
+            }
         }
     }
 }
@@ -9717,6 +9698,12 @@ function createGlitterPattern(colorRgb) {
 }
 
 function executePaintFloodFill(startX, startY, isGlitter) {
+    if (window.Sound && typeof window.Sound.play === 'function') {
+        window.Sound.play('bucket', 0.6);
+    }
+    if (window.Perigo && typeof window.Perigo.react === 'function') {
+        window.Perigo.react('bucket');
+    }
     if (!isGlitter) showPerigoTip('firstBucket');
     const imgData = pCtx.getImageData(0, 0, paintCanvas.width, paintCanvas.height);
     const data = imgData.data;
@@ -10672,10 +10659,13 @@ async function savePaintingToGallery() {
             } else if (resData.activeChallengeFailed) {
                 showToast('Quase! Tente desenhar novamente para desbloquear este card. ✏️', 'info');
             }
+            const oldStars = currentUser.stars || 0;
             if (resData.stars) {
                 currentUser.stars = resData.stars;
                 updateStarsUI();
             }
+            const starsEarned = resData.stars ? Math.max(0, resData.stars - oldStars) : 0;
+
             if (!isPinturaLivre) {
                 checkNewAchievements();
             }
@@ -10698,7 +10688,11 @@ async function savePaintingToGallery() {
             
             window.lastSavedPaintingUrl = resData.imageUrl;
             window.lastSavedPaintingName = data.name;
-            openCertificateModal(data.name);
+            if (typeof window.showDrawingComplete === 'function') {
+                window.showDrawingComplete(data, starsEarned);
+            } else {
+                openCertificateModal(data.name);
+            }
 
             // Animar revelações de descobertas recém-desbloqueadas
             if (resData.newlyUnlocked && resData.newlyUnlocked.length > 0) {
@@ -13770,6 +13764,11 @@ window.isDiscoveryOwned = function(card) {
 window.triggerDiscoveryReveal = function(card) {
     if (!card) return;
     
+    if (window.showCardReveal) {
+        window.showCardReveal(card);
+        return;
+    }
+    
     const overlay = document.getElementById('discovery-flip-reveal-overlay');
     const inner = document.getElementById('reveal-card-inner-el');
     const frontImg = document.getElementById('reveal-card-front-img');
@@ -16525,6 +16524,114 @@ window.submitDeleteAccount = async function() {
     }
 };
 
+window.renderProgressBar = function() {
+    const container = document.getElementById('level-progress-container');
+    if (!container || !currentUser) return;
+    
+    const userCards = currentUser.cards || [];
+    const level = Math.floor(userCards.length / 10) + 1;
+    const progress = userCards.length % 10;
+    const percentage = progress * 10;
+    
+    container.innerHTML = `
+        <div class="profile-card" style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 20px; box-shadow: var(--shadow-cartoon); margin-bottom: 20px;">
+            <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-purple); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <span>📈</span> Nível & Progresso
+            </h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-weight: bold; margin-bottom: 6px; font-size: 0.95rem;">
+                <span style="color: var(--color-purple);">Nível ${level}</span>
+                <span style="color: var(--color-dark-light);">${progress} / 10 cards para Nível ${level + 1}</span>
+            </div>
+            <div style="width: 100%; height: 20px; background-color: #f0f0f0; border: var(--border-thick); border-radius: 10px; overflow: hidden; position: relative;">
+                <div style="width: ${percentage}%; height: 100%; background: linear-gradient(90deg, #7c3aed, #a78bfa); transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);"></div>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 600; margin-top: 6px; text-align: center;">
+                Complete coleções para ganhar novos níveis e conquistas!
+            </div>
+        </div>
+    `;
+};
+
+window.renderDailyMission = async function() {
+    const container = document.getElementById('daily-missions-container');
+    if (!container || !currentUser) return;
+    
+    container.innerHTML = `
+        <div class="profile-card" style="background: var(--color-white); border: var(--border-thick); border-radius: var(--radius-md); padding: 20px; box-shadow: var(--shadow-cartoon); margin-bottom: 20px;">
+            <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-purple); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <span>📅</span> Missões Diárias
+            </h3>
+            <div id="daily-missions-list">
+                <div style="text-align: center; padding: 10px;">
+                    <i class="fa-solid fa-spinner fa-spin" style="color: var(--color-purple); font-size: 1.5rem;"></i>
+                    <p style="margin-top: 5px; font-size: 0.85rem; color: var(--color-dark-light);">Carregando missões...</p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    try {
+        const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const response = await fetch('/api/missions/daily', {
+            headers: {
+                'x-session-token': sessionToken
+            }
+        });
+        if (!response.ok) throw new Error('Failed to fetch missions');
+        const missions = await response.json();
+        
+        const listEl = document.getElementById('daily-missions-list');
+        if (!listEl) return;
+        
+        if (!missions || missions.length === 0) {
+            listEl.innerHTML = `<p style="font-size: 0.9rem; color: var(--color-dark-light); text-align: center; margin: 10px 0;">Todas as missões concluídas por hoje! Volte amanhã! 🌟</p>`;
+            return;
+        }
+        
+        let html = '';
+        missions.forEach(mission => {
+            const pct = Math.min(100, Math.floor((mission.current / mission.target) * 100));
+            const isCompleted = mission.completed;
+            
+            html += `
+                <div class="daily-mission-card \${isCompleted ? 'completed' : ''}" style="
+                    border: var(--border-medium);
+                    border-radius: 12px;
+                    padding: 12px;
+                    margin-bottom: 10px;
+                    background: \${isCompleted ? '#f0fdf4' : 'white'};
+                    border-color: \${isCompleted ? '#bbf7d0' : '#e5e7eb'};
+                ">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px;">
+                        <div>
+                            <span style="font-weight: bold; font-size: 0.95rem; color: \${isCompleted ? '#16a34a' : 'var(--color-dark)'};">
+                                \${isCompleted ? '✅ ' : '🎯 '} \${mission.description}
+                            </span>
+                            <div style="font-size: 0.8rem; color: var(--color-dark-light); font-weight: 600; margin-top: 2px;">
+                                Recompensa: ⭐ \${mission.reward} estrelas
+                            </div>
+                        </div>
+                        <span style="font-size: 0.85rem; font-weight: 800; color: \${isCompleted ? '#16a34a' : 'var(--color-purple)'};">
+                            \${mission.current} / \${mission.target}
+                        </span>
+                    </div>
+                    <div style="width: 100%; height: 8px; background-color: #f0f0f0; border-radius: 4px; overflow: hidden;">
+                        <div style="width: \${pct}%; height: 100%; background-color: \${isCompleted ? '#22c55e' : 'var(--color-purple)'}; transition: width 0.5s ease;"></div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        listEl.innerHTML = html;
+    } catch (err) {
+        console.error('Error rendering daily missions:', err);
+        const listEl = document.getElementById('daily-missions-list');
+        if (listEl) {
+            listEl.innerHTML = `<p style="font-size: 0.9rem; color: var(--color-red); text-align: center; margin: 10px 0;">Erro ao carregar as missões diárias.</p>`;
+        }
+    }
+};
+
 window.renderPerfilView = function() {
     document.title = "Meu Perfil 👤 — KidCanvas";
     setMetaDescription("Gerencie sua identidade, visualize suas estatísticas de conquistas, confira selos em destaque e mude suas configurações no KidCanvas.");
@@ -16829,6 +16936,8 @@ window.renderPerfilView = function() {
     };
 
     updateCertSummaryUI();
+    if (typeof window.renderProgressBar === 'function') window.renderProgressBar();
+    if (typeof window.renderDailyMission === 'function') window.renderDailyMission();
 
     if (!window.certificatesCatalog) {
         fetch('/api/certificates/my', {
@@ -17890,4 +17999,211 @@ window.viewCertFromCelebration = function() {
     }
 };
 
-window.renderCertificadosView = renderCertificadosView;
+// ========================================================
+// CONTROLLER: CIENTISTA MALUCO
+// ========================================================
+
+let cientistaResultData = null;
+
+function renderCientistaMalucoView() {
+    // Show view container
+    document.querySelectorAll('.page-view').forEach(view => view.style.display = 'none');
+    const viewContainer = document.getElementById('view-cientista-maluco');
+    if (viewContainer) {
+        viewContainer.style.display = 'block';
+    }
+
+    // Reset selectors
+    const sel1 = document.getElementById('cientista-sel1');
+    const sel2 = document.getElementById('cientista-sel2');
+    if (sel1) sel1.value = "";
+    if (sel2) sel2.value = "";
+
+    // Reset result panel to placeholder
+    const resultBox = document.getElementById('cientista-result-box');
+    if (resultBox) {
+        resultBox.className = "result-box";
+        resultBox.innerHTML = `
+            <div class="result-placeholder-icon">🧬</div>
+            <div class="result-placeholder-text">Escolha 2 ingredientes e clique em Gerar!</div>
+        `;
+    }
+
+    // Load credits
+    updateCientistaCreditsHUD();
+    checkCientistaReady();
+}
+
+function updateCientistaCreditsHUD() {
+    const credSpan = document.getElementById('cientista-creditos-val');
+    if (credSpan) {
+        const credits = currentUser ? (currentUser.paginasRestantes || 0) : 0;
+        credSpan.innerHTML = `⭐ ${credits}`;
+    }
+}
+
+function checkCientistaReady() {
+    const s1 = document.getElementById('cientista-sel1')?.value || "";
+    const s2 = document.getElementById('cientista-sel2')?.value || "";
+    const btn = document.getElementById('cientista-generate-btn');
+    const tip = document.getElementById('tipExample');
+
+    if (btn) {
+        btn.disabled = !(s1 && s2);
+    }
+
+    if (tip) {
+        if (s1 && s2) {
+            const n1 = s1.split(" ").slice(1).join(" ");
+            const n2 = s2.split(" ").slice(1).join(" ");
+            tip.innerHTML = `Misturando: <strong>${n1}</strong> + <strong>${n2}</strong> = ???`;
+        } else {
+            tip.innerHTML = `Escolha dois ingredientes acima!`;
+        }
+    }
+}
+
+async function gerarMisturaCientista() {
+    const s1 = document.getElementById('cientista-sel1')?.value;
+    const s2 = document.getElementById('cientista-sel2')?.value;
+    const btn = document.getElementById('cientista-generate-btn');
+    const box = document.getElementById('cientista-result-box');
+
+    if (!s1 || !s2) return;
+
+    if (!currentUser) {
+        showToast("Faça login ou cadastre-se para criar sua criatura! 🧪", "info");
+        openAuthModal();
+        return;
+    }
+
+    const currentCredits = currentUser.paginasRestantes || 0;
+    if (currentCredits < 3) {
+        showToast("Você precisa de pelo menos 3 créditos para gerar uma criatura maluca! 💎", "error");
+        navigate('/planos');
+        return;
+    }
+
+    const n1 = s1.split(" ").slice(1).join(" ");
+    const n2 = s2.split(" ").slice(1).join(" ");
+    const e1 = s1.split(" ")[0];
+    const e2 = s2.split(" ")[0];
+
+    if (btn) btn.disabled = true;
+
+    // Phase 1: Name and description generation
+    if (box) {
+        box.className = "result-box";
+        box.innerHTML = `
+            <div class="spinner"></div>
+            <div class="loading-msg">🧪 Misturando ${n1} com ${n2}...</div>
+        `;
+    }
+
+    const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+
+    try {
+        const res = await fetch('/api/cientista/gerar-nome', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': sessionToken
+            },
+            body: JSON.stringify({ ingrediente1: n1, ingrediente2: n2 })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+            throw new Error(data.message || 'Erro ao gerar nome.');
+        }
+
+        // Deduct client-side user credits and update UI
+        currentUser.paginasRestantes = data.balance;
+        updateUserCreditsHUD(); // Global HUD
+        updateCientistaCreditsHUD(); // Scoped HUD
+
+        const cores = {
+            "Comum": "#6b7280",
+            "Raro": "#2563eb",
+            "Épico": "#9333ea",
+            "Lendário": "#f59e0b"
+        };
+        const cor = cores[data.raridade] || "#7c3aed";
+
+        // Render creature details and start image generation phase
+        if (box) {
+            box.className = "result-box has-result";
+            box.innerHTML = `
+                <div style="font-size: 44px;">${e1} + ${e2}</div>
+                <div style="font-size: 11px; font-weight: 800; color: white; background: ${cor}; padding: 3px 12px; border-radius: 20px; margin: 8px 0; display: inline-block; text-transform: uppercase;">
+                    ⭐ ${data.raridade}
+                </div>
+                <div class="result-creature-name">✨ ${data.nome} ✨</div>
+                <div class="result-creature-desc" style="margin: 10px 0; max-width: 320px; font-size: 14px;">${data.descricao}</div>
+                <div class="result-power">⚡ Poder: ${data.poder}</div>
+                <div class="image-loader-container" style="margin-top: 15px; display: flex; flex-direction: column; align-items: center;">
+                    <div class="spinner" style="width: 30px; height: 30px; border-width: 3px;"></div>
+                    <div style="font-size: 12px; color: #7c3aed; font-weight: bold; margin-top: 6px;">🎨 Criando a ilustração pela IA...</div>
+                </div>
+            `;
+        }
+
+        // Phase 2: Image generation
+        const imgRes = await fetch('/api/cientista/gerar-imagem', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': sessionToken
+            },
+            body: JSON.stringify({
+                ingrediente1: n1,
+                ingrediente2: n2,
+                nomeCriatura: data.nome,
+                descricao: data.descricao
+            })
+        });
+
+        const imgData = await imgRes.json();
+        if (!imgRes.ok || !imgData.success) {
+            throw new Error(imgData.message || 'Erro ao gerar ilustração.');
+        }
+
+        // Render the complete creature card with the image
+        if (box) {
+            box.innerHTML = `
+                <div class="creature-card-wrapper" style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
+                    <img src="${imgData.imageUrl}" alt="${data.nome}" style="width: 100%; max-width: 300px; height: auto; border-radius: 12px; border: 2.5px solid #a78bfa; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);">
+                    <div style="font-size: 11px; font-weight: 800; color: white; background: ${cor}; padding: 3px 12px; border-radius: 20px; margin: 4px 0; display: inline-block; text-transform: uppercase;">
+                        ⭐ ${data.raridade}
+                    </div>
+                    <div class="result-creature-name">✨ ${data.nome} ✨</div>
+                    <div class="result-creature-desc" style="max-width: 320px; font-size: 14px; color: #5b21b6; line-height: 1.5;">${data.descricao}</div>
+                    <div class="result-power">⚡ Poder: ${data.poder}</div>
+                </div>
+            `;
+        }
+
+        showToast("Criatura criada com sucesso! 🧬🎨", "success");
+        if (window.KidCanvasAudio) window.KidCanvasAudio.playSuccess();
+
+    } catch (e) {
+        console.error("Erro na geração da criatura:", e);
+        showToast(e.message || "Erro de conexão ao gerar criatura.", "error");
+        if (box) {
+            box.className = "result-box";
+            box.innerHTML = `<div style="color: #e11d48; font-weight: 700;">Ops! Algo deu errado na mistura. Tente de novo! 🧪</div>`;
+        }
+    } finally {
+        if (btn) btn.disabled = false;
+        checkCientistaReady();
+    }
+}
+
+// Bind to window scope
+window.renderCientistaMalucoView = renderCientistaMalucoView;
+window.updateCientistaCreditsHUD = updateCientistaCreditsHUD;
+window.checkCientistaReady = checkCientistaReady;
+window.gerarMisturaCientista = gerarMisturaCientista;
+
+
+

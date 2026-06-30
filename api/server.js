@@ -2640,6 +2640,21 @@ app.post('/api/user/save-painting', async (req, res) => {
             }
         }
 
+        // Incrementar missões diárias
+        try {
+            const { incrementMissionProgress } = require('./missions');
+            const useSupabase = process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY && !process.env.SUPABASE_URL.includes('placeholder');
+            const addStarsFn = useSupabase ? addStars : null;
+            
+            await incrementMissionProgress(user.id, 'mission-1', 1, users, null, addStarsFn);
+            await incrementMissionProgress(user.id, 'mission-3', 1, users, null, addStarsFn);
+            if (colorsCount >= 5) {
+                await incrementMissionProgress(user.id, 'mission-2', 5, users, null, addStarsFn);
+            }
+        } catch (missErr) {
+            console.error('[Missions] Erro ao atualizar missões diárias:', missErr);
+        }
+
         // Avaliar e desbloquear descobertas progressivas
         const { newlyUnlocked, completionRewards } = await refreshUserDiscoveries(user);
         
@@ -2694,6 +2709,68 @@ app.post('/api/user/save-painting', async (req, res) => {
     } catch(err) {
         console.error('Erro ao salvar pintura:', err);
         return res.status(500).json({ success: false, message: 'Erro ao salvar a pintura no seu perfil.' });
+    }
+});
+
+// Endpoint para obter as missões diárias do usuário
+app.get('/api/missions/daily', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+        
+        const { getDailyMissions } = require('./missions');
+        const missions = getDailyMissions(user.id);
+        
+        return res.json(missions);
+    } catch (err) {
+        console.error('Erro ao obter missões diárias:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao obter missões diárias.' });
+    }
+});
+
+// Endpoint para atualizar progresso de uma missão
+app.post('/api/missions/progress', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { missionId, increment } = req.body;
+        
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!missionId) {
+            return res.status(400).json({ success: false, message: 'ID da missão é obrigatório.' });
+        }
+        
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+        
+        const { incrementMissionProgress } = require('./missions');
+        const useSupabase = process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY && !process.env.SUPABASE_URL.includes('placeholder');
+        const addStarsFn = useSupabase ? addStars : null;
+        
+        const updatedMissions = await incrementMissionProgress(user.id, missionId, increment || 1, users, saveUsers, addStarsFn);
+        
+        return res.json({
+            success: true,
+            missions: updatedMissions,
+            stars: user.stars
+        });
+    } catch (err) {
+        console.error('Erro ao atualizar progresso da missão:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao atualizar progresso da missão.' });
     }
 });
 
@@ -4084,6 +4161,260 @@ app.post('/api/drawings/delete', async (req, res) => {
         return res.status(500).json({ success: false, message: 'Erro ao excluir desenho do acervo.' });
     }
 });
+
+// ========================================================
+// ENDPOINTS: CIENTISTA MALUCO
+// ========================================================
+
+// 1. Gerar nome, descrição, superpoder e raridade via Claude
+app.post('/api/cientista/gerar-nome', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { ingrediente1, ingrediente2 } = req.body;
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!ingrediente1 || !ingrediente2) {
+            return res.status(400).json({ success: false, message: 'Os dois ingredientes são obrigatórios.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        // Verificar saldo de créditos (custa 3 créditos)
+        const cost = 3;
+        if (getUserTotalCredits(user) < cost) {
+            return res.status(400).json({ 
+                success: false, 
+                message: `Saldo insuficiente! Esta geração requer ${cost} créditos mágicos, mas você possui apenas ${getUserTotalCredits(user)}.` 
+            });
+        }
+
+        const anthropicKey = process.env.ANTHROPIC_API_KEY;
+        let textResult = "";
+
+        if (!anthropicKey) {
+            console.warn('[Cientista Name Gen] ANTHROPIC_API_KEY não encontrada. Utilizando fallback para Gemini...');
+            const geminiKey = process.env.NANOBANANA_API_KEY || '';
+            if (!geminiKey) {
+                return res.status(500).json({ success: false, message: 'Erro no servidor: nenhuma chave de API configurada.' });
+            }
+
+            const prompt = `Você é o Cientista Maluco do KidCanvas, um site infantil divertido e criativo.
+O usuário misturou "${ingrediente1}" com "${ingrediente2}". 
+Crie uma criatura híbrida maluca e divertida para crianças.
+Responda APENAS em JSON válido, sem texto antes ou depois:
+{
+  "nome": "(nome criativo misturando os dois itens, pode inventar palavras, 1-3 palavras)",
+  "descricao": "(2 frases divertidas e infantis descrevendo a criatura, máx 50 palavras)",
+  "poder": "(1 superpoder absurdo e engraçado que a criatura tem, máx 12 palavras)",
+  "raridade": "(uma opção: Comum, Raro, Épico ou Lendário)"
+}`;
+
+            const geminiResult = await generateGeminiContent(geminiKey, prompt, "application/json");
+            if (!geminiResult.success || !geminiResult.text) {
+                throw new Error(geminiResult.message || 'Erro ao gerar conteúdo via Gemini.');
+            }
+            textResult = geminiResult.text;
+        } else {
+            console.log(`[Cientista Name Gen] Chamando Claude para combinar "${ingrediente1}" e "${ingrediente2}"...`);
+            const response = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: {
+                    'x-api-key': anthropicKey,
+                    'anthropic-version': '2023-06-01',
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'claude-3-5-sonnet-20241022',
+                    max_tokens: 400,
+                    system: 'Você é o Cientista Maluco do KidCanvas, um site infantil divertido e criativo.',
+                    messages: [
+                        {
+                            role: 'user',
+                            content: `O usuário misturou "${ingrediente1}" com "${ingrediente2}". 
+Crie uma criatura híbrida maluca e divertida para crianças.
+Responda APENAS em JSON válido, sem texto antes ou depois:
+{
+  "nome": "(nome criativo misturando os dois itens, pode inventar palavras, 1-3 palavras)",
+  "descricao": "(2 frases divertidas e infantis descrevendo a criatura, máx 50 palavras)",
+  "poder": "(1 superpoder absurdo e engraçado que a criatura tem, máx 12 palavras)",
+  "raridade": "(uma opção: Comum, Raro, Épico ou Lendário)"
+}`
+                        }
+                    ]
+                })
+            });
+
+            if (!response.ok) {
+                const errText = await response.text();
+                console.error(`[Cientista Name Gen] Erro na API do Claude (Status ${response.status}):`, errText);
+                throw new Error(`Erro na API do Claude: ${response.status}`);
+            }
+
+            const data = await response.json();
+            textResult = data.content?.[0]?.text || '';
+        }
+
+        console.log(`[Cientista Name Gen] Resposta bruta recebida: ${textResult}`);
+        const result = robustParseJSON(textResult);
+
+        if (!result.nome || !result.descricao || !result.poder || !result.raridade) {
+            throw new Error('Resposta da IA incompleta.');
+        }
+
+        // Deduzir créditos e salvar
+        deductUserCredits(user, cost);
+        await saveUsers(users);
+
+        console.log(`[Cientista Name Gen] Sucesso! ${user.email} gastou ${cost} créditos. Saldo atual: ${getUserTotalCredits(user)}`);
+        return res.json({
+            success: true,
+            nome: result.nome,
+            descricao: result.descricao,
+            poder: result.poder,
+            raridade: result.raridade,
+            balance: getUserTotalCredits(user)
+        });
+
+    } catch (err) {
+        console.error('[Cientista Name Gen Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao gerar o nome e descrição da criatura.' });
+    }
+});
+
+// 2. Gerar imagem via Ideogram
+app.post('/api/cientista/gerar-imagem', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { ingrediente1, ingrediente2, nomeCriatura, descricao } = req.body;
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!ingrediente1 || !ingrediente2 || !nomeCriatura || !descricao) {
+            return res.status(400).json({ success: false, message: 'Dados incompletos para geração de imagem.' });
+        }
+
+        const users = await loadUsers();
+        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        const ideogramKey = process.env.IDEOGRAM_API_KEY;
+        if (!ideogramKey) {
+            console.error('[Cientista Image Gen] IDEOGRAM_API_KEY não configurada!');
+            return res.status(500).json({ success: false, message: 'Erro no servidor: chave do gerador de imagens ausente.' });
+        }
+
+        const finalPrompt = `Cute cartoon hybrid creature combining ${ingrediente1} and ${ingrediente2}, called ${nomeCriatura}. ${descricao}. Children's book illustration style, vibrant neon colors, friendly and funny face, white background, full body visible, KidCanvas kids website style, colorful and playful, high quality digital art.`;
+
+        console.log(`[Cientista Image Gen] Chamando Ideogram V2 para a criatura "${nomeCriatura}"...`);
+        let ideogramUrl = "https://api.ideogram.ai/generate";
+        let requestBody = {
+            image_request: {
+                prompt: finalPrompt,
+                model: "V_2",
+                aspect_ratio: "ASPECT_1_1",
+                style_type: "ILLUSTRATION",
+                magic_prompt_option: "ON"
+            }
+        };
+
+        let response = await fetch(ideogramUrl, {
+            method: 'POST',
+            headers: {
+                'Api-Key': ideogramKey,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        });
+
+        let fallbackUsed = false;
+        if (!response.ok) {
+            const errText = await response.text().catch(() => '');
+            console.warn(`[Cientista Image Gen] Ideogram V2 falhou (${response.status}): ${errText}. Tentando fallback Ideogram V4...`);
+            
+            ideogramUrl = "https://api.ideogram.ai/v1/ideogram-v4/generate";
+            requestBody = {
+                text_prompt: finalPrompt,
+                resolution: "2048x2048",
+                rendering_speed: "TURBO",
+                num_images: 1
+            };
+            
+            response = await fetch(ideogramUrl, {
+                method: 'POST',
+                headers: {
+                    'Api-Key': ideogramKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            });
+            fallbackUsed = true;
+        }
+
+        if (!response.ok) {
+            const errText = await response.text();
+            console.error(`[Cientista Image Gen] Erro na API do Ideogram (Status ${response.status}):`, errText);
+            throw new Error(`Ideogram falhou com status ${response.status}`);
+        }
+
+        const data = await response.json();
+        const url = data.data?.[0]?.url || data.url || (data.image_request && data.image_request.url);
+        if (!url) {
+            throw new Error('Ideogram não retornou URL de imagem.');
+        }
+
+        // Baixar bytes da imagem para salvar no R2
+        console.log(`[Cientista Image Gen] Baixando imagem gerada de: ${url}`);
+        const imgRes = await fetch(url);
+        if (!imgRes.ok) {
+            throw new Error(`Falha ao baixar imagem gerada: ${imgRes.status}`);
+        }
+        const arrayBuffer = await imgRes.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+
+        const imageId = `cientista_${user.id}_${Date.now()}.png`;
+        const r2Url = await uploadImage(buffer, imageId, 'image/png');
+        let finalImageUrl = r2Url;
+
+        if (r2Url) {
+            console.log(`[Cientista Image Gen] Salvo no R2: ${r2Url}`);
+        } else {
+            // Salvar localmente caso R2 falhe
+            try {
+                const savedDir = path.join(__dirname, '..', 'saved_images');
+                if (!fs.existsSync(savedDir)) {
+                    fs.mkdirSync(savedDir, { recursive: true });
+                }
+                fs.writeFileSync(path.join(savedDir, imageId), buffer);
+                finalImageUrl = `/saved_images/${imageId}`;
+                console.log(`[Cientista Image Gen] Salvo localmente: ${finalImageUrl}`);
+            } catch (err) {
+                console.warn('[Cientista Image Gen] Falha ao salvar localmente. Usando base64:', err.message);
+                finalImageUrl = `data:image/png;base64,${buffer.toString('base64')}`;
+            }
+        }
+
+        return res.json({ success: true, imageUrl: finalImageUrl });
+
+    } catch (err) {
+        console.error('[Cientista Image Gen Error]:', err);
+        return res.status(500).json({ success: false, message: 'Erro ao gerar imagem da criatura.' });
+    }
+});
+
+
+
+
 
 
 

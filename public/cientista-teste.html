@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Cientista Maluco — Simulador & Preview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-purple-light: #f5f3ff;
+            --color-purple-border: #ddd6fe;
+            --color-purple-text: #7c3aed;
+            --color-purple-dark: #4c1d95;
+            --color-purple-gradient: linear-gradient(135deg, #7c3aed, #9333ea);
+            --color-bg: #f0ecff;
+            --font-heading: 'Fredoka', sans-serif;
+            --font-body: 'Nunito', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-bg);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #3b0764;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header-title {
+            text-align: center;
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--color-purple-dark);
+            margin-bottom: 24px;
+            text-shadow: 0 2px 4px rgba(124, 58, 237, 0.1);
+        }
+
+        /* Banner Container */
+        .banner-container {
+            width: 100%;
+            max-height: 300px;
+            overflow: hidden;
+            border-radius: 24px 24px 0 0;
+            box-shadow: 0 8px 32px rgba(107, 70, 193, 0.15);
+            position: relative;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        /* Main Card */
+        .main-card {
+            background: white;
+            border-radius: 0 0 24px 24px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(107, 70, 193, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-purple-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .selectors-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .selector-box {
+            flex: 1;
+            background: var(--color-purple-light);
+            border: 2px solid var(--color-purple-border);
+            border-radius: 16px;
+            padding: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .selector-box:focus-within {
+            border-color: var(--color-purple-text);
+        }
+
+        .selector-label {
+            font-size: 11px;
+            font-weight: 900;
+            color: var(--color-purple-text);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
+        }
+
+        .selector-sublabel {
+            font-size: 11px;
+            color: #a78bfa;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .custom-select {
+            width: 100%;
+            background: white;
+            border: 2px solid #e0d9ff;
+            border-radius: 10px;
+            padding: 10px 32px 10px 12px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 700;
+            color: #3b0764;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237c3aed' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .plus-circle {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            background: var(--color-purple-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+        }
+
+        .tip-box {
+            background: #faf5ff;
+            border: 1.5px solid var(--color-purple-border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            font-size: 13.5px;
+            color: #5b21b6;
+            line-height: 1.5;
+        }
+
+        .tip-box strong {
+            color: var(--color-purple-text);
+        }
+
+        .tip-sub {
+            font-size: 12px;
+            color: #8b5cf6;
+            margin-top: 4px;
+        }
+
+        .generate-btn {
+            background: var(--color-purple-gradient);
+            border: none;
+            border-radius: 16px;
+            padding: 16px 24px;
+            width: 100%;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.5);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-sub {
+            font-size: 12px;
+            opacity: 0.8;
+            font-family: var(--font-body);
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .credits-row {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #5b21b6;
+        }
+
+        .credits-row span {
+            color: #f59e0b;
+        }
+
+        /* Right Panel */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .result-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #5b21b6;
+            text-align: center;
+        }
+
+        .result-box {
+            flex: 1;
+            background: var(--color-purple-light);
+            border: 2px dashed #c4b5fd;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 28px;
+            min-height: 320px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .result-box.has-result {
+            border-style: solid;
+            border-color: #a78bfa;
+            background: #faf5ff;
+        }
+
+        .result-placeholder-icon {
+            font-size: 60px;
+            opacity: 0.35;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .result-placeholder-text {
+            font-size: 14px;
+            color: #8b5cf6;
+            font-weight: 600;
+        }
+
+        .result-creature-name {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            color: #6d28d9;
+        }
+
+        .result-creature-desc {
+            font-size: 14px;
+            color: #5b21b6;
+            line-height: 1.6;
+            max-width: 320px;
+        }
+
+        .result-power {
+            font-size: 12px;
+            color: #6d28d9;
+            font-weight: 800;
+            background: #ede9fe;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #ddd6fe;
+        }
+
+        .dica-box {
+            background: #faf5ff;
+            border: 1.5px solid var(--color-purple-border);
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 12.5px;
+            color: #5b21b6;
+            line-height: 1.5;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--color-purple-border);
+            border-top-color: var(--color-purple-text);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-msg {
+            color: var(--color-purple-text);
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Console simulator panel */
+        .simulator-panel {
+            background: #1e1b4b;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+            color: #c084fc;
+            font-family: monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin-top: 30px;
+            border: 2px solid #4c1d95;
+        }
+
+        .sim-title {
+            color: #f472b6;
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #312e81;
+            padding-bottom: 8px;
+        }
+
+        .sim-prompt {
+            color: #38bdf8;
+            margin: 8px 0;
+            white-space: pre-wrap;
+        }
+
+        .sim-meta {
+            color: #4ade80;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="header-title">🔬 Laboratório do Cientista Maluco</h1>
+
+    <div class="banner-container">
+        <img class="banner-img" src="/images/cientista_header_banner.jpg" alt="Header Banner">
+    </div>
+
+    <div class="main-card">
+        <div class="two-col">
+            <!-- Left Side Controls -->
+            <div class="left-panel">
+                <div class="panel-title">🧪 Crie sua Criatura Maluca!</div>
+                
+                <div class="selectors-row">
+                    <div class="selector-box">
+                        <div class="selector-label">Ingrediente 1</div>
+                        <div class="selector-sublabel">Escolha qualquer coisa</div>
+                        <select class="custom-select" id="sel1" onchange="updatePreview()">
+                            <option value="">— Escolha —</option>
+                            <optgroup label="🐶 Animais">
+                                <option value="🐱 Gato">🐱 Gato</option>
+                                <option value="🐶 Cachorro">🐶 Cachorro</option>
+                                <option value="🦁 Leão">🦁 Leão</option>
+                                <option value="🐙 Polvo">🐙 Polvo</option>
+                            </optgroup>
+                            <optgroup label="🚀 Espaço">
+                                <option value="🚀 Foguete">🚀 Foguete</option>
+                                <option value="🪐 Planeta">🪐 Planeta</option>
+                                <option value="🌙 Lua">🌙 Lua</option>
+                            </optgroup>
+                            <optgroup label="👑 Fantasia">
+                                <option value="🐲 Dragão">🐲 Dragão</option>
+                                <option value="🦄 Unicórnio">🦄 Unicórnio</option>
+                                <option value="🧜 Sereia">🧜 Sereia</option>
+                            </optgroup>
+                            <optgroup label="🌳 Natureza">
+                                <option value="🌋 Vulcão">🌋 Vulcão</option>
+                                <option value="🌸 Flor">🌸 Flor</option>
+                                <option value="🍄 Cogumelo">🍄 Cogumelo</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="plus-circle">+</div>
+
+                    <div class="selector-box">
+                        <div class="selector-label">Ingrediente 2</div>
+                        <div class="selector-sublabel">Escolha outra coisa</div>
+                        <select class="custom-select" id="sel2" onchange="updatePreview()">
+                            <option value="">— Escolha —</option>
+                            <optgroup label="🐶 Animais">
+                                <option value="🐱 Gato">🐱 Gato</option>
+                                <option value="🐶 Cachorro">🐶 Cachorro</option>
+                                <option value="🦁 Leão">🦁 Leão</option>
+                                <option value="🐙 Polvo">🐙 Polvo</option>
+                            </optgroup>
+                            <optgroup label="🚀 Espaço">
+                                <option value="🚀 Foguete">🚀 Foguete</option>
+                                <option value="🪐 Planeta">🪐 Planeta</option>
+                                <option value="🌙 Lua">🌙 Lua</option>
+                            </optgroup>
+                            <optgroup label="👑 Fantasia">
+                                <option value="🐲 Dragão">🐲 Dragão</option>
+                                <option value="🦄 Unicórnio">🦄 Unicórnio</option>
+                                <option value="🧜 Sereia">🧜 Sereia</option>
+                            </optgroup>
+                            <optgroup label="🌳 Natureza">
+                                <option value="🌋 Vulcão">🌋 Vulcão</option>
+                                <option value="🌸 Flor">🌸 Flor</option>
+                                <option value="🍄 Cogumelo">🍄 Cogumelo</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    💡 <strong id="tipExample">Escolha dois ingredientes acima!</strong>
+                    <div class="tip-sub">A IA vai inventar uma criatura maluca e única só para você!</div>
+                </div>
+
+                <button class="generate-btn" id="generateBtn" onclick="simulateMixing()" disabled>
+                    🧪 GERAR MINHA CRIATURA MALUCA
+                    <span class="btn-sub">Custa 3 créditos</span>
+                </button>
+
+                <div class="credits-row">Seus créditos: <span id="creditsVal">⭐ 36</span></div>
+            </div>
+
+            <!-- Right Side Result Display -->
+            <div class="right-panel">
+                <div class="result-title">Sua criatura maluca aparecerá aqui!</div>
+                <div class="result-box" id="resultBox">
+                    <div class="result-placeholder-icon">🧬</div>
+                    <div class="result-placeholder-text">Escolha 2 ingredientes e clique em Gerar!</div>
+                </div>
+
+                <div class="dica-box">
+                    <span style="font-size:24px;">🧑‍🔬</span>
+                    <div><strong>Dica do Cientista:</strong> Misture coisas bem diferentes para criaturas mais malucas!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulator Console -->
+    <div class="simulator-panel">
+        <div class="sim-title"><i class="fa-solid fa-terminal"></i> Console do Laboratório (Prompt Debugger)</div>
+        <div id="debugContent">Selecione dois ingredientes acima para simular a montagem dos prompts da IA.</div>
+    </div>
+</div>
+
+<script>
+    function getName(val) {
+        if (!val) return "";
+        return val.split(" ").slice(1).join(" ");
+    }
+    
+    function getEmoji(val) {
+        if (!val) return "";
+        return val.split(" ")[0];
+    }
+
+    function updatePreview() {
+        const s1 = document.getElementById("sel1").value;
+        const s2 = document.getElementById("sel2").value;
+        const btn = document.getElementById("generateBtn");
+        const tip = document.getElementById("tipExample");
+        const dbg = document.getElementById("debugContent");
+
+        btn.disabled = !(s1 && s2);
+
+        if (s1 && s2) {
+            const n1 = getName(s1);
+            const n2 = getName(s2);
+            const e1 = getEmoji(s1);
+            const e2 = getEmoji(s2);
+            
+            tip.innerHTML = `Misturando: <strong>${n1}</strong> + <strong>${n2}</strong> = ???`;
+            
+            // Render simulated prompt structures
+            const mockName = n1 + n2.toLowerCase();
+            const mockDesc = `Uma criatura incrível combinando traços de ${n1} com a força do ${n2}.`;
+            const finalPrompt = `Cute cartoon hybrid creature combining ${n1} and ${n2}, called ${mockName}. ${mockDesc}. Children's book illustration style, vibrant neon colors, friendly and funny face, white background, full body visible, KidCanvas kids website style, colorful and playful, high quality digital art.`;
+
+            dbg.innerHTML = `
+<span class="sim-meta">// 1. PAYLOAD ENVIADO PARA /api/cientista/gerar-nome:</span>
+{
+  "ingrediente1": "${n1}",
+  "ingrediente2": "${n2}"
+}
+
+<span class="sim-meta">// 2. PROMPT SISTEMA ENVIADO AO CLAUDE (Anthropic API):</span>
+"Você é o Cientista Maluco do KidCanvas, um site infantil divertido e criativo."
+
+<span class="sim-meta">// 3. PROMPT DO USUÁRIO ENVIADO AO CLAUDE:</span>
+"O usuário misturou \\"${n1}\\" com \\"${n2}\\". 
+Crie uma criatura híbrida maluca e divertida para crianças.
+Responda APENAS em JSON válido, sem texto antes ou depois:
+{
+  \\"nome\\": \\"(nome criativo misturando os dois itens, pode inventar palavras, 1-3 palavras)\\",
+  \\"descricao\\": \\"(2 frases divertidas e infantis descrevendo a criatura, máx 50 palavras)\\",
+  \\"poder\\": \\"(1 superpoder absurdo e engraçado que a criatura tem, máx 12 palavras)\\",
+  \\"raridade\\": \\"(uma opção: Comum, Raro, Épico ou Lendário)\\"
+}"
+
+<span class="sim-meta">// 4. PROMPT DE IMAGEM GERADO E ENVIADO AO IDEOGRAM V2:</span>
+"${finalPrompt}"
+`;
+        } else {
+            tip.textContent = "Escolha dois ingredientes acima!";
+            dbg.innerHTML = "Selecione dois ingredientes acima para simular a montagem dos prompts da IA.";
+        }
+    }
+
+    async function simulateMixing() {
+        const s1 = document.getElementById("sel1").value;
+        const s2 = document.getElementById("sel2").value;
+        if (!s1 || !s2) return;
+
+        const n1 = getName(s1);
+        const n2 = getName(s2);
+        const e1 = getEmoji(s1);
+        const e2 = getEmoji(s2);
+
+        const btn = document.getElementById("generateBtn");
+        const box = document.getElementById("resultBox");
+        const cred = document.getElementById("creditsVal");
+
+        btn.disabled = true;
+        box.className = "result-box";
+        
+        // Step 1: Simulate Claude Name/Desc generation
+        box.innerHTML = `<div class="spinner"></div><div class="loading-msg">🧪 Misturando ${n1} com ${n2}...</div>`;
+        await new Promise(r => setTimeout(r, 1500));
+
+        // Deduct simulated credits
+        cred.innerHTML = "⭐ 33";
+
+        // Simulated Response from Claude
+        const mockResponse = {
+            nome: n1 + n2.charAt(0).toUpperCase() + n2.slice(1).toLowerCase() + " Híbrido",
+            descricao: `Uma criatura amigável que herdou o charme de ${n1} e a energia impressionante de ${n2}. Adora brincar e fazer novos amigos!`,
+            poder: `Soltar confetes mágicos com os olhos`,
+            raridade: "Épico"
+        };
+
+        const cores = {"Comum": "#6b7280", "Raro": "#2563eb", "Épico": "#9333ea", "Lendário": "#f59e0b"};
+        const cor = cores[mockResponse.raridade] || "#7c3aed";
+
+        // Step 2: Show name/desc and simulate Ideogram illustration generation
+        box.className = "result-box has-result";
+        box.innerHTML = `
+            <div style="font-size:44px;">${e1} + ${e2}</div>
+            <div style="font-size:11px;font-weight:800;color:white;background:${cor};padding:3px 12px;border-radius:20px;margin:4px 0;text-transform:uppercase;">⭐ ${mockResponse.raridade}</div>
+            <div class="result-creature-name">✨ ${mockResponse.nome} ✨</div>
+            <div class="result-creature-desc" style="max-width:320px; font-size:14px; margin: 10px 0;">${mockResponse.descricao}</div>
+            <div class="result-power">⚡ Poder: ${mockResponse.poder}</div>
+            <div style="margin-top:15px; display:flex; flex-direction:column; align-items:center;">
+                <div class="spinner" style="width:30px; height:30px; border-width:3px;"></div>
+                <div style="font-size:12px; color:#7c3aed; font-weight:bold; margin-top:6px;">🎨 Criando ilustração via Ideogram...</div>
+            </div>
+        `;
+
+        await new Promise(r => setTimeout(r, 2000));
+
+        // Step 3: Complete simulated creature design
+        box.innerHTML = `
+            <div style="display:flex; flex-direction:column; align-items:center; gap:8px; width:100%;">
+                <div style="width:240px; height:240px; background:radial-gradient(circle, #e879f9, #a78bfa); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:70px; border:3px solid #7c3aed; box-shadow: 0 4px 12px rgba(124,58,237,0.3); animation: float 3s ease-in-out infinite;">
+                    ${e1}${e2}
+                </div>
+                <div style="font-size:11px;font-weight:800;color:white;background:${cor};padding:3px 12px;border-radius:20px;margin:4px 0;text-transform:uppercase;">⭐ ${mockResponse.raridade}</div>
+                <div class="result-creature-name">✨ ${mockResponse.nome} ✨</div>
+                <div class="result-creature-desc" style="max-width:320px; font-size:14px; color:#5b21b6;">${mockResponse.descricao}</div>
+                <div class="result-power">⚡ Poder: ${mockResponse.poder}</div>
+            </div>
+        `;
+
+        btn.disabled = false;
+    }
+</script>
+</body>
+</html>

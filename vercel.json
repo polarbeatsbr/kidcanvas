@@ -19,6 +19,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/cientista-maluco",
+      "destination": "/index.html"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/server.js"
     },

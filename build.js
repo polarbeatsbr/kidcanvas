@@ -18,10 +18,7 @@ const filesToCopy = [
     'mascot_mago.webp',
     'mascot_lenda.png',
     'mascot_lenda.webp',
-    'perigo-artista.png',
-    'perigo-artista.webp',
-    'perigo-casinha.png',
-    'perigo-casinha.webp',
+
     'index.html',
     'historia.html',
     'admin.html',
@@ -121,22 +118,32 @@ async function build() {
             console.error('Error: app.js source file not found!');
         }
 
-        // Copy and Minify js/seo.js
+        // Copy and Minify all JS files in js/ directory
+        const jsDirSrc = path.join(__dirname, 'js');
         const jsDirDest = path.join(publicDir, 'js');
         if (!fs.existsSync(jsDirDest)) {
             fs.mkdirSync(jsDirDest, { recursive: true });
         }
-        const seoSrcPath = path.join(__dirname, 'js', 'seo.js');
-        const seoDestPath = path.join(jsDirDest, 'seo.js');
-        if (fs.existsSync(seoSrcPath)) {
-            console.log('Minifying JS (seo.js)...');
-            const seoInput = fs.readFileSync(seoSrcPath, 'utf8');
-            const seoResult = await minify(seoInput, {
-                compress: { drop_console: true },
-                mangle: true,
-            });
-            fs.writeFileSync(seoDestPath, seoResult.code, 'utf8');
-            console.log('Minified and copied seo.js to public/js/seo.js');
+        if (fs.existsSync(jsDirSrc)) {
+            const jsFiles = fs.readdirSync(jsDirSrc).filter(f => f.endsWith('.js'));
+            for (const file of jsFiles) {
+                console.log(`Minifying JS (js/${file})...`);
+                const fileSrcPath = path.join(jsDirSrc, file);
+                const fileDestPath = path.join(jsDirDest, file);
+                const fileInput = fs.readFileSync(fileSrcPath, 'utf8');
+                try {
+                    const fileResult = await minify(fileInput, {
+                        compress: { drop_console: true },
+                        mangle: true,
+                    });
+                    fs.writeFileSync(fileDestPath, fileResult.code, 'utf8');
+                    console.log(`Minified and copied ${file} to public/js/${file}`);
+                } catch (minifyError) {
+                    console.error(`Error minifying ${file}:`, minifyError);
+                    // Fallback to copying directly if minify fails
+                    fs.copyFileSync(fileSrcPath, fileDestPath);
+                }
+            }
         }
 
         // Minify style.css
