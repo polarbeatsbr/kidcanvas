@@ -4180,6 +4180,14 @@ app.post('/api/cientista/gerar-nome', async (req, res) => {
         }
 
         const users = await loadUsers();
+        console.log(`[Cientista Name Gen Debug] Incoming token: "${token}". Total registered users: ${users.length}`);
+        const debugUser = users.find(u => u.token === token);
+        if (debugUser) {
+            console.log(`[Cientista Name Gen Debug] Token found for: ${debugUser.email}. Expiry: ${debugUser.tokenExpiry} (${new Date(debugUser.tokenExpiry).toISOString()}), Current time: ${Date.now()}`);
+        } else {
+            console.log(`[Cientista Name Gen Debug] No user found with token "${token}". Active tokens in DB:`, users.filter(u => u.token).map(u => ({ email: u.email, token: u.token })));
+        }
+
         const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
 
         if (!user) {
