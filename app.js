@@ -18216,11 +18216,43 @@ async function gerarMisturaCientista() {
                 <div class="result-creature-name">✨ ${data.nome} ✨</div>
                 <div class="result-creature-desc" style="margin: 10px 0; max-width: 320px; font-size: 14px;">${data.descricao}</div>
                 <div class="result-power">⚡ Poder: ${data.poder}</div>
-                <div class="image-loader-container" style="margin-top: 15px; display: flex; flex-direction: column; align-items: center;">
-                    <div class="spinner" style="width: 30px; height: 30px; border-width: 3px;"></div>
-                    <div style="font-size: 12px; color: #7c3aed; font-weight: bold; margin-top: 6px;">🎨 Criando a ilustração pela IA...</div>
+                <div class="image-loader-container" style="margin-top: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 280px;">
+                    <div class="cientista-loader-frames" style="position: relative; width: 140px; height: 248px; margin: 10px 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.15); border: 2px solid #a78bfa; background: #f3e8ff;">
+                        <img id="cientista-loader-img1" src="/loading_frame1.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: opacity 0.3s ease-in-out;">
+                        <img id="cientista-loader-img2" src="/loading_frame2.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s ease-in-out;">
+                        <img id="cientista-loader-img3" src="/loading_frame3.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s ease-in-out;">
+                    </div>
+                    <div style="font-size: 12px; color: #7c3aed; font-weight: bold; margin-top: 6px; text-align: center;">🎨 Criando a ilustração pela IA...</div>
                 </div>
             `;
+
+            // Start animation loop
+            let currentFrame = 1;
+            const loaderInterval = setInterval(() => {
+                const img1 = document.getElementById('cientista-loader-img1');
+                const img2 = document.getElementById('cientista-loader-img2');
+                const img3 = document.getElementById('cientista-loader-img3');
+                if (!img1 || !img2 || !img3) {
+                    clearInterval(loaderInterval);
+                    return;
+                }
+                if (currentFrame === 1) {
+                    img1.style.opacity = '0';
+                    img2.style.opacity = '1';
+                    img3.style.opacity = '0';
+                    currentFrame = 2;
+                } else if (currentFrame === 2) {
+                    img1.style.opacity = '0';
+                    img2.style.opacity = '0';
+                    img3.style.opacity = '1';
+                    currentFrame = 3;
+                } else {
+                    img1.style.opacity = '1';
+                    img2.style.opacity = '0';
+                    img3.style.opacity = '0';
+                    currentFrame = 1;
+                }
+            }, 900);
         }
 
         // Phase 2: Image generation

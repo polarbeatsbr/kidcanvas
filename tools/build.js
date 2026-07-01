@@ -19,6 +19,10 @@ const filesToCopy = [
     'mascot_mago.webp',
     'mascot_lenda.png',
     'mascot_lenda.webp',
+    'loading_frame1.png',
+    'loading_frame2.png',
+    'loading_frame3.png',
+
 
     'index.html',
     'historia.html',
