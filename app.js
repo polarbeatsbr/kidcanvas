@@ -4456,7 +4456,7 @@ function setupCustomDrawingActionListeners(imageUrl, drawingId) {
                     saveGalleryBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Salvando...';
                     saveGalleryBtn.disabled = true;
                     
-                    const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+                    const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
                     const response = await fetch('/api/user/save-painting', {
                         method: 'POST',
                         headers: {
@@ -10617,7 +10617,7 @@ async function savePaintingToGallery() {
         window.selectedSticker = originalSticker;
         composePaintCanvas();
 
-        const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
         const isCustomAI = data.isCustomAI || false;
         const isPinturaLivre = data.isPinturaLivre || false;
         const category = isCustomAI ? 'Criação com IA' : (data.imgUrl === 'blank' ? 'Mão Livre' : 'Colorir');
@@ -11815,7 +11815,7 @@ function checkAllAchievements() {
     updateHeaderAchievementCount();
     
     // Sincronizar com o backend
-    const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+    const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
     if (sessionToken) {
         fetch('/api/user/update-achievements', {
             method: 'POST',
@@ -12510,7 +12510,7 @@ async function shareStoryToHall() {
     showToast('Compartilhando sua história no Hall... ⏳', 'info');
 
     try {
-        const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
         const response = await fetch('/api/user/save-painting', {
             method: 'POST',
             headers: {
@@ -16571,7 +16571,7 @@ window.renderDailyMission = async function() {
     `;
     
     try {
-        const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+        const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
         const response = await fetch('/api/missions/daily', {
             headers: {
                 'x-session-token': sessionToken
@@ -18100,7 +18100,7 @@ async function gerarMisturaCientista() {
         `;
     }
 
-    const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token;
+    const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
 
     try {
         const res = await fetch('/api/cientista/gerar-nome', {

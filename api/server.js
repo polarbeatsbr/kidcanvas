@@ -411,22 +411,27 @@ app.use(cookieParser());
 
 // Middleware global de compatibilidade: popula x-session-token a partir do cookie ou cabeçalho
 app.use((req, res, next) => {
-  let token = req.headers['x-session-token'] || req.cookies?.kidcanvas_session;
-  if (token) {
+  let token = req.headers['x-session-token'];
+  if (!token || token === 'undefined' || token === 'null' || token === '') {
+    token = req.cookies?.kidcanvas_session;
+  }
+  if (token && token !== 'undefined' && token !== 'null' && token !== '') {
     req.headers['x-session-token'] = token;
+  } else {
+    delete req.headers['x-session-token'];
   }
   next();
 });
 
 // Funções auxiliares para buscar usuário pelo token (suporta formato bruto e hash SHA-256)
 function findUserByToken(users, token) {
-  if (!token) return null;
+  if (!token || token === 'undefined' || token === 'null') return null;
   const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
   return users.find(u => (u.token === token || u.token === tokenHash) && u.tokenExpiry > Date.now());
 }
 
 function findUserIndexByToken(users, token) {
-  if (!token) return -1;
+  if (!token || token === 'undefined' || token === 'null') return -1;
   const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
   return users.findIndex(u => (u.token === token || u.token === tokenHash) && u.tokenExpiry > Date.now());
 }
