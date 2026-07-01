@@ -1695,6 +1695,40 @@ function navigate(path, pushState = true) {
 
     // Falar com o mascote correspondente à seção atual
     triggerMascotSpeak(cleanPath);
+
+    // Update active class on desktop navbar links
+    let isMaisActive = false;
+    document.querySelectorAll('#navbar .nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Check main links
+    document.querySelectorAll('#navbar > ul > li > a.nav-link').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href !== '#' && (cleanPath === href || (href !== '/' && cleanPath.startsWith(href)))) {
+            link.classList.add('active');
+        }
+    });
+
+    // Check Mais dropdown sub-items
+    const maisToggle = document.getElementById('mais-dropdown-toggle');
+    if (maisToggle) {
+        maisToggle.classList.remove('active');
+        const dropdownMenu = maisToggle.nextElementSibling;
+        if (dropdownMenu) {
+            dropdownMenu.querySelectorAll('a').forEach(sublink => {
+                sublink.classList.remove('active');
+                const href = sublink.getAttribute('href');
+                if (href && href !== '#' && (cleanPath === href || (href !== '/' && cleanPath.startsWith(href)))) {
+                    sublink.classList.add('active');
+                    isMaisActive = true;
+                }
+            });
+        }
+        if (isMaisActive) {
+            maisToggle.classList.add('active');
+        }
+    }
 }
 
 // --- RENDERIZADORES DE VIEW ---
