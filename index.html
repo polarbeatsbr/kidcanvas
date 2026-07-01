@@ -2585,16 +2585,12 @@
                 <span style="font-size: 1.1rem;">👵</span>
                 <span><strong>Aviso da Vovó Sônia:</strong> Como as histórias, ilustrações e textos são gerados por Inteligência Artificial, nos damos ao direito de que eventualmente ocorram pequenas falhas em imagens ou erros ortográficos, apesar de raro. Ao continuar você está ciente disso.</span>
             </div>
-            <div style="margin-bottom: 12px; border-top: 1px dashed #e6d8c3; padding-top: 8px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-                <label style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--color-dark); cursor: pointer; margin-bottom: 0; user-select: none;">
-                    <input type="checkbox" id="chkCiente" style="width: 18px; height: 18px; accent-color: var(--color-purple); cursor: pointer;">
-                    ✓ Estou ciente
-                </label>
+            <div style="margin-bottom: 12px; border-top: 1px dashed #e6d8c3; padding-top: 8px; font-size: 0.85rem; display: flex; justify-content: flex-end; align-items: center; flex-wrap: wrap; gap: 10px;">
                 <span>🐛 Viu algum problema? <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" style="color: #e74c3c; font-weight: bold; text-decoration: underline;">Reportar Bug</a></span>
             </div>
         </div>
 
-        <button class="btn-generate" id="btnGenerate" disabled>🧙‍♂️ Criar História (4 c.)</button>
+        <button class="btn-generate" id="btnGenerate">🧙‍♂️ Criar História (4 c.)</button>
     </div>
 
     <!-- Loading State Screen -->
@@ -3427,7 +3423,7 @@
         </div>
         <button class="generate-btn" id="cientista-generate-btn" onclick="gerarMisturaCientista()" disabled>
           🧪 GERAR MINHA CRIATURA MALUCA
-          <span class="btn-sub">Custa 3 créditos</span>
+          <span class="btn-sub">Custa 3,5 créditos</span>
         </button>
         <div class="credits-row">Seus créditos: <span id="cientista-creditos-val">⭐ 0</span></div>
       </div>

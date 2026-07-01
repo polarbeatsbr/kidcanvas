@@ -284,7 +284,7 @@ async function isAdmin(req, res, next) {
 
 function getUserTotalCredits(user) {
     const hasAvulsos = user.creditosAvulsos && user.creditosAvulsosExpiry && new Date(user.creditosAvulsosExpiry) > Date.now();
-    return (user.paginasRestantes || 0) + (hasAvulsos ? parseInt(user.creditosAvulsos, 10) : 0);
+    return (user.paginasRestantes || 0) + (hasAvulsos ? parseFloat(user.creditosAvulsos) : 0);
 }
 
 function formatUserProfile(user, users) {
@@ -327,13 +327,13 @@ function formatUserProfile(user, users) {
 function deductUserCredits(user, cost) {
     const hasAvulsos = user.creditosAvulsos && user.creditosAvulsosExpiry && new Date(user.creditosAvulsosExpiry) > Date.now();
     if (user.paginasRestantes >= cost) {
-        user.paginasRestantes -= cost;
+        user.paginasRestantes = parseFloat((user.paginasRestantes - cost).toFixed(1));
     } else if (hasAvulsos && (user.paginasRestantes + user.creditosAvulsos) >= cost) {
         const remainder = cost - user.paginasRestantes;
         user.paginasRestantes = 0;
-        user.creditosAvulsos -= remainder;
+        user.creditosAvulsos = parseFloat((user.creditosAvulsos - remainder).toFixed(1));
     } else {
-        user.paginasRestantes = Math.max(0, user.paginasRestantes - cost);
+        user.paginasRestantes = parseFloat(Math.max(0, user.paginasRestantes - cost).toFixed(1));
     }
 }
 
@@ -344,10 +344,10 @@ async function activateUserPlanOrCredits(user, planName, users) {
         const quantity = match ? parseInt(match[1], 10) : 0;
         
         const currentAvulsos = user.creditosAvulsos && user.creditosAvulsosExpiry && new Date(user.creditosAvulsosExpiry) > Date.now()
-            ? parseInt(user.creditosAvulsos, 10)
+            ? parseFloat(user.creditosAvulsos)
             : 0;
         
-        user.creditosAvulsos = currentAvulsos + quantity;
+        user.creditosAvulsos = parseFloat((currentAvulsos + quantity).toFixed(1));
         user.creditosAvulsosExpiry = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
         
         console.log(`[AVULSO SUCCESS] ${quantity} créditos avulsos adicionados para ${user.email}. Total avulsos: ${user.creditosAvulsos}`);
@@ -4225,11 +4225,11 @@ app.post('/api/cientista/gerar-nome', async (req, res) => {
         }
 
         // Verificar saldo de créditos se o usuário estiver autenticado
-        const cost = 3;
+        const cost = 3.5;
         if (deduct && getUserTotalCredits(user) < cost) {
             return res.status(400).json({ 
                 success: false, 
-                message: `Saldo insuficiente! Esta geração requer ${cost} créditos mágicos, mas você possui apenas ${getUserTotalCredits(user)}.` 
+                message: `Saldo insuficiente! Esta geração requer 3,5 créditos mágicos, mas você possui apenas ${getUserTotalCredits(user).toString().replace('.', ',')}.` 
             });
         }
 

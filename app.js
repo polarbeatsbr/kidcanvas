@@ -5014,8 +5014,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         const cost = pageCount * qualityMultiplier;
         
         btnGenerate.textContent = `Gerar História (${cost} créditos)`;
-        const chkCiente = document.getElementById('chkCiente');
-        btnGenerate.disabled = chkCiente ? !chkCiente.checked : false;
+        btnGenerate.disabled = false;
     }
     window.updateGenerateButtonText = updateGenerateButtonText;
     updateGenerateButtonText();
@@ -5158,9 +5157,6 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         synopsisCounter.textContent = `${storySynopsis.value.length}/300`;
     });
 
-    // Consent checkbox logic to enable/disable submit button
-    const chkCiente = document.getElementById('chkCiente');
-    
     function startLoadingAnimation() {
         const loadTextEl = document.getElementById('loadingText');
         if (loadTextEl) {
@@ -5173,16 +5169,6 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
     // -------------------------------------------------------------
     const btnGenerate = document.getElementById('btnGenerate');
     const errorAlert = document.getElementById('errorAlert');
-
-    if (chkCiente && btnGenerate) {
-        chkCiente.addEventListener('change', () => {
-            if (!currentUser) {
-                btnGenerate.disabled = false;
-            } else {
-                btnGenerate.disabled = !chkCiente.checked;
-            }
-        });
-    }
     let generatedParagraphs = []; // Global reference to paragraphs
     let generatedCoverUrl = ""; // Global cover URL reference
     
@@ -5383,13 +5369,6 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
             radioColor.classList.add('active');
             radioBw.classList.remove('active');
 
-            // reset consent checkbox and disable submit button
-            if (chkCiente) {
-                chkCiente.checked = false;
-            }
-            if (btnGenerate) {
-                btnGenerate.disabled = true;
-            }
         }, 300);
     }
     
@@ -18078,7 +18057,8 @@ function updateCientistaCreditsHUD() {
     const credSpan = document.getElementById('cientista-creditos-val');
     if (credSpan) {
         const credits = currentUser ? (currentUser.paginasRestantes || 0) : 0;
-        credSpan.innerHTML = `⭐ ${credits}`;
+        const formattedCredits = typeof credits === 'number' ? credits.toFixed(1).replace('.0', '').replace('.', ',') : credits;
+        credSpan.innerHTML = `⭐ ${formattedCredits}`;
     }
 }
 
@@ -18118,8 +18098,8 @@ async function gerarMisturaCientista() {
     }
 
     const currentCredits = currentUser.paginasRestantes || 0;
-    if (currentCredits < 3) {
-        showToast("Você precisa de pelo menos 3 créditos para gerar uma criatura maluca! 💎", "error");
+    if (currentCredits < 3.5) {
+        showToast("Você precisa de pelo menos 3,5 créditos para gerar uma criatura maluca! 💎", "error");
         navigate('/planos');
         return;
     }
