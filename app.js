@@ -377,17 +377,20 @@ let sessionToken = localStorage.getItem("kidcanvas_session_token") || null;
 let currentUser = null;
 
 async function syncUserProfile() {
-    if (!sessionToken) {
-        updateHeaderAuthDisplay();
-        return;
-    }
     try {
+        const headers = {};
+        if (sessionToken) {
+            headers['X-Session-Token'] = sessionToken;
+        }
         const res = await fetch('/api/auth/me', {
-            headers: { 'X-Session-Token': sessionToken }
+            headers: headers
         });
         const data = await res.json();
         if (res.ok && data.success) {
             currentUser = data.user;
+            if (data.token) {
+                sessionToken = data.token;
+            }
             updateHeaderAuthDisplay();
             checkNewAchievements();
             if (data.newlyUnlockedCertificates && data.newlyUnlockedCertificates.length > 0) {
