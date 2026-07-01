@@ -1,4 +1,48 @@
 
+// LocalStorage Safe Polyfill for Incognito Mode / Blocked Storage
+(function() {
+    let storageAvailable = false;
+    try {
+        const testKey = '__storage_test__';
+        window.localStorage.setItem(testKey, testKey);
+        window.localStorage.removeItem(testKey);
+        storageAvailable = true;
+    } catch (e) {
+        storageAvailable = false;
+    }
+
+    if (!storageAvailable) {
+        console.warn('[LocalStorage] Bloqueado ou indisponível (Modo Anônimo). Usando fallback em memória.');
+        const memoryStore = {};
+        const mockStorage = {
+            getItem: (key) => memoryStore[key] !== undefined ? memoryStore[key] : null,
+            setItem: (key, value) => { memoryStore[key] = String(value); },
+            removeItem: (key) => { delete memoryStore[key]; },
+            clear: () => { for (const key in memoryStore) delete memoryStore[key]; },
+            key: (index) => Object.keys(memoryStore)[index] || null,
+            get length() { return Object.keys(memoryStore).length; }
+        };
+        
+        try {
+            Object.defineProperty(window, 'localStorage', {
+                value: mockStorage,
+                configurable: true,
+                enumerable: true,
+                writable: true
+            });
+        } catch (err) {
+            try {
+                window.localStorage.getItem = mockStorage.getItem;
+                window.localStorage.setItem = mockStorage.setItem;
+                window.localStorage.removeItem = mockStorage.removeItem;
+                window.localStorage.clear = mockStorage.clear;
+            } catch (err2) {
+                console.error('[LocalStorage] Falha ao aplicar polyfill:', err2);
+            }
+        }
+    }
+})();
+
 // Secure Session Polyfill for KidCanvas (localStorage removal & cookie credentials mapping)
 (function() {
     // 1. Interceptar localStorage para não armazenar tokens de sessão
@@ -18820,6 +18864,79 @@ window.confirmarExclusaoCriatura = function(creatureId, creatureName) {
         }
     );
 };
+
+// Floating Mobile Debug Panel (Prints JS exceptions on screen on touch devices)
+(function() {
+    // Only initialize on mobile or tablet viewports
+    if (window.innerWidth > 1024) return;
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const debugDiv = document.createElement('div');
+        debugDiv.id = 'mobile-debug-log';
+        debugDiv.style.position = 'fixed';
+        debugDiv.style.bottom = '80px';
+        debugDiv.style.left = '10px';
+        debugDiv.style.right = '10px';
+        debugDiv.style.maxHeight = '150px';
+        debugDiv.style.overflowY = 'auto';
+        debugDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+        debugDiv.style.color = '#00ff00';
+        debugDiv.style.fontFamily = 'monospace';
+        debugDiv.style.fontSize = '11px';
+        debugDiv.style.padding = '10px';
+        debugDiv.style.borderRadius = '8px';
+        debugDiv.style.zIndex = '100000';
+        debugDiv.style.pointerEvents = 'auto';
+        debugDiv.style.display = 'none';
+        debugDiv.style.border = '2px solid #ef4444';
+        
+        const closeBtn = document.createElement('span');
+        closeBtn.innerText = '✕ Fechar Debug';
+        closeBtn.style.color = '#ff6b6b';
+        closeBtn.style.float = 'right';
+        closeBtn.style.fontWeight = 'bold';
+        closeBtn.style.cursor = 'pointer';
+        closeBtn.onclick = () => { debugDiv.style.display = 'none'; };
+        debugDiv.appendChild(closeBtn);
+        
+        const title = document.createElement('div');
+        title.innerText = '🐛 DEBUG CONSOLE (Erros do Navegador):';
+        title.style.fontWeight = 'bold';
+        title.style.color = '#eab308';
+        title.style.marginBottom = '6px';
+        debugDiv.appendChild(title);
+
+        const logsList = document.createElement('div');
+        logsList.id = 'debug-logs-list';
+        debugDiv.appendChild(logsList);
+
+        document.body.appendChild(debugDiv);
+        
+        function logError(msg, source, lineno, colno, error) {
+            debugDiv.style.display = 'block';
+            const errLine = document.createElement('div');
+            errLine.style.marginBottom = '4px';
+            errLine.style.borderBottom = '1px dashed #444';
+            errLine.style.paddingBottom = '3px';
+            const srcFile = source ? source.split('/').pop() : 'inline';
+            errLine.innerText = `❌ ERR: ${msg}\n➔ ${srcFile}:${lineno}:${colno}`;
+            logsList.appendChild(errLine);
+            debugDiv.scrollTop = debugDiv.scrollHeight;
+        }
+        
+        window.onerror = logError;
+        window.addEventListener('unhandledrejection', (e) => {
+            debugDiv.style.display = 'block';
+            const errLine = document.createElement('div');
+            errLine.style.marginBottom = '4px';
+            errLine.style.borderBottom = '1px dashed #444';
+            errLine.style.paddingBottom = '3px';
+            errLine.innerText = `⚠️ REJ: ${e.reason}`;
+            logsList.appendChild(errLine);
+            debugDiv.scrollTop = debugDiv.scrollHeight;
+        });
+    });
+})();
 
 
 
