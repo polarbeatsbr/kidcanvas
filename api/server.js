@@ -2472,7 +2472,8 @@ app.get('/api/auth/me', async (req, res) => {
             success: true,
             newDiscovery: newlyUnlocked[0] || (completionRewards[0] ? completionRewards[0].mythicCard : null),
             newlyUnlockedCertificates: newlyUnlockedCerts,
-            user: formatUserProfile(user, users)
+            user: formatUserProfile(user, users),
+            token: token
         });
     } catch(err) {
         console.error('Erro ao buscar perfil:', err);

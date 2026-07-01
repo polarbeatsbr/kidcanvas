@@ -11,36 +11,34 @@
         storageAvailable = false;
     }
 
-    if (!storageAvailable) {
-        console.warn('[LocalStorage] Bloqueado ou indisponível (Modo Anônimo). Usando fallback em memória.');
-        const memoryStore = {};
-        const mockStorage = {
-            getItem: (key) => memoryStore[key] !== undefined ? memoryStore[key] : null,
-            setItem: (key, value) => { memoryStore[key] = String(value); },
-            removeItem: (key) => { delete memoryStore[key]; },
-            clear: () => { for (const key in memoryStore) delete memoryStore[key]; },
-            key: (index) => Object.keys(memoryStore)[index] || null,
-            get length() { return Object.keys(memoryStore).length; }
-        };
-        
+    if (!storageAvailable && typeof Storage !== 'undefined') {
+        console.warn('[LocalStorage] Bloqueado ou indisponível (Modo Anônimo). Aplicando polyfill em Storage.prototype.');
         try {
-            Object.defineProperty(window, 'localStorage', {
-                value: mockStorage,
-                configurable: true,
-                enumerable: true,
-                writable: true
+            Storage.prototype.getItem = function(key) {
+                if (!this.__memoryStore) this.__memoryStore = {};
+                return this.__memoryStore[key] !== undefined ? this.__memoryStore[key] : null;
+            };
+            Storage.prototype.setItem = function(key, value) {
+                if (!this.__memoryStore) this.__memoryStore = {};
+                this.__memoryStore[key] = String(value);
+            };
+            Storage.prototype.removeItem = function(key) {
+                if (!this.__memoryStore) this.__memoryStore = {};
+                delete this.__memoryStore[key];
+            };
+            Storage.prototype.clear = function() {
+                this.__memoryStore = {};
+            };
+            // Define length property
+            Object.defineProperty(Storage.prototype, 'length', {
+                get: function() {
+                    if (!this.__memoryStore) this.__memoryStore = {};
+                    return Object.keys(this.__memoryStore).length;
+                },
+                configurable: true
             });
         } catch (err) {
-            try {
-                if (window.localStorage) {
-                    window.localStorage.getItem = mockStorage.getItem;
-                    window.localStorage.setItem = mockStorage.setItem;
-                    window.localStorage.removeItem = mockStorage.removeItem;
-                    window.localStorage.clear = mockStorage.clear;
-                }
-            } catch (err2) {
-                console.error('[LocalStorage] Falha ao aplicar polyfill:', err2);
-            }
+            console.error('[Storage.prototype Polyfill Error]', err);
         }
     }
 })();
@@ -54,13 +52,14 @@
     
     localStorage.getItem = function(key) {
         if (key === 'kidcanvas_session_token') {
-            return ''; // Retorna vazio para o backend ler o cookie HttpOnly
+            return window.sessionToken || '';
         }
         return originalGet(key);
     };
     
     localStorage.setItem = function(key, value) {
         if (key === 'kidcanvas_session_token') {
+            window.sessionToken = value; // Salva em memória
             return; // Impede gravação do token no localStorage por segurança
         }
         return originalSet(key, value);
@@ -68,6 +67,7 @@
     
     localStorage.removeItem = function(key) {
         if (key === 'kidcanvas_session_token') {
+            window.sessionToken = null; // Remove da memória
             return;
         }
         return originalRemove(key);
@@ -420,6 +420,7 @@ function getVisibleDrawings(drawingsArray, categorySlug) {
 
 // --- SISTEMA DE AUTENTICAÇÃO E SESSÃO ---
 let sessionToken = localStorage.getItem("kidcanvas_session_token") || null;
+window.sessionToken = sessionToken;
 let currentUser = null;
 
 async function syncUserProfile() {
@@ -436,6 +437,7 @@ async function syncUserProfile() {
             currentUser = data.user;
             if (data.token) {
                 sessionToken = data.token;
+                window.sessionToken = data.token;
             }
             updateHeaderAuthDisplay();
             checkNewAchievements();
@@ -445,6 +447,7 @@ async function syncUserProfile() {
             if(typeof checkActiveEvent === 'function') checkActiveEvent();
         } else {
             sessionToken = null;
+            window.sessionToken = null;
             currentUser = null;
             localStorage.removeItem("kidcanvas_session_token");
             updateHeaderAuthDisplay();
@@ -18232,6 +18235,8 @@ async function gerarMisturaCientista() {
             <div class="spinner"></div>
             <div class="loading-msg">🧪 Misturando ${n1} com ${n2}...</div>
         `;
+        // Auto-scroll to loading box on mobile and desktop
+        box.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';

@@ -1079,11 +1079,57 @@
                     </div>
                 </div>
                 <div class="livro-folha-direita">
-                    <div class="livro-folha-direita-topo-filtros" id="livro-folha-direita-topo-filtros" style="display:none;"></div>
-                    <div class="livro-descobertas-grid" id="livro-descobertas-grid"></div>
-                    <div class="livro-detalhes-conteudo" id="livro-detalhes-conteudo" style="display:none;"></div>
+                    <button class="livro-mobile-back-btn" onclick="voltarParaCapitulos()">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar aos Capítulos
+                    </button>
+                    
+                    <!-- Sub-página: Grade de Descobertas -->
+                    <div id="livro-grade-conteudo" style="display: flex; flex-direction: column; height: 100%;">
+                        <h2 class="livro-capitulo-titulo" id="livro-capitulo-titulo">
+                            <!-- Título do capítulo e contagem -->
+                        </h2>
+                        <div class="livro-progresso-bar-wrap">
+                            <div class="livro-progresso-bar-preenchida" id="livro-progresso-bar-preenchida"></div>
+                        </div>
+                        
+                        <!-- Novo: Meta Recomendada (Próxima Descoberta) -->
+                        <div id="livro-proxima-descoberta-box" class="livro-proxima-descoberta-box" style="display: none;">
+                            <span class="livro-meta-estrela">⭐</span>
+                            <div class="livro-meta-texto-container">
+                                <div class="livro-meta-rotulo">PRÓXIMA DESCOBERTA</div>
+                                <div class="livro-meta-pista" id="livro-proxima-descoberta-pista">
+                                    <!-- Gerado dinamicamente -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="livro-descobertas-grid" id="livro-descobertas-grid">
+                            <!-- Cards gerados dinamicamente -->
+                        </div>
+                    </div>
+                    
+                    <!-- Sub-página: Guia do Capítulo (Dicas, Regras e Curiosidades) -->
+                    <div id="livro-regras-conteudo" style="display: none; flex-direction: column; height: 100%;">
+                        <!-- Gerado dinamicamente via JS -->
+                    </div>
+                    
+                    <!-- Sub-página: Detalhes da Descoberta -->
+                    <div id="livro-detalhes-conteudo" style="display: none; flex-direction: column; height: 100%;">
+                        <!-- Gerado dinamicamente via JS -->
+                    </div>
+
+                    <!-- Sub-página: Expedição Mágica da Semana -->
+                    <div id="livro-expedition-conteudo" style="display: none; flex-direction: column; height: auto; gap: 15px;">
+                        <!-- Gerado dinamicamente via JS -->
+                    </div>
+                    
+                    <!-- Sub-página: Meu Bestiário Maluco -->
+                    <div id="livro-bestiario-conteudo" style="display: none; flex-direction: column; height: 100%;">
+                        <!-- Gerado dinamicamente via JS -->
+                    </div>
                 </div>
             </div>
+            <!-- ABAS LATERAIS (lado direito) -->
+            <div id="livro-abas-laterais" class="livro-abas-laterais"></div>
         </div>
     </div>
 
