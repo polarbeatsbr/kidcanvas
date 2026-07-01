@@ -18098,8 +18098,8 @@ async function gerarMisturaCientista() {
     }
 
     const currentCredits = currentUser.paginasRestantes || 0;
-    if (currentCredits < 3.5) {
-        showToast("Você precisa de pelo menos 3,5 créditos para gerar uma criatura maluca! 💎", "error");
+    if (currentCredits < 3) {
+        showToast("Você precisa de pelo menos 3 créditos para gerar uma criatura maluca! 💎", "error");
         navigate('/planos');
         return;
     }
@@ -18143,7 +18143,7 @@ async function gerarMisturaCientista() {
         updateCientistaCreditsHUD(); // Scoped HUD
 
         const cores = {
-            "Comum": "#6b7280",
+            "Comum": "#84cc16",
             "Raro": "#2563eb",
             "Épico": "#9333ea",
             "Lendário": "#f59e0b"

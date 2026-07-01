@@ -4225,11 +4225,11 @@ app.post('/api/cientista/gerar-nome', async (req, res) => {
         }
 
         // Verificar saldo de créditos se o usuário estiver autenticado
-        const cost = 3.5;
+        const cost = 3;
         if (deduct && getUserTotalCredits(user) < cost) {
             return res.status(400).json({ 
                 success: false, 
-                message: `Saldo insuficiente! Esta geração requer 3,5 créditos mágicos, mas você possui apenas ${getUserTotalCredits(user).toString().replace('.', ',')}.` 
+                message: `Saldo insuficiente! Esta geração requer 3 créditos mágicos, mas você possui apenas ${getUserTotalCredits(user).toString().replace('.', ',')}.` 
             });
         }
 
