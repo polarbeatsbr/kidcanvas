@@ -888,7 +888,7 @@
                             <a href="#" class="nav-link dropdown-toggle" id="mais-dropdown-toggle">Mais ▾</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/historias-magicas" class="dropdown-item">📖 Histórias Mágicas</a></li>
-                                <li><a href="#" onclick="openAlbumModal(); return false;" class="dropdown-item">📖 Livro das Descobertas</a></li>
+                                <li><a href="#" onclick="openAlbumModal(); return false;" class="dropdown-item">📖 Livro das Descobertas<span class="badge-novidade-livro" style="display:none; margin-left:4px;">🆕</span></a></li>
                                 <li><a href="#" onclick="openBestiaryDirectly(); return false;" class="dropdown-item">🧪 Meu Bestiário</a></li>
                                 <li><a href="/hall-da-fama" class="dropdown-item">🏆 Hall da Fama</a></li>
                             </ul>
@@ -947,7 +947,7 @@
                                     <i class="fa-solid fa-image"></i> Minhas Criações
                                 </a>
                                 <a href="#" onclick="openAlbumModal(); return false;" class="dropdown-menu-item">
-                                    <i class="fa-solid fa-book"></i> Livro das Descobertas
+                                    <i class="fa-solid fa-book"></i> Livro das Descobertas<span class="badge-novidade-livro" style="display:none; margin-left:4px;">🆕</span>
                                 </a>
                                 <a href="#" onclick="openBestiaryDirectly(); return false;" class="dropdown-menu-item">
                                     <i class="fa-solid fa-flask"></i> Meu Bestiário
@@ -3468,6 +3468,9 @@
           <span class="btn-sub">Custa 3 créditos</span>
         </button>
         <div class="credits-row">Seus créditos: <span id="cientista-creditos-val">⭐ 0</span></div>
+        <button class="bestiary-direct-btn" id="cientista-bestiary-direct-btn" onclick="openBestiaryDirectly()" style="margin-top: 15px; width: 100%; border: 2px solid #7c3aed; background: white; color: #7c3aed; padding: 10px 16px; border-radius: 20px; font-weight: 800; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background-color 0.2s, color 0.2s; box-sizing: border-box;" onmouseover="this.style.background='#7c3aed'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='#7c3aed';">
+          🐾 Abrir Meu Bestiário
+        </button>
       </div>
       <div class="right-panel">
         <div class="result-title">Sua criatura maluca aparecerá aqui!</div>

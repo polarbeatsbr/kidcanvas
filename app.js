@@ -1032,6 +1032,19 @@ function checkGsiLoaded() {
     }
 }
 
+window.checkLivroNovidadeBadge = function() {
+    const visited = localStorage.getItem('kidcanvas_livro_visited');
+    if (!visited) {
+        document.querySelectorAll('.badge-novidade-livro').forEach(el => {
+            el.style.display = 'inline-block';
+        });
+    } else {
+        document.querySelectorAll('.badge-novidade-livro').forEach(el => {
+            el.style.display = 'none';
+        });
+    }
+};
+
 // --- INICIALIZAÇÃO ---
 window.addEventListener('DOMContentLoaded', async () => {
     // Intercept Google OAuth redirect token and ref code
@@ -1099,6 +1112,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     await loadDrawings();
     initGlobalEventListeners();
     initSearchAutocomplete();
+    if (window.checkLivroNovidadeBadge) window.checkLivroNovidadeBadge();
     
     // Roteamento inicial baseado na URL atual (suporta hash para servidores de teste locais)
     let initialPath = window.location.pathname;
@@ -14133,6 +14147,9 @@ window.openAlbumModal = async function() {
         return;
     }
     
+    localStorage.setItem('kidcanvas_livro_visited', 'true');
+    if (window.checkLivroNovidadeBadge) window.checkLivroNovidadeBadge();
+    
     try {
         const res = await fetch('/api/store/catalog');
         const data = await res.json();
@@ -14326,7 +14343,11 @@ window.openAlbumModal = async function() {
         `;
         chaptersListEl.appendChild(bestiaryBtn);
         
-        if (window.openWithBestiaryActive) {
+        if (window.creatureToHighlightId) {
+            selectChapter('bestiary');
+            showBestiaryCreatureDetails(window.creatureToHighlightId);
+            window.creatureToHighlightId = null;
+        } else if (window.openWithBestiaryActive) {
             selectChapter('bestiary');
             window.openWithBestiaryActive = false;
         } else if (firstCol) {
@@ -18245,17 +18266,17 @@ async function gerarMisturaCientista() {
                     <div class="result-power">⚡ Poder: ${data.poder}</div>
                     
                     <div class="creature-actions" style="display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;">
-                        <button class="btn-action" onclick="downloadCientistaImage(document.getElementById('cientista-creature-img').src, '${data.nome}.png')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
+                        <button id="btn-save-bestiario" class="btn-action" onclick="saveCreatureToBestiary()" onmouseover="this.style.background='#D97706'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='#F59E0B'; this.style.transform='scale(1)';" style="background: #F59E0B; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(245,158,11, 0.2); transition: transform 0.1s, background-color 0.1s;">
+                            📖 Salvar no Meu Bestiário
+                        </button>
+                        <button class="btn-action" onclick="downloadCientistaImage(document.getElementById('cientista-creature-img').src, '${data.nome}.png')" onmouseover="this.style.background='#2563EB'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='#3B82F6'; this.style.transform='scale(1)';" style="background: #3B82F6; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(59,130,246, 0.2); transition: transform 0.1s, background-color 0.1s;">
                             💾 Salvar
                         </button>
-                        <button class="btn-action" onclick="printCientistaCreature(document.getElementById('cientista-creature-img').src, '${data.nome}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
+                        <button class="btn-action" onclick="printCientistaCreature(document.getElementById('cientista-creature-img').src, '${data.nome}')" onmouseover="this.style.background='#DC2626'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='#EF4444'; this.style.transform='scale(1)';" style="background: #EF4444; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(239,68,68, 0.2); transition: transform 0.1s, background-color 0.1s;">
                             🖨️ Imprimir
                         </button>
-                        <button class="btn-action" onclick="shareCientistaWhatsApp('${data.nome}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
+                        <button class="btn-action" onclick="shareCientistaWhatsApp('${data.nome}')" onmouseover="this.style.background='#1EBE5D'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='#25D366'; this.style.transform='scale(1)';" style="background: #25D366; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(37,211,102, 0.2); transition: transform 0.1s, background-color 0.1s;">
                             💬 WhatsApp
-                        </button>
-                        <button id="btn-save-bestiario" class="btn-action" onclick="saveCreatureToBestiary()" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #2563eb; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); transition: transform 0.1s;">
-                            📖 Salvar no Meu Bestiário
                         </button>
                     </div>
                 </div>
@@ -18450,23 +18471,38 @@ window.saveCreatureToBestiary = async function() {
         const data = await res.json();
         if (data.success) {
             showToast("Criatura salva com sucesso no seu Bestiário! 📖", "success");
-            btn.innerHTML = `✓ Salvo no Bestiário`;
-            btn.style.background = '#10b981'; // Green
-            btn.style.color = 'white';
-            btn.style.boxShadow = 'none';
-            btn.disabled = true;
-
-            // Add locally to currentUser bestiary list
+            
+            const savedId = data.creature ? data.creature.id : 'c_' + Date.now();
             if (!currentUser.bestiary) currentUser.bestiary = [];
             
-            const exists = currentUser.bestiary.some(b => b.name === window.lastGeneratedCreature.name);
+            const exists = currentUser.bestiary.find(b => b.name === window.lastGeneratedCreature.name);
             if (!exists) {
                 currentUser.bestiary.push({
                     ...window.lastGeneratedCreature,
-                    id: data.creature ? data.creature.id : 'c_' + Date.now(),
+                    id: savedId,
                     createdAt: new Date().toISOString()
                 });
+            } else {
+                savedId = exists.id;
             }
+
+            btn.innerHTML = `✓ Salvo! Ver no Bestiário →`;
+            btn.style.background = '#F59E0B'; // Keep gold/yellow color
+            btn.style.color = 'white';
+            btn.style.boxShadow = '0 2px 4px rgba(245,158,11, 0.2)';
+            btn.disabled = false; // MUST be clickable
+            btn.onmouseover = function() {
+                this.style.background = '#D97706';
+                this.style.transform = 'scale(1.05)';
+            };
+            btn.onmouseout = function() {
+                this.style.background = '#F59E0B';
+                this.style.transform = 'scale(1)';
+            };
+            btn.onclick = function() {
+                window.creatureToHighlightId = savedId;
+                openBestiaryDirectly();
+            };
             
             renderBookTabs();
         } else {
@@ -18500,11 +18536,11 @@ window.renderBestiaryPage = function(pageNumber = 1) {
             <div class="livro-bestiario-vazio" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 40px 20px; gap: 15px; margin-top: auto; margin-bottom: auto;">
                 <div style="font-size: 5rem; animation: bounce 2s infinite;">🧪</div>
                 <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-purple); margin: 0;">Seu Bestiário está vazio!</h3>
-                <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-dark-light); max-width: 320px; margin: 0; line-height: 1.5;">
-                    Misture ingredientes malucos no Cientista Maluco e salve suas criações aqui!
+                <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-dark-light); max-width: 380px; margin: 0; line-height: 1.5;">
+                    Crie sua primeira criatura maluca no Cientista Maluco e clique em 'Salvar no Bestiário' pra guardar ela aqui 🧪✨
                 </p>
-                <button class="btn btn-primary" onclick="closeAlbumModal(); navigate('/cientista-maluco');" style="background-color: var(--color-purple); font-weight: 800; padding: 10px 24px; font-size: 1rem; border-color: var(--color-dark); box-shadow: 0 3px 0 var(--color-dark); margin-top: 10px; cursor: pointer;">
-                    🧪 Ir pro Cientista Maluco →
+                <button class="btn btn-primary" onclick="closeAlbumModal(); navigate('/cientista-maluco');" style="background-color: var(--color-purple); font-weight: 800; padding: 10px 24px; font-size: 1rem; border-color: var(--color-dark); box-shadow: 0 3px 0 var(--color-dark); margin-top: 10px; cursor: pointer; color: white;">
+                    Criar Minha Primeira Criatura
                 </button>
             </div>
         `;
