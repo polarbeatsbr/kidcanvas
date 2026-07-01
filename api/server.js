@@ -379,6 +379,7 @@ async function activateUserPlanOrCredits(user, planName, users) {
 }
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
 
 // Habilitar Brotli/GZIP em todos os assets estáticos
@@ -4273,6 +4274,9 @@ Responda APENAS em JSON válido, sem texto antes ou depois:
             textResult = geminiResult.text;
         } else {
             console.log(`[Cientista Name Gen] Chamando Claude para combinar "${ingrediente1}" e "${ingrediente2}" com raridade "${raridadeSorteada}"...`);
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
+
             const response = await fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
                 headers: {
@@ -4280,6 +4284,7 @@ Responda APENAS em JSON válido, sem texto antes ou depois:
                     'anthropic-version': '2023-06-01',
                     'content-type': 'application/json'
                 },
+                signal: controller.signal,
                 body: JSON.stringify({
                     model: 'claude-3-5-sonnet-20241022',
                     max_tokens: 400,
@@ -4301,6 +4306,7 @@ Responda APENAS em JSON válido, sem texto antes ou depois:
                     ]
                 })
             });
+            clearTimeout(timeoutId);
 
             if (!response.ok) {
                 const errText = await response.text();
