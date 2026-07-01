@@ -18708,6 +18708,11 @@ window.showBestiaryCreatureDetails = function(creatureId) {
             <button class="livro-detalhes-voltar-btn" onclick="voltarParaBestiario()" style="width: 100%; padding: 8px; border-radius: 12px; font-weight: 800; cursor: pointer; border: 2px solid #3d281a; background: #fff; color: #3d281a; box-shadow: 0 2px 0 #3d281a; font-size: 0.9rem; transition: transform 0.1s;">
                 ← Voltar ao Bestiário
             </button>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="#" onclick="confirmarExclusaoCriatura('${c.id}', '${c.name.replace(/'/g, "\\'")}'); return false;" style="color: #ef4444; font-size: 0.8rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; opacity: 0.7; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                    🗑️ Excluir do Bestiário
+                </a>
+            </div>
         </div>
     `;
 };
@@ -18715,6 +18720,45 @@ window.showBestiaryCreatureDetails = function(creatureId) {
 window.voltarParaBestiario = function() {
     document.getElementById('livro-bestiario-conteudo').style.display = 'flex';
     document.getElementById('livro-detalhes-conteudo').style.display = 'none';
+};
+
+window.confirmarExclusaoCriatura = function(creatureId, creatureName) {
+    showCustomConfirm(
+        "Excluir Criatura 🧪",
+        `Tem certeza que quer excluir ${creatureName}? Essa ação não pode ser desfeita e os créditos não serão devolvidos.`,
+        async function() {
+            showToast("Removendo criatura... 🗑️", "info");
+            try {
+                const sessionToken = localStorage.getItem('kidcanvas_session_token') || (currentUser ? currentUser.token : '') || '';
+                const res = await fetch('/api/cientista/delete-creature', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-session-token': sessionToken
+                    },
+                    body: JSON.stringify({ creatureId })
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    showToast("Criatura removida com sucesso! ✨", "success");
+                    
+                    if (currentUser && currentUser.bestiary) {
+                        currentUser.bestiary = currentUser.bestiary.filter(c => c.id !== creatureId);
+                    }
+                    
+                    voltarParaBestiario();
+                    renderBookTabs();
+                    renderBestiaryPage(1);
+                } else {
+                    showToast(data.message || "Erro ao remover criatura.", "error");
+                }
+            } catch (err) {
+                console.error('[Exclusao Criatura Error]', err);
+                showToast("Erro de conexão ao remover criatura.", "error");
+            }
+        }
+    );
 };
 
 

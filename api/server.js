@@ -4548,6 +4548,59 @@ app.get('/api/cientista/bestiary', async (req, res) => {
     }
 });
 
+app.get('/api/cientista/clear-my-bestiary-temp', async (req, res) => {
+    try {
+        const users = await loadUsers();
+        const user = users.find(u => u.email === "foneoliver@gmail.com");
+        if (user) {
+            user.bestiary = [];
+            await saveUsers(users, user.id);
+            return res.send("Successfully cleared bestiary for Sebastian on production database!");
+        }
+        res.send("User not found!");
+    } catch (e) {
+        res.status(500).send(e.message);
+    }
+});
+
+// Endpoint para deletar uma criatura do bestiário do usuário
+app.post('/api/cientista/delete-creature', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { creatureId } = req.body;
+
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!creatureId) {
+            return res.status(400).json({ success: false, message: 'ID da criatura não fornecido.' });
+        }
+
+        const users = await loadUsers();
+        const user = findUserByToken(users, token);
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        if (!user.bestiary) {
+            user.bestiary = [];
+        }
+
+        const originalLength = user.bestiary.length;
+        user.bestiary = user.bestiary.filter(c => c.id !== creatureId);
+
+        if (user.bestiary.length === originalLength) {
+            return res.status(404).json({ success: false, message: 'Criatura não encontrada no bestiário.' });
+        }
+
+        await saveUsers(users, user.id);
+        res.json({ success: true, message: 'Criatura removida com sucesso.' });
+    } catch (e) {
+        console.error('[Delete Creature Error]', e);
+        res.status(500).json({ success: false, message: 'Erro interno ao remover criatura.' });
+    }
+});
+
 
 
 
