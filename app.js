@@ -18119,7 +18119,7 @@ async function gerarMisturaCientista() {
 
         // Deduct client-side user credits and update UI
         currentUser.paginasRestantes = data.balance;
-        updateUserCreditsHUD(); // Global HUD
+        updateHeaderAuthDisplay(); // Global HUD
         updateCientistaCreditsHUD(); // Scoped HUD
 
         const cores = {
