@@ -1,7 +1,12 @@
 const crypto = require('crypto');
 const supabase = require('./db');
+const r2db = require('./r2db');
 
 const SESSION_DURATION_DAYS = 30;
+
+const useSupabase = process.env.SUPABASE_URL && 
+                    process.env.SUPABASE_SERVICE_ROLE_KEY && 
+                    !process.env.SUPABASE_URL.includes('placeholder');
 
 function generateToken() {
   return crypto.randomBytes(48).toString('hex');
@@ -17,46 +22,79 @@ async function createSession(userId, userAgent, ipAddress) {
   const expiresAt = new Date();
   expiresAt.setDate(expiresAt.getDate() + SESSION_DURATION_DAYS);
 
-  await supabase.from('sessions').insert({
-    user_id: userId,
-    token_hash: tokenHash,
-    expires_at: expiresAt.toISOString(),
-    user_agent: userAgent,
-    ip_address: ipAddress,
-  });
+  if (useSupabase) {
+    await supabase.from('sessions').insert({
+      user_id: userId,
+      token_hash: tokenHash,
+      expires_at: expiresAt.toISOString(),
+      user_agent: userAgent,
+      ip_address: ipAddress,
+    });
+  } else {
+    const users = await r2db.loadUsers();
+    const user = users.find(u => u.id === userId);
+    if (user) {
+      user.token = tokenHash;
+      user.tokenExpiry = expiresAt.getTime();
+      await r2db.saveUsers(users);
+    }
+  }
 
-  return token; // só o token cru vai pro cookie — o hash fica no banco
+  return token;
 }
 
 async function validateSession(token) {
   if (!token) return null;
   const tokenHash = hashToken(token);
 
-  const { data: session } = await supabase
-    .from('sessions')
-    .select('user_id, expires_at')
-    .eq('token_hash', tokenHash)
-    .maybeSingle();
+  if (useSupabase) {
+    const { data: session } = await supabase
+      .from('sessions')
+      .select('user_id, expires_at')
+      .eq('token_hash', tokenHash)
+      .maybeSingle();
 
-  if (!session) return null;
-  if (new Date(session.expires_at) < new Date()) {
-    // Sessão expirada — limpar
-    await supabase.from('sessions').delete().eq('token_hash', tokenHash);
-    return null;
+    if (!session) return null;
+    if (new Date(session.expires_at) < new Date()) {
+      await supabase.from('sessions').delete().eq('token_hash', tokenHash);
+      return null;
+    }
+
+    const { data: user } = await supabase
+      .from('users')
+      .select('id, email, username, plan, stars, avatar_url')
+      .eq('id', session.user_id)
+      .maybeSingle();
+
+    return user;
+  } else {
+    const users = await r2db.loadUsers();
+    const user = users.find(u => u.token === tokenHash && u.tokenExpiry > Date.now());
+    if (!user) return null;
+    return {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+      plan: user.plan,
+      stars: user.stars || user.paginasRestantes || 0,
+      avatar_url: user.avatarUrl
+    };
   }
-
-  const { data: user } = await supabase
-    .from('users')
-    .select('id, email, username, plan, stars, avatar_url')
-    .eq('id', session.user_id)
-    .maybeSingle();
-
-  return user;
 }
 
 async function destroySession(token) {
   const tokenHash = hashToken(token);
-  await supabase.from('sessions').delete().eq('token_hash', tokenHash);
+  if (useSupabase) {
+    await supabase.from('sessions').delete().eq('token_hash', tokenHash);
+  } else {
+    const users = await r2db.loadUsers();
+    const user = users.find(u => u.token === tokenHash);
+    if (user) {
+      user.token = null;
+      user.tokenExpiry = null;
+      await r2db.saveUsers(users);
+    }
+  }
 }
 
 module.exports = { createSession, validateSession, destroySession };
