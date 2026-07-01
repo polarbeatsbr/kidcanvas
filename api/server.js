@@ -5486,6 +5486,10 @@ async function getActiveEvent() {
             // Ajustar startDate para agora (já estamos na semana)
             newWeek.startDate = now.toISOString();
             
+            // Ajustar endDate correspondente para manter exatamente 7 dias
+            const end = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+            newWeek.endDate = end.toISOString();
+            
             eventsData.weeks.push(newWeek);
             eventsData.currentWeek = newWeek.weekNumber;
             await saveEvents(eventsData);
