@@ -4322,7 +4322,7 @@ Responda APENAS em JSON válido, sem texto antes ou depois:
         // Deduzir créditos e salvar se for usuário autenticado
         if (deduct) {
             deductUserCredits(user, cost);
-            await saveUsers(users);
+            await saveUsers(users, user.id);
             console.log(`[Cientista Name Gen] Sucesso! ${user.email} gastou ${cost} créditos. Saldo atual: ${getUserTotalCredits(user)}`);
         } else {
             console.log(`[Cientista Name Gen] Geração de teste concluída sem dedução de créditos.`);
@@ -4514,7 +4514,7 @@ app.post('/api/cientista/save-creature', async (req, res) => {
         };
 
         user.bestiary.push(newCreature);
-        await saveUsers(users);
+        await saveUsers(users, user.id);
 
         res.json({ success: true, creature: newCreature });
     } catch (e) {
@@ -6681,6 +6681,12 @@ app.get('*', (req, res) => {
         return res.status(404).send('Recurso não encontrado');
     }
     res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
+// Middleware de tratamento de erro global para garantir respostas JSON
+app.use((err, req, res, next) => {
+    console.error('[Unhandled Error Handler]:', err);
+    res.status(500).json({ success: false, message: 'Ocorreu um erro interno no servidor.' });
 });
 
 // Inicializar o servidor

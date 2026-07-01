@@ -175,12 +175,19 @@ async function loadUsers() {
     return [];
 }
 
-async function saveUsers(users) {
+async function saveUsers(users, targetUserId = null) {
     if (useSupabase) {
         try {
             console.log(`[R2DB] Salvando dados no Supabase...`);
             const processedIds = new Set();
-            for (const user of users) {
+            
+            let usersToSave = users;
+            if (targetUserId) {
+                usersToSave = users.filter(u => u.id === targetUserId);
+                console.log(`[R2DB] Salvando apenas o usuário alvo no Supabase: ${targetUserId}`);
+            }
+
+            for (const user of usersToSave) {
                 if (processedIds.has(user.id)) continue;
                 processedIds.add(user.id);
 
