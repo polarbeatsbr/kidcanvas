@@ -18172,7 +18172,10 @@ async function gerarMisturaCientista() {
         if (box) {
             box.innerHTML = `
                 <div class="creature-card-wrapper" style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
-                    <img src="${imgData.imageUrl}" alt="${data.nome}" style="width: 100%; max-width: 380px; height: auto; border-radius: 16px; border: 2.5px solid #a78bfa; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25); cursor: zoom-in;" onclick="zoomCientistaImage('${imgData.imageUrl}')">
+                    <div style="position: relative; display: inline-block; width: 100%; max-width: 380px; border-radius: 16px; overflow: hidden; border: 2.5px solid #a78bfa; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);">
+                        <img src="${imgData.imageUrl}" alt="${data.nome}" style="width: 100%; height: auto; display: block; cursor: zoom-in;" onclick="zoomCientistaImage('${imgData.imageUrl}')">
+                        <div style="position: absolute; bottom: 0; right: 0; font-size: 11px; color: white; opacity: 0.5; padding: 4px 8px; background: rgba(0,0,0,0.2); border-radius: 4px 0 0 0; pointer-events: none; font-family: sans-serif; font-weight: bold;">kidcanvas.com.br</div>
+                    </div>
                     <div style="font-size: 11px; font-weight: 800; color: white; background: ${cor}; padding: 3px 12px; border-radius: 20px; margin: 4px 0; display: inline-block; text-transform: uppercase;">
                         ⭐ ${data.raridade}
                     </div>
