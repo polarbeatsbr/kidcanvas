@@ -18308,16 +18308,16 @@ async function gerarMisturaCientista() {
                     <div class="result-power">⚡ Poder: ${data.poder}</div>
                     
                     <div class="creature-actions" style="display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;">
-                        <button id="btn-save-bestiario" class="btn-action" onclick="saveCreatureToBestiary()" onmouseover="this.style.background='#D97706'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='#F59E0B'; this.style.transform='scale(1)';" style="background: #F59E0B; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(245,158,11, 0.2); transition: transform 0.1s, background-color 0.1s;">
+                        <button id="btn-save-bestiario" class="btn-action btn-save-bestiary" onclick="saveCreatureToBestiary()">
                             📖 Salvar no Meu Bestiário
                         </button>
-                        <button class="btn-action" onclick="downloadCientistaImage(document.getElementById('cientista-creature-img').src, '${data.nome}.png')" onmouseover="this.style.background='#2563EB'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='#3B82F6'; this.style.transform='scale(1)';" style="background: #3B82F6; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(59,130,246, 0.2); transition: transform 0.1s, background-color 0.1s;">
+                        <button class="btn-action btn-download" onclick="downloadCientistaImage(document.getElementById('cientista-creature-img').src, '${data.nome}.png')">
                             💾 Salvar
                         </button>
-                        <button class="btn-action" onclick="printCientistaCreature(document.getElementById('cientista-creature-img').src, '${data.nome}')" onmouseover="this.style.background='#DC2626'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='#EF4444'; this.style.transform='scale(1)';" style="background: #EF4444; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(239,68,68, 0.2); transition: transform 0.1s, background-color 0.1s;">
+                        <button class="btn-action btn-print" onclick="printCientistaCreature(document.getElementById('cientista-creature-img').src, '${data.nome}')">
                             🖨️ Imprimir
                         </button>
-                        <button class="btn-action" onclick="shareCientistaWhatsApp('${data.nome}')" onmouseover="this.style.background='#1EBE5D'; this.style.transform='scale(1.05)';" onmouseout="this.style.background='#25D366'; this.style.transform='scale(1)';" style="background: #25D366; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(37,211,102, 0.2); transition: transform 0.1s, background-color 0.1s;">
+                        <button class="btn-action btn-whatsapp" onclick="shareCientistaWhatsApp('${data.nome}')">
                             💬 WhatsApp
                         </button>
                     </div>
@@ -18380,6 +18380,7 @@ async function gerarMisturaCientista() {
 // Helper actions for Cientista Maluco results
 window.zoomCientistaImage = function(url) {
     const overlay = document.createElement('div');
+    overlay.className = 'zoom-lightbox-overlay';
     overlay.style.position = 'fixed';
     overlay.style.top = '0';
     overlay.style.left = '0';
@@ -18391,20 +18392,37 @@ window.zoomCientistaImage = function(url) {
     overlay.style.alignItems = 'center';
     overlay.style.zIndex = '99999';
     overlay.style.cursor = 'zoom-out';
+    overlay.style.opacity = '0';
     
     const img = document.createElement('img');
+    img.className = 'zoom-lightbox-img';
     img.src = url;
     img.style.maxWidth = '90vw';
     img.style.maxHeight = '90vh';
     img.style.borderRadius = '16px';
     img.style.objectFit = 'contain';
     img.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.5)';
+    img.style.transform = 'scale(0.85)';
     
     overlay.appendChild(img);
+    
     overlay.onclick = function() {
-        document.body.removeChild(overlay);
+        overlay.style.opacity = '0';
+        img.style.transform = 'scale(0.85)';
+        setTimeout(() => {
+            if (overlay.parentNode) {
+                document.body.removeChild(overlay);
+            }
+        }, 250);
     };
+    
     document.body.appendChild(overlay);
+    
+    // Trigger entry transition smoothly
+    requestAnimationFrame(() => {
+        overlay.style.opacity = '1';
+        img.style.transform = 'scale(1)';
+    });
 };
 
 window.downloadCientistaImage = async function(url, filename) {
@@ -18713,7 +18731,7 @@ window.showBestiaryCreatureDetails = function(creatureId) {
             </div>
             
             <div class="livro-detalhes-img-box" style="position: relative; display: flex; align-items: center; justify-content: center; min-height: 150px; margin-bottom: 10px;">
-                <img src="${c.imageUrl}" alt="${c.name}" class="livro-detalhes-img" style="max-height: 180px; object-fit: contain; border-radius: 12px;">
+                <img src="${c.imageUrl}" alt="${c.name}" class="livro-detalhes-img" style="max-height: 180px; object-fit: contain; border-radius: 12px; cursor: zoom-in;" onclick="zoomCientistaImage(this.src)">
             </div>
             
             <h2 style="margin: 0 0 8px 0; color:#2d3436; font-size:1.4rem; font-weight:900; font-family:'Fredoka-Variable',sans-serif; text-align:center;">
@@ -18751,7 +18769,7 @@ window.showBestiaryCreatureDetails = function(creatureId) {
                 ← Voltar ao Bestiário
             </button>
             <div style="text-align: center; margin-top: 15px;">
-                <a href="#" onclick="confirmarExclusaoCriatura('${c.id}', '${c.name.replace(/'/g, "\\'")}'); return false;" style="color: #ef4444; font-size: 0.8rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; opacity: 0.7; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                <a href="#" onclick="confirmarExclusaoCriatura('${c.id}', '${c.name.replace(/'/g, "\\'")}'); return false;" class="btn-delete-bestiary-link">
                     🗑️ Excluir do Bestiário
                 </a>
             </div>
