@@ -18172,10 +18172,7 @@ async function gerarMisturaCientista() {
         if (box) {
             box.innerHTML = `
                 <div class="creature-card-wrapper" style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
-                    <div style="position: relative; display: inline-block; width: 100%; max-width: 380px; border-radius: 16px; overflow: hidden; border: 2.5px solid #a78bfa; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);">
-                        <img src="${imgData.imageUrl}" alt="${data.nome}" style="width: 100%; height: auto; display: block; cursor: zoom-in;" onclick="zoomCientistaImage('${imgData.imageUrl}')">
-                        <div style="position: absolute; bottom: 0; right: 0; font-size: 11px; color: white; opacity: 0.5; padding: 4px 8px; background: rgba(0,0,0,0.2); border-radius: 4px 0 0 0; pointer-events: none; font-family: sans-serif; font-weight: bold;">kidcanvas.com.br</div>
-                    </div>
+                    <img id="cientista-creature-img" src="${imgData.imageUrl}" alt="${data.nome}" style="width: 100%; max-width: 380px; height: auto; border-radius: 16px; border: 2.5px solid #a78bfa; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25); cursor: zoom-in; display: block;" onclick="zoomCientistaImage(this.src)">
                     <div style="font-size: 11px; font-weight: 800; color: white; background: ${cor}; padding: 3px 12px; border-radius: 20px; margin: 4px 0; display: inline-block; text-transform: uppercase;">
                         ⭐ ${data.raridade}
                     </div>
@@ -18184,10 +18181,10 @@ async function gerarMisturaCientista() {
                     <div class="result-power">⚡ Poder: ${data.poder}</div>
                     
                     <div class="creature-actions" style="display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;">
-                        <button class="btn-action" onclick="downloadCientistaImage('${imgData.imageUrl}', '${data.nome}.png')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
+                        <button class="btn-action" onclick="downloadCientistaImage(document.getElementById('cientista-creature-img').src, '${data.nome}.png')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
                             💾 Salvar
                         </button>
-                        <button class="btn-action" onclick="printCientistaCreature('${imgData.imageUrl}', '${data.nome}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
+                        <button class="btn-action" onclick="printCientistaCreature(document.getElementById('cientista-creature-img').src, '${data.nome}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
                             🖨️ Imprimir
                         </button>
                         <button class="btn-action" onclick="shareCientistaWhatsApp('${data.nome}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
@@ -18197,6 +18194,42 @@ async function gerarMisturaCientista() {
                 </div>
             `;
         }
+
+        // Watermark burn process via Canvas
+        const tempImg = new Image();
+        tempImg.crossOrigin = "anonymous";
+        tempImg.onload = function() {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = tempImg.naturalWidth || tempImg.width;
+                canvas.height = tempImg.naturalHeight || tempImg.height;
+                const ctx = canvas.getContext('2d');
+                
+                // Draw creature image
+                ctx.drawImage(tempImg, 0, 0);
+                
+                // Shadow configuration
+                ctx.shadowColor = "rgba(0,0,0,0.4)";
+                ctx.shadowBlur = 4;
+                ctx.shadowOffsetX = 0;
+                ctx.shadowOffsetY = 0;
+                
+                // Watermark text configuration
+                ctx.font = "bold 14px Arial";
+                ctx.fillStyle = "rgba(255,255,255,0.6)";
+                ctx.textAlign = "right";
+                ctx.fillText("kidcanvas.com.br", canvas.width - 10, canvas.height - 10);
+                
+                // Replace the image source with watermarked dataURL
+                const targetImg = document.getElementById('cientista-creature-img');
+                if (targetImg) {
+                    targetImg.src = canvas.toDataURL('image/jpeg', 0.95);
+                }
+            } catch (err) {
+                console.error("Erro ao queimar marca d'água na imagem:", err);
+            }
+        };
+        tempImg.src = imgData.imageUrl;
 
         showToast("Criatura criada com sucesso! 🧬🎨", "success");
         if (window.KidCanvasAudio) window.KidCanvasAudio.playSuccess();
@@ -18247,6 +18280,15 @@ window.zoomCientistaImage = function(url) {
 window.downloadCientistaImage = async function(url, filename) {
     showToast('Iniciando download... ⏳', 'info');
     try {
+        if (url.startsWith('data:')) {
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            return;
+        }
         const response = await fetch(url);
         const blob = await response.blob();
         const blobUrl = URL.createObjectURL(blob);
