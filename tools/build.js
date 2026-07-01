@@ -25,6 +25,8 @@ const filesToCopy = [
 
 
     'index.html',
+    'cientista-maluco-mobile.html',
+    'cientista_promo_banner_mobile.jpg',
     'historia.html',
     'admin.html',
     'admin-expeditions.html',

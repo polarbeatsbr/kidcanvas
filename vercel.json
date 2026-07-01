@@ -23,6 +23,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/cientista-maluco-mobile",
+      "destination": "/cientista-maluco-mobile.html"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/server.js"
     },

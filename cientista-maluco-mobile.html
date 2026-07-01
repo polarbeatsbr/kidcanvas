@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XMCX6RS3NN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XMCX6RS3NN');
+    </script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7079165157394160" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Cientista Maluco Mobile — KidCanvas</title>
+    <meta name="description" content="Misture ingredientes malucos e crie criaturas incríveis com Inteligência Artificial no KidCanvas!" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/style.css?v=1783100000005">
+    
+    <!-- Google Identity Services (Google Sign-In) -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // Redirect to desktop version if screen is wide
+        if (window.innerWidth > 1024) {
+            window.location.href = '/cientista-maluco';
+        }
+    </script>
+
+    <style>
+        :root {
+            --color-gold: #ffb703;
+            --color-gold-dark: #b58300;
+            --color-gold-light: #ffe066;
+            --color-dark: #120826;
+        }
+
+        body {
+            background-color: #fcfbf7 !important;
+        }
+
+        /* Simplified Header Styling for Mobile */
+        .main-header {
+            background: white !important;
+            border-bottom: 2px solid #ddd6fe !important;
+            padding: 10px 15px !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+        }
+        .header-container {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            width: 100% !important;
+            max-width: 600px !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+        }
+        
+        /* 2x2 action buttons layout for mobile results */
+        #view-cientista-maluco .creature-actions {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 10px !important;
+            width: 100% !important;
+            max-width: 400px !important;
+            margin: 15px auto 0 !important;
+        }
+        #view-cientista-maluco .btn-action {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 10px 8px !important;
+            font-size: 0.85rem !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            border-radius: 20px !important;
+            border: 2px solid var(--color-dark) !important;
+            box-shadow: 0 3px 0 var(--color-dark) !important;
+        }
+        
+        #view-cientista-maluco .two-col {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 20px !important;
+        }
+        #view-cientista-maluco .left-panel,
+        #view-cientista-maluco .right-panel {
+            width: 100% !important;
+            border: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            background: none !important;
+        }
+        
+        .main-card {
+            border: none !important;
+            padding: 0 !important;
+            background: none !important;
+            box-shadow: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img alt="Mascote Artista" src="/mascot_artista.png" style="height: 34px; width: auto; vertical-align: middle; margin-right: 6px;" />
+                <span style="font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: 1.3rem; color: #7c3aed;">kidcanvas</span>
+            </a>
+            
+            <div class="header-auth" id="header-auth-container">
+                <button id="btn-entrar-header" class="btn-entrar-header" onclick="openAuthModal()"><i class="fa-solid fa-right-to-bracket"></i> Entrar</button>
+                <div id="google-signin-btn-header" class="google-btn-header" style="display: none;"></div>
+                <div id="user-profile-widget" class="user-profile-widget" style="display: none;">
+                    <!-- Medidor de Coins estilo bateria de iPhone -->
+                    <div class="iphone-battery-wrapper" id="iphone-battery-wrapper" title="Moedas Mágicas Restantes">
+                        <span class="battery-percentage" id="header-credits-count">0</span>
+                        <div class="iphone-battery">
+                            <div class="battery-segments" id="battery-segments"></div>
+                            <div class="battery-cap"></div>
+                        </div>
+                    </div>
+
+                    <!-- Foto do Perfil -->
+                    <div id="user-avatar-container" class="user-avatar-circle" style="display: flex; align-items: center; justify-content: center; font-size: 1.35rem; cursor: pointer; user-select: none; overflow: hidden;" onclick="document.getElementById('profile-dropdown-menu').classList.toggle('open')">
+                        <img id="user-avatar-img" src="" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                        <span id="user-avatar-emoji" style="display: none;">👤</span>
+                    </div>
+
+                    <!-- Informações do Usuário (Nome e Plano) -->
+                    <div class="user-meta-info" style="display: none;">
+                        <span id="user-display-name">Nome</span>
+                        <span id="user-plan-badge">Plano</span>
+                    </div>
+                    
+                    <!-- Engrenagem / Dropdown -->
+                    <div class="profile-settings-dropdown-wrapper">
+                        <button id="btn-profile-settings" class="btn-profile-settings" title="Menu da Conta" onclick="document.getElementById('profile-dropdown-menu').classList.toggle('open')">
+                            <i class="fa-solid fa-gear"></i>
+                        </button>
+                        <div class="profile-dropdown-menu" id="profile-dropdown-menu" style="right: 0; left: auto;">
+                            <div class="dropdown-user-header">
+                                <div id="dropdown-user-avatar-container" class="dropdown-user-avatar" style="display: flex; align-items: center; justify-content: center; font-size: 1.6rem; user-select: none; overflow: hidden;">
+                                    <img id="dropdown-user-avatar" src="" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                    <span id="dropdown-user-avatar-emoji" style="display: none;">👤</span>
+                                </div>
+                                <div class="dropdown-user-info">
+                                    <span id="dropdown-user-display-name" class="dropdown-user-name">Nome</span>
+                                    <span id="dropdown-user-plan-badge" class="dropdown-user-plan">Plano</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" onclick="navigate('/minhas-criacoes'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-image"></i> Minhas Criações
+                            </a>
+                            <a href="#" onclick="openAlbumModal(); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-book"></i> Livro das Descobertas<span class="badge-novidade-livro" style="display:none; margin-left:4px;">🆕</span>
+                            </a>
+                            <a href="#" onclick="openBestiaryDirectly(); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-flask"></i> Meu Bestiário
+                            </a>
+                            <a href="#" onclick="openAvatarSelectionModal(); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-face-smile"></i> Escolher Avatar
+                            </a>
+                            <a href="#" onclick="navigate('/gerar-desenho'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Desenho IA
+                            </a>
+                            <a href="#" onclick="navigate('/historias-magicas'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-book-open"></i> Histórias Mágicas
+                            </a>
+                            <a href="#" onclick="navigate('/planos'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Upgrade de Plano
+                            </a>
+                            <a href="#" onclick="navigate('/politica-de-privacidade'); return false;" class="dropdown-menu-item">
+                                <i class="fa-solid fa-shield-halved"></i> Política de Privacidade
+                            </a>
+                            <a href="/reportar-bug" onclick="navigate('/reportar-bug'); return false;" class="dropdown-menu-item" style="color: #e74c3c;">
+                                <i class="fa-solid fa-bug"></i> Reportar Bug
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" onclick="handleHeaderLogout(); return false;" class="dropdown-menu-item logout-item">
+                                <i class="fa-solid fa-right-from-bracket"></i> Deslogar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN VIEW CONTAINER -->
+    <main>
+        <section id="view-cientista-maluco" class="page-view" style="display: none; padding: 15px; max-width: 600px; margin: 0 auto;">
+            <div class="page" style="background: none; padding: 0;">
+                <!-- Mobile Banner -->
+                <div style="width: 100%; border-radius: 16px; overflow: hidden; border: 3px solid #7c3aed; box-shadow: 0 4px 10px rgba(0,0,0,0.15); margin-bottom: 15px;">
+                    <img src="/cientista_promo_banner_mobile.jpg" alt="Cientista Maluco" style="width: 100%; height: auto; display: block; object-fit: cover;">
+                </div>
+
+                <div class="main-card">
+                    <div class="two-col">
+                        <div class="left-panel">
+                            <div class="panel-title" style="font-size: 1.6rem; text-align: center; font-family: var(--font-heading); color: var(--color-purple); margin-bottom: 10px;">🧪 Crie sua Criatura Maluca!</div>
+                            
+                            <!-- Dropdowns de ingredientes empilhadas -->
+                            <div class="selectors-column" style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%;">
+                                <div class="selector-box" style="width: 100%; text-align: center; border: var(--border-medium); border-radius: var(--radius-sm); padding: 14px; background: white; box-shadow: var(--shadow-cartoon); box-sizing: border-box;">
+                                    <div class="selector-label" style="font-weight: 800; font-size: 1.15rem; color: var(--color-dark); font-family: var(--font-heading);">Ingrediente 1</div>
+                                    <div class="selector-sublabel" style="font-size: 0.8rem; color: var(--color-dark-light); margin-bottom: 8px;">Escolha qualquer coisa</div>
+                                    <select class="custom-select" id="cientista-sel1" onchange="checkCientistaReady()" style="width: 100%; padding: 12px; font-size: 1.05rem; border-radius: var(--radius-sm); border: 2.5px solid var(--color-dark); background: white; font-weight: 700; box-sizing: border-box; cursor: pointer;">
+                                        <option value="">— Escolha —</option>
+                                        <option value="">— Escolha —</option>
+<optgroup label="🐶 Animais">
+  <option value="🐱 Gato">🐱 Gato</option>
+  <option value="🐶 Cachorro">🐶 Cachorro</option>
+  <option value="🦁 Leão">🦁 Leão</option>
+  <option value="🐯 Tigre">🐯 Tigre</option>
+  <option value="🐘 Elefante">🐘 Elefante</option>
+  <option value="🦒 Girafa">🦒 Girafa</option>
+  <option value="🦍 Gorila">🦍 Gorila</option>
+  <option value="🦓 Zebra">🦓 Zebra</option>
+  <option value="🦛 Hipopótamo">🦛 Hipopótamo</option>
+  <option value="🦏 Rinoceronte">🦏 Rinoceronte</option>
+  <option value="🐻 Urso">🐻 Urso</option>
+  <option value="🐺 Lobo">🐺 Lobo</option>
+  <option value="🦊 Raposa">🦊 Raposa</option>
+  <option value="🐰 Coelho">🐰 Coelho</option>
+  <option value="🐹 Hamster">🐹 Hamster</option>
+  <option value="🐭 Rato">🐭 Rato</option>
+  <option value="🐷 Porco">🐷 Porco</option>
+  <option value="🐄 Vaca">🐄 Vaca</option>
+  <option value="🐴 Cavalo">🐴 Cavalo</option>
+  <option value="🐑 Ovelha">🐑 Ovelha</option>
+  <option value="🐐 Cabra">🐐 Cabra</option>
+  <option value="🦆 Pato">🦆 Pato</option>
+  <option value="🐔 Galinha">🐔 Galinha</option>
+  <option value="🐬 Golfinho">🐬 Golfinho</option>
+  <option value="🐋 Baleia">🐋 Baleia</option>
+  <option value="🦈 Tubarão">🦈 Tubarão</option>
+  <option value="🐙 Polvo">🐙 Polvo</option>
+  <option value="🦑 Lula">🦑 Lula</option>
+  <option value="🦀 Caranguejo">🦀 Caranguejo</option>
+  <option value="🐢 Tartaruga">🐢 Tartaruga</option>
+  <option value="🐍 Cobra">🐍 Cobra</option>
+  <option value="🦎 Lagarto">🦎 Lagarto</option>
+  <option value="🐊 Crocodilo">🐊 Crocodilo</option>
+  <option value="🐸 Sapo">🐸 Sapo</option>
+  <option value="🐧 Pinguim">🐧 Pinguim</option>
+  <option value="🦩 Flamingo">🦩 Flamingo</option>
+  <option value="🦜 Papagaio">🦜 Papagaio</option>
+  <option value="🦅 Águia">🦅 Águia</option>
+  <option value="🦉 Coruja">🦉 Coruja</option>
+  <option value="🦇 Morcego">🦇 Morcego</option>
+  <option value="🦋 Borboleta">🦋 Borboleta</option>
+  <option value="🐝 Abelha">🐝 Abelha</option>
+  <option value="🐞 Joaninha">🐞 Joaninha</option>
+  <option value="🐜 Formiga">🐜 Formiga</option>
+  <option value="🐌 Caracol">🐌 Caracol</option>
+  <option value="🐼 Panda">🐼 Panda</option>
+  <option value="🐨 Coala">🐨 Coala</option>
+  <option value="🦘 Canguru">🦘 Canguru</option>
+  <option value="🦔 Ouriço">🦔 Ouriço</option>
+  <option value="🐧 Foca">🐧 Foca</option>
+</optgroup>
+<optgroup label="🍎 Frutas">
+  <option value="🍎 Maçã">🍎 Maçã</option>
+  <option value="🍌 Banana">🍌 Banana</option>
+  <option value="🍊 Laranja">🍊 Laranja</option>
+  <option value="🍇 Uva">🍇 Uva</option>
+  <option value="🍓 Morango">🍓 Morango</option>
+  <option value="🍉 Melancia">🍉 Melancia</option>
+  <option value="🍍 Abacaxi">🍍 Abacaxi</option>
+  <option value="🥭 Manga">🥭 Manga</option>
+  <option value="🍑 Pêssego">🍑 Pêssego</option>
+  <option value="🍐 Pera">🍐 Pera</option>
+  <option value="🍒 Cereja">🍒 Cereja</option>
+  <option value="🍋 Limão">🍋 Limão</option>
+  <option value="🥝 Kiwi">🥝 Kiwi</option>
+  <option value="🥥 Coco">🥥 Coco</option>
+  <option value="🍈 Melão">🍈 Melão</option>
+  <option value="🥑 Abacate">🥑 Abacate</option>
+  <option value="🍇 Amora">🍇 Amora</option>
+  <option value="🍓 Framboesa">🍓 Framboesa</option>
+  <option value="🍇 Mirtilo">🍇 Mirtilo</option>
+  <option value="🍊 Tangerina">🍊 Tangerina</option>
+</optgroup>
+<optgroup label="🥕 Legumes">
+  <option value="🥕 Cenoura">🥕 Cenoura</option>
+  <option value="🥦 Brócolis">🥦 Brócolis</option>
+  <option value="🥬 Alface">🥬 Alface</option>
+  <option value="🥒 Pepino">🥒 Pepino</option>
+  <option value="🍆 Berinjela">🍆 Berinjela</option>
+  <option value="🌶️ Pimentão">🌶️ Pimentão</option>
+  <option value="🧅 Cebola">🧅 Cebola</option>
+  <option value="🧄 Alho">🧄 Alho</option>
+  <option value="🌽 Milho">🌽 Milho</option>
+  <option value="🥔 Batata">🥔 Batata</option>
+  <option value="🍠 Batata-doce">🍠 Batata-doce</option>
+  <option value="🥬 Couve">🥬 Couve</option>
+  <option value="🌿 Espinafre">🌿 Espinafre</option>
+  <option value="🌿 Hortelã">🌿 Hortelã</option>
+  <option value="🌿 Coentro">🌿 Coentro</option>
+</optgroup>
+<optgroup label="🍔 Comidas">
+  <option value="🍕 Pizza">🍕 Pizza</option>
+  <option value="🍔 Hambúrguer">🍔 Hambúrguer</option>
+  <option value="🌭 Cachorro-quente">🌭 Cachorro-quente</option>
+  <option value="🍟 Batata Frita">🍟 Batata Frita</option>
+  <option value="🍦 Sorvete">🍦 Sorvete</option>
+  <option value="🎂 Bolo">🎂 Bolo</option>
+  <option value="🍪 Biscoito">🍪 Biscoito</option>
+  <option value="🍫 Chocolate">🍫 Chocolate</option>
+  <option value="🍮 Pudim">🍮 Pudim</option>
+  <option value="🍝 Lasanha">🍝 Lasanha</option>
+  <option value="🍜 Ramen">🍜 Ramen</option>
+  <option value="🍣 Sushi">🍣 Sushi</option>
+  <option value="🌮 Taco">🌮 Taco</option>
+  <option value="🥞 Panqueca">🥞 Panqueca</option>
+  <option value="🧇 Waffle">🧇 Waffle</option>
+  <option value="🍩 Donut">🍩 Donut</option>
+  <option value="🧁 Cupcake">🧁 Cupcake</option>
+  <option value="🥟 Empada">🥟 Empada</option>
+  <option value="🍗 Frango">🍗 Frango</option>
+  <option value="🧀 Queijo">🧀 Queijo</option>
+  <option value="🍿 Pipoca">🍿 Pipoca</option>
+  <option value="🍭 Pirulito">🍭 Pirulito</option>
+  <option value="🍬 Bala">🍬 Bala</option>
+  <option value="🍯 Mel">🍯 Mel</option>
+  <option value="🍫 Brigadeiro">🍫 Brigadeiro</option>
+  <option value="🥜 Paçoca">🥜 Paçoca</option>
+  <option value="🌮 Tapioca">🌮 Tapioca</option>
+  <option value="🥛 Leite">🥛 Leite</option>
+  <option value="☕ Café">☕ Café</option>
+  <option value="🧃 Suco">🧃 Suco</option>
+</optgroup>
+<optgroup label="🚗 Veículos">
+  <option value="🚗 Carro">🚗 Carro</option>
+  <option value="🏍️ Moto">🏍️ Moto</option>
+  <option value="🚌 Ônibus">🚌 Ônibus</option>
+  <option value="🚛 Caminhão">🚛 Caminhão</option>
+  <option value="🚂 Trem">🚂 Trem</option>
+  <option value="🚲 Bicicleta">🚲 Bicicleta</option>
+  <option value="🛴 Patinete">🛴 Patinete</option>
+  <option value="🛹 Skate">🛹 Skate</option>
+  <option value="✈️ Avião">✈️ Avião</option>
+  <option value="🚁 Helicóptero">🚁 Helicóptero</option>
+  <option value="🎈 Balão">🎈 Balão</option>
+  <option value="🚀 Foguete">🚀 Foguete</option>
+  <option value="🛸 Nave Espacial">🛸 Nave Espacial</option>
+  <option value="⛵ Barco">⛵ Barco</option>
+  <option value="🚢 Navio">🚢 Navio</option>
+  <option value="🚤 Lancha">🚤 Lancha</option>
+  <option value="🛶 Caiaque">🛶 Caiaque</option>
+  <option value="🚜 Trator">🚜 Trator</option>
+  <option value="🚒 Carro de Bombeiro">🚒 Carro de Bombeiro</option>
+  <option value="🚓 Carro de Polícia">🚓 Carro de Polícia</option>
+  <option value="🏎️ Carro de Corrida">🏎️ Carro de Corrida</option>
+  <option value="🚑 Ambulância">🚑 Ambulância</option>
+  <option value="🚅 Trem-bala">🚅 Trem-bala</option>
+  <option value="🛳️ Cruzeiro">🛳️ Cruzeiro</option>
+  <option value="🪂 Paraquedas">🪂 Paraquedas</option>
+</optgroup>
+<optgroup label="🚀 Espaço">
+  <option value="🚀 Foguete">🚀 Foguete</option>
+  <option value="🛸 Nave Espacial">🛸 Nave Espacial</option>
+  <option value="🛰️ Satélite">🛰️ Satélite</option>
+  <option value="☄️ Asteroide">☄️ Asteroide</option>
+  <option value="🌠 Meteoro">🌠 Meteoro</option>
+  <option value="⭐ Estrela">⭐ Estrela</option>
+  <option value="☀️ Sol">☀️ Sol</option>
+  <option value="🌙 Lua">🌙 Lua</option>
+  <option value="🪐 Planeta">🪐 Planeta</option>
+  <option value="🌌 Galáxia">🌌 Galáxia</option>
+  <option value="💥 Supernova">💥 Supernova</option>
+  <option value="🔭 Telescópio">🔭 Telescópio</option>
+  <option value="👨🚀 Astronauta">👨🚀 Astronauta</option>
+  <option value="🌍 Terra">🌍 Terra</option>
+  <option value="🔴 Marte">🔴 Marte</option>
+</optgroup>
+<optgroup label="🦖 Dinossauros">
+  <option value="🦖 T-Rex">🦖 T-Rex</option>
+  <option value="🦕 Triceratops">🦕 Triceratops</option>
+  <option value="🦕 Brachiosaurus">🦕 Brachiosaurus</option>
+  <option value="🦕 Stegosaurus">🦕 Stegosaurus</option>
+  <option value="🦖 Velociraptor">🦖 Velociraptor</option>
+  <option value="🦅 Pterodáctilo">🦅 Pterodáctilo</option>
+  <option value="🦕 Ankylosaurus">🦕 Ankylosaurus</option>
+  <option value="🦖 Spinosaurus">🦖 Spinosaurus</option>
+  <option value="🦕 Diplodocus">🦕 Diplodocus</option>
+  <option value="🦖 Allosaurus">🦖 Allosaurus</option>
+  <option value="🐘 Mamute">🐘 Mamute</option>
+  <option value="🦕 Brontossauro">🦕 Brontossauro</option>
+  <option value="🦖 Giganotossauro">🦖 Giganotossauro</option>
+  <option value="🦖 Carnotaurus">🦖 Carnotaurus</option>
+  <option value="🦕 Oviraptor">🦕 Oviraptor</option>
+</optgroup>
+<optgroup label="👑 Fantasia">
+  <option value="🐲 Dragão">🐲 Dragão</option>
+  <option value="🦄 Unicórnio">🦄 Unicórnio</option>
+  <option value="🦅 Fênix">🦅 Fênix</option>
+  <option value="🧜 Sereia">🧜 Sereia</option>
+  <option value="🧚 Fada">🧚 Fada</option>
+  <option value="🧝 Elfo">🧝 Elfo</option>
+  <option value="🧙 Mago">🧙 Mago</option>
+  <option value="🧞 Gênio">🧞 Gênio</option>
+  <option value="🐲 Dragão de Fogo">🐲 Dragão de Fogo</option>
+  <option value="❄️ Dragão de Gelo">❄️ Dragão de Gelo</option>
+  <option value="🧙 Gnomo">🧙 Gnomo</option>
+  <option value="👑 Rei">👑 Rei</option>
+  <option value="👸 Princesa">👸 Princesa</option>
+  <option value="🤴 Príncipe">🤴 Príncipe</option>
+  <option value="🌙 Feiticeiro">🌙 Feiticeiro</option>
+  <option value="🎩 Ilusionista">🎩 Ilusionista</option>
+  <option value="🐎 Pégaso">🐎 Pégaso</option>
+  <option value="🦄 Alicórnio">🦄 Alicórnio</option>
+  <option value="🌊 Tritão">🌊 Tritão</option>
+  <option value="🌸 Fada da Floresta">🌸 Fada da Floresta</option>
+</optgroup>
+<optgroup label="🤖 Robôs">
+  <option value="🤖 Robô de Batalha">🤖 Robô de Batalha</option>
+  <option value="🤖 Robô Doméstico">🤖 Robô Doméstico</option>
+  <option value="🤖 Robô Médico">🤖 Robô Médico</option>
+  <option value="🤖 Robô Construtor">🤖 Robô Construtor</option>
+  <option value="🤖 Robô Explorador">🤖 Robô Explorador</option>
+  <option value="🤖 Robô Dançarino">🤖 Robô Dançarino</option>
+  <option value="🤖 Robô Cozinheiro">🤖 Robô Cozinheiro</option>
+  <option value="🦾 Ciborgue">🦾 Ciborgue</option>
+  <option value="🛸 Drone">🛸 Drone</option>
+  <option value="🤖 Robô Gigante">🤖 Robô Gigante</option>
+  <option value="🤖 Robô Espacial">🤖 Robô Espacial</option>
+  <option value="🤖 Robô Professor">🤖 Robô Professor</option>
+  <option value="🤖 Robô Músico">🤖 Robô Músico</option>
+  <option value="🤖 Robô Artista">🤖 Robô Artista</option>
+  <option value="🤖 Robô Nadador">🤖 Robô Nadador</option>
+</optgroup>
+<optgroup label="⚽ Esportes">
+  <option value="⚽ Futebol">⚽ Futebol</option>
+  <option value="🏀 Basquete">🏀 Basquete</option>
+  <option value="🏐 Vôlei">🏐 Vôlei</option>
+  <option value="🎾 Tênis">🎾 Tênis</option>
+  <option value="🏊 Natação">🏊 Natação</option>
+  <option value="🏃 Atletismo">🏃 Atletismo</option>
+  <option value="🤸 Ginástica">🤸 Ginástica</option>
+  <option value="🥋 Judô">🥋 Judô</option>
+  <option value="🥊 Boxe">🥊 Boxe</option>
+  <option value="🚴 Ciclismo">🚴 Ciclismo</option>
+  <option value="🛹 Skate">🛹 Skate</option>
+  <option value="🏄 Surf">🏄 Surf</option>
+  <option value="🏂 Snowboard">🏂 Snowboard</option>
+  <option value="⛷️ Ski">⛷️ Ski</option>
+  <option value="🧗 Escalada">🧗 Escalada</option>
+  <option value="🤿 Mergulho">🤿 Mergulho</option>
+  <option value="⛳ Golfe">⛳ Golfe</option>
+  <option value="🏉 Rugby">🏉 Rugby</option>
+  <option value="🏒 Hóquei">🏒 Hóquei</option>
+  <option value="💃 Dança">💃 Dança</option>
+</optgroup>
+<optgroup label="🎸 Instrumentos">
+  <option value="🎸 Guitarra">🎸 Guitarra</option>
+  <option value="🎸 Violão">🎸 Violão</option>
+  <option value="🥁 Bateria">🥁 Bateria</option>
+  <option value="🎹 Piano">🎹 Piano</option>
+  <option value="🎹 Teclado">🎹 Teclado</option>
+  <option value="🎻 Violino">🎻 Violino</option>
+  <option value="🎻 Cello">🎻 Cello</option>
+  <option value="🎵 Flauta">🎵 Flauta</option>
+  <option value="🎷 Saxofone">🎷 Saxofone</option>
+  <option value="🎺 Trompete">🎺 Trompete</option>
+  <option value="🎹 Acordeão">🎹 Acordeão</option>
+  <option value="🎵 Gaita">🎵 Gaita</option>
+  <option value="🥁 Pandeiro">🥁 Pandeiro</option>
+  <option value="🥁 Tambor">🥁 Tambor</option>
+  <option value="🎸 Ukulele">🎸 Ukulele</option>
+  <option value="🎵 Kalimba">🎵 Kalimba</option>
+  <option value="🎹 Xilofone">🎹 Xilofone</option>
+  <option value="🔔 Triângulo">🔔 Triângulo</option>
+  <option value="🥁 Maracas">🥁 Maracas</option>
+  <option value="🎵 Berimbau">🎵 Berimbau</option>
+</optgroup>
+<optgroup label="🏠 Objetos">
+  <option value="🪑 Cadeira">🪑 Cadeira</option>
+  <option value="📺 Televisão">📺 Televisão</option>
+  <option value="💻 Computador">💻 Computador</option>
+  <option value="📱 Celular">📱 Celular</option>
+  <option value="⌚ Relógio">⌚ Relógio</option>
+  <option value="📷 Câmera">📷 Câmera</option>
+  <option value="🔭 Telescópio">🔭 Telescópio</option>
+  <option value="🔬 Microscópio">🔬 Microscópio</option>
+  <option value="🔦 Lanterna">🔦 Lanterna</option>
+  <option value="💡 Lâmpada">💡 Lâmpada</option>
+  <option value="🔨 Martelo">🔨 Martelo</option>
+  <option value="✂️ Tesoura">✂️ Tesoura</option>
+  <option value="🎒 Mochila">🎒 Mochila</option>
+  <option value="☂️ Guarda-chuva">☂️ Guarda-chuva</option>
+  <option value="🎩 Chapéu">🎩 Chapéu</option>
+  <option value="👓 Óculos">👓 Óculos</option>
+  <option value="📚 Livro">📚 Livro</option>
+  <option value="✏️ Lápis">✏️ Lápis</option>
+  <option value="🎮 Controle de Jogo">🎮 Controle de Jogo</option>
+  <option value="🎲 Dado">🎲 Dado</option>
+  <option value="🧩 Quebra-cabeça">🧩 Quebra-cabeça</option>
+  <option value="🏆 Troféu">🏆 Troféu</option>
+  <option value="🎁 Presente">🎁 Presente</option>
+  <option value="🎈 Balão">🎈 Balão</option>
+  <option value="🕯️ Vela">🕯️ Vela</option>
+  <option value="🎨 Tinta">🎨 Tinta</option>
+  <option value="🖌️ Pincel">🖌️ Pincel</option>
+  <option value="🔮 Bola de Cristal">🔮 Bola de Cristal</option>
+  <option value="👑 Coroa">👑 Coroa</option>
+  <option value="🧸 Urso de Pelúcia">🧸 Urso de Pelúcia</option>
+  <option value="🪀 Ioiô">🪀 Ioiô</option>
+  <option value="🧪 Tubo de Ensaio">🧪 Tubo de Ensaio</option>
+  <option value="⚗️ Frasco">⚗️ Frasco</option>
+  <option value="🎭 Máscara">🎭 Máscara</option>
+  <option value="🎆 Fogos de Artifício">🎆 Fogos de Artifício</option>
+</optgroup>
+<optgroup label="🌳 Natureza">
+  <option value="🌳 Árvore">🌳 Árvore</option>
+  <option value="🌸 Flor">🌸 Flor</option>
+  <option value="🌵 Cacto">🌵 Cacto</option>
+  <option value="🎋 Bambu">🎋 Bambu</option>
+  <option value="🌴 Palmeira">🌴 Palmeira</option>
+  <option value="🌲 Pinheiro">🌲 Pinheiro</option>
+  <option value="🌺 Rosa">🌺 Rosa</option>
+  <option value="🌻 Girassol">🌻 Girassol</option>
+  <option value="🌼 Margarida">🌼 Margarida</option>
+  <option value="🍄 Cogumelo">🍄 Cogumelo</option>
+  <option value="🌊 Oceano">🌊 Oceano</option>
+  <option value="🏔️ Montanha">🏔️ Montanha</option>
+  <option value="🌋 Vulcão">🌋 Vulcão</option>
+  <option value="🌊 Cachoeira">🌊 Cachoeira</option>
+  <option value="🏝️ Ilha">🏝️ Ilha</option>
+  <option value="❄️ Neve">❄️ Neve</option>
+  <option value="🌪️ Tornado">🌪️ Tornado</option>
+  <option value="🌈 Arco-íris">🌈 Arco-íris</option>
+  <option value="🔥 Fogo">🔥 Fogo</option>
+  <option value="🗿 Pedra">🗿 Pedra</option>
+  <option value="💎 Cristal">💎 Cristal</option>
+  <option value="⭐ Estrela Cadente">⭐ Estrela Cadente</option>
+  <option value="🌿 Samambaia">🌿 Samambaia</option>
+  <option value="🌸 Lótus">🌸 Lótus</option>
+  <option value="🌾 Trigo">🌾 Trigo</option>
+</optgroup>
+<optgroup label="👻 Monstros Fofos">
+  <option value="👻 Fantasminha">👻 Fantasminha</option>
+  <option value="🧟 Zumbi Fofo">🧟 Zumbi Fofo</option>
+  <option value="🧛 Vampirinho">🧛 Vampirinho</option>
+  <option value="🐺 Lobinho Uivador">🐺 Lobinho Uivador</option>
+  <option value="🧙 Bruxinha">🧙 Bruxinha</option>
+  <option value="👹 Troll Bobinho">👹 Troll Bobinho</option>
+  <option value="👹 Monstro Verde">👹 Monstro Verde</option>
+  <option value="🎃 Abóbora Assustadora">🎃 Abóbora Assustadora</option>
+  <option value="🦇 Morcego Bobo">🦇 Morcego Bobo</option>
+  <option value="👾 Alienígena Fofo">👾 Alienígena Fofo</option>
+  <option value="❄️ Yeti Fofo">❄️ Yeti Fofo</option>
+  <option value="🌊 Monstro do Mar">🌊 Monstro do Mar</option>
+  <option value="🌿 Monstro da Floresta">🌿 Monstro da Floresta</option>
+  <option value="🔥 Monstro de Fogo">🔥 Monstro de Fogo</option>
+  <option value="💧 Monstro de Água">💧 Monstro de Água</option>
+  <option value="🗿 Monstro de Pedra">🗿 Monstro de Pedra</option>
+  <option value="⚡ Monstro do Trovão">⚡ Monstro do Trovão</option>
+  <option value="🌀 Monstro do Redemoinho">🌀 Monstro do Redemoinho</option>
+  <option value="🎪 Palhaço Assustador">🎪 Palhaço Assustador</option>
+  <option value="🐉 Dragãozinho Assustador">🐉 Dragãozinho Assustador</option>
+</optgroup>
+                                    </select>
+                                </div>
+
+                                <div class="plus-circle" style="background: var(--color-purple); color: white; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; border: 2.5px solid var(--color-dark); box-shadow: 0 3px 0 var(--color-dark); margin: -5px 0; z-index: 5;">+</div>
+
+                                <div class="selector-box" style="width: 100%; text-align: center; border: var(--border-medium); border-radius: var(--radius-sm); padding: 14px; background: white; box-shadow: var(--shadow-cartoon); box-sizing: border-box;">
+                                    <div class="selector-label" style="font-weight: 800; font-size: 1.15rem; color: var(--color-dark); font-family: var(--font-heading);">Ingrediente 2</div>
+                                    <div class="selector-sublabel" style="font-size: 0.8rem; color: var(--color-dark-light); margin-bottom: 8px;">Escolha outra coisa</div>
+                                    <select class="custom-select" id="cientista-sel2" onchange="checkCientistaReady()" style="width: 100%; padding: 12px; font-size: 1.05rem; border-radius: var(--radius-sm); border: 2.5px solid var(--color-dark); background: white; font-weight: 700; box-sizing: border-box; cursor: pointer;">
+                                        <option value="">— Escolha —</option>
+                                        <option value="">— Escolha —</option>
+<optgroup label="🐶 Animais">
+  <option value="🐱 Gato">🐱 Gato</option>
+  <option value="🐶 Cachorro">🐶 Cachorro</option>
+  <option value="🦁 Leão">🦁 Leão</option>
+  <option value="🐯 Tigre">🐯 Tigre</option>
+  <option value="🐘 Elefante">🐘 Elefante</option>
+  <option value="🦒 Girafa">🦒 Girafa</option>
+  <option value="🦍 Gorila">🦍 Gorila</option>
+  <option value="🦓 Zebra">🦓 Zebra</option>
+  <option value="🦛 Hipopótamo">🦛 Hipopótamo</option>
+  <option value="🦏 Rinoceronte">🦏 Rinoceronte</option>
+  <option value="🐻 Urso">🐻 Urso</option>
+  <option value="🐺 Lobo">🐺 Lobo</option>
+  <option value="🦊 Raposa">🦊 Raposa</option>
+  <option value="🐰 Coelho">🐰 Coelho</option>
+  <option value="🐹 Hamster">🐹 Hamster</option>
+  <option value="🐭 Rato">🐭 Rato</option>
+  <option value="🐷 Porco">🐷 Porco</option>
+  <option value="🐄 Vaca">🐄 Vaca</option>
+  <option value="🐴 Cavalo">🐴 Cavalo</option>
+  <option value="🐑 Ovelha">🐑 Ovelha</option>
+  <option value="🐐 Cabra">🐐 Cabra</option>
+  <option value="🦆 Pato">🦆 Pato</option>
+  <option value="🐔 Galinha">🐔 Galinha</option>
+  <option value="🐬 Golfinho">🐬 Golfinho</option>
+  <option value="🐋 Baleia">🐋 Baleia</option>
+  <option value="🦈 Tubarão">🦈 Tubarão</option>
+  <option value="🐙 Polvo">🐙 Polvo</option>
+  <option value="🦑 Lula">🦑 Lula</option>
+  <option value="🦀 Caranguejo">🦀 Caranguejo</option>
+  <option value="🐢 Tartaruga">🐢 Tartaruga</option>
+  <option value="🐍 Cobra">🐍 Cobra</option>
+  <option value="🦎 Lagarto">🦎 Lagarto</option>
+  <option value="🐊 Crocodilo">🐊 Crocodilo</option>
+  <option value="🐸 Sapo">🐸 Sapo</option>
+  <option value="🐧 Pinguim">🐧 Pinguim</option>
+  <option value="🦩 Flamingo">🦩 Flamingo</option>
+  <option value="🦜 Papagaio">🦜 Papagaio</option>
+  <option value="🦅 Águia">🦅 Águia</option>
+  <option value="🦉 Coruja">🦉 Coruja</option>
+  <option value="🦇 Morcego">🦇 Morcego</option>
+  <option value="🦋 Borboleta">🦋 Borboleta</option>
+  <option value="🐝 Abelha">🐝 Abelha</option>
+  <option value="🐞 Joaninha">🐞 Joaninha</option>
+  <option value="🐜 Formiga">🐜 Formiga</option>
+  <option value="🐌 Caracol">🐌 Caracol</option>
+  <option value="🐼 Panda">🐼 Panda</option>
+  <option value="🐨 Coala">🐨 Coala</option>
+  <option value="🦘 Canguru">🦘 Canguru</option>
+  <option value="🦔 Ouriço">🦔 Ouriço</option>
+  <option value="🐧 Foca">🐧 Foca</option>
+</optgroup>
+<optgroup label="🍎 Frutas">
+  <option value="🍎 Maçã">🍎 Maçã</option>
+  <option value="🍌 Banana">🍌 Banana</option>
+  <option value="🍊 Laranja">🍊 Laranja</option>
+  <option value="🍇 Uva">🍇 Uva</option>
+  <option value="🍓 Morango">🍓 Morango</option>
+  <option value="🍉 Melancia">🍉 Melancia</option>
+  <option value="🍍 Abacaxi">🍍 Abacaxi</option>
+  <option value="🥭 Manga">🥭 Manga</option>
+  <option value="🍑 Pêssego">🍑 Pêssego</option>
+  <option value="🍐 Pera">🍐 Pera</option>
+  <option value="🍒 Cereja">🍒 Cereja</option>
+  <option value="🍋 Limão">🍋 Limão</option>
+  <option value="🥝 Kiwi">🥝 Kiwi</option>
+  <option value="🥥 Coco">🥥 Coco</option>
+  <option value="🍈 Melão">🍈 Melão</option>
+  <option value="🥑 Abacate">🥑 Abacate</option>
+  <option value="🍇 Amora">🍇 Amora</option>
+  <option value="🍓 Framboesa">🍓 Framboesa</option>
+  <option value="🍇 Mirtilo">🍇 Mirtilo</option>
+  <option value="🍊 Tangerina">🍊 Tangerina</option>
+</optgroup>
+<optgroup label="🥕 Legumes">
+  <option value="🥕 Cenoura">🥕 Cenoura</option>
+  <option value="🥦 Brócolis">🥦 Brócolis</option>
+  <option value="🥬 Alface">🥬 Alface</option>
+  <option value="🥒 Pepino">🥒 Pepino</option>
+  <option value="🍆 Berinjela">🍆 Berinjela</option>
+  <option value="🌶️ Pimentão">🌶️ Pimentão</option>
+  <option value="🧅 Cebola">🧅 Cebola</option>
+  <option value="🧄 Alho">🧄 Alho</option>
+  <option value="🌽 Milho">🌽 Milho</option>
+  <option value="🥔 Batata">🥔 Batata</option>
+  <option value="🍠 Batata-doce">🍠 Batata-doce</option>
+  <option value="🥬 Couve">🥬 Couve</option>
+  <option value="🌿 Espinafre">🌿 Espinafre</option>
+  <option value="🌿 Hortelã">🌿 Hortelã</option>
+  <option value="🌿 Coentro">🌿 Coentro</option>
+</optgroup>
+<optgroup label="🍔 Comidas">
+  <option value="🍕 Pizza">🍕 Pizza</option>
+  <option value="🍔 Hambúrguer">🍔 Hambúrguer</option>
+  <option value="🌭 Cachorro-quente">🌭 Cachorro-quente</option>
+  <option value="🍟 Batata Frita">🍟 Batata Frita</option>
+  <option value="🍦 Sorvete">🍦 Sorvete</option>
+  <option value="🎂 Bolo">🎂 Bolo</option>
+  <option value="🍪 Biscoito">🍪 Biscoito</option>
+  <option value="🍫 Chocolate">🍫 Chocolate</option>
+  <option value="🍮 Pudim">🍮 Pudim</option>
+  <option value="🍝 Lasanha">🍝 Lasanha</option>
+  <option value="🍜 Ramen">🍜 Ramen</option>
+  <option value="🍣 Sushi">🍣 Sushi</option>
+  <option value="🌮 Taco">🌮 Taco</option>
+  <option value="🥞 Panqueca">🥞 Panqueca</option>
+  <option value="🧇 Waffle">🧇 Waffle</option>
+  <option value="🍩 Donut">🍩 Donut</option>
+  <option value="🧁 Cupcake">🧁 Cupcake</option>
+  <option value="🥟 Empada">🥟 Empada</option>
+  <option value="🍗 Frango">🍗 Frango</option>
+  <option value="🧀 Queijo">🧀 Queijo</option>
+  <option value="🍿 Pipoca">🍿 Pipoca</option>
+  <option value="🍭 Pirulito">🍭 Pirulito</option>
+  <option value="🍬 Bala">🍬 Bala</option>
+  <option value="🍯 Mel">🍯 Mel</option>
+  <option value="🍫 Brigadeiro">🍫 Brigadeiro</option>
+  <option value="🥜 Paçoca">🥜 Paçoca</option>
+  <option value="🌮 Tapioca">🌮 Tapioca</option>
+  <option value="🥛 Leite">🥛 Leite</option>
+  <option value="☕ Café">☕ Café</option>
+  <option value="🧃 Suco">🧃 Suco</option>
+</optgroup>
+<optgroup label="🚗 Veículos">
+  <option value="🚗 Carro">🚗 Carro</option>
+  <option value="🏍️ Moto">🏍️ Moto</option>
+  <option value="🚌 Ônibus">🚌 Ônibus</option>
+  <option value="🚛 Caminhão">🚛 Caminhão</option>
+  <option value="🚂 Trem">🚂 Trem</option>
+  <option value="🚲 Bicicleta">🚲 Bicicleta</option>
+  <option value="🛴 Patinete">🛴 Patinete</option>
+  <option value="🛹 Skate">🛹 Skate</option>
+  <option value="✈️ Avião">✈️ Avião</option>
+  <option value="🚁 Helicóptero">🚁 Helicóptero</option>
+  <option value="🎈 Balão">🎈 Balão</option>
+  <option value="🚀 Foguete">🚀 Foguete</option>
+  <option value="🛸 Nave Espacial">🛸 Nave Espacial</option>
+  <option value="⛵ Barco">⛵ Barco</option>
+  <option value="🚢 Navio">🚢 Navio</option>
+  <option value="🚤 Lancha">🚤 Lancha</option>
+  <option value="🛶 Caiaque">🛶 Caiaque</option>
+  <option value="🚜 Trator">🚜 Trator</option>
+  <option value="🚒 Carro de Bombeiro">🚒 Carro de Bombeiro</option>
+  <option value="🚓 Carro de Polícia">🚓 Carro de Polícia</option>
+  <option value="🏎️ Carro de Corrida">🏎️ Carro de Corrida</option>
+  <option value="🚑 Ambulância">🚑 Ambulância</option>
+  <option value="🚅 Trem-bala">🚅 Trem-bala</option>
+  <option value="🛳️ Cruzeiro">🛳️ Cruzeiro</option>
+  <option value="🪂 Paraquedas">🪂 Paraquedas</option>
+</optgroup>
+<optgroup label="🚀 Espaço">
+  <option value="🚀 Foguete">🚀 Foguete</option>
+  <option value="🛸 Nave Espacial">🛸 Nave Espacial</option>
+  <option value="🛰️ Satélite">🛰️ Satélite</option>
+  <option value="☄️ Asteroide">☄️ Asteroide</option>
+  <option value="🌠 Meteoro">🌠 Meteoro</option>
+  <option value="⭐ Estrela">⭐ Estrela</option>
+  <option value="☀️ Sol">☀️ Sol</option>
+  <option value="🌙 Lua">🌙 Lua</option>
+  <option value="🪐 Planeta">🪐 Planeta</option>
+  <option value="🌌 Galáxia">🌌 Galáxia</option>
+  <option value="💥 Supernova">💥 Supernova</option>
+  <option value="🔭 Telescópio">🔭 Telescópio</option>
+  <option value="👨🚀 Astronauta">👨🚀 Astronauta</option>
+  <option value="🌍 Terra">🌍 Terra</option>
+  <option value="🔴 Marte">🔴 Marte</option>
+</optgroup>
+<optgroup label="🦖 Dinossauros">
+  <option value="🦖 T-Rex">🦖 T-Rex</option>
+  <option value="🦕 Triceratops">🦕 Triceratops</option>
+  <option value="🦕 Brachiosaurus">🦕 Brachiosaurus</option>
+  <option value="🦕 Stegosaurus">🦕 Stegosaurus</option>
+  <option value="🦖 Velociraptor">🦖 Velociraptor</option>
+  <option value="🦅 Pterodáctilo">🦅 Pterodáctilo</option>
+  <option value="🦕 Ankylosaurus">🦕 Ankylosaurus</option>
+  <option value="🦖 Spinosaurus">🦖 Spinosaurus</option>
+  <option value="🦕 Diplodocus">🦕 Diplodocus</option>
+  <option value="🦖 Allosaurus">🦖 Allosaurus</option>
+  <option value="🐘 Mamute">🐘 Mamute</option>
+  <option value="🦕 Brontossauro">🦕 Brontossauro</option>
+  <option value="🦖 Giganotossauro">🦖 Giganotossauro</option>
+  <option value="🦖 Carnotaurus">🦖 Carnotaurus</option>
+  <option value="🦕 Oviraptor">🦕 Oviraptor</option>
+</optgroup>
+<optgroup label="👑 Fantasia">
+  <option value="🐲 Dragão">🐲 Dragão</option>
+  <option value="🦄 Unicórnio">🦄 Unicórnio</option>
+  <option value="🦅 Fênix">🦅 Fênix</option>
+  <option value="🧜 Sereia">🧜 Sereia</option>
+  <option value="🧚 Fada">🧚 Fada</option>
+  <option value="🧝 Elfo">🧝 Elfo</option>
+  <option value="🧙 Mago">🧙 Mago</option>
+  <option value="🧞 Gênio">🧞 Gênio</option>
+  <option value="🐲 Dragão de Fogo">🐲 Dragão de Fogo</option>
+  <option value="❄️ Dragão de Gelo">❄️ Dragão de Gelo</option>
+  <option value="🧙 Gnomo">🧙 Gnomo</option>
+  <option value="👑 Rei">👑 Rei</option>
+  <option value="👸 Princesa">👸 Princesa</option>
+  <option value="🤴 Príncipe">🤴 Príncipe</option>
+  <option value="🌙 Feiticeiro">🌙 Feiticeiro</option>
+  <option value="🎩 Ilusionista">🎩 Ilusionista</option>
+  <option value="🐎 Pégaso">🐎 Pégaso</option>
+  <option value="🦄 Alicórnio">🦄 Alicórnio</option>
+  <option value="🌊 Tritão">🌊 Tritão</option>
+  <option value="🌸 Fada da Floresta">🌸 Fada da Floresta</option>
+</optgroup>
+<optgroup label="🤖 Robôs">
+  <option value="🤖 Robô de Batalha">🤖 Robô de Batalha</option>
+  <option value="🤖 Robô Doméstico">🤖 Robô Doméstico</option>
+  <option value="🤖 Robô Médico">🤖 Robô Médico</option>
+  <option value="🤖 Robô Construtor">🤖 Robô Construtor</option>
+  <option value="🤖 Robô Explorador">🤖 Robô Explorador</option>
+  <option value="🤖 Robô Dançarino">🤖 Robô Dançarino</option>
+  <option value="🤖 Robô Cozinheiro">🤖 Robô Cozinheiro</option>
+  <option value="🦾 Ciborgue">🦾 Ciborgue</option>
+  <option value="🛸 Drone">🛸 Drone</option>
+  <option value="🤖 Robô Gigante">🤖 Robô Gigante</option>
+  <option value="🤖 Robô Espacial">🤖 Robô Espacial</option>
+  <option value="🤖 Robô Professor">🤖 Robô Professor</option>
+  <option value="🤖 Robô Músico">🤖 Robô Músico</option>
+  <option value="🤖 Robô Artista">🤖 Robô Artista</option>
+  <option value="🤖 Robô Nadador">🤖 Robô Nadador</option>
+</optgroup>
+<optgroup label="⚽ Esportes">
+  <option value="⚽ Futebol">⚽ Futebol</option>
+  <option value="🏀 Basquete">🏀 Basquete</option>
+  <option value="🏐 Vôlei">🏐 Vôlei</option>
+  <option value="🎾 Tênis">🎾 Tênis</option>
+  <option value="🏊 Natação">🏊 Natação</option>
+  <option value="🏃 Atletismo">🏃 Atletismo</option>
+  <option value="🤸 Ginástica">🤸 Ginástica</option>
+  <option value="🥋 Judô">🥋 Judô</option>
+  <option value="🥊 Boxe">🥊 Boxe</option>
+  <option value="🚴 Ciclismo">🚴 Ciclismo</option>
+  <option value="🛹 Skate">🛹 Skate</option>
+  <option value="🏄 Surf">🏄 Surf</option>
+  <option value="🏂 Snowboard">🏂 Snowboard</option>
+  <option value="⛷️ Ski">⛷️ Ski</option>
+  <option value="🧗 Escalada">🧗 Escalada</option>
+  <option value="🤿 Mergulho">🤿 Mergulho</option>
+  <option value="⛳ Golfe">⛳ Golfe</option>
+  <option value="🏉 Rugby">🏉 Rugby</option>
+  <option value="🏒 Hóquei">🏒 Hóquei</option>
+  <option value="💃 Dança">💃 Dança</option>
+</optgroup>
+<optgroup label="🎸 Instrumentos">
+  <option value="🎸 Guitarra">🎸 Guitarra</option>
+  <option value="🎸 Violão">🎸 Violão</option>
+  <option value="🥁 Bateria">🥁 Bateria</option>
+  <option value="🎹 Piano">🎹 Piano</option>
+  <option value="🎹 Teclado">🎹 Teclado</option>
+  <option value="🎻 Violino">🎻 Violino</option>
+  <option value="🎻 Cello">🎻 Cello</option>
+  <option value="🎵 Flauta">🎵 Flauta</option>
+  <option value="🎷 Saxofone">🎷 Saxofone</option>
+  <option value="🎺 Trompete">🎺 Trompete</option>
+  <option value="🎹 Acordeão">🎹 Acordeão</option>
+  <option value="🎵 Gaita">🎵 Gaita</option>
+  <option value="🥁 Pandeiro">🥁 Pandeiro</option>
+  <option value="🥁 Tambor">🥁 Tambor</option>
+  <option value="🎸 Ukulele">🎸 Ukulele</option>
+  <option value="🎵 Kalimba">🎵 Kalimba</option>
+  <option value="🎹 Xilofone">🎹 Xilofone</option>
+  <option value="🔔 Triângulo">🔔 Triângulo</option>
+  <option value="🥁 Maracas">🥁 Maracas</option>
+  <option value="🎵 Berimbau">🎵 Berimbau</option>
+</optgroup>
+<optgroup label="🏠 Objetos">
+  <option value="🪑 Cadeira">🪑 Cadeira</option>
+  <option value="📺 Televisão">📺 Televisão</option>
+  <option value="💻 Computador">💻 Computador</option>
+  <option value="📱 Celular">📱 Celular</option>
+  <option value="⌚ Relógio">⌚ Relógio</option>
+  <option value="📷 Câmera">📷 Câmera</option>
+  <option value="🔭 Telescópio">🔭 Telescópio</option>
+  <option value="🔬 Microscópio">🔬 Microscópio</option>
+  <option value="🔦 Lanterna">🔦 Lanterna</option>
+  <option value="💡 Lâmpada">💡 Lâmpada</option>
+  <option value="🔨 Martelo">🔨 Martelo</option>
+  <option value="✂️ Tesoura">✂️ Tesoura</option>
+  <option value="🎒 Mochila">🎒 Mochila</option>
+  <option value="☂️ Guarda-chuva">☂️ Guarda-chuva</option>
+  <option value="🎩 Chapéu">🎩 Chapéu</option>
+  <option value="👓 Óculos">👓 Óculos</option>
+  <option value="📚 Livro">📚 Livro</option>
+  <option value="✏️ Lápis">✏️ Lápis</option>
+  <option value="🎮 Controle de Jogo">🎮 Controle de Jogo</option>
+  <option value="🎲 Dado">🎲 Dado</option>
+  <option value="🧩 Quebra-cabeça">🧩 Quebra-cabeça</option>
+  <option value="🏆 Troféu">🏆 Troféu</option>
+  <option value="🎁 Presente">🎁 Presente</option>
+  <option value="🎈 Balão">🎈 Balão</option>
+  <option value="🕯️ Vela">🕯️ Vela</option>
+  <option value="🎨 Tinta">🎨 Tinta</option>
+  <option value="🖌️ Pincel">🖌️ Pincel</option>
+  <option value="🔮 Bola de Cristal">🔮 Bola de Cristal</option>
+  <option value="👑 Coroa">👑 Coroa</option>
+  <option value="🧸 Urso de Pelúcia">🧸 Urso de Pelúcia</option>
+  <option value="🪀 Ioiô">🪀 Ioiô</option>
+  <option value="🧪 Tubo de Ensaio">🧪 Tubo de Ensaio</option>
+  <option value="⚗️ Frasco">⚗️ Frasco</option>
+  <option value="🎭 Máscara">🎭 Máscara</option>
+  <option value="🎆 Fogos de Artifício">🎆 Fogos de Artifício</option>
+</optgroup>
+<optgroup label="🌳 Natureza">
+  <option value="🌳 Árvore">🌳 Árvore</option>
+  <option value="🌸 Flor">🌸 Flor</option>
+  <option value="🌵 Cacto">🌵 Cacto</option>
+  <option value="🎋 Bambu">🎋 Bambu</option>
+  <option value="🌴 Palmeira">🌴 Palmeira</option>
+  <option value="🌲 Pinheiro">🌲 Pinheiro</option>
+  <option value="🌺 Rosa">🌺 Rosa</option>
+  <option value="🌻 Girassol">🌻 Girassol</option>
+  <option value="🌼 Margarida">🌼 Margarida</option>
+  <option value="🍄 Cogumelo">🍄 Cogumelo</option>
+  <option value="🌊 Oceano">🌊 Oceano</option>
+  <option value="🏔️ Montanha">🏔️ Montanha</option>
+  <option value="🌋 Vulcão">🌋 Vulcão</option>
+  <option value="🌊 Cachoeira">🌊 Cachoeira</option>
+  <option value="🏝️ Ilha">🏝️ Ilha</option>
+  <option value="❄️ Neve">❄️ Neve</option>
+  <option value="🌪️ Tornado">🌪️ Tornado</option>
+  <option value="🌈 Arco-íris">🌈 Arco-íris</option>
+  <option value="🔥 Fogo">🔥 Fogo</option>
+  <option value="🗿 Pedra">🗿 Pedra</option>
+  <option value="💎 Cristal">💎 Cristal</option>
+  <option value="⭐ Estrela Cadente">⭐ Estrela Cadente</option>
+  <option value="🌿 Samambaia">🌿 Samambaia</option>
+  <option value="🌸 Lótus">🌸 Lótus</option>
+  <option value="🌾 Trigo">🌾 Trigo</option>
+</optgroup>
+<optgroup label="👻 Monstros Fofos">
+  <option value="👻 Fantasminha">👻 Fantasminha</option>
+  <option value="🧟 Zumbi Fofo">🧟 Zumbi Fofo</option>
+  <option value="🧛 Vampirinho">🧛 Vampirinho</option>
+  <option value="🐺 Lobinho Uivador">🐺 Lobinho Uivador</option>
+  <option value="🧙 Bruxinha">🧙 Bruxinha</option>
+  <option value="👹 Troll Bobinho">👹 Troll Bobinho</option>
+  <option value="👹 Monstro Verde">👹 Monstro Verde</option>
+  <option value="🎃 Abóbora Assustadora">🎃 Abóbora Assustadora</option>
+  <option value="🦇 Morcego Bobo">🦇 Morcego Bobo</option>
+  <option value="👾 Alienígena Fofo">👾 Alienígena Fofo</option>
+  <option value="❄️ Yeti Fofo">❄️ Yeti Fofo</option>
+  <option value="🌊 Monstro do Mar">🌊 Monstro do Mar</option>
+  <option value="🌿 Monstro da Floresta">🌿 Monstro da Floresta</option>
+  <option value="🔥 Monstro de Fogo">🔥 Monstro de Fogo</option>
+  <option value="💧 Monstro de Água">💧 Monstro de Água</option>
+  <option value="🗿 Monstro de Pedra">🗿 Monstro de Pedra</option>
+  <option value="⚡ Monstro do Trovão">⚡ Monstro do Trovão</option>
+  <option value="🌀 Monstro do Redemoinho">🌀 Monstro do Redemoinho</option>
+  <option value="🎪 Palhaço Assustador">🎪 Palhaço Assustador</option>
+  <option value="🐉 Dragãozinho Assustador">🐉 Dragãozinho Assustador</option>
+</optgroup>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="tip-box" style="background: #faf5ff; border: 1.5px solid #ddd6fe; border-radius: 12px; padding: 12px; text-align: center; margin-top: 10px;">
+                                💡 <strong id="tipExample">Escolha dois ingredientes acima!</strong>
+                                <div class="tip-sub" style="font-size: 0.8rem; color: #5b21b6; margin-top: 4px;">A IA vai inventar uma criatura maluca e única só para você!</div>
+                            </div>
+
+                            <button class="generate-btn" id="cientista-generate-btn" onclick="gerarMisturaCientista()" disabled style="width: 100%; padding: 16px; font-size: 1.2rem; font-family: var(--font-heading); font-weight: 800; border-radius: var(--radius-sm); border: var(--border-medium); background: #a78bfa; color: white; cursor: pointer; box-shadow: var(--shadow-cartoon); margin-top: 15px; box-sizing: border-box; text-transform: uppercase; letter-spacing: 0.5px;">
+                                🧪 GERAR MINHA CRIATURA MALUCA
+                                <div class="btn-sub" style="font-size: 0.8rem; font-weight: bold; margin-top: 2px; opacity: 0.9; text-transform: none;">Custa 3 créditos</div>
+                            </button>
+
+                            <div class="credits-row" style="text-align: center; font-size: 1.1rem; font-weight: 800; color: var(--color-dark); margin-top: 10px;">Seus créditos: <span id="cientista-creditos-val">⭐ 0</span></div>
+                            
+                            <button class="bestiary-direct-btn" id="cientista-bestiary-direct-btn" onclick="openBestiaryDirectly()" style="width: 100%; border: 2.5px solid #7c3aed; background: white; color: #7c3aed; padding: 12px; border-radius: 20px; font-weight: 800; font-size: 0.95rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; margin-top: 12px; box-shadow: 0 3px 0 #7c3aed;" onmouseover="this.style.background='#7c3aed'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='#7c3aed';">
+                                🐾 Abrir Meu Bestiário
+                            </button>
+                        </div>
+
+                        <!-- Area de resultado abaixo do formulario -->
+                        <div class="right-panel">
+                            <div class="result-title" style="font-family: var(--font-heading); font-size: 1.15rem; text-align: center; color: var(--color-dark-light); margin-bottom: 10px; margin-top: 20px;">Sua criatura maluca aparecerá aqui!</div>
+                            <div class="result-box" id="cientista-result-box" style="width: 100%; min-height: 250px; background: white; border: var(--border-medium); border-radius: var(--radius-sm); box-shadow: var(--shadow-cartoon); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box;">
+                                <div class="result-placeholder-icon" style="font-size: 3rem;">🧬</div>
+                                <div class="result-placeholder-text" style="font-size: 1rem; color: var(--color-dark-light); margin-top: 10px; font-weight: bold; text-align: center;">Escolha 2 ingredientes e clique em Gerar!</div>
+                            </div>
+                            <div class="dica-box" style="background: #faf5ff; border: 1.5px solid #ddd6fe; border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px; margin-top: 15px; font-size: 0.85rem; color: #5b21b6;">
+                                <span style="font-size:24px;">🧑‍🔬</span>
+                                <div><strong>Dica do Cientista:</strong> Misture coisas bem diferentes para criaturas mais malucas!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODALS & OVERLAYS FROM INDEX.HTML -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-box">
+            <button class="btn-close-modal" onclick="closeAuthModal()">✕</button>
+            <div id="authSection" style="margin-bottom: 20px;">
+                <div id="authTabsContainer" style="display: flex; border-bottom: var(--border-thin); margin-bottom: 20px;">
+                    <button id="tabLogin" onclick="switchAuthTab('login')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-purple); border-bottom: 4px solid var(--color-purple);">🔑 Entrar</button>
+                    <button id="tabRegister" onclick="switchAuthTab('register')" style="flex: 1; padding: 12px; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; background: none; border: none; cursor: pointer; color: var(--color-dark-light); border-bottom: 4px solid transparent;">📝 Cadastrar</button>
+                </div>
+                <h3 id="recoveryTitle" style="font-family: var(--font-heading); font-size: 1.5rem; text-align: center; color: var(--color-purple); margin-bottom: 20px; display: none;">🔑 Recuperar Senha</h3>
+                <form id="loginForm" onsubmit="handleLoginSubmit(event)">
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">E-mail</label>
+                        <input type="email" id="loginEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">Senha</label>
+                        <div style="position: relative; width: 100%;">
+                            <input type="password" id="loginPassword" placeholder="Sua senha..." required style="padding: 10px; padding-right: 40px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
+                            <span onclick="togglePasswordVisibility('loginPassword', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--color-dark-light); font-size: 1.1rem; z-index: 10;"><i class="fa-solid fa-eye"></i></span>
+                        </div>
+                        <div style="text-align: right; margin-top: 4px;">
+                            <a href="#" onclick="showForgotPasswordForm(); return false;" style="font-size: 0.85rem; color: var(--color-purple); text-decoration: none; font-weight: 600;">Esqueceu sua senha?</a>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Entrar na Minha Conta 🚪</button>
+                </form>
+                <form id="registerForm" onsubmit="handleRegisterSubmit(event)" style="display: none;">
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">Nome do Responsável (ou Escritor)</label>
+                        <input type="text" id="regName" placeholder="Ex: Joãozinho, Maria..." required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">E-mail</label>
+                        <input type="email" id="regEmail" placeholder="email@exemplo.com" required style="padding: 10px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
+                    </div>
+                    <div style="margin-bottom: 15px; display: flex; flex-direction: column; gap: 5px; text-align: left;">
+                        <label style="font-weight: 700; color: var(--color-dark);">Senha</label>
+                        <div style="position: relative; width: 100%;">
+                            <input type="password" id="regPassword" placeholder="Crie uma senha..." required style="padding: 10px; padding-right: 40px; font-size: 1rem; border: var(--border-thin); border-radius: var(--radius-sm); font-family: var(--font-body); width: 100%; box-sizing: border-box;">
+                            <span onclick="togglePasswordVisibility('regPassword', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--color-dark-light); font-size: 1.1rem; z-index: 10;"><i class="fa-solid fa-eye"></i></span>
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary" type="submit" style="font-size: 1.1rem; padding: 12px; margin-top: 10px; width: 100%; border-radius: var(--radius-sm); font-weight: 700;">Criar Minha Conta Grátis ✨</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="welcomeModal" class="modal-overlay">
+        <div class="modal-box" style="max-width: 480px; text-align: center; padding: 30px;">
+            <button class="btn-close-modal" onclick="closeWelcomeModal()">✕</button>
+            <div style="font-size: 4rem; margin-bottom: 15px; animation: bounce 2s infinite;">🧑‍🎨</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-purple); margin-top: 0; margin-bottom: 10px;">Boas-vindas ao KidCanvas!</h3>
+            <p style="font-size: 1.05rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 25px;">Seu cadastro foi realizado com sucesso! Você ganhou <strong>3 Moedas Mágicas (Estrelas)</strong> para experimentar nossos recursos premium como o Cientista Maluco e as Histórias Mágicas!</p>
+            <button class="btn btn-secondary" onclick="closeWelcomeModal()" style="font-size: 1.1rem; padding: 12px 24px; font-weight: 700;">Começar a Explorar! 🚀</button>
+        </div>
+    </div>
+
+    <div id="custom-dialog-modal" class="modal-overlay" style="z-index: 10005;">
+        <div class="modal-box" style="max-width: 450px; text-align: center; padding: 30px 20px; border: var(--border-medium); border-radius: var(--radius-md); box-shadow: var(--shadow-cartoon);">
+            <span id="custom-dialog-icon" style="font-size: 3.5rem; display: block; margin-bottom: 15px;">🎨</span>
+            <h3 id="custom-dialog-title" style="font-family: var(--font-heading); font-size: 1.6rem; color: var(--color-dark); margin-top: 0; margin-bottom: 12px;">Título</h3>
+            <p id="custom-dialog-message" style="font-size: 1.05rem; color: var(--color-dark-light); line-height: 1.5; margin-bottom: 25px; font-family: var(--font-body); padding: 0 10px;">Mensagem explicativa aqui.</p>
+            <div style="display: flex; gap: 12px; justify-content: center; width: 100%; max-width: 320px; margin: 0 auto;">
+                <button class="btn btn-secondary" id="custom-dialog-btn-cancel" style="flex: 1; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); font-weight: bold; background-color: #f5f5f5; border: 2px solid var(--color-dark); color: var(--color-dark); cursor: pointer;">Cancelar ❌</button>
+                <button class="btn btn-primary" id="custom-dialog-btn-confirm" style="flex: 1; padding: 12px; font-size: 1rem; border-radius: var(--radius-sm); font-weight: bold; cursor: pointer;">Confirmar ✅</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="livro-descobertas-overlay" class="livro-overlay">
+        <div class="livro-recipiente" id="livro-recipiente">
+            <button class="livro-fechar-btn" onclick="closeAlbumModal()">&times;</button>
+            <div class="livro-paginas-wrap">
+                <div class="livro-divisor-central"></div>
+                <div class="livro-folha-esquerda">
+                    <h2 class="livro-titulo">📖 Livro das Descobertas</h2>
+                    <p class="livro-subtitulo">Pinte, explore e descubra criaturas, lugares e aventuras incríveis.</p>
+                    <div class="livro-folha-esquerda-header-stats">
+                        <div class="livro-estatistica-global">
+                            <div class="livro-estatistica-info">
+                                <span class="livro-estatistica-label">📖 Descobertas:</span>
+                                <span class="livro-estatistica-valor" id="livro-global-stats-text">0 / 0</span>
+                            </div>
+                            <div class="livro-estatistica-progress-wrapper">
+                                <div class="livro-estatistica-progress-bar-bg">
+                                    <div class="livro-estatistica-progress-bar-fill" id="livro-global-stats-bar" style="width: 0%;"></div>
+                                </div>
+                                <span class="livro-estatistica-pct" id="livro-global-stats-pct">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="livro-capitulos-lista" id="livro-capitulos-lista">
+                        <!-- Abas dinâmicas do livro -->
+                    </div>
+                </div>
+                <div class="livro-folha-direita">
+                    <div class="livro-folha-direita-topo-filtros" id="livro-folha-direita-topo-filtros" style="display:none;"></div>
+                    <div class="livro-descobertas-grid" id="livro-descobertas-grid"></div>
+                    <div class="livro-detalhes-conteudo" id="livro-detalhes-conteudo" style="display:none;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT FILE -->
+    <script src="/app.js"></script>
+</body>
+</html>

@@ -1595,6 +1595,16 @@ function navigate(path, pushState = true) {
     } else if (cleanPath === '/historias-magicas' || cleanPath === '/historia') {
         renderHistoriasMagicasView();
     } else if (cleanPath === '/cientista-maluco') {
+        if (window.innerWidth <= 1024) {
+            window.location.href = '/cientista-maluco-mobile';
+            return;
+        }
+        renderCientistaMalucoView();
+    } else if (cleanPath === '/cientista-maluco-mobile') {
+        if (window.innerWidth > 1024) {
+            window.location.href = '/cientista-maluco';
+            return;
+        }
         renderCientistaMalucoView();
     } else if (cleanPath === '/historias-exemplo') {
         renderHistoriasExemploView();
@@ -18504,7 +18514,7 @@ window.saveCreatureToBestiary = async function() {
         if (data.success) {
             showToast("Criatura salva com sucesso no seu Bestiário! 📖", "success");
             
-            const savedId = data.creature ? data.creature.id : 'c_' + Date.now();
+            let savedId = data.creature ? data.creature.id : 'c_' + Date.now();
             if (!currentUser.bestiary) currentUser.bestiary = [];
             
             const exists = currentUser.bestiary.find(b => b.name === window.lastGeneratedCreature.name);
