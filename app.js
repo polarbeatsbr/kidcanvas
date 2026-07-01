@@ -5009,7 +5009,9 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         
         const checkedRadio = document.querySelector('input[name="pageCount"]:checked');
         const pageCount = checkedRadio ? parseInt(checkedRadio.value, 10) : 3;
-        const cost = pageCount * 3;
+        const checkedQuality = document.querySelector('input[name="imageQuality"]:checked');
+        const qualityMultiplier = checkedQuality && checkedQuality.value === 'high' ? 2 : 1;
+        const cost = pageCount * qualityMultiplier;
         
         btnGenerate.textContent = `Gerar História (${cost} créditos)`;
         const chkCiente = document.getElementById('chkCiente');
@@ -5193,7 +5195,8 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
         const synopsis = storySynopsis.value.trim();
         const checkedQuality = document.querySelector('input[name="imageQuality"]:checked');
         const imageQuality = checkedQuality ? checkedQuality.value : 'medium';
-        const cost = pageCount * 3;
+        const qualityMultiplier = checkedQuality && checkedQuality.value === 'high' ? 2 : 1;
+        const cost = pageCount * qualityMultiplier;
         
         let finalTheme = themeSelect.value;
         if (finalTheme === 'custom') {

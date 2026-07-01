@@ -1360,11 +1360,11 @@ app.post('/api/generate-full-story', async (req, res) => {
             });
         }
 
-        const numPages = parseInt(pageCount, 10) || 4;
-        if (![2, 4, 6, 8, 10].includes(numPages)) {
+        const numPages = parseInt(pageCount, 10) || 3;
+        if (![3, 5, 10, 2, 4, 6, 8].includes(numPages)) {
             return res.status(400).json({
                 success: false,
-                message: 'Número de páginas inválido. Escolha 2, 4, 6, 8 ou 10.'
+                message: 'Número de páginas inválido.'
             });
         }
 
@@ -1430,7 +1430,8 @@ app.post('/api/generate-full-story', async (req, res) => {
         }
 
         const engine = imageQuality === 'medium' ? 'flux' : 'ideogram';
-        const cost = numPages * 3;
+        const qualityMultiplier = imageQuality === 'high' ? 2 : 1;
+        const cost = numPages * qualityMultiplier;
 
         if (getUserTotalCredits(user) < cost) {
             return res.status(400).json({
