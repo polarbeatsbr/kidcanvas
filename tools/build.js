@@ -6,6 +6,7 @@ const CleanCSS = require('clean-css');
 const filesToCopy = [
     'hero_mascots.png',
     'hero_mascots.webp',
+    'cientista_promo_banner.png',
     'magician_icon.png',
     'magician_icon.webp',
     'ninja_icon.png',
