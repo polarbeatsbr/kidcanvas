@@ -32,10 +32,12 @@
             });
         } catch (err) {
             try {
-                window.localStorage.getItem = mockStorage.getItem;
-                window.localStorage.setItem = mockStorage.setItem;
-                window.localStorage.removeItem = mockStorage.removeItem;
-                window.localStorage.clear = mockStorage.clear;
+                if (window.localStorage) {
+                    window.localStorage.getItem = mockStorage.getItem;
+                    window.localStorage.setItem = mockStorage.setItem;
+                    window.localStorage.removeItem = mockStorage.removeItem;
+                    window.localStorage.clear = mockStorage.clear;
+                }
             } catch (err2) {
                 console.error('[LocalStorage] Falha ao aplicar polyfill:', err2);
             }
@@ -1560,10 +1562,13 @@ function navigate(path, pushState = true) {
         window.KidCanvasTTS.stop();
     }
     let cleanPath = path.trim();
+    if (cleanPath.endsWith('.html')) {
+        cleanPath = cleanPath.slice(0, -5);
+    }
     if (cleanPath.length > 1 && cleanPath.endsWith('/')) {
         cleanPath = cleanPath.slice(0, -1);
     }
-    if (cleanPath === '/index.html') {
+    if (cleanPath === '/index') {
         cleanPath = '/';
     }
     
