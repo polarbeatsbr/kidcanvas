@@ -4233,6 +4233,16 @@ app.post('/api/cientista/gerar-nome', async (req, res) => {
             });
         }
 
+        // Sortear a raridade no backend (servidor)
+        function sortearRaridade() {
+            const r = Math.random() * 100;
+            if (r < 70) return "Comum";
+            if (r < 90) return "Raro";
+            if (r < 98) return "Épico";
+            return "Lendário";
+        }
+        const raridadeSorteada = sortearRaridade();
+
         const anthropicKey = process.env.ANTHROPIC_API_KEY;
         let textResult = "";
 
@@ -4245,13 +4255,14 @@ app.post('/api/cientista/gerar-nome', async (req, res) => {
 
             const prompt = `Você é o Cientista Maluco do KidCanvas, um site infantil divertido e criativo.
 O usuário misturou "${ingrediente1}" com "${ingrediente2}". 
-Crie uma criatura híbrida maluca e divertida para crianças.
+A raridade desta criatura é: ${raridadeSorteada}.
+Crie uma criatura híbrida com nome, descrição e superpoder que combinem com essa raridade (Comum = mais simples/engraçadinho; Raro = interessante; Épico = impressionante; Lendário = extremamente poderoso/histórico).
+
 Responda APENAS em JSON válido, sem texto antes ou depois:
 {
   "nome": "(nome criativo misturando os dois itens, pode inventar palavras, 1-3 palavras)",
   "descricao": "(2 frases divertidas e infantis descrevendo a criatura, máx 50 palavras)",
-  "poder": "(1 superpoder absurdo e engraçado que a criatura tem, máx 12 palavras)",
-  "raridade": "(uma opção: Comum, Raro, Épico ou Lendário)"
+  "poder": "(1 superpoder absurdo e engraçado que a criatura tem, máx 12 palavras)"
 }`;
 
             const geminiResult = await generateGeminiContent(geminiKey, prompt, "application/json");
@@ -4260,7 +4271,7 @@ Responda APENAS em JSON válido, sem texto antes ou depois:
             }
             textResult = geminiResult.text;
         } else {
-            console.log(`[Cientista Name Gen] Chamando Claude para combinar "${ingrediente1}" e "${ingrediente2}"...`);
+            console.log(`[Cientista Name Gen] Chamando Claude para combinar "${ingrediente1}" e "${ingrediente2}" com raridade "${raridadeSorteada}"...`);
             const response = await fetch('https://api.anthropic.com/v1/messages', {
                 method: 'POST',
                 headers: {
@@ -4276,13 +4287,14 @@ Responda APENAS em JSON válido, sem texto antes ou depois:
                         {
                             role: 'user',
                             content: `O usuário misturou "${ingrediente1}" com "${ingrediente2}". 
-Crie uma criatura híbrida maluca e divertida para crianças.
+A raridade desta criatura é: ${raridadeSorteada}.
+Crie uma criatura híbrida com nome, descrição e superpoder que combinem com essa raridade (Comum = mais simples/engraçadinho; Raro = interessante; Épico = impressionante; Lendário = extremamente poderoso/histórico).
+
 Responda APENAS em JSON válido, sem texto antes ou depois:
 {
   "nome": "(nome criativo misturando os dois itens, pode inventar palavras, 1-3 palavras)",
   "descricao": "(2 frases divertidas e infantis descrevendo a criatura, máx 50 palavras)",
-  "poder": "(1 superpoder absurdo e engraçado que a criatura tem, máx 12 palavras)",
-  "raridade": "(uma opção: Comum, Raro, Épico ou Lendário)"
+  "poder": "(1 superpoder absurdo e engraçado que a criatura tem, máx 12 palavras)"
 }`
                         }
                     ]
@@ -4302,7 +4314,7 @@ Responda APENAS em JSON válido, sem texto antes ou depois:
         console.log(`[Cientista Name Gen] Resposta bruta recebida: ${textResult}`);
         const result = robustParseJSON(textResult);
 
-        if (!result.nome || !result.descricao || !result.poder || !result.raridade) {
+        if (!result.nome || !result.descricao || !result.poder) {
             throw new Error('Resposta da IA incompleta.');
         }
 
@@ -4319,7 +4331,7 @@ Responda APENAS em JSON válido, sem texto antes ou depois:
             nome: result.nome,
             descricao: result.descricao,
             poder: result.poder,
-            raridade: result.raridade,
+            raridade: raridadeSorteada,
             balance: getUserTotalCredits(user)
         });
 
