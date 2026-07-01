@@ -18172,13 +18172,25 @@ async function gerarMisturaCientista() {
         if (box) {
             box.innerHTML = `
                 <div class="creature-card-wrapper" style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
-                    <img src="${imgData.imageUrl}" alt="${data.nome}" style="width: 100%; max-width: 300px; height: auto; border-radius: 12px; border: 2.5px solid #a78bfa; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);">
+                    <img src="${imgData.imageUrl}" alt="${data.nome}" style="width: 100%; max-width: 380px; height: auto; border-radius: 16px; border: 2.5px solid #a78bfa; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25); cursor: zoom-in;" onclick="zoomCientistaImage('${imgData.imageUrl}')">
                     <div style="font-size: 11px; font-weight: 800; color: white; background: ${cor}; padding: 3px 12px; border-radius: 20px; margin: 4px 0; display: inline-block; text-transform: uppercase;">
                         ⭐ ${data.raridade}
                     </div>
                     <div class="result-creature-name">✨ ${data.nome} ✨</div>
                     <div class="result-creature-desc" style="max-width: 320px; font-size: 14px; color: #5b21b6; line-height: 1.5;">${data.descricao}</div>
                     <div class="result-power">⚡ Poder: ${data.poder}</div>
+                    
+                    <div class="creature-actions" style="display: flex; gap: 8px; justify-content: center; margin-top: 12px; flex-wrap: wrap;">
+                        <button class="btn-action" onclick="downloadCientistaImage('${imgData.imageUrl}', '${data.nome}.png')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
+                            💾 Salvar
+                        </button>
+                        <button class="btn-action" onclick="printCientistaCreature('${imgData.imageUrl}', '${data.nome}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
+                            🖨️ Imprimir
+                        </button>
+                        <button class="btn-action" onclick="shareCientistaWhatsApp('${data.nome}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
+                            💬 WhatsApp
+                        </button>
+                    </div>
                 </div>
             `;
         }
@@ -18198,6 +18210,94 @@ async function gerarMisturaCientista() {
         checkCientistaReady();
     }
 }
+
+// Helper actions for Cientista Maluco results
+window.zoomCientistaImage = function(url) {
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100vw';
+    overlay.style.height = '100vh';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+    overlay.style.display = 'flex';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.zIndex = '99999';
+    overlay.style.cursor = 'zoom-out';
+    
+    const img = document.createElement('img');
+    img.src = url;
+    img.style.maxWidth = '90vw';
+    img.style.maxHeight = '90vh';
+    img.style.borderRadius = '16px';
+    img.style.objectFit = 'contain';
+    img.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.5)';
+    
+    overlay.appendChild(img);
+    overlay.onclick = function() {
+        document.body.removeChild(overlay);
+    };
+    document.body.appendChild(overlay);
+};
+
+window.downloadCientistaImage = async function(url, filename) {
+    showToast('Iniciando download... ⏳', 'info');
+    try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        
+        const a = document.createElement('a');
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(blobUrl);
+    } catch(e) {
+        window.open(url, '_blank');
+    }
+};
+
+window.printCientistaCreature = function(imageUrl, name) {
+    const printArea = document.createElement('div');
+    printArea.id = 'print-area-cientista';
+    printArea.style.display = 'none';
+    printArea.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; text-align: center; font-family: sans-serif; padding: 20px;">
+            <h1 style="font-size: 28px; margin-bottom: 20px; color: #7c3aed;">✨ ${name} ✨</h1>
+            <img src="${imageUrl}" style="width: 100%; max-width: 500px; height: auto; border-radius: 16px; border: 3px solid #a78bfa;">
+        </div>
+    `;
+    document.body.appendChild(printArea);
+    
+    const style = document.createElement('style');
+    style.id = 'cientista-print-css';
+    style.innerHTML = `
+        @media print {
+            body > *:not(#print-area-cientista) {
+                display: none !important;
+            }
+            #print-area-cientista {
+                display: flex !important;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    window.print();
+    
+    window.addEventListener('afterprint', () => {
+        try { document.body.removeChild(printArea); } catch(e){}
+        try { document.head.removeChild(style); } catch(e){}
+    }, { once: true });
+};
+
+window.shareCientistaWhatsApp = function(name) {
+    const text = encodeURIComponent(`Olha a criatura maluca que eu criei no KidCanvas! 🧪✨ ${name} 🧬\n\nCrie a sua também em: https://www.kidcanvas.com.br/cientista-maluco`);
+    window.open(`https://wa.me/?text=${text}`, '_blank');
+};
 
 // Bind to window scope
 window.renderCientistaMalucoView = renderCientistaMalucoView;
