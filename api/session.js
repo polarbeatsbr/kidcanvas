@@ -69,7 +69,7 @@ async function validateSession(token) {
     return user;
   } else {
     const users = await r2db.loadUsers();
-    const user = users.find(u => u.token === tokenHash && u.tokenExpiry > Date.now());
+    const user = users.find(u => (u.token === tokenHash || u.token === token) && u.tokenExpiry > Date.now());
     if (!user) return null;
     return {
       id: user.id,

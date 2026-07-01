@@ -264,7 +264,7 @@ async function isAdmin(req, res, next) {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
@@ -409,18 +409,27 @@ app.use(cors({
 // Cookie parser para podermos ler cookies da sessão
 app.use(cookieParser());
 
-// Middleware global de compatibilidade: popula e hashes x-session-token a partir do cookie ou cabeçalho
+// Middleware global de compatibilidade: popula x-session-token a partir do cookie ou cabeçalho
 app.use((req, res, next) => {
   let token = req.headers['x-session-token'] || req.cookies?.kidcanvas_session;
   if (token) {
-    // Se o token não for um hash SHA-256 (comprimento 64), nós o hasheamos
-    if (token.length !== 64) {
-      token = crypto.createHash('sha256').update(token).digest('hex');
-    }
     req.headers['x-session-token'] = token;
   }
   next();
 });
+
+// Funções auxiliares para buscar usuário pelo token (suporta formato bruto e hash SHA-256)
+function findUserByToken(users, token) {
+  if (!token) return null;
+  const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+  return users.find(u => (u.token === token || u.token === tokenHash) && u.tokenExpiry > Date.now());
+}
+
+function findUserIndexByToken(users, token) {
+  if (!token) return -1;
+  const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+  return users.findIndex(u => (u.token === token || u.token === tokenHash) && u.tokenExpiry > Date.now());
+}
 
 // Headers de segurança para o Express
 app.use((req, res, next) => {
@@ -575,7 +584,7 @@ app.post('/api/stripe/create-checkout-session', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada. Faça login novamente.' });
         }
@@ -672,7 +681,7 @@ app.post('/api/mercadopago/create-pix-payment', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada. Faça login novamente.' });
         }
@@ -793,7 +802,7 @@ app.get('/api/mercadopago/payment-status/:paymentId', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida.' });
         }
@@ -965,7 +974,7 @@ app.post('/api/generate', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -1249,7 +1258,7 @@ app.post('/api/generate-story', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -1367,7 +1376,7 @@ app.post('/api/generate-full-story', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -2413,7 +2422,7 @@ app.get('/api/auth/me', async (req, res) => {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
@@ -2459,7 +2468,7 @@ app.post('/api/user/upgrade', async (req, res) => {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida.' });
@@ -2499,7 +2508,7 @@ app.post('/api/user/save-painting', async (req, res) => {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
@@ -2721,7 +2730,7 @@ app.get('/api/missions/daily', async (req, res) => {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
@@ -2751,7 +2760,7 @@ app.post('/api/missions/progress', async (req, res) => {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
@@ -2788,7 +2797,7 @@ app.post('/api/user/update-avatar', async (req, res) => {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
@@ -2837,7 +2846,7 @@ app.post('/api/user/record-share', async (req, res) => {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
@@ -2904,7 +2913,7 @@ app.post('/api/user/update-achievements', async (req, res) => {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão expirada.' });
         }
@@ -3004,7 +3013,7 @@ app.post('/api/user/update-username', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
@@ -3070,7 +3079,7 @@ app.post('/api/user/update-profile-settings', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
@@ -3118,7 +3127,7 @@ app.post('/api/user/update-featured-cards', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
@@ -3165,7 +3174,7 @@ app.post('/api/user/change-password', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
@@ -3286,7 +3295,7 @@ app.post('/api/user/delete-account', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const userIdx = users.findIndex(u => u.token === token && u.tokenExpiry > Date.now());
+        const userIdx = findUserIndexByToken(users, token);
         if (userIdx === -1) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
@@ -3369,7 +3378,7 @@ app.post('/api/paintings/like', async (req, res) => {
         let currentUserObj = null;
         if (token) {
             const users = await loadUsers();
-            currentUserObj = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+            currentUserObj = findUserByToken(users, token);
         }
 
         // Obter IP do cliente
@@ -3458,7 +3467,7 @@ app.post('/api/paintings/report', async (req, res) => {
 async function checkIsAdmin(token) {
     if (!token) return false;
     const users = await loadUsers();
-    const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+    const user = findUserByToken(users, token);
     return user && user.email === 'foneoliver@gmail.com';
 }
 
@@ -3981,7 +3990,7 @@ app.get('/api/certificates/my', async (req, res) => {
         }
         
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
         }
@@ -4188,7 +4197,7 @@ app.post('/api/cientista/gerar-nome', async (req, res) => {
             console.log(`[Cientista Name Gen Debug] No user found with token "${token}". Active tokens in DB:`, users.filter(u => u.token).map(u => ({ email: u.email, token: u.token })));
         }
 
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
 
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
@@ -4310,7 +4319,7 @@ app.post('/api/cientista/gerar-imagem', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
 
         if (!user) {
             return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
@@ -4453,7 +4462,7 @@ app.post('/api/generate-custom-drawing', async (req, res) => {
         }
 
         const users = await loadUsers();
-        const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+        const user = findUserByToken(users, token);
         if (!user) {
             return res.status(401).json({
                 success: false,
@@ -5474,7 +5483,7 @@ async function requireAuth(req, res, next) {
     const token = req.headers['x-session-token'];
     if (!token) return res.status(401).json({ success: false, message: 'Não autorizado.' });
     const users = await loadUsers();
-    const user = users.find(u => u.token === token && u.tokenExpiry > Date.now());
+    const user = findUserByToken(users, token);
     if (!user) return res.status(401).json({ success: false, message: 'Sessão inválida.' });
     req.user = user;
     next();
