@@ -14309,8 +14309,27 @@ window.openAlbumModal = async function() {
             `;
             chaptersListEl.appendChild(btn);
         }
+
+        // --- ADICIONADO: BOTÃO DO BESTIÁRIO ---
+        const bestiaryBtn = document.createElement('div');
+        bestiaryBtn.className = 'livro-capitulo-btn';
+        bestiaryBtn.id = 'btn-capitulo-bestiary';
+        bestiaryBtn.onclick = () => selectChapter('bestiary');
         
-        if (firstCol) {
+        const bestiaryCount = (currentUser.bestiary || []).length;
+        bestiaryBtn.innerHTML = `
+            <div class="livro-capitulo-info">
+                <span class="livro-capitulo-emoji">🧪</span>
+                <span class="livro-capitulo-nome" style="font-weight:700; color:#7c3aed;">Bestiário Maluco</span>
+            </div>
+            <span class="livro-capitulo-progresso">${bestiaryCount}</span>
+        `;
+        chaptersListEl.appendChild(bestiaryBtn);
+        
+        if (window.openWithBestiaryActive) {
+            selectChapter('bestiary');
+            window.openWithBestiaryActive = false;
+        } else if (firstCol) {
             selectChapter(firstCol);
         }
     }
@@ -14338,11 +14357,12 @@ window.renderBookTabs = function() {
         collections[colName].push(c);
     });
     
-    const chapterOrder = ['expedition', 'Pinturas', 'Dinossauros', 'Livros', 'Comunidade', 'Lendárias', 'Lendas-do-Desenho'];
+    const chapterOrder = ['expedition', 'bestiary', 'Pinturas', 'Dinossauros', 'Livros', 'Comunidade', 'Lendárias', 'Lendas-do-Desenho'];
     const activeCol = window.activeChapterName || 'Pinturas';
     
     const chapterTabConfig = {
         'expedition': { name: 'Expedição', bg: '#ddd6fe', color: '#3b0764' },
+        'bestiary': { name: 'Bestiário 🧪', bg: '#f3e8ff', color: '#6b21a8' },
         'Pinturas': { name: 'Pinturas', bg: '#f9a8d4', color: '#831843' },
         'Dinossauros': { name: 'Dinossauros', bg: '#fed7aa', color: '#7c2d12' },
         'Livros': { name: 'Livros', bg: '#fef08a', color: '#713f12' },
@@ -14357,6 +14377,8 @@ window.renderBookTabs = function() {
             if (typeof currentActiveEvent !== 'undefined' && currentActiveEvent && currentActiveEvent.active) {
                 shouldShow = true;
             }
+        } else if (colName === 'bestiary') {
+            shouldShow = true;
         } else if (collections[colName] && collections[colName].length > 0) {
             shouldShow = true;
         }
@@ -14383,7 +14405,7 @@ window.renderBookTabs = function() {
 window.activeChapterName = null;
 
 window.selectChapter = function(colName) {
-    const chapterOrder = ['expedition', 'Pinturas', 'Dinossauros', 'Livros', 'Comunidade', 'Lendárias', 'Lendas-do-Desenho'];
+    const chapterOrder = ['expedition', 'bestiary', 'Pinturas', 'Dinossauros', 'Livros', 'Comunidade', 'Lendárias', 'Lendas-do-Desenho'];
     const oldColName = window.activeChapterName || 'Pinturas';
     
     window.activeChapterName = colName;
@@ -14398,18 +14420,30 @@ window.selectChapter = function(colName) {
     const detalhesEl = document.getElementById('livro-detalhes-conteudo');
     const expeditionEl = document.getElementById('livro-expedition-conteudo');
     const guideEl = document.getElementById('livro-regras-conteudo');
+    const bestiaryEl = document.getElementById('livro-bestiario-conteudo');
     
     // Encontrar qual painel estava visível antes do clique
-    const panels = [gradeEl, detalhesEl, expeditionEl, guideEl];
+    const panels = [gradeEl, detalhesEl, expeditionEl, guideEl, bestiaryEl];
     const oldPanel = panels.find(p => p && p.style.display !== 'none');
+    
+    // Ocultar todos primeiro
+    panels.forEach(p => {
+        if (p) p.style.display = 'none';
+    });
     
     // Determinar novo painel
     let newPanel = null;
     if (colName === 'expedition') {
         newPanel = expeditionEl;
+        if (newPanel) newPanel.style.display = 'flex';
         renderWeeklyExpeditionPage();
+    } else if (colName === 'bestiary') {
+        newPanel = bestiaryEl;
+        if (newPanel) newPanel.style.display = 'flex';
+        renderBestiaryPage(1);
     } else {
         newPanel = gradeEl;
+        if (newPanel) newPanel.style.display = 'flex';
         renderChapterGrid(colName);
     }
     
@@ -18188,6 +18222,16 @@ async function gerarMisturaCientista() {
             throw new Error(imgData.message || 'Erro ao gerar ilustração.');
         }
 
+        window.lastGeneratedCreature = {
+            name: data.nome,
+            description: data.descricao,
+            power: data.poder,
+            rarity: data.raridade,
+            imageUrl: imgData.imageUrl,
+            ingredient1: n1,
+            ingredient2: n2
+        };
+
         // Render the complete creature card with the image
         if (box) {
             box.innerHTML = `
@@ -18209,6 +18253,9 @@ async function gerarMisturaCientista() {
                         </button>
                         <button class="btn-action" onclick="shareCientistaWhatsApp('${data.nome}')" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #7c3aed; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(124, 58, 237, 0.2); transition: transform 0.1s;">
                             💬 WhatsApp
+                        </button>
+                        <button id="btn-save-bestiario" class="btn-action" onclick="saveCreatureToBestiary()" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" style="background: #2563eb; color: white; border: none; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2); transition: transform 0.1s;">
+                            📖 Salvar no Meu Bestiário
                         </button>
                     </div>
                 </div>
@@ -18369,6 +18416,270 @@ window.renderCientistaMalucoView = renderCientistaMalucoView;
 window.updateCientistaCreditsHUD = updateCientistaCreditsHUD;
 window.checkCientistaReady = checkCientistaReady;
 window.gerarMisturaCientista = gerarMisturaCientista;
+
+
+window.openBestiaryDirectly = async function() {
+    window.openWithBestiaryActive = true;
+    await openAlbumModal();
+};
+
+window.saveCreatureToBestiary = async function() {
+    const btn = document.getElementById('btn-save-bestiario');
+    if (!btn || !window.lastGeneratedCreature) return;
+
+    if (!currentUser) {
+        showToast("Faça login ou cadastre-se para salvar no seu bestiário! 📖", "info");
+        openAuthModal();
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = `<div class="spinner" style="width:12px; height:12px; border-width:2px; display:inline-block; margin-right:4px;"></div> Salvando...`;
+
+    try {
+        const sessionToken = localStorage.getItem('kidcanvas_session_token') || currentUser.token || '';
+        const res = await fetch('/api/cientista/save-creature', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-session-token': sessionToken
+            },
+            body: JSON.stringify(window.lastGeneratedCreature)
+        });
+
+        const data = await res.json();
+        if (data.success) {
+            showToast("Criatura salva com sucesso no seu Bestiário! 📖", "success");
+            btn.innerHTML = `✓ Salvo no Bestiário`;
+            btn.style.background = '#10b981'; // Green
+            btn.style.color = 'white';
+            btn.style.boxShadow = 'none';
+            btn.disabled = true;
+
+            // Add locally to currentUser bestiary list
+            if (!currentUser.bestiary) currentUser.bestiary = [];
+            
+            const exists = currentUser.bestiary.some(b => b.name === window.lastGeneratedCreature.name);
+            if (!exists) {
+                currentUser.bestiary.push({
+                    ...window.lastGeneratedCreature,
+                    id: data.creature ? data.creature.id : 'c_' + Date.now(),
+                    createdAt: new Date().toISOString()
+                });
+            }
+            
+            renderBookTabs();
+        } else {
+            showToast(data.message || "Erro ao salvar criatura.", "error");
+            btn.disabled = false;
+            btn.innerHTML = `📖 Salvar no Meu Bestiário`;
+        }
+    } catch (e) {
+        console.error('[Save bestiary error]', e);
+        showToast("Erro de conexão ao salvar criatura.", "error");
+        btn.disabled = false;
+        btn.innerHTML = `📖 Salvar no Meu Bestiário`;
+    }
+};
+
+window.activeBestiaryRarityFilter = 'All';
+
+window.renderBestiaryPage = function(pageNumber = 1) {
+    const container = document.getElementById('livro-bestiario-conteudo');
+    if (!container) return;
+
+    if (!currentUser) {
+        container.innerHTML = `<div style="padding: 20px; text-align: center;">Faça login para ver seu bestiário.</div>`;
+        return;
+    }
+
+    const bestiary = currentUser.bestiary || [];
+
+    if (bestiary.length === 0) {
+        container.innerHTML = `
+            <div class="livro-bestiario-vazio" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; padding: 40px 20px; gap: 15px; margin-top: auto; margin-bottom: auto;">
+                <div style="font-size: 5rem; animation: bounce 2s infinite;">🧪</div>
+                <h3 style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--color-purple); margin: 0;">Seu Bestiário está vazio!</h3>
+                <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--color-dark-light); max-width: 320px; margin: 0; line-height: 1.5;">
+                    Misture ingredientes malucos no Cientista Maluco e salve suas criações aqui!
+                </p>
+                <button class="btn btn-primary" onclick="closeAlbumModal(); navigate('/cientista-maluco');" style="background-color: var(--color-purple); font-weight: 800; padding: 10px 24px; font-size: 1rem; border-color: var(--color-dark); box-shadow: 0 3px 0 var(--color-dark); margin-top: 10px; cursor: pointer;">
+                    🧪 Ir pro Cientista Maluco →
+                </button>
+            </div>
+        `;
+        return;
+    }
+
+    // Filter items
+    let filtered = bestiary;
+    if (window.activeBestiaryRarityFilter && window.activeBestiaryRarityFilter !== 'All') {
+        filtered = bestiary.filter(b => b.rarity === window.activeBestiaryRarityFilter);
+    }
+
+    // Sort: most recent first
+    filtered.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+    // Pagination
+    const pageSize = 6;
+    const totalItems = filtered.length;
+    const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
+    let curPage = Math.min(totalPages, Math.max(1, pageNumber));
+    const startIndex = (curPage - 1) * pageSize;
+    const pageItems = filtered.slice(startIndex, startIndex + pageSize);
+
+    // Build pills HTML
+    const rarities = [
+        { key: 'All', label: 'Todos', color: '#7c3aed' },
+        { key: 'Comum', label: 'Comum', color: '#84cc16' },
+        { key: 'Raro', label: 'Raro', color: '#2563eb' },
+        { key: 'Épico', label: 'Épico', color: '#9333ea' },
+        { key: 'Lendário', label: 'Lendário', color: '#f59e0b' }
+    ];
+    
+    let filtersHtml = `<div class="bestiario-filtros" style="display: flex; gap: 6px; margin-bottom: 15px; flex-wrap: wrap; justify-content: center;">`;
+    rarities.forEach(r => {
+        const isActive = window.activeBestiaryRarityFilter === r.key;
+        const count = r.key === 'All' ? bestiary.length : bestiary.filter(b => b.rarity === r.key).length;
+        
+        filtersHtml += `
+            <button onclick="window.activeBestiaryRarityFilter = '${r.key}'; renderBestiaryPage(1);" style="border: 2px solid ${r.color}; background: ${isActive ? r.color : '#fff'}; color: ${isActive ? '#fff' : r.color}; font-weight: 800; font-size: 0.78rem; padding: 4px 10px; border-radius: 15px; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: ${isActive ? 'none' : '0 2px 0 ' + r.color}; transition: all 0.1s;">
+                ${r.label} <span style="background: ${isActive ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.06)'}; padding: 1px 6px; border-radius: 10px; font-size: 0.7rem;">${count}</span>
+            </button>
+        `;
+    });
+    filtersHtml += `</div>`;
+
+    let contentHtml = `
+        <h2 class="livro-capitulo-titulo" style="text-align: center; color: var(--color-purple); font-family: var(--font-heading); margin-bottom: 8px;">
+            🧪 Meu Bestiário Maluco
+        </h2>
+        
+        ${filtersHtml}
+    `;
+
+    if (pageItems.length === 0) {
+        contentHtml += `
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 30px; color: #666;">
+                <div style="font-size: 3rem;">🔍</div>
+                <div style="font-weight: bold; margin-top: 10px;">Nenhuma criatura encontrada!</div>
+                <div style="font-size: 0.85rem; margin-top: 5px;">Tente selecionar outro filtro de raridade.</div>
+            </div>
+        `;
+    } else {
+        let gridHtml = `<div class="livro-descobertas-grid" style="margin-bottom: 15px;">`;
+        pageItems.forEach(item => {
+            const cssClass = 'rarity-' + (item.rarity === 'Lendário' ? 'mitica' : item.rarity === 'Épico' ? 'epica' : item.rarity === 'Raro' ? 'rara' : 'comum');
+            
+            gridHtml += `
+                <div class="livro-card-descoberta ${cssClass}" onclick="showBestiaryCreatureDetails('${item.id}')">
+                    <div class="livro-card-rarity-tag" style="text-transform: uppercase;">${item.rarity}</div>
+                    <div class="livro-card-img-container">
+                        <img src="${item.imageUrl}" class="livro-card-img" alt="${item.name}">
+                    </div>
+                    <div class="livro-card-nome">${item.name}</div>
+                </div>
+            `;
+        });
+        gridHtml += `</div>`;
+        contentHtml += gridHtml;
+    }
+
+    // Build pagination controls HTML
+    if (totalPages > 1) {
+        contentHtml += `
+            <div class="bestiario-paginacao" style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: auto; padding-top: 12px; border-top: 2px dashed #e2ddc9;">
+                <button onclick="renderBestiaryPage(${curPage - 1})" ${curPage === 1 ? 'disabled' : ''} style="background: #fff; border: 2px solid #3d281a; padding: 4px 10px; border-radius: 10px; font-weight: 800; cursor: ${curPage === 1 ? 'default' : 'pointer'}; opacity: ${curPage === 1 ? 0.4 : 1}; box-shadow: ${curPage === 1 ? 'none' : '0 2px 0 #3d281a'}; font-size: 0.82rem;">
+                    ← Anterior
+                </button>
+                <span style="font-family: var(--font-heading); font-size: 0.85rem; color: #555;">
+                    Pág. ${curPage} de ${totalPages}
+                </span>
+                <button onclick="renderBestiaryPage(${curPage + 1})" ${curPage === totalPages ? 'disabled' : ''} style="background: #fff; border: 2px solid #3d281a; padding: 4px 10px; border-radius: 10px; font-weight: 800; cursor: ${curPage === totalPages ? 'default' : 'pointer'}; opacity: ${curPage === totalPages ? 0.4 : 1}; box-shadow: ${curPage === totalPages ? 'none' : '0 2px 0 #3d281a'}; font-size: 0.82rem;">
+                    Próximo →
+                </button>
+            </div>
+        `;
+    }
+
+    container.innerHTML = contentHtml;
+};
+
+window.showBestiaryCreatureDetails = function(creatureId) {
+    if (!currentUser || !currentUser.bestiary) return;
+    const c = currentUser.bestiary.find(b => b.id === creatureId);
+    if (!c) return;
+
+    const rarity = c.rarity || 'Comum';
+    let rarityColor = '#84cc16';
+    if (rarity === 'Raro') rarityColor = '#2563eb';
+    else if (rarity === 'Épico') rarityColor = '#9333ea';
+    else if (rarity === 'Lendário') rarityColor = '#f59e0b';
+
+    const detailsEl = document.getElementById('livro-detalhes-conteudo');
+    if (!detailsEl) return;
+
+    // Hide bestiary content and show details content
+    document.getElementById('livro-bestiario-conteudo').style.display = 'none';
+    detailsEl.style.display = 'flex';
+
+    const dateStr = c.createdAt ? new Date(c.createdAt).toLocaleDateString('pt-BR') : new Date().toLocaleDateString('pt-BR');
+    
+    detailsEl.innerHTML = `
+        <div class="livro-detalhes-container details-rarity-${rarity.toLowerCase().replace('á', 'a').replace('é', 'e')}">
+            <div class="livro-detalhes-header" style="margin-bottom: 8px;">
+                <span style="font-weight:900; color:${rarityColor}; font-size:0.85rem; background:rgba(0,0,0,0.04); padding:4px 10px; border-radius:20px; display:inline-flex; align-items:center; gap:4px;">
+                    ⭐ ${rarity.toUpperCase()}
+                </span>
+                <span style="font-size:0.85rem; font-weight:800; color:#888;">Cientista Maluco</span>
+            </div>
+            
+            <div class="livro-detalhes-img-box" style="position: relative; display: flex; align-items: center; justify-content: center; min-height: 150px; margin-bottom: 10px;">
+                <img src="${c.imageUrl}" alt="${c.name}" class="livro-detalhes-img" style="max-height: 180px; object-fit: contain; border-radius: 12px;">
+            </div>
+            
+            <h2 style="margin: 0 0 8px 0; color:#2d3436; font-size:1.4rem; font-weight:900; font-family:'Fredoka-Variable',sans-serif; text-align:center;">
+                ✨ ${c.name} ✨
+            </h2>
+            
+            <!-- Descrição e Poder -->
+            <div class="livro-detalhes-curiosidade" style="background: rgba(124, 58, 237, 0.05); border: 1.5px dashed #c084fc; padding: 12px; border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; line-height: 1.45;">
+                <div style="font-weight:900; color:#7c3aed; font-size:0.75rem; margin-bottom:4px; letter-spacing:0.5px;">📖 DESCRIÇÃO</div>
+                <div style="color: #4c1d95; margin-bottom: 8px;">${c.description}</div>
+                <div style="font-weight:900; color:#7c3aed; font-size:0.75rem; margin-bottom:2px; letter-spacing:0.5px;">⚡ PODER ESPECIAL</div>
+                <div style="color: #4c1d95; font-weight: bold;">${c.power}</div>
+            </div>
+
+            <!-- Mistura de Origem -->
+            <div style="background: #f3f4f6; border: 1.5px solid #e5e7eb; padding: 10px; border-radius: 12px; margin-bottom: 12px; font-size: 0.85rem; text-align: center;">
+                <span style="font-weight: 800; color: #4b5563;">🧪 FÓRMULA SECRETA:</span>
+                <div style="margin-top: 4px; font-weight: 900; color: #1f2937;">
+                    ${c.ingredient1} + ${c.ingredient2}
+                </div>
+            </div>
+            
+            <div style="display:flex; gap:10px; width:100%; margin-bottom: 15px;">
+                <div class="livro-detalhes-info-card" style="flex:1; background: #fff; border: 1.5px solid #e2ddc9; border-radius: 10px; padding: 6px; text-align: center;">
+                    <div class="livro-detalhes-label" style="font-size:0.65rem; color:#888; font-weight:800; margin-bottom:2px;">STATUS</div>
+                    <div class="livro-detalhes-val" style="font-size:0.85rem; color:#10b981; font-weight:800;">📖 Colecionada</div>
+                </div>
+                <div class="livro-detalhes-info-card" style="flex:1; background: #fff; border: 1.5px solid #e2ddc9; border-radius: 10px; padding: 6px; text-align: center;">
+                    <div class="livro-detalhes-label" style="font-size:0.65rem; color:#888; font-weight:800; margin-bottom:2px;">DATA DE CRIAÇÃO</div>
+                    <div class="livro-detalhes-val" style="font-size:0.85rem; font-weight: 700; color: #4b5563;">${dateStr}</div>
+                </div>
+            </div>
+            
+            <button class="livro-detalhes-voltar-btn" onclick="voltarParaBestiario()" style="width: 100%; padding: 8px; border-radius: 12px; font-weight: 800; cursor: pointer; border: 2px solid #3d281a; background: #fff; color: #3d281a; box-shadow: 0 2px 0 #3d281a; font-size: 0.9rem; transition: transform 0.1s;">
+                ← Voltar ao Bestiário
+            </button>
+        </div>
+    `;
+};
+
+window.voltarParaBestiario = function() {
+    document.getElementById('livro-bestiario-conteudo').style.display = 'flex';
+    document.getElementById('livro-detalhes-conteudo').style.display = 'none';
+};
 
 
 

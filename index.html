@@ -889,6 +889,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/historias-magicas" class="dropdown-item">📖 Histórias Mágicas</a></li>
                                 <li><a href="#" onclick="openAlbumModal(); return false;" class="dropdown-item">📖 Livro das Descobertas</a></li>
+                                <li><a href="#" onclick="openBestiaryDirectly(); return false;" class="dropdown-item">🧪 Meu Bestiário</a></li>
                                 <li><a href="/hall-da-fama" class="dropdown-item">🏆 Hall da Fama</a></li>
                             </ul>
                         </li>
@@ -947,6 +948,9 @@
                                 </a>
                                 <a href="#" onclick="openAlbumModal(); return false;" class="dropdown-menu-item">
                                     <i class="fa-solid fa-book"></i> Livro das Descobertas
+                                </a>
+                                <a href="#" onclick="openBestiaryDirectly(); return false;" class="dropdown-menu-item">
+                                    <i class="fa-solid fa-flask"></i> Meu Bestiário
                                 </a>
                                 <a href="#" onclick="openAvatarSelectionModal(); return false;" class="dropdown-menu-item">
                                     <i class="fa-solid fa-face-smile"></i> Escolher Avatar
@@ -5265,6 +5269,11 @@
 
                 <!-- Sub-página: Expedição Mágica da Semana -->
                 <div id="livro-expedition-conteudo" style="display: none; flex-direction: column; height: auto; gap: 15px;">
+                    <!-- Gerado dinamicamente via JS -->
+                </div>
+                
+                <!-- Sub-página: Meu Bestiário Maluco -->
+                <div id="livro-bestiario-conteudo" style="display: none; flex-direction: column; height: 100%;">
                     <!-- Gerado dinamicamente via JS -->
                 </div>
             </div>

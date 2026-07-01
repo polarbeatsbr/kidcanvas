@@ -59,6 +59,16 @@ async function loadUsers() {
             const { data: dbSessions, error: sessionsErr } = await supabase.from('sessions').select('*');
             if (sessionsErr) throw sessionsErr;
 
+            let dbBestiary = [];
+            try {
+                const { data, error } = await supabase.from('bestiary').select('*');
+                if (!error && data) {
+                    dbBestiary = data;
+                }
+            } catch (e) {
+                console.warn('[R2DB] Tabela bestiary nao pode ser lida do Supabase (pode nao existir):', e.message);
+            }
+
             const returnUsers = [];
             dbUsers.forEach(dbUser => {
                 const drawings = dbDrawings.filter(d => d.user_id === dbUser.id).map(d => ({
@@ -78,6 +88,17 @@ async function loadUsers() {
                     obtainedAt: c.obtained_at
                 }));
                 const achievements = dbAchievements.filter(a => a.user_id === dbUser.id).map(a => a.achievement_id);
+                const bestiary = dbBestiary.filter(b => b.user_id === dbUser.id).map(b => ({
+                    id: b.id,
+                    name: b.name,
+                    description: b.description,
+                    power: b.power,
+                    rarity: b.rarity,
+                    imageUrl: b.image_url,
+                    ingredient1: b.ingredient_1,
+                    ingredient2: b.ingredient_2,
+                    createdAt: b.created_at
+                }));
 
                 const baseUserObj = {
                     id: dbUser.id,
@@ -90,6 +111,7 @@ async function loadUsers() {
                     myPaintings: drawings,
                     cards: cards,
                     achievements: achievements,
+                    bestiary: bestiary,
                     paginasRestantes: dbUser.stars,
                     createdAt: dbUser.created_at,
                     lastLogin: dbUser.updated_at
@@ -230,6 +252,30 @@ async function saveUsers(users) {
                         user_agent: 'legacy_compatibility',
                         ip_address: '127.0.0.1'
                     });
+                }
+
+                // 6. Sincronizar bestiário
+                try {
+                    await supabase.from('bestiary').delete().eq('user_id', user.id);
+                    const bestiary = user.bestiary || [];
+                    if (bestiary.length > 0) {
+                        const dbBestiary = bestiary.map(b => ({
+                            id: b.id,
+                            user_id: user.id,
+                            name: b.name,
+                            description: b.description,
+                            power: b.power,
+                            rarity: b.rarity,
+                            image_url: b.imageUrl || b.image_url,
+                            ingredient_1: b.ingredient1 || b.ingredient_1,
+                            ingredient_2: b.ingredient2 || b.ingredient_2,
+                            created_at: b.createdAt || b.created_at || new Date().toISOString()
+                        }));
+                        const { error: bestiaryErr } = await supabase.from('bestiary').insert(dbBestiary);
+                        if (bestiaryErr) throw bestiaryErr;
+                    }
+                } catch (e) {
+                    console.warn('[R2DB] Erro ao sincronizar bestiary no Supabase (pode ser que a tabela nao exista):', e.message);
                 }
             }
             console.log('[R2DB] Sincronização com o Supabase concluída com sucesso.');

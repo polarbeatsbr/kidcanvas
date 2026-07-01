@@ -320,7 +320,8 @@ function formatUserProfile(user, users) {
         featuredCards: user.featuredCards || [null, null, null],
         createdAt: user.createdAt || user.created_at || '2025-06-01T00:00:00.000Z',
         achievements: user.achievements || [],
-        certificates: user.certificates || []
+        certificates: user.certificates || [],
+        bestiary: user.bestiary || []
     };
 }
 
@@ -4462,6 +4463,82 @@ app.post('/api/cientista/gerar-imagem', async (req, res) => {
     } catch (err) {
         console.error('[Cientista Image Gen Error]:', err);
         return res.status(500).json({ success: false, message: 'Erro ao gerar imagem da criatura.' });
+    }
+});
+
+
+
+
+
+
+// Endpoint para salvar uma criatura maluca no Bestiário do usuário
+app.post('/api/cientista/save-creature', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        const { name, description, power, rarity, imageUrl, ingredient1, ingredient2 } = req.body;
+        
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        if (!name || !description || !power || !rarity || !imageUrl || !ingredient1 || !ingredient2) {
+            return res.status(400).json({ success: false, message: 'Todos os campos da criatura são obrigatórios.' });
+        }
+
+        const users = await loadUsers();
+        const user = findUserByToken(users, token);
+        
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+
+        if (!user.bestiary) {
+            user.bestiary = [];
+        }
+
+        // Evitar salvamento duplicado baseado no nome ou imagem
+        const alreadySaved = user.bestiary.some(b => b.name === name || b.imageUrl === imageUrl);
+        if (alreadySaved) {
+            return res.json({ success: true, alreadySaved: true, message: 'Criatura já salva no bestiário!' });
+        }
+
+        const newCreature = {
+            id: 'c_' + crypto.randomBytes(8).toString('hex'),
+            name,
+            description,
+            power,
+            rarity,
+            imageUrl,
+            ingredient1,
+            ingredient2,
+            createdAt: new Date().toISOString()
+        };
+
+        user.bestiary.push(newCreature);
+        await saveUsers(users);
+
+        res.json({ success: true, creature: newCreature });
+    } catch (e) {
+        console.error('[Save Creature Error]', e);
+        res.status(500).json({ success: false, message: 'Erro interno ao salvar criatura.' });
+    }
+});
+
+// Endpoint para listar as criaturas do bestiário do usuário
+app.get('/api/cientista/bestiary', async (req, res) => {
+    try {
+        const token = req.headers['x-session-token'];
+        if (!token) {
+            return res.status(401).json({ success: false, message: 'Não autorizado.' });
+        }
+        const users = await loadUsers();
+        const user = findUserByToken(users, token);
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Sessão inválida ou expirada.' });
+        }
+        res.json({ success: true, bestiary: user.bestiary || [] });
+    } catch (e) {
+        console.error('[Get Bestiary Error]', e);
+        res.status(500).json({ success: false, message: 'Erro interno ao carregar bestiário.' });
     }
 });
 
