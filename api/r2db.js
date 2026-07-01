@@ -119,7 +119,29 @@ async function loadUsers() {
         }
     }
 
-    // 2. Fallback: Ler localmente
+    // 2. Fallback: Ler localmente (sincronizando com o R2 se disponível)
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Lendo users.json do Cloudflare R2...`);
+            const command = new GetObjectCommand({
+                Bucket: bucketName,
+                Key: 'users.json',
+            });
+            const response = await s3Client.send(command);
+            const dataStr = await streamToString(response.Body);
+            try {
+                fs.writeFileSync(LOCAL_USERS_FILE, dataStr, 'utf8');
+            } catch(e) {}
+            return JSON.parse(dataStr);
+        } catch (err) {
+            if (err.name === 'NoSuchKey' || err.code === 'NoSuchKey' || err.message.includes('NoSuchKey')) {
+                console.log('[R2DB] Arquivo users.json não existe no bucket R2. Usando local do build.');
+            } else {
+                console.error('[R2DB] Erro ao carregar users do R2 (usando fallback local):', err.message);
+            }
+        }
+    }
+
     if (fs.existsSync(LOCAL_USERS_FILE)) {
         try {
             const dataStr = fs.readFileSync(LOCAL_USERS_FILE, 'utf8');
@@ -217,16 +239,32 @@ async function saveUsers(users) {
         }
     }
 
-    // Fallback: Salvar localmente
+    // Fallback: Salvar localmente e no R2
     const dataStr = JSON.stringify(users, null, 2);
     try {
         fs.writeFileSync(LOCAL_USERS_FILE, dataStr, 'utf8');
         console.log('[R2DB] Backup local de users.json gravado com sucesso.');
-        return true;
     } catch (e) {
         console.error('[R2DB] Falha ao gravar cópia local de backup:', e.message);
     }
-    return false;
+
+    if (s3Client && bucketName) {
+        try {
+            console.log(`[R2DB] Enviando users.json atualizado para o Cloudflare R2...`);
+            const command = new PutObjectCommand({
+                Bucket: bucketName,
+                Key: 'users.json',
+                Body: dataStr,
+                ContentType: 'application/json',
+            });
+            await s3Client.send(command);
+            console.log('[R2DB] Banco de dados users.json persistido no R2.');
+            return true;
+        } catch (err) {
+            console.error('[R2DB] Falha crítica ao persistir users no R2:', err.message);
+        }
+    }
+    return true;
 }
 
 // Caminho do waitlist local
