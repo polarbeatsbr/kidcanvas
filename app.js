@@ -14202,10 +14202,6 @@ window.getDynamicClueText = function(card) {
 };
 
 window.openAlbumModal = async function() {
-    // Alert temporário para depuração fácil no mobile
-    const userSummary = currentUser ? `${currentUser.email} (${currentUser.plan})` : 'deslogado';
-    alert(`DEBUG openAlbumModal:\nUser: ${userSummary}\nwindow.sessionToken: ${window.sessionToken}\nlocalStorage: ${localStorage.getItem('kidcanvas_session_token')}`);
-    
     console.log('DEBUG currentUser:', currentUser);
     console.log('DEBUG window.sessionToken:', window.sessionToken);
     console.log('DEBUG localStorage token:', localStorage.getItem('kidcanvas_session_token'));
@@ -18570,10 +18566,6 @@ window.openBestiaryDirectly = async function() {
 };
 
 window.saveCreatureToBestiary = async function() {
-    // Alert temporário para depuração fácil no mobile
-    const userSummary = currentUser ? `${currentUser.email} (${currentUser.plan})` : 'deslogado';
-    alert(`DEBUG saveCreatureToBestiary:\nUser: ${userSummary}\nwindow.sessionToken: ${window.sessionToken}\nlocalStorage: ${localStorage.getItem('kidcanvas_session_token')}`);
-    
     console.log('DEBUG currentUser:', currentUser);
     console.log('DEBUG window.sessionToken:', window.sessionToken);
     console.log('DEBUG localStorage token:', localStorage.getItem('kidcanvas_session_token'));
