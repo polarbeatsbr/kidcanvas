@@ -14202,6 +14202,9 @@ window.getDynamicClueText = function(card) {
 };
 
 window.openAlbumModal = async function() {
+    console.log('DEBUG currentUser:', currentUser);
+    console.log('DEBUG window.sessionToken:', window.sessionToken);
+    console.log('DEBUG localStorage token:', localStorage.getItem('kidcanvas_session_token'));
     closeEventModal();
     if (!currentUser) {
         showToast('Faça login para ver seu Livro das Descobertas! 📖', 'info');
@@ -18559,6 +18562,9 @@ window.openBestiaryDirectly = async function() {
 };
 
 window.saveCreatureToBestiary = async function() {
+    console.log('DEBUG currentUser:', currentUser);
+    console.log('DEBUG window.sessionToken:', window.sessionToken);
+    console.log('DEBUG localStorage token:', localStorage.getItem('kidcanvas_session_token'));
     const btn = document.getElementById('btn-save-bestiario');
     if (!btn || !window.lastGeneratedCreature) return;
 
