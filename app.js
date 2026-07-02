@@ -18691,7 +18691,7 @@ window.renderBestiaryPage = function(pageNumber = 1) {
     filtered.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
     // Pagination
-    const pageSize = 6;
+    const pageSize = window.innerWidth > 1024 ? 9 : 6;
     const totalItems = filtered.length;
     const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
     let curPage = Math.min(totalPages, Math.max(1, pageNumber));
