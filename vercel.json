@@ -27,6 +27,14 @@
       "destination": "/cientista-maluco-mobile.html"
     },
     {
+      "source": "/js/:file",
+      "destination": "/js/:file"
+    },
+    {
+      "source": "/stickers/:file*",
+      "destination": "/stickers/:file*"
+    },
+    {
       "source": "/api/(.*)",
       "destination": "/api/server.js"
     },
