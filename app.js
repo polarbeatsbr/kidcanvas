@@ -1,4 +1,69 @@
 
+// ============================================================
+// 🐛 MOBILE ERROR OVERLAY — Captura TODOS os erros JS em mobile
+// DEVE ser a PRIMEIRA coisa no arquivo para capturar erros top-level
+// ============================================================
+(function() {
+    if (window.innerWidth > 1024) return;
+    var _errCount = 0, _errList = [], _bugBtn = null, _panel = null, _logsList = null, _panelOpen = false;
+
+    function _createUI() {
+        if (_bugBtn) return;
+        _bugBtn = document.createElement('div');
+        _bugBtn.id = 'kc-bug-btn';
+        _bugBtn.textContent = '\uD83D\uDC1B';
+        _bugBtn.style.cssText = 'position:fixed;bottom:16px;right:16px;width:44px;height:44px;border-radius:50%;background:rgba(239,68,68,0.95);color:#fff;font-size:20px;display:none;align-items:center;justify-content:center;z-index:100001;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,0.4);border:2px solid #b91c1c;font-family:system-ui,sans-serif;user-select:none;-webkit-tap-highlight-color:transparent;';
+        _bugBtn.addEventListener('click', function() {
+            _panelOpen = !_panelOpen;
+            if (_panel) _panel.style.display = _panelOpen ? 'block' : 'none';
+        });
+        _panel = document.createElement('div');
+        _panel.id = 'kc-error-panel';
+        _panel.style.cssText = 'position:fixed;bottom:70px;left:10px;right:10px;max-height:200px;overflow-y:auto;background:rgba(0,0,0,0.95);color:#00ff00;font-family:monospace;font-size:11px;padding:10px;border-radius:8px;z-index:100000;display:none;border:2px solid #ef4444;pointer-events:auto;';
+        var hdr = document.createElement('div');
+        hdr.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;';
+        hdr.innerHTML = '<span style="font-weight:bold;color:#eab308;">\uD83D\uDC1B Debug Console</span>';
+        var cls = document.createElement('span');
+        cls.textContent = '\u2715 Fechar';
+        cls.style.cssText = 'color:#ff6b6b;font-weight:bold;cursor:pointer;font-size:12px;';
+        cls.addEventListener('click', function() { _panelOpen = false; _panel.style.display = 'none'; });
+        hdr.appendChild(cls);
+        _panel.appendChild(hdr);
+        _logsList = document.createElement('div');
+        _panel.appendChild(_logsList);
+        for (var i = 0; i < _errList.length; i++) _appendErr(_errList[i]);
+        (document.body || document.documentElement).appendChild(_bugBtn);
+        (document.body || document.documentElement).appendChild(_panel);
+    }
+
+    function _appendErr(o) {
+        if (!_logsList) return;
+        var d = document.createElement('div');
+        d.style.cssText = 'margin-bottom:4px;border-bottom:1px dashed #444;padding-bottom:3px;word-break:break-all;';
+        d.textContent = o.icon + ' ' + o.msg + (o.src ? ' \u27A4 ' + o.src : '');
+        _logsList.appendChild(d);
+        _panel.scrollTop = _panel.scrollHeight;
+    }
+
+    window.onerror = function(msg, source, lineno, colno) {
+        _errCount++;
+        var sf = source ? source.split('/').pop().split('?')[0] : 'inline';
+        var o = { icon: '\u274C', msg: String(msg), src: sf + ':' + lineno + ':' + colno };
+        _errList.push(o);
+        if (_bugBtn) { _bugBtn.style.display = 'flex'; _bugBtn.textContent = '\uD83D\uDC1B ' + _errCount; _appendErr(o); }
+    };
+    window.addEventListener('unhandledrejection', function(e) {
+        _errCount++;
+        var r = e.reason;
+        var o = { icon: '\u26A0\uFE0F', msg: 'Rejection: ' + (r && r.message ? r.message : String(r)), src: '' };
+        _errList.push(o);
+        if (_bugBtn) { _bugBtn.style.display = 'flex'; _bugBtn.textContent = '\uD83D\uDC1B ' + _errCount; _appendErr(o); }
+    });
+
+    if (document.body) _createUI();
+    else document.addEventListener('DOMContentLoaded', _createUI);
+})();
+
 // LocalStorage Safe Polyfill for Incognito Mode / Blocked Storage
 (function() {
     let storageAvailable = false;
@@ -9199,43 +9264,17 @@ function setPaintTool(tool) {
 
     const sliderGroup = document.getElementById('paint-slider-group');
     
-    if (tool === 'bucket') {
-        document.getElementById('paint-tool-bucket').classList.add('active');
-        // sliderGroup kept visible
-    } else if (tool === 'glitter') {
-        document.getElementById('paint-tool-glitter').classList.add('active');
-        // sliderGroup kept visible // Allow brush size for glitter brush
-    } else if (tool === 'brush') {
-        document.getElementById('paint-tool-brush').classList.add('active');
-        // sliderGroup kept visible
-    } else if (tool === 'neon') {
-        document.getElementById('paint-tool-neon').classList.add('active');
-        // sliderGroup kept visible
-    } else if (tool === 'brush-magic') {
-        document.getElementById('paint-tool-brush-magic').classList.add('active');
-        // sliderGroup kept visible
-    } else if (tool === 'eraser') {
-        document.getElementById('paint-tool-eraser').classList.add('active');
-        // sliderGroup kept visible
-    } else if (tool === 'pipette') {
-        document.getElementById('paint-tool-pipette').classList.add('active');
-        // sliderGroup kept visible
-    } else if (tool === 'text') {
-        document.getElementById('paint-tool-text').classList.add('active');
-        // sliderGroup kept visible
-        
+    const toolEl = document.getElementById('paint-tool-' + tool);
+    if (toolEl) {
+        toolEl.classList.add('active');
+    }
+
+    if (tool === 'text') {
         // Auto-preenche o campo de texto se estiver vazio para dar feedback visual imediato no cursor
         const textInput = document.getElementById('paint-text-value');
         if (textInput && textInput.value.trim() === '') {
             textInput.value = 'KidCanvas';
         }
-    } else if (tool === 'select') {
-        document.getElementById('paint-tool-select').classList.add('active');
-        // sliderGroup kept visible
-    } else if (tool === 'pan') {
-        const btnPan = document.getElementById('paint-tool-pan');
-        if (btnPan) btnPan.classList.add('active');
-        // sliderGroup kept visible
     }
 
     // Atualizar o botão de pan no controle de zoom
@@ -18904,79 +18943,6 @@ window.confirmarExclusaoCriatura = function(creatureId, creatureName) {
         }
     );
 };
-
-// Floating Mobile Debug Panel (Prints JS exceptions on screen on touch devices)
-(function() {
-    // Only initialize on mobile or tablet viewports
-    if (window.innerWidth > 1024) return;
-
-    window.addEventListener('DOMContentLoaded', () => {
-        const debugDiv = document.createElement('div');
-        debugDiv.id = 'mobile-debug-log';
-        debugDiv.style.position = 'fixed';
-        debugDiv.style.bottom = '80px';
-        debugDiv.style.left = '10px';
-        debugDiv.style.right = '10px';
-        debugDiv.style.maxHeight = '150px';
-        debugDiv.style.overflowY = 'auto';
-        debugDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-        debugDiv.style.color = '#00ff00';
-        debugDiv.style.fontFamily = 'monospace';
-        debugDiv.style.fontSize = '11px';
-        debugDiv.style.padding = '10px';
-        debugDiv.style.borderRadius = '8px';
-        debugDiv.style.zIndex = '100000';
-        debugDiv.style.pointerEvents = 'auto';
-        debugDiv.style.display = 'none';
-        debugDiv.style.border = '2px solid #ef4444';
-        
-        const closeBtn = document.createElement('span');
-        closeBtn.innerText = '✕ Fechar Debug';
-        closeBtn.style.color = '#ff6b6b';
-        closeBtn.style.float = 'right';
-        closeBtn.style.fontWeight = 'bold';
-        closeBtn.style.cursor = 'pointer';
-        closeBtn.onclick = () => { debugDiv.style.display = 'none'; };
-        debugDiv.appendChild(closeBtn);
-        
-        const title = document.createElement('div');
-        title.innerText = '🐛 DEBUG CONSOLE (Erros do Navegador):';
-        title.style.fontWeight = 'bold';
-        title.style.color = '#eab308';
-        title.style.marginBottom = '6px';
-        debugDiv.appendChild(title);
-
-        const logsList = document.createElement('div');
-        logsList.id = 'debug-logs-list';
-        debugDiv.appendChild(logsList);
-
-        document.body.appendChild(debugDiv);
-        
-        function logError(msg, source, lineno, colno, error) {
-            debugDiv.style.display = 'block';
-            const errLine = document.createElement('div');
-            errLine.style.marginBottom = '4px';
-            errLine.style.borderBottom = '1px dashed #444';
-            errLine.style.paddingBottom = '3px';
-            const srcFile = source ? source.split('/').pop() : 'inline';
-            errLine.innerText = `❌ ERR: ${msg}\n➔ ${srcFile}:${lineno}:${colno}`;
-            logsList.appendChild(errLine);
-            debugDiv.scrollTop = debugDiv.scrollHeight;
-        }
-        
-        window.onerror = logError;
-        window.addEventListener('unhandledrejection', (e) => {
-            debugDiv.style.display = 'block';
-            const errLine = document.createElement('div');
-            errLine.style.marginBottom = '4px';
-            errLine.style.borderBottom = '1px dashed #444';
-            errLine.style.paddingBottom = '3px';
-            errLine.innerText = `⚠️ REJ: ${e.reason}`;
-            logsList.appendChild(errLine);
-            debugDiv.scrollTop = debugDiv.scrollHeight;
-        });
-    });
-})();
 
 
 
