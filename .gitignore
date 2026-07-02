@@ -36,6 +36,8 @@ C:\\Users\\foneo\\.gemini\antigravity\brain/
 !star-counter.js
 !drawing-complete.js
 !seo.js
+!playwright.config.js
+!tests/*.spec.js
 
 # JSON files
 *.json
@@ -53,6 +55,7 @@ C:\\Users\\foneo\\.gemini\antigravity\brain/
 # Markdown files in root
 *.md
 !README.md
+!TESTING.md
 
 # Large backup and user-saved image folders
 public/pintai-biblioteca-backup/
