@@ -14202,14 +14202,6 @@ window.getDynamicClueText = function(card) {
 };
 
 window.openAlbumModal = async function() {
-    // 1. Mostrar o overlay imediatamente para garantir a abertura visual instantânea
-    const overlay = document.getElementById('livro-descobertas-overlay');
-    if (overlay) {
-        overlay.classList.add('active');
-        const wrap = overlay.querySelector('.livro-paginas-wrap');
-        if (wrap) wrap.scrollLeft = 0;
-    }
-
     // Alert temporário para depuração fácil no mobile
     const userSummary = currentUser ? `${currentUser.email} (${currentUser.plan})` : 'deslogado';
     alert(`DEBUG openAlbumModal:\nUser: ${userSummary}\nwindow.sessionToken: ${window.sessionToken}\nlocalStorage: ${localStorage.getItem('kidcanvas_session_token')}`);
@@ -14222,6 +14214,14 @@ window.openAlbumModal = async function() {
         showToast('Faça login para ver seu Livro das Descobertas! 📖', 'info');
         openAuthModal();
         return;
+    }
+
+    // 1. Mostrar o overlay imediatamente para garantir a abertura visual instantânea
+    const overlay = document.getElementById('livro-descobertas-overlay');
+    if (overlay) {
+        overlay.classList.add('active');
+        const wrap = overlay.querySelector('.livro-paginas-wrap');
+        if (wrap) wrap.scrollLeft = 0;
     }
     
     try {

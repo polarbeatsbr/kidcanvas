@@ -10813,3 +10813,8 @@ background-repeat:no-repeat; background-position:right 10px center; outline:none
 .btn-delete-bestiary-link:hover {
     opacity: 1 !important;
 }
+
+/* Garante que o modal de autenticação sempre apareça acima de qualquer outro overlay */
+#authModal {
+    z-index: 20000 !important;
+}
