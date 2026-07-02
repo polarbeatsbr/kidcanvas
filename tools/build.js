@@ -150,11 +150,17 @@ async function build() {
                     const rootDestPath = path.join(publicDir, file);
                     fs.writeFileSync(rootDestPath, fileResult.code, 'utf8');
                     console.log(`Also copied ${file} to public/${file} (Vercel CDN root)`);
+
+                    // Also copy to project root (Vercel serves static from project root)
+                    const projectRootPath = path.join(__dirname, '..', file);
+                    fs.writeFileSync(projectRootPath, fileResult.code, 'utf8');
+                    console.log(`Also copied ${file} to project root /${file}`);
                 } catch (minifyError) {
                     console.error(`Error minifying ${file}:`, minifyError);
                     // Fallback to copying directly if minify fails
                     fs.copyFileSync(fileSrcPath, fileDestPath);
                     fs.copyFileSync(fileSrcPath, path.join(publicDir, file));
+                    fs.copyFileSync(fileSrcPath, path.join(__dirname, '..', file));
                 }
             }
         }
