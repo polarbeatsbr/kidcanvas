@@ -45,33 +45,39 @@
 
 // Secure Session Polyfill for KidCanvas (localStorage removal & cookie credentials mapping)
 (function() {
-    // 1. Interceptar localStorage para não armazenar tokens de sessão
-    const originalGet = localStorage.getItem.bind(localStorage);
-    const originalSet = localStorage.setItem.bind(localStorage);
-    const originalRemove = localStorage.removeItem.bind(localStorage);
-    
-    localStorage.getItem = function(key) {
-        if (key === 'kidcanvas_session_token') {
-            return window.sessionToken || '';
-        }
-        return originalGet(key);
-    };
-    
-    localStorage.setItem = function(key, value) {
-        if (key === 'kidcanvas_session_token') {
-            window.sessionToken = value; // Salva em memória
-            return; // Impede gravação do token no localStorage por segurança
-        }
-        return originalSet(key, value);
-    };
-    
-    localStorage.removeItem = function(key) {
-        if (key === 'kidcanvas_session_token') {
-            window.sessionToken = null; // Remove da memória
-            return;
-        }
-        return originalRemove(key);
-    };
+    // 1. Interceptar Storage.prototype para não armazenar tokens de sessão
+    if (typeof Storage !== 'undefined') {
+        const originalGet = Storage.prototype.getItem;
+        const originalSet = Storage.prototype.setItem;
+        const originalRemove = Storage.prototype.removeItem;
+        
+        Storage.prototype.getItem = function(key) {
+            if (key === 'kidcanvas_session_token') {
+                return window.sessionToken || '';
+            }
+            return originalGet ? originalGet.call(this, key) : null;
+        };
+        
+        Storage.prototype.setItem = function(key, value) {
+            if (key === 'kidcanvas_session_token') {
+                window.sessionToken = value; // Salva em memória
+                return; // Impede gravação do token no localStorage por segurança
+            }
+            if (originalSet) {
+                originalSet.call(this, key, value);
+            }
+        };
+        
+        Storage.prototype.removeItem = function(key) {
+            if (key === 'kidcanvas_session_token') {
+                window.sessionToken = null; // Remove da memória
+                return;
+            }
+            if (originalRemove) {
+                originalRemove.call(this, key);
+            }
+        };
+    }
 
     // 2. Interceptar fetch global para adicionar automaticamente credentials: 'include'
     const originalFetch = window.fetch;
