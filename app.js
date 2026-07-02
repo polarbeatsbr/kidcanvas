@@ -5222,22 +5222,26 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
     const customThemeWrapper = document.getElementById('customThemeWrapper');
     const customThemeInput = document.getElementById('customThemeInput');
 
-    themeSelect.addEventListener('change', () => {
-        if (themeSelect.value === 'custom') {
-            customThemeWrapper.classList.add('open');
-            customThemeInput.focus();
-        } else {
-            customThemeWrapper.classList.remove('open');
-            customThemeInput.value = '';
-        }
-    });
+    if (themeSelect) {
+        themeSelect.addEventListener('change', () => {
+            if (themeSelect.value === 'custom') {
+                customThemeWrapper.classList.add('open');
+                customThemeInput.focus();
+            } else {
+                customThemeWrapper.classList.remove('open');
+                customThemeInput.value = '';
+            }
+        });
+    }
 
     // Dynamic character counter for synopsis
     const storySynopsis = document.getElementById('storySynopsis');
     const synopsisCounter = document.getElementById('synopsisCounter');
-    storySynopsis.addEventListener('input', () => {
-        synopsisCounter.textContent = `${storySynopsis.value.length}/300`;
-    });
+    if (storySynopsis) {
+        storySynopsis.addEventListener('input', () => {
+            synopsisCounter.textContent = `${storySynopsis.value.length}/300`;
+        });
+    }
 
     function startLoadingAnimation() {
         const loadTextEl = document.getElementById('loadingText');
@@ -5254,7 +5258,7 @@ window.handlePlansInterestSubmit = handlePlansInterestSubmit;
     let generatedParagraphs = []; // Global reference to paragraphs
     let generatedCoverUrl = ""; // Global cover URL reference
     
-    btnGenerate.addEventListener('click', async () => {
+    if (btnGenerate) btnGenerate.addEventListener('click', async () => {
         const rawCharacterName = document.getElementById('characterName').value.trim();
         const characterName = capitalizeFirstLetter(rawCharacterName);
         const styleType = document.querySelector('input[name="styleType"]:checked').value;
