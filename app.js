@@ -14202,6 +14202,18 @@ window.getDynamicClueText = function(card) {
 };
 
 window.openAlbumModal = async function() {
+    // 1. Mostrar o overlay imediatamente para garantir a abertura visual instantânea
+    const overlay = document.getElementById('livro-descobertas-overlay');
+    if (overlay) {
+        overlay.classList.add('active');
+        const wrap = overlay.querySelector('.livro-paginas-wrap');
+        if (wrap) wrap.scrollLeft = 0;
+    }
+
+    // Alert temporário para depuração fácil no mobile
+    const userSummary = currentUser ? `${currentUser.email} (${currentUser.plan})` : 'deslogado';
+    alert(`DEBUG openAlbumModal:\nUser: ${userSummary}\nwindow.sessionToken: ${window.sessionToken}\nlocalStorage: ${localStorage.getItem('kidcanvas_session_token')}`);
+    
     console.log('DEBUG currentUser:', currentUser);
     console.log('DEBUG window.sessionToken:', window.sessionToken);
     console.log('DEBUG localStorage token:', localStorage.getItem('kidcanvas_session_token'));
@@ -14212,220 +14224,216 @@ window.openAlbumModal = async function() {
         return;
     }
     
-    localStorage.setItem('kidcanvas_livro_visited', 'true');
-    if (window.checkLivroNovidadeBadge) window.checkLivroNovidadeBadge();
-    
     try {
-        const res = await fetch('/api/store/catalog');
-        const data = await res.json();
+        localStorage.setItem('kidcanvas_livro_visited', 'true');
+        if (window.checkLivroNovidadeBadge) window.checkLivroNovidadeBadge();
         
-        if (data.success) {
-            window.globalCatalog = data.catalog;
+        try {
+            const res = await fetch('/api/store/catalog');
+            const data = await res.json();
+            
+            if (data.success) {
+                window.globalCatalog = data.catalog;
+            }
+        } catch(e) {
+            console.log('Erro ao carregar catálogo:', e);
         }
-    } catch(e) {
-        console.log('Erro ao carregar catálogo:', e);
-    }
-    
-    const catalog = window.globalCatalog || [];
-    const userCards = currentUser.cards || [];
-    
-    // Calcular Estatística Global
-    const globalTotal = catalog.length;
-    const globalOwned = catalog.filter(c => window.isDiscoveryOwned(c)).length;
-    const globalPct = globalTotal > 0 ? Math.round((globalOwned / globalTotal) * 100) : 0;
-    
-    const statsTextEl = document.getElementById('livro-global-stats-text');
-    if (statsTextEl) statsTextEl.innerText = `${globalOwned} / ${globalTotal}`;
-    const statsBarEl = document.getElementById('livro-global-stats-bar');
-    if (statsBarEl) statsBarEl.style.width = `${globalPct}%`;
-    const statsPctEl = document.getElementById('livro-global-stats-pct');
-    if (statsPctEl) statsPctEl.innerText = `${globalPct}%`;
-
-    // Iniciar Dicas Rotativas
-    if (window.livroDicasInterval) {
-        clearInterval(window.livroDicasInterval);
-    }
-    const tips = [
-        "📖 Cada pintura pode revelar uma nova descoberta.",
-        "🦖 Os maiores exploradores completam todos os capítulos.",
-        "✨ Algumas descobertas são extremamente raras.",
-        "🌊 Continue explorando para revelar segredos escondidos.",
-        "🚀 O Universo Infinito aguarda os exploradores mais dedicados."
-    ];
-    let tipIdx = 0;
-    const tipTextEl = document.getElementById('livro-dica-texto');
-    const tipContainerEl = document.getElementById('livro-dicas-rotativas');
-    if (tipTextEl) tipTextEl.innerText = tips[0];
-    if (tipContainerEl) tipContainerEl.style.opacity = '1';
-
-    window.livroDicasInterval = setInterval(() => {
-        if (tipTextEl && tipContainerEl) {
-            tipContainerEl.style.opacity = '0';
-            setTimeout(() => {
-                tipIdx = (tipIdx + 1) % tips.length;
-                tipTextEl.innerText = tips[tipIdx];
-                tipContainerEl.style.opacity = '1';
-            }, 400);
-        }
-    }, 6000);
-
-    // Agrupar por coleção/capítulo
-    const collections = {};
-    catalog.forEach(c => {
-        const colName = c.collection ? c.collection.split(' ')[1] : 'Geral';
-        if (!collections[colName]) collections[colName] = [];
-        collections[colName].push(c);
-    });
-
-    // Renderizar Mapa de Exploração Geral ("Seu Progresso")
-    const progGeralListaEl = document.getElementById('livro-progresso-geral-lista');
-    if (progGeralListaEl) {
-        progGeralListaEl.innerHTML = '';
         
-        const colors = {
-            'Pinturas': 'linear-gradient(90deg, #3498db, #2980b9)',
-            'Dinossauros': 'linear-gradient(90deg, #2ecc71, #27ae60)',
-            'Livros': 'linear-gradient(90deg, #f1c40f, #e67e22)',
-            'Expedições': 'linear-gradient(90deg, #e74c3c, #c0392b)',
-            'Comunidade': 'linear-gradient(90deg, #9b59b6, #8e44ad)',
-            'Lendárias': 'linear-gradient(90deg, #f39c12, #d35400)',
-            'Lendas-do-Desenho': 'linear-gradient(90deg, #fdcb6e, #e67e22)'
-        };
-
-        for (const [colName, cardsInCol] of Object.entries(collections)) {
-            const owned = cardsInCol.filter(c => window.isDiscoveryOwned(c)).length;
-            const total = cardsInCol.length;
-            const pct = Math.round((owned / total) * 100);
-            const firstCard = cardsInCol[0];
-            const emoji = firstCard && firstCard.collection ? firstCard.collection.split(' ')[0] : '🃏';
-            const barBg = colors[colName] || 'linear-gradient(90deg, #6c5ce7, #a29bfe)';
-
-            const item = document.createElement('div');
-            item.className = 'livro-progresso-geral-item';
-            item.onclick = () => selectChapter(colName);
-            item.innerHTML = `
-                <div class="livro-progresso-item-info">
-                    <span class="livro-progresso-item-nome">${emoji} ${colName}</span>
-                    <span>${owned}/${total}</span>
-                </div>
-                <div class="livro-progresso-item-bar-bg">
-                    <div class="livro-progresso-item-bar-fill" style="width: ${pct}%; background: ${barBg};"></div>
-                </div>
-            `;
-            progGeralListaEl.appendChild(item);
-        }
-    }
-    
-    // Renderizar a lista de capítulos na folha esquerda
-    const chaptersListEl = document.getElementById('livro-capitulos-lista');
-    if (chaptersListEl) {
-        chaptersListEl.innerHTML = '';
+        const catalog = window.globalCatalog || [];
+        const userCards = currentUser.cards || [];
         
-        // --- ADICIONADO: BOTÃO EXPEDIÇÃO MÁGICA DA SEMANA NO TOPO ---
-        if (typeof currentActiveEvent !== 'undefined' && currentActiveEvent && currentActiveEvent.active) {
-            const week = currentActiveEvent.week;
-            const progress = currentActiveEvent.progress;
+        // Calcular Estatística Global
+        const globalTotal = catalog.length;
+        const globalOwned = catalog.filter(c => window.isDiscoveryOwned(c)).length;
+        const globalPct = globalTotal > 0 ? Math.round((globalOwned / globalTotal) * 100) : 0;
+        
+        const statsTextEl = document.getElementById('livro-global-stats-text');
+        if (statsTextEl) statsTextEl.innerText = `${globalOwned} / ${globalTotal}`;
+        const statsBarEl = document.getElementById('livro-global-stats-bar');
+        if (statsBarEl) statsBarEl.style.width = `${globalPct}%`;
+        const statsPctEl = document.getElementById('livro-global-stats-pct');
+        if (statsPctEl) statsPctEl.innerText = `${globalPct}%`;
+
+        // Iniciar Dicas Rotativas
+        if (window.livroDicasInterval) {
+            clearInterval(window.livroDicasInterval);
+        }
+        const tips = [
+            "📖 Cada pintura pode revelar uma nova descoberta.",
+            "🦖 Os maiores exploradores completam todos os capítulos.",
+            "✨ Algumas descobertas são extremamente raras.",
+            "🌊 Continue explorando para revelar segredos escondidos.",
+            "🚀 O Universo Infinito aguarda os exploradores mais dedicados."
+        ];
+        let tipIdx = 0;
+        const tipTextEl = document.getElementById('livro-dica-texto');
+        const tipContainerEl = document.getElementById('livro-dicas-rotativas');
+        if (tipTextEl) tipTextEl.innerText = tips[0];
+        if (tipContainerEl) tipContainerEl.style.opacity = '1';
+
+        window.livroDicasInterval = setInterval(() => {
+            if (tipTextEl && tipContainerEl) {
+                tipContainerEl.style.opacity = '0';
+                setTimeout(() => {
+                    tipIdx = (tipIdx + 1) % tips.length;
+                    tipTextEl.innerText = tips[tipIdx];
+                    tipContainerEl.style.opacity = '1';
+                }, 400);
+            }
+        }, 6000);
+
+        // Agrupar por coleção/capítulo
+        const collections = {};
+        catalog.forEach(c => {
+            const colName = c.collection ? c.collection.split(' ')[1] : 'Geral';
+            if (!collections[colName]) collections[colName] = [];
+            collections[colName].push(c);
+        });
+
+        // Renderizar Mapa de Exploração Geral ("Seu Progresso")
+        const progGeralListaEl = document.getElementById('livro-progresso-geral-lista');
+        if (progGeralListaEl) {
+            progGeralListaEl.innerHTML = '';
             
-            const mainMissions = week.missions.filter(m => m.tier !== 'epica');
-            const completedMain = mainMissions.filter(m => progress[m.id] && progress[m.id].current >= m.req).length;
-            const totalMain = mainMissions.length;
+            const colors = {
+                'Pinturas': 'linear-gradient(90deg, #3498db, #2980b9)',
+                'Dinossauros': 'linear-gradient(90deg, #2ecc71, #27ae60)',
+                'Livros': 'linear-gradient(90deg, #f1c40f, #e67e22)',
+                'Expedições': 'linear-gradient(90deg, #e74c3c, #c0392b)',
+                'Comunidade': 'linear-gradient(90deg, #9b59b6, #8e44ad)',
+                'Lendárias': 'linear-gradient(90deg, #f39c12, #d35400)',
+                'Lendas-do-Desenho': 'linear-gradient(90deg, #fdcb6e, #e67e22)'
+            };
+
+            for (const [colName, cardsInCol] of Object.entries(collections)) {
+                const owned = cardsInCol.filter(c => window.isDiscoveryOwned(c)).length;
+                const total = cardsInCol.length;
+                const pct = Math.round((owned / total) * 100);
+                const firstCard = cardsInCol[0];
+                const emoji = firstCard && firstCard.collection ? firstCard.collection.split(' ')[0] : '🃏';
+                const barBg = colors[colName] || 'linear-gradient(90deg, #6c5ce7, #a29bfe)';
+
+                const item = document.createElement('div');
+                item.className = 'livro-progresso-geral-item';
+                item.onclick = () => selectChapter(colName);
+                item.innerHTML = `
+                    <div class="livro-progresso-item-info">
+                        <span class="livro-progresso-item-nome">${emoji} ${colName}</span>
+                        <span>${owned}/${total}</span>
+                    </div>
+                    <div class="livro-progresso-item-bar-bg">
+                        <div class="livro-progresso-item-bar-fill" style="width: ${pct}%; background: ${barBg};"></div>
+                    </div>
+                `;
+                progGeralListaEl.appendChild(item);
+            }
+        }
+        
+        // Renderizar a lista de capítulos na folha esquerda
+        const chaptersListEl = document.getElementById('livro-capitulos-lista');
+        if (chaptersListEl) {
+            chaptersListEl.innerHTML = '';
             
-            const expBtn = document.createElement('div');
-            expBtn.className = 'livro-capitulo-btn livro-expedition-btn';
-            expBtn.id = 'btn-capitulo-expedition';
-            expBtn.onclick = () => selectChapter('expedition');
+            // --- ADICIONADO: BOTÃO EXPEDIÇÃO MÁGICA DA SEMANA NO TOPO ---
+            if (typeof currentActiveEvent !== 'undefined' && currentActiveEvent && currentActiveEvent.active) {
+                const week = currentActiveEvent.week;
+                const progress = currentActiveEvent.progress;
+                
+                const mainMissions = week.missions.filter(m => m.tier !== 'epica');
+                const completedMain = mainMissions.filter(m => progress[m.id] && progress[m.id].current >= m.req).length;
+                const totalMain = mainMissions.length;
+                
+                const expBtn = document.createElement('div');
+                expBtn.className = 'livro-capitulo-btn livro-expedition-btn';
+                expBtn.id = 'btn-capitulo-expedition';
+                expBtn.onclick = () => selectChapter('expedition');
+                
+                const expeditionEmoji = {
+                    'Dinossauros': '🦖',
+                    'Animais': '🦊',
+                    'Fantasia': '✨',
+                    'Veículos': '🚗',
+                    'Oceano': '🌊',
+                    'Espaço': '🚀',
+                    'Piratas': '⚓'
+                }[week.theme] || '✨';
+                
+                expBtn.innerHTML = `
+                    <div class="livro-capitulo-info">
+                        <span class="livro-capitulo-emoji">${expeditionEmoji}</span>
+                        <span class="livro-capitulo-nome" style="font-weight:900; color:#8e44ad;">✨ Expedição Mágica</span>
+                    </div>
+                    <span class="livro-capitulo-progresso" id="livro-expedition-progresso-badge" style="background:linear-gradient(135deg, #a29bfe, #6c5ce7); color:white; font-weight:800; border:none; padding:2px 8px; border-radius:10px;">${completedMain}/${totalMain}</span>
+                `;
+                chaptersListEl.appendChild(expBtn);
+            }
             
-            const expeditionEmoji = {
-                'Dinossauros': '🦖',
-                'Animais': '🦊',
-                'Fantasia': '✨',
-                'Veículos': '🚗',
-                'Oceano': '🌊',
-                'Espaço': '🚀',
-                'Piratas': '⚓'
-            }[week.theme] || '✨';
+            const mestreNames = {
+                'Pinturas': 'Mestre das Pinturas',
+                'Dinossauros': 'Mestre dos Dinossauros',
+                'Livros': 'Mestre dos Livros',
+                'Expedições': 'Mestre das Expedições',
+                'Comunidade': 'Mestre da Comunidade',
+                'Lendárias': 'Lenda do KidCanvas',
+                'Lendas-do-Desenho': 'Lenda do Desenho'
+            };
             
-            expBtn.innerHTML = `
+            let firstCol = null;
+            for (const [colName, cardsInCol] of Object.entries(collections)) {
+                if (!firstCol) firstCol = colName;
+                
+                const owned = cardsInCol.filter(c => window.isDiscoveryOwned(c)).length;
+                const total = cardsInCol.length;
+                const firstCard = cardsInCol[0];
+                const emoji = firstCard && firstCard.collection ? firstCard.collection.split(' ')[0] : '🃏';
+                
+                const isCompleted = owned === total && total > 0;
+                const displayName = colName.replace(/-/g, ' ');
+                const chapterTitle = isCompleted ? `🏆 ${mestreNames[colName] || 'Mestre de ' + displayName}` : `Capítulo ${displayName}`;
+                
+                const btn = document.createElement('div');
+                btn.className = `livro-capitulo-btn${isCompleted ? ' capitulo-completo' : ''}`;
+                btn.id = `btn-capitulo-${colName}`;
+                btn.onclick = () => selectChapter(colName);
+                btn.innerHTML = `
+                    <div class="livro-capitulo-info">
+                        <span class="livro-capitulo-emoji">${emoji}</span>
+                        <span class="livro-capitulo-nome">${chapterTitle}</span>
+                    </div>
+                    <span class="livro-capitulo-progresso">${owned}/${total}</span>
+                `;
+                chaptersListEl.appendChild(btn);
+            }
+
+            // --- ADICIONADO: BOTÃO DO BESTIÁRIO ---
+            const bestiaryBtn = document.createElement('div');
+            bestiaryBtn.className = 'livro-capitulo-btn';
+            bestiaryBtn.id = 'btn-capitulo-bestiary';
+            bestiaryBtn.onclick = () => selectChapter('bestiary');
+            
+            const bestiaryCount = (currentUser.bestiary || []).length;
+            bestiaryBtn.innerHTML = `
                 <div class="livro-capitulo-info">
-                    <span class="livro-capitulo-emoji">${expeditionEmoji}</span>
-                    <span class="livro-capitulo-nome" style="font-weight:900; color:#8e44ad;">✨ Expedição Mágica</span>
+                    <span class="livro-capitulo-emoji">🧪</span>
+                    <span class="livro-capitulo-nome" style="font-weight:700; color:#7c3aed;">Bestiário Maluco</span>
                 </div>
-                <span class="livro-capitulo-progresso" id="livro-expedition-progresso-badge" style="background:linear-gradient(135deg, #a29bfe, #6c5ce7); color:white; font-weight:800; border:none; padding:2px 8px; border-radius:10px;">${completedMain}/${totalMain}</span>
+                <span class="livro-capitulo-progresso">${bestiaryCount}</span>
             `;
-            chaptersListEl.appendChild(expBtn);
-        }
-        
-        const mestreNames = {
-            'Pinturas': 'Mestre das Pinturas',
-            'Dinossauros': 'Mestre dos Dinossauros',
-            'Livros': 'Mestre dos Livros',
-            'Expedições': 'Mestre das Expedições',
-            'Comunidade': 'Mestre da Comunidade',
-            'Lendárias': 'Lenda do KidCanvas',
-            'Lendas-do-Desenho': 'Lenda do Desenho'
-        };
-        
-        let firstCol = null;
-        for (const [colName, cardsInCol] of Object.entries(collections)) {
-            if (!firstCol) firstCol = colName;
+            chaptersListEl.appendChild(bestiaryBtn);
             
-            const owned = cardsInCol.filter(c => window.isDiscoveryOwned(c)).length;
-            const total = cardsInCol.length;
-            const firstCard = cardsInCol[0];
-            const emoji = firstCard && firstCard.collection ? firstCard.collection.split(' ')[0] : '🃏';
-            
-            const isCompleted = owned === total && total > 0;
-            const displayName = colName.replace(/-/g, ' ');
-            const chapterTitle = isCompleted ? `🏆 ${mestreNames[colName] || 'Mestre de ' + displayName}` : `Capítulo ${displayName}`;
-            
-            const btn = document.createElement('div');
-            btn.className = `livro-capitulo-btn${isCompleted ? ' capitulo-completo' : ''}`;
-            btn.id = `btn-capitulo-${colName}`;
-            btn.onclick = () => selectChapter(colName);
-            btn.innerHTML = `
-                <div class="livro-capitulo-info">
-                    <span class="livro-capitulo-emoji">${emoji}</span>
-                    <span class="livro-capitulo-nome">${chapterTitle}</span>
-                </div>
-                <span class="livro-capitulo-progresso">${owned}/${total}</span>
-            `;
-            chaptersListEl.appendChild(btn);
+            if (window.creatureToHighlightId) {
+                selectChapter('bestiary');
+                showBestiaryCreatureDetails(window.creatureToHighlightId);
+                window.creatureToHighlightId = null;
+            } else if (window.openWithBestiaryActive) {
+                selectChapter('bestiary');
+                window.openWithBestiaryActive = false;
+            } else if (firstCol) {
+                selectChapter(firstCol);
+            }
         }
-
-        // --- ADICIONADO: BOTÃO DO BESTIÁRIO ---
-        const bestiaryBtn = document.createElement('div');
-        bestiaryBtn.className = 'livro-capitulo-btn';
-        bestiaryBtn.id = 'btn-capitulo-bestiary';
-        bestiaryBtn.onclick = () => selectChapter('bestiary');
-        
-        const bestiaryCount = (currentUser.bestiary || []).length;
-        bestiaryBtn.innerHTML = `
-            <div class="livro-capitulo-info">
-                <span class="livro-capitulo-emoji">🧪</span>
-                <span class="livro-capitulo-nome" style="font-weight:700; color:#7c3aed;">Bestiário Maluco</span>
-            </div>
-            <span class="livro-capitulo-progresso">${bestiaryCount}</span>
-        `;
-        chaptersListEl.appendChild(bestiaryBtn);
-        
-        if (window.creatureToHighlightId) {
-            selectChapter('bestiary');
-            showBestiaryCreatureDetails(window.creatureToHighlightId);
-            window.creatureToHighlightId = null;
-        } else if (window.openWithBestiaryActive) {
-            selectChapter('bestiary');
-            window.openWithBestiaryActive = false;
-        } else if (firstCol) {
-            selectChapter(firstCol);
-        }
-    }
-    
-    // Exibir o overlay do livro
-    const overlay = document.getElementById('livro-descobertas-overlay');
-    if (overlay) {
-        overlay.classList.add('active');
-        const wrap = overlay.querySelector('.livro-paginas-wrap');
-        if (wrap) wrap.scrollLeft = 0;
+    } catch(err) {
+        console.error('[openAlbumModal rendering error]', err);
     }
 };
 
@@ -18562,6 +18570,10 @@ window.openBestiaryDirectly = async function() {
 };
 
 window.saveCreatureToBestiary = async function() {
+    // Alert temporário para depuração fácil no mobile
+    const userSummary = currentUser ? `${currentUser.email} (${currentUser.plan})` : 'deslogado';
+    alert(`DEBUG saveCreatureToBestiary:\nUser: ${userSummary}\nwindow.sessionToken: ${window.sessionToken}\nlocalStorage: ${localStorage.getItem('kidcanvas_session_token')}`);
+    
     console.log('DEBUG currentUser:', currentUser);
     console.log('DEBUG window.sessionToken:', window.sessionToken);
     console.log('DEBUG localStorage token:', localStorage.getItem('kidcanvas_session_token'));
