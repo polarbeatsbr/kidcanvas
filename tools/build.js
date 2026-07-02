@@ -145,10 +145,16 @@ async function build() {
                     });
                     fs.writeFileSync(fileDestPath, fileResult.code, 'utf8');
                     console.log(`Minified and copied ${file} to public/js/${file}`);
+
+                    // Also copy to root of public/ for Vercel CDN static serving
+                    const rootDestPath = path.join(publicDir, file);
+                    fs.writeFileSync(rootDestPath, fileResult.code, 'utf8');
+                    console.log(`Also copied ${file} to public/${file} (Vercel CDN root)`);
                 } catch (minifyError) {
                     console.error(`Error minifying ${file}:`, minifyError);
                     // Fallback to copying directly if minify fails
                     fs.copyFileSync(fileSrcPath, fileDestPath);
+                    fs.copyFileSync(fileSrcPath, path.join(publicDir, file));
                 }
             }
         }
