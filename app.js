@@ -9264,18 +9264,28 @@ function showPerigoTip(key) {
 }
 window.showPerigoTip = showPerigoTip;
 
-// Configurar Toolbar de Pintura
-document.getElementById('paint-tool-bucket').onclick = () => setPaintTool('bucket');
-document.getElementById('paint-tool-glitter').onclick = () => setPaintTool('glitter');
-document.getElementById('paint-tool-brush-magic').onclick = () => setPaintTool('brush-magic');
-document.getElementById('paint-tool-brush').onclick = () => setPaintTool('brush');
-document.getElementById('paint-tool-neon').onclick = () => setPaintTool('neon');
-document.getElementById('paint-tool-eraser').onclick = () => setPaintTool('eraser');
-document.getElementById('paint-tool-pipette').onclick = () => setPaintTool('pipette');
-document.getElementById('paint-tool-text').onclick = () => setPaintTool('text');
-document.getElementById('paint-tool-select').onclick = () => setPaintTool('select');
-const btnPanTool = document.getElementById('paint-tool-pan');
-if (btnPanTool) btnPanTool.onclick = () => setPaintTool('pan');
+// Configurar Toolbar de Pintura (com null-check para páginas sem toolbar)
+const _ptBucket = document.getElementById('paint-tool-bucket');
+const _ptGlitter = document.getElementById('paint-tool-glitter');
+const _ptBrushMagic = document.getElementById('paint-tool-brush-magic');
+const _ptBrush = document.getElementById('paint-tool-brush');
+const _ptNeon = document.getElementById('paint-tool-neon');
+const _ptEraser = document.getElementById('paint-tool-eraser');
+const _ptPipette = document.getElementById('paint-tool-pipette');
+const _ptText = document.getElementById('paint-tool-text');
+const _ptSelect = document.getElementById('paint-tool-select');
+const _ptPan = document.getElementById('paint-tool-pan');
+
+if (_ptBucket) _ptBucket.onclick = () => setPaintTool('bucket');
+if (_ptGlitter) _ptGlitter.onclick = () => setPaintTool('glitter');
+if (_ptBrushMagic) _ptBrushMagic.onclick = () => setPaintTool('brush-magic');
+if (_ptBrush) _ptBrush.onclick = () => setPaintTool('brush');
+if (_ptNeon) _ptNeon.onclick = () => setPaintTool('neon');
+if (_ptEraser) _ptEraser.onclick = () => setPaintTool('eraser');
+if (_ptPipette) _ptPipette.onclick = () => setPaintTool('pipette');
+if (_ptText) _ptText.onclick = () => setPaintTool('text');
+if (_ptSelect) _ptSelect.onclick = () => setPaintTool('select');
+if (_ptPan) _ptPan.onclick = () => setPaintTool('pan');
 
 // Configurar carimbos rápidos (clique insere instantaneamente no centro)
 document.querySelectorAll('.paint-stamp-btn').forEach(btn => {

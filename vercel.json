@@ -99,7 +99,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/:category/:drawing",
+      "source": "/:category([^/.]+)/:drawing([^/.]+)",
       "destination": "/index.html"
     }
   ]
