@@ -18299,7 +18299,7 @@ async function gerarMisturaCientista() {
         box.className = "result-box";
         box.innerHTML = `
             <div class="spinner"></div>
-            <div class="loading-msg">🧪 Misturando ${n1} com ${n2}...</div>
+            <div class="loading-msg">🧪 Dr. LocoMix está misturando os ingredientes ${n1} com ${n2}...</div>
         `;
         // Auto-scroll to loading box on mobile and desktop
         box.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -18335,56 +18335,6 @@ async function gerarMisturaCientista() {
         };
         const cor = cores[data.raridade] || "#7c3aed";
 
-        // Render creature details and start image generation phase
-        if (box) {
-            box.className = "result-box has-result";
-            box.innerHTML = `
-                <div style="font-size: 44px;">${e1} + ${e2}</div>
-                <div style="font-size: 11px; font-weight: 800; color: white; background: ${cor}; padding: 3px 12px; border-radius: 20px; margin: 8px 0; display: inline-block; text-transform: uppercase;">
-                    ⭐ ${data.raridade}
-                </div>
-                <div class="result-creature-name">✨ ${data.nome} ✨</div>
-                <div class="result-creature-desc" style="margin: 10px 0; max-width: 320px; font-size: 14px;">${data.descricao}</div>
-                <div class="result-power">⚡ Poder: ${data.poder}</div>
-                <div class="image-loader-container" style="margin-top: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 280px;">
-                    <div class="cientista-loader-frames" style="position: relative; width: 140px; height: 248px; margin: 10px 0; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.15); border: 2px solid #a78bfa; background: #f3e8ff;">
-                        <img id="cientista-loader-img1" src="/loading_frame1.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; opacity: 1; transition: opacity 0.3s ease-in-out;">
-                        <img id="cientista-loader-img2" src="/loading_frame2.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; opacity: 0; transition: opacity 0.3s ease-in-out;">
-                        <img id="cientista-loader-img3" src="/loading_frame3.png" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; object-position: center; opacity: 0; transition: opacity 0.3s ease-in-out;">
-                    </div>
-                    <div style="font-size: 12px; color: #7c3aed; font-weight: bold; margin-top: 6px; text-align: center;">🧪 Dr. LocoMix está trabalhando...</div>
-                </div>
-            `;
-
-            // Start animation loop
-            let currentFrame = 1;
-            const loaderInterval = setInterval(() => {
-                const img1 = document.getElementById('cientista-loader-img1');
-                const img2 = document.getElementById('cientista-loader-img2');
-                const img3 = document.getElementById('cientista-loader-img3');
-                if (!img1 || !img2 || !img3) {
-                    clearInterval(loaderInterval);
-                    return;
-                }
-                if (currentFrame === 1) {
-                    img1.style.opacity = '0';
-                    img2.style.opacity = '1';
-                    img3.style.opacity = '0';
-                    currentFrame = 2;
-                } else if (currentFrame === 2) {
-                    img1.style.opacity = '0';
-                    img2.style.opacity = '0';
-                    img3.style.opacity = '1';
-                    currentFrame = 3;
-                } else {
-                    img1.style.opacity = '1';
-                    img2.style.opacity = '0';
-                    img3.style.opacity = '0';
-                    currentFrame = 1;
-                }
-            }, 900);
-        }
-
         // Phase 2: Image generation
         const imgRes = await fetch('/api/cientista/gerar-imagem', {
             method: 'POST',
@@ -18417,6 +18367,7 @@ async function gerarMisturaCientista() {
 
         // Render the complete creature card with the image
         if (box) {
+            box.className = "result-box has-result";
             box.innerHTML = `
                 <div class="creature-card-wrapper" style="display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%;">
                     <img id="cientista-creature-img" src="${imgData.imageUrl}" alt="${data.nome}" style="width: 100%; max-width: 380px; height: auto; border-radius: 16px; border: 2.5px solid #a78bfa; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25); cursor: zoom-in; display: block;" onclick="zoomCientistaImage(this.src)">

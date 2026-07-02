@@ -10664,7 +10664,11 @@ background-repeat:no-repeat; background-position:right 10px center; outline:none
 #view-cientista-maluco .right-panel { display:flex; flex-direction:column; gap:14px; }
 #view-cientista-maluco .result-title { font-size:14px; font-weight:800; color:#5b21b6; text-align:center; }
 #view-cientista-maluco .result-box { flex:1; background:#f5f3ff; border:2px dashed #c4b5fd; border-radius:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:24px; min-height:220px; text-align:center; transition:all 0.3s; }
-#view-cientista-maluco .result-box.has-result { border-style:solid; border-color:#a78bfa; background:#faf5ff; }
+#view-cientista-maluco .result-box.has-result { border-style:solid; border-color:#a78bfa; background:#faf5ff; animation: fadeInCientista 0.5s ease-out; }
+@keyframes fadeInCientista {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 #view-cientista-maluco .result-placeholder-icon { font-size:50px; opacity:0.35; }
 #view-cientista-maluco .result-placeholder-text { font-size:13px; color:#8b5cf6; font-weight:600; }
 #view-cientista-maluco .result-creature-name { font-family:"Fredoka",sans-serif; font-weight:700; font-size:26px; color:#6d28d9; }
