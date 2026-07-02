@@ -29,6 +29,13 @@ C:\\Users\\foneo\\.gemini\antigravity\brain/
 !scripts/export-backup.js
 !sw.js
 !public/sw.js
+!js/*.js
+!sounds.js
+!confetti.js
+!card-reveal.js
+!star-counter.js
+!drawing-complete.js
+!seo.js
 
 # JSON files
 *.json
