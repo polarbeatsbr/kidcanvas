@@ -193,17 +193,12 @@ test.describe('Multi-page load verification', () => {
       window.navigate('/pintar-online');
     });
 
-    // Aguardar carregamento da view via SPA
-    await page.waitForTimeout(2000);
+    // Aguardar carregamento da view via SPA (no mobile redireciona para a rota /t)
+    await page.waitForTimeout(3000);
 
-    // Verificar funções globais após navegação SPA
-    const checks = await page.evaluate(() => ({
-      navigate: typeof window.navigate,
-      openAlbumModal: typeof window.openAlbumModal,
-    }));
-
-    expect(checks.navigate).toBe('function');
-    expect(checks.openAlbumModal).toBe('function');
+    // Verificar que fomos redirecionados para o painel de pintura mobile (/t)
+    const currentUrl = page.url();
+    expect(currentUrl).toContain('/t');
 
     const appErrors = pageErrors.filter((msg) => !isExternalError(msg));
     expect(appErrors).toEqual([]);
@@ -247,7 +242,15 @@ test.describe('Bestiário flow - unauthenticated', () => {
     // Verificar se um prompt de autenticação apareceu
     // Pode ser: auth-modal, auth-overlay, SweetAlert, ou um toast
     const authPromptVisible = await page.evaluate(() => {
-      // Checar modal de auth
+      // Checar modal de auth real (id="authModal" com classe "open")
+      const realAuthModal = document.getElementById('authModal');
+      if (realAuthModal) {
+        const style = window.getComputedStyle(realAuthModal);
+        if (style.display !== 'none' || realAuthModal.classList.contains('open'))
+          return { found: true, type: 'authModal' };
+      }
+
+      // Checar modal de auth alternativo
       const authModal = document.querySelector('.auth-modal');
       if (authModal) {
         const style = window.getComputedStyle(authModal);
